@@ -8,6 +8,7 @@ display: block;
 width: 284px;
 overflow: hidden;
 float: left;
+margin-top:-10px;
 }
 
 
@@ -23,4 +24,50 @@ text-decoration: none;
 
 #slogan:hover{
 	color: #555;
+}
+
+
+.social_icons {
+    list-style-type: none;
+    float: right;
+	padding-top:2px;
+}
+ 
+.social_icons li {
+    float: left;
+    margin-left: 10px
+}
+
+.social_icons li a {
+    display: inline-block;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-image: url(/images/media-icons.png);
+    width: 20px;
+    height: 20px; 
+	text-indent: -9999px;
+}
+
+.email-icon {
+    background-position: -0px -66px
+}
+
+.facebook-icon {
+    background-position: -0px -88px
+}
+
+.github-icon {
+    background-position: -0px -44px
+}
+
+.gplus-icon {
+    background-position: -0px -0px
+}
+
+.linkedin-icon {
+    background-position: -0px -22px
+}
+
+.twitter-icon {
+    background-position: -0px -110px
 }
