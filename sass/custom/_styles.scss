@@ -1,2 +1,26 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+
+
+#logo_link {
+height: 58px;
+display: block;
+width: 284px;
+overflow: hidden;
+float: left;
+}
+
+
+#slogan {
+	color: #555;
+float: left;
+font-size: 13px;
+clear: left;
+margin-left: 47px;
+font-family: "Noto Sans",Helvetica,Arial,sans-serif;
+text-decoration: none;
+}
+
+#slogan:hover{
+	color: #555;
+}
