@@ -2,6 +2,14 @@
 // Add styles here to make changes without digging in too much
 
 
+body {
+color: #555;
+font-family: "Noto Sans",Helvetica,Arial,sans-serif;
+font-size: 14px;
+line-height: 2;
+}
+
+
 #logo_link {
 height: 58px;
 display: block;
@@ -70,4 +78,55 @@ text-decoration: none;
 
 .twitter-icon {
     background-position: -0px -110px
+}
+
+
+
+#footer {
+    margin-top: 25px;
+    font-size: 12px
+}
+
+.footer_widgets_cont {
+    padding: 0 8px 0 28px
+}
+
+.footer_box {
+    float: left;
+    width: 32%;
+    min-width: 300px;
+    margin-right: 20px;
+    margin-bottom: 20px
+}
+
+.footer_box_last {
+    margin-right: 0
+}
+
+.footer_box h3 {
+    font-size: 16px;
+    font-family: "Noto Sans",Helvetica,Arial,sans-serif;
+    font-weight: normal;
+    margin-bottom: 0 !important;
+}
+
+.footer_box a {
+    text-decoration: none
+}
+
+.footer_box a:hover {
+}
+
+.footer_box ul,.footer_box ol {
+    list-style-type: none;
+    margin-left: 3px
+}
+
+.footer_box ul li,.footer_box ol li {
+    margin-bottom: 3px
+}
+
+
+.clear {
+clear: both;
 }
