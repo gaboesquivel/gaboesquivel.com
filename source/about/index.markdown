@@ -16,7 +16,6 @@ Organizer / Instigator at <a title="Javascript Community in Costa Rica" href="h
 
 I am also interested in a wide range of topics related to software development, lean startups and business development, design, ux &#8211; usability, data visualization, marketing and distribution. I’m a builder at heart and entrepreneur.
 
-I also organize <a title="Data Visualization" href="http://bit.ly/DataVizCR" target="_blank">Costa Rica Data Visualization</a> group and  <a title="Hack for Social Good" href="http://hack4good.io" target="_blank">#hack4good</a> in San José, Costa Rica
 
 &nbsp;
 
@@ -24,10 +23,8 @@ I also organize <a title="Data Visualization" href="http://bit.ly/DataVizCR" tar
 
 Spoken Languages:  English 90% (Toeic 900) – Portuguese 85% – Italian 80% – Native Spanish
 
-<span style="line-height: 1.5em;">Javascript, Ruby, HTML5, Rapid Prototyping, Analytics</span>
+Javascript, Ruby, HTML5, Rapid Prototyping, Analytics
 
-I&#8217;m currently based in Tamarindo, Costa Rica ( http://bit.ly/SiliconBeachCR )
+Check out my <a class="no_text_decoration" title="Javascript Developer" href="/work">Software Developer Portfolio</a> to see what I&#8217;ve been up to lately.
 
-Check out the links on my <a class="no_text_decoration" title="Front End Developer" href="/work">Web Developer Portfolio</a> to see what I&#8217;ve been up to lately.
-
-<a class="no_text_decoration" title="Javascript Developer Endorsements" href="http://local.gaboesquivel.com/software-developer-endorsements/">They say I&#8217;m possessed, it&#8217;s an omen →</a>
+<a class="no_text_decoration" title="Javascript Developer Endorsements" href="/software-developer-endorsements/">They say I&#8217;m possessed, it&#8217;s an omen →</a>

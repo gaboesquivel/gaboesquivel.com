@@ -135,3 +135,38 @@ clear: both;
 	margin-bottom: 15px;
 	float: right;
 }
+
+.reco blockquote::before {
+    content: '\201C';
+    color: #DDD;
+    float: left;
+    font-size: 57px;
+    height: 1px;
+    margin-top: 11px;
+    margin-right: 5px;
+    line-height: 20px
+}
+
+section#recommendations .reco {
+    position: relative;
+    padding-bottom: 30px;
+    clear: both;
+    min-height: 100px
+}
+
+section#recommendations .reco img {
+    float: left;
+    width: 100px
+}
+
+section#recommendations .reco .reco-detail {
+    margin-left: 120px
+}
+
+section#recommendations span.person a {
+    color: #848484;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 15px
+}
+
