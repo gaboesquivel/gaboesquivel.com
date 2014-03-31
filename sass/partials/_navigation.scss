@@ -1,10 +1,13 @@
 body > nav {
+  padding-left: 28px;
+  height: 30px;
+  line-height: 30px;
   position: relative;
   background-color: $nav-bg;
   @include background($nav-bg-front, $nav-bg-back);
   border: {
-    top: 1px solid $nav-border-top;
-    bottom: 1px solid $nav-border-bottom; }
+    top: 1px dotted $nav-border-top;
+    bottom: 1px solid $nav-border-bottom; }  
   padding-top: .35em;
   padding-bottom: .35em;
   form {
@@ -37,7 +40,6 @@ body > nav {
   }
   ul { display: none; }
   @media only screen and (min-width: 550px) {
-    font-size: .9em;
     ul {
       @include horizontal-list(0);
       float: left;

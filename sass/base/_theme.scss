@@ -2,7 +2,7 @@ $noise-bg: image-url('noise.png') top left !default;
 $img-border: inline-image('dotted-border.png') !default;
 
 // Main Link Colors
-$link-color: lighten(#165b94, 3) !default;
+$link-color: #555 !default;
 $link-color-hover: adjust-color($link-color, $lightness: 10, $saturation: 25) !default;
 $link-color-visited: adjust-color($link-color, $hue: 80, $lightness: -4) !default;
 $link-color-active: adjust-color($link-color-hover, $lightness: -15) !default;
@@ -26,11 +26,11 @@ $type-border: #ddd !default;
 $nav-bg: #fff;
 $nav-bg-front: #fff;
 $nav-bg-back: #fff;
-$nav-color: darken($nav-bg, 78) !default;
+$nav-color: #555 !default;
 $nav-color-hover: darken($nav-color, 25) !default;
 $nav-border: darken($nav-bg, 50) !default;
-$nav-border-top: darken($nav-bg, 33) !default;
-$nav-border-bottom: darken($nav-bg, 33) !default;
+$nav-border-top: #ddd !default;
+$nav-border-bottom: #ddd !default;
 $nav-border-left: darken($nav-bg, 11) !default;
 $nav-border-right: lighten($nav-bg, 7) !default;
 $nav-placeholder: desaturate(darken($nav-bg, 10), 15) !default;
