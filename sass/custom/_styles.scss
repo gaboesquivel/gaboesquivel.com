@@ -136,20 +136,29 @@ clear: both;
 	float: right;
 }
 
+.reco blockquote{
+	border-left: none;
+	font-weight: normal;
+	font-size: 14px;
+	padding-left: 0px;
+}
+
 .reco blockquote::before {
-    content: '\201C';
+    content: '\201C ';
     color: #DDD;
     float: left;
     font-size: 57px;
     height: 1px;
     margin-top: 11px;
-    margin-right: 5px;
-    line-height: 20px
+    margin-right: 10px;
+	margin-left: -5px;
+    line-height: 20px;
+
 }
 
 section#recommendations .reco {
     position: relative;
-    padding-bottom: 30px;
+    padding-bottom: 50px;
     clear: both;
     min-height: 100px
 }
@@ -160,7 +169,7 @@ section#recommendations .reco img {
 }
 
 section#recommendations .reco .reco-detail {
-    margin-left: 120px
+    margin-left: 140px
 }
 
 section#recommendations span.person a {
