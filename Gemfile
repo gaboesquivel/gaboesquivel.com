@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 group :development do
+  gem 'nokogiri'
   gem 'guard'
   gem 'guard-livereload'
   gem 'rake', '~> 0.9'

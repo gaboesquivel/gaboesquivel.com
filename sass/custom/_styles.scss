@@ -230,3 +230,50 @@ margin-bottom: 20px;
 ul, ol{
 	margin-left: 30px;
 }
+
+
+.google-form-wrapper {
+  .error {
+    color: red;
+    font-size: 12px;
+	display: block;
+  }
+  .errorbox-good {
+    margin-bottom: 20px;
+  }
+  .success-msg {
+    display: none;
+  }
+  .ss-form-entry {
+    label {
+      display:inline;
+    }
+    input {
+      display: block;
+      padding: 5px;
+      width: 250px;
+      font: inherit;
+    }
+    textarea {
+      width: 450px;
+      padding: 5px;
+      font: inherit;
+    }
+  }
+  .ss-navigate input {
+    width: auto;
+    cursor: pointer;
+  }
+  .required-message{
+	  display: none;
+  }
+  .error-message{
+	  display: none;
+  }
+  .ss-required-asterisk{
+	  display: inline;
+  }
+  .ss-password-warning{
+	  display: none;
+  }
+}
