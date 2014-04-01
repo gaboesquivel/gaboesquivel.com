@@ -216,7 +216,7 @@ margin-bottom: 20px;
 		}
 		ul{
 			padding-top: 10px;
-			padding-left: 20px;
+			margin-left: 15px;
 			li{
 				font-size: 12px;
 				line-height: 1.5;
@@ -225,4 +225,8 @@ margin-bottom: 20px;
     }
 
 
+}
+
+ul, ol{
+	margin-left: 30px;
 }

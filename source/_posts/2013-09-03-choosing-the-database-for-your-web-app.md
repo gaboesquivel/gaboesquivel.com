@@ -2,7 +2,6 @@
 title: Choosing the Database for Your Web App
 author: gaboesquivel
 layout: post
-permalink: /choosing-the-database-for-your-web-app/
 dsq_thread_id:
   - 1703209346
 categories:
@@ -45,7 +44,7 @@ Other questions that will help you decide which database works best:
 
 Micah Yoder explains it very well in this video
 
-
+{% youtube 1AisVHrWHJo %}
 
 &nbsp;
 

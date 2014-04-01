@@ -2,7 +2,6 @@
 title: Recommended Podcasts, Screencasts and Blogs
 author: gaboesquivel
 layout: post
-permalink: /recommended-podcasts-screencasts-and-blogs/
 dsq_thread_id:
   - 987693191
 categories:

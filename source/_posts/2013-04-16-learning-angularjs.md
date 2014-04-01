@@ -2,7 +2,6 @@
 title: AngularJS Learning Resources
 author: gaboesquivel
 layout: post
-permalink: /learning-angularjs/
 dsq_thread_id:
   - 1215266902
 categories:
@@ -25,7 +24,7 @@ Miško Hevery discusses the advantages and disadvantages of various design choic
 
 &nbsp;
 
-
+{% youtube ZhfUv0spHCY %}
 
 &nbsp;
 
@@ -36,7 +35,7 @@ A series of free video tutorials with great content. If you want to learn Angula
 <!--more-->
 
   
-
+{% youtube Lx7ycjC8qjE %}
 
 &nbsp;
 
@@ -46,7 +45,7 @@ Learn how to get started with the AngularJS framework and some of the key featur
 
 &nbsp;
 
-
+{% youtube i9MHigUZKEM %}
 
 &nbsp;
 
@@ -56,7 +55,7 @@ This presentation, delivered for The San Francisco HTML5 User Group, uses a seri
 
 &nbsp;
 
-
+{% youtube ersEb9vTX3Y %}
 
 &nbsp;
 
@@ -65,6 +64,7 @@ This presentation, delivered for The San Francisco HTML5 User Group, uses a seri
 Directives explained from top to bottom by their creator! From the Sep 2012 Mountain View meetup, Misko Hevery walks through how directives work in AngularJS  
 
 
+{% youtube WqmeI5fZcho %}
 &nbsp;
 
 ## $provide Methods
@@ -74,6 +74,8 @@ Constants, decorators, factories, providers, services, values, oh my. There are 
 Googler Wesley Alvaro presents a tutorial that starts with a quick lesson in the various methods and then moves on to building a simple base client and to start accessing Google Drive documents with OAuth.  
 &nbsp;  
   
+{% youtube VxuN6WO3tIA %}
+
 &nbsp;  
 Check out Miško Hevery&#8217;s explanation of factory(), service(), and provider() .. [http://bit.ly/ZROg3c ][1]
 
@@ -85,7 +87,7 @@ A video tutorial that shows you how to build a photo album very quickly with Ang
 
 &nbsp;
 
-
+{% youtube tKe25THBoF4 %}
 
 &nbsp;
 
@@ -95,7 +97,7 @@ Miško Hevery works as an Agile Coach at Google where he is responsible for coac
 
 &nbsp;
 
-
+{% youtube cF_JsA9KsDM %}
 
 &nbsp;
 
@@ -104,6 +106,7 @@ Miško Hevery works as an Agile Coach at Google where he is responsible for coac
 Google&#8217;s AngularJS team members Igor Minar and Misko Hevery after their talk at Devoxx 2012 in Antwerp. They discuss the general goals for Angular, where﻿ it stands and how it compares to other popular approaches and frameworks.  
 &nbsp;  
 
+{% youtube 4EVBg1pNdtc %}
 
 &nbsp;
 
@@ -112,6 +115,7 @@ Google&#8217;s AngularJS team members Igor Minar and Misko Hevery after their ta
 Learn how to use the AngularJS Batarang to debug your AngularJS apps!  
 &nbsp;  
 
+{% youtube q-7mhcHXSfM %}
 
 &nbsp;&nbsp;  
 See what&#8217;s possible at <a title="Built With AngularJS" href="http://builtwith.angularjs.org/" target="_blank">http://builtwith.angularjs.org/</a>

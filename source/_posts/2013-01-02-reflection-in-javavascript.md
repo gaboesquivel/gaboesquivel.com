@@ -2,7 +2,6 @@
 title: Introduction to Reflection in Javavascript
 author: gaboesquivel
 layout: post
-permalink: /reflection-in-javavascript/
 dsq_thread_id:
   - 1004567091
 categories:

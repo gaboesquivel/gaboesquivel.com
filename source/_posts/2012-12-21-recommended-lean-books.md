@@ -2,7 +2,6 @@
 title: Recommended Lean Books
 author: gaboesquivel
 layout: post
-permalink: /recommended-lean-books/
 categories:
   - lean
 tags:

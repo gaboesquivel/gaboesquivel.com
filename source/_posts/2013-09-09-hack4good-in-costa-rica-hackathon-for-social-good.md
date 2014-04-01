@@ -2,7 +2,6 @@
 title: '#Hack4Good in Costa Rica'
 author: gaboesquivel
 layout: post
-permalink: /hack4good-in-costa-rica-hackathon-for-social-good/
 dsq_thread_id:
   - 1742308089
 categories:
