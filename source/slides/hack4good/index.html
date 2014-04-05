@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" ng-app>
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Hack4Good San Jose, Costa Rica</title>
+
+		<meta name="description" content="Intro to AngularJS - JS Meetup ">
+		<meta name="author" content="Gabo Esquivel">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+
+		<link rel="stylesheet" href="css/theme/hack4good-slides.css" id="theme">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section data-background="img/worldmap-hack4good.jpg">
+				</section>
+
+
+				<section>
+					<div>
+						<img src="img/costaricajs-meetup.png" />
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<img src="img/data-visualization-costa-rica.png" />
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<img src="img/logo_geeklist.jpg" />
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<img src="img/international-sponsor-hack4good.jpg" />
+					</div>
+				</section>
+
+
+				<section>
+					<div>
+						<img src="img/costa-rica-sponsors-hack4good.png" />
+					</div>
+				</section>
+
+				<section data-transition="linear">
+					<div>
+						<iframe class="video" width="640" height="360" src="//www.youtube.com/embed/PlNJACBF3i4?rel=0" frameborder="0" allowfullscreen=""></iframe>
+					</div>
+				</section>
+
+
+				<section>
+					<div>
+						<img src="img/data-hack4good.png" />
+					</div>
+				</section>		
+
+				<section data-transition="linear">
+					<div>
+						<iframe class="video" width="853" height="480" src="//www.youtube.com/embed/BtEINIpPCtM?rel=0" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<img src="img/direccion-fundacion-quiros-tanzi.png" />
+					</div>
+				</section>
+
+
+				<section>
+					<div>
+						<img src="img/good_neighbor.png" />
+					</div>
+				</section>	
+
+				
+
+				<section id="people">
+					<div>
+						<img src="img/hack4good-costa-rica-mentors.png" />
+						<img src="img/expertos.png" />
+						<img src="img/jury-hack4good.png" />
+					</div>
+				</section>
+
+				<section>
+					<div>
+						<img src="img/ns-costarica.png"
+					</div>
+				</section>
+
+				
+				<section>
+					<div>
+						<img src="img/horario-hack4good-costa-rica.png"
+					</div>
+				</section>
+
+
+				<section data-transition="linear" >
+					<div id="final-slide">
+						<h1><a target="_blank" href="http://hack4good.cr">http://hack4good.cr</a></h1>
+
+						<p id="credits">
+							<span class="ngRed">@gaboesquivel</span><br>
+							gaboesquivel.com
+						</p>
+					</div>
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+		<script>
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: false,
+				history: true,
+				center: true,
+
+				width: "100%",
+				height: "90% !important",
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
