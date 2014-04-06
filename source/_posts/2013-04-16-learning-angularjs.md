@@ -2,6 +2,7 @@
 title: AngularJS Learning Resources
 author: gaboesquivel
 layout: post
+comments: true
 dsq_thread_id:
   - 1215266902
 categories:

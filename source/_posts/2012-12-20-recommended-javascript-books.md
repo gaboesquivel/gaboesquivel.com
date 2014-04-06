@@ -2,6 +2,7 @@
 title: Recommended Javascript Books
 author: gaboesquivel
 layout: post
+comments: true
 dsq_thread_id:
   - 1004655332
 categories:

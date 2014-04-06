@@ -2,6 +2,7 @@
 title: 'Great Tech Talks You Can&#8217;t Miss'
 author: gaboesquivel
 layout: post
+comments: true
 dsq_thread_id:
   - 1004835712
 categories:
