@@ -6,8 +6,9 @@ url: http://gaboesquivel.com
 title: Gabo Esquivel - Software Developer
 subtitle: "Starter, Problem Solver, Engineer."
 author: Gabo Esquivel
-simple_search: https://www.google.com/search
-description: 
+#lunr_search: true
+simple_search: http://google.com/search
+description: Software development. Javascript, lean and other stuff
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
