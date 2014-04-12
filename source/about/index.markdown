@@ -27,4 +27,4 @@ Javascript, Ruby, HTML5, Rapid Prototyping, Analytics
 
 Check out my <a class="no_text_decoration" title="Javascript Developer" href="/work">Software Developer Portfolio</a> to see what I&#8217;ve been up to lately.
 
-<a class="no_text_decoration" title="Javascript Developer Endorsements" href="/software-developer-endorsements/">They say I&#8217;m possessed, it&#8217;s an omen →</a>
+<a class="no_text_decoration" title="Javascript Developer Endorsements" href="/software-developer-endorsements/">Endorsements →</a>
