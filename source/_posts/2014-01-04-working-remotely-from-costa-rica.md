@@ -14,7 +14,7 @@ tags:
   - remote development
   - software
 ---
-Coming back to Costa Rica and enjoy my country while working on software applications is one of the best decisions I ever made. Check out this pictures I took with my phone and feel free to contact me if you are looking for advise or network with the development community. >> <a title="Silicon Beach - Costa Rica" href="http://bit.ly/SiliconBeachCR " target="_blank">http://bit.ly/SiliconBeachCR</a>
+Coming back to Costa Rica and enjoy my country while working on software applications is one of the best decisions I ever made. Check out these pictures I took with my phone at Playa Santa Teresa. Feel free to contact me if you are looking for advise or network with the development community. > <a title="Silicon Beach - Costa Rica" href="http://bit.ly/SiliconBeachCR " target="_blank">http://bit.ly/SiliconBeachCR</a>
 
 <img alt="playa-manazanillo-sunset" src="/images/2014/01/playa-manazanillo-sunset-300x225.jpg" />
 <img alt="vacas-playa-manzanillo" src="/images/2014/01/vacas-playa-manzanillo-300x225.jpg"/>
