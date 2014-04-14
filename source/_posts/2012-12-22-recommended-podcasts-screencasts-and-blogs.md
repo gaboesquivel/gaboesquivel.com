@@ -37,6 +37,15 @@ The Changelog is a weekly podcast and blog that covers what&#8217;s fresh and ne
 
 &nbsp;
 
+## Javascript Jabber
+
+Simply the best Javascript podcast out there. 
+By Charles Max Wood, Joe Eames, Merrick Christensen, AJ O'Neal, Jamison Dance, Aaron Frost 
+
+<a href="http://javascriptjabber.com/" target="_blank">http://javascriptjabber.com/</a>  
+&nbsp;  
+<!--more-->
+
 ## NodeUp &#8211; NodeJS Awesomeness
 
 A node.js podcast put together by @ffloat and @dshaw..
