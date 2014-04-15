@@ -23,7 +23,7 @@ I am also interested in a wide range of topics related to software development, 
 
 Spoken Languages:  English 90% (Toeic 900) – Portuguese 85% – Italian 80% – Native Spanish
 
-Javascript, Ruby, HTML5, Rapid Prototyping, Analytics
+Software Desing, Javascript, Ruby, HTML5, Rapid Prototyping, Analytics
 
 Check out my <a class="no_text_decoration" title="Javascript Developer" href="/work">Software Developer Portfolio</a> to see what I&#8217;ve been up to lately.
 
