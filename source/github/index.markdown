@@ -1,8 +1,8 @@
 ---
 layout: page
-comments: false
-sharing: fasle
 footer: true
+comments: false
+sharing: false
 ---
 
 <div id="octocard"></div>
