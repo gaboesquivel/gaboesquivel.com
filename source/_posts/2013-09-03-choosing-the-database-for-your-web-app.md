@@ -7,7 +7,8 @@ dsq_thread_id:
   - 1703209346
 categories:
   - data architecture
-  - software developmet
+  - software development
+  - database
 tags:
   - data
   - data architecture
