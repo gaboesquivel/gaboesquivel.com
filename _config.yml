@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://gaboesquivel.com
-title: Gabo Esquivel - Software Developer
+title: Gabo Esquivel
 subtitle: "Starter, Problem Solver, Engineer."
 author: Gabo Esquivel
 #lunr_search: true
@@ -20,7 +20,7 @@ date_format: "ordinal"
 subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
-email:
+email: 
 
 # ----------------------- #
 #    Jekyll & Plugins     #
