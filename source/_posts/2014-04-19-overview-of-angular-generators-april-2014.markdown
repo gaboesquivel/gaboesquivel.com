@@ -15,11 +15,11 @@ tags:
   - front-end
 ---
 
-This is a short and opinionated review of the AngularJS yeoman generators on npm as of April 19, 2014.
+This is a short and opinionated review of the AngularJS generators on npm as of April 20, 2014.
 
-There are a lot of yeoman generators on npm and it's a little hard to decide which one to use or fork, since we don't want to reinvent the wheel. Currently the only way is to compare them is to try them one by one and that's a very time consuming task. In this post I'll try to give you an overview of some of the generators I've explore recently hoping it will save you some time. I’ll follow [Cliff Meyer's Code Organization Categorization](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript) to describe them.
+There are a lot of generators on npm and it's a little hard to decide which one to use or fork, since we don't want to reinvent the wheel. Currently the only way is to compare them is to try them one by one and that's a very time consuming task. In this post I'll try to give you an overview of some of the generators I've explore recently hoping it will save you some time. I’ll follow [Cliff Meyer's Code Organization Categorization](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript) to describe their code structure.
 
-Most generators still use the "Sock Drawer" directory organization, an approach that I personally avoid. I prefer a modular structure that enfor as suggested on latest [Google's Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub). 
+Most generators still use the "Sock Drawer" directory organization, an approach that I personally avoid. I prefer a modular structure as suggested on latest [Google's Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub). 
 
 Some of the benefits of modularization are:
 
@@ -27,7 +27,7 @@ __Encapsulation:__ Code, styles and tests related to specific feauture will be c
 __Context:__  Code lives in given context by feature. This is especially important to developers new to the application, who will find it easier to connect the dots.   
 __Code Reusabilty:__ You would be able to reuse modules across projects and clients, Eg mobile and web-client could share autentication modules or resources ( models ).
 
-Here's a list of some Angular generators and their characteristics:
+Here's a list of Angular generators and their characteristics (some of them have are fullstack generators):
 
 
 ##generator-angular 
@@ -37,42 +37,51 @@ Here's a list of some Angular generators and their characteristics:
 - __subgenerators__: angular controllers, directives, filters, routes, services, providers, factories, values, constants, decorators and views. `--coffee` flag in case you prefer to use CoffeeScript    
 - __dependency mgr__: bower  
 - __testing__: karma for unit and E2E tests  
-- __css preprocessors__: optional sass and compass  
+- __css preprocessors__: optional sass with compass  
 - __deployment__:  false 
 - __optimization__: true  
 - __continuous integration__: travis  
-- __live reload__: true   
+- __live reload__: true
+- __source_maps__: false
+- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route. Not optional angular-mocks,angular-scenario   
+- __code linting__: jshint src and tests
+- __goodies__: autoprefixer, editorconfig, cache buster       
 - optional Twitter Bootstrap
-- by default, new scripts are added to the index.html file. optional --skip-add
+- by default, new scripts are added to the index.html file. optional `--skip-add`
+- automatically runs `npm install` and `bower install`
+- static node server
 
-
-maintained by [Yeoman Team](https://github.com/yeoman/generator-angular/graphs/contributors)   
+maintained by [Yeoman Members](https://github.com/yeoman/generator-angular/graphs/contributors)   
 npm: https://www.npmjs.org/package/generator-angular   
 github: https://github.com/yeoman/generator-angular   
 
 
-##generator-angular-fullstack 
+##generator-angular-fullstack  
 
 - __build system__: grunt
 - __code organization__: sock drawer   
 - __subgenerators__: angularjs subgenerators for controllers, directives, filters, routes, services, providers, factories, values, constants, decorators and views. And a fullstack subgenerator for deployment.   
 - __dependency mgr__:  bower 
 - __testing__:  karma for unit and E2E tests  
-- __css preprocessors__: 
+- __css preprocessors__: optional sass with compass
 - __deployment__:   easy deployment workflow. OpenShift, Heroku, custom
 - __optimization__: true
 - __continuous integration__:   travis   
-- __live reload__: client and server files   
-- __goodies_: autoprefixer, cdnify
-- Optional MongoDB integration
-- Support for Jade and CoffeeScript
-- Optional Passport integration for adding user accounts
-- Passport boilerplate
+- __live reload__: client and server files
+- __source_maps__: false
+- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route. Not optional angular-mocks, angular-scenario   
+- __code linting__: jshint src and tests    
+- __goodies__: autoprefixer, cdnify
+- optional Twitter Bootstrap
+- optional MongoDB integration with Mongoose
+- support for Jade and CoffeeScript
+- optional Passport integration for adding user accounts
+- oassport boilerplate
+- autorun `npm install` and `bower install`
 - by default, new scripts are added to the index.html file. optional --skip-add
 
-
 maintained by [daftmonk](https://github.com/DaftMonk)   
-npm: https://www.npmjs.org/package/generator-angular-fullstack
+npm: https://www.npmjs.org/package/generator-angular-fullstack     
 github: https://github.com/DaftMonk/generator-angular-fullstack
 
 
@@ -88,7 +97,12 @@ github: https://github.com/DaftMonk/generator-angular-fullstack
 - __optimization__: true  
 - __continuous integration__: false   
 - __live reload__: true 
-- __source_maps__: ?
+- __source_maps__: false
+- __modules__: optional ui-router. not optional angular-animate, angular-resource, angular-cookies, angular-mocks, angular-ui-utils, angular-bootstrap    
+- __code linting__: jshint src and tests
+- __goodies__: editorconfig
+- appName prompt
+- autorun `npm install` and `bower install`
 
 maintained by [cgross](https://github.com/cgross)   
 npm: https://www.npmjs.org/package/generator-cg-angular      
@@ -107,20 +121,24 @@ github:  https://github.com/cgross/generator-cg-angular
 - __optimization__:  true 
 - __continuous integration__: false  
 - __live reload__: true 
-- __source_maps__: ?  
-- BrowserSync pre-configured
-- Development and Production code are separated
-- AngularUI included (optional)
-- JSHint pre-configured
+- __source_maps__: false
+- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route, angular-animate, angular-ui(ui-utils, bootstrap, ui-router, ng-grid)
+- __code linting__: jshint src and tests
+- __goodies__: editorconfig, browsersync pre-configured
+- development and production code are separated
+- optional jquery or zepto
+- optional modernizr
 - FontFace - Add @fontface on fly
 - Share code with client using command gulp zip (Will create the .zip file of build folder)
+- static node server
+- autorun `npm install` and `bower install`
 
 Maintained by [cse.aamir](https://github.com/aamirshah)   
 npm: https://www.npmjs.org/package/generator-boom   
 github: https://github.com/aamirshah/generator-boom
 
 
-## generator-meanjs
+##generator-meanjs
  
 - __build system__: grunt    
 - __code organization__: modular 
@@ -131,8 +149,13 @@ github: https://github.com/aamirshah/generator-boom
 - __deployment__: false 
 - __optimization__: false   
 - __continuous integration__: travis   
-- __live reload__: true 
-- __source_maps__: false  
+- __live reload__: true   
+- __source_maps__: false
+- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route, angular-touch, article crud. Not optional angular-mocks   
+- __code linting__: jshint src and tests
+- __goodies__: procfile
+- appName, description and author prompts
+- autorun `npm install` and `bower install`
 
 maintained by [amoshaviv](https://github.com/amoshaviv)    
 npm: https://www.npmjs.org/package/generator-meanjs    
@@ -145,7 +168,7 @@ Here's the explanation about Mean.js and Mean.io - http://tmblr.co/Z7XDmo17TG_o4
 
 - __build system__:  grunt    
 - __code organization__: sock drawer   
-- __subgenerators__: 
+- __subgenerators__: false
 - __dependency mgr__: bower  
 - __testing__:  unit test with karma and e2e with protractor  
 - __css preprocessors__: less
@@ -153,10 +176,14 @@ Here's the explanation about Mean.js and Mean.io - http://tmblr.co/Z7XDmo17TG_o4
 - __optimization__: true   
 - __continuous integration__:  travis 
 - __live reload__: true 
-- __source_maps__: false   
-- optional UI Router
-- prompts for host and port
+- __source_maps__: false
+- __modules__: optional angular-ui-router. Not optional angular-resource, angular-mocks   
+- __code linting__: jshint src and tests
+- __goodies__: 
+- appName prompt
+- prompts for protocol, host and port
 - prompt for Github user and License  
+- autorun `npm install` and `bower install`
 
 maintained by [jprystowsky](https://github.com/jprystowsky)    
 npm: https://www.npmjs.org/package/generator-hyper-angular   
@@ -173,16 +200,21 @@ github: https://github.com/jprystowsky/generator-hyper-angular
 - __css preprocessors__: Stylus, Less, Sass
 - __deployment__:  false   
 - __optimization__: true   
-- __continuous integration__:   
+- __continuous integration__: false  
 - __live reload__: true 
-- __source_maps__:  ?  
+- __source_maps__: false  
+- __modules__: not optional angular-route, angular-route
+- __code linting__: jshint src and tests
+- __goodies__: optional todoList example, csslint, editorconfig, lazypipe  
 - appName prompt
+- autorun `npm install` and `bower install`
 
 maintained by:  [joakimbeng](https://github.com/joakimbeng)   
 npm : https://www.npmjs.org/package/slush-angular    
 github: https://github.com/klei/slush-angular  
 
-This is not an Yeoman Generator, it based on slush
+This is not a yeoman generator. It is built with [slush](https://github.com/klei/slush) a gulp based alternative to yeoman.
+
 
 ## generator-ngbp
 
@@ -194,10 +226,15 @@ This is not an Yeoman Generator, it based on slush
 - __css preprocessors__: Less
 - __deployment__: false  
 - __optimization__: true   
-- __continuous integration__:   
+- __continuous integration__: false   
 - __live reload__: true 
-- __source_maps__:  ?  
-
+- __source_maps__:  false  
+- __modules__: optional angular-resource. Not optional angular-ui-router, angular-bootstrap, angular-mocks
+- __code linting__: jshint src and tests
+- __goodies__: autoprefixer, editorconfig, cache buster
+- appName prompt
+- prompt for copyright in html
+- coffeeScript support
 
 maintained by:  [thardy](https://github.com/thardy/generator-ngbp)   
 npm : https://www.npmjs.org/package/generator-ngbp   
@@ -205,9 +242,11 @@ github: https://github.com/thardy/generator-ngbp
 
 
 
-For more AngularJS generators go to @substack’s npmsearch.com and “type angular & yeoman-generator” or [click here]( http://npmsearch.com/?q=angular%20&%20yeoman-generator). There's also [Yeoman Community Generators Search](http://yeoman.io/community-generators.html)
+For more AngularJS generators go to @substack’s npmsearch.com and “type angular & yeoman-generator” or [click here]( http://npmsearch.com/?q=angular%20&%20yeoman-generator).    
+There's also [Yeoman Community Generators Search](http://yeoman.io/community-generators.html)
 
+Happy Forking! You may also want to [create your own yeoman generator](http://code.tutsplus.com/tutorials/build-your-own-yeoman-generator--cms-20040)
 
-I also created this repo https://github.com/gaboesquivel/angular-generators to hold this information until we have a better way to search and filter generators. If you'd like update information of one of the generators listed or add a new one go ahead and PR.  
+I published this repo https://github.com/gaboesquivel/angular-generators to hold this information until we have a better way to search and filter generators. If you'd like update information of one of the generators listed or add a new one go ahead and PR.  
 
 Please leave your comments. :)
