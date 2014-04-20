@@ -133,7 +133,7 @@ github:  https://github.com/cgross/generator-cg-angular
 - static node server
 - autorun `npm install` and `bower install`
 
-Maintained by [cse.aamir](https://github.com/aamirshah)   
+Maintained by [aamirshah](https://github.com/aamirshah)   
 npm: https://www.npmjs.org/package/generator-boom   
 github: https://github.com/aamirshah/generator-boom
 
