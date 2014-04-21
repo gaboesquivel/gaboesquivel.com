@@ -19,7 +19,7 @@ This is a short and opinionated review of the AngularJS generators on npm as of 
 
 There are a lot of generators on npm and it's a little hard to decide which one to use or fork, since we don't want to reinvent the wheel. Currently the only way to compare them is to try them one by one and that's a very time consuming task. In this post I'll try to give you an overview of some of the generators I've explored recently hoping it will save you some time. I’ll follow [Cliff Meyer's Code Organization Categorization](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript) to describe their code structure.
 
-Most generators still use the "Sock Drawer" directory organization, an approach that I personally avoid, it works for small projects. I prefer a modular structure as suggested on latest [Google's Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub). 
+Most generators still use the "Sock Drawer" directory organization, an approach that I personally avoid, it doesn't scale well but it works for small projects. I prefer a modular structure as suggested on latest [Google's Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub). 
 
 Some of the benefits of modularization are:
 
@@ -45,7 +45,7 @@ The angular generator maintained by the yeoman members. It generates all the boi
 - __continuous integration__: travis  
 - __live reload__: true
 - __source_maps__: false
-- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route. Not optional angular-mocks,angular-scenario   
+- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route. not optional angular-mocks,angular-scenario   
 - __code linting__: jshint src and tests
 - __goodies__: autoprefixer, editorconfig, cache buster       
 - optional Twitter Bootstrap
@@ -73,7 +73,7 @@ Yeoman generator for creating MEAN stack applications: MongoDB, Express, Angular
 - __continuous integration__:   travis   
 - __live reload__: client and server files
 - __source_maps__: false
-- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route. Not optional angular-mocks, angular-scenario   
+- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route. not optional angular-mocks, angular-scenario   
 - __code linting__: jshint src and tests    
 - __goodies__: autoprefixer, cdnify
 - optional Twitter Bootstrap
@@ -161,7 +161,7 @@ MEAN.JS is a full-stack JavaScript solution, which provides a solid starting poi
 - __continuous integration__: travis   
 - __live reload__: true   
 - __source_maps__: false
-- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route, angular-touch, article crud. Not optional angular-mocks   
+- __modules__: optional angular-resource, angular-cookies, angular-sanitize, angular-route, angular-touch, article crud. not optional angular-mocks   
 - __code linting__: jshint src and tests
 - __goodies__: procfile
 - appName, description and author prompts
@@ -189,7 +189,7 @@ HyperAngular (generator-hyper-angular) is a Yeoman generator for AngularJS/Expre
 - __continuous integration__:  travis 
 - __live reload__: true 
 - __source_maps__: false
-- __modules__: optional angular-ui-router. Not optional angular-resource, angular-mocks   
+- __modules__: optional angular-ui-router. not optional angular-resource, angular-mocks   
 - __code linting__: jshint src and tests
 - __goodies__: 
 - appName prompt
@@ -237,14 +237,14 @@ Yeoman generator based on the [ngBoilerplate kickstarter](https://github.com/ngb
 - __code organization__: modular  
 - __subgenerators__: only one subgenerator at the moment ngbp:module  
 - __dependency mgr__: bower  
-- __testing__: Unit Tests with karma  
+- __testing__: unit tests with karma  
 - __css preprocessors__: Less
 - __deployment__: false  
 - __optimization__: true   
 - __continuous integration__: false   
 - __live reload__: true 
 - __source_maps__:  false  
-- __modules__: optional angular-resource. Not optional angular-ui-router, angular-bootstrap, angular-mocks
+- __modules__: optional angular-resource. not optional angular-ui-router, angular-bootstrap, angular-mocks
 - __code linting__: jshint src and tests
 - __goodies__: autoprefixer, editorconfig, cache buster
 - appName prompt
@@ -264,20 +264,49 @@ This is a yeoman generator for an angularjs project that follows the Best Practi
 - __code organization__: modular  *follows google's best practices document
 - __subgenerators__: no subgenerators  
 - __dependency mgr__: bower  
-- __testing__: Unit Tests with karma  
+- __testing__: unit tests with karma  
 - __css preprocessors__: false
 - __deployment__: false  
 - __optimization__: true   
 - __continuous integration__: false   
 - __live reload__: true 
 - __source_maps__:  false  
-- __modules__: Not optional angular-route
+- __modules__: not optional angular-route
 - __code linting__: jshint src and tests
 - __goodies__: template cache
 
 maintained by:  [henyojess](https://github.com/henyojess)   
 npm : https://www.npmjs.org/package/generator-gulp-ng   
 github: https://github.com/henyojess/generator-gulp-ng 
+
+
+##generator-klei v0.4.3
+
+A Yeoman generator for generating module or app boilerplates! MEAN-stack (all parts optional) with scalability in mind and with Grunt and Bower sweetness.
+
+- __build system__: grunt    
+- __code organization__: modular 
+- __subgenerators__: klei:api   
+- __dependency mgr__: bower  
+- __testing__: unit tests with karma  
+- __css preprocessors__: stylus
+- __deployment__: false  
+- __optimization__: true   
+- __continuous integration__: false   
+- __live reload__: true 
+- __source_maps__:  false  
+- __modules__: not optional angular-route, angular-mocks, restangular
+- __code linting__: jshint src and tests
+- __goodies__: optional todo list example, editorconfig, csslint, template cache
+- appName prompt
+- optional REST API scaffolding with Express
+- optional MongoDB with Mongoose
+- autorun `npm install` and `bower install`
+
+
+maintained by: [joakimbeng](https://github.com/joakimbeng)   
+npm : https://www.npmjs.org/package/generator-klei  
+github: https://github.com/klei-dev/generator-klei
 
 
 
