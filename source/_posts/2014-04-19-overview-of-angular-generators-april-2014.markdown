@@ -28,7 +28,7 @@ __Context:__  Code lives in given context by feature. This is especially importa
 __Code Reusabilty:__ You would be able to reuse modules across projects and clients, Eg mobile and web-client could share autentication modules or resources ( models ).
 
 Here's a list of Angular generators and their characteristics (some of them have are fullstack generators):
-
+<!--more-->
 
 ##generator-angular v0.8.0
 

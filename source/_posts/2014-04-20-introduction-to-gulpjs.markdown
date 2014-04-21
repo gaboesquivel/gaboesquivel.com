@@ -10,6 +10,7 @@ categories:
 tags:
   - front-end
   - build system
+  - gulpjs
 ---
 
 Automation of repetitive and critical tasks is key to develop a successful software product. Automated tasks will minimize software cost, reduce software delivery time as well as improving the product quality and reduce human error. Investing time in automating tasks will allow you to focus on developing features. 
@@ -23,14 +24,12 @@ In this post I will introduce you to Gulp.js, a javascript task runner that help
 
 When developing modern web applications there are critical tasks you want to automate:
 
-- compressing new or modified images
 - testing: code linting, unit testing, e2e tests
-- deploying updates to a production server
-- removing console and debugger statements from scripts
 - css preprocessing ( sass, less, …)
-- concatenating and minifying css and javascript files
+- optimization: concatenating and minifying css and scripts, compressing new or modified images, ... 
+- deploying updates to a staging or production server through 
 
-There are many tools that will help you automate these tasks. Which one to choose? Grunt, Gulp, Broccoli,…
+There are many tools that will help you automate these tasks. Which one to choose? Grunt, Gulp, Brunch, Broccoli,…
 
 Back in 2012 Grunt.js came out and it was quickly adopted by the community, plugins started to proliferate and it became king for task automation on the client side, playing well with Bower and Yeoman. Like many other developers I’ve been using Grunt on my projects and it gets the job done but recently I started to use Gulp, another open source project with faster build times and a Unix/Node philosophical approach to solve problems.
 
@@ -39,12 +38,13 @@ Gulp.js focuses on code over configuration. By harnessing the power of Node stre
 *“Streams come to us from the earliest days of unix and have proven themselves over the decades as a dependable way to compose large systems out of small components that do one thing well.   
 You can then plug the output of one stream to the input of another and use libraries that operate abstractly on streams to institute higher-level flow control.”*    
 - substack
+<!--more-->
 
-Other advantages of using Gulp are:
-- Using standard libraries to accomplish tasks
-- Small, idiomatic Node modules that do one thing well
-- Tasks are executed with maximum concurrency
-- Really simple and elegant API
+Other advantages of using Gulp are:    
+- Using standard libraries to accomplish tasks    
+- Small, idiomatic Node modules that do one thing well    
+- Tasks are executed with maximum concurrency    
+- Really simple and elegant API    
 
 Learning the new flow control techniques will make you more efficient. To learn more about node streams by reading the [Stream Handbook](https://github.com/substack/stream-handbook) by James Halliday and by playing on the (Node.js Stream Playground) [http://nodestreams.com/ ] by John Resig. Another great resource is (Node Streams: How do they work?)[http://maxogden.com/node-streams.html] by Max Ogden, it comes with a screencast version of the article.
 
@@ -55,9 +55,9 @@ __watch(glob, fn)__ : runs a function when a file that matches the glob changes
 __src(glob)__ :  returns a readable stream. Takes a file system glob and starts emitting files that match. This is piped to other streams.   
 __dest(folder)__ : returns a writable stream. File objects piped to this are saved to the file system.   
 
-The Gulp.js team is working on bringing in a new task system to improve efficiency ( even more ) and it might include some API changes, you can follow the progress here https://github.com/gulpjs/gulp/issues/355
-
 This article will walk you through all of the intimidating stuff and introduce you to the core ideas that you will need to know to start using gulp. http://travismaynard.com/writing/getting-started-with-gulp
+
+Caveats: the Gulp.js team is working on bringing in a new task system to improve efficiency ( even more ) and it might include some API changes, you can follow the progress here https://github.com/gulpjs/gulp/issues/355
 
 
 ##So why should I use Gulp instead of Grunt?
@@ -71,10 +71,10 @@ The main reasons why I decided to switch to Gulp are:
 - Grunt plugins often perform multiple tasks; Gulp plugins are designed to do one thing only.   
 - Grunt requires plug-ns for basic functionality such as file watching; Gulp has them built-in.   
 
-You can also learn more from the creator of Gulp on this Javascript Jabber episode: [JSJ Gulp.js with Eric Schoffstall](http://javascriptjabber.com/097-jsj-gulp-js-with-eric-schoffstall/)
+There's a Javascript Jabber episode with the creator of Gulp: [JSJ Gulp.js with Eric Schoffstall](http://javascriptjabber.com/097-jsj-gulp-js-with-eric-schoffstall)
 
-You can find gulp plugins at http://gulpjs.com/plugins/ and https://npmjs.org/browse/keyword/gulpplugin  
+You can find gulp plugins at http://gulpjs.com/plugins and https://npmjs.org/browse/keyword/gulpplugin  
 
 ##Conclusion
 
-Gulp.js and node streams are more natural to understand than a huge config file and it also provides more flexibility and speed. Grunt is more mature and they will be adding (orchestrator)[ https://github.com/orchestrator/orchestrator] soon. The Yeoman team don't have any plans on dropping our support for Grunt, they think that both Grunt and Gulp can happily co-exist and hope to support both communities with automation tooling. If you are using it successfully, there’s no reason to switch Gulp unless you really want or need more flow control and you feel confortable working with streams and living on the edge.  
+Gulp.js and node streams are more natural to understand than a huge config file and it also provides more flexibility and speed. Grunt is more mature and they will be adding [orchestrator](https://github.com/orchestrator/orchestrator) soon. The Yeoman team don't have any plans on dropping our support for Grunt, they think that both Grunt and Gulp can happily co-exist and hope to support both communities with automation tooling. If you are using it successfully, there’s no reason to switch Gulp unless you really want or need more flow control and you feel confortable working with streams and living on the edge.  
