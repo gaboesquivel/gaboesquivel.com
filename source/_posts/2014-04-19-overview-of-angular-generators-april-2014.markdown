@@ -308,7 +308,7 @@ A Yeoman generator for generating module or app boilerplates! MEAN-stack (all pa
 
 
 maintained by: [joakimbeng](https://github.com/joakimbeng)   
-npm : https://www.npmjs.org/package/generator-klei  
+npm : https://www.npmjs.org/package/generator-klei    
 github: https://github.com/klei-dev/generator-klei
 
 
