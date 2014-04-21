@@ -3,6 +3,7 @@ title: Recommended Lean Books
 author: gaboesquivel
 layout: post
 comments: true
+date: 2012-12-21
 categories:
   - lean
 tags:

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introduction to Gulp.js – Code Over Configuration"
-#date: 2014-04-20 09:57:51 -0500
+date: 2014-04-20 09:57:51 -0500
 comments: true
 categories:
   - javasript
@@ -41,6 +41,7 @@ You can then plug the output of one stream to the input of another and use libra
 <!--more-->
 
 Other advantages of using Gulp are:    
+
 - Using standard libraries to accomplish tasks    
 - Small, idiomatic Node modules that do one thing well    
 - Tasks are executed with maximum concurrency    

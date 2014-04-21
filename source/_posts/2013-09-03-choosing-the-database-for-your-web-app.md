@@ -3,6 +3,7 @@ title: Choosing the Database for Your Web App
 author: gaboesquivel
 layout: post
 comments: true
+date: 2013-09-03
 dsq_thread_id:
   - 1703209346
 categories:

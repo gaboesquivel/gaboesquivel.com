@@ -3,6 +3,7 @@ title: Recommended Javascript Books
 author: gaboesquivel
 layout: post
 comments: true
+date: 2012-12-20
 dsq_thread_id:
   - 1004655332
 categories:

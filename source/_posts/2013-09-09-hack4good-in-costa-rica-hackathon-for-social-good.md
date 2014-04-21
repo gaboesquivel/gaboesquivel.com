@@ -3,6 +3,7 @@ title: '#Hack4Good in Costa Rica'
 author: gaboesquivel
 layout: post
 comments: true
+date: 2013-09-09
 dsq_thread_id:
   - 1742308089
 categories:

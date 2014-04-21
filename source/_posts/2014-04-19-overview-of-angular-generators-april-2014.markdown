@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Overview of Angular Generators – April 2014"
-#date: 2014-04-19 17:03:35 -0500
+date: 2014-04-19 17:03:35 -0500
 comments: true
 categories:
   - javasript
@@ -13,6 +13,8 @@ tags:
   - yeoman
   - angular
   - front-end
+  - slush
+  - angular generator
 ---
 
 This is a short and opinionated review of the AngularJS generators on npm as of April 19th, 2014.

@@ -3,6 +3,7 @@ title: Data Visualization in Costa Rica
 author: gaboesquivel
 layout: post
 comments: true
+date: 2013-08-29
 dsq_thread_id:
   - 1666658558
 categories:

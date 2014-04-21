@@ -8,6 +8,10 @@ font-family: "Noto Sans",Helvetica,Arial,sans-serif;
 font-size: 14px;
 line-height: 2;
 }
+
+article header p.meta {
+position: static !important;
+}
  
 
 #logo_link {

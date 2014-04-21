@@ -3,6 +3,7 @@ title: Working Remotely from Costa Rica
 author: gaboesquivel
 layout: post
 comments: true
+date: 2014-01-04 
 dsq_thread_id:
   - 2091763598
 categories:

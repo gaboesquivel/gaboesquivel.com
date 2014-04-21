@@ -3,6 +3,7 @@ title: Introduction to Reflection in Javavascript
 author: gaboesquivel
 layout: post
 comments: true
+date: 2013-01-02
 dsq_thread_id:
   - 1004567091
 categories:
