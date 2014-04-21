@@ -241,6 +241,28 @@ npm : https://www.npmjs.org/package/generator-ngbp
 github: https://github.com/thardy/generator-ngbp   
 
 
+## generator-gulp-ng 
+
+- __build system__: gulp    
+- __code organization__: modular  *follows google's best practices document
+- __subgenerators__: no subgenerators  
+- __dependency mgr__: bower  
+- __testing__: Unit Tests with karma  
+- __css preprocessors__: false
+- __deployment__: false  
+- __optimization__: true   
+- __continuous integration__: false   
+- __live reload__: true 
+- __source_maps__:  false  
+- __modules__: Not optional angular-route
+- __code linting__: jshint src and tests
+- __goodies__: template cache
+
+maintained by:  [henyojess](https://github.com/henyojess)   
+npm : https://www.npmjs.org/package/generator-gulp-ng   
+github: https://github.com/henyojess/generator-gulp-ng 
+
+
 
 For more AngularJS generators go to @substack’s npmsearch.com and “type angular & yeoman-generator” or [click here]( http://npmsearch.com/?q=angular%20&%20yeoman-generator).    
 There's also [Yeoman Community Generators Search](http://yeoman.io/community-generators.html)
