@@ -3,6 +3,7 @@ layout: post
 title: "Introduction to Gulp.js – Code Over Configuration"
 date: 2014-04-20 09:57:51 -0500
 comments: true
+cover: /images/2014/04/gulp-js.jpg
 categories:
   - javasript
   - software development

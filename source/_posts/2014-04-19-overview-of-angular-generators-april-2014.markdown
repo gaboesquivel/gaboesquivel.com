@@ -3,6 +3,7 @@ layout: post
 title: "Overview of Angular Generators – April 2014"
 date: 2014-04-19 17:03:35 -0500
 comments: true
+cover: /images/2014/04/angular-logo.png
 categories:
   - javasript
   - angular
