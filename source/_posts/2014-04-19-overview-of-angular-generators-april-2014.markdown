@@ -15,11 +15,11 @@ tags:
   - front-end
 ---
 
-This is a short and opinionated review of the AngularJS generators on npm as of April 20, 2014.
+This is a short and opinionated review of the AngularJS generators on npm as of April 19th, 2014.
 
-There are a lot of generators on npm and it's a little hard to decide which one to use or fork, since we don't want to reinvent the wheel. Currently the only way is to compare them is to try them one by one and that's a very time consuming task. In this post I'll try to give you an overview of some of the generators I've explore recently hoping it will save you some time. I’ll follow [Cliff Meyer's Code Organization Categorization](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript) to describe their code structure.
+There are a lot of generators on npm and it's a little hard to decide which one to use or fork, since we don't want to reinvent the wheel. Currently the only way to compare them is to try them one by one and that's a very time consuming task. In this post I'll try to give you an overview of some of the generators I've explored recently hoping it will save you some time. I’ll follow [Cliff Meyer's Code Organization Categorization](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript) to describe their code structure.
 
-Most generators still use the "Sock Drawer" directory organization, an approach that I personally avoid. I prefer a modular structure as suggested on latest [Google's Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub). 
+Most generators still use the "Sock Drawer" directory organization, an approach that I personally avoid, it works for small projects. I prefer a modular structure as suggested on latest [Google's Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub). 
 
 Some of the benefits of modularization are:
 
@@ -30,7 +30,9 @@ __Code Reusabilty:__ You would be able to reuse modules across projects and clie
 Here's a list of Angular generators and their characteristics (some of them have are fullstack generators):
 
 
-##generator-angular 
+##generator-angular v0.8.0
+
+The angular generator maintained by the yeoman members. It generates all the boilerplate you need to get started and has subgenerators to scaffold the different angular object types. The app generator also optionally installs Bootstrap and additional AngularJS modules.
 
 - __build system__: grunt   
 - __code organization__: sock drawer   
@@ -56,7 +58,9 @@ npm: https://www.npmjs.org/package/generator-angular
 github: https://github.com/yeoman/generator-angular   
 
 
-##generator-angular-fullstack  
+##generator-angular-fullstack v1.4.2
+
+Yeoman generator for creating MEAN stack applications: MongoDB, Express, AngularJS, and Node. It is based on generator-angular,it also has subgenerators to scaffold the different angular object types and it optionally installs Bootstrap, additional AngularJS modules and MongoDB integration with Mongoose.
 
 - __build system__: grunt
 - __code organization__: sock drawer   
@@ -76,7 +80,7 @@ github: https://github.com/yeoman/generator-angular
 - optional MongoDB integration with Mongoose
 - support for Jade and CoffeeScript
 - optional Passport integration for adding user accounts
-- oassport boilerplate
+- express server integrated with grunt tasks
 - autorun `npm install` and `bower install`
 - by default, new scripts are added to the index.html file. optional --skip-add
 
@@ -85,7 +89,9 @@ npm: https://www.npmjs.org/package/generator-angular-fullstack
 github: https://github.com/DaftMonk/generator-angular-fullstack
 
 
-##generator-cg-angular 
+##generator-cg-angular v3.0.3
+
+A generator for large applications. All subgenerators for partials, services, directives, and filters, allow the user to specify where to save the new files, thus you can create your own directory structure (including nesting) as you desire.
 
 - __build system__: supports grunt and gulp   
 - __code organization__: In v3.0, all subgenerators for partials, services, directives, and filters, allow the user to specify where to save the new files. Thus you can create your own directory structure. Sock Drawer code organization by default.   
@@ -109,7 +115,9 @@ npm: https://www.npmjs.org/package/generator-cg-angular
 github:  https://github.com/cgross/generator-cg-angular    
 
 
-##generator-boom  
+##generator-boom v0.1.8 
+
+Boom uses Gulp instead of Grunt, Protractor (E2E tests) and BrowserSync is pre-configured. Good Stuff!
 
 - __build system__: gulp   
 - __code organization__: Sock Drawer code organization by default  
@@ -133,12 +141,14 @@ github:  https://github.com/cgross/generator-cg-angular
 - static node server
 - autorun `npm install` and `bower install`
 
-Maintained by [aamirshah](https://github.com/aamirshah)   
+maintained by [aamirshah](https://github.com/aamirshah)   
 npm: https://www.npmjs.org/package/generator-boom   
 github: https://github.com/aamirshah/generator-boom
 
 
-##generator-meanjs
+##generator-meanjs v0.0.8
+
+MEAN.JS is a full-stack JavaScript solution, which provides a solid starting point for MongoDB, Node.js, Express, and AngularJS based applications. The idea is to solve the common issues with connecting those frameworks, build a robust framework to support daily development needs, and help developers use better practices while working with popular JavaScript components.
  
 - __build system__: grunt    
 - __code organization__: modular 
@@ -164,7 +174,9 @@ github: https://github.com/meanjs/generator-meanjs
 Here's the explanation about Mean.js and Mean.io - http://tmblr.co/Z7XDmo17TG_o4  
 
 
-##generator-hyper-angular
+##generator-hyper-angular v0.1.6
+
+HyperAngular (generator-hyper-angular) is a Yeoman generator for AngularJS/Express/node.js apps emphasizing modularity, configuration, and testing. It's designed to provide plenty of tooling to help you code expressively at all scales, while putting up railings to keep your code consistent and clean. It stamps out a simple application that tests itself and self-documents the structure of the generated template
 
 - __build system__:  grunt    
 - __code organization__: sock drawer   
@@ -190,7 +202,10 @@ npm: https://www.npmjs.org/package/generator-hyper-angular
 github: https://github.com/jprystowsky/generator-hyper-angular   
 
 
-##slush-angular
+##slush-angular v0.3.0
+
+A slush generator for AngularJS using the Google Angular App Structure Recommendations.
+This is not a yeoman generator, it is built with [slush](https://github.com/klei/slush) a gulp based alternative to yeoman. You can choose between LESS, Stylus, and Sass to use as the CSS Preprocessor.
 
 - __build system__: gulp   
 - __code organization__: modular   
@@ -213,10 +228,10 @@ maintained by:  [joakimbeng](https://github.com/joakimbeng)
 npm : https://www.npmjs.org/package/slush-angular    
 github: https://github.com/klei/slush-angular  
 
-This is not a yeoman generator. It is built with [slush](https://github.com/klei/slush) a gulp based alternative to yeoman.
 
+## generator-ngbp v0.0.5
 
-## generator-ngbp
+Yeoman generator based on the [ngBoilerplate kickstarter](https://github.com/ngbp/ngbp), a best-practice boilerplate for scalable Angular projects built on a highly modular, folder-by-feature structure.
 
 - __build system__: grunt    
 - __code organization__: modular  
@@ -241,7 +256,9 @@ npm : https://www.npmjs.org/package/generator-ngbp
 github: https://github.com/thardy/generator-ngbp   
 
 
-## generator-gulp-ng 
+##generator-gulp-ng v1.0.1
+
+This is a yeoman generator for an angularjs project that follows the Best Practice Recommendations for Angular App Structure. It takes advantage of the gulp build tool and makes use of bower and npm for dependency management.
 
 - __build system__: gulp    
 - __code organization__: modular  *follows google's best practices document
