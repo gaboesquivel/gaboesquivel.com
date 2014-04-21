@@ -11,6 +11,7 @@ tags:
   - front-end
   - build system
   - gulpjs
+  - nodejs
 ---
 
 Automation of repetitive and critical tasks is key to develop a successful software product. Automated tasks will minimize software cost, reduce software delivery time as well as improving the product quality and reduce human error. Investing time in automating tasks will allow you to focus on developing features. 
@@ -47,7 +48,7 @@ Other advantages of using Gulp are:
 - Tasks are executed with maximum concurrency    
 - Really simple and elegant API    
 
-Learning the new flow control techniques will make you more efficient. To learn more about node streams by reading the [Stream Handbook](https://github.com/substack/stream-handbook) by James Halliday and by playing on the (Node.js Stream Playground) [http://nodestreams.com/ ] by John Resig. Another great resource is (Node Streams: How do they work?)[http://maxogden.com/node-streams.html] by Max Ogden, it comes with a screencast version of the article.
+Learning the new flow control techniques will make you more efficient. To learn more about node streams by reading the [Stream Handbook](https://github.com/substack/stream-handbook) by James Halliday and by playing on the [Node.js Stream Playground](http://nodestreams.com) by John Resig. Another great resource is [Node Streams: How do they work?](http://maxogden.com/node-streams.html) by Max Ogden, it comes with a screencast version of the article.
 
 Gulp has only few functions to learn:    
 __task(name, fn)__ : it registers the function and you can optionally specify some dependencies if other tasks need to run first.    
@@ -63,9 +64,9 @@ Caveats: the Gulp.js team is working on bringing in a new task system to improve
 
 ##So why should I use Gulp instead of Grunt?
 
-[@markdalgleish](http://twitter.com/markdalgleish) published a great presentation that covers the history of Grunt and Gulp and their differences: http://markdalgleish.github.io/presentation-build-wars-gulp-vs-grunt
+[Mark Dalgleish](http://twitter.com/markdalgleish) published a great presentation that covers the history of Grunt and Gulp and their differences: http://markdalgleish.github.io/presentation-build-wars-gulp-vs-grunt
 
-Another great article on this matter that is worth reading is [Gulp, Grunt, Whatever..](http://blog.ponyfoo.com/2014/01/09/gulp-grunt-whatever) by Nicolas Bevacqua [@nzgb](http://twitter.com/nzgb)
+Another great article on this matter that is worth reading is [Gulp, Grunt, Whatever..](http://blog.ponyfoo.com/2014/01/09/gulp-grunt-whatever) by [Nicolas Bevacqua](http://twitter.com/nzgb)
 
 The main reasons why I decided to switch to Gulp are:   	
 - Grunt uses JSON-like data configuration files; Gulp uses leaner, simpler JavaScript code.   
