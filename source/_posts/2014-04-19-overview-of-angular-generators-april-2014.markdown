@@ -91,10 +91,10 @@ github: https://github.com/DaftMonk/generator-angular-fullstack
 
 ##generator-cg-angular v3.0.3
 
-A generator for large applications. All subgenerators for partials, services, directives, and filters, allow the user to specify where to save the new files, thus you can create your own directory structure (including nesting) as you desire.
+A generator for large applications. Organize code however the developer wishes. All subgenerators prompt the user for the directory to place the created files. Fully supports Angular's Best Practice Guidelines for app structure.
 
 - __build system__: supports grunt and gulp   
-- __code organization__: In v3.0, all subgenerators for partials, services, directives, and filters, allow the user to specify where to save the new files. Thus you can create your own directory structure. Sock Drawer code organization by default.   
+- __code organization__: In v3.0, all subgenerators for partials, services, directives, and filters, allow the user to specify where to save the new files, thus you can create your own directory structure (including nesting) as you desire.
 - __subgenerators__: angularjs subgenerators for directives, partials, service, filters and modules   
 - __dependency mgr__:  bower   
 - __testing__:  grunt-contrib-jasmine, Headless testing with Jasmine, PhantomJS   
@@ -229,7 +229,7 @@ npm : https://www.npmjs.org/package/slush-angular
 github: https://github.com/klei/slush-angular  
 
 
-## generator-ngbp v0.0.5
+##generator-ngbp v0.0.5
 
 Yeoman generator based on the [ngBoilerplate kickstarter](https://github.com/ngbp/ngbp), a best-practice boilerplate for scalable Angular projects built on a highly modular, folder-by-feature structure.
 
