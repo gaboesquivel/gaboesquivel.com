@@ -30,7 +30,7 @@ __Encapsulation:__ Code, styles and tests related to specific feature will be co
 __Context:__  Code lives in given context by feature. This is specially important to developers new to the application, who will find it easier to connect the dots.   
 __Code Reusabilty:__ You would be able to reuse modules across projects and clients, Eg mobile and web-client could share autentication modules or resources ( models ).
 
-Here's a list of Angular generators and their characteristics (some of them have are fullstack generators):
+Here's a list of Angular generators and their characteristics (some of them are fullstack generators):
 <!--more-->
 
 ##generator-angular v0.8.0
