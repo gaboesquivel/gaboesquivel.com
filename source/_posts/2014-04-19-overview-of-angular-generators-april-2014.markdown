@@ -20,14 +20,14 @@ tags:
 
 This is a short and opinionated review of the AngularJS generators on npm as of April 19th, 2014.
 
-There are a lot of generators on npm and it's a little hard to decide which one to use or fork, since we don't want to reinvent the wheel. Currently the only way to compare them is to try them one by one and that's a very time consuming task. In this post I'll try to give you an overview of some of the generators I've explored recently hoping it will save you some time. I’ll follow [Cliff Meyer's Code Organization Categorization](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript) to describe their code structure.
+There are a lot of generators on npm and it's a little hard to decide which one to use or fork, since we don't want to reinvent the wheel. Currently the only way to compare them is to try them one by one and that's a very time consuming task. In this post I'll try to give you an overview of some generators I've explored recently hoping it will save you some time. I’ll follow [Cliff Meyer's Code Organization Categorization](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript) to describe their code structure.
 
 Most generators still use the "Sock Drawer" directory organization, an approach that I personally avoid, it doesn't scale well but it works for small projects. I prefer a modular structure as suggested on latest [Google's Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub). 
 
 Some of the benefits of modularization are:
 
-__Encapsulation:__ Code, styles and tests related to specific feauture will be contained on the same directory.   
-__Context:__  Code lives in given context by feature. This is especially important to developers new to the application, who will find it easier to connect the dots.   
+__Encapsulation:__ Code, styles and tests related to specific feature will be contained on the same directory.   
+__Context:__  Code lives in given context by feature. This is specially important to developers new to the application, who will find it easier to connect the dots.   
 __Code Reusabilty:__ You would be able to reuse modules across projects and clients, Eg mobile and web-client could share autentication modules or resources ( models ).
 
 Here's a list of Angular generators and their characteristics (some of them have are fullstack generators):
