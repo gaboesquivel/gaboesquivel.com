@@ -2,6 +2,7 @@
 title: Developing Software in Paradise, aka Costa Rica
 author: gaboesquivel
 layout: post
+cover: /images/2014/01/playa-manazanillo-sunset-300x225.jpg
 comments: true
 date: 2014-01-04 
 dsq_thread_id:
