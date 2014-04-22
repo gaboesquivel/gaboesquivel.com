@@ -16,7 +16,7 @@ tags:
   - remote development
   - software
 ---
-Coming back to Costa Rica and enjoy my country while working on software applications is one of the best decisions I ever made. Check out these pictures I took with my phone at Playa Manzanillo, near to Santa Teresa - Mal País, a natural paradise with world class surfing, these beaches rank among the most beautiful beaches of Costa Rica and you'll agree is the best place to live or invest in the country.
+Coming back to Costa Rica and enjoy my country while working on software applications is one of the best decisions I ever made. Check out these pictures I took with my phone at Playa Manzanillo, near to Santa Teresa - Mal País, a natural paradise with world class surfing that ranks among the most beautiful beaches of Costa Rica and you'll agree is the best place to live or invest in the country.
 
 <img alt="playa-manazanillo-sunset" src="/images/2014/01/playa-manazanillo-sunset-300x225.jpg" />
 <img alt="vacas-playa-manzanillo" src="/images/2014/01/vacas-playa-manzanillo-300x225.jpg"/>
