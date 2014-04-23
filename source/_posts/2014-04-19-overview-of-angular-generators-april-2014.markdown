@@ -5,7 +5,7 @@ date: 2014-04-19 17:03:35 -0500
 comments: true
 cover: /images/2014/04/angular-logo.png
 categories:
-  - javasript
+  - javascript
   - angular
   - software development
   - front-end

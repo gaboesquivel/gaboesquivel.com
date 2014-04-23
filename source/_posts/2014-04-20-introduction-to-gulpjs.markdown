@@ -5,7 +5,7 @@ date: 2014-04-20 09:57:51 -0500
 comments: true
 cover: /images/2014/04/gulp-js.jpg
 categories:
-  - javasript
+  - javascript
   - software development
   - front-end
 tags:
