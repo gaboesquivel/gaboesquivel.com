@@ -29,7 +29,7 @@ When developing modern web applications there are critical tasks you want to aut
 - testing: code linting, unit testing, e2e tests
 - css preprocessing ( sass, less, …)
 - optimization: concatenating and minifying css and scripts, compressing new or modified images, ... 
-- deploying updates to a staging or production server through 
+- deploying updates to a staging or production server 
 
 There are many tools that will help you automate these tasks. Which one to choose? Grunt, Gulp, Brunch, Broccoli,…
 
@@ -49,7 +49,7 @@ Other advantages of using Gulp are:
 - Tasks are executed with maximum concurrency    
 - Really simple and elegant API    
 
-Learning the new flow control techniques will make you more efficient. To learn more about node streams by reading the [Stream Handbook](https://github.com/substack/stream-handbook) by James Halliday and by playing on the [Node.js Stream Playground](http://nodestreams.com) by John Resig. Another great resource is [Node Streams: How do they work?](http://maxogden.com/node-streams.html) by Max Ogden, it comes with a screencast version of the article.
+Learning the new flow control techniques will make you more efficient. To learn more about node streams read the [Stream Handbook](https://github.com/substack/stream-handbook) by James Halliday and play on the [Node.js Stream Playground](http://nodestreams.com) by John Resig. Another great resource is [Node Streams: How do they work?](http://maxogden.com/node-streams.html) by Max Ogden, it comes with a screencast version of the article.
 
 Gulp has only few functions to learn:    
 __task(name, fn)__ : it registers the function and you can optionally specify some dependencies if other tasks need to run first.    
@@ -60,6 +60,8 @@ __dest(folder)__ : returns a writable stream. File objects piped to this are sav
 
 This article will walk you through all of the intimidating stuff and introduce you to the core ideas that you will need to know to start using gulp. http://travismaynard.com/writing/getting-started-with-gulp
 
+There's a Javascript Jabber episode with the creator of Gulp: [JSJ Gulp.js with Eric Schoffstall](http://javascriptjabber.com/097-jsj-gulp-js-with-eric-schoffstall)
+
 Caveats: the Gulp.js team is working on bringing in a new task system to improve efficiency ( even more ) and it might include some API changes, you can follow the progress here https://github.com/gulpjs/gulp/issues/355
 
 
@@ -67,16 +69,15 @@ Caveats: the Gulp.js team is working on bringing in a new task system to improve
 
 [Mark Dalgleish](http://twitter.com/markdalgleish) published a great presentation that covers the history of Grunt and Gulp and their differences: http://markdalgleish.github.io/presentation-build-wars-gulp-vs-grunt
 
-Another great article on this matter that is worth reading is [Gulp, Grunt, Whatever..](http://blog.ponyfoo.com/2014/01/09/gulp-grunt-whatever) by [Nicolas Bevacqua](http://twitter.com/nzgb)
+Another great article that is worth reading is [Gulp, Grunt, Whatever..](http://blog.ponyfoo.com/2014/01/09/gulp-grunt-whatever) by [Nicolas Bevacqua](http://twitter.com/nzgb)
 
 The main reasons why I decided to switch to Gulp are:   	
 - Grunt uses JSON-like data configuration files; Gulp uses leaner, simpler JavaScript code.   
 - Grunt plugins often perform multiple tasks; Gulp plugins are designed to do one thing only.   
 - Grunt requires plug-ns for basic functionality such as file watching; Gulp has them built-in.   
 
-There's a Javascript Jabber episode with the creator of Gulp: [JSJ Gulp.js with Eric Schoffstall](http://javascriptjabber.com/097-jsj-gulp-js-with-eric-schoffstall)
-
 You can find gulp plugins at http://gulpjs.com/plugins and https://npmjs.org/browse/keyword/gulpplugin  
+
 
 ##Conclusion
 
