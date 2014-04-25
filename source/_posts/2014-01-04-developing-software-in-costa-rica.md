@@ -30,4 +30,14 @@ Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel
 
 <img alt="Silicon Beach Costa Rica" src="/images/2014/01/silicon-beach-costa-rica.png"/>
 
+
+Costa Rica offers talented human capital in the ideal - strategic - location, proven track record, quality infrastructure and excellent business climate.
+
+{% youtube kJhDmwo6F9o?rel=0 %}
+
+
+{% youtube TCyw7OKLBug?rel=0 %}
+
+
+
 Feel free to contact me if you are looking for advise or network with the local software development community.
