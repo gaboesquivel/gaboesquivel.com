@@ -23,8 +23,7 @@ This post summarizes what you need to know to get going with command line as wel
 
 The Shell is an application that offers interactive console or terminal access to a computer system. It lets you interact with applications on your computer through command line. 
 
-From [Wikipedia](http://en.wikipedia.org/wiki/Command-line_interface):   
-_A command-line interface (CLI) is a mechanism for interacting with a computer operating system or software by typing commands to perform specific tasks… This method of instructing a computer to perform a given task is referred to as “entering” a command: the system waits for the user to conclude the submitting of the text command by pressing the “Enter” key (a descendant of the “carriage return” key of a typewriter keyboard). A command-line interpreter then receives, parses, and executes the requested user command._
+_A command-line interface (CLI) is a mechanism for interacting with a computer operating system or software by typing commands to perform specific tasks… This method of instructing a computer to perform a given task is referred to as “entering” a command: the system waits for the user to conclude the submitting of the text command by pressing the “Enter” key (a descendant of the “carriage return” key of a typewriter keyboard). A command-line interpreter then receives, parses, and executes the requested user command._ -[Wikipedia](http://en.wikipedia.org/wiki/Command-line_interface)
 
 Most operating systems offer a command line interface, but that doesn't mean the built-in version is best. MAC OS X comes with [terminal](http://en.wikipedia.org/wiki/Terminal_(OS_X)), however there's a terminal emulator for Mac OS X that is more customizable and does amazing things out-of-the-box, it's called [iTerm](http://www.iterm2.com/#/section/home). If you are using a windows machine I'd recommend you installing [cygwin](http://lifehacker.com/179514/geek-to-live--introduction-to-cygwin-part-i).
 
