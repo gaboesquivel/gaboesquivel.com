@@ -1,4 +1,4 @@
 gaboesquivel.github.io
 ======================
 
-my personal blgo
+my personal blog
