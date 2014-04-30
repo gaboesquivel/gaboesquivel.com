@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Gabo Esquivel - Software Consultant"
+title: "Gabo Esquivel - Web Technology Consultant"
 comments: false
 sharing: false
 footer: true
