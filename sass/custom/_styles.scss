@@ -9,8 +9,14 @@ font-size: 14px;
 line-height: 2;
 }
 
-article header p.meta {
-position: static !important;
+a{
+  text-decoration: none;
+}
+
+article {
+  header p.meta {
+    position: static !important;
+  }
 }
  
 
@@ -297,7 +303,9 @@ ul, ol{
     margin: 20px 0;
 }
 
-
+.entry-content a{
+  text-decoration: underline;
+}
 
 .embed-video-container {
 width: 90%;
