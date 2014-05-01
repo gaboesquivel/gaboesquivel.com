@@ -32,9 +32,11 @@ It is very important to decide carefully, after your application grown it could 
 *   Availability (a guarantee that every request receives a response about whether it was successful or failed)
 *   Partition tolerance (the system continues to operate despite arbitrary message loss or failure of part of the system)
 
-<img class="size-full wp-image-591 aligncenter" alt="CAP Theorem - Venn Diagram" src="/images/2013/09/cap_venn.png" width="547" height="520" />  
-<!--more-->Once you have defined which of those guarantees is less important for your app and can be sacrificed, you have a smaller subset of options to choose from. However this not the only thing you need to consider, you may want to use a specific framework such as Hibernate, Spring, Django or WordPress, and take advantage of the of-the-shelf capabilities, in that case you want to use a SQL database.
-
+<div class="center-align-wrapper">
+<img  alt="CAP Theorem - Venn Diagram" src="/images/2013/09/cap_venn.png" width="547" height="520" />  
+</div>
+Once you have defined which of those guarantees is less important for your app and can be sacrificed, you have a smaller subset of options to choose from. However this not the only thing you need to consider, you may want to use a specific framework such as Hibernate, Spring, Django or WordPress, and take advantage of the of-the-shelf capabilities, in that case you want to use a SQL database.
+<!--more-->
 &nbsp;
 
 Other questions that will help you decide which database works best:

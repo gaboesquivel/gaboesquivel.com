@@ -6,6 +6,7 @@ comments: true
 date: 2012-12-21
 categories:
   - lean
+  - resources
 tags:
   - books
   - lean

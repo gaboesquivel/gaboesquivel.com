@@ -8,6 +8,8 @@ dsq_thread_id:
   - 1215266902
 categories:
   - javascript
+  - angular
+  - resources
 tags:
   - angularjs
   - javascript
