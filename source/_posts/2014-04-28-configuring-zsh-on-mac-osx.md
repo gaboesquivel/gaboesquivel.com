@@ -25,13 +25,13 @@ The Shell is an application that offers interactive console or terminal access t
 
 Most operating systems offer a command line interface, but that doesn't mean the built-in version is best. MAC OS X comes with [terminal](http://en.wikipedia.org/wiki/Terminal_(OS_X)), however there's a terminal emulator for Mac OS X that is more customizable and does amazing things out-of-the-box, it's called [iTerm](http://www.iterm2.com/#/section/home). If you are using a windows machine I'd recommend you installing [cygwin](http://lifehacker.com/179514/geek-to-live--introduction-to-cygwin-part-i).
 
-In order to use the command line prompt you will need to memorize commands. Start with the basic system commands, once you mastered that you'll catch up quickly with other tools such as [gulp.js](/blog/2014/shell-is-your-friend-tips-and-how-to-customize-it/). [Sayanee](http://sayan.ee/) runs a great podcast on tech tools called Build Podcast, I recommend you watching this episode to get started.  
+In order to use the command line prompt you will need to memorize commands. Start with the basic system commands, once you mastered that you'll catch up quickly with other tools such as [gulp.js](/blog/2014/shell-is-your-friend-tips-and-how-to-customize-it/). <!--more-->[Sayanee](http://sayan.ee/) runs a great podcast on tech tools called Build Podcast, I recommend you watching this episode to get started.  
 
 {% vimeo 43649618 %}
 
 ##Environment Setup
 
-ZSH(Z Shell) is a powerful command interpreter for shell scripting, it is a modern [Unix shell](http://en.wikipedia.org/wiki/Unix_shell) that is backward compatible with bash. The main features of zsh are the true auto tab completion and autocorrect and the ability to customize your prompt [among many other](http://zsh.sourceforge.net/FAQ/zshfaq01.html). 
+ZSH(Z Shell) is a powerful command interpreter for shell scripting, it is a modern [Unix shell](http://en.wikipedia.org/wiki/Unix_shell) that is backward compatible with bash. The main features of zsh are the true auto tab completion and autocorrect, shared history over all terminals, history sub-string search and the ability to customize your prompt [among many other](http://zsh.sourceforge.net/FAQ/zshfaq01.html). 
 
 So Why is Zsh better than Bash? In short:    
 - very costumizable prompt    
