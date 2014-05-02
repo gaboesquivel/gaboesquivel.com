@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using Z Shell on Mac OS X
+title: Get Started with Command Line and Z Shell
 date: 2014-04-28 09:25:43 -0500
 comments: true
 cover: /images/2014/04/oh-my-zsh.png
