@@ -66,15 +66,14 @@ In iTerm settings make sure it is running zsh
 
 Customizing the command prompt is different in different shells, I'm going to cover zsh here. 
 
-Zsh is widely used by the open source community and because of that there are many open sourced projects with snippets, functions, configurations, themes, plugins, modules you can leverage to personalize your shell prompt. This is my selection for you to review:
+Zsh is widely used by the open source community and because of that there are many open sourced projects with snippets, functions, configurations, themes, plugins, modules you can leverage to personalize your shell prompt. 
 
 __[Oh-My-ZSH](http://ohmyz.sh/)__: the is most popular with over 600 contributors on github and many plugins that you can easily integrate. There's a similar project for windows called [oh-my-cygwin](https://github.com/haithembelhaj/oh-my-cygwin)
 
-__[Zach Holman's dotfiles](https://github.com/holman/dotfiles)__: features auto sourcing Zsh files, easy Zsh completion extensions, and a local bin folder for executables. The included Rakefile will symlink anything ending in .symlink to your ~ folder. What's great about Holman's dotfiles is the organization per topic - [here you can read more about it](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/). I believe since then people have started to follow this pattern. My dotfiles used to based on this project. There are many dotfiles on github https://github.com/search?q=dotfiles and on the following link you will find a good selection and categorization http://dotfiles.github.io
+__[Zach Holman's dotfiles](https://github.com/holman/dotfiles)__: features auto sourcing Zsh files, easy Zsh completion extensions, and a local bin folder for executables. The included Rakefile will symlink anything ending in .symlink to your ~ folder. What's great about Holman's dotfiles is the organization per topic - [here you can read more about it](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/). I believe since then people have started to follow this pattern. There are many dotfiles on github https://github.com/search?q=dotfiles and on the following link you will find a good selection and categorization http://dotfiles.github.io
 
 __[YADR](https://github.com/skwp/dotfiles)__: it is collection of the best bits of all the top dotfile repos, vim and zsh plugins curated in one place, into a simple and cohesive way of working. It has many vim plugins (90+), all under one roof, working together, each plugin researched and configured to be at its best, often with better shortcut keys. Zsh plugins based on [Prezto](https://github.com/sorin-ionescu/prezto) and all things are vimized: irb, postres command line, etc. 
 
-Now I'm using Oh-My-ZSH as base for my configuration. I considered YADR and Prezto, but YADR has being staled for while and Prezto altough is very well documented doesn't have the community support oh-my-zsh has. That would be my pick: oh-my-zsh, you can find the detailed installation steps and documention [here](https://github.com/robbyrussell/oh-my-zsh#setup). 
-
+I'm currently using Oh-My-ZSH as base for my configuration. You can find the detailed installation steps and documention [here](https://github.com/robbyrussell/oh-my-zsh#setup). YADR has being staled for while and Prezto altough is very well documented doesn't have the community support oh-my-zsh has.
 
 
