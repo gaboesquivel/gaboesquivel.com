@@ -28,7 +28,7 @@ It is built on Express (for routing), EJS (for templating) and Socket.io (for cr
 
 [Express.js](http://expressjs.com) is minimal and flexible web application framework, providing a robust set of features for building single and multi page, and hybrid web applications.
 
-It has a myriad of HTTP utility methods and Connect middleware at your disposal for creating a robust user-friendly API quick and easy. It also has a thin layer of features fundamental to any web application, without obscuring features that you know and love in node.js
+It has a myriad of HTTP utility methods and Connect middleware at your disposal for creating a robust user-friendly API quick and easy. It also has a thin layer of features fundamental to any web application, without obscuring features that you know and love in node.js. The pluggable middleware in the framework provides a great way to add elements, such as passport.js, as you need them.
 
 {% youtube LB32jTKzJkE?rel=0&iv_load_policy=3 %}
 
