@@ -31,7 +31,7 @@ Imports autocomplete - Shows autocomplete with the available modules/symbols in 
 Function Call tooltips - Displays information in the status bar about the working function.
 
 http://sublimecodeintel.github.io/SublimeCodeIntel/
-
+<!--more-->
 ## AllAutocomplete
 
 Sublime Text’s default autocomplete considers words that are present in the current file only. The AllAutocomplete plug-in extends the default autocomplete to find matches in all open files.
