@@ -6,7 +6,7 @@ comments: true
 categories: nodejs javascript 
 ---
 
-Speed in software development is key for building a successful product and one of the tools that helps to deliver faster is an application framework. The app development framework provides an structure, handles repetitive tasks and alleviates the overhead associated with common activities allowing you to focus on features development. Good frameworks will enforce good practices and code reuse (modules).
+Speed in software development is key for building a successful product and one of the tools that helps to deliver faster is an application framework. The app development framework provides an structure, handles repetitive tasks and alleviates the overhead associated with common activities allowing you to focus on feature development. Good frameworks will enforce good practices and code reuse (modules).
 
 In this post I'll list some of the most popular NodeJS frameworks and their characteristics.
 
