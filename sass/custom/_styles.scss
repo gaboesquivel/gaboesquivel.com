@@ -307,10 +307,16 @@ ul, ol{
 }
 
 .embed-video-container {
-width: 90%;
-margin: 40px auto;
+  width: 90%;
+  margin: 40px auto;
 }
 
 .sidebar a{
   font-size: 12px;
+}
+
+img.no-border{
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
 }
