@@ -4,6 +4,7 @@ title: "Reasons to Use AngularJS for Web Applications"
 date: 2014-07-29 16:05:35 -0600
 comments: true
 categories: angularjs 
+cover: /images/2014/07/AngularJS-logo.png
 tags:
   - angularjs
   - frontend development
@@ -12,10 +13,13 @@ tags:
   - single page apps
   - javascript
 ---
+&nbsp;  
 
 <div class='center-align-wrapper'>
-	<img src='/images/2014/07/AngularJS-logo.png' class='no-border'/>
+	<img src='/images/2014/07/AngularJS-logo.png' class='no-border' width='80%'/>
 </div>
+
+&nbsp;  
 
 First, a quick introduction... AngularJS is an open-source web application framework for creating single page web apps. It was created by Miško Hevery and Adam Abrons back in 2009 and it's now maintained by Google and community. 
 
@@ -24,7 +28,7 @@ AngularJS is built around the belief that declarative programming should be used
 AngularJS is winning the frontend framework war. There are other high quality alternatives out there, but few have gained so much developer support, they love developing with it. Even conservative companies now see Angular as an investment and they are paying for AngularJS trainings and tools. This graph of Google Search Trends shows the interest over time:
 
 <div class='center-align-wrapper'>
-	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=angularjs,+emberjs,+knockoutjs,+backbonejs&cmpt=q&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=330"></script>
+	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=angularjs,+emberjs,+knockoutjs,+backbonejs&date=1/2011+37m&cmpt=q&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=600&h=330"></script>
 </div>
 
 ## Concept:  
