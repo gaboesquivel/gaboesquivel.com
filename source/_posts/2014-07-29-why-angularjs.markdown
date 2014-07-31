@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Reasons to Use AngularJS for Web Applications"
+title: "Why AngularJS?"
 date: 2014-07-29 16:05:35 -0600
 comments: true
 categories: angularjs 
