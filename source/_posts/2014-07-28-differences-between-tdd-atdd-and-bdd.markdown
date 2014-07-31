@@ -3,7 +3,9 @@ layout: post
 title: "Differences between TDD, ATDD and BDD"
 date: 2014-07-28 14:36:30 -0600
 comments: true
-categories: software development, testing
+categories: 
+  - software development 
+  - software testing
 ---
 
 __Test-driven development (TDD)__ is a technique of using automated unit tests to drive the design of software and force decoupling of dependencies. The result of using this practice is a comprehensive suite of unit tests that can be run at any time to provide feedback that the software is still working.

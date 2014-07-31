@@ -6,7 +6,7 @@ comments: true
 cover: /images/2014/04/angular-logo.png
 categories:
   - javascript
-  - angular
+  - angularjs
   - software development
   - front-end
 tags:
