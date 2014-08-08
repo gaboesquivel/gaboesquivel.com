@@ -41,4 +41,4 @@ TDD tools and techniques are usually much more techie in nature, requiring that 
 
 BDD gives a clearer understanding as to what the system should do from the perspective of the developer and the customer. 
 
-TDD allows a good and robust design, still, your tests can be very far away of the users requirements.BDD is a way to ensure consistency betwenn users requirements and the developper tests.
+TDD allows a good and robust design, still, your tests can be very far away of the users requirements. BDD is a way to ensure consistency between requirements and the developer tests.
