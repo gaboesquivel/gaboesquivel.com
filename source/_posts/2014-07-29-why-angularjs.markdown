@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why AngularJS?"
+title: "Reasons to Use AngularJS in Web Applications"
 date: 2014-07-29 16:05:35 -0600
 comments: true
 categories: angularjs 
@@ -21,7 +21,7 @@ tags:
 
 &nbsp;  
 
-First, a quick introduction... AngularJS is an open-source web application framework for creating single page web apps. It was created by Miško Hevery and Adam Abrons back in 2009 and it's now maintained by Google and community. 
+First, a quick introduction. AngularJS is an open-source web application framework for creating single page web apps. It was created by Miško Hevery and Adam Abrons back in 2009 and it's now maintained by Google and community. 
 
 AngularJS is built around the belief that declarative programming should be used for building user interfaces and wiring software components, while imperative programming is excellent for expressing business logic. The framework adapts and extends traditional HTML to better serve dynamic content through two-way data-binding that allows for the automatic synchronization of models and views. As a result, AngularJS de-emphasizes DOM manipulation and improves testability & performance.
 
