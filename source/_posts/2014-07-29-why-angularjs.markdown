@@ -4,7 +4,7 @@ title: "Reasons to Use AngularJS in Web Applications"
 date: 2014-07-29 16:05:35 -0600
 comments: true
 categories: angularjs 
-cover: /images/2014/07/AngularJS-logo.png
+cover: /images/2014/07/angular-logo.png
 tags:
   - angularjs
   - frontend development
