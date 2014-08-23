@@ -96,3 +96,4 @@ __References__
  - [Painless Self Signed Certificates in node.js ](https://github.com/coolaj86/node-ssl-root-cas/wiki/Painless-Self-Signed-Certificates-in-node.js)   
  - [Nodejitsu Docs: How to create an HTTPS server](http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server)    
  - [Heroku Dev Center: Creating a Self-Signed SSL Certificate](https://devcenter.heroku.com/articles/ssl-certificate-self)         
+ - [How to create a self-signed SSL Certificate](http://www.akadia.com/services/ssh_test_certificate.html)
