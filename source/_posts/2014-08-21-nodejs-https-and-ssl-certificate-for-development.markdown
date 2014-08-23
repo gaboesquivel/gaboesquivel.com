@@ -3,17 +3,13 @@ layout: post
 title: "Node.js HTTPS and SSL Certificate for Development"
 date: 2014-08-21 22:57:38 -0600
 comments: true
-categories: nodejs
+categories: nodejs javascript
 tags:
   - node.js
   - security
   - javascript
   - back-end
 ---
-
-<div class='center-align-wrapper'>
-	<img src='/images/2014/08/nodejs-security-ssl.jpg' class='no-border'/>
-</div>
 
 HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your data. It is the most popular network protocol for establishiing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I'll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes.
 
