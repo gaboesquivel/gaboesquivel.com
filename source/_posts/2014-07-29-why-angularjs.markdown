@@ -31,6 +31,7 @@ AngularJS is winning the frontend framework war. There are other high quality al
 	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=angularjs,+emberjs,+knockoutjs,+backbonejs&date=1/2011+37m&cmpt=q&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=600&h=330"></script>
 </div>
 
+<!--more-->
 ## Concept:  
 
 It is basically and extension to HTML. It is Google's vision of what of browser would be if it was built to render web applications instead of just html documents. It breaks the idea of html/css/js as things that should be handled separately and brings extensibility and modularity in the way of DSL and isolated pieces of html/js/css working together.

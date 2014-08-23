@@ -20,7 +20,7 @@ HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your da
 ### Self-Signed SSL Certificate
 
 There are two kinds of certificates: those signed by a '[Certificate Authority](http://en.wikipedia.org/wiki/Certificate_authority)', or CA, and 'self-signed certificates'. A Certificate Authority is a trusted source for an SSL certificate, and using a certificate from a CA allows your users to be trust the identity of your website. In most cases, you would want to use a CA-signed certificate in a production environment - for testing purposes, however, a self-signed certicate will do just fine.
-
+<!--more-->
 To genereate a certificate all you need is openssl
 
 {% codeblock lang:console  %}
@@ -74,14 +74,14 @@ var options = {
 var server = https.createServer(options, function (req, res) {
     res.writeHead(200);
     res.end("hello world\n");
-}).listen(9000);
+}).listen(443);
 
 {% endcodeblock %}
 
 
 {% codeblock Socket.io Client lang:javascript  %}
 
-var socket = io.connect('https://localhost:9000/',{secure: true});
+var socket = io.connect('https://localhost:443/',{secure: true});
 
 {% endcodeblock %}
 
