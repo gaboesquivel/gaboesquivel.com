@@ -3,6 +3,7 @@ layout: post
 title: "In-Place Editing with contenteditable and AngularJS"
 date: 2014-08-23 11:25:19 -0600
 comments: true
+cover: /images/2014/07/angular-logo.png
 categories: 
   - angularjs
   - javascript

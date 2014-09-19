@@ -3,6 +3,7 @@ layout: post
 title: "Node.js HTTPS and SSL Certificate for Development"
 date: 2014-08-21 22:57:38 -0600
 comments: true
+cover: /images/nodejs-logo-green.png
 categories: nodejs javascript
 tags:
   - node.js
@@ -86,6 +87,8 @@ var socket = io.connect('https://localhost:443/',{secure: true});
 {% blockquote Nodejitsu http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server %}
 NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy server, however, using a synchronous function during a request will force the server to deal with the requests one by one!
 {% endblockquote %}
+
+For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: [OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs) 
 
 
 __References__   
