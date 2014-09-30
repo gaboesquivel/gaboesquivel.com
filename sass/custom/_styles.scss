@@ -17,6 +17,11 @@ article {
   header p.meta {
     position: static !important;
   }
+
+  p, blockquote, ul, ol {
+    margin-bottom: 1.6em;
+    font-size: 14.5px;
+  }
 }
  
 

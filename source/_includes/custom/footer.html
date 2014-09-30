@@ -23,3 +23,11 @@
 	<!-- jQuery Form Validation Plugin -->
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 	<script src="{{ root_url }}/javascripts/google_form.js"></script>
+	<script>
+		(function($){
+			if($ === undefined) return;
+			$(function(){
+				$("a[href^='http']").attr('target','_blank');
+			});
+		})(jQuery);
+	</script>
