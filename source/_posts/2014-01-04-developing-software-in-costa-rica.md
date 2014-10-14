@@ -42,8 +42,4 @@ Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel
 
 &nbsp;
 
-{% youtube TCyw7OKLBug?rel=0&iv_load_policy=3 %}
-
-&nbsp;
-
 Feel free to contact me if you are looking for advise or network with the local software development community.
