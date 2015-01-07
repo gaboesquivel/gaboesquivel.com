@@ -275,12 +275,13 @@ ul, ol{
     input {
       display: block;
       padding: 5px;
-      width: 250px;
+      width: 90%;
       font: inherit;
     }
     textarea {
       width: 450px;
       padding: 5px;
+      width: 90%;
       font: inherit;
     }
   }
@@ -299,6 +300,18 @@ ul, ol{
   }
   .ss-password-warning{
 	  display: none;
+  }
+  .jfk-button {
+    -webkit-border-radius: 6;
+    -moz-border-radius: 6;
+    border-radius: 6px;
+    border: 1px;
+    border-color: #c1c1c1;
+    color: #ffffff;
+    background: #07b877;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    min-width: 100px;
   }
 }
 
