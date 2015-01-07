@@ -2,9 +2,12 @@ $blockquote: $type-border !default;
 $sans: "PT Sans", "Helvetica Neue", Arial, sans-serif !default;
 $serif: "PT Serif", Georgia, Times, "Times New Roman", serif !default;
 $mono: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace !default;
-$heading-font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif !default;
+$heading-font-family: Serif, "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif !default;
 $header-title-font-family: $heading-font-family !default;
 $header-subtitle-font-family: $heading-font-family !default;
+
+// Medium "freight-text-pro",Georgia,Cambria,"Times New Roman",Times,serif
+// Medium headers "jaf-bernino-sans","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif
 
 // Fonts
 .heading {
@@ -32,13 +35,8 @@ body {
   @extend .serif;
 }
 h1 {
-  font-size: 2.2em;
+  font-size: 2em;
   line-height: 1.2em;
-}
-
-@media only screen and (min-width: 992px) {
-  body { font-size: 1.15em; }
-  h1 { font-size: 2.6em; line-height: 1.2em; }
 }
 
 #{headings()}{

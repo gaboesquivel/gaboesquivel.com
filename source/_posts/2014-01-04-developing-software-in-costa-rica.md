@@ -37,8 +37,8 @@ Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel
 <!--more-->
 
 &nbsp;
-
-{% youtube TCyw7OKLBug?rel=0&iv_load_policy=3 %}
+<h3>Costa Rica: A Little Piece of Paradise by NatGeo</h3>
+{% youtube M0AqiF_pmxc?rel=0&iv_load_policy=3 %}
 
 &nbsp;
 

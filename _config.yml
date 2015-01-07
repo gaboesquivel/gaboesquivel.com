@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://gaboesquivel.com
-title: Gabo Esquivel - Javascript Developer
+title: Gabo Esquivel - Application Developer
 subtitle: "Starter, Problem Solver, Engineer."
 author: Gabo Esquivel
 #lunr_search: true
@@ -17,7 +17,7 @@ description: "Application Developer and Technical Consultant specialized in Web 
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
+subscribe_rss: http://feeds.feedburner.com/gaboesquivel
 subscribe_email:
 # RSS feeds can list your email address if you like
 email: 
