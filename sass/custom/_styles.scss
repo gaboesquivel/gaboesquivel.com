@@ -4,7 +4,7 @@
 
 body {
 color: #555;
-font-family: Helvetica, arial, freesans, clean, sans-serif;
+font-family: "Helvetica Neue", freesans, clean, sans-serif;
 font-size: 14px;
 line-height: 2;
 }
@@ -36,7 +36,7 @@ float: left;
 font-size: 13px;
 clear: left;
 margin-left: 36px;
-font-family: "Noto Sans",Helvetica,Arial,sans-serif;
+//font-family: "Noto Sans",Helvetica,Arial,sans-serif;
 text-decoration: none;
 }
 
@@ -114,7 +114,7 @@ text-decoration: none;
 
 .footer_box h3 {
     font-size: 16px;
-    font-family: "Noto Sans",Helvetica,Arial,sans-serif;
+    //font-family: "Noto Sans",Helvetica,Arial,sans-serif;
     font-weight: normal;
     margin-bottom: 0 !important;
 }
@@ -151,12 +151,16 @@ clear: both;
 	margin-bottom: 15px;
 	float: right;
 }
+.reco{
+  font-size: 14px;
+}
 
 .reco blockquote{
-	border-left: none;
+  line-height: 2;
+  border-left: none;
 	font-weight: normal;
-	font-size: 14px;
 	padding-left: 0px;
+  font-size: 15px;
 }
 
 .reco blockquote::before {
@@ -326,16 +330,6 @@ img.no-border{
   border: none;
 }
 
-
-#content .blog-index article h1 {
-  font-size: 2.6em; 
-}
-
 article header {
   background: none;
-}
-
-#content .blog-index article header{
-  margin-bottom: 1.5em;
-  padding-bottom: 1em;
 }
