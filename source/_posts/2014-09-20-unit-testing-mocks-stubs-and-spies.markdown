@@ -13,9 +13,10 @@ tags:
   - testing
 ---
 
+
 In unit testing isolation is key. The class/object/function you are testing is called the System Under Test (SUT) and the SUT often interacts with other part of the system, these parts are called Collaborators or Depedencies. When testing the simulation of the collaborators/dependencies and behaviors of these dependencies allows you to to test the units in isolation. Gerard Meszaros author of xUnit Test Patterns uses the term "Test Double" as the generic term for any kind of pretend object used in place of a real object for testing purposes. The name comes from the notion of a Stunt Double in movies. 
 
-Mocks, Stubs, Spies, Dummies and Fakes are types of test doubles that will help you to accomplish the goal of isolation. There are several libraries that provide tools to easily create these objects in your tests. Sinon.js is a javascript library that provides standalone test spies, stubs and mocks with no dependencies that work with any unit testing framework. 
+Mocks, Stubs, Spies, Dummies and Fakes are types of test doubles that will help you to accomplish the goal of isolation. There are several libraries that provide tools to easily create these objects in your tests. Sinon.js is a javascript library that provides standalone test spies, stubs and mocks with no dependencies that work with any unit testing framework.
 
 __Dummies__
 
@@ -44,8 +45,8 @@ describe('add task', function(){
 	  var DummyTask = function(){ return {} };
 	  var taskManager = new TaskManager();
 	
-	  taskManager.addTask(new DummyTask);
-	  taskManager.addTask(new DummyTask);
+	  taskManager.addTask(new DummyTask());
+	  taskManager.addTask(new DummyTask());
 
 	  assert.equal( taskManager.tasksCount(), 2 );
 
@@ -120,3 +121,5 @@ http://cjohansen.no/en/javascript/javascript_test_spies_stubs_and_mocks -- maybe
 http://angular-tips.com/blog/2014/03/introduction-to-unit-test-spies/
 
 http://www.pubnub.com/blog/javascript-testing-idiot-proofing-your-code/
+
+

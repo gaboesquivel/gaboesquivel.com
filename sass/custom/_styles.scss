@@ -190,11 +190,17 @@ section#recommendations .reco {
 
 section#recommendations .reco img {
     float: left;
-    width: 100px
+    width: 100px;
+    @media (max-width: 450px) {
+      margin: 0 20px 20px 0;
+    }
 }
 
 section#recommendations .reco .reco-detail {
-    margin-left: 140px
+    margin-left: 140px;
+    @media (max-width: 450px) {
+      margin-left: 0;
+    }
 }
 
 section#recommendations span.person a {
@@ -330,7 +336,8 @@ ul, ol{
 }
 
 .entry-content a, article a{
-  text-decoration: underline;
+  text-decoration: none;
+  border-bottom: 1px solid;
 }
 
 .embed-video-container {
