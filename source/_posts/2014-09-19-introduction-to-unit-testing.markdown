@@ -22,12 +22,12 @@ Taking measures to check the quality, performance, or reliability of (something)
 
 
 There are 3 main levels of testing and they are complementary:   
-- __Scenario Testing / End-to-End Testing (E2E)__ : test the whole application by pretending to be a user.   
-- __Functional Tests / Medium Level Tests__: a piece of functionality is tested in isolation, by simulating external dependencies.   
-- __Unit Tests__: focused on application logic, tests the smallest unit of functionality, typically a method/function.   
+- __Scenario Testing / End-to-End Testing (E2E)__ : test the whole application by pretending to be a user.     
+- __Functional Tests / Medium Level Tests__: a piece of functionality is tested in isolation, by simulating external dependencies.     
+- __Unit Tests__: focused on application logic, tests the smallest unit of functionality, typically a method/function.     
 
 
-Unit testing works by isolating small "units" of code so that it can be tested from every angle. Any kind of dependency that is slow, untested, hard to understand or initialise should be [stubbed or mocked](/blog/2014/unit-testing-mocks-stubs-and-spies/) so you can focus on what the unit of code is doing, not what its dependencies do. Tests should ideally be written by developers, the same person who writes the functionality, not a QA team. Demoting unit testing to a lower level of priority is almost always a mistake.
+Unit testing works by isolating small "units" of code so that it can be tested from every angle. Any kind of dependency that is slow, untested, hard to understand or initialise should be stubbed or mocked so you can focus on what the unit of code is doing, not what its dependencies do. Tests should ideally be written by developers, the same person who writes the functionality, not a QA team. Demoting unit testing to a lower level of priority is almost always a mistake.
 
 __What is a unit?__ In the best case, it is a pure function that you can deal with in some way. It can also be a whole class or multiple classes working together to achieve one single logical purpose that can be verified. In web applications DOM manipulations come into play as well. People might argue about this definition of Unit, Object-oriented design tends to treat a class as the unit, procedural or functional approaches might consider a single function as a unit. But really it's a situational thing - the team decides what makes sense to be a unit for the purposes of their understanding of the system and its testing. Pragmatism.
 
@@ -49,10 +49,10 @@ Some of the of the non-so-obvious benefits of Unit Testing are:
 - Unit tests help with code re-use. Migrate both your code and your tests to your new project and run the test again.
 - It improves software design. When adding a new feature or refactoring an existing solution, testing forces you to think about what the code is supposed to accomplish and focus on that. Thus you end up with a clean and simple design that does exactly what you expect it to do.
 
-The qualities of good unit tests are:  
-- __Trustworthy__: The tests results are reliable.
-- __Readability__:  Writing test code that is easy to understand and communicates well.   
-- __Maintainability__:  Writing tests that are robust and hold up well over time.   
+The qualities of good unit tests are:    
+- __Trustworthy__: The tests results are reliable.   
+- __Readability__:  Writing test code that is easy to understand and communicates well.     
+- __Maintainability__:  Writing tests that are robust and hold up well over time.     
 - __Automation__:  Writing tests that require little setup and configuration (preferably none) and can be run/hooked to save or git push actions.   
 
 If unit testing is written and performed properly and consistently, software projects are a lot more effective at delivering the correct solution in a predictable and managed way. It is our job to verify that each part of an app works individually, so when they are joined together they have a good chance of working as a whole.
