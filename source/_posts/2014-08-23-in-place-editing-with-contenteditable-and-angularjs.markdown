@@ -29,7 +29,7 @@ The following directive uses contenteditable attribute and ng-model for data bin
 <script async src="//codepen.io/assets/embed/ei.js"></script>
 
 &nbsp;   
-
+<!--more-->
 
 Current browser support for contenteditable. <small>source: http://caniuse.com/#feat=contenteditable</small> 
 
@@ -39,7 +39,6 @@ Current browser support for contenteditable. <small>source: http://caniuse.com/#
 
 
 &nbsp;   
-<!--more-->
 
 __Known issues__   
 - In Chromium/Chrome contenteditable cannot be edited when nested into draggable (https://code.google.com/p/chromium/issues/detail?id=170139). Still not fixed in Chrome version 26.0.1384.2.  
