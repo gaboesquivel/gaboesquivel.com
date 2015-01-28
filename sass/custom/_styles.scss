@@ -279,7 +279,7 @@ ul, ol{
 
 
 .google-form-wrapper {
-
+  
   .error {
     color: red;
     font-size: 12px;
@@ -302,6 +302,7 @@ ul, ol{
       font: inherit;
     }
     textarea {
+      border: 1px solid #CCC;
       width: 450px;
       padding: 5px;
       width: 90%;
