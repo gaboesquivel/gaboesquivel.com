@@ -73,7 +73,7 @@ Test spies are useful to test both callbacks and how certain functions/methods a
 }
 {% endcodeblock %}
 
-
+<!--more-->
 __Stubs__ 
 
 Test stubs are fake objects with pre-programmed behavior ( Simulation of behaviour from other units ), Most of times they are simply returning fixed values. They are typically used for one of two reasons:
