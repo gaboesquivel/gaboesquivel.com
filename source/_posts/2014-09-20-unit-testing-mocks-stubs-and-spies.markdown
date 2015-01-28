@@ -93,33 +93,36 @@ __Fakes__
 
 Fake objects have working implementations, but usually take some shortcut which makes them not suitable for production (an in memory database is a good example). The simplest way to think of a Fake is as a step up from a Stub. This means not only does it return values, but it also works just as a real Collaborator would.
 
+{% codeblock lang:javascript %}
+var xhr, requests;
+
+before(function () {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+});
+
+after(function () {
+    // we must clean up when tampering with globals.
+    xhr.restore();
+});
+
+it("makes a GET request for todo items", function () {
+    getTodos(42, sinon.spy());
+
+    assert.equals(requests.length, 1);
+    assert.match(requests[0].url, "/todo/42/items");
+});
+{% endcodeblock %}
+
+
 __Mocks__
 
-When most people talk about Mocks what they are actually referring to are Test Doubles. A Test Double is simply another object that conforms to the interface of the required Collaborator, and can be passed in in its place. There are very few classes that operate entirely in isolation. Usually they need other classes or objects in order to function, whether injected via the constructor or passed in as method parameters. These are known as Collaborators or Depencies.
+When most people talk about Mocks what they are actually referring to are Test Doubles. A Test Double is simply another object that conforms to the interface of the required Collaborator, and can be passed in its place. There are very few classes that operate entirely in isolation. Usually they need other classes or objects in order to function, whether injected via the constructor or passed in as method parameters. These are known as Collaborators or Depencies.
 
 
 
-
-
--- Use your own words to avoid referencing at the end --
 References: 
 
-[Mocks Aren't Stubs](http://martinfowler.com/articles/mocksArentStubs.html) by Martin Fowler
-[Test Doubles: Mocks vs Stub](http://adamcod.es/2014/05/15/test-doubles-mock-vs-stub.html) by Adam Brett
-
-http://blog.codeship.io/2014/01/22/testing-frontend-javascript-code-using-mocha-chai-and-sinon.html
-https://github.com/nelsonic/learn-mocha
-
-http://xunitpatterns.com/
-http://andyshora.com/unit-testing-best-practices-angularjs.html
-http://www.htmlgoodies.com/html5/javascript/spy-on-javascript-methods-using-the-jasmine-testing-framework.html#fbid=ciEFlkF0M7j
-http://qafoo.com/talks/13_06_ipc_se_mocks_stubs_and_spies.pdf
-
-
-http://cjohansen.no/en/javascript/javascript_test_spies_stubs_and_mocks -- maybe
-
-http://angular-tips.com/blog/2014/03/introduction-to-unit-test-spies/
-
-http://www.pubnub.com/blog/javascript-testing-idiot-proofing-your-code/
-
-
+-[Mocks Aren't Stubs](http://martinfowler.com/articles/mocksArentStubs.html) by Martin Fowler   
+-[XUnit Test Patterns: Test Double Patterns](http://xunitpatterns.com/Test%20Double%20Patterns.html)   
