@@ -1,5 +1,5 @@
 ---
-title: Recommended Podcasts, Screencasts and Blogs
+title: Recommended Podcasts and Screencasts
 author: gaboesquivel
 layout: post
 comments: true
@@ -14,19 +14,7 @@ tags:
   - open source
   - podcasts
   - ruby on rails
-  - startups
 ---
-<a href="http://local.gaboesquivel.com/recommended-podcasts-and-blogs/5by5-podcasts-2/" rel="attachment wp-att-289"><img class="aligncenter size-full wp-image-289" alt="5by5 podcasts" src="/images/2012/12/5by5-podcasts.jpg" width="700" height="350" /></a>
-
-&nbsp;
-
-## Founders Talk
-
-This is my favorite one, it&#8217;s awesome. I have learned a lot about building online businesses, I feel I need to thank Adam for running this podcast. I highly recommend it.
-
-*&#8220;Founders Talk is an interview podcast all about awesome, in-depth, one on one conversations with Founders. Tune in for a new show every week!&#8221;* &#8211; Adam Stackoviac
-
-<a href="http://5by5.tv/founderstalk" target="_blank">http://5by5.tv/founderstalk</a>
 
 
 ## The ChangeLog &#8211; Open Source Moves Fast. Keep up.
@@ -73,52 +61,10 @@ Short Ruby on Rails screencasts containing tips, tricks and tutorials. Great for
 <a href="http://railscasts.com/" target="_blank">http://railscasts.com/</a>
 
 
-## HTML5 Weekly and Javascript Weekly
+## Founders Talk
 
-Receive a weekly newsletter about what&#8217;s new on HTML5 technologies and Javascript ( Curated by Peter Cooper ). The content is great, they do a really good work selecting the important updates in the community for you to read.
+This is my favorite one, it&#8217;s awesome. I have learned a lot about building online businesses. I highly recommend it.
 
-<a href="http://html5weekly.com/" target="_blank">http://html5weekly.com/</a> | <a href="http://html5weekly.com/" target="_blank">http://html5weekly.com/</a>
+*&#8220;Founders Talk is an interview podcast all about awesome, in-depth, one on one conversations with Founders. Tune in for a new show every week!&#8221;* &#8211; Adam Stackoviac
 
-
-## Google Developers and Chrome Developers Channels
-
-<a href="https://plus.google.com/+GoogleChromeDevelopers/posts" target="_blank">Google Chrome Developers</a>
-
-<a href="http://www.youtube.com/user/GoogleDevelopers/videos?view=0" target="_blank">Google Developers Channel</a>
-
-<a href="http://www.youtube.com/user/ChromeDevelopers/videos?view=0" target="_blank">Chrome Developers Channel</a>
-
-
-## Addy Osmani &#8211; Articles for Developers
-
-A front-end developers blog covering JavaScript, application architecture and development, tooling, workflow and more.
-
-<a href="http://addyosmani.com" target="_blank">http://addyosmani.com/</a>
-
-
-## Paul Irish Blog
-
-Paul Irish is an American front-end web developer, and developer advocate for Google Chrome. He is also recognized as an expert in web technologies like HTML5 and CSS3.
-
-http://paulirish.com/
-
-
-## Matt Cutts Blog
-
-I&#8217;ve learned a lot from his blog too, he&#8217;s the head of Google&#8217;s Webspam team.. and posts about whats new on google&#8217;s algorithms and how you should do porper SEO.
-
-<a href="http://www.mattcutts.com/blog/" target="_blank">http://www.mattcutts.com/blog/</a>
-
-
-## Search Engine Land
-
-Search Engine Land is a must read hub for news and information about search engine marketing, optimization and how search engines work.
-
-<a href="http://searchengineland.com/" target="_blank">http://searchengineland.com/</a>
-
-
-## Ash Muarya and Spark59
-
-What you need to know about applying Lean Methodologies.
-
-<a href="http://www.ashmaurya.com/" target="_blank">http://www.ashmaurya.com/</a> | <a href="http://spark59.com/blog" target="_blank">http://spark59.com/blog/</a>
+<a href="http://5by5.tv/founderstalk" target="_blank">http://5by5.tv/founderstalk</a>
