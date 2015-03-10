@@ -8,7 +8,7 @@ dsq_thread_id:
   - 1004655332
 categories:
   - javascript
-  - resources
+  - stuff
 tags:
   - books
   - javascript

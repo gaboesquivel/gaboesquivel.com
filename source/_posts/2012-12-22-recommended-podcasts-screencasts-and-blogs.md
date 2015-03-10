@@ -7,7 +7,7 @@ date: 2012-12-22
 dsq_thread_id:
   - 987693191
 categories:
-  - resources
+  - stuff
 tags:
   - javascript
   - lean

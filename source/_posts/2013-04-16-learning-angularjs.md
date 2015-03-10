@@ -9,7 +9,7 @@ dsq_thread_id:
 categories:
   - javascript
   - angularjs
-  - resources
+  - stuff
 tags:
   - angularjs
   - javascript
