@@ -26,23 +26,30 @@ article {
  
 
 #logo_link {
-height: 58px;
-display: block;
-width: 284px;
-overflow: hidden;
-float: left;
-margin-top:-10px;
+  height: 58px;
+  display: block;
+  width: 284px;
+  overflow: hidden;
+  float: left;
+  margin-left: 9px;
+  @include max-screen(667px){
+     margin-left: 5px;
+  }
+  margin-top:-10px;
 }
 
 
 #slogan {
 	color: #555;
-float: left;
-font-size: 12px;
-clear: left;
-margin-left: 36px;
-//font-family: "Noto Sans",Helvetica,Arial,sans-serif;
-text-decoration: none;
+  float: left;
+  font-size: 12px;
+  clear: left;
+  margin-left: 36px;
+  @include max-screen(667px){
+     margin-left: 20px;
+  }
+  //font-family: "Noto Sans",Helvetica,Arial,sans-serif;
+  text-decoration: none;
 }
 
 #slogan:hover{
@@ -51,9 +58,14 @@ text-decoration: none;
 
 
 .social_icons {
-    list-style-type: none;
-    float: right;
+  list-style-type: none;
+  float: right;
 	padding-top:2px;
+
+  @include max-screen(667px){
+    display:none; 
+  }
+   
 }
  
 .social_icons li {
