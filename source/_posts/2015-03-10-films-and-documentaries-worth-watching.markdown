@@ -4,7 +4,7 @@ title: "Films and Documentaries Worth Watching"
 date: 2015-03-10 15:22:19 -0600
 comments: true
 categories: 
-- stuff
+- other
 tags:
 - programming
 - films

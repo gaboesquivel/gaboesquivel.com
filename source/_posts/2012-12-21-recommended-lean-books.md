@@ -6,7 +6,6 @@ comments: true
 date: 2012-12-21
 categories:
   - lean
-  - stuff
 tags:
   - books
   - lean
