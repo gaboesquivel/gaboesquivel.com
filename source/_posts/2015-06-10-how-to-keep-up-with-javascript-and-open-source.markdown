@@ -4,6 +4,7 @@ title: "How to Keep Up with JavaScript and Open Source"
 date: 2015-06-10 17:27:14 -0600
 comments: true
 cover: /images/2015/06/learning.jpg
+description: The JavaScript development ecosystem is vibrant and rapidly growing, there's myriad of libraries, frameworks and tools that are constantly evolving and every day new solutions, techniques and modules are published.
 categories: 
 - open source
 - javascript
@@ -13,7 +14,7 @@ tags:
 - podcasts
 ---
 
-The JavaScript development ecosystem is vibrant and rapidly growing, there's myriad of libraries, frameworks and tools that are constantly evolving and every day new solution, techniques and modules are published. The language itself is evolving quickly with new ECMAScript versions, native browser support for those specifications and a stack transpilers and polyfills. 
+The JavaScript development ecosystem is vibrant and rapidly growing, there's myriad of libraries, frameworks and tools that are constantly evolving and every day new solutions, techniques and modules are published. The language itself is evolving quickly with new ECMAScript versions, native browser support for those specifications and a stack transpilers and polyfills. 
 
 This is not a JavaScript fenomenon, technology in general evolves fast and open source even faster. The following is a list of useful resoures and tips to keep up to date.
 <!--more-->
@@ -29,7 +30,7 @@ Peter Cooper is a software developer and entrepreneur, publisher-in-chief at Coo
 These curated weekly newsletters really make it easier to find relevant content.
 
 ## Github #ofcourse!   
-Star, Watch, Collaborate and follow developers that contribute to projects you regurarly use, what they comment, they star... Following the right people makes easier to stay update. Reads you github news feed frequently and go through the issues and pull request lists of the projects you are interested in. 
+Star, Watch, Collaborate and follow developers that contribute to projects you regurarly use, what they comment, what they star... Following the right people makes easier to stay updated. Read you github news feed frequently and go through the issues and pull request lists of the projects you are interested in. 
 
 Follow the Awesome lists:    
 - [sindresorhus/awesome](https://github.com/sindresorhus/awesome)   
