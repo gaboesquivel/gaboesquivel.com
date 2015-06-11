@@ -4,7 +4,7 @@ title: "How to Keep Up with JavaScript and Open Source"
 date: 2015-06-10 17:27:14 -0600
 comments: true
 cover: /images/2015/06/learning.jpg
-description: The JavaScript development ecosystem is vibrant and rapidly growing, there's myriad of libraries, frameworks and tools that are constantly evolving and every day new solutions, techniques and modules are published.
+description: The JavaScript development ecosystem is vibrant and it´s rapidly growing, there's a myriad of libraries, frameworks and tools that are constantly evolving and every day new solutions, techniques and modules are published.
 categories: 
 - open source
 - javascript
@@ -14,16 +14,15 @@ tags:
 - podcasts
 ---
 
-The JavaScript development ecosystem is vibrant and rapidly growing, there's myriad of libraries, frameworks and tools that are constantly evolving and every day new solutions, techniques and modules are published. The language itself is evolving quickly with new ECMAScript versions, native browser support for those specifications and a stack transpilers and polyfills. 
+The JavaScript development ecosystem is vibrant and it´s rapidly growing, there's a myriad of libraries, frameworks and tools that are constantly evolving and every day new solutions, techniques and modules are published. The language itself is evolving quickly with new ECMAScript versions, native browser support for those specifications and a stack transpilers and polyfills. 
 
-This is not a JavaScript fenomenon, technology in general evolves fast and open source even faster. The following is a list of useful resoures and tips to keep up to date.
+This is not a specific to JavaScript, technology in general evolves fast and open source even faster. The following is a list of useful resoures and tips to keep up to date.
 <!--more-->
 ## Everything Weekly by Peter Cooper 
 Peter Cooper is a software developer and entrepreneur, publisher-in-chief at CooperPress, Chair of O'Reilly @FluentConf & OSCON. He curates a series of weekly email newsletters that narrow down information for you.    
 - [JavaScript Weekly](http://javascriptweekly.com/)   
 - [HTML5 Weekly](http://html5weekly.com/)   
-- [Node Weekly](http://nodeweekly.com/)   
-- [Node Weekly](http://nodeweekly.com/)   
+- [Node Weekly](http://nodeweekly.com/)      
 - [Web Ops Weekly](http://webopsweekly.com/)   
 - [Mobile Web Weekly](http://mobilewebweekly.co/)   
 
@@ -50,7 +49,7 @@ Listen to the interview with Ilya on [The Changelog #144](http://thechangelog.co
 The site includes numerous useful links, a great list of people to follow on twitter and recommendations from top front-end developers on how to keep up with front technologies. [uptodate.frontendrescue.org](http://uptodate.frontendrescue.org/) 
 
 ## Engineering Podcasts
-I love podcasts, you can listen to them while you drive or walk and play them in the background while you work. Sometimes I listen them while taking a bath or chilling on my couch. I really can't think of better way to make dead times productive. I wrote an article about [my favorite javascript and open source podcasts](/blog/2012/recommended-podcasts-screencasts-and-blogs/).
+I love podcasts, you can listen to them while you drive or walk and play them in the background while you work. Sometimes I listen to them while taking a bath or chilling on my couch. I really can't think of better way to make dead times productive. I wrote an article about [my favorite javascript and open source podcasts](/blog/2012/recommended-podcasts-screencasts-and-blogs/).
 
 ## Engineering Blogs
 
@@ -74,7 +73,8 @@ Subscribe to engineering blogs of leading companies and developers, these are so
 - Alex Sexton: [alexsexton.com](https://alexsexton.com/)   
 - Substack: [substack.net](http://substack.net/)   
 - Paul Irish: [paulirish.com](http://paulirish.com)   
-- Addy Osmani: [addyosmani.com/blog](http://addyosmani.com/blog/)   
+- Addy Osmani: [addyosmani.com/blog](http://addyosmani.com/blog/)  
+- David Walsh: [davidwalsh.name](http://davidwalsh.name/) 
 
 ### Medium   
 - [Node and JavaScript](https://medium.com/node-js-javascript)   
