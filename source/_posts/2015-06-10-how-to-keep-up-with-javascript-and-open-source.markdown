@@ -76,6 +76,7 @@ Subscribe to engineering blogs of leading companies and developers, these are so
 - Nicholas Zakas: [nczonline.net](http://www.nczonline.net/)   
 - Paul Irish: [paulirish.com](http://paulirish.com)   
 - Addy Osmani: [addyosmani.com/blog](http://addyosmani.com/blog/)  
+- Nicolas Bevacqua: [ponyfoo.com](http://ponyfoo.com/)
 - David Walsh: [davidwalsh.name](http://davidwalsh.name/) 
 
 ### Medium   
