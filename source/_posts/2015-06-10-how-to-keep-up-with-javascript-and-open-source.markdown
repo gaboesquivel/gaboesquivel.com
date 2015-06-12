@@ -75,9 +75,9 @@ Subscribe to engineering blogs of leading companies and developers, these are so
 - Substack: [substack.net](http://substack.net/)   
 - Nicholas Zakas: [nczonline.net](http://www.nczonline.net/)   
 - Paul Irish: [paulirish.com](http://paulirish.com)   
-- Addy Osmani: [addyosmani.com/blog](http://addyosmani.com/blog/)  
-- Nicolas Bevacqua: [ponyfoo.com](http://ponyfoo.com/)
-- David Walsh: [davidwalsh.name](http://davidwalsh.name/) 
+- Addy Osmani: [addyosmani.com/blog](http://addyosmani.com/blog/)    
+- Nicolas Bevacqua: [ponyfoo.com](http://ponyfoo.com/)   
+- David Walsh: [davidwalsh.name](http://davidwalsh.name/)   
 
 ### Medium   
 - [Node and JavaScript](https://medium.com/node-js-javascript)   
@@ -86,6 +86,14 @@ Subscribe to engineering blogs of leading companies and developers, these are so
 - [DevChannel](https://medium.com/dev-channel)
 - [Juan Pablo Buriticá](https://medium.com/@buritica)
 - [Malte Ubl](https://medium.com/@cramforce)
+
+## Sites that Rock
+### HTML5 Rocks
+HTML5 Rocks is a Google logo project plenty of good articles on mobile web development, performace, tutorials and updates on new hotness from the HTML5 world http://www.html5rocks.com/en/
+
+### Perf Rocks
+Articles on web performance principles, analysis and monitoring, optimization, responsive web design and more. It also has a large list of Iinspiring developers you can follow that care deeply about fast websites and teach others the best practices. And many talks worth watching. http://perf.rocks/
+
 
 ## Social Media   
 I have lists for people that contribute to open source projects and the javascript community on my social accounts: twitter, youtube, google+, etc .. That helps me to clear out the noise. I also set mobile alerts on twitter accounts I'm particularly interested in.
