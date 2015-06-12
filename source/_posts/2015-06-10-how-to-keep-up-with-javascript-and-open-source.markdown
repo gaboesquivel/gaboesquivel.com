@@ -34,7 +34,7 @@ Star, Watch, Collaborate and follow developers that contribute to projects you r
 Follow the Awesome lists:    
 - [sindresorhus/awesome](https://github.com/sindresorhus/awesome)   
 - [sorrycc/awesome-javascript](https://github.com/sorrycc/awesome-javascript)   
-- [essential-javascript-links](https://github.com/ericelliott/essential-javascript-links)   
+- [ericelliot/essential-javascript-links](https://github.com/ericelliott/essential-javascript-links)   
 - [bayandin/awesome-awesomeness](https://github.com/bayandin/awesome-awesomeness)   
 - [sindresorhus/awesome-nodejs](https://github.com/sindresorhus/awesome-nodejs)   
 - [enaqx/awesome-react](https://github.com/enaqx/awesome-react)   
@@ -67,11 +67,13 @@ Subscribe to engineering blogs of leading companies and developers, these are so
 - Thoughtworks: [thoughtworks.com/blogs](http://www.thoughtworks.com/blogs)   
 
 ### Developer blogs   
-- Sir Brendan Eich: [brendaneich.com](https://brendaneich.com/)   
+- Sir Brendan Eich: [brendaneich.com](https://brendaneich.com/)     
+- Axel Rauschmayer:  [2ality.com](http://www.2ality.com/)   
 - Martin Fowler: [martinfowler.com](http://martinfowler.com/)   
 - Jeff Atwood: [Coding Horror](http://blog.codinghorror.com/)   
 - Alex Sexton: [alexsexton.com](https://alexsexton.com/)   
 - Substack: [substack.net](http://substack.net/)   
+- Nicholas Zakas: [nczonline.net](http://www.nczonline.net/)   
 - Paul Irish: [paulirish.com](http://paulirish.com)   
 - Addy Osmani: [addyosmani.com/blog](http://addyosmani.com/blog/)  
 - David Walsh: [davidwalsh.name](http://davidwalsh.name/) 
