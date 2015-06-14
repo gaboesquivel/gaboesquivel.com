@@ -99,5 +99,5 @@ Articles on web performance principles, analysis and monitoring, optimization, r
 I have lists for people that contribute to open source projects and the javascript community on my social accounts: twitter, youtube, google+, etc .. That helps me to clear out the noise. I also set mobile alerts on twitter accounts I'm particularly interested in.
  
 ## Attend to Meetups and Conferences  
-Last but not least!. Stand up, get out and talk to people, look for interesting conversations on development topics… attend meetups and conferences. You are going to meet awesome people and organizations who do what you do. It will accelerate your learning and expand your network. [pick and choose](http://jsconf.com/)
+Last but not least!. Stand up, get out and talk to people, look for interesting conversations on development topics… attend meetups and conferences. You are going to meet awesome people and organizations who do what you do. It will accelerate your learning and expand your network. Pick and choose: [jsconf.com](http://jsconf.com/), [RichardLitt/awesome-conferences](https://github.com/RichardLitt/awesome-conferences)
 
