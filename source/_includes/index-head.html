@@ -14,7 +14,6 @@
     {% else %}
       {{ site.title }}
     {% endif %}
-
     </title>
   
   {% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' | strip_slash }}{% endif %}{% endcapture %}
