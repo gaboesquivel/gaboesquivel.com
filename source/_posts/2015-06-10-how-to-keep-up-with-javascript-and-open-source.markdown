@@ -89,10 +89,10 @@ Subscribe to engineering blogs of leading companies and developers, these are so
 
 ## Sites that Rock
 ### HTML5 Rocks
-HTML5 Rocks is a Google logo project plenty of good articles on mobile web development, performace, tutorials and updates on new hotness from the HTML5 world http://www.html5rocks.com/en/
+HTML5 Rocks is a Google project plenty of good articles on mobile web development, performance, tutorials and updates on new hotness from the HTML5 world http://www.html5rocks.com/en/
 
 ### Perf Rocks
-Articles on web performance principles, analysis and monitoring, optimization, responsive web design and more. It also has a large list of Iinspiring developers you can follow that care deeply about fast websites and teach others the best practices. And many talks worth watching. http://perf.rocks/
+Articles on web performance principles, analysis and monitoring, optimization, responsive web design and more. It also has a large list of inspiring developers you can follow that care deeply about fast websites and teach others the best practices. And many talks worth watching. http://perf.rocks/
 
 
 ## Social Media   
