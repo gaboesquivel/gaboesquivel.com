@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cortical Touch: JavaScript Consulting and Development"
+title: "Cortical Touch: JavaScript Development and Consulting"
 date: 2015-07-10 08:55:29 -0600
 comments: true
 description: We develop custom software using lightweight agile methodologies working closely with you to meet your business goals.
