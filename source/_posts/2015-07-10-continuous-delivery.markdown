@@ -21,5 +21,5 @@ It gives a company the ability to react quickly and respond to change. Having fl
 
 ##Continuous Integration and Automated Development Operations
 
-In order achieve continuous delivery you need high automation of the delivery process and the developers have to continuously integrate their code, at least once a day. Successful integration is determined by an integration server that build the system and runs the test suite every time new code is added , if tests failed the dev team receives a notification, this allows the team to fix the issue as soon as it appears.  
+In order achieve continuous delivery you need high automation of the delivery process and the developers have to continuously integrate their code, at least once a day. Successful integration is determined by an integration server that builds the system and runs the test suite every time new code is added, if tests failed the dev team receives a notification, this allows the team to fix the problem as soon as it appears.  
 
