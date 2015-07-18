@@ -7,6 +7,7 @@ cover: /images/2015/07/continuous-delivery.png
 description: Continuous delivery is practice in software development in which development teams work in a way that allows companies to update their systems at any point in time or continuously through automated processes, the system’s code base is always deployable and tested.
 categories: 
 - continuous delivery
+- continuous integration
 - software development
 - devOps
 ---
