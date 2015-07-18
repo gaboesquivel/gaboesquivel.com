@@ -23,3 +23,22 @@ It gives a company the ability to react quickly and respond to change. Having fl
 
 In order achieve continuous delivery you need high automation of the delivery process and the developers have to continuously integrate their code, at least once a day. Successful integration is determined by an integration server that builds the system and runs the test suite every time new code is added, if tests failed the dev team receives a notification, this allows the team to fix the problem as soon as it appears.  
 
+### Team Commitment and Development Workflow
+
+Continuous integration is not only about automated testing but an organizational process. To successfully integrate code continuously a development team must commit to follow best practices of continuous integration. At [Cortical Touch](http://corticaltouch.com) our process relies on the following principles and practices: 
+
+- Master branch should always be deployable, we treat the master branch as a read-only. All commits to master are automatically deployed to a staging server if automated tests pass on the CI server ( usually codeship ).
+- Once tested by a human and approved, we manually deploy to production server.
+- Use feature toggles to turn on and off new features
+- Continuous integration on develop branch ( we use a simplified multistage git flow)
+- Over Communicate: communication plays a primary role in continuous integration 
+- Check in frequently
+- Don’t check in broken code
+- Don’t check in untested code
+- Don’t check in when the build is broken
+- Always verify the system builds after check in
+
+
+
+
+
