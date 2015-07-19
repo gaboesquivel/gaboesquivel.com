@@ -10,19 +10,14 @@ categories:
 
 __Test-driven development (TDD)__ is a technique of using automated unit tests to drive the design of software and force decoupling of dependencies. The result of using this practice is a comprehensive suite of unit tests that can be run at any time to provide feedback that the software is still working.
 
-The concept is to "get something working now and perfect it later." After each test, refactoring is done and then the same or a similar test is performed again. The process is iterated as many times as necessary until each unit is functioning according to the desired specifications. Test-driven development is part of a larger software design paradigm known as Extreme Programming (XP).
+The concept is to "get something working now and perfect it later." After each test, refactoring is done and then the same or a similar test is performed again. The process is iterated as many times as necessary until each unit is functioning according to the desired specifications.
 
-[more on TDD](http://msdn.microsoft.com/en-us/library/aa730844.aspx)
 
 __ATDD__ stands for __Acceptance Test Driven Development__, it is also less commonly designated as Storytest Driven Development (STDD). It is a technique used to bring customers into the test design process before coding has begun. It is a collaborative practice where users, testers, and developers define automated acceptance criteria. ATDD helps to ensure that all project members understand precisely what needs to be done and implemented. Failing tests provide quick feedback that the requirements are not being met. The tests are specified in business domain terms. Each feature must deliver real and measurable business value: indeed, if your feature doesn’t trace back to at least one business goal, then you should be wondering why you are implementing it in the first place.
-
-[more on ATDD](http://wakaleo.com/resources/articles/atdd-whats-in-it-for-me)
 
 __Behavior-Driven Development (BDD)__ combines the general techniques and principles of TDD with ideas from domain-driven design. BDD is a design activity where you build pieces of functionality incrementally guided by the expected behavior. The focus of BDD is the language and interactions used in the process of software development. Behavior-driven developers use their native language in combination with the language of Domain Driven Design to describe the purpose and benefit of their code. 
 
 A team using BDD should be able to provide a significant portion of "functional documentation" in the form of User Stories augmented with executable scenarios or examples.  BDD is usually done in very English-like language helps the Domain experts to understand the implementation rather than exposing the code level tests. Its defined in a GWT format, GIVEN WHEN & THEN.
-
-[more on BDD](http://blog.codeship.io/2013/04/22/from-tdd-to-bdd.html)
 
 
 ## Differences
