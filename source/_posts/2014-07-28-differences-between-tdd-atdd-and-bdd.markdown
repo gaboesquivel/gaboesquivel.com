@@ -17,7 +17,7 @@ __ATDD__ stands for __Acceptance Test Driven Development__, it is also less comm
 
 __Behavior-Driven Development (BDD)__ combines the general techniques and principles of TDD with ideas from domain-driven design. BDD is a design activity where you build pieces of functionality incrementally guided by the expected behavior. The focus of BDD is the language and interactions used in the process of software development. Behavior-driven developers use their native language in combination with the language of Domain Driven Design to describe the purpose and benefit of their code. 
 
-A team using BDD should be able to provide a significant portion of "functional documentation" in the form of User Stories augmented with executable scenarios or examples.  BDD is usually done in very English-like language helps the Domain experts to understand the implementation rather than exposing the code level tests. Its defined in a GWT format, GIVEN WHEN & THEN.
+A team using BDD should be able to provide a significant portion of "functional documentation" in the form of User Stories augmented with executable scenarios or examples.  BDD is usually done in very English-like language helps the Domain experts to understand the implementation rather than exposing the code level tests. It's usually defined in a GWT format: GIVEN WHEN & THEN.
 
 
 ## Differences
