@@ -9,7 +9,7 @@ author: Gabo Esquivel
 #lunr_search: true
 simple_search: http://google.com/search
 
-description: "Web applications architect, javascript specialist and founder of corticaltouch.com, a javascript consulting firm"
+description: "Web applications architect and founder of corticaltouch.com, a consulting firm that specializes in JavaScript/HTML5 Applications. Node.js Consultant"
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -21,7 +21,7 @@ date_format: "ordinal"
 subscribe_rss: http://feeds.feedburner.com/gaboesquivel
 subscribe_email:
 # RSS feeds can list your email address if you like
-email: 
+email:
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -65,7 +65,7 @@ default_asides: [asides/recent_posts.html, asides/category_list.html, asides/twi
 # ----------------------- #
 
 # Github repositories
-github_user: 
+github_user:
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
