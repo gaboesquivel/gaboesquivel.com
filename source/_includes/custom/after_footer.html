@@ -7,7 +7,7 @@
 		'use strict';
 		var arr = Array.from(document.querySelectorAll('a[href^="http"]'));
 		arr.forEach(function (anchor) {
-			anchor.setAttribute('_target','blank');
+			anchor.setAttribute('target','_blank');
 		});
 	})();
 </script>
