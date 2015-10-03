@@ -4,7 +4,7 @@
 
 body {
 color: #555;
-font-family: "Helvetica Neue", freesans, clean, sans-serif;
+font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, freesans, clean, sans-serif;
 font-size: 14px;
 line-height: 2;
  &>footer{
@@ -48,6 +48,7 @@ article {
   font-size: 12px;
   clear: left;
   margin-left: 36px;
+  font-family: 'Helvetica Neue';
   @include max-screen(667px){
      margin-left: 20px;
   }
