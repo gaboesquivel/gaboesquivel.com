@@ -15,12 +15,12 @@ tags:
   - nodejs
 ---
 
-Automation of repetitive and critical tasks is key to develop a successful software product. Automated tasks will minimize software cost, reduce software delivery time as well as improving the product quality and reduce human error. Investing time in automating tasks will allow you to focus on developing features. 
+Automation of repetitive and critical tasks is key to develop a successful software product. Automated tasks will minimize software cost, reduce software delivery time as well as improving the product quality and reduce human error. Investing time in automating tasks will allow you to focus on developing features.
 
 *“War is of vital importance to the state; hence it is a subject of inquiry which can on no account be neglected”*   
 - Sun Tzu, Art of War
 
-In this post I will introduce you to Gulp.js, a javascript task runner that helps you automate your development process. 
+In this post I will introduce you to Gulp.js, a javascript task runner that helps you automate your development process.
 
 ##Setting Up your Web App Build System
 
@@ -28,8 +28,8 @@ When developing modern web applications there are critical tasks you want to aut
 
 - testing: code linting, unit testing, e2e tests
 - css preprocessing ( sass, less, …)
-- optimization: concatenating and minifying css and scripts, compressing new or modified images, ... 
-- deploying updates to a staging or production server 
+- optimization: concatenating and minifying css and scripts, compressing new or modified images, ...
+- deploying updates to a staging or production server
 
 There are many tools that will help you automate these tasks. Which one to choose? Grunt, Gulp, Brunch, Broccoli,…
 
@@ -81,4 +81,4 @@ You can find gulp plugins at http://gulpjs.com/plugins and https://npmjs.org/bro
 
 ##Conclusion
 
-Gulp.js and node streams are more natural to understand than a huge config file and it also provides more flexibility and speed. Grunt is more mature and they will be adding [orchestrator](https://github.com/orchestrator/orchestrator) soon. The Yeoman team don't have any plans on dropping our support for Grunt, they think that both Grunt and Gulp can happily co-exist and hope to support both communities with automation tooling. If you are using it successfully, there’s no reason to switch Gulp unless you really want or need more flow control and you feel confortable working with streams and living on the edge.  
+Gulp.js and node streams are more natural to understand than a huge config file and it also provides more flexibility and speed. Grunt is more mature. I think that both Grunt and Gulp can happily co-exist, If you are using it successfully, there’s no reason to switch Gulp unless you really want or need more flow control and you feel comfortable working with streams and living on the edge.

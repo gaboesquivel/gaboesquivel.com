@@ -1,5 +1,5 @@
 ---
-title: Choosing the Database for Your Web App
+title: Choosing the Data Store for Your Web App
 author: gaboesquivel
 layout: post
 comments: true
@@ -24,8 +24,6 @@ When choosing a database for your application, you need ask yourself many quest
 *   you need to find the right tool that does job
 *   you can use multiple databases, different types depending on the characteristics of each data subset
 
-&nbsp;
-
 It is very important to decide carefully, after your application grown it could be very difficult to change. The CAP theorem, also known as Brewer&#8217;s theorem, states that it is impossible for a distributed computer system to simultaneously provide all three of the following guarantees:
 
 *   Consistency (all nodes see the same data at the same time)
@@ -37,27 +35,22 @@ It is very important to decide carefully, after your application grown it could 
 </div>
 Once you have defined which of those guarantees is less important for your app and can be sacrificed, you have a smaller subset of options to choose from. However this not the only thing you need to consider, you may want to use a specific framework such as Hibernate, Spring, Django or WordPress, and take advantage of the of-the-shelf capabilities, in that case you want to use a SQL database.
 <!--more-->
-&nbsp;
 
 Other questions that will help you decide which database works best:
 
-1.  What is the data like? What&#8217;s the nature of it?
+1.  What is the data like? What's the nature of it?
 2.  How is the data updated?
 3.  How is the data read?
 4.  Do you need limited access permissions?
 5.  How important is documentation and community support?
 
-Micah Yoder explains it very well in this video
-
-{% youtube 1AisVHrWHJo %}
-
-&nbsp;
+Micah Yoder explains it very well in [this video](https://www.youtube.com/watch?t=13&v=1AisVHrWHJo)
 
 Data Architecture is not just about choosing the right data store, other aspects to analyze are:
 
 *   Low Cost ( preferably open source, no hidden costs&#8230; )
 *   Simple to Implement and Scale
 *   Learning Curve
-*   Rapid Developement
+*   Rapid Development
 *   Operational Maintenance
 *   Ability to Do Online Changes

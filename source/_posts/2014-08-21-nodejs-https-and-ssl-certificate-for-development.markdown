@@ -20,30 +20,30 @@ There are two kinds of certificates: those signed by a '[Certificate Authority](
 <!--more-->
 To genereate a certificate all you need is openssl
 
-{% codeblock lang:console  %}
+<pre><code class="console">
 $ where openssl
 /usr/bin/openssl  /usr/local/bin/openssl
-{% endcodeblock %}
+</code></pre>
 
 You can install it using homewbrew `brew install openssl` on Mac OS, on linux use `sudo apt-get install openssl`, on windows you can use [this installer](http://gnuwin32.sourceforge.net/packages/openssl.htm).
 
 To update openssl on mac os run the following commands
-{% codeblock lang:console  %}
+<pre><code class="console">
 brew update
 brew install openssl
 brew link --force openssl
-{% endcodeblock %}
+</code></pre>
 
 Run the these commands to generate a self-signed certificate.
 
-{% codeblock lang:console  %}
+<pre><code class="console">
 openssl genrsa -out key.pem
 openssl req -new -key key.pem -out csr.pem
 openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
 rm csr.pem
-{% endcodeblock %}
+</code></pre>
 
-You will get a cert.pem (the certificate) and key.pem (the private key). This is all you need for a SSL connection. 
+You will get a cert.pem (the certificate) and key.pem (the private key). This is all you need for a SSL connection.
 
 In the second command, when prompted for "Common Name (eg, YOUR name) []:", do not give your name. It is actually the domain name field, so enter your domain name. Not giving your domain name will result in "domain mismatch" errors.
 
@@ -56,7 +56,8 @@ When generating the key you might encounter the following error: `unable to writ
 
 The HTTPS server and client API is almost identical to the HTTP API, so pretty much everything said above applies to them. In fact, the client API is the same, and the HTTPS server only differs in that it needs a certificate file.
 
-{% codeblock Secure Server lang:javascript  %}
+Secure Server
+<pre><code class="javascript">
 var https = require('https');
 var fs = require('fs');
 
@@ -72,15 +73,13 @@ var server = https.createServer(options, function (req, res) {
     res.writeHead(200);
     res.end("hello world\n");
 }).listen(443);
+</code></pre>
 
-{% endcodeblock %}
 
-
-{% codeblock Socket.io Client lang:javascript  %}
-
+Socket.io Client lang:javascript
+<pre><code class="javascript">
 var socket = io.connect('https://localhost:443/',{secure: true});
-
-{% endcodeblock %}
+</code></pre>
 
 &nbsp;   
 
@@ -88,7 +87,7 @@ var socket = io.connect('https://localhost:443/',{secure: true});
 NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy server, however, using a synchronous function during a request will force the server to deal with the requests one by one!
 {% endblockquote %}
 
-For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: [OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs) 
+For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: [OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs)
 
 
 __References__   

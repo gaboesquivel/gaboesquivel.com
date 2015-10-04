@@ -4,7 +4,7 @@ title: "In-Place Editing with contenteditable and AngularJS"
 date: 2014-08-23 11:25:19 -0600
 comments: true
 cover: /images/2014/07/angular-logo.png
-categories: 
+categories:
   - angularjs
   - javascript
 tags:
@@ -15,13 +15,11 @@ tags:
   - ux
 ---
 
-In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page. When the user hovers over an editable area, the background color of the element changes. When clicked, the text becomes editable. 
+In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page. When the user hovers over an editable area, the background color of the element changes. When clicked, the text becomes editable.
 
 You can make an element editable by adding the contenteditable attribute in your markup. This attribute has three possible values: `true`, `false`, and `inherit`. Specifying inherit will make the element editable if it’s immediate parent is editable.
 
-{% codeblock lang:html  %}
-<div class="editable" contenteditable="true"></div>
-{% endcodeblock %}
+`<div class="editable" contenteditable="true"></div>`
 
 The following directive uses contenteditable attribute and ng-model for data binding.
 
@@ -31,14 +29,11 @@ The following directive uses contenteditable attribute and ng-model for data bin
 &nbsp;   
 <!--more-->
 
-Current browser support for contenteditable. <small>source: http://caniuse.com/#feat=contenteditable</small> 
+Current browser support for contenteditable. <small>source: http://caniuse.com/#feat=contenteditable</small>
 
 <div class='center-align-wrapper'>
 	<img src='/images/2014/08/caniuse-content-editable.jpg' />
 </div>
-
-
-&nbsp;   
 
 __Known issues__   
 - In Chromium/Chrome contenteditable cannot be edited when nested into draggable (https://code.google.com/p/chromium/issues/detail?id=170139). Still not fixed in Chrome version 26.0.1384.2.  
@@ -48,4 +43,3 @@ __Known issues__
 __References__  
 - [w3.org contenteditable](http://www.w3.org/TR/html/editing.html#contenteditable)   
 - [UI Patterns - In Place Editor](http://ui-patterns.com/patterns/inplaceeditor)   
-

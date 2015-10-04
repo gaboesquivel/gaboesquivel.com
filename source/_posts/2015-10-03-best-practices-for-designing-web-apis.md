@@ -4,6 +4,9 @@ title: "Best Practices for Designing RESTful APIs"
 date: 2015-10-03 13:15:36 -0600
 comments: true
 categories:
+  - software development
+cover: /images/2015/10/web-api.jpg
+description: When designing an API there are important decisions that have great impact on the way other applications will interact with the service...
 ---
 
 An application-programming interface (API) exposes functionality of a software application for other software clients to use. Through APIs applications interact with each other and share data without any user knowledge or intervention.
