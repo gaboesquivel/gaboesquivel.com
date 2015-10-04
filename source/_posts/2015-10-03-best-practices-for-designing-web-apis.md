@@ -138,10 +138,6 @@ The vnd part is the vendor definition as outlined in [RFC4288](http://tools.ietf
 ## Attribute Names in camelCase
 snake_case is easy to read, however if you are using JSON it makes sense to follow [JavaScript's naming conventions](https://github.com/rwaldron/idiomatic.js#user-content-naming) specially if the consumer applications are likely to be written in javascript too.
 
-## Allow HTTP method overriding
-Some proxies support only POST and GET methods. To support a RESTful API with these limitations, the API needs a way to override the HTTP method.
-Use the custom HTTP Header `X-HTTP-Method-Override` to override the POST Method.
-
 ## Clean Responses
 In the JSON responses don't include internal-specific names (e.g. "node" and "taxonomy term").
 
