@@ -1,15 +1,12 @@
 #custom filters for Octopress
-require './plugins/backtick_code_block'
 require './plugins/post_filters'
 require './plugins/raw'
 require './plugins/date'
 require 'rubypants'
 
 module OctopressFilters
-  include BacktickCodeBlock
   include TemplateWrapper
   def pre_filter(input)
-    input = render_code_block(input)
     input.gsub /(<figure.+?>.+?<\/figure>)/m do
       safe_wrap($1)
     end
@@ -132,4 +129,3 @@ module OctopressLiquidFilters
 
 end
 Liquid::Template.register_filter OctopressLiquidFilters
-

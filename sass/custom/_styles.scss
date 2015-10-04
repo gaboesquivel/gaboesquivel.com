@@ -16,6 +16,18 @@ a{
   text-decoration: none;
 }
 
+table{
+  font-size: 14px;
+  margin-bottom: 1.6em;
+  th{
+    font-weight: 700;
+  }
+  td,th{
+    border: 1px solid #c1c1c1;
+    padding: 5px;
+  }
+}
+
 article {
   header p.meta {
     position: static !important;
