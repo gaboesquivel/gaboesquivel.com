@@ -63,5 +63,4 @@ Continuous integration is not only about automated testing but an organizational
 - Check in frequently.
 - Don’t check in broken code.
 - Don’t check in untested code.
-- Don’t check in when the build is broken.
 - Always verify the system builds after check in.
