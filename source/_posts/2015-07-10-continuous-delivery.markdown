@@ -35,7 +35,7 @@ In order achieve continuous delivery you need high automation of the delivery pr
 
 ## Continuous Integration
 
-In order achieve continuous delivery you need high automation of the delivery process and the developers have to continuously integrate their code, at least once a day. Successful integration is determined by an integration server that builds the system and runs the test suite every time new code is added, if tests failed the dev team receives a notification, this allows the team to fix the problem as soon as it appears.  
+In order to deliver continuously you also need to do Continuous Integration. That means developers have to continuously integrate their code, at least once a day. Successful integration is determined by an integration server that builds the system and runs the test suite every time new code is added, if tests failed the dev team receives a notification, this allows the team to fix the problem as soon as it appears.
 
 ### Integration Strategies
 Numerous different integration models are possible and they are tight to the version control strategy. Andy Singleton, proposed a [four pattern categorization](continuousagile.com/unblock/cd_four_patterns.html) in his book Unblock:
