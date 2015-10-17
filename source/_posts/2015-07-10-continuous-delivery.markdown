@@ -23,6 +23,12 @@ Continuous Delivery gives a company the ability to react quickly and respond to 
 
 It allows a company to increase its capacity and scale more easily. A continuous process facilitates working with bigger development teams. Batch processes like iteration planning, release planning, and release testing become exponentially harder to organize as you involve an increasing number of people. Continuous delivery solves this problem by skipping batch processes.
 
+## Basic Principles
+
+- __Visibility__ – All aspects of the delivery system including building, deploying testing, and releasing are visible to every member of the team to promote collaboration.
+- __Feedback__ – Team members learn of problem ASAP when they occur so that they are able to fix them as quickly as possible.
+- __Continually Deploy__ – Through a fully automated process, you can deploy and release any version of the software to any environment.
+
 ## Automation is the Foundation of Continuous Delivery
 
 In order achieve continuous delivery you need high automation of the delivery process. After a developer commits, everything should be completely automated, including reports, metrics, release notes, etc.
