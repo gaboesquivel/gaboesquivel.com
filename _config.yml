@@ -3,13 +3,13 @@
 # ----------------------- #
 
 url: http://gaboesquivel.com
-title: Gabo Esquivel - JavaScript Consultant
+title: Gabo Esquivel - Software Engineer and Consultant
 subtitle: "Starter, Problem Solver, Engineer."
 author: Gabo Esquivel
 #lunr_search: true
 simple_search: http://google.com/search
 
-description: "Software developer and web applications architect. JavaScript Consultant."
+description: "I help companies develop software products and make technical decisions."
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
