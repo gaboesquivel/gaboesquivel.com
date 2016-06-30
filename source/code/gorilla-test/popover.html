@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>GL Pop Up Demo</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <style>
+  .popover{
+    max-width: 350px;
+  }
+  body{
+    padding: 30px;
+  }
+  .progress-bar {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+  </style>
+</head>
+
+<body>
+  <h1 style="margin-bottom:60px">My Account Page</h1>
+
+  <a href="#" id="popover">progress</a>
+
+  <div id="popover-content" class="hidden">
+    <div style="padding: 20px;">
+      <div class="row">
+
+        <div class="col-xs-10" style="padding-top: 10px;">
+          <div class="progress" style="margin:0;">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+            </div>
+          </div>
+          <p id='indicator' style="margin:0;"><span style="margin-left:-15px; text-align:center;min-width:30px;">$40</span></p>
+        </div>
+
+        <div class="col-xs-2" style="background: gray; text-align:center; padding:0">
+          <p>Target
+          <br>$125</p>
+        </div>
+      </div>
+
+      <p class="text-center" style="margin-top:20px;"><img src="info.svg" height="14" width="14"> You need $69 more to reach your target</p>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script>
+    $('#popover').popover({
+      html: true,
+      content: function() {
+        return $('#popover-content').html()
+      },
+      title: 'Your Progress'
+    });
+
+    var progress = 0;
+    var target = 125;
+    function increaseProgress(){
+      if(progress >= 56){
+        return;
+      }
+      progress++;
+      target--;
+
+      $('.progress-bar').css('width', progress+'%');
+      $('#indicator').css('margin-left', progress+'%');
+      $('#indicator > span').html('$'+progress);
+
+      setTimeout(function () {
+        window.requestAnimationFrame(increaseProgress);
+      }, 15);
+    }
+
+    $('#popover').on('show.bs.popover', function (){
+      console.log('show');
+      window.requestAnimationFrame(increaseProgress);
+    })
+
+    $('#popover').on('hidden.bs.popover', function (){
+      console.log('hidden');
+      progress = 0;
+      $('.progress-bar').css('width', 0);
+      $('#indicator').css('margin-left', 0);
+      $('#indicator > span').html('$0');
+    })
+
+
+  </script>
+</body>
+
+</html>
