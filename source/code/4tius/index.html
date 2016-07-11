@@ -72,6 +72,7 @@
       </div> -->
 
       <h2>Continuous Delivery and Deployment Strategy</h2>
+      <p>In short: We will be using git environment branches ( master(dev), staging, prod) that are automatically tested on CircleCI and deployed using Elastic Beanstalk</p>
       <img src="/code/4tius/img/4TIUS-Delivery.png" class="img-responsive">
 
       <br><br>
@@ -94,6 +95,46 @@
         <div class="col-md-6">
         </div>
       </div>
+
+      <h2>Monitoring</h2>
+
+      <p>Initially I think StrongOps and CloudWacth are a good choice, however I would like to explore other services like New Relic and KeyMetrics</p>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h4>StrongOps</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/QjyhD5KHhh8" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6">
+          <h4>CloudWatch</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/LSs_8G4N_1M" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <h2>Development and Integration Workflow</h2>
+      <p>We use Github Flow ( Pull Requests with Code Reviews ) <a href="https://guides.github.com/introduction/flow/">https://guides.github.com/introduction/flow/</a> <br>
+      We make pull requests to master, once corrected and accepted the code gets automatically deployed to the dev server. In order to promote those changes to staging or production you need merge those change into staging and development branches</p>
+
+      <h4>Always follow these rules:</h4>
+
+      <ul>
+        <li>Commit each fix as a separate change</li>
+        <li>Provide useful commit messages</li>
+        <li>Use the imperative mood in the subject line. Eg. fix login error, add config file, remove unused code
+      </li>
+        <li>Provide a short commit message in the first line (50-72 character). Looking at the output of gitk or git log --oneline might help you understand why.</li>
+        <li>Reference the JIRA issue on the body of your commit message, never on the first line. Eg: <br>
+        git commit -m 'add login feature <br>
+        connects to DASH-XX'</li>
+        <li><strong>Don't pollute the log!</strong> <a href="http://bit.ly/1MDciJG">http://bit.ly/1MDciJG</a></li>
+        <li>Don't push any 'merge messages'</li>
+        <li>Update your local development branch with: git pull --rebase origin develop</li>
+        <li>Always Rebase over merge.</li>
+        <li>Check in frequently.</li>
+        <li>Don’t check in broken code.</li>
+      </ul>
+
+      <p>There are also tools like Hub and git-extras that facilitate interacting with Github.</p>
 
   </div>
 
