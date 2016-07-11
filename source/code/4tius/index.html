@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>4TIUS Architecture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <style>
+  body{
+    padding: 40px;
+  }
+  iframe{
+    max-width: 100%;
+  }
+  h1, h2{
+    text-align: center;
+  }
+  h2{
+    margin-top: 40px;
+  }
+  h1{
+    margin-bottom: 40px;
+  }
+  .img-responsive {
+    margin: 0 auto;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+
+      <h1>4TIUS Architecture and Deployment Strategy</h1>
+      <p>This is a summarized architecture proposal for 4TIUS infrastructure and tooling to manage it. It also contains a description of a suggested continous delivery and deployment process.</p>
+      <h2>Infrastructure Architecture</h2>
+      <img src="/code/4tius/img/4TIUS-Architecture.png" class="img-responsive">
+
+      <br><br>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>MongoDB Atlas ( autoscale )</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/H3P0lW94L2Q" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6">
+          <h4>CloudFront</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/dV5qOxwAJlU" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Elastic Load Balancer</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/oEcEqN8PeeI" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6">
+          <h4>AWS ElastiCache</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/8eD2eNljURE" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <br><br>
+
+      <!-- <h2>Management Tools</h2>
+      <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+
+        </div>
+      </div> -->
+
+      <h2>Continuous Delivery and Deployment Strategy</h2>
+      <img src="/code/4tius/img/4TIUS-Delivery.png" class="img-responsive">
+
+      <br><br>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Elastic Beanstalk</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/dvmssHHBnII" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6">
+          <h4>Docker</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/aLipr7tTuA4" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Continuous Delivery vs. Continuous Deployment</h4>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/igwFj8PPSnw" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6">
+        </div>
+      </div>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script>
+  </script>
+
+</body>
+
+</html>
