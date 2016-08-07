@@ -4853,6 +4853,6 @@ Reveal.initialize({
 
 })
 
-alert('use the arrows on your keyboard to navigate this presentation');
+alert('use touchscreen slide gestures and/or the arrows on your keyboard to navigate this presentation. enjoy!');
 
 },{"../../node_modules/reveal.js/lib/js/head.min.js":2,"reveal.js":1}]},{},[3]);
