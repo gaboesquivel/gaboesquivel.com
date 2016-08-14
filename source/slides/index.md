@@ -10,4 +10,6 @@ footer: true
 
 [Hack4Good Costa Rica 2013](/slides/hack4good/)
 
-[Front-End Development in 2016](/slides/front-end-developer-2016)
+[Front-End Development in 2016](/slides/front-end-developer-2016)   
+
+[Git Best Practices](/slides/git-best-practices)  
