@@ -4,7 +4,7 @@ author: gaboesquivel
 layout: post
 cover: /images/2014/01/playa-manazanillo-sunset-300x225.jpg
 comments: true
-date: 2014-01-04 
+date: 2014-01-04
 dsq_thread_id:
   - 2091763598
 categories:
@@ -27,7 +27,7 @@ Coming back to Costa Rica and enjoy my country while working on software applica
 <img alt="rocks-playa-manzanillo" src="/images/2014/01/rocks-playa-manzanillo-300x225.jpg"/>
 </div>
 
-Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel location in all of both Central and South America. Malpais and Montezuma both have many of the best restaurants in the entire country, since many international chefs have moved to the area. The area is also a major center of Costa Rica Yoga with over a dozen places to learn/practice and many yoga retreats and surf+yoga retreat combinations. 
+Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel location in all of both Central and South America. Malpais and Montezuma both have many of the best restaurants in the entire country, since many international chefs have moved to the area. The area is also a major center of Costa Rica Yoga with over a dozen places to learn/practice and many yoga retreats and surf+yoga retreat combinations.
 
 [Elion Chin](https://angel.co/elion-chin), co-founder of MoodLogic - one of the first online music recommendation systems, is leading [Silicon Beach](http://bit.ly/SiliconBeachCR) a forum for entrepreneurs & people looking to invest in, work at, advise or network with startups in Costa Rica to promote the technology talent of Costa Rica and drive the start-up culture in a fulfilling and healthy environment to deliver the best.
 
@@ -37,6 +37,9 @@ Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel
 <!--more-->
 
 &nbsp;
+<h3>Costa Rica Elevated by lostnfree</h3>
+{% vimeo 196952762 %}
+
 <h3>Costa Rica: A Little Piece of Paradise by NatGeo</h3>
 {% youtube M0AqiF_pmxc?rel=0&iv_load_policy=3 %}
 
