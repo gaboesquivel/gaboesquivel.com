@@ -1,0 +1,75 @@
+/*======= pink css ======*/
+ .custom-navbar.top-nav-collapse .logo a.theme-color{
+    color: #D2527F;
+}
+ .logo a.theme-color span{
+    background: #D2527F none repeat scroll 0 0;
+    color: #fff;
+}
+
+ .custom-navbar.top-nav-collapse .main-menu ul.navbar-nav li.active a.theme-color{
+    background-color: #D2527F;
+    color: #fff;
+}
+@media only screen and (max-width: 767px) {
+     .custom-navbar.top-nav-collapse .main-menu ul.navbar-nav li.active a.theme-color{
+    background: transparent;
+    color: #D2527F;
+}
+     .logo a.theme-color{
+        color: #D2527F;
+    }
+    
+}
+ .welcome-area .home-arrow a.theme-color{
+    color: #D2527F;
+}
+ .about-text span.theme-color{
+    color: #D2527F;
+}
+
+ btn.theme-color,  a.btn.theme-color,  .btn{
+    background: #D2527F;
+    color: #fff;
+}
+ .btn.theme-color.btn-effect.disabled:hover,  .btn.theme-color:hover ,  a.btn.theme-color:hover,  .btn.focus,  .btn:focus,  .btn:hover {
+    color: #333;
+    background: transparent;
+    border: 2px solid #D2527F;
+}
+ a.btn.quotes-btn:hover{
+    color: #fff;
+    border: 2px solid #D2527F;
+}
+ .single-service.theme-color:hover{
+    border: 1px solid #D2527F;
+}
+ ul.work-list li.theme-color.active{
+    color: #fff;
+    background: #D2527F;
+}
+ .hover-content a.theme-color{
+    background: #D2527F;
+    color: #fff;
+}
+ .hover-content a.theme-color:hover{
+    background: #fff;
+    color: #333;
+}
+ .testimonial-area .owl-dots div.active{
+   background: #D2527F;
+}
+ .btn.btn-effect.disabled {
+  color: #fff;
+    background-color: #D2527F; 
+}
+ .single-address.theme-color i.fa{
+    color: #D2527F;
+}
+ .facebook-color.theme-color:hover{background-color: #D2527F; color: #fff;}
+ .twitter-color.theme-color:hover{background-color: #D2527F ; color: #fff;}
+ .linkedin-color.theme-color:hover{background-color: #D2527F; color: #fff;}
+ .google-color.theme-color:hover{background-color: #D2527F ; color: #fff;}
+ .skype-color.theme-color:hover{background-color: #D2527F ; color: #fff;}
+ .youtube-color.theme-color:hover{background-color: #D2527F; color: #fff;}
+

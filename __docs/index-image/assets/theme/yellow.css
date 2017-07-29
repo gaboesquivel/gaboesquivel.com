@@ -1,0 +1,75 @@
+/*===== yellow css =======*/
+.custom-navbar.top-nav-collapse .logo a.theme-color{
+    color: #ffc814;
+}
+.logo a.theme-color span{
+    background: #ffc814 none repeat scroll 0 0;
+    color: #fff;
+}
+
+.custom-navbar.top-nav-collapse .main-menu ul.navbar-nav li.active a.theme-color{
+    background-color: #ffc814;
+    color: #333;
+}
+@media only screen and (max-width: 767px) {
+    .custom-navbar.top-nav-collapse .main-menu ul.navbar-nav li.active a.theme-color{
+    background: transparent;
+    color: #ffc814;
+}
+    .logo a.theme-color{
+        color: #ffc814;
+    }
+    
+}
+.welcome-area .home-arrow a.theme-color{
+    color: #ffc814;
+}
+.about-text span.theme-color{
+    color: #ffc814;
+}
+
+btn.theme-color, a.btn.theme-color, .btn{
+    background: #ffc814;
+    color: #333;
+}
+
+.btn.theme-color.btn-effect.disabled:hover, btn.theme-color:hover , a.btn.theme-color:hover, .btn.focus, .btn:focus, .btn:hover {
+    color: #333;
+    background: transparent;
+    border: 2px solid #ffc814;
+}
+a.btn.quotes-btn:hover{
+    color: #fff;
+    border: 2px solid #ffc814;
+}
+.single-service.theme-color:hover{
+    border: 1px solid #ffc814;
+}
+ul.work-list li.theme-color.active{
+    color: #333;
+    background: #ffc814;
+}
+.hover-content a.theme-color{
+    background: #ffc814;
+    color: #333;
+}
+.hover-content a.theme-color:hover{
+    background: #fff;
+    color: #333;
+}
+.testimonial-area .owl-dots div.active{
+   background: #ffc814;
+}
+.btn.btn-effect.disabled {
+  color: #333;
+    background-color: #ffc814; 
+}
+.single-address.theme-color i.fa{
+    color: #ffc814;
+}
+.facebook-color.theme-color:hover{background-color: #ffc814; color: #333;}
+.twitter-color.theme-color:hover{background-color: #ffc814 ; color: #333;}
+.linkedin-color.theme-color:hover{background-color: #ffc814; color: #333;}
+.google-color.theme-color:hover{background-color: #ffc814 ; color: #333;}
+.skype-color.theme-color:hover{background-color: #ffc814 ; color: #333;}
+.youtube-color.theme-color:hover{background-color: #ffc814; color: #333;}
