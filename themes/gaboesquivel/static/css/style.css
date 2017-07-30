@@ -41,7 +41,7 @@ h5,
 h6 {
     margin: 0 0 15px;
     font-weight: 700;
-    color: #333;
+    /* color: #333; */
     line-height: 1.4;
 }
 p{
@@ -820,8 +820,9 @@ textarea.form-control{
 }
 .footer p{
     font-size: 16px;
-    color: #fff;
+    color: #fff !important;
     margin: 0px;
+    font-family: 'Roboto', sans-serif;
 }
 
 

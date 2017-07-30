@@ -1,4 +1,4 @@
-{{ partial "header.html" .}}
+{{ partial "header-home.html" .}}
 
 <!--======= WELCOME AREA =======-->
 <div id="home" class="welcome-area" data-stellar-background-ratio="0.6" style="background-image: url({{ .Site.BaseURL }}img/intro-bg.jpg);">
@@ -41,7 +41,7 @@
           <h4>Software engineer & consultant</h4>
           <p>I help companies develop software products and make technical decisions; working closely with stakeholders and developers in the design and development of software applications, taking ideas from conception to production and successful execution.</p>
 
-          <p>I’m a proponent of devops, continuous delivery, agile project management, lean development and open source technology stacks, particularly those build on top of JavaScript (Node.js).
+          <p>I’m a proponent of continuous delivery, agile project management, lean development and open source technology stacks, particularly those build on top of JavaScript (Node.js).
           </p>
           <p>Community leader and open source contributor.</p>
 
@@ -109,7 +109,7 @@
         <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="1.2s">
           <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/server.svg) "></div>
           <h3>Secure DevOps and SRE</h3>
-          <p>I promote transparency, collaboration, communication and automation as means to achieve secure and reliable infrastructure.</p>
+          <p>Transparency, collaboration, automation and infra-as-code as means to achieve secure and reliable infrastructure.</p>
         </div>
       </div>
       <!-- <div class="col-md-4 col-sm-6">
@@ -142,7 +142,7 @@
 
 
 <!--====== WORK AREA ======-->
-<div id="work" class="work-area section-padding">
+<div id="projects" class="work-area section-padding">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -156,8 +156,7 @@
 
     <div class="row">
       <ul class="work-list text-center">
-        <li class="filter theme-color" data-filter="all">all</li>
-        <li class="filter theme-color" data-filter=".development">software development</li>
+        <li class="filter theme-color mixitup-control-active" data-filter=".development">software development</li>
         <li class="filter theme-color" data-filter=".community">Tech Events</li>
         <li class="filter theme-color" data-filter=".oss">open source</li>
         <li class="filter theme-color" data-filter=".other">Other</li>
@@ -170,15 +169,15 @@
 
         <div class="col-md-4 col-sm-6 mix community">
           <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <img src="{{ .Site.BaseURL }}img/work/puravidajs.jpg" alt="">
             <div class="item-hover">
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
                     <h3>Pura Vida JS</h3>
                     <p>First International JavaScript Conference in Costa Rica.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/puravidajs.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://puravidajs.com"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
               </div>
@@ -188,15 +187,15 @@
 
         <div class="col-md-4 col-sm-6 mix community">
           <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <img src="{{ .Site.BaseURL }}img/work/costaricajs.jpg" alt="">
             <div class="item-hover">
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
                     <h3>Costa Rica JS</h3>
                     <p>JavaScript meetup group in Costa Rica.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/costaricajs.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://meetup.com/costaricajs"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
               </div>
@@ -206,15 +205,15 @@
 
         <div class="col-md-4 col-sm-6 mix community">
           <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <img src="{{ .Site.BaseURL }}img/work/devopscr.jpg" alt="">
             <div class="item-hover">
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
                     <h3>DevOps Costa Rica</h3>
                     <p>DevOps meetup group in Costa Rica.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/devopscr.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://meetup.com/devopscr"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
               </div>
@@ -222,17 +221,17 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-sm-6 mix community">
+        <div class="col-md-4 col-sm-6 mix development">
           <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <img src="{{ .Site.BaseURL }}img/work/yeahtv.jpg" alt="">
             <div class="item-hover">
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
-                    <h3>Blockchain Costa Rica</h3>
-                    <p>Crytocurrency and blockchain technology meetup group in Costa Rica.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                    <h3>Yeah TV</h3>
+                    <p>Technical lead for a movie streaming service where you can watch movies dissected in chapters with detailed information and interactive games.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/yeahtv.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://yeahtv.com"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
               </div>
@@ -240,6 +239,153 @@
           </div>
         </div>
 
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/americanexpress.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>America Express</h3>
+                    <p>I worked as a UI Engineer at americanexpress.com</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/americanexpress.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://americanexpress.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/holawink.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Wink: Neobank mobile app</h3>
+                    <p>Chief Technology Officer at challenging bank startup.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/holawink.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://holawink.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/jockeyhollow.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Jockey Hollow</h3>
+                    <p>Development of menu apps for kiosks and responsive web.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/jockeyhollow.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://jockeyhollowbarandkitchen.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/photoandgo.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Photo&Go</h3>
+                    <p>Technical lead responsible for the development of a new photo editor and web experience.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/photoandgo.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://photoandgo.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/elderscrollsonline.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Elder Scrolls Online</h3>
+                    <p>Web development of the Elders Scrolls online community site.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/elderscrollsonline.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://elderscrollsonline.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/tikr.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Tikr</h3>
+                    <p>Web development of an interactive online store with fluctuating prices.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/tikr.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://tikr.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/gridium.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Gridium</h3>
+                    <p>Development of a prototype for a energy data analytics dashboard.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/gridium.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://gridium.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/eatarcade.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Gridium</h3>
+                    <p>Lead developer of an sms subscription system to hand-curated dishes from the best restaurants in New York City.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/eatarcade.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="http://eatarcade.com"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+   <!-- ===============================================  -->
         <div class="col-md-4 col-sm-6 mix oss">
           <div class="single-work">
             <img src="{{ .Site.BaseURL }}img/work/2.jpg" alt="">
@@ -260,14 +406,14 @@
 
         <div class="col-md-4 col-sm-6 mix oss">
           <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/2.jpg" alt="">
+            <img src="{{ .Site.BaseURL }}img/work/4.jpg" alt="">
             <div class="item-hover">
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
                     <h3>JavaScript Quality Guide</h3>
                     <p>A simple guide for achieving a high JavaScript code quality.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/2.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/4.jpg"><i class="fa fa-search-plus"></i></a>
                     <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
@@ -286,7 +432,7 @@
                     <h3>Cortical Touch</h3>
                     <p>Boutique consulting and staff augmentation services.</p>
                     <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/3.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                    <a class="work-link theme-color" href="https://corticaltouch.com"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
               </div>
@@ -294,16 +440,16 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-sm-6 mix development">
+        <div class="col-md-4 col-sm-6 mix other">
           <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/4.jpg" alt="">
+            <img src="{{ .Site.BaseURL }}img/work/6.jpg" alt="">
             <div class="item-hover">
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
-                    <h3>Project Title</h3>
+                    <h3>Medium English 1</h3>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/4.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
                     <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
@@ -312,70 +458,16 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-sm-6 mix development">
+        <div class="col-md-4 col-sm-6 mix other">
           <div class="single-work">
             <img src="{{ .Site.BaseURL }}img/work/5.jpg" alt="">
             <div class="item-hover">
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
-                    <h3>Project Title</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/5.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 mix development">
-          <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/6.jpg" alt="">
-            <div class="item-hover">
-              <div class="work-table">
-                <div class="work-tablecell">
-                  <div class="hover-content">
-                    <h3>Project Title</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 mix other">
-          <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/6.jpg" alt="">
-            <div class="item-hover">
-              <div class="work-table">
-                <div class="work-tablecell">
-                  <div class="hover-content">
-                    <h3>Medium English</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 mix other">
-          <div class="single-work">
-            <img src="{{ .Site.BaseURL }}img/work/6.jpg" alt="">
-            <div class="item-hover">
-              <div class="work-table">
-                <div class="work-tablecell">
-                  <div class="hover-content">
                     <h3>Medium Spanish</h3>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/5.jpg"><i class="fa fa-search-plus"></i></a>
                     <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
@@ -431,7 +523,7 @@
           <div class="single-testimonial">
             <div class="t-author">
               <div class="t-image">
-                <img src="{{ .Site.BaseURL }}/img/endorsements/torrey-moss.jpg" alt="">
+                <img src="{{ .Site.BaseURL }}img/endorsements/torrey-moss.jpg" alt="">
               </div>
               <div class="t-name">
                 <h4>Torrey Moss</h4> Product Development Consultant
@@ -633,4 +725,4 @@
 </div>
 <!--====END TESTIMONIAL AREA =====-->
 
-{{ partial "footer.html" .}}
+{{ partial "footer-home.html" .}}

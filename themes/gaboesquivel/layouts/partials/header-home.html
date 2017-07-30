@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="{{ $isHomePage := eq .Title .Site.Title }}{{ .Site.Params.description }}{{ if eq $isHomePage false }} - {{ .Description }}{{ end }}" property="og:description">
+    <meta name="author" content="gaboesquivel.com">
+
+    <title>{{ .Site.Title  }}</title>
+
+    {{ if .RSSLink }}
+    <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+    <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+    {{ end }}
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ .Site.BaseURL }}css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Libs -->
+    <link href="{{ .Site.BaseURL }}css/magnific-popup.css" rel="stylesheet">
+    <link href="{{ .Site.BaseURL }}css/owl.carousel.css" rel="stylesheet">
+    <link href="{{ .Site.BaseURL }}css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ .Site.BaseURL }}css/style.css" rel="stylesheet">
+    <link href="{{ .Site.BaseURL }}css/theme-yellow.css" rel="stylesheet">
+    <link href="{{ .Site.BaseURL }}css/responsive.css" rel="stylesheet">
+    <link href="{{ .Site.BaseURL }}css/clean-blog.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+  <!--===== Preloader ====-->
+  <div class="preloader">
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+  </div>
+
+
+  <!--===== HEADER AREA =====-->
+  <header class="navbar custom-navbar navbar-fixed-top">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                  <div class="logo">
+                     <div class="navbar-header">
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                          </button>
+                      </div>
+                      <a class="theme-color" href="/">
+                        <img src="{{ .Site.BaseURL }}img/logo-gaboesquivel.png" alt="">
+                      </a> <!--== logo ==-->
+                  </div>
+              </div>
+
+              <div class="col-md-9 col-sm-8 col-xs-12">
+                 <nav class="main-menu">
+                  <div class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav"> <!--== manin menu ==-->
+                          <li class="active"><a class="smoth-scroll theme-color" href="#home">Home</a></li>
+                          <li><a class="smoth-scroll theme-color" href="#about">About</a></li>
+                          <li><a class="smoth-scroll theme-color" href="#services">service</a></li>
+                          <li><a class="smoth-scroll theme-color" href="#projects">projects</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/blog">blog</a></li>
+                          <li><a class="smoth-scroll theme-color" href="https://corticaltouch.com">consulting</a></li>
+                      </ul>
+                  </div>
+                  </nav>
+              </div>
+          </div><!--/.row-->
+      </div><!--/.container-->
+  </header>
+  <!--===== END HEADER AREA ======-->
