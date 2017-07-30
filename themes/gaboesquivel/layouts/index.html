@@ -1,0 +1,636 @@
+{{ partial "header.html" .}}
+
+<!--======= WELCOME AREA =======-->
+<div id="home" class="welcome-area" data-stellar-background-ratio="0.6" style="background-image: url({{ .Site.BaseURL }}img/intro-bg.jpg);">
+  <div class="welcome-table">
+    <div class="welcome-cell">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="welcome-text">
+              <div class="element"></div>
+            </div>
+            <div class="home-arrow">
+              <a href="#about" class="smoth-scroll theme-color"><i class="fa fa-angle-double-down"></i></a>
+            </div>
+          </div>
+        </div>
+        <!--/.row-->
+      </div>
+      <!--/.container-->
+    </div>
+  </div>
+</div>
+<!--===== END WELCOME AREA =====-->
+
+
+<!--===== ABOUT AREA =====-->
+<div id="about" class="about-area section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="author-image wow fadeInLeft" data-wow-delay="0.2s">
+          <img src="{{ .Site.BaseURL }}img/gaboesquivel-git-workshop.jpg" alt="Gabo Esquivel's Git Workshop">
+          <!--=== author image ===-->
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="about-text wow fadeInRight" data-wow-delay="0.2s">
+          <h2>I'm <span class="theme-color">Gabo Esquivel</span></h2>
+          <h4>Software engineer & consultant</h4>
+          <p>I help companies develop software products and make technical decisions; working closely with stakeholders and developers in the design and development of software applications, taking ideas from conception to production and successful execution.</p>
+
+          <p>I’m a proponent of devops, continuous delivery, agile project management, lean development and open source technology stacks, particularly those build on top of JavaScript (Node.js).
+          </p>
+          <p>Community leader and open source contributor.</p>
+
+          <a class="btn theme-color" href="mailto:contact@gaboesquivel.com">Contact me</a>
+          <a class="smoth-scroll btn extra" href="#work">see work</a>
+        </div>
+      </div>
+    </div>
+    <!--/.row-->
+  </div>
+  <!--/.container-->
+</div>
+<!--===== END ABOUT AREA =====-->
+
+
+<!--===== SERVICES AREA =====-->
+<div id="services" class="services-area section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="section-title">
+          <h2>what i do.</h2>
+        </div>
+      </div>
+    </div>
+    <!--/.row-->
+
+    <div class="row">
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="0.2s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/leadership.svg) "></div>
+          <h3>Engineering Leadership</h3>
+          <p>I lead software engineering teams and act as on-demand CTO/VPE/Consultant for startups and enterprise clients.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="0.4s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/product-development.svg) "></div>
+          <h3>Product Development</h3>
+          <p>Technical consulting and advisory services on software product ideation and product roadmap creation.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="0.6s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/project-management.svg) "></div>
+          <h3>Agile Project Management</h3>
+          <p>Manage day-to-day product development tasks following agile principles and scrum methodologies.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="0.8s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/software-architecture.svg) "></div>
+          <h3>Software Architecture</h3>
+          <p>Design of robust and cost effective architectures leveraging modern tech without unnecessary complexity.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="1.0s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/coding.svg) "></div>
+          <h3>Hands-on Coding</h3>
+          <p>I'm a programmer and I enjoy writing clean and concise code that solves real life problems. Mainly in JavaScript.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="1.2s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/server.svg) "></div>
+          <h3>Secure DevOps and SRE</h3>
+          <p>I promote transparency, collaboration, communication and automation as means to achieve secure and reliable infrastructure.</p>
+        </div>
+      </div>
+      <!-- <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="0.8s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/consulting.svg) "></div>
+          <h3>Consulting & Staffing</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non vel, sint nisi possimus sunt veritatis.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="1.0s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/workshops.svg) "></div>
+          <h3>Workshops</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non vel, sint nisi possimus sunt veritatis.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="single-service theme-color text-center wow fadeInUp" data-wow-delay="1.2s">
+          <div class="service-img" style="background-image: url({{ .Site.BaseURL }}img/service/public-speaking2.svg) "></div>
+          <h3>Public Speaking</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non vel, sint nisi possimus sunt veritatis.</p>
+        </div>
+      </div> -->
+    </div>
+    <!--/.row-->
+  </div>
+  <!--/.container-->
+</div>
+<!--====== END SERVICES AREA ======-->
+
+
+<!--====== WORK AREA ======-->
+<div id="work" class="work-area section-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="section-title">
+          <h2>projects.</h2>
+          <p>Here are some of my current and past projects</p>
+        </div>
+      </div>
+    </div>
+    <!--/.row-->
+
+    <div class="row">
+      <ul class="work-list text-center">
+        <li class="filter theme-color" data-filter="all">all</li>
+        <li class="filter theme-color" data-filter=".development">software development</li>
+        <li class="filter theme-color" data-filter=".community">Tech Events</li>
+        <li class="filter theme-color" data-filter=".oss">open source</li>
+        <li class="filter theme-color" data-filter=".other">Other</li>
+      </ul>
+    </div>
+    <!--/.row-->
+
+    <div class="work-inner mixitup-container">
+      <div class="row no-gutter">
+
+        <div class="col-md-4 col-sm-6 mix community">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Pura Vida JS</h3>
+                    <p>First International JavaScript Conference in Costa Rica.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix community">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Costa Rica JS</h3>
+                    <p>JavaScript meetup group in Costa Rica.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix community">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>DevOps Costa Rica</h3>
+                    <p>DevOps meetup group in Costa Rica.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix community">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/1.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Blockchain Costa Rica</h3>
+                    <p>Crytocurrency and blockchain technology meetup group in Costa Rica.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/1.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix oss">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/2.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Dotfiles</h3>
+                    <p>Configuration files for Ubuntu and MacOS.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/2.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix oss">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/2.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>JavaScript Quality Guide</h3>
+                    <p>A simple guide for achieving a high JavaScript code quality.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/2.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix other">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/3.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Cortical Touch</h3>
+                    <p>Boutique consulting and staff augmentation services.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/3.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/4.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Project Title</h3>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/4.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/5.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Project Title</h3>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/5.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix development">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/6.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Project Title</h3>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix other">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/6.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Medium English</h3>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mix other">
+          <div class="single-work">
+            <img src="{{ .Site.BaseURL }}img/work/6.jpg" alt="">
+            <div class="item-hover">
+              <div class="work-table">
+                <div class="work-tablecell">
+                  <div class="hover-content">
+                    <h3>Medium Spanish</h3>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--/.row-->
+    </div>
+  </div>
+  <!--/.container-->
+</div>
+<!--====== END WORK AREA ======-->
+
+
+<!--====== QUOTES AREA ======-->
+<div class="quotes-area section-padding" style="background-image: url({{ .Site.BaseURL }}img/quotes-bg.jpg);">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="quotes-content text-center">
+          <h3>Let's work together!</h3>
+          <p>I provide consulting, custom software development and staff augmentation services trough Cortical Touch, a company I founded.</p>
+          <a class="smoth-scroll btn quotes-btn theme-color" href="#contact">Get in touch</a>
+          <a class="smoth-scroll btn quotes-btn theme-color" href="https://corticaltouch.com" target="_blank">CorticalTouch.com</a>
+        </div>
+      </div>
+    </div>
+    <!--/.row-->
+  </div>
+  <!--/.container-->
+</div>
+<!--====== END QUOTES AREA ======-->
+
+
+<!--==== TESTIMONIAL AREA =====-->
+<div id="testimonial" class="testimonial-area section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class="section-title">
+          <h2>what people say.</h2>
+        </div>
+      </div>
+    </div>
+    <!--/.row-->
+
+<div class="row">      <div class="col-md-12">
+        <div class="testimonial-list">
+
+          <div class="single-testimonial">
+            <div class="t-author">
+              <div class="t-image">
+                <img src="{{ .Site.BaseURL }}/img/endorsements/torrey-moss.jpg" alt="">
+              </div>
+              <div class="t-name">
+                <h4>Torrey Moss</h4> Product Development Consultant
+              </div>
+            </div>
+            <div class="t-content">
+              <p>Gabo is great! Honestly I can say that he has a rare breed of technical expertise and leadership.</p>
+            </div>
+          </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/aeron-glemann.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Aeron Glemann</h4> UI Engineer at Facebook
+            </div>
+          </div>
+          <div class="t-content">
+            <p>He's the rare sort who is a natural born leader who also knows his code! I'd look forward to collaborating with Gabo anytime.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/jose-rosario.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Jose Rosario</h4> Operations Director
+            </div>
+          </div>
+          <div class="t-content">
+            <p>He is one of the few that can very accurately estimate duration. Gabo is courteous, intelligent and resourceful.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/max-ellinger.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Max Ellinger</h4> UX/UI Developer
+            </div>
+          </div>
+          <div class="t-content">
+            <p>Gabo never ceased to impress us with his spotlessly clean code and helpful documentation.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/marek-pawlowski.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>MAREK PAWLOWSKI</h4> CEO at Web Desire
+            </div>
+          </div>
+          <div class="t-content">
+            <p>Gabo is a really talented and forward-thinking developer. He excels at working on awesome interfaces and also the back-end.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/gregor-milne.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Gregor Milne</h4> Technical Project Manager
+            </div>
+          </div>
+          <div class="t-content">
+            <p>Gabo has the rare ability to solve problems that have left other developers scratching their heads.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/ivan-alarcon.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Iván Alarcón</h4> UI/UX & Product Development
+            </div>
+          </div>
+          <div class="t-content">
+            <p>Gabo is a top developer and a natural leader. Working with him is a great experience, he has an excellent attitude for solving problems.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/francisco-martinez.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Francisco Martinez</h4> Director of Technology
+            </div>
+          </div>
+          <div class="t-content">
+            <p>He’s a great team player and he always keeps a positive attitude even in the most difficult and stressful of situations.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/pablo-viquez.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Pablo Viquez</h4> Software Architect
+            </div>
+          </div>
+          <div class="t-content">
+            <p>I was very pleased working with him, he took the lead in many areas and became the lead developer in a very short period of time.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/carlos-barrantes.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Carlos Barrantes</h4> Senior JavaScript Developer
+            </div>
+          </div>
+          <div class="t-content">
+            <p>He is a smart and dedicated person who has passion on what he does. Gabo is an important and valuable asset to any team.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/noah-rosembaum.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Noah Rosembaum</h4> VPE at Prodigious Worldwide
+            </div>
+          </div>
+          <div class="t-content">
+            <p>Gabo is an amazing developer. He’s up to speed on all of the latest tech and matches his technical skills with "can do" personality.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/haiyan-sui.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Haiyan Sui</h4> Principal Engineer at Digitas
+            </div>
+          </div>
+          <div class="t-content">
+            <p>He always thinks about how to do things better, and has a lot of great ideas. It’s very fun working with him. I highly recommend Gabo.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/rashid-sial.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Rashid Sial</h4> Technology Manager
+            </div>
+          </div>
+          <div class="t-content">
+            <p>He is hard working, diligent and takes the time and effort to truly understand systems and the best method for implementation.</p>
+          </div>
+        </div>
+
+        <div class="single-testimonial">
+          <div class="t-author">
+            <div class="t-image">
+              <img src="{{ .Site.BaseURL }}img/endorsements/jose-tenorio.jpg" alt="">
+            </div>
+            <div class="t-name">
+              <h4>Jose Tenorio</h4> Art Director
+            </div>
+          </div>
+          <div class="t-content">
+            <p>Gabo is a proactive and efficient person, ready to do his work on time and with excellence. Excellent professional and great companion.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- / row -->
+</div>
+<!--/.container-->
+</div>
+<!--====END TESTIMONIAL AREA =====-->
+
+{{ partial "footer.html" .}}

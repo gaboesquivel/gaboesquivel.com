@@ -1,0 +1,98 @@
+    <hr>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    {{ with .Site.Params.email }}
+                      <li>
+                        <a href="mailto:{{ . }}">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                      </li>
+                    {{ end }}
+
+                    <li>
+                      <a href="https://github.com/gaboesquivel" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="https://linkedin.com/in/gaboesquivel" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="https://twitter.com/gaboesquivel" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="https://medium.com/@gaboesquivel" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-medium fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="https://facebook.com/gaboesquiveldev" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footer">
+      <div class="container">
+        <div class="row wow zoomIn" data-wow-delay="0.4s">
+          <div class="col-md-12 text-center">
+            <p>&copy;2017 <strong>Gabo Esquivel</strong>. All Rights Reserved</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Scripts -->
+    <script src="{{ .Site.BaseURL }}js/jquery.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/plugins.js"></script>
+    <script src="{{ .Site.BaseURL }}js/jquery.stellar.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/mixitup.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/wow.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/blog.js"></script>
+    <script src="{{ .Site.BaseURL }}js/main.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ .Site.BaseURL }}js/blog.js"></script>
+
+    {{ template "_internal/google_analytics.html" . }}
+
+</body>
+
+</html>
