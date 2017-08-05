@@ -1,0 +1,6 @@
+language: node_js
+branches:
+  only:
+  - gh-pages
+script: npm run cover
+after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls

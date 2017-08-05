@@ -1,6 +1,5 @@
 languageCode = "en-us"
 title = "Gabo Esquivel - Software Engineer and Consultant"
-theme = "gaboesquivel"
 googleAnalytics = "UA-33521499-1"
 baseurl = "/"
 canonifyURLs = false
