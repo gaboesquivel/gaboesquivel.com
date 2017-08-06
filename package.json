@@ -6,8 +6,8 @@
   "scripts": {
     "build": "npm run build:css && npm run build:js && npm run build:img",
     "minify": "parallelshell 'npm run minify:css' 'npm run minify:js'",
-    "watch": "parallelshell 'npm run watch:css' 'npm run watch:js'",
-    "start": "parallelshell 'npm run watch:css' 'npm run watch:js' 'hugo server -D'",
+    "watch": "parallelshell 'npm run watch:css' 'npm run watch:js' 'npm run watch:img'",
+    "start": "parallelshell 'npm run watch:css' 'npm run watch:js' 'npm run watch:img' 'hugo server -D'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "now public/",
     "predeploy": "npm run minify",
@@ -20,7 +20,8 @@
     "minify:css": "cleancss static/css/styles.css -o static/css/styles.css",
     "prewatch": "npm run build",
     "watch:css": "onchange './src/css/' -- npm run build:css",
-    "watch:js": "onchange './src/img/' -- npm run build:img"
+    "watch:js": "onchange './src/js/' -- npm run build:js",
+    "watch:img": "onchange './src/img/' -- npm run build:img"
   },
   "repository": {
     "type": "git",

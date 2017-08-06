@@ -27429,7 +27429,6 @@ jQuery(document).ready(function($) {
 });
 
 },{}],24:[function(require,module,exports){
-
     var $window = $(window),
             $body = $('body');
 
@@ -27462,41 +27461,41 @@ jQuery(document).ready(function($) {
       $('.work-popup').magnificPopup({type:'image'});
 
 
-    /*=============================
-            WOW js
-    ==============================*/
-      //  new WOW({ mobile: false }).init();
+      /*=============================
+              WOW js
+      ==============================*/
+        new WOW({ mobile: false }).init();
 
 
-    /*=========================================
-                 mixItUp
-    =======================================*/
+      /*=========================================
+                   mixItUp
+      =======================================*/
 
-    var mixer = mixitup('.mixitup-container');
-		mixer.filter('.development');
+      var mixer = mixitup('.mixitup-container');
+  		mixer.filter('.development');
 
-    /*===================================
-            owl carousel testimonial
-     ====================================*/
-    $(".testimonial-list").owlCarousel({
-        loop:true,
-        margin:30,
-        nav:false,
-        dots:true,
-        autoplay:true,
-        autoplayHoverPause:true,
-        responsive:{
-            0:{
-                items:1
-            },
-            600:{
-                items:2
-            },
-            1000:{
-                items:3
-            }
-        }
-    });
+      /*===================================
+              owl carousel testimonial
+       ====================================*/
+      $(".testimonial-list").owlCarousel({
+          loop:true,
+          margin:30,
+          nav:false,
+          dots:true,
+          autoplay:true,
+          autoplayHoverPause:true,
+          responsive:{
+              0:{
+                  items:1
+              },
+              600:{
+                  items:2
+              },
+              1000:{
+                  items:3
+              }
+          }
+      });
 
 
     });
@@ -27521,7 +27520,7 @@ global.scrollspy = require('scrollspy')
 require('owl.carousel')
 require('./libs/jquery.stellar.min')
 global.mixitup = require('mixitup')
-global.WOW = require('wowjs')
+global.WOW = window.WOW = require('wowjs').WOW
 
 require('./home')
 require('./blog')

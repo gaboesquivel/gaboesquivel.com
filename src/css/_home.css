@@ -715,6 +715,10 @@ ul.work-list li {
 
 }
 
+.owl-dot > span {
+  display: none !important;
+}
+
 
 /*================================================
             10 CONTACT INFO SECTION
