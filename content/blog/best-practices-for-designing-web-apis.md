@@ -1,7 +1,7 @@
 ---
 title: "Best Practices for Designing RESTful APIs"
 subtitle: How to the design REST APIs the right way
-date: 2015-10-03 13:15:36 -0600
+date: 2015-10-03
 categories:
   - software development
 cover: /images/2015/10/web-api.jpg

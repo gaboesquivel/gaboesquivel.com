@@ -2,7 +2,7 @@
 title: "Films and Documentaries Worth Watching"
 subtitle: "Some of my recommendations"
 description: This is a curated list of films and documentaries related to the internet, programming and hacking.
-date: 2015-03-10 15:22:19 -0600
+date: 2015-03-10
 categories:
 - other
 tags:

@@ -9,3 +9,34 @@
 @import 'theme-yellow';
 @import 'responsive';
 @import 'clean-blog';
+
+
+#logo-gaboesquivel{
+  background: url(/img/logo-gaboesquivel.png) no-repeat 0 bottom;
+  height: 50px;
+  width: 270px;
+  display: inline-block;
+  transition: none !important
+}
+
+.top-nav-collapse #logo-gaboesquivel {
+  background-position-y: top;
+}
+
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    #logo-gaboesquivel {
+      background-position-y: top !important;
+    }
+    .welcome-area, #about-link,.work-popup{
+      display: none !important;
+    }
+    // .single-work .item-hover{
+    //   opacity: 1;
+    // }
+    .single-work img {
+      transform: scale(1);
+    }
+}

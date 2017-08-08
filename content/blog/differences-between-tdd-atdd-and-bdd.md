@@ -1,7 +1,7 @@
 ---
 title: "Differences between TDD, ATDD and BDD"
 subtitle:  They are not the same
-date: 2014-07-28 14:36:30 -0600
+date: 2014-07-28
 cover: /images/2014/07/automated-testing.png
 description: Main Differences Between TDD, ATDD and BDD in Software Testing.
 categories:

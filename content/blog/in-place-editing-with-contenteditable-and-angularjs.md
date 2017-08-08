@@ -2,7 +2,7 @@
 title: "In-Place Editing with contenteditable and AngularJS"
 subtitle: "How to use contenteditable in AngularJS"
 description: In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page.
-date: 2014-08-23 11:25:19 -0600
+date: 2014-08-23
 cover: /images/2014/07/angular-logo.png
 categories:
   - angularjs
