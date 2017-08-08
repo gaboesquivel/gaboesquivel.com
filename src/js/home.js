@@ -39,9 +39,12 @@
       /*=========================================
                    mixItUp
       =======================================*/
-
-      var mixer = mixitup('.mixitup-container');
-  		mixer.filter('.development');
+      try {
+        var mixer = mixitup('.mixitup-container');
+        mixer.filter('.development');
+      } catch(err){
+        console.log('mixitup not initialized')
+      }
 
       /*===================================
               owl carousel testimonial

@@ -16,6 +16,7 @@ function initNav(){
   });
 
   $("a.smoth-scroll").on("click", function(event) {
+    console.log('smoth-scroll')
     var $anchor = $(this);
     $("html, body").stop().animate({
         scrollTop: $($anchor.attr("href")).offset().top - 0

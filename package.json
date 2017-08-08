@@ -9,7 +9,7 @@
     "watch": "parallelshell 'npm run watch:css' 'npm run watch:js' 'npm run watch:img'",
     "start": "parallelshell 'npm run watch:css' 'npm run watch:js' 'npm run watch:img' 'hugo server -D'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "now public/",
+    "deploy": "hugo && now --public public/ ",
     "predeploy": "npm run minify",
     "prestart": "npm run build",
     "prebuild:css": "node-sass src/css/ -o static/css",

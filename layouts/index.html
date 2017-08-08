@@ -45,8 +45,9 @@
           </p>
           <p>Community leader and open source contributor.</p>
 
-          <a class="btn theme-color" href="mailto:contact@gaboesquivel.com">Contact me</a>
-          <a class="smoth-scroll btn extra" href="#work">see work</a>
+          <a class="smoth-scroll btn theme-color" href="#contact">get in touch</a>
+          <a class="smoth-scroll btn extra" href="#projects">see work</a>
+
         </div>
       </div>
     </div>
@@ -246,7 +247,7 @@
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
-                    <h3>America Express</h3>
+                    <h3>American Express</h3>
                     <p>I worked as a UI Engineer at americanexpress.com</p>
                     <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/americanexpress.jpg"><i class="fa fa-search-plus"></i></a>
                     <a class="work-link theme-color" href="http://americanexpress.com"><i class="fa fa-link"></i></a>
@@ -265,7 +266,7 @@
                 <div class="work-tablecell">
                   <div class="hover-content">
                     <h3>Wink: Neobank mobile app</h3>
-                    <p>Chief Technology Officer at challenging bank startup.</p>
+                    <p>CTO/Chief Architect at challenging bank startup.</p>
                     <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/holawink.jpg"><i class="fa fa-search-plus"></i></a>
                     <a class="work-link theme-color" href="http://holawink.com"><i class="fa fa-link"></i></a>
                   </div>
@@ -447,10 +448,9 @@
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
-                    <h3>Medium English 1</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <h3>My Medium Blog</h3>
+                    <p></p>
                     <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/6.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
                   </div>
                 </div>
               </div>
@@ -465,10 +465,10 @@
               <div class="work-table">
                 <div class="work-tablecell">
                   <div class="hover-content">
-                    <h3>Medium Spanish</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/5.jpg"><i class="fa fa-search-plus"></i></a>
-                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a>
+                    <h3>Have an interesting idea?</h3>
+                    <p>I'm always looking for new challanges.</p>
+                    <!-- <a class="work-popup theme-color" href="{{ .Site.BaseURL }}img/work/5.jpg"><i class="fa fa-search-plus"></i></a>
+                    <a class="work-link theme-color" href="#"><i class="fa fa-link"></i></a> -->
                   </div>
                 </div>
               </div>
@@ -486,14 +486,14 @@
 
 
 <!--====== QUOTES AREA ======-->
-<div class="quotes-area section-padding" style="background-image: url({{ .Site.BaseURL }}img/quotes-bg.jpg);">
+<div id="contact" class="quotes-area section-padding" style="background-image: url({{ .Site.BaseURL }}img/quotes-bg.jpg);">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="quotes-content text-center">
           <h3>Let's work together!</h3>
           <p>I provide consulting, custom software development and staff augmentation services trough Cortical Touch, a company I founded.</p>
-          <a class="smoth-scroll btn quotes-btn theme-color" href="#contact">Get in touch</a>
+          <a class="smoth-scroll btn quotes-btn theme-color" href="/contact">contact me</a>
           <a class="smoth-scroll btn quotes-btn theme-color" href="https://corticaltouch.com" target="_blank">CorticalTouch.com</a>
         </div>
       </div>
@@ -728,4 +728,4 @@
 </div>
 <!--====END TESTIMONIAL AREA =====-->
 
-{{ partial "footer-home.html" .}}
+{{ partial "footer.html" .}}

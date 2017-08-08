@@ -19,7 +19,7 @@
     .logo a.theme-color{
         color: #ffc814;
     }
-    
+
 }
 .welcome-area .home-arrow a.theme-color{
     color: #ffc814;
@@ -34,9 +34,9 @@ btn.theme-color, a.btn.theme-color, .btn{
 }
 
 .btn.theme-color.btn-effect.disabled:hover, btn.theme-color:hover , a.btn.theme-color:hover, .btn.focus, .btn:focus, .btn:hover {
-    color: #333;
-    background: transparent;
-    border: 2px solid #ffc814;
+    color: #333 !important;
+    background: transparent !important;
+    border: 2px solid #ffc814 !important;
 }
 a.btn.quotes-btn:hover{
     color: #fff;
@@ -62,7 +62,7 @@ ul.work-list li.theme-color.active{
 }
 .btn.btn-effect.disabled {
   color: #333;
-    background-color: #ffc814; 
+    background-color: #ffc814;
 }
 .single-address.theme-color i.fa{
     color: #ffc814;
