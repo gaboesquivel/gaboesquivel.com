@@ -6,7 +6,13 @@ function initNav(){
   // get current URL path and assign 'active' class
 	var pathname = window.location.pathname;
   $('.nav.navbar-nav > li').removeClass('active');
-	$('.nav.navbar-nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+  if(pathname.indexOf('blog/') !== -1) {
+    pathname = '/blog/'
+  }
+
+  $('.nav.navbar-nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+
+
 
   $(".navbar-collapse a").on("click", function() {
     $(".navbar-collapse").collapse("hide");
