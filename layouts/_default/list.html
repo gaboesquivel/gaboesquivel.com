@@ -22,9 +22,12 @@
           {{ range .Paginator.Pages }}
               {{ .Render "archive" }}
           {{ end }}
+          <div class="center-align-wrapper">
           {{ template "_internal/pagination.html" . }}
+          <div>
         </div>
       </div>
     </div>
-
+</div>
+</div>
 {{ partial "footer.html" . }}

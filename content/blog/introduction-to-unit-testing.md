@@ -3,7 +3,7 @@ title: "Software Unit Testing"
 subtitle: Understanding the important principles
 description: Testing a web application is critical to ensure the program does what is supposed to do and that new functionality and changes don't brake existing parts of the application. Well-tested applications are more easily extended.
 date: 2014-09-19
-cover: /images/2014/09/bug-software.png
+cover: /img/2014/09/bug-software.png
 categories:
   - software testing
   - software development

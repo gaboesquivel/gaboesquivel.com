@@ -3,7 +3,7 @@ title: "Overview of Angular Generators – April 2014"
 subtitle: "A quick walkthrough and comparison"
 description: This is a short and opinionated review of the AngularJS generators on npm as of April 19th, 2014.
 date: 2014-04-19
-cover: /images/2014/04/angular-logo.png
+cover: /img/2014/04/angular-logo.png
 categories:
   - javascript
   - angularjs

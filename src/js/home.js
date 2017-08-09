@@ -3,6 +3,10 @@
 
     jQuery(document).ready(function($){
 
+      if(!$body.is('.home')){
+        console.log('not Home')
+        return;
+      }
         /*====================================================
             background-image flickering solution for mobile
             =======================================================*/

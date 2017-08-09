@@ -3,7 +3,7 @@ title: "Introduction to Gulp.js"
 subtitle: Code Over Configuration
 description: Automation of repetitive and critical tasks is key to develop a successful software product. Automated tasks will minimize software cost, reduce software delivery time as well as improving the product quality and reduce human error. Investing time in automating tasks will allow you to focus on developing features.
 date: 2014-04-20
-cover: /images/2014/04/gulp-js.jpg
+cover: /img/2014/04/gulp-js.jpg
 categories:
   - javascript
   - software development

@@ -1,8 +1,8 @@
 ---
 title: "Automatic Node.js Version Switching"
-subtitle: How to automatically switch to right node version
+subtitle: "Simplify your node.js development experience"
 date: 2015-07-18
-cover: /images/2015/07/nodejs.png
+cover: /img/2015/07/nodejs.png
 description: When working on multiple Node.js projects it is important to configure your development environment to automatically switch to right node version for a particular project.
 categories:
 - nodejs

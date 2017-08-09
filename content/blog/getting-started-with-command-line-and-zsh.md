@@ -3,7 +3,7 @@ title: Get Started with Command Line and Z Shell
 subtitle: The console is your friend!
 description: To develop a web application tooling and workflow are very important. Taking the time to learn and master command line is not only highly recommended but it is required to make use of tools that will help you develop faster and gain more control of your workflow.
 date: 2014-04-28
-cover: /images/2014/04/oh-my-zsh.png
+cover: /img/2014/04/oh-my-zsh.png
 categories:
   - software development
   - tools
@@ -40,7 +40,7 @@ So Why is Zsh better than Bash? In short:
 `Kill <tab>` ouput the list of current processes whereas bash displays a list of files in the current directory.   
 
 <div class="center-align-wrapper">
-<img src="/images/2014/04/kill-tab-zsh.png"/>
+<img src="/img/2014/04/kill-tab-zsh.png"/>
 </div>
 
 
@@ -59,7 +59,7 @@ Verify your running zsh after opening new terminal with `ps -o comm $$`
 
 In iTerm settings make sure it is running zsh
 <div class="center-align-wrapper">
-<img src="/images/2014/04/iterm.png"/>
+<img src="/img/2014/04/iterm.png"/>
 </div>
 
 ###Customization

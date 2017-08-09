@@ -1,10 +1,10 @@
 ---
 title: "Best Practices for Designing RESTful APIs"
-subtitle: How to the design REST APIs the right way
+subtitle: "Plan and design robust and maintainable APIs"
 date: 2015-10-03
 categories:
   - software development
-cover: /images/2015/10/web-api.jpg
+cover: /img/2015/10/web-api.jpg
 description: When designing an API there are important decisions that have great impact on the way other applications will interact with the service.
 ---
 
@@ -13,7 +13,7 @@ An application-programming interface (API) exposes functionality of a software a
 Modern web applications typically have RESTful JSON APIs. REST stands for [Representational State Transfer](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) and it is a software architecture style consisting of guidelines and best practices for building scalable web services. JSON stands for JavaScript Object Notation and it is a minimal, readable format for structuring data.
 
 <div class='center-align-wrapper'>
-	<img src='/images/2015/10/API-Diagram.png' class='no-border'/>
+	<img src='/img/2015/10/API-Diagram.png' class='no-border'/>
 </div>
 
 When designing an API there are important decisions that have great impact on the way other applications will interact with the service. Once an API has been defined and other software clients make use of it, changes to the API are costly and should be avoided. By following standards and best practices you reduce the need to API changes to a minimum.

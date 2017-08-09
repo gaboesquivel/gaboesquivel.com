@@ -1,6 +1,6 @@
 ---
 title: Choosing the Data Store for Your Web App
-subtitle:  How to choose the correct database for application
+subtitle:  Use the appropriate database for service
 description: "When choosing a database for your application, you need ask yourself many questions and there are important rules about data architecture you need to consider"
 date: 2013-09-03
 categories:
@@ -28,7 +28,7 @@ It is very important to decide carefully, after your application grown it could 
 *   Partition tolerance (the system continues to operate despite arbitrary message loss or failure of part of the system)
 
 <div class="center-align-wrapper">
-<img  alt="CAP Theorem - Venn Diagram" src="/images/2013/09/cap_venn.png" width="547" height="520" />  
+<img  alt="CAP Theorem - Venn Diagram" src="/img/2013/09/cap_venn.png" width="547" height="520" />  
 </div>
 Once you have defined which of those guarantees is less important for your app and can be sacrificed, you have a smaller subset of options to choose from. However this not the only thing you need to consider, you may want to use a specific framework such as Hibernate, Spring, Django or WordPress, and take advantage of the of-the-shelf capabilities, in that case you want to use a SQL database.
 <!--more-->

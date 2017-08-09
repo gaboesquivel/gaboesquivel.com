@@ -3,7 +3,7 @@ title: "Unit Testing: Mocks, Stubs and Spies"
 subtitle: "What are they for?"
 description: Mocks, Stubs, Spies, Dummies and Fakes are types of test doubles that will help you to accomplish the goal of isolation. There are several libraries that provide tools to easily create these objects in your tests.
 date: 2014-09-20
-cover: /images/2014/09/bug-software.png
+cover: /img/2014/09/bug-software.png
 categories:
   - software testing
   - software development

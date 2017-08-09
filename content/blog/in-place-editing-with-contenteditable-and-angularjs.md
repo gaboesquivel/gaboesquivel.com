@@ -3,7 +3,7 @@ title: "In-Place Editing with contenteditable and AngularJS"
 subtitle: "How to use contenteditable in AngularJS"
 description: In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page.
 date: 2014-08-23
-cover: /images/2014/07/angular-logo.png
+cover: /img/2014/07/angular-logo.png
 categories:
   - angularjs
   - javascript
@@ -32,7 +32,7 @@ The following directive uses contenteditable attribute and ng-model for data bin
 Current browser support for contenteditable. <small>source: http://caniuse.com/#feat=contenteditable</small>
 
 <div class='center-align-wrapper'>
-	<img src='/images/2014/08/caniuse-content-editable.jpg' />
+	<img src='/img/2014/08/caniuse-content-editable.jpg' />
 </div>
 
 __Known issues__   

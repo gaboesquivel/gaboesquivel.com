@@ -1,6 +1,6 @@
 ---
 title: Data Visualization in Costa Rica
-subtitle: Bring together all professionals and data visualization enthusiasts
+subtitle: Bringing together all professionals and data visualization enthusiasts
 description: "Data Visualization Costa Rica is a non-profit professional group that aims to meet monthly to discuss data visualization, data communication, infographics, exploratory data analysis, charts and graphs, perceptual psychology, and more!"
 date: 2013-08-29
 categories:
