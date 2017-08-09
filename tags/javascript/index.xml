@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Gabo Esquivel - Software Engineer and Consultant</title>
+    <link>/tags/javascript/index.xml</link>
+    <description>Recent content in Javascript on Gabo Esquivel - Software Engineer and Consultant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>In-Place Editing with contenteditable and AngularJS</title>
+      <link>/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</link>
+      <pubDate>Sat, 23 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</guid>
+      <description>&lt;p&gt;In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page. When the user hovers over an editable area, the background color of the element changes. When clicked, the text becomes editable.&lt;/p&gt;
+
+&lt;p&gt;You can make an element editable by adding the contenteditable attribute in your markup. This attribute has three possible values: &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, and &lt;code&gt;inherit&lt;/code&gt;. Specifying inherit will make the element editable if it’s immediate parent is editable.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;editable&amp;quot; contenteditable=&amp;quot;true&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The following directive uses contenteditable attribute and ng-model for data binding.&lt;/p&gt;
+
+&lt;p&gt;&lt;p data-height=&#34;452&#34; data-theme-id=&#34;8070&#34; data-slug-hash=&#34;mgCAG&#34; data-default-tab=&#34;result&#34; class=&#39;codepen&#39;&gt;See the Pen &lt;a href=&#39;http://codepen.io/gaboesquivel/pen/mgCAG/&#39;&gt;Editing Page Elements with contenteditable&lt;/a&gt; by Gabo Esquivel (&lt;a href=&#39;http://codepen.io/gaboesquivel&#39;&gt;@gaboesquivel&lt;/a&gt;) on &lt;a href=&#39;http://codepen.io&#39;&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+&lt;script async src=&#34;//codepen.io/assets/embed/ei.js&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;br /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Current browser support for contenteditable. &lt;small&gt;source: &lt;a href=&#34;http://caniuse.com/#feat=contenteditable&#34;&gt;http://caniuse.com/#feat=contenteditable&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;div class=&#39;center-align-wrapper&#39;&gt;
+    &lt;img src=&#39;/img/2014/08/caniuse-content-editable.jpg&#39; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Known issues&lt;/strong&gt;&lt;br /&gt;
+- In Chromium/Chrome contenteditable cannot be edited when nested into draggable (&lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=170139&#34;&gt;https://code.google.com/p/chromium/issues/detail?id=170139&lt;/a&gt;). Still not fixed in Chrome version 26.0.1384.2.&lt;br /&gt;
+- In Firefox when clicking on contenteditable nested into draggable, cursor is always positioned to the start of editable text. Still not fixed in version 18.0.1.&lt;br /&gt;
+- In Internet Explorer contenteditable cannot be applied to the TABLE, COL, COLGROUP, TBODY, TD, TFOOT, TH, THEAD, and TR elements directly, a content editable SPAN, or DIV element can be placed inside the individual table cells (See &lt;a href=&#34;http://msdn.microsoft.com/en-us/library/ie/ms533690(v=vs.85).aspx&#34;&gt;http://msdn.microsoft.com/en-us/library/ie/ms533690(v=vs.85).aspx&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://www.w3.org/TR/html/editing.html#contenteditable&#34;&gt;w3.org contenteditable&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://ui-patterns.com/patterns/inplaceeditor&#34;&gt;UI Patterns - In Place Editor&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node.js HTTPS and SSL Certificate for Development</title>
+      <link>/blog/2014/node.js-https-and-ssl-certificate-for-development/</link>
+      <pubDate>Thu, 21 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/node.js-https-and-ssl-certificate-for-development/</guid>
+      <description>&lt;p&gt;HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your data. It is the most popular network protocol for establishiing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I&amp;rsquo;ll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes.&lt;/p&gt;
+
+&lt;h3 id=&#34;self-signed-ssl-certificate&#34;&gt;Self-Signed SSL Certificate&lt;/h3&gt;
+
+&lt;p&gt;There are two kinds of certificates: those signed by a &amp;lsquo;&lt;a href=&#34;http://en.wikipedia.org/wiki/Certificate_authority&#34;&gt;Certificate Authority&lt;/a&gt;&amp;rsquo;, or CA, and &amp;lsquo;self-signed certificates&amp;rsquo;. A Certificate Authority is a trusted source for an SSL certificate, and using a certificate from a CA allows your users to be trust the identity of your website. In most cases, you would want to use a CA-signed certificate in a production environment - for testing purposes, however, a self-signed certicate will do just fine.
+
+To genereate a certificate all you need is openssl&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;console&#34;&gt;
+$ where openssl
+/usr/bin/openssl  /usr/local/bin/openssl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can install it using homewbrew &lt;code&gt;brew install openssl&lt;/code&gt; on Mac OS, on linux use &lt;code&gt;sudo apt-get install openssl&lt;/code&gt;, on windows you can use &lt;a href=&#34;http://gnuwin32.sourceforge.net/packages/openssl.htm&#34;&gt;this installer&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To update openssl on mac os run the following commands
+&lt;pre&gt;&lt;code class=&#34;console&#34;&gt;
+brew update
+brew install openssl
+brew link &amp;ndash;force openssl
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+
+&lt;p&gt;Run the these commands to generate a self-signed certificate.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;console&#34;&gt;
+openssl genrsa -out key.pem
+openssl req -new -key key.pem -out csr.pem
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+rm csr.pem
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will get a cert.pem (the certificate) and key.pem (the private key). This is all you need for a SSL connection.&lt;/p&gt;
+
+&lt;p&gt;In the second command, when prompted for &amp;ldquo;Common Name (eg, YOUR name) []:&amp;ldquo;, do not give your name. It is actually the domain name field, so enter your domain name. Not giving your domain name will result in &amp;ldquo;domain mismatch&amp;rdquo; errors.&lt;/p&gt;
+
+&lt;p&gt;This certificate will trigger warnings in your browser, since it is self-signed.&lt;/p&gt;
+
+&lt;p&gt;When generating the key you might encounter the following error: &lt;code&gt;unable to write &#39;random state&#39;&lt;/code&gt;, the most common reason for this happening seems to be that the .rnd file in your home directory is owned by root rather than your account. &lt;a href=&#34;http://stackoverflow.com/questions/94445/using-openssl-what-does-unable-to-write-random-state-mean&#34;&gt;more on stackoverflow&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;create-an-https-server&#34;&gt;Create an HTTPS Server&lt;/h3&gt;
+
+&lt;p&gt;The HTTPS server and client API is almost identical to the HTTP API, so pretty much everything said above applies to them. In fact, the client API is the same, and the HTTPS server only differs in that it needs a certificate file.&lt;/p&gt;
+
+&lt;p&gt;Secure Server
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var https = require(&amp;lsquo;https&amp;rsquo;);
+var fs = require(&amp;lsquo;fs&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;var pkey = fs.readFileSync(&amp;lsquo;key.pem&amp;rsquo;);
+var pcert = fs.readFileSync(&amp;lsquo;cert.pem&amp;rsquo;)&lt;/p&gt;
+
+&lt;p&gt;var options = {
+    key: pkey,
+    cert: pcert
+};&lt;/p&gt;
+
+&lt;p&gt;var server = https.createServer(options, function (req, res) {
+    res.writeHead(200);
+    res.end(&amp;ldquo;hello world\n&amp;rdquo;);
+}).listen(443);
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+
+&lt;p&gt;Socket.io Client lang:javascript
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var socket = io.connect(&amp;lsquo;&lt;a href=&#34;https://localhost:443/&#39;,{secure:&#34;&gt;https://localhost:443/&#39;,{secure:&lt;/a&gt; true});
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;{% blockquote Nodejitsu &lt;a href=&#34;http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server&#34;&gt;http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server&lt;/a&gt; %}
+NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy server, however, using a synchronous function during a request will force the server to deal with the requests one by one!
+{% endblockquote %}&lt;/p&gt;
+
+&lt;p&gt;For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: &lt;a href=&#34;https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs&#34;&gt;OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;br /&gt;
+ - &lt;a href=&#34;https://github.com/coolaj86/node-ssl-root-cas/wiki/Painless-Self-Signed-Certificates-in-node.js&#34;&gt;Painless Self Signed Certificates in node.js &lt;/a&gt;&lt;br /&gt;
+ - &lt;a href=&#34;http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server&#34;&gt;Nodejitsu Docs: How to create an HTTPS server&lt;/a&gt;&lt;br /&gt;
+ - &lt;a href=&#34;https://devcenter.heroku.com/articles/ssl-certificate-self&#34;&gt;Heroku Dev Center: Creating a Self-Signed SSL Certificate&lt;/a&gt;&lt;br /&gt;
+ - &lt;a href=&#34;http://www.akadia.com/services/ssh_test_certificate.html&#34;&gt;How to create a self-signed SSL Certificate&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>My Favorite Engineering Podcasts</title>
+      <link>/blog/2012/my-favorite-engineering-podcasts/</link>
+      <pubDate>Sat, 22 Dec 2012 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2012/my-favorite-engineering-podcasts/</guid>
+      <description>&lt;p&gt;updated on 05/2015.&lt;/p&gt;
+
+&lt;h2 id=&#34;javascript-jabber&#34;&gt;Javascript Jabber&lt;/h2&gt;
+
+&lt;p&gt;Simply the best Javascript podcast out there.
+By Charles Max Wood, Joe Eames, Merrick Christensen, AJ O&amp;rsquo;Neal, Jamison Dance, Aaron Frost&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://javascriptjabber.com/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;http://javascriptjabber.com/&#34;&gt;http://javascriptjabber.com/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;nodeup-8211-nodejs-awesomeness&#34;&gt;NodeUp &amp;#8211; NodeJS Awesomeness&lt;/h2&gt;
+
+&lt;p&gt;A node.js podcast put together by @ffloat and @dshaw..&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://nodeup.com/&#34; target=&#34;_blank&#34;&gt;nodeup.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;the-changelog-8211-open-source-moves-fast-keep-up&#34;&gt;The ChangeLog &amp;#8211; Open Source Moves Fast. Keep up.&lt;/h2&gt;
+
+&lt;p&gt;The Changelog is a weekly podcast and blog that covers what&amp;#8217;s fresh and new in Open Source.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://thechangelog.com/&#34; target=&#34;_blank&#34;&gt;thechangelog.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;software-engineering-radio&#34;&gt;Software Engineering Radio&lt;/h2&gt;
+
+&lt;p&gt;SE Radio is managed by the volunteers and staff of IEEE Software, a leading technical magazine for software professionals published by the IEEE Computer Society.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.se-radio.net/&#34; target=&#34;_blank&#34;&gt;www.se-radio.net&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;shop-talk-show&#34;&gt;Shop Talk Show&lt;/h2&gt;
+
+&lt;p&gt;Shoptalk is a weekly podcast about front end web design, development and UX.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://shoptalkshow.com/&#34; target=&#34;_blank&#34;&gt;shoptalkshow.com&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

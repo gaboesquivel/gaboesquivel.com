@@ -1,0 +1,1229 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gabo Esquivel - Software Engineer and Consultant</title>
+    <link>/index.xml</link>
+    <description>Recent content on Gabo Esquivel - Software Engineer and Consultant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Jul 2017 12:07:01 -0600</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Get in Touch</title>
+      <link>/contact/</link>
+      <pubDate>Sun, 30 Jul 2017 12:07:01 -0600</pubDate>
+      
+      <guid>/contact/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hola!</title>
+      <link>/bio/</link>
+      <pubDate>Sun, 30 Jul 2017 12:07:01 -0600</pubDate>
+      
+      <guid>/bio/</guid>
+      <description>&lt;p&gt;My name is Gabriel Esquivel, everyone calls me &amp;ldquo;Gabo&amp;rdquo;. I was born in Costa Rica in 1984 and was raised by loving family that thought me well to respect others and always focus on the solution to problems.&lt;/p&gt;
+
+&lt;p&gt;Since I was a little child I&amp;rsquo;ve loved sports, specially Soccer, but also Capoeira (brazilian martial), Yoga and Surfing; I dreamed with traveling the world, meet different cultures and learning new languages; so I dedicated some time prior to Bachelors to study foreign languages and today I can communicate fluently in English, Portuguese, Italian and Spanish.&lt;/p&gt;
+
+&lt;p&gt;In 2007 I started my Software Engineering studies at CenfoTec University in San José where I discovered my passion software and product development and the potential of the Web Platform.&lt;/p&gt;
+
+&lt;p&gt;Around 2009 I got first job as Web Developer builting wordpress sites and around a year later I was hired as UI Engineer for americanexpress.com through an outsourcing company based in Costa Rica.&lt;/p&gt;
+
+&lt;p&gt;In 2010 I started Costa Rica JS, a meetup group in San José for people interested applications development with JavaScript. At the time Node.js was starting the get traction and SPA frameworks where blooming. Today the Costa Rican JS community is the largest meetup in Central America with more than 1600 members.&lt;/p&gt;
+
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+    &lt;img alt=&#34;Capoeira&#34; src=&#34;/img/bio/gaboesquivel-fullstackday.jpg&#34;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In 2011 I started to work independently as a freelance developer and during the course of the years I have had the opportunity to work in many different projects in multicultural, multi-timezone remote agile teams. I worked with several clients, mainly digital agencies, startups and development shops.&lt;/p&gt;
+
+&lt;p&gt;Through hard work and a lot of study I grew from web developer with skills for client side apps to a fullstack engineer that can work end to end, from mobile apps to cloud, databases and devops automation. I&amp;rsquo;ve played the role of lead architect and agile manager in my recent engagements, mentoring and leading the development team from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be and also leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.&lt;/p&gt;
+
+&lt;p&gt;In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter named Coral, my motivation and my happiness.&lt;/p&gt;
+
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+    &lt;img alt=&#34;Capoeira&#34; src=&#34;/img/bio/gaboesquivel-coral.jpg&#34;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This year, 2017, I started a new DevOps meetup group in San Jose focused on cloud computing, virtualization, systems reliability engineering and process automation with 400 members as of today. I also joined a FinTech startup ( a neobank ) as CTO and led the formation of a world class team and the development of an alpha version of the app with the most modern and cost effective technology stack en latam in financial services; very unfortunately the relationship with the CEO wasn&amp;rsquo;t good at the end so I couldn&amp;rsquo;t continue working with them, but I did leave a great engineer and friend of mine taking care of business and I wish them great success.&lt;/p&gt;
+
+&lt;p&gt;I recently founded a consulting and staff augmentation company called Cortical Touch through which I continue offering my professional services as on-demand CTO/VPE/Consultant for startups and enterprise clients. The team augmentation service is also very good, our pool is curated very carefully. Learn more at &lt;a target=&#34;_blank&#34; href=&#34;https://corticaltouch.com&#34;&gt;corticaltouch.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+    &lt;img alt=&#34;Capoeira&#34; src=&#34;/img/bio/gaboesquivel-playa.jpg&#34;/&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Best Practices for Designing RESTful APIs</title>
+      <link>/blog/2015/best-practices-for-designing-restful-apis/</link>
+      <pubDate>Sat, 03 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2015/best-practices-for-designing-restful-apis/</guid>
+      <description>
+
+&lt;p&gt;An application-programming interface (API) exposes functionality of a software application for other software clients to use. Through APIs applications interact with each other and share data without any user knowledge or intervention.&lt;/p&gt;
+
+&lt;p&gt;Modern web applications typically have RESTful JSON APIs. REST stands for &lt;a href=&#34;https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&#34;&gt;Representational State Transfer&lt;/a&gt; and it is a software architecture style consisting of guidelines and best practices for building scalable web services. JSON stands for JavaScript Object Notation and it is a minimal, readable format for structuring data.&lt;/p&gt;
+
+&lt;div class=&#39;center-align-wrapper&#39;&gt;
+    &lt;img src=&#39;/img/2015/10/API-Diagram.png&#39; class=&#39;no-border&#39;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When designing an API there are important decisions that have great impact on the way other applications will interact with the service. Once an API has been defined and other software clients make use of it, changes to the API are costly and should be avoided. By following standards and best practices you reduce the need to API changes to a minimum.
+&lt;!-- more --&gt;
+The following is a list of &lt;strong&gt;pragmatic best practices&lt;/strong&gt; applicable both to public and private APIs:&lt;/p&gt;
+
+&lt;h2 id=&#34;keep-your-base-urls-simple&#34;&gt;Keep your base URLs simple&lt;/h2&gt;
+
+&lt;p&gt;The key principles of REST involve separating your API into logical &lt;a href=&#34;http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_1&#34;&gt;resources&lt;/a&gt; and each of these resources will typically have a base url. Simple and intuitive base URL design will make using your API easy.&lt;/p&gt;
+
+&lt;p&gt;The base url should consist of plural nouns for those resources and verbs should be avoided. For instance if we are creating the API for interacting with buildings on a construction management system the base url for that resource would be &lt;code&gt;/api/buildings&lt;/code&gt; and in order to identify a single building resource we use its &lt;a href=&#34;https://en.wikipedia.org/wiki/Uniform_resource_name&#34;&gt;URN&lt;/a&gt; &amp;ldquo;/buildings/{buildingId}&amp;rdquo;. These other urls should be avoided &lt;code&gt;/api/getAllBuildings&lt;/code&gt;, &lt;code&gt;/api/getCompletedBuildings&lt;/code&gt;, &lt;code&gt;/api/building&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;use-standard-methods&#34;&gt;Use Standard Methods&lt;/h2&gt;
+
+&lt;p&gt;Always use HTTP verbs for CRUD (Create-Read-Update-Delete) operations. The primary and most-commonly-used HTTP methods are POST, GET, PUT, and DELETE and in a REST API these methods correspond to create, read, update, and delete operations, respectively. There are other verbs, too, but they are utilized with less frequently.&lt;/p&gt;
+
+&lt;h2 id=&#34;allow-http-method-overriding&#34;&gt;Allow HTTP method overriding&lt;/h2&gt;
+
+&lt;p&gt;Some proxies support only POST and GET methods. To support a RESTful API with these limitations, the API needs a way to override the HTTP method.
+Use the custom HTTP Header &lt;code&gt;X-HTTP-Method-Override&lt;/code&gt; to override the POST Method.&lt;/p&gt;
+
+&lt;h2 id=&#34;use-rest-metadata&#34;&gt;Use REST Metadata&lt;/h2&gt;
+
+&lt;p&gt;In addition to exposing application data, resources can also include other information that is specific to the RESTful API. Such information includes URLs and relationships.
+The following table lists generic attributes that are defined and have a specific meaning on all resources. They should not be used for mapping application model attributes.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Attribute&lt;/th&gt;
+    &lt;th&gt;Type&lt;/th&gt;
+    &lt;th&gt;Meaning&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;id&lt;/td&gt;
+    &lt;td&gt;String&lt;/td&gt;
+    &lt;td&gt;Identifies the unique ID of a resource.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;href&lt;/td&gt;
+    &lt;td&gt;String&lt;/td&gt;
+    &lt;td&gt;Identifies the URL of the current resource.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;link&lt;/td&gt;
+    &lt;td&gt;Object&lt;/td&gt;
+    &lt;td&gt;Identifies a relationship for a resource. This attribute is itself an object and has &#34;rel&#34; &#34;href&#34; attributes.&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Presenting the fully qualified URL for every resource aids discoverability by allowing for new resources to be consumed by just embedding a new reference (link). Pagination is a great example for when to use linking when returning resource collections.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;json&#34;&gt;
+{
+  &#34;href&#34; : &#34;https://mycompany.com/api/buildings?offset=50&amp;amp;limit=50&#34;,
+  &#34;offset&#34;: 50,
+  &#34;limit&#34;: 50,
+  &#34;first&#34;: {
+      &#34;href&#34;: &#34;https://mycompany.com/api/buildings&#34;
+  },
+   &#34;prev&#34;: {
+      &#34;href&#34;: &#34;https://mycompany.com/api/buildings&#34;
+  },
+  &#34;next&#34;: {
+      &#34;href&#34;: &#34;https://mycompany.com/api/buildings?offset=100&amp;amp;limit=50&#34;
+  },
+  &#34;last&#34;: {
+      &#34;href&#34;: &#34;https://mycompany.com/api/buildings?offset=550&amp;amp;limit=50&#34;
+  },
+  &#34;items&#34;: [
+    {
+      ... building 51 name/value pairs ...
+    },
+    ...,
+    {
+      ... building 100 name/value pairs ...
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;simplify-associations&#34;&gt;Simplify Associations&lt;/h2&gt;
+
+&lt;p&gt;Resources almost always have relationship to other resources. Represent this associations in the URL.  Eg:
+&lt;code&gt;GET api/buildings/6543/assets&lt;/code&gt; This url will return all assets of that specific building and you could create assets for that building using &lt;code&gt;POST api/buildings/6543/assets&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;complexities-under-the-query-string&#34;&gt;Complexities Under the Query String&lt;/h2&gt;
+
+&lt;p&gt;Most APIs need to perform tasks that go beyond the resource level scope of the uniform resource locator (URL),  these tasks can include filtering by state or other attributes associated with a resource. Eg. &lt;code&gt;/api/buildings?completed=true&amp;amp;location=us&lt;/code&gt; this is how you will query for all completed buildings in the US.&lt;/p&gt;
+
+&lt;p&gt;Typically when you request a resource on a RESTful API you will have nested resources that will come in the form of a reference. Query string flags can be used for resource expansion when you know in advance that you are going to need the extra information about the related resources and you aim reduce to API requests for performance. In this case you can optionally specify which relationships to expand in the query string. Eg. &lt;code&gt;api/buildings?expand=assets&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;handle-errors-with-http-status-codes-and-messages&#34;&gt;Handle Errors with HTTP Status Codes and Messages&lt;/h2&gt;
+
+&lt;p&gt;Your API should respond with the appropriate &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&#34;&gt;http status code&lt;/a&gt; along with a message in the response body, a message for the developer and a message for the end-user when appropriate. Eg. 404 Status &lt;code&gt;{&amp;quot;errors&amp;quot;:[{&amp;quot;message&amp;quot;:&amp;quot;Sorry, that page does not exist&amp;quot;,&amp;quot;code&amp;quot;:34}]}&lt;/code&gt; in addition to descriptive error text. Error messages may contain machine-parseable codes.&lt;/p&gt;
+
+&lt;p&gt;There are many http status codes, however most API providers use a small subset. These codes should suffice:&lt;/p&gt;
+
+&lt;p&gt;200 OK – [GET]&lt;br /&gt;
+201 CREATED – [POST/PUT/PATCH]&lt;br /&gt;
+204 NO CONTENT – [DELETE]&lt;br /&gt;
+304 NOT MODIFIED&lt;br /&gt;
+400 INVALID REQUEST – [POST/PUT/PATCH]&lt;br /&gt;
+401 UNAUTHORIZED&lt;br /&gt;
+403 FORBIDDEN&lt;br /&gt;
+404 NOT FOUND&lt;br /&gt;
+500 INTERNAL SERVER ERROR&lt;/p&gt;
+
+&lt;h2 id=&#34;always-use-https-tls&#34;&gt;Always use HTTPS/TLS&lt;/h2&gt;
+
+&lt;p&gt;No exceptions here. HTTPS matters. All communications should be secured by default. With https information remains confidential from prying eyes because only your browser and the server can decrypt the traffic. Today, your web APIs can get accessed from anywhere there is internet: coffee shops, airports among others. Not all of these networks are secure. Many don&amp;rsquo;t encrypt communications at all, allowing for easy eavesdropping or impersonation if authentication credentials are hijacked. For more in depth explanation of why https matters watch &lt;a href=&#34;https://www.youtube.com/watch?v=cBhZ6S0PFCY&#34;&gt;HTTPS Everywhere&lt;/a&gt; , a talk given by Ilya Grigorik and Pierre Far at Google I/O 2014.&lt;/p&gt;
+
+&lt;h2 id=&#34;versioning&#34;&gt;Versioning&lt;/h2&gt;
+
+&lt;p&gt;Software applications are never finished, they are constantly evolving and whenever breaking changes in your API are inevitable you need to introduce a new version.&lt;/p&gt;
+
+&lt;h4 id=&#34;url-for-api-versioning&#34;&gt;URL for API versioning&lt;/h4&gt;
+
+&lt;p&gt;The most pragmatic way to manage API versions it to put the version number at the base of your URL, for example &lt;code&gt;api.example.com/v1/path/to/resource&lt;/code&gt;.  Versioning by URL allows developers to figure out which version of the service is in use at a glance. Just look at the HTTP request URL, and you know everything.  &lt;code&gt;/api/v1/&lt;/code&gt;  &lt;code&gt;/api/v2/&lt;/code&gt; and so forth. You can also use the API version as a parameter &lt;code&gt;?version=v2&lt;/code&gt; if you want to provide a different way to query different versions thru the url.&lt;/p&gt;
+
+&lt;h4 id=&#34;support-accept-header&#34;&gt;Support Accept Header&lt;/h4&gt;
+
+&lt;p&gt;RFC4288 section 3.2 outlines how a vendor, i.e. an application, can make use of customizable MIME types in the Accept header.  An application can make use of this to include a version number as part of the Accept header used for content negotiation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;apache&#34;&gt;GET /api/buildings/1234 HTTP/1.1
+Accept: application/vnd.constructionManagementApp-v1+json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The vnd part is the vendor definition as outlined in &lt;a href=&#34;http://tools.ietf.org/html/rfc4288#section-3.2&#34;&gt;RFC4288&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;attribute-names-in-camelcase&#34;&gt;Attribute Names in camelCase&lt;/h2&gt;
+
+&lt;p&gt;snake_case is easy to read, however if you are using JSON it makes sense to follow &lt;a href=&#34;https://github.com/rwaldron/idiomatic.js#user-content-naming&#34;&gt;JavaScript&amp;rsquo;s naming conventions&lt;/a&gt; specially if the consumer applications are likely to be written in javascript too.&lt;/p&gt;
+
+&lt;h2 id=&#34;clean-responses&#34;&gt;Clean Responses&lt;/h2&gt;
+
+&lt;p&gt;In the JSON responses don&amp;rsquo;t include internal-specific names (e.g. &amp;ldquo;node&amp;rdquo; and &amp;ldquo;taxonomy term&amp;rdquo;).&lt;/p&gt;
+
+&lt;h2 id=&#34;mock-responses&#34;&gt;Mock Responses&lt;/h2&gt;
+
+&lt;p&gt;It is suggested that each resource accept a &amp;lsquo;mock&amp;rsquo; parameter on the testing server. Passing this parameter should return a mock data response (bypassing the backend).&lt;/p&gt;
+
+&lt;p&gt;Implementing this feature early in development ensures that the API will exhibit consistent behavior, supporting a test driven development methodology.&lt;/p&gt;
+
+&lt;p&gt;Note: If the mock parameter is included in a request to the production environment, an error should be raised.&lt;/p&gt;
+
+&lt;h2 id=&#34;provide-documentation&#34;&gt;Provide Documentation&lt;/h2&gt;
+
+&lt;p&gt;Always provide documentation for an API. Documentation is important. There are tools that auto-generate very stylish documentation for an APIs based on annotations on your API functions, &lt;a href=&#34;http://apidocjs.com/&#34;&gt;apidoc&lt;/a&gt; and &lt;a href=&#34;https://github.com/tripit/slate&#34;&gt;slate&lt;/a&gt; generate excellent API documentation sites.&lt;/p&gt;
+
+&lt;div class=&#34;notes&#34;&gt;
+This article is inspired in lessons learned through experience and also borrows from:   
+&lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api&#34;&gt;Best Practices for Designing a Pragmatic RESTful API&lt;/a&gt;, by Vinay Sahni&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://pages.apigee.com/web-api-design-ebook.html&#34;&gt;Web API Design&lt;/a&gt;, by Brian Mulloy, Apigee&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.ics.uci.edu/~fielding/pubs/dissertation/top.ht&#34;&gt;Fielding&#39;s Dissertation on REST&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;  
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Automatic Node.js Version Switching</title>
+      <link>/blog/2015/automatic-node.js-version-switching/</link>
+      <pubDate>Sat, 18 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2015/automatic-node.js-version-switching/</guid>
+      <description>&lt;p&gt;When working on multiple Node.js projects it is important to configure your development environment to automatically switch to right node version for a particular project. You can automate this task on many different ways. I opted for using using a module called &lt;a href=&#34;https://github.com/wbyoung/avn&#34;&gt;avn&lt;/a&gt; that works both with &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;nvm&lt;/a&gt; and &lt;a href=&#34;https://github.com/visionmedia/n&#34;&gt;n&lt;/a&gt; for automatic Node.js version switching. In my case I use nvm as my version manager. In order to achieve automatic version switching with avn you need to add a &lt;code&gt;.node-version&lt;/code&gt; at the root of your projects specifying the node version required.&lt;/p&gt;
+
+&lt;p&gt;After installing avn, when you cd into a directory with a &lt;code&gt;.node-version&lt;/code&gt; file, avn will automatically detect the change and use your installed version manager to switch to that version of node. If that node version is not available you have install it, avn won&amp;rsquo;t try to do so, it will only attempt to switch to that version and notify you if it is not available on your environment.&lt;/p&gt;
+
+&lt;p&gt;It is important to mention that as good practice you should always specify that node version on the package.json file on the &lt;a href=&#34;https://docs.npmjs.com/files/package.json#engines&#34;&gt;engines attribute&lt;/a&gt; &lt;code&gt;&amp;quot;engines&amp;quot; : { &amp;quot;node&amp;quot; : &amp;quot;0.12.7&amp;quot; } }&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;UPDATE: March 25, 2016&lt;/em&gt;&lt;br /&gt;
+Kikobeats just released &lt;a href=&#34;https://github.com/Kikobeats/nodengine&#34;&gt;nodengine&lt;/a&gt; which does exactly the same but it reads from the engines field in the package.json&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>On Continuous Delivery</title>
+      <link>/blog/2015/on-continuous-delivery/</link>
+      <pubDate>Fri, 10 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2015/on-continuous-delivery/</guid>
+      <description>&lt;p&gt;Continuous delivery is practice in software development in which development teams work in a way that allows companies to update their systems at any point in time or continuously through automated processes, the system’s code base is always deployable and tested.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-is-it-important&#34;&gt;Why is it important?&lt;/h2&gt;
+
+&lt;p&gt;Continuous delivery is a more efficient way to build software as it enables a team to get constant feedback on the application’s changes and updates, allowing you detect problems early and consequently improve quality, reduce costs and deployment frictions. This constant feedback also gives the team a realistic view of development progress instead of relying on perceptions.&lt;/p&gt;
+
+&lt;p&gt;Continuous Delivery gives a company the ability to react quickly and respond to change. Having fluid a process of software development allows you to make changes on your strategy more easily and rapidly.
+&lt;/p&gt;
+
+&lt;p&gt;It allows a company to increase its capacity and scale more easily. A continuous process facilitates working with bigger development teams. Batch processes like iteration planning, release planning, and release testing become exponentially harder to organize as you involve an increasing number of people. Continuous delivery solves this problem by skipping batch processes.&lt;/p&gt;
+
+&lt;h2 id=&#34;basic-principles&#34;&gt;Basic Principles&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Visibility&lt;/strong&gt; – All aspects of the delivery system including building, deploying testing, and releasing are visible to every member of the team to promote collaboration.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Feedback&lt;/strong&gt; – Team members learn of problem ASAP when they occur so that they are able to fix them as quickly as possible.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Continually Deploy&lt;/strong&gt; – Through a fully automated process, you can deploy and release any version of the software to any environment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;automation-is-the-foundation-of-continuous-delivery&#34;&gt;Automation is the Foundation of Continuous Delivery&lt;/h2&gt;
+
+&lt;p&gt;In order achieve continuous delivery you need high automation of the delivery process. After a developer commits, everything should be completely automated, including reports, metrics, release notes, etc.&lt;/p&gt;
+
+&lt;h2 id=&#34;continuous-integration&#34;&gt;Continuous Integration&lt;/h2&gt;
+
+&lt;p&gt;In order to deliver continuously you also need to do Continuous Integration. That means developers have to continuously integrate their code, at least once a day. Successful integration is determined by an integration server that builds the system and runs the test suite every time new code is added, if tests failed the dev team receives a notification, this allows the team to fix the problem as soon as it appears.&lt;/p&gt;
+
+&lt;h3 id=&#34;integration-strategies&#34;&gt;Integration Strategies&lt;/h3&gt;
+
+&lt;p&gt;Numerous different integration models are possible and they are tight to the version control strategy. Andy Singleton, proposed a &lt;a href=&#34;continuousagile.com/unblock/cd_four_patterns.html&#34;&gt;four pattern categorization&lt;/a&gt; in his book Unblock:&lt;/p&gt;
+
+&lt;h4 id=&#34;centralized&#34;&gt;Centralized&lt;/h4&gt;
+
+&lt;p&gt;The centralized pattern is the traditional pattern popularized by Jez Humble. You put all of your changes together into one central code version, and continuously run automated tests on them. The goal is to integrate as early as possible, find problems as early as possible, and train your team to avoid them. It is easy to set up, and scales to support complex centralized build and test systems.&lt;/p&gt;
+
+&lt;h4 id=&#34;distributed&#34;&gt;Distributed&lt;/h4&gt;
+
+&lt;p&gt;The distributed pattern is used by many SaaS companies that want to release every change. Each change is tested in a separate branch, and then released before it hits problems from integration with other changes.&lt;/p&gt;
+
+&lt;h4 id=&#34;review-branch&#34;&gt;Review branch&lt;/h4&gt;
+
+&lt;p&gt;The review branch system allows you to produce more reliable code from bigger teams, by testing and reviewing each change before it goes into a centralized shared version. This is a best practice.&lt;/p&gt;
+
+&lt;h4 id=&#34;maxos&#34;&gt;MAXOS&lt;/h4&gt;
+
+&lt;p&gt;The MAXOS pattern organizes continuous delivery of complex systems, which are built from multiple servers and services that communicate with each other. The team maintaining one service builds and releases changes, often using a review branch system. Before a service is promoted into production, it gets tested in a centralized continuous integration system to make sure that it works with the pre-release version of all of the other services.&lt;/p&gt;
+
+&lt;h3 id=&#34;team-commitment-and-development-workflow&#34;&gt;Team Commitment and Development Workflow&lt;/h3&gt;
+
+&lt;p&gt;Continuous integration is not only about automated testing but an organizational process. To successfully integrate code continuously a development team must commit to follow best practices of continuous integration and take more responsibility for delivering release-ready code and features.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Master branch should always be deployable.&lt;/li&gt;
+&lt;li&gt;Keep it fast: measure automatically and continuously improve it.&lt;/li&gt;
+&lt;li&gt;Use feature toggles to turn on and off new features. aka feature switches.&lt;/li&gt;
+&lt;li&gt;Over Communicate: communication plays a primary role in continuous integration.&lt;/li&gt;
+&lt;li&gt;Check in frequently.&lt;/li&gt;
+&lt;li&gt;Don’t check in broken code.&lt;/li&gt;
+&lt;li&gt;Don’t check in untested code.&lt;/li&gt;
+&lt;li&gt;Always verify the system builds after check in.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Films and Documentaries Worth Watching</title>
+      <link>/blog/2015/films-and-documentaries-worth-watching/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2015/films-and-documentaries-worth-watching/</guid>
+      <description>&lt;p&gt;This is a curated list of films and documentaries related to the internet, programming and hacking. If you are a web developer or consider yourself a problem solver you will probably enjoy them. These films contain historical and philosophical content on subjects related to programming, the internet, the evolution of human consciousness, activism, social action, environmental causes, open source and free software movements.
+&lt;/p&gt;
+
+&lt;h2 id=&#34;the-internet-s-own-boy-the-story-of-aaron-swartz-2014&#34;&gt;The Internet&amp;rsquo;s Own Boy: The Story of Aaron Swartz (2014)&lt;/h2&gt;
+
+&lt;p&gt;The Internet’s Own Boy follows the story of programming prodigy and information activist Aaron Swartz. From Swartz&amp;rsquo;s help in the development of the basic internet protocol RSS to his co-founding of Reddit, his fingerprints are all over the internet. But it was Swartz&amp;rsquo;s groundbreaking work in social justice and political organizing combined with his aggressive approach to information access that ensnared him in a two-year legal nightmare. It was a battle that ended with the taking of his own life at the age of 26. Aaron&amp;rsquo;s story touched a nerve with people far beyond the online communities in which he was a celebrity. This film is a personal story about what we lose when we are tone deaf about technology and its relationship to our civil liberties.&lt;/p&gt;
+
+&lt;h2 id=&#34;project-code-rush-the-beginnings-of-netscape-mozilla-documentary&#34;&gt;Project Code Rush - The Beginnings of Netscape / Mozilla Documentary&lt;/h2&gt;
+
+&lt;p&gt;Code Rush is a documentary following the lives of a group of Netscape engineers in Silicon Valley. It covers Netscape&amp;rsquo;s last year as an independent company, from their announcement of the Mozilla open source project until their acquisition by AOL. It particularly focuses on the last minute rush to make the Mozilla source code ready for release by the deadline of March 31 1998, and the impact on the engineers&amp;rsquo; lives and families as they attempt to save the company from ruin.&lt;/p&gt;
+
+&lt;h2 id=&#34;revolution-os-linux-history&#34;&gt;Revolution OS (Linux History)&lt;/h2&gt;
+
+&lt;p&gt;The film begins with glimpses of Eric Raymond, a Linux IPO, Linus Torvalds, the idea of Open Source, Perens, Stallman, then sets the historical stage in the early days of hackers and computer hobbyists when code was shared freely. It discusses how change came in 1978 as Bill Gates, in his Open Letter to Hobbyists, pointedly prodded hobbyists to pay up. Stallman relates his struggles with proprietary software vendors at the MIT Artificial Intelligence Lab, leading to his departure to focus on the development of free software, and the GNU project.&lt;/p&gt;
+
+&lt;p&gt;Torvalds describes the development of the Linux kernel, the GNU/Linux naming controversy, Linux&amp;rsquo;s further evolution, and its commercialization.&lt;/p&gt;
+
+&lt;p&gt;Raymond and Stallman clarify the philosophy of free software versus communism and capitalism, as well as the development stages of Linux.&lt;/p&gt;
+
+&lt;p&gt;Michael Tiemann discusses meeting Stallman in 1987, getting an early version of Stallman&amp;rsquo;s GCC, and founding Cygnus Solutions.
+Larry Augustin describes combining GNU software with a normal PC to create a Unix-like workstation at one third the price and twice the power of a Sun workstation. He relates his early dealings with venture capitalists, the eventual capitalization and commodification of Linux for his own company, VA Linux, and its IPO.&lt;/p&gt;
+
+&lt;p&gt;Brian Behlendorf, one of the original developers of the Apache HTTP Server, explains that he started to exchange patches for the NCSA web server daemon with other developers, which led to the release of &amp;ldquo;a patchy&amp;rdquo; webserver, dubbed Apache.
+Frank Hecker of Netscape discusses the events leading up to Netscape&amp;rsquo;s executives releasing the source code for Netscape&amp;rsquo;s browser, one of the signal events which made open source a force to be reckoned with by business executives, the mainstream media, and the public at large. This point was validated further after the film&amp;rsquo;s release as the Netscape source code eventually became the Firefox web browser, reclaiming a large percentage of market share from Microsoft&amp;rsquo;s Internet Explorer.
+The film also documents the scope of the first full-scale LinuxWorld Summit conference, with appearances by Linus Torvalds and Larry Augustin on the keynote stage.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-collective-evolution-iii-the-shift&#34;&gt;The Collective Evolution III: The Shift&lt;/h2&gt;
+
+&lt;p&gt;Are we in the midst of major revolution?  a Shift in consciousness? The Collective Evolution III is a powerful documentary that explores a revolutionary shift affecting every aspect of our planet. As the shift hits the fan, people are becoming more aware of the control structures that prevent us from experiencing our full potential. CE3 uses a different level of consciousness and scientific facts to bring clarity about the shift while dispelling myths about our true nature. It offers practical steps that we can implement right now to transition out of survival mode and into our more natural state of peace and co-operation . CE3 includes fascinating interviews with revolutionary speakers and people who are already opting out of the current socioeconomic system. The film examines hidden technologies and exciting alternatives for a bright limitless future. This is the most exciting time in the history of our world.&lt;/p&gt;
+
+&lt;h2 id=&#34;we-are-legion-the-story-of-the-hacktivists&#34;&gt;We Are Legion - The Story of the Hacktivists&lt;/h2&gt;
+
+&lt;p&gt;The film was written and directed by Brian Knappenberger and features the story of Anonymous assumed to stem from the imageboard 4chan. It also outlines major turning points and &amp;ldquo;operations&amp;rdquo; in their history. Angered by many diverse issues such as copyright abuse, police brutality, online censorship and would-be web controllers this loosely affiliated collective of hacktivists have organised both online and offline protests, cyber attacks on foreign governments during the Arab Spring movement and provided technical support to the Occupy movement. They see themselves as activists and protectors of free speech, and tend to rise up most powerfully when they perceive a threat to internet freedom or personal privacy.&lt;/p&gt;
+
+&lt;h2 id=&#34;we-steal-secrets-the-story-of-wikileaks&#34;&gt;We Steal Secrets: The Story of WikiLeaks&lt;/h2&gt;
+
+&lt;p&gt;A documentary that details the creation of Julian Assange&amp;rsquo;s controversial website, which facilitated the largest security breach in U.S. history.&lt;/p&gt;
+
+&lt;h2 id=&#34;hack-hacking-hackers-in-the-realm-of-the-hackers&#34;&gt;Hack, Hacking &amp;amp; Hackers - In the Realm of the Hackers&lt;/h2&gt;
+
+&lt;p&gt;In 1989, two Melbourne teenage hackers known as Electron and Phoenix stole a restricted computer security list and used it to break into some of the world&amp;rsquo;s most classified and supposedly secure computer systems. So fast and widespread was the attack, no-one could work out how it had happened - until one of the hackers called The New York Times to brag.&lt;/p&gt;
+
+&lt;p&gt;Ten years after their arrest, this dramatised documentary uncovers not only how they did it but why. It takes us headlong into the clandestine, risky but intoxicating world of the computer underground.&lt;/p&gt;
+
+&lt;h2 id=&#34;citizenfour&#34;&gt;Citizenfour&lt;/h2&gt;
+
+&lt;p&gt;Citizenfour chronicles the revelations by former NSA contractor Edward Snowden that burgeoned into the wider NSA spying scandal. The Guardian and the Washington Post simultaneously began publishing Snowden’s leaked information in June 2013, with both publications winning a Pulitzer prize in 2014 for Public Service journalism. The film’s title derives from the pseudonym Snowden used when he first anonymously contacted Poitras.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Unit Testing: Mocks, Stubs and Spies</title>
+      <link>/blog/2014/unit-testing-mocks-stubs-and-spies/</link>
+      <pubDate>Sat, 20 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/unit-testing-mocks-stubs-and-spies/</guid>
+      <description>&lt;p&gt;In unit testing isolation is key. The class/object/function you are testing is called the System Under Test (SUT) and the SUT often interacts with other part of the system, these parts are called Collaborators or Depedencies. When testing the simulation of the collaborators/dependencies and behaviors of these dependencies allows you to to test the units in isolation. Gerard Meszaros author of xUnit Test Patterns uses the term &amp;ldquo;Test Double&amp;rdquo; as the generic term for any kind of pretend object used in place of a real object for testing purposes. The name comes from the notion of a Stunt Double in movies.&lt;/p&gt;
+
+&lt;p&gt;Mocks, Stubs, Spies, Dummies and Fakes are types of test doubles that will help you to accomplish the goal of isolation. There are several libraries that provide tools to easily create these objects in your tests. Sinon.js is a javascript library that provides standalone test spies, stubs and mocks with no dependencies that work with any unit testing framework.
+
+&lt;strong&gt;Dummies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Dummy objects are passed around but never actually used. Usually they are just used to fill parameter lists. It is an object that simply implements an Interface, and does nothing else. It&amp;rsquo;s not intended to be used in your tests and will have no effect on the behaviour, sometimes a null object could be sufficient. An example would be passing an object into a constructor that isn&amp;rsquo;t used in the path you&amp;rsquo;re taking, or a simple object to add to a collection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var TaskManager = function(){
+    var taskList = [];
+
+    return {
+        addTask: function(task){
+            taskList.push(task);
+        },
+        tasksCount: function(){
+            return taskList.length;
+        }
+    }
+}
+
+// Test
+var assert = require(&#34;assert&#34;)
+describe(&#39;add task&#39;, function(){
+    it(&#39;should keep track of the number of tasks&#39;, function(){
+      var DummyTask = function(){ return {} };
+      var taskManager = new TaskManager();
+
+      taskManager.addTask(new DummyTask());
+      taskManager.addTask(new DummyTask());
+
+      assert.equal( taskManager.tasksCount(), 2 );
+
+    })
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Spies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A test spy is an object that records its interaction with other objects throughout the code base. When deciding if a test was successful based on the state of available objects alone is not sufficient, we can use test spies and make assertions on things such as the number of calls, arguments passed to specific functions, return values and more.&lt;/p&gt;
+
+&lt;p&gt;Test spies are useful to test both callbacks and how certain functions/methods are used throughout the system under test. The following simplified example shows how to use spies to test how a function handles a callback:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+&#34;test should call subscribers on publish&#34;: function () {
+    var callback = sinon.spy();
+    PubSub.subscribe(&#34;message&#34;, callback)
+    PubSub.publishSync(&#34;message&#34;);
+
+    assertTrue(callback.called);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Stubs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Test stubs are fake objects with pre-programmed behavior ( Simulation of behaviour from other units ), Most of times they are simply returning fixed values. They are typically used for one of two reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To avoid some inconvenient interface - for instance to avoid making actual requests to a server from tests.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;To feed the system with known data, forcing a specific code path.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Javascript is flexible enough to accomplish this easily without any library&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+&#34;example of simple stub without any lib&#34;: function () {
+    var task = { completed = true }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fakes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Fake objects have working implementations, but usually take some shortcut which makes them not suitable for production (an in memory database is a good example). The simplest way to think of a Fake is as a step up from a Stub. This means not only does it return values, but it also works just as a real Collaborator would.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var xhr, requests;
+
+before(function  {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+});
+
+after(function () {
+    // we must clean up when tampering with globals.
+    xhr.restore();
+});
+
+it(&#34;makes a GET request for todo items&#34;, function () {
+    getTodos(42, sinon.spy());
+
+    assert.equals(requests.length, 1);
+    assert.match(requests[0].url, &#34;/todo/42/items&#34;);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Mocks&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When most people talk about Mocks what they are actually referring to are Test Doubles. A Test Double is simply another object that conforms to the interface of the required Collaborator, and can be passed in its place. There are very few classes that operate entirely in isolation. Usually they need other classes or objects in order to function, whether injected via the constructor or passed in as method parameters. These are known as Collaborators or Depencies.&lt;/p&gt;
+
+&lt;p&gt;References:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://martinfowler.com/articles/mocksArentStubs.html&#34;&gt;Mocks Aren&amp;rsquo;t Stubs&lt;/a&gt; by Martin Fowler&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://xunitpatterns.com/Test%20Double%20Patterns.html&#34;&gt;XUnit Test Patterns: Test Double Patterns&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Software Unit Testing</title>
+      <link>/blog/2014/software-unit-testing/</link>
+      <pubDate>Fri, 19 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/software-unit-testing/</guid>
+      <description>&lt;p&gt;Testing a web application is critical to ensure the program does what is supposed to do and that new functionality and changes don&amp;rsquo;t brake existing parts of the application. Well-tested applications are more easily extended.&lt;/p&gt;
+
+&lt;p&gt;Testing can be defined as:
+{% blockquote &amp;ldquo;Oxford Dictionary&amp;rdquo; %}
+Taking measures to check the quality, performance, or reliability of (something), especially before putting it into widespread use or practice.
+{% endblockquote %}&lt;/p&gt;
+
+&lt;p&gt;There are 3 main levels of testing and they are complementary:&lt;br /&gt;
+- &lt;strong&gt;Scenario Testing / End-to-End Testing (E2E)&lt;/strong&gt; : test the whole application by pretending to be a user.&lt;br /&gt;
+- &lt;strong&gt;Functional Tests / Medium Level Tests&lt;/strong&gt;: a piece of functionality is tested in isolation, by simulating external dependencies.&lt;br /&gt;
+- &lt;strong&gt;Unit Tests&lt;/strong&gt;: focused on application logic, tests the smallest unit of functionality, typically a method/function.&lt;/p&gt;
+
+&lt;p&gt;Unit testing works by isolating small &amp;ldquo;units&amp;rdquo; of code so that it can be tested from every angle. Any kind of dependency that is slow, untested, hard to understand or initialise should be stubbed or mocked so you can focus on what the unit of code is doing, not what its dependencies do. Tests should ideally be written by developers, the same person who writes the functionality, not a QA team. Demoting unit testing to a lower level of priority is almost always a mistake.
+
+&lt;strong&gt;What is a unit?&lt;/strong&gt; In the best case, it is a pure function that you can deal with in some way. It can also be a whole class or multiple classes working together to achieve one single logical purpose that can be verified. In web applications DOM manipulations come into play as well. People might argue about this definition of Unit, Object-oriented design tends to treat a class as the unit, procedural or functional approaches might consider a single function as a unit. But really it&amp;rsquo;s a situational thing - the team decides what makes sense to be a unit for the purposes of their understanding of the system and its testing. Pragmatism.&lt;/p&gt;
+
+&lt;p&gt;In Test Driven Development (TDD) tests are supposed to be written first, before the logic you want to test. You write a test that fails then the necessary code to pass the test and later you can refactor your code to improve it and optimize it. This is known as the &amp;ldquo;test-driven development mantra&amp;rdquo; or cycle: &amp;ldquo;Red - Green - Refactor&amp;rdquo;. However when you starting to work on some functionality you’re going to be changing functions and abstracting parts away, and if you are writing something that is going to change a lot, writing tests would be a waste of time, specially when prototyping. However there are also benefits in writing the tests first. What I believe in is in writing &lt;strong&gt;testable code&lt;/strong&gt; and writing unit tests whenever you consider is good time for it. In general, code that is tightly-coupled or requires complex initialization is hard to test.&lt;/p&gt;
+
+&lt;p&gt;Following the SOLID Software Design Principles is a very good way to design code that can be easily tested.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;S&lt;/strong&gt; - Single Responsibility Principle: An object should do exactly one thing, and should be the only object in the codebase that does that one thing.&lt;br /&gt;
+&lt;strong&gt;O&lt;/strong&gt; - Open/Closed Principle: software entities should be open for extension, but closed for modification.&lt;br /&gt;
+&lt;strong&gt;L&lt;/strong&gt; - Liskov Substitution Principle: objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.&lt;br /&gt;
+&lt;strong&gt;I&lt;/strong&gt; - Interface Segregation Principle: many client-specific interfaces are better than one general-purpose interface.&lt;br /&gt;
+&lt;strong&gt;D&lt;/strong&gt; - Dependency Inversion Principle: Depend upon Abstractions. Do not depend upon concretions. Dependency injection is one method of following this principle.&lt;/p&gt;
+
+&lt;p&gt;Miško Hevery has a &lt;a href=&#34;http://www.youtube.com/watch?v=wEhu57pih5w&#34;&gt;great talk on unit testing&lt;/a&gt; (2008) and how to write testable code that I highly recommend you to watch. He talks about object oriented programming best practices and the importance of separating construction and lookup from the business logic through Dependecy Injection.&lt;/p&gt;
+
+&lt;p&gt;Some of the of the non-so-obvious benefits of Unit Testing are:&lt;br /&gt;
+- It gives you confidence, you know when the code works because you&amp;rsquo;ve run the tests, you get instant visual feedback.&lt;br /&gt;
+- Good unit tests can help document and define what something is supposed to do.&lt;br /&gt;
+- Unit tests help with code re-use. Migrate both your code and your tests to your new project and run the test again.
+- It improves software design. When adding a new feature or refactoring an existing solution, testing forces you to think about what the code is supposed to accomplish and focus on that. Thus you end up with a clean and simple design that does exactly what you expect it to do.&lt;/p&gt;
+
+&lt;p&gt;The qualities of good unit tests are:&lt;br /&gt;
+- &lt;strong&gt;Trustworthy&lt;/strong&gt;: The tests results are reliable.&lt;br /&gt;
+- &lt;strong&gt;Readability&lt;/strong&gt;:  Writing test code that is easy to understand and communicates well.&lt;br /&gt;
+- &lt;strong&gt;Maintainability&lt;/strong&gt;:  Writing tests that are robust and hold up well over time.&lt;br /&gt;
+- &lt;strong&gt;Automation&lt;/strong&gt;:  Writing tests that require little setup and configuration (preferably none) and can be run/hooked to save or git push actions.&lt;/p&gt;
+
+&lt;p&gt;If unit testing is written and performed properly and consistently, software projects are a lot more effective at delivering the correct solution in a predictable and managed way. It is our job to verify that each part of an app works individually, so when they are joined together they have a good chance of working as a whole.&lt;/p&gt;
+
+&lt;p&gt;A Testing Framework is going to be required. It is possible to write a little application of your own which executes each of the tests and counts the number of successes and failures. But since the work of setting up and tearing down tests, counting successes and failures, and reporting and so on is the same for every test, it makes a lot of sense to use an existing test framework. There are many testing frameworks and tools you can/should use to automate the repetitive tasks. The choice of framework is mostly a matter of taste.&lt;/p&gt;
+
+&lt;p&gt;Automated Unit Testing is a great way to continuously check that the units you are working on continue to work as intended. To be effective, automated tests must meet very specific objectives:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Every developer must be able to run the combined collection of all the developer’s tests.&lt;/li&gt;
+&lt;li&gt;The continuous integration (CI) server must be able to run the entire suite of tests without any manual intervention.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Although through unit tests you can prove the small units work perfectly in isolation, the units of code may blow up when combined and that&amp;rsquo;s why you need Integration Testing, a logical extension of unit testing. In its simplest form, two units that have already been tested are combined into a component and the interface between them is tested. A component, in this sense, refers to an integrated aggregate of more than one unit.&lt;/p&gt;
+
+&lt;p&gt;Recommended lectures and talks&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://martinfowler.com/bliki/UnitTest.html&#34;&gt;Unit Test by Martin Fowler&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.youtube.com/watch?v=OzjogCFO4Zo&#34;&gt;Writting Testable Javascript&lt;/a&gt;, Talk by Rebecca Murphey at Full Frontal 2012&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.onjava.com/pub/a/onjava/2003/04/02/javaxpckbk.html&#34;&gt;Top 12 Reasons to Write Unit Tests&lt;/a&gt; by Eric M. Burke and Brian M. Coyner, authors of Java Extreme Programming Cookbook.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.adequatelygood.com/Writing-Testable-JavaScript.html&#34;&gt;Writting Testable Javascript&lt;/a&gt; by Ben Cherry&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.youtube.com/watch?v=wEhu57pih5w&#34;&gt;Unit Testing&lt;/a&gt;, Talk by Miško Hevery at Google, 2008&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://bit.ly/1r8o54R&#34;&gt;SOLID Software Design Principals&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>In-Place Editing with contenteditable and AngularJS</title>
+      <link>/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</link>
+      <pubDate>Sat, 23 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</guid>
+      <description>&lt;p&gt;In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page. When the user hovers over an editable area, the background color of the element changes. When clicked, the text becomes editable.&lt;/p&gt;
+
+&lt;p&gt;You can make an element editable by adding the contenteditable attribute in your markup. This attribute has three possible values: &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, and &lt;code&gt;inherit&lt;/code&gt;. Specifying inherit will make the element editable if it’s immediate parent is editable.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;editable&amp;quot; contenteditable=&amp;quot;true&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The following directive uses contenteditable attribute and ng-model for data binding.&lt;/p&gt;
+
+&lt;p&gt;&lt;p data-height=&#34;452&#34; data-theme-id=&#34;8070&#34; data-slug-hash=&#34;mgCAG&#34; data-default-tab=&#34;result&#34; class=&#39;codepen&#39;&gt;See the Pen &lt;a href=&#39;http://codepen.io/gaboesquivel/pen/mgCAG/&#39;&gt;Editing Page Elements with contenteditable&lt;/a&gt; by Gabo Esquivel (&lt;a href=&#39;http://codepen.io/gaboesquivel&#39;&gt;@gaboesquivel&lt;/a&gt;) on &lt;a href=&#39;http://codepen.io&#39;&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+&lt;script async src=&#34;//codepen.io/assets/embed/ei.js&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;br /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Current browser support for contenteditable. &lt;small&gt;source: &lt;a href=&#34;http://caniuse.com/#feat=contenteditable&#34;&gt;http://caniuse.com/#feat=contenteditable&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;div class=&#39;center-align-wrapper&#39;&gt;
+    &lt;img src=&#39;/img/2014/08/caniuse-content-editable.jpg&#39; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Known issues&lt;/strong&gt;&lt;br /&gt;
+- In Chromium/Chrome contenteditable cannot be edited when nested into draggable (&lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=170139&#34;&gt;https://code.google.com/p/chromium/issues/detail?id=170139&lt;/a&gt;). Still not fixed in Chrome version 26.0.1384.2.&lt;br /&gt;
+- In Firefox when clicking on contenteditable nested into draggable, cursor is always positioned to the start of editable text. Still not fixed in version 18.0.1.&lt;br /&gt;
+- In Internet Explorer contenteditable cannot be applied to the TABLE, COL, COLGROUP, TBODY, TD, TFOOT, TH, THEAD, and TR elements directly, a content editable SPAN, or DIV element can be placed inside the individual table cells (See &lt;a href=&#34;http://msdn.microsoft.com/en-us/library/ie/ms533690(v=vs.85).aspx&#34;&gt;http://msdn.microsoft.com/en-us/library/ie/ms533690(v=vs.85).aspx&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://www.w3.org/TR/html/editing.html#contenteditable&#34;&gt;w3.org contenteditable&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://ui-patterns.com/patterns/inplaceeditor&#34;&gt;UI Patterns - In Place Editor&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node.js HTTPS and SSL Certificate for Development</title>
+      <link>/blog/2014/node.js-https-and-ssl-certificate-for-development/</link>
+      <pubDate>Thu, 21 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/node.js-https-and-ssl-certificate-for-development/</guid>
+      <description>&lt;p&gt;HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your data. It is the most popular network protocol for establishiing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I&amp;rsquo;ll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes.&lt;/p&gt;
+
+&lt;h3 id=&#34;self-signed-ssl-certificate&#34;&gt;Self-Signed SSL Certificate&lt;/h3&gt;
+
+&lt;p&gt;There are two kinds of certificates: those signed by a &amp;lsquo;&lt;a href=&#34;http://en.wikipedia.org/wiki/Certificate_authority&#34;&gt;Certificate Authority&lt;/a&gt;&amp;rsquo;, or CA, and &amp;lsquo;self-signed certificates&amp;rsquo;. A Certificate Authority is a trusted source for an SSL certificate, and using a certificate from a CA allows your users to be trust the identity of your website. In most cases, you would want to use a CA-signed certificate in a production environment - for testing purposes, however, a self-signed certicate will do just fine.
+
+To genereate a certificate all you need is openssl&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;console&#34;&gt;
+$ where openssl
+/usr/bin/openssl  /usr/local/bin/openssl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can install it using homewbrew &lt;code&gt;brew install openssl&lt;/code&gt; on Mac OS, on linux use &lt;code&gt;sudo apt-get install openssl&lt;/code&gt;, on windows you can use &lt;a href=&#34;http://gnuwin32.sourceforge.net/packages/openssl.htm&#34;&gt;this installer&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To update openssl on mac os run the following commands
+&lt;pre&gt;&lt;code class=&#34;console&#34;&gt;
+brew update
+brew install openssl
+brew link &amp;ndash;force openssl
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+
+&lt;p&gt;Run the these commands to generate a self-signed certificate.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;console&#34;&gt;
+openssl genrsa -out key.pem
+openssl req -new -key key.pem -out csr.pem
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+rm csr.pem
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will get a cert.pem (the certificate) and key.pem (the private key). This is all you need for a SSL connection.&lt;/p&gt;
+
+&lt;p&gt;In the second command, when prompted for &amp;ldquo;Common Name (eg, YOUR name) []:&amp;ldquo;, do not give your name. It is actually the domain name field, so enter your domain name. Not giving your domain name will result in &amp;ldquo;domain mismatch&amp;rdquo; errors.&lt;/p&gt;
+
+&lt;p&gt;This certificate will trigger warnings in your browser, since it is self-signed.&lt;/p&gt;
+
+&lt;p&gt;When generating the key you might encounter the following error: &lt;code&gt;unable to write &#39;random state&#39;&lt;/code&gt;, the most common reason for this happening seems to be that the .rnd file in your home directory is owned by root rather than your account. &lt;a href=&#34;http://stackoverflow.com/questions/94445/using-openssl-what-does-unable-to-write-random-state-mean&#34;&gt;more on stackoverflow&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;create-an-https-server&#34;&gt;Create an HTTPS Server&lt;/h3&gt;
+
+&lt;p&gt;The HTTPS server and client API is almost identical to the HTTP API, so pretty much everything said above applies to them. In fact, the client API is the same, and the HTTPS server only differs in that it needs a certificate file.&lt;/p&gt;
+
+&lt;p&gt;Secure Server
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var https = require(&amp;lsquo;https&amp;rsquo;);
+var fs = require(&amp;lsquo;fs&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;var pkey = fs.readFileSync(&amp;lsquo;key.pem&amp;rsquo;);
+var pcert = fs.readFileSync(&amp;lsquo;cert.pem&amp;rsquo;)&lt;/p&gt;
+
+&lt;p&gt;var options = {
+    key: pkey,
+    cert: pcert
+};&lt;/p&gt;
+
+&lt;p&gt;var server = https.createServer(options, function (req, res) {
+    res.writeHead(200);
+    res.end(&amp;ldquo;hello world\n&amp;rdquo;);
+}).listen(443);
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+
+&lt;p&gt;Socket.io Client lang:javascript
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var socket = io.connect(&amp;lsquo;&lt;a href=&#34;https://localhost:443/&#39;,{secure:&#34;&gt;https://localhost:443/&#39;,{secure:&lt;/a&gt; true});
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;{% blockquote Nodejitsu &lt;a href=&#34;http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server&#34;&gt;http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server&lt;/a&gt; %}
+NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy server, however, using a synchronous function during a request will force the server to deal with the requests one by one!
+{% endblockquote %}&lt;/p&gt;
+
+&lt;p&gt;For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: &lt;a href=&#34;https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs&#34;&gt;OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;br /&gt;
+ - &lt;a href=&#34;https://github.com/coolaj86/node-ssl-root-cas/wiki/Painless-Self-Signed-Certificates-in-node.js&#34;&gt;Painless Self Signed Certificates in node.js &lt;/a&gt;&lt;br /&gt;
+ - &lt;a href=&#34;http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server&#34;&gt;Nodejitsu Docs: How to create an HTTPS server&lt;/a&gt;&lt;br /&gt;
+ - &lt;a href=&#34;https://devcenter.heroku.com/articles/ssl-certificate-self&#34;&gt;Heroku Dev Center: Creating a Self-Signed SSL Certificate&lt;/a&gt;&lt;br /&gt;
+ - &lt;a href=&#34;http://www.akadia.com/services/ssh_test_certificate.html&#34;&gt;How to create a self-signed SSL Certificate&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Differences between TDD, ATDD and BDD</title>
+      <link>/blog/2014/differences-between-tdd-atdd-and-bdd/</link>
+      <pubDate>Mon, 28 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/differences-between-tdd-atdd-and-bdd/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Test-driven development (TDD)&lt;/strong&gt; is a technique of using automated unit tests to drive the design of software and force decoupling of dependencies. The result of using this practice is a comprehensive suite of unit tests that can be run at any time to provide feedback that the software is still working.&lt;/p&gt;
+
+&lt;p&gt;The concept is to &amp;ldquo;get something working now and perfect it later.&amp;rdquo; After each test, refactoring is done and then the same or a similar test is performed again. The process is iterated as many times as necessary until each unit is functioning according to the desired specifications.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ATDD&lt;/strong&gt; stands for &lt;strong&gt;Acceptance Test Driven Development&lt;/strong&gt;, it is also less commonly designated as Storytest Driven Development (STDD). It is a technique used to bring customers into the test design process before coding has begun. It is a collaborative practice where users, testers, and developers define automated acceptance criteria. ATDD helps to ensure that all project members understand precisely what needs to be done and implemented. Failing tests provide quick feedback that the requirements are not being met. The tests are specified in business domain terms. Each feature must deliver real and measurable business value: indeed, if your feature doesn’t trace back to at least one business goal, then you should be wondering why you are implementing it in the first place.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Behavior-Driven Development (BDD)&lt;/strong&gt; combines the general techniques and principles of TDD with ideas from domain-driven design. BDD is a design activity where you build pieces of functionality incrementally guided by the expected behavior. The focus of BDD is the language and interactions used in the process of software development. Behavior-driven developers use their native language in combination with the language of Domain Driven Design to describe the purpose and benefit of their code.&lt;/p&gt;
+
+&lt;p&gt;A team using BDD should be able to provide a significant portion of &amp;ldquo;functional documentation&amp;rdquo; in the form of User Stories augmented with executable scenarios or examples.  BDD is usually done in very English-like language helps the Domain experts to understand the implementation rather than exposing the code level tests. It&amp;rsquo;s usually defined in a GWT format: GIVEN WHEN &amp;amp; THEN.&lt;/p&gt;
+
+&lt;h2 id=&#34;differences&#34;&gt;Differences&lt;/h2&gt;
+
+&lt;p&gt;TDD is rather a paradigm than a process. It describes the cycle of writing a test first, and application code afterwards – followed by an optional refactoring. But it doesn’t make any statements about: Where do I begin to develop? What exactly should I test? How should tests be structured and named? .When your development is Behavior-Driven, you always start with the piece of functionality that’s most important to your user.&lt;/p&gt;
+
+&lt;p&gt;TDD and BDD have language differences, BDD tests are written in an english-like language.&lt;/p&gt;
+
+&lt;p&gt;BDD focuses on the behavioral aspect of the system unlike TDD that focuses on the implementation aspect of the system.&lt;/p&gt;
+
+&lt;p&gt;ATDD focuses on capturing requirements in acceptance tests and uses them to drive the development. (Does the system do what it is required to do?)&lt;/p&gt;
+
+&lt;p&gt;BDD is customer-focused while ATDD leans towards the developer-focused side of things like [Unit]TDD does. This allows much easier collaboration with non-techie stakeholders, than TDD.&lt;/p&gt;
+
+&lt;p&gt;TDD tools and techniques are usually much more techie in nature, requiring that you become familiar with the detailed object model (or in fact create the object model in the process, if doing true test-first canonical TDD). The typical non-programming executive stakeholder would be utterly lost trying to follow along with TDD.&lt;/p&gt;
+
+&lt;p&gt;BDD gives a clearer understanding as to what the system should do from the perspective of the developer and the customer.&lt;/p&gt;
+
+&lt;p&gt;TDD allows a good and robust design, still, your tests can be very far away of the users requirements. BDD is a way to ensure consistency between requirements and the developer tests.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Get Started with Command Line and Z Shell</title>
+      <link>/blog/2014/get-started-with-command-line-and-z-shell/</link>
+      <pubDate>Mon, 28 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/get-started-with-command-line-and-z-shell/</guid>
+      <description>&lt;p&gt;A quick introduction&amp;hellip; To develop a web application tooling and workflow are very important. Taking the time to learn and master command line is not only highly recommended but it is required to make use of tools that will help you develop faster and gain more control of your workflow.&lt;/p&gt;
+
+&lt;p&gt;This post summarizes what you need to know to get going with command line as well sharing some personal recommendations on the setup of the command prompt on MAC OS X, but it applies to *nix as well.&lt;/p&gt;
+
+&lt;p&gt;##What is a Shell?&lt;/p&gt;
+
+&lt;p&gt;The Shell is an application that offers interactive console or terminal access to a computer system. It lets you interact with applications on your computer through command line. A command-line interface (CLI) is a mechanism for interacting with a computer operating system or software by typing commands to perform specific tasks, a command-line interpreter then receives, parses, and executes the requested user command.&lt;/p&gt;
+
+&lt;p&gt;Most operating systems offer a command line interface, but that doesn&amp;rsquo;t mean the built-in version is best. MAC OS X comes with Terminal, however there&amp;rsquo;s a terminal emulator for Mac OS X that is more customizable and does amazing things out-of-the-box, it&amp;rsquo;s called &lt;a href=&#34;http://www.iterm2.com/#/section/home&#34;&gt;iTerm&lt;/a&gt;. If you are using a windows machine I&amp;rsquo;d recommend you installing &lt;a href=&#34;http://lifehacker.com/179514/geek-to-live--introduction-to-cygwin-part-i&#34;&gt;cygwin&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In order to use the command line prompt you will need to memorize commands. Start with the basic system commands, once you mastered that you&amp;rsquo;ll catch up quickly with other tools such as &lt;a href=&#34;/blog/2014/shell-is-your-friend-tips-and-how-to-customize-it/&#34;&gt;gulp.js&lt;/a&gt;. &lt;a href=&#34;http://sayan.ee/&#34;&gt;Sayanee&lt;/a&gt; runs a great podcast on tech tools called Build Podcast, I recommend you watching this episode to get started.&lt;/p&gt;
+
+&lt;p&gt;{% vimeo 43649618 %}&lt;/p&gt;
+
+&lt;p&gt;##Setup&lt;/p&gt;
+
+&lt;p&gt;ZSH(Z Shell) is a powerful command interpreter for shell scripting, it is a modern &lt;a href=&#34;http://en.wikipedia.org/wiki/Unix_shell&#34;&gt;Unix shell&lt;/a&gt; that is backward compatible with bash. The main features of zsh are the true auto tab completion and autocorrect, shared history over all terminals, history sub-string search and the ability to customize your prompt &lt;a href=&#34;http://zsh.sourceforge.net/FAQ/zshfaq01.html&#34;&gt;among many other&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So Why is Zsh better than Bash? In short:&lt;br /&gt;
+- very costumizable prompt&lt;br /&gt;
+- autocorrection&lt;br /&gt;
+- fast autocompletion that also gives you a keyboard navigable completion list. Let&amp;rsquo;s look at an example,
+&lt;code&gt;Kill &amp;lt;tab&amp;gt;&lt;/code&gt; ouput the list of current processes whereas bash displays a list of files in the current directory.&lt;/p&gt;
+
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+&lt;img src=&#34;/img/2014/04/kill-tab-zsh.png&#34;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what you need to do in order to install or update ZSH on MAC OS X:&lt;/p&gt;
+
+&lt;p&gt;Apple comes with the Bash as the default Shell. That might be fine for many users, but I as mentioned before I prefer Z shell, which is already included in Mac OS X Mavericks.&lt;/p&gt;
+
+&lt;p&gt;Out of the box Mac OS X version 10.8.x (Lion) comes with zsh version 4.3.11 (i386-apple-darwin12.0). However zsh is currently at version zsh 5.0.2 (x86_64-apple-darwin13.0). You can use &lt;a href=&#34;http://brew.sh&#34;&gt;Homebrew&lt;/a&gt; to install the newer version.&lt;/p&gt;
+
+&lt;p&gt;In order to use homebrew first you need need to install Command Line Tools for Xcode by running: &lt;code&gt;xcode-select --install&lt;/code&gt; or update to XCode5. The Command Line Tool package gives terminal users many commonly used tools, utilities, and compilers, including make, GCC, clang, perl, svn, git, size, strip, strings, libtool, cpp, what, and many other useful commands that are usually found in default linux installations.&lt;/p&gt;
+
+&lt;p&gt;Open the console and run &lt;code&gt;brew install zsh&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now in order to change the default shell to zsh run &lt;code&gt;chsh -s /bin/zsh&lt;/code&gt;&lt;br /&gt;
+Verify your running zsh after opening new terminal with &lt;code&gt;ps -o comm $$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In iTerm settings make sure it is running zsh
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+&lt;img src=&#34;/img/2014/04/iterm.png&#34;/&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;###Customization&lt;/p&gt;
+
+&lt;p&gt;Customizing the command prompt is different in different shells, I&amp;rsquo;m going to cover zsh here.&lt;/p&gt;
+
+&lt;p&gt;Zsh is widely used by the open source community and because of that there are many open sourced projects with snippets, functions, configurations, themes, plugins, modules you can leverage to personalize your shell prompt.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://ohmyz.sh/&#34;&gt;Oh-My-ZSH&lt;/a&gt;&lt;/strong&gt;: the is most popular with over 600 contributors on github and many plugins that you can easily integrate. There&amp;rsquo;s a similar project for windows called &lt;a href=&#34;https://github.com/haithembelhaj/oh-my-cygwin&#34;&gt;oh-my-cygwin&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/holman/dotfiles&#34;&gt;Zach Holman&amp;rsquo;s dotfiles&lt;/a&gt;&lt;/strong&gt;: features auto sourcing Zsh files, easy Zsh completion extensions, and a local bin folder for executables. The included Rakefile will symlink anything ending in .symlink to your ~ folder. What&amp;rsquo;s great about Holman&amp;rsquo;s dotfiles is the organization per topic - &lt;a href=&#34;http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/&#34;&gt;here you can read more about it&lt;/a&gt;. I believe since then people have started to follow this pattern. There are many dotfiles on github &lt;a href=&#34;https://github.com/search?q=dotfiles&#34;&gt;https://github.com/search?q=dotfiles&lt;/a&gt; and on the following link you will find a good selection and categorization &lt;a href=&#34;http://dotfiles.github.io&#34;&gt;http://dotfiles.github.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/skwp/dotfiles&#34;&gt;YADR&lt;/a&gt;&lt;/strong&gt;: it is collection of the best bits of all the top dotfile repos, vim and zsh plugins curated in one place, into a simple and cohesive way of working. It has many vim plugins (90+), all under one roof, working together, each plugin researched and configured to be at its best, often with better shortcut keys. Zsh plugins based on &lt;a href=&#34;https://github.com/sorin-ionescu/prezto&#34;&gt;Prezto&lt;/a&gt; and all things are vimized: irb, postres command line, etc.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m currently using Oh-My-ZSH as base for my configuration. You can find the detailed installation steps and documention &lt;a href=&#34;https://github.com/robbyrussell/oh-my-zsh#setup&#34;&gt;here&lt;/a&gt;. YADR has being staled for while and Prezto altough is very well documented doesn&amp;rsquo;t have the community support oh-my-zsh has.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Gulp.js</title>
+      <link>/blog/2014/introduction-to-gulp.js/</link>
+      <pubDate>Sun, 20 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/introduction-to-gulp.js/</guid>
+      <description>&lt;p&gt;Automation of repetitive and critical tasks is key to develop a successful software product. Automated tasks will minimize software cost, reduce software delivery time as well as improving the product quality and reduce human error. Investing time in automating tasks will allow you to focus on developing features.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;“War is of vital importance to the state; hence it is a subject of inquiry which can on no account be neglected”&lt;/em&gt;&lt;br /&gt;
+- Sun Tzu, Art of War&lt;/p&gt;
+
+&lt;p&gt;In this post I will introduce you to Gulp.js, a javascript task runner that helps you automate your development process.&lt;/p&gt;
+
+&lt;p&gt;##Setting Up your Web App Build System&lt;/p&gt;
+
+&lt;p&gt;When developing modern web applications there are critical tasks you want to automate:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;testing: code linting, unit testing, e2e tests&lt;/li&gt;
+&lt;li&gt;css preprocessing ( sass, less, …)&lt;/li&gt;
+&lt;li&gt;optimization: concatenating and minifying css and scripts, compressing new or modified images, &amp;hellip;&lt;/li&gt;
+&lt;li&gt;deploying updates to a staging or production server&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are many tools that will help you automate these tasks. Which one to choose? Grunt, Gulp, Brunch, Broccoli,…&lt;/p&gt;
+
+&lt;p&gt;Back in 2012 Grunt.js came out and it was quickly adopted by the community, plugins started to proliferate and it became king for task automation on the client side, playing well with Bower and Yeoman. Like many other developers I’ve been using Grunt on my projects and it gets the job done but recently I started to use Gulp, another open source project with faster build times and a Unix/Node philosophical approach to solve problems.&lt;/p&gt;
+
+&lt;p&gt;Gulp.js focuses on code over configuration. By harnessing the power of Node streams, it enables faster build times by avoiding the need to write temporary files to disk. This is one of the main differences with Grunt. Stream instances are basically Unix pipes. They can be readable, writable or both and are easy to reason about &amp;ndash; you can pipe a readable stream to a writable stream by doing readableStream.pipe(writableStream).&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;“Streams come to us from the earliest days of unix and have proven themselves over the decades as a dependable way to compose large systems out of small components that do one thing well.&lt;br /&gt;
+You can then plug the output of one stream to the input of another and use libraries that operate abstractly on streams to institute higher-level flow control.”&lt;/em&gt;&lt;br /&gt;
+- substack
+&lt;/p&gt;
+
+&lt;p&gt;Other advantages of using Gulp are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Using standard libraries to accomplish tasks&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Small, idiomatic Node modules that do one thing well&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Tasks are executed with maximum concurrency&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Really simple and elegant API&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Learning the new flow control techniques will make you more efficient. To learn more about node streams read the &lt;a href=&#34;https://github.com/substack/stream-handbook&#34;&gt;Stream Handbook&lt;/a&gt; by James Halliday and play on the &lt;a href=&#34;http://nodestreams.com&#34;&gt;Node.js Stream Playground&lt;/a&gt; by John Resig. Another great resource is &lt;a href=&#34;http://maxogden.com/node-streams.html&#34;&gt;Node Streams: How do they work?&lt;/a&gt; by Max Ogden, it comes with a screencast version of the article.&lt;/p&gt;
+
+&lt;p&gt;Gulp has only few functions to learn:&lt;br /&gt;
+&lt;strong&gt;task(name, fn)&lt;/strong&gt; : it registers the function and you can optionally specify some dependencies if other tasks need to run first.&lt;br /&gt;
+&lt;strong&gt;run(tasks&amp;hellip;)&lt;/strong&gt; : runs all tasks with maximum concurrency.&lt;br /&gt;
+&lt;strong&gt;watch(glob, fn)&lt;/strong&gt; : runs a function when a file that matches the glob changes&lt;br /&gt;
+&lt;strong&gt;src(glob)&lt;/strong&gt; :  returns a readable stream. Takes a file system glob and starts emitting files that match. This is piped to other streams.&lt;br /&gt;
+&lt;strong&gt;dest(folder)&lt;/strong&gt; : returns a writable stream. File objects piped to this are saved to the file system.&lt;/p&gt;
+
+&lt;p&gt;This article will walk you through all of the intimidating stuff and introduce you to the core ideas that you will need to know to start using gulp. &lt;a href=&#34;http://travismaynard.com/writing/getting-started-with-gulp&#34;&gt;http://travismaynard.com/writing/getting-started-with-gulp&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a Javascript Jabber episode with the creator of Gulp: &lt;a href=&#34;http://javascriptjabber.com/097-jsj-gulp-js-with-eric-schoffstall&#34;&gt;JSJ Gulp.js with Eric Schoffstall&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Caveats: the Gulp.js team is working on bringing in a new task system to improve efficiency ( even more ) and it might include some API changes, you can follow the progress here &lt;a href=&#34;https://github.com/gulpjs/gulp/issues/355&#34;&gt;https://github.com/gulpjs/gulp/issues/355&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##So why should I use Gulp instead of Grunt?&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://twitter.com/markdalgleish&#34;&gt;Mark Dalgleish&lt;/a&gt; published a great presentation that covers the history of Grunt and Gulp and their differences: &lt;a href=&#34;http://markdalgleish.github.io/presentation-build-wars-gulp-vs-grunt&#34;&gt;http://markdalgleish.github.io/presentation-build-wars-gulp-vs-grunt&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Another great article that is worth reading is &lt;a href=&#34;http://blog.ponyfoo.com/2014/01/09/gulp-grunt-whatever&#34;&gt;Gulp, Grunt, Whatever..&lt;/a&gt; by &lt;a href=&#34;http://twitter.com/nzgb&#34;&gt;Nicolas Bevacqua&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The main reasons why I decided to switch to Gulp are:&lt;br /&gt;
+- Grunt uses JSON-like data configuration files; Gulp uses leaner, simpler JavaScript code.&lt;br /&gt;
+- Grunt plugins often perform multiple tasks; Gulp plugins are designed to do one thing only.&lt;br /&gt;
+- Grunt requires plug-ns for basic functionality such as file watching; Gulp has them built-in.&lt;/p&gt;
+
+&lt;p&gt;You can find gulp plugins at &lt;a href=&#34;http://gulpjs.com/plugins&#34;&gt;http://gulpjs.com/plugins&lt;/a&gt; and &lt;a href=&#34;https://npmjs.org/browse/keyword/gulpplugin&#34;&gt;https://npmjs.org/browse/keyword/gulpplugin&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##Conclusion&lt;/p&gt;
+
+&lt;p&gt;Gulp.js and node streams are more natural to understand than a huge config file and it also provides more flexibility and speed. Grunt is more mature. I think that both Grunt and Gulp can happily co-exist, If you are using it successfully, there’s no reason to switch Gulp unless you really want or need more flow control and you feel comfortable working with streams and living on the edge.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Overview of Angular Generators – April 2014</title>
+      <link>/blog/2014/overview-of-angular-generators--april-2014/</link>
+      <pubDate>Sat, 19 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/overview-of-angular-generators--april-2014/</guid>
+      <description>&lt;p&gt;This is a short and opinionated review of the AngularJS generators on npm as of April 19th, 2014.&lt;/p&gt;
+
+&lt;p&gt;There are a lot of generators on npm and it&amp;rsquo;s a little hard to decide which one to use or fork, since we don&amp;rsquo;t want to reinvent the wheel. Currently the only way to compare them is to try them one by one and that&amp;rsquo;s a very time consuming task. In this post I&amp;rsquo;ll try to give you an overview of some generators I&amp;rsquo;ve explored recently hoping it will save you some time. I’ll follow &lt;a href=&#34;http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript&#34;&gt;Cliff Meyer&amp;rsquo;s Code Organization Categorization&lt;/a&gt; to describe their code structure.&lt;/p&gt;
+
+&lt;p&gt;Most generators still use the &amp;ldquo;Sock Drawer&amp;rdquo; directory organization, an approach that I personally avoid, it doesn&amp;rsquo;t scale well but it works for small projects. I prefer a modular structure as suggested on latest &lt;a href=&#34;https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub&#34;&gt;Google&amp;rsquo;s Best Practice Recommendations for Angular App Structure&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Some of the benefits of modularization are:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Encapsulation:&lt;/strong&gt; Code, styles and tests related to specific feature will be contained on the same directory.&lt;br /&gt;
+&lt;strong&gt;Context:&lt;/strong&gt;  Code lives in given context by feature. This is specially important to developers new to the application, who will find it easier to connect the dots.&lt;br /&gt;
+&lt;strong&gt;Code Reusabilty:&lt;/strong&gt; You would be able to reuse modules across projects and clients, Eg mobile and web-client could share autentication modules or resources ( models ).&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a list of Angular generators and their characteristics (some of them are fullstack generators):
+&lt;/p&gt;
+
+&lt;p&gt;##generator-angular v0.8.0&lt;/p&gt;
+
+&lt;p&gt;The angular generator maintained by the yeoman members. It generates all the boilerplate you need to get started and has subgenerators to scaffold the different angular object types. The app generator also optionally installs Bootstrap and additional AngularJS modules.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: grunt&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: sock drawer&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: angular controllers, directives, filters, routes, services, providers, factories, values, constants, decorators and views. &lt;code&gt;--coffee&lt;/code&gt; flag in case you prefer to use CoffeeScript&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;: karma for unit and E2E tests&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: optional sass with compass&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;:  false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: travis&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: optional angular-resource, angular-cookies, angular-sanitize, angular-route. not optional angular-mocks,angular-scenario&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: autoprefixer, editorconfig, cache buster&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;optional Twitter Bootstrap&lt;/li&gt;
+&lt;li&gt;by default, new scripts are added to the index.html file. optional &lt;code&gt;--skip-add&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;automatically runs &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;static node server&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by &lt;a href=&#34;https://github.com/yeoman/generator-angular/graphs/contributors&#34;&gt;Yeoman Members&lt;/a&gt;&lt;br /&gt;
+npm: &lt;a href=&#34;https://www.npmjs.org/package/generator-angular&#34;&gt;https://www.npmjs.org/package/generator-angular&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/yeoman/generator-angular&#34;&gt;https://github.com/yeoman/generator-angular&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-angular-fullstack v1.4.2&lt;/p&gt;
+
+&lt;p&gt;Yeoman generator for creating MEAN stack applications: MongoDB, Express, AngularJS, and Node. It is based on generator-angular,it also has subgenerators to scaffold the different angular object types and it optionally installs Bootstrap, additional AngularJS modules and MongoDB integration with Mongoose.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: grunt&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: sock drawer&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: angularjs subgenerators for controllers, directives, filters, routes, services, providers, factories, values, constants, decorators and views. And a fullstack subgenerator for deployment.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;:  bower&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;:  karma for unit and E2E tests&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: optional sass with compass&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;:   easy deployment workflow. OpenShift, Heroku, custom&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;:   travis&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: client and server files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: optional angular-resource, angular-cookies, angular-sanitize, angular-route. not optional angular-mocks, angular-scenario&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: autoprefixer, cdnify&lt;/li&gt;
+&lt;li&gt;optional Twitter Bootstrap&lt;/li&gt;
+&lt;li&gt;optional MongoDB integration with Mongoose&lt;/li&gt;
+&lt;li&gt;support for Jade and CoffeeScript&lt;/li&gt;
+&lt;li&gt;optional Passport integration for adding user accounts&lt;/li&gt;
+&lt;li&gt;express server integrated with grunt tasks&lt;/li&gt;
+&lt;li&gt;autorun &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;by default, new scripts are added to the index.html file. optional &amp;ndash;skip-add&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by &lt;a href=&#34;https://github.com/DaftMonk&#34;&gt;daftmonk&lt;/a&gt;&lt;br /&gt;
+npm: &lt;a href=&#34;https://www.npmjs.org/package/generator-angular-fullstack&#34;&gt;https://www.npmjs.org/package/generator-angular-fullstack&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/DaftMonk/generator-angular-fullstack&#34;&gt;https://github.com/DaftMonk/generator-angular-fullstack&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-cg-angular v3.0.3&lt;/p&gt;
+
+&lt;p&gt;A generator for large applications. Organize code however the developer wishes. All subgenerators prompt the user for the directory to place the created files. Fully supports Angular&amp;rsquo;s Best Practice Guidelines for app structure.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: supports grunt and gulp&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: In v3.0, all subgenerators for partials, services, directives, and filters, allow the user to specify where to save the new files, thus you can create your own directory structure (including nesting) as you desire.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: angularjs subgenerators for directives, partials, service, filters and modules&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;:  bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;:  grunt-contrib-jasmine, Headless testing with Jasmine, PhantomJS&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: Less&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: optional ui-router. not optional angular-animate, angular-resource, angular-cookies, angular-mocks, angular-ui-utils, angular-bootstrap&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: editorconfig&lt;/li&gt;
+&lt;li&gt;appName prompt&lt;/li&gt;
+&lt;li&gt;autorun &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by &lt;a href=&#34;https://github.com/cgross&#34;&gt;cgross&lt;/a&gt;&lt;br /&gt;
+npm: &lt;a href=&#34;https://www.npmjs.org/package/generator-cg-angular&#34;&gt;https://www.npmjs.org/package/generator-cg-angular&lt;/a&gt;&lt;br /&gt;
+github:  &lt;a href=&#34;https://github.com/cgross/generator-cg-angular&#34;&gt;https://github.com/cgross/generator-cg-angular&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-boom v0.1.8&lt;/p&gt;
+
+&lt;p&gt;Boom uses Gulp instead of Grunt, Protractor (E2E tests) and BrowserSync is pre-configured. Good Stuff!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: gulp&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: Sock Drawer code organization by default&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: angularjs subgenerators for controllers, directives, filters, routes, services, providers, factories, values, constants, decorators and views. Constants and Values will be added in main.js (No new file will be created). Adding Routes will also create and link the css and controller in their respective folders. Subgenerators for fonts, styles and views and tests.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;:  Protractor (E2E tests) pre-configured&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: sass&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;:   false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;:  true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: optional angular-resource, angular-cookies, angular-sanitize, angular-route, angular-animate, angular-ui(ui-utils, bootstrap, ui-router, ng-grid)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: editorconfig, browsersync pre-configured&lt;/li&gt;
+&lt;li&gt;development and production code are separated&lt;/li&gt;
+&lt;li&gt;optional jquery or zepto&lt;/li&gt;
+&lt;li&gt;optional modernizr&lt;/li&gt;
+&lt;li&gt;FontFace - Add @fontface on fly&lt;/li&gt;
+&lt;li&gt;Share code with client using command gulp zip (Will create the .zip file of build folder)&lt;/li&gt;
+&lt;li&gt;static node server&lt;/li&gt;
+&lt;li&gt;autorun &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by &lt;a href=&#34;https://github.com/aamirshah&#34;&gt;aamirshah&lt;/a&gt;&lt;br /&gt;
+npm: &lt;a href=&#34;https://www.npmjs.org/package/generator-boom&#34;&gt;https://www.npmjs.org/package/generator-boom&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/aamirshah/generator-boom&#34;&gt;https://github.com/aamirshah/generator-boom&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-meanjs v0.0.8&lt;/p&gt;
+
+&lt;p&gt;MEAN.JS is a full-stack JavaScript solution, which provides a solid starting point for MongoDB, Node.js, Express, and AngularJS based applications. The idea is to solve the common issues with connecting those frameworks, build a robust framework to support daily development needs, and help developers use better practices while working with popular JavaScript components.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: grunt&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: modular&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: Subgenerators for Angular and Express: crud-module, angular-module, angular-route, angular-controller, angular-view, angular-service, angular-directive, angular-filter, angular-config, angular-test, express-model, express-controller, express-route, express-test&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;:  unit tests with karma&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: travis&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: optional angular-resource, angular-cookies, angular-sanitize, angular-route, angular-touch, article crud. not optional angular-mocks&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: procfile&lt;/li&gt;
+&lt;li&gt;appName, description and author prompts&lt;/li&gt;
+&lt;li&gt;autorun &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by &lt;a href=&#34;https://github.com/amoshaviv&#34;&gt;amoshaviv&lt;/a&gt;&lt;br /&gt;
+npm: &lt;a href=&#34;https://www.npmjs.org/package/generator-meanjs&#34;&gt;https://www.npmjs.org/package/generator-meanjs&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/meanjs/generator-meanjs&#34;&gt;https://github.com/meanjs/generator-meanjs&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the explanation about Mean.js and Mean.io - &lt;a href=&#34;http://tmblr.co/Z7XDmo17TG_o4&#34;&gt;http://tmblr.co/Z7XDmo17TG_o4&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-hyper-angular v0.1.6&lt;/p&gt;
+
+&lt;p&gt;HyperAngular (generator-hyper-angular) is a Yeoman generator for AngularJS/Express/node.js apps emphasizing modularity, configuration, and testing. It&amp;rsquo;s designed to provide plenty of tooling to help you code expressively at all scales, while putting up railings to keep your code consistent and clean. It stamps out a simple application that tests itself and self-documents the structure of the generated template&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;:  grunt&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: sock drawer&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;:  unit test with karma and e2e with protractor&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: less&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;:  travis&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: optional angular-ui-router. not optional angular-resource, angular-mocks&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;:&lt;/li&gt;
+&lt;li&gt;appName prompt&lt;/li&gt;
+&lt;li&gt;prompts for protocol, host and port&lt;/li&gt;
+&lt;li&gt;prompt for Github user and License&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;autorun &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by &lt;a href=&#34;https://github.com/jprystowsky&#34;&gt;jprystowsky&lt;/a&gt;&lt;br /&gt;
+npm: &lt;a href=&#34;https://www.npmjs.org/package/generator-hyper-angular&#34;&gt;https://www.npmjs.org/package/generator-hyper-angular&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/jprystowsky/generator-hyper-angular&#34;&gt;https://github.com/jprystowsky/generator-hyper-angular&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##slush-angular v0.3.0&lt;/p&gt;
+
+&lt;p&gt;A slush generator for AngularJS using the Google Angular App Structure Recommendations.
+This is not a yeoman generator, it is built with &lt;a href=&#34;https://github.com/klei/slush&#34;&gt;slush&lt;/a&gt; a gulp based alternative to yeoman. You can choose between LESS, Stylus, and Sass to use as the CSS Preprocessor.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: gulp&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: modular&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;: unit tests with karma&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: Stylus, Less, Sass&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;:  false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: not optional angular-route, angular-route&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: optional todoList example, csslint, editorconfig, lazypipe&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;appName prompt&lt;/li&gt;
+&lt;li&gt;autorun &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by:  &lt;a href=&#34;https://github.com/joakimbeng&#34;&gt;joakimbeng&lt;/a&gt;&lt;br /&gt;
+npm : &lt;a href=&#34;https://www.npmjs.org/package/slush-angular&#34;&gt;https://www.npmjs.org/package/slush-angular&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/klei/slush-angular&#34;&gt;https://github.com/klei/slush-angular&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-ngbp v0.0.5&lt;/p&gt;
+
+&lt;p&gt;Yeoman generator based on the &lt;a href=&#34;https://github.com/ngbp/ngbp&#34;&gt;ngBoilerplate kickstarter&lt;/a&gt;, a best-practice boilerplate for scalable Angular projects built on a highly modular, folder-by-feature structure.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: grunt&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: modular&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: only one subgenerator at the moment ngbp:module&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;: unit tests with karma&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: Less&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;:  false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: optional angular-resource. not optional angular-ui-router, angular-bootstrap, angular-mocks&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: autoprefixer, editorconfig, cache buster&lt;/li&gt;
+&lt;li&gt;appName prompt&lt;/li&gt;
+&lt;li&gt;prompt for copyright in html&lt;/li&gt;
+&lt;li&gt;coffeeScript support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by:  &lt;a href=&#34;https://github.com/thardy/generator-ngbp&#34;&gt;thardy&lt;/a&gt;&lt;br /&gt;
+npm : &lt;a href=&#34;https://www.npmjs.org/package/generator-ngbp&#34;&gt;https://www.npmjs.org/package/generator-ngbp&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/thardy/generator-ngbp&#34;&gt;https://github.com/thardy/generator-ngbp&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-gulp-ng v1.0.1&lt;/p&gt;
+
+&lt;p&gt;This is a yeoman generator for an angularjs project that follows the Best Practice Recommendations for Angular App Structure. It takes advantage of the gulp build tool and makes use of bower and npm for dependency management.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: gulp&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: modular  *follows google&amp;rsquo;s best practices document&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: no subgenerators&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;: unit tests with karma&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: false&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;:  false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: not optional angular-route&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: template cache&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by:  &lt;a href=&#34;https://github.com/henyojess&#34;&gt;henyojess&lt;/a&gt;&lt;br /&gt;
+npm : &lt;a href=&#34;https://www.npmjs.org/package/generator-gulp-ng&#34;&gt;https://www.npmjs.org/package/generator-gulp-ng&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/henyojess/generator-gulp-ng&#34;&gt;https://github.com/henyojess/generator-gulp-ng&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##generator-klei v0.4.3&lt;/p&gt;
+
+&lt;p&gt;A Yeoman generator for generating module or app boilerplates! MEAN-stack (all parts optional) with scalability in mind and with Grunt and Bower sweetness.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build system&lt;/strong&gt;: grunt&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code organization&lt;/strong&gt;: modular&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;subgenerators&lt;/strong&gt;: klei:api&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dependency mgr&lt;/strong&gt;: bower&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;testing&lt;/strong&gt;: unit tests with karma&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;css preprocessors&lt;/strong&gt;: stylus&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deployment&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optimization&lt;/strong&gt;: true&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous integration&lt;/strong&gt;: false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;live reload&lt;/strong&gt;: true&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source_maps&lt;/strong&gt;:  false&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;modules&lt;/strong&gt;: not optional angular-route, angular-mocks, restangular&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code linting&lt;/strong&gt;: jshint src and tests&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;goodies&lt;/strong&gt;: optional todo list example, editorconfig, csslint, template cache&lt;/li&gt;
+&lt;li&gt;appName prompt&lt;/li&gt;
+&lt;li&gt;optional REST API scaffolding with Express&lt;/li&gt;
+&lt;li&gt;optional MongoDB with Mongoose&lt;/li&gt;
+&lt;li&gt;autorun &lt;code&gt;npm install&lt;/code&gt; and &lt;code&gt;bower install&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;maintained by: &lt;a href=&#34;https://github.com/joakimbeng&#34;&gt;joakimbeng&lt;/a&gt;&lt;br /&gt;
+npm : &lt;a href=&#34;https://www.npmjs.org/package/generator-klei&#34;&gt;https://www.npmjs.org/package/generator-klei&lt;/a&gt;&lt;br /&gt;
+github: &lt;a href=&#34;https://github.com/klei-dev/generator-klei&#34;&gt;https://github.com/klei-dev/generator-klei&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For more AngularJS generators go to @substack’s npmsearch.com and “type angular &amp;amp; yeoman-generator” or &lt;a href=&#34;http://npmsearch.com/?q=angular%20&amp;amp;%20yeoman-generator&#34;&gt;click here&lt;/a&gt;.&lt;br /&gt;
+There&amp;rsquo;s also &lt;a href=&#34;http://yeoman.io/community-generators.html&#34;&gt;Yeoman Community Generators Search&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Happy Forking! You may also want to &lt;a href=&#34;http://code.tutsplus.com/tutorials/build-your-own-yeoman-generator--cms-20040&#34;&gt;create your own yeoman generator&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I published this repo &lt;a href=&#34;https://github.com/gaboesquivel/angular-generators&#34;&gt;https://github.com/gaboesquivel/angular-generators&lt;/a&gt; to hold this information until we have a better way to search and filter generators. If you&amp;rsquo;d like update information of one of the generators listed or add a new one go ahead and PR.&lt;/p&gt;
+
+&lt;p&gt;Please leave your comments. :)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Developing Software in Paradise, aka Costa Rica</title>
+      <link>/blog/2014/developing-software-in-paradise-aka-costa-rica/</link>
+      <pubDate>Sat, 04 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/developing-software-in-paradise-aka-costa-rica/</guid>
+      <description>&lt;p&gt;Coming back to Costa Rica and enjoy my country while working on software applications is one of the best decisions I ever made. Check out these pictures I took with my phone at Playa Manzanillo, near to Santa Teresa - Mal País, a natural paradise with world class surfing that ranks among the most beautiful beaches of Costa Rica and you&amp;rsquo;ll agree is the best place to live or invest in the country.&lt;/p&gt;
+
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+&lt;img alt=&#34;playa-manazanillo-sunset&#34; src=&#34;/img/2014/01/playa-manazanillo-sunset-300x225.jpg&#34; /&gt;
+&lt;img alt=&#34;vacas-playa-manzanillo&#34; src=&#34;/img/2014/01/vacas-playa-manzanillo-300x225.jpg&#34;/&gt;
+&lt;img alt=&#34;playa-manzanillo-reef&#34; src=&#34;/img/2014/01/playa-manzanillo-reef-300x225.jpg&#34; /&gt;
+&lt;img alt=&#34;rocks-playa-manzanillo&#34; src=&#34;/img/2014/01/rocks-playa-manzanillo-300x225.jpg&#34;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel location in all of both Central and South America. Malpais and Montezuma both have many of the best restaurants in the entire country, since many international chefs have moved to the area. The area is also a major center of Costa Rica Yoga with over a dozen places to learn/practice and many yoga retreats and surf+yoga retreat combinations.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://angel.co/elion-chin&#34;&gt;Elion Chin&lt;/a&gt;, co-founder of MoodLogic - one of the first online music recommendation systems, is leading &lt;a href=&#34;http://bit.ly/SiliconBeachCR&#34;&gt;Silicon Beach&lt;/a&gt; a forum for entrepreneurs &amp;amp; people looking to invest in, work at, advise or network with startups in Costa Rica to promote the technology talent of Costa Rica and drive the start-up culture in a fulfilling and healthy environment to deliver the best.&lt;/p&gt;
+
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+    &lt;img alt=&#34;Silicon Beach Costa Rica&#34; src=&#34;/img/2014/01/silicon-beach-costa-rica.png&#34;/&gt;
+&lt;/div&gt;
+
+
+&amp;nbsp;
+&lt;h3&gt;Costa Rica Elevated by lostnfree&lt;/h3&gt;
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+&lt;iframe src=&#34;https://player.vimeo.com/video/196952762&#34; width=&#34;640&#34; height=&#34;360&#34; frameborder=&#34;0&#34; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;a href=&#34;https://vimeo.com/196952762&#34;&gt;Costa Rica Elevated&lt;/a&gt; from &lt;a href=&#34;https://vimeo.com/nefty&#34;&gt;&amp;Nu;eftali&lt;/a&gt; on &lt;a href=&#34;https://vimeo.com&#34;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;h3&gt;Costa Rica: A Little Piece of Paradise by NatGeo&lt;/h3&gt;
+&lt;div class=&#34;center-align-wrapper&#34;&gt;
+&lt;iframe width=&#34;640&#34; height=&#34;360&#34; src=&#34;https://www.youtube.com/embed/M0AqiF_pmxc&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;Feel free to contact me if you are looking for advise or network with the local software development community.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Software Testing on Gabo Esquivel - Software Engineer and Consultant</title>
+    <link>/categories/software-testing/index.xml</link>
+    <description>Recent content in Software Testing on Gabo Esquivel - Software Engineer and Consultant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/categories/software-testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Unit Testing: Mocks, Stubs and Spies</title>
+      <link>/blog/2014/unit-testing-mocks-stubs-and-spies/</link>
+      <pubDate>Sat, 20 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/unit-testing-mocks-stubs-and-spies/</guid>
+      <description>&lt;p&gt;In unit testing isolation is key. The class/object/function you are testing is called the System Under Test (SUT) and the SUT often interacts with other part of the system, these parts are called Collaborators or Depedencies. When testing the simulation of the collaborators/dependencies and behaviors of these dependencies allows you to to test the units in isolation. Gerard Meszaros author of xUnit Test Patterns uses the term &amp;ldquo;Test Double&amp;rdquo; as the generic term for any kind of pretend object used in place of a real object for testing purposes. The name comes from the notion of a Stunt Double in movies.&lt;/p&gt;
+
+&lt;p&gt;Mocks, Stubs, Spies, Dummies and Fakes are types of test doubles that will help you to accomplish the goal of isolation. There are several libraries that provide tools to easily create these objects in your tests. Sinon.js is a javascript library that provides standalone test spies, stubs and mocks with no dependencies that work with any unit testing framework.
+
+&lt;strong&gt;Dummies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Dummy objects are passed around but never actually used. Usually they are just used to fill parameter lists. It is an object that simply implements an Interface, and does nothing else. It&amp;rsquo;s not intended to be used in your tests and will have no effect on the behaviour, sometimes a null object could be sufficient. An example would be passing an object into a constructor that isn&amp;rsquo;t used in the path you&amp;rsquo;re taking, or a simple object to add to a collection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var TaskManager = function(){
+    var taskList = [];
+
+    return {
+        addTask: function(task){
+            taskList.push(task);
+        },
+        tasksCount: function(){
+            return taskList.length;
+        }
+    }
+}
+
+// Test
+var assert = require(&#34;assert&#34;)
+describe(&#39;add task&#39;, function(){
+    it(&#39;should keep track of the number of tasks&#39;, function(){
+      var DummyTask = function(){ return {} };
+      var taskManager = new TaskManager();
+
+      taskManager.addTask(new DummyTask());
+      taskManager.addTask(new DummyTask());
+
+      assert.equal( taskManager.tasksCount(), 2 );
+
+    })
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Spies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A test spy is an object that records its interaction with other objects throughout the code base. When deciding if a test was successful based on the state of available objects alone is not sufficient, we can use test spies and make assertions on things such as the number of calls, arguments passed to specific functions, return values and more.&lt;/p&gt;
+
+&lt;p&gt;Test spies are useful to test both callbacks and how certain functions/methods are used throughout the system under test. The following simplified example shows how to use spies to test how a function handles a callback:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+&#34;test should call subscribers on publish&#34;: function () {
+    var callback = sinon.spy();
+    PubSub.subscribe(&#34;message&#34;, callback)
+    PubSub.publishSync(&#34;message&#34;);
+
+    assertTrue(callback.called);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Stubs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Test stubs are fake objects with pre-programmed behavior ( Simulation of behaviour from other units ), Most of times they are simply returning fixed values. They are typically used for one of two reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To avoid some inconvenient interface - for instance to avoid making actual requests to a server from tests.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;To feed the system with known data, forcing a specific code path.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Javascript is flexible enough to accomplish this easily without any library&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+&#34;example of simple stub without any lib&#34;: function () {
+    var task = { completed = true }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fakes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Fake objects have working implementations, but usually take some shortcut which makes them not suitable for production (an in memory database is a good example). The simplest way to think of a Fake is as a step up from a Stub. This means not only does it return values, but it also works just as a real Collaborator would.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;javascript&#34;&gt;
+var xhr, requests;
+
+before(function  {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = function (req) { requests.push(req); };
+});
+
+after(function () {
+    // we must clean up when tampering with globals.
+    xhr.restore();
+});
+
+it(&#34;makes a GET request for todo items&#34;, function () {
+    getTodos(42, sinon.spy());
+
+    assert.equals(requests.length, 1);
+    assert.match(requests[0].url, &#34;/todo/42/items&#34;);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Mocks&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When most people talk about Mocks what they are actually referring to are Test Doubles. A Test Double is simply another object that conforms to the interface of the required Collaborator, and can be passed in its place. There are very few classes that operate entirely in isolation. Usually they need other classes or objects in order to function, whether injected via the constructor or passed in as method parameters. These are known as Collaborators or Depencies.&lt;/p&gt;
+
+&lt;p&gt;References:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://martinfowler.com/articles/mocksArentStubs.html&#34;&gt;Mocks Aren&amp;rsquo;t Stubs&lt;/a&gt; by Martin Fowler&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://xunitpatterns.com/Test%20Double%20Patterns.html&#34;&gt;XUnit Test Patterns: Test Double Patterns&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Software Unit Testing</title>
+      <link>/blog/2014/software-unit-testing/</link>
+      <pubDate>Fri, 19 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/software-unit-testing/</guid>
+      <description>&lt;p&gt;Testing a web application is critical to ensure the program does what is supposed to do and that new functionality and changes don&amp;rsquo;t brake existing parts of the application. Well-tested applications are more easily extended.&lt;/p&gt;
+
+&lt;p&gt;Testing can be defined as:
+{% blockquote &amp;ldquo;Oxford Dictionary&amp;rdquo; %}
+Taking measures to check the quality, performance, or reliability of (something), especially before putting it into widespread use or practice.
+{% endblockquote %}&lt;/p&gt;
+
+&lt;p&gt;There are 3 main levels of testing and they are complementary:&lt;br /&gt;
+- &lt;strong&gt;Scenario Testing / End-to-End Testing (E2E)&lt;/strong&gt; : test the whole application by pretending to be a user.&lt;br /&gt;
+- &lt;strong&gt;Functional Tests / Medium Level Tests&lt;/strong&gt;: a piece of functionality is tested in isolation, by simulating external dependencies.&lt;br /&gt;
+- &lt;strong&gt;Unit Tests&lt;/strong&gt;: focused on application logic, tests the smallest unit of functionality, typically a method/function.&lt;/p&gt;
+
+&lt;p&gt;Unit testing works by isolating small &amp;ldquo;units&amp;rdquo; of code so that it can be tested from every angle. Any kind of dependency that is slow, untested, hard to understand or initialise should be stubbed or mocked so you can focus on what the unit of code is doing, not what its dependencies do. Tests should ideally be written by developers, the same person who writes the functionality, not a QA team. Demoting unit testing to a lower level of priority is almost always a mistake.
+
+&lt;strong&gt;What is a unit?&lt;/strong&gt; In the best case, it is a pure function that you can deal with in some way. It can also be a whole class or multiple classes working together to achieve one single logical purpose that can be verified. In web applications DOM manipulations come into play as well. People might argue about this definition of Unit, Object-oriented design tends to treat a class as the unit, procedural or functional approaches might consider a single function as a unit. But really it&amp;rsquo;s a situational thing - the team decides what makes sense to be a unit for the purposes of their understanding of the system and its testing. Pragmatism.&lt;/p&gt;
+
+&lt;p&gt;In Test Driven Development (TDD) tests are supposed to be written first, before the logic you want to test. You write a test that fails then the necessary code to pass the test and later you can refactor your code to improve it and optimize it. This is known as the &amp;ldquo;test-driven development mantra&amp;rdquo; or cycle: &amp;ldquo;Red - Green - Refactor&amp;rdquo;. However when you starting to work on some functionality you’re going to be changing functions and abstracting parts away, and if you are writing something that is going to change a lot, writing tests would be a waste of time, specially when prototyping. However there are also benefits in writing the tests first. What I believe in is in writing &lt;strong&gt;testable code&lt;/strong&gt; and writing unit tests whenever you consider is good time for it. In general, code that is tightly-coupled or requires complex initialization is hard to test.&lt;/p&gt;
+
+&lt;p&gt;Following the SOLID Software Design Principles is a very good way to design code that can be easily tested.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;S&lt;/strong&gt; - Single Responsibility Principle: An object should do exactly one thing, and should be the only object in the codebase that does that one thing.&lt;br /&gt;
+&lt;strong&gt;O&lt;/strong&gt; - Open/Closed Principle: software entities should be open for extension, but closed for modification.&lt;br /&gt;
+&lt;strong&gt;L&lt;/strong&gt; - Liskov Substitution Principle: objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.&lt;br /&gt;
+&lt;strong&gt;I&lt;/strong&gt; - Interface Segregation Principle: many client-specific interfaces are better than one general-purpose interface.&lt;br /&gt;
+&lt;strong&gt;D&lt;/strong&gt; - Dependency Inversion Principle: Depend upon Abstractions. Do not depend upon concretions. Dependency injection is one method of following this principle.&lt;/p&gt;
+
+&lt;p&gt;Miško Hevery has a &lt;a href=&#34;http://www.youtube.com/watch?v=wEhu57pih5w&#34;&gt;great talk on unit testing&lt;/a&gt; (2008) and how to write testable code that I highly recommend you to watch. He talks about object oriented programming best practices and the importance of separating construction and lookup from the business logic through Dependecy Injection.&lt;/p&gt;
+
+&lt;p&gt;Some of the of the non-so-obvious benefits of Unit Testing are:&lt;br /&gt;
+- It gives you confidence, you know when the code works because you&amp;rsquo;ve run the tests, you get instant visual feedback.&lt;br /&gt;
+- Good unit tests can help document and define what something is supposed to do.&lt;br /&gt;
+- Unit tests help with code re-use. Migrate both your code and your tests to your new project and run the test again.
+- It improves software design. When adding a new feature or refactoring an existing solution, testing forces you to think about what the code is supposed to accomplish and focus on that. Thus you end up with a clean and simple design that does exactly what you expect it to do.&lt;/p&gt;
+
+&lt;p&gt;The qualities of good unit tests are:&lt;br /&gt;
+- &lt;strong&gt;Trustworthy&lt;/strong&gt;: The tests results are reliable.&lt;br /&gt;
+- &lt;strong&gt;Readability&lt;/strong&gt;:  Writing test code that is easy to understand and communicates well.&lt;br /&gt;
+- &lt;strong&gt;Maintainability&lt;/strong&gt;:  Writing tests that are robust and hold up well over time.&lt;br /&gt;
+- &lt;strong&gt;Automation&lt;/strong&gt;:  Writing tests that require little setup and configuration (preferably none) and can be run/hooked to save or git push actions.&lt;/p&gt;
+
+&lt;p&gt;If unit testing is written and performed properly and consistently, software projects are a lot more effective at delivering the correct solution in a predictable and managed way. It is our job to verify that each part of an app works individually, so when they are joined together they have a good chance of working as a whole.&lt;/p&gt;
+
+&lt;p&gt;A Testing Framework is going to be required. It is possible to write a little application of your own which executes each of the tests and counts the number of successes and failures. But since the work of setting up and tearing down tests, counting successes and failures, and reporting and so on is the same for every test, it makes a lot of sense to use an existing test framework. There are many testing frameworks and tools you can/should use to automate the repetitive tasks. The choice of framework is mostly a matter of taste.&lt;/p&gt;
+
+&lt;p&gt;Automated Unit Testing is a great way to continuously check that the units you are working on continue to work as intended. To be effective, automated tests must meet very specific objectives:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Every developer must be able to run the combined collection of all the developer’s tests.&lt;/li&gt;
+&lt;li&gt;The continuous integration (CI) server must be able to run the entire suite of tests without any manual intervention.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Although through unit tests you can prove the small units work perfectly in isolation, the units of code may blow up when combined and that&amp;rsquo;s why you need Integration Testing, a logical extension of unit testing. In its simplest form, two units that have already been tested are combined into a component and the interface between them is tested. A component, in this sense, refers to an integrated aggregate of more than one unit.&lt;/p&gt;
+
+&lt;p&gt;Recommended lectures and talks&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://martinfowler.com/bliki/UnitTest.html&#34;&gt;Unit Test by Martin Fowler&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.youtube.com/watch?v=OzjogCFO4Zo&#34;&gt;Writting Testable Javascript&lt;/a&gt;, Talk by Rebecca Murphey at Full Frontal 2012&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.onjava.com/pub/a/onjava/2003/04/02/javaxpckbk.html&#34;&gt;Top 12 Reasons to Write Unit Tests&lt;/a&gt; by Eric M. Burke and Brian M. Coyner, authors of Java Extreme Programming Cookbook.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.adequatelygood.com/Writing-Testable-JavaScript.html&#34;&gt;Writting Testable Javascript&lt;/a&gt; by Ben Cherry&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.youtube.com/watch?v=wEhu57pih5w&#34;&gt;Unit Testing&lt;/a&gt;, Talk by Miško Hevery at Google, 2008&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://bit.ly/1r8o54R&#34;&gt;SOLID Software Design Principals&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Differences between TDD, ATDD and BDD</title>
+      <link>/blog/2014/differences-between-tdd-atdd-and-bdd/</link>
+      <pubDate>Mon, 28 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/differences-between-tdd-atdd-and-bdd/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Test-driven development (TDD)&lt;/strong&gt; is a technique of using automated unit tests to drive the design of software and force decoupling of dependencies. The result of using this practice is a comprehensive suite of unit tests that can be run at any time to provide feedback that the software is still working.&lt;/p&gt;
+
+&lt;p&gt;The concept is to &amp;ldquo;get something working now and perfect it later.&amp;rdquo; After each test, refactoring is done and then the same or a similar test is performed again. The process is iterated as many times as necessary until each unit is functioning according to the desired specifications.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ATDD&lt;/strong&gt; stands for &lt;strong&gt;Acceptance Test Driven Development&lt;/strong&gt;, it is also less commonly designated as Storytest Driven Development (STDD). It is a technique used to bring customers into the test design process before coding has begun. It is a collaborative practice where users, testers, and developers define automated acceptance criteria. ATDD helps to ensure that all project members understand precisely what needs to be done and implemented. Failing tests provide quick feedback that the requirements are not being met. The tests are specified in business domain terms. Each feature must deliver real and measurable business value: indeed, if your feature doesn’t trace back to at least one business goal, then you should be wondering why you are implementing it in the first place.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Behavior-Driven Development (BDD)&lt;/strong&gt; combines the general techniques and principles of TDD with ideas from domain-driven design. BDD is a design activity where you build pieces of functionality incrementally guided by the expected behavior. The focus of BDD is the language and interactions used in the process of software development. Behavior-driven developers use their native language in combination with the language of Domain Driven Design to describe the purpose and benefit of their code.&lt;/p&gt;
+
+&lt;p&gt;A team using BDD should be able to provide a significant portion of &amp;ldquo;functional documentation&amp;rdquo; in the form of User Stories augmented with executable scenarios or examples.  BDD is usually done in very English-like language helps the Domain experts to understand the implementation rather than exposing the code level tests. It&amp;rsquo;s usually defined in a GWT format: GIVEN WHEN &amp;amp; THEN.&lt;/p&gt;
+
+&lt;h2 id=&#34;differences&#34;&gt;Differences&lt;/h2&gt;
+
+&lt;p&gt;TDD is rather a paradigm than a process. It describes the cycle of writing a test first, and application code afterwards – followed by an optional refactoring. But it doesn’t make any statements about: Where do I begin to develop? What exactly should I test? How should tests be structured and named? .When your development is Behavior-Driven, you always start with the piece of functionality that’s most important to your user.&lt;/p&gt;
+
+&lt;p&gt;TDD and BDD have language differences, BDD tests are written in an english-like language.&lt;/p&gt;
+
+&lt;p&gt;BDD focuses on the behavioral aspect of the system unlike TDD that focuses on the implementation aspect of the system.&lt;/p&gt;
+
+&lt;p&gt;ATDD focuses on capturing requirements in acceptance tests and uses them to drive the development. (Does the system do what it is required to do?)&lt;/p&gt;
+
+&lt;p&gt;BDD is customer-focused while ATDD leans towards the developer-focused side of things like [Unit]TDD does. This allows much easier collaboration with non-techie stakeholders, than TDD.&lt;/p&gt;
+
+&lt;p&gt;TDD tools and techniques are usually much more techie in nature, requiring that you become familiar with the detailed object model (or in fact create the object model in the process, if doing true test-first canonical TDD). The typical non-programming executive stakeholder would be utterly lost trying to follow along with TDD.&lt;/p&gt;
+
+&lt;p&gt;BDD gives a clearer understanding as to what the system should do from the perspective of the developer and the customer.&lt;/p&gt;
+
+&lt;p&gt;TDD allows a good and robust design, still, your tests can be very far away of the users requirements. BDD is a way to ensure consistency between requirements and the developer tests.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
