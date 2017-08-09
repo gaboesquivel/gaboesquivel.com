@@ -1,0 +1,67 @@
+// libs
+@import 'magnific-popup';
+@import 'owl.carousel';
+@import 'owl.theme.default';
+@import 'animate.min';
+
+// custom
+@import 'home';
+@import 'theme-yellow';
+@import 'responsive';
+@import 'clean-blog';
+
+
+#logo-gaboesquivel{
+  background: url(/img/logo-gaboesquivel.png) no-repeat 0 bottom;
+  height: 50px;
+  width: 270px;
+  display: inline-block;
+  transition: none !important
+}
+
+.top-nav-collapse #logo-gaboesquivel {
+  background-position-y: top;
+}
+
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    #logo-gaboesquivel {
+      background-position-y: top !important;
+    }
+    .welcome-area, #about-link,.work-popup{
+      display: none !important;
+    }
+    // .single-work .item-hover{
+    //   opacity: 1;
+    // }
+    .single-work img {
+      transform: scale(1);
+    }
+}
+
+.center-align-wrapper {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #333;
+    border-color: #333;
+}
+
+.pagination>li>a,
+.pagination>li>span,
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover {
+  color: #666;
+  pointer: cursor;
+}

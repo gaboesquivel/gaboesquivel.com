@@ -1,13 +1,14 @@
 languageCode = "en-us"
 title = "Gabo Esquivel - Software Engineer and Consultant"
-theme = "gaboesquivel"
 googleAnalytics = "UA-33521499-1"
-baseurl = "https://gaboesquivel.com/"
+baseurl = "/"
+canonifyURLs = false
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [params]
   description = "I help companies develop software products and make technical decisions."
   email = "contact@gaboesquivel.com"
+  dateForm = "Monday, Jan 2, 2006"
 
 [permalinks]
-  post = "/:year/:month/:title/"
+  blog = "blog/:year/:title/"
