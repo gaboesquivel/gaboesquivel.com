@@ -9,8 +9,8 @@
     "watch": "parallelshell 'npm run watch:css' 'npm run watch:js' 'npm run watch:img'",
     "start": "parallelshell 'npm run watch:css' 'npm run watch:js' 'npm run watch:img' 'hugo server -D'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "hugo && now --public public/ ",
-    "predeploy": "npm run zzminify",
+    "deploy": "hugo -d public/ && gh-pages-deploy",
+    "predeploy": "npm run build && npm run minify",
     "prestart": "npm run build",
     "prebuild:css": "node-sass src/css/ -o static/css",
     "build:css": "postcss --use autoprefixer -b 'last 2 versions' < static/css/styles.css -o static/css/styles.css",
@@ -23,6 +23,11 @@
     "watch:js": "onchange './src/js/' -- npm run build:js",
     "watch:img": "onchange './src/img/' -- npm run build:img"
   },
+  "gh-pages-deploy": {
+   "staticpath": "public",
+   "cname": "gaboesquivel.com",
+   "noprompt": false
+ },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gaboesquivel/gaboesquivel.github.io.git"
@@ -37,6 +42,7 @@
     "autoprefixer": "^7.1.2",
     "browserify": "^14.4.0",
     "clean-css-cli": "^4.1.6",
+    "gh-pages-deploy": "^0.4.2",
     "gulp": "^3.9.1",
     "gulp-cache": "^0.4.6",
     "gulp-cli": "^1.4.0",
