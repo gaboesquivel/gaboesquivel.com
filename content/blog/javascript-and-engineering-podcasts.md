@@ -1,7 +1,6 @@
 ---
-title: "Engineering Podcasts"
-title: "My Favorite JavaScript and Engineering Podcasts"
-description: "A short list of my Favorite JavaScript and Engineering Podcasts"
+title: "My Favorite Engineering Podcasts"
+description: "A short list of my favorite JavaScript and Engineering podcasts"
 featured_image: ""
 tags:
   - JavaScript
