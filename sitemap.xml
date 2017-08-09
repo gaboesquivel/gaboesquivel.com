@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>/contact/</loc>
+    <lastmod>2017-07-30T12:07:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bio/</loc>
+    <lastmod>2017-07-30T12:07:01-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015/best-practices-for-designing-restful-apis/</loc>
+    <lastmod>2015-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015/automatic-node.js-version-switching/</loc>
+    <lastmod>2015-07-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015/on-continuous-delivery/</loc>
+    <lastmod>2015-07-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015/films-and-documentaries-worth-watching/</loc>
+    <lastmod>2015-03-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/unit-testing-mocks-stubs-and-spies/</loc>
+    <lastmod>2014-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/software-unit-testing/</loc>
+    <lastmod>2014-09-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/node.js-https-and-ssl-certificate-for-development/</loc>
+    <lastmod>2014-08-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/differences-between-tdd-atdd-and-bdd/</loc>
+    <lastmod>2014-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/get-started-with-command-line-and-z-shell/</loc>
+    <lastmod>2014-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/introduction-to-gulp.js/</loc>
+    <lastmod>2014-04-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/overview-of-angular-generators--april-2014/</loc>
+    <lastmod>2014-04-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014/developing-software-in-paradise-aka-costa-rica/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2013/choosing-the-data-store-for-your-web-app/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2013/data-visualization-in-costa-rica/</loc>
+    <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2012/my-favorite-engineering-podcasts/</loc>
+    <lastmod>2012-12-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/angular/</loc>
+    <lastmod>2014-04-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/angular-generator/</loc>
+    <lastmod>2014-04-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/angularjs/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/angularjs/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/back-end/</loc>
+    <lastmod>2014-08-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/beach/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/</loc>
+    <lastmod>2015-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/build-system/</loc>
+    <lastmod>2014-04-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/business-intelligence/</loc>
+    <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/continuous-delivery/</loc>
+    <lastmod>2015-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/continuous-integration/</loc>
+    <lastmod>2015-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/costa-rica/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/costa-rica/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/data/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/data-architecture/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/data-architecture/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/data-visualization/</loc>
+    <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/data-visualization/</loc>
+    <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/database/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/database/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/devops/</loc>
+    <lastmod>2015-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/documentary/</loc>
+    <lastmod>2015-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/films/</loc>
+    <lastmod>2015-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/freelance/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/front-end/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/front-end/</loc>
+    <lastmod>2014-04-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2017-07-30T12:07:01-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/gulpjs/</loc>
+    <lastmod>2014-04-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/howto/</loc>
+    <lastmod>2014-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/html5/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/infographics/</loc>
+    <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/javascript/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/javascript/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/meetup/</loc>
+    <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/node/index.js/</loc>
+    <lastmod>2014-08-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/nodejs/</loc>
+    <lastmod>2014-04-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/nodejs/</loc>
+    <lastmod>2015-07-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/nodejs-javascript/</loc>
+    <lastmod>2014-08-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/nosql/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/open-data/</loc>
+    <lastmod>2013-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/open-source/</loc>
+    <lastmod>2012-12-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/other/</loc>
+    <lastmod>2015-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/podcasts/</loc>
+    <lastmod>2012-12-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/professional-self-actualization/</loc>
+    <lastmod>2012-12-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/programming/</loc>
+    <lastmod>2015-03-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/remote-development/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/scripting/</loc>
+    <lastmod>2014-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/security/</loc>
+    <lastmod>2014-08-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/shell/</loc>
+    <lastmod>2014-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/slush/</loc>
+    <lastmod>2014-04-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/software/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/software-development/</loc>
+    <lastmod>2015-10-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/software-testing/</loc>
+    <lastmod>2014-09-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/sql/</loc>
+    <lastmod>2013-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/testing/</loc>
+    <lastmod>2014-09-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tools/</loc>
+    <lastmod>2014-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/tools/</loc>
+    <lastmod>2014-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/traveling/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/unit-testing/</loc>
+    <lastmod>2014-09-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ux/</loc>
+    <lastmod>2014-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/web-applications/</loc>
+    <lastmod>2014-09-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/yeoman/</loc>
+    <lastmod>2014-04-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/yeoman-generator/</loc>
+    <lastmod>2014-04-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

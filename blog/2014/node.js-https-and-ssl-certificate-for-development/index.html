@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="I help companies develop software products and make technical decisions. - HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your data. It is the most popular network protocol for establishiing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I&#39;ll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes." property="og:description">
+    <meta name="author" content="gaboesquivel.com">
+
+    <title>Gabo Esquivel - Software Engineer and Consultant</title>
+
+    
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link href="/css/styles.css" rel="stylesheet">
+
+    
+    
+    
+
+</head>
+
+<body class="blog">
+
+
+  <header class="navbar custom-navbar navbar-fixed-top">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                  <div class="logo">
+                     <div class="navbar-header">
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                          </button>
+                      </div>
+                      <a id="logo-gaboesquivel" class="theme-color" href="/"></a>
+                  </div>
+              </div>
+
+              <div class="col-md-9 col-sm-8 col-xs-12">
+                 <nav class="main-menu">
+                  <div class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav"> 
+                          <li><a class="smoth-scroll theme-color" href="/">Home</a></li>
+                          <li><a class="smoth-scroll theme-color" id="about-link" href="/#about">About</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/#services">service</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/#projects">projects</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/bio/">bio</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/blog/">blog</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/contact/">contact</a></li>
+                      </ul>
+                  </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+  
+
+
+<div class="blog">
+  
+  
+  <header class="intro-header" style="background-image: url('/img/post-bg.jpg')">
+  
+    <div class="container">
+      <div class="row">
+         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+           <div class="post-heading">
+             <h1>Node.js HTTPS and SSL Certificate for Development</h1>
+             <h2 class="subheading">Using local ssl certificate in node.js</h2>
+           </div>
+         </div>
+      </div>
+    </div>
+  </header>
+
+  
+  <article>
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <p>HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your data. It is the most popular network protocol for establishiing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I&rsquo;ll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes.</p>
+
+<h3 id="self-signed-ssl-certificate">Self-Signed SSL Certificate</h3>
+
+<p>There are two kinds of certificates: those signed by a &lsquo;<a href="http://en.wikipedia.org/wiki/Certificate_authority">Certificate Authority</a>&rsquo;, or CA, and &lsquo;self-signed certificates&rsquo;. A Certificate Authority is a trusted source for an SSL certificate, and using a certificate from a CA allows your users to be trust the identity of your website. In most cases, you would want to use a CA-signed certificate in a production environment - for testing purposes, however, a self-signed certicate will do just fine.
+
+To genereate a certificate all you need is openssl</p>
+
+<pre><code class="console">
+$ where openssl
+/usr/bin/openssl  /usr/local/bin/openssl
+</code></pre>
+
+<p>You can install it using homewbrew <code>brew install openssl</code> on Mac OS, on linux use <code>sudo apt-get install openssl</code>, on windows you can use <a href="http://gnuwin32.sourceforge.net/packages/openssl.htm">this installer</a>.</p>
+
+<p>To update openssl on mac os run the following commands
+<pre><code class="console">
+brew update
+brew install openssl
+brew link &ndash;force openssl
+</code></pre></p>
+
+<p>Run the these commands to generate a self-signed certificate.</p>
+
+<pre><code class="console">
+openssl genrsa -out key.pem
+openssl req -new -key key.pem -out csr.pem
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+rm csr.pem
+</code></pre>
+
+<p>You will get a cert.pem (the certificate) and key.pem (the private key). This is all you need for a SSL connection.</p>
+
+<p>In the second command, when prompted for &ldquo;Common Name (eg, YOUR name) []:&ldquo;, do not give your name. It is actually the domain name field, so enter your domain name. Not giving your domain name will result in &ldquo;domain mismatch&rdquo; errors.</p>
+
+<p>This certificate will trigger warnings in your browser, since it is self-signed.</p>
+
+<p>When generating the key you might encounter the following error: <code>unable to write 'random state'</code>, the most common reason for this happening seems to be that the .rnd file in your home directory is owned by root rather than your account. <a href="http://stackoverflow.com/questions/94445/using-openssl-what-does-unable-to-write-random-state-mean">more on stackoverflow</a></p>
+
+<h3 id="create-an-https-server">Create an HTTPS Server</h3>
+
+<p>The HTTPS server and client API is almost identical to the HTTP API, so pretty much everything said above applies to them. In fact, the client API is the same, and the HTTPS server only differs in that it needs a certificate file.</p>
+
+<p>Secure Server
+<pre><code class="javascript">
+var https = require(&lsquo;https&rsquo;);
+var fs = require(&lsquo;fs&rsquo;);</p>
+
+<p>var pkey = fs.readFileSync(&lsquo;key.pem&rsquo;);
+var pcert = fs.readFileSync(&lsquo;cert.pem&rsquo;)</p>
+
+<p>var options = {
+    key: pkey,
+    cert: pcert
+};</p>
+
+<p>var server = https.createServer(options, function (req, res) {
+    res.writeHead(200);
+    res.end(&ldquo;hello world\n&rdquo;);
+}).listen(443);
+</code></pre></p>
+
+<p>Socket.io Client lang:javascript
+<pre><code class="javascript">
+var socket = io.connect(&lsquo;<a href="https://localhost:443/',{secure:">https://localhost:443/',{secure:</a> true});
+</code></pre></p>
+
+<p>&nbsp;</p>
+
+<p>{% blockquote Nodejitsu <a href="http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server">http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server</a> %}
+NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy server, however, using a synchronous function during a request will force the server to deal with the requests one by one!
+{% endblockquote %}</p>
+
+<p>For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: <a href="https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs">OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs</a></p>
+
+<p><strong>References</strong><br />
+ - <a href="https://github.com/coolaj86/node-ssl-root-cas/wiki/Painless-Self-Signed-Certificates-in-node.js">Painless Self Signed Certificates in node.js </a><br />
+ - <a href="http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server">Nodejitsu Docs: How to create an HTTPS server</a><br />
+ - <a href="https://devcenter.heroku.com/articles/ssl-certificate-self">Heroku Dev Center: Creating a Self-Signed SSL Certificate</a><br />
+ - <a href="http://www.akadia.com/services/ssh_test_certificate.html">How to create a self-signed SSL Certificate</a></p>
+              </div>
+          </div>
+      </div>
+  </article>
+</div>
+
+
+
+
+    <hr>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <ul class="list-inline text-center">
+                
+                  <li>
+                    <a href="/contact">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </li>
+                
+
+                <li>
+                  <a href="https://github.com/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://linkedin.com/in/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://twitter.com/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://medium.com/@gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-medium fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://facebook.com/gaboesquiveldev" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="footer">
+  <div class="container">
+    <div class="row wow zoomIn" data-wow-delay="0.4s">
+      <div class="col-md-12 text-center">
+        <p>&copy;2017 <strong>Gabo Esquivel</strong>. Software Engineer</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+    <script src="/js/bundle.js"></script>
+
+    <script>
+        window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+        ga('create','UA-33521499-1','auto');ga('send','pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+</body>
+
+</html>
+

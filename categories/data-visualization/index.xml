@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Visualization on Gabo Esquivel - Software Engineer and Consultant</title>
+    <link>/categories/data-visualization/index.xml</link>
+    <description>Recent content in Data Visualization on Gabo Esquivel - Software Engineer and Consultant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/categories/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Data Visualization in Costa Rica</title>
+      <link>/blog/2013/data-visualization-in-costa-rica/</link>
+      <pubDate>Thu, 29 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2013/data-visualization-in-costa-rica/</guid>
+      <description>&lt;p&gt;I&amp;#8217;m very excited to announce that we&amp;#8217;re starting a data visualization meetup group in Costa Rica!&lt;/p&gt;
+
+&lt;p&gt;At Hack/Hackers San José event I finally had the pleasure to meet &lt;a href=&#34;http://www.behance.net/Engelhardt&#34; target=&#34;_blank&#34;&gt;Yuri Engelhardt&lt;/a&gt; in person after months of exchanging emails and ideas about data visualization. Yuri is the co-founder of &lt;a href=&#34;http://showmethedata.nl&#34; target=&#34;_blank&#34;&gt;Show Me Data&lt;/a&gt;, an annual multidisciplinary course and public event that brings together the University of Amsterdam (UvA) and the Utrecht Graduate School of Visual Art and Design (maHKU) students to get familiar with the world of data visualization. After the event we exchanged a couple more emails on the topic and we decided to create a meetup group to bring together all professionals and data visualization enthusiasts to share our knowledge and ideas. That&amp;#8217;s how the &lt;a title=&#34;Data Visualization in Costa Rica&#34; href=&#34;http://www.meetup.com/Data-Visualization-Costa-Rica/&#34; target=&#34;_blank&#34;&gt;Costa Rica Data Visualization Group&lt;/a&gt; was born.&lt;/p&gt;
+
+&lt;p&gt;Data Visualization Costa Rica is a non-profit professional group that aims to meet monthly to discuss data visualization, data communication, infographics, exploratory data analysis, charts and graphs, perceptual psychology, and more! It is gathering point for data journalists, programmers, data scientists, business intelligence professionals, and others who tell stories with data. Meetup topics will vary and range from tutorials on basic concepts and their applications, to success stories from local practitioners, to discussions of tools, new technologies, and best practices.&lt;/p&gt;
+
+&lt;p&gt;We believe in data visualization, information design and digital media for social and environmental causes – e.g. in education, health, civil rights, sustainability citizen engagement, transparency and accountability.&lt;/p&gt;
+
+&lt;p&gt;If you are interested go to &lt;a title=&#34;Data Visualization in Costa Rica&#34; href=&#34; http://meetup.com/Data-Visualization-Costa-Rica/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;http://meetup.com/Data-Visualization-Costa-Rica&#34;&gt;http://meetup.com/Data-Visualization-Costa-Rica&lt;/a&gt;&lt;/a&gt; and join us to receive notifications and updates of our events.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

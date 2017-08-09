@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ux on Gabo Esquivel - Software Engineer and Consultant</title>
+    <link>/tags/ux/index.xml</link>
+    <description>Recent content in Ux on Gabo Esquivel - Software Engineer and Consultant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/tags/ux/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>In-Place Editing with contenteditable and AngularJS</title>
+      <link>/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</link>
+      <pubDate>Sat, 23 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</guid>
+      <description>&lt;p&gt;In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page. When the user hovers over an editable area, the background color of the element changes. When clicked, the text becomes editable.&lt;/p&gt;
+
+&lt;p&gt;You can make an element editable by adding the contenteditable attribute in your markup. This attribute has three possible values: &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, and &lt;code&gt;inherit&lt;/code&gt;. Specifying inherit will make the element editable if it’s immediate parent is editable.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;editable&amp;quot; contenteditable=&amp;quot;true&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The following directive uses contenteditable attribute and ng-model for data binding.&lt;/p&gt;
+
+&lt;p&gt;&lt;p data-height=&#34;452&#34; data-theme-id=&#34;8070&#34; data-slug-hash=&#34;mgCAG&#34; data-default-tab=&#34;result&#34; class=&#39;codepen&#39;&gt;See the Pen &lt;a href=&#39;http://codepen.io/gaboesquivel/pen/mgCAG/&#39;&gt;Editing Page Elements with contenteditable&lt;/a&gt; by Gabo Esquivel (&lt;a href=&#39;http://codepen.io/gaboesquivel&#39;&gt;@gaboesquivel&lt;/a&gt;) on &lt;a href=&#39;http://codepen.io&#39;&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+&lt;script async src=&#34;//codepen.io/assets/embed/ei.js&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;br /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Current browser support for contenteditable. &lt;small&gt;source: &lt;a href=&#34;http://caniuse.com/#feat=contenteditable&#34;&gt;http://caniuse.com/#feat=contenteditable&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;div class=&#39;center-align-wrapper&#39;&gt;
+    &lt;img src=&#39;/img/2014/08/caniuse-content-editable.jpg&#39; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Known issues&lt;/strong&gt;&lt;br /&gt;
+- In Chromium/Chrome contenteditable cannot be edited when nested into draggable (&lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=170139&#34;&gt;https://code.google.com/p/chromium/issues/detail?id=170139&lt;/a&gt;). Still not fixed in Chrome version 26.0.1384.2.&lt;br /&gt;
+- In Firefox when clicking on contenteditable nested into draggable, cursor is always positioned to the start of editable text. Still not fixed in version 18.0.1.&lt;br /&gt;
+- In Internet Explorer contenteditable cannot be applied to the TABLE, COL, COLGROUP, TBODY, TD, TFOOT, TH, THEAD, and TR elements directly, a content editable SPAN, or DIV element can be placed inside the individual table cells (See &lt;a href=&#34;http://msdn.microsoft.com/en-us/library/ie/ms533690(v=vs.85).aspx&#34;&gt;http://msdn.microsoft.com/en-us/library/ie/ms533690(v=vs.85).aspx&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://www.w3.org/TR/html/editing.html#contenteditable&#34;&gt;w3.org contenteditable&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;http://ui-patterns.com/patterns/inplaceeditor&#34;&gt;UI Patterns - In Place Editor&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
