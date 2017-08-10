@@ -7,7 +7,7 @@ type= "about"
 +++
 
 
-My name is Gabriel Esquivel, everyone calls me "Gabo". I was born in Costa Rica in 1984 and was raised by loving family that thought me well to respect others and always focus on the solution to problems.
+My name is Gabriel Esquivel, everyone calls me "Gabo". I was born in Costa Rica in 1984 and was raised by a loving family that thought me well to respect others and always focus on the solution to problems.
 
 Since I was a little child I've loved sports, specially Soccer, but also Capoeira (brazilian martial), Yoga and Surfing; I dreamed with traveling the world, meet different cultures and learning new languages; so I dedicated some time prior to Bachelors to study foreign languages and today I can communicate fluently in English, Portuguese, Italian and Spanish.
 
@@ -23,7 +23,7 @@ In 2010 I started Costa Rica JS, a meetup group in San José for people interest
 
 In 2011 I started to work independently as a freelance developer and during the course of the years I have had the opportunity to work in many different projects in multicultural, multi-timezone remote agile teams. I worked with several clients, mainly digital agencies, startups and development shops.
 
-Through hard work and a lot of study I grew from web developer with skills for client side apps to a fullstack engineer that can work end to end, from mobile apps to cloud, databases and devops automation. I've played the role of lead architect and agile manager in my recent engagements, mentoring and leading the development team from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be and also leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
+Through hard work and a lot of study and practice I grew from web developer with skills for client side apps to a fullstack engineer that can work end to end, from mobile apps to cloud, databases and devops automation. I've played the role of lead architect and agile manager in my recent engagements, mentoring and leading the development team from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be and also leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
 
 In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter named Coral, my motivation and my happiness.
 
