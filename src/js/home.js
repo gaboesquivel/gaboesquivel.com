@@ -45,7 +45,7 @@
       =======================================*/
       try {
         var mixer = mixitup('.mixitup-container');
-        // mixer.filter('.development');
+        mixer.filter('all');
       } catch(err){
         console.log('mixitup not initialized')
       }
