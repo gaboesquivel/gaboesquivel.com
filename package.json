@@ -24,10 +24,10 @@
     "watch:img": "onchange './src/img/' -- npm run build:img"
   },
   "gh-pages-deploy": {
-   "staticpath": "public",
-   "cname": "gaboesquivel.com",
-   "noprompt": false
- },
+    "staticpath": "public",
+    "cname": "gaboesquivel.com",
+    "noprompt": false
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gaboesquivel/gaboesquivel.github.io.git"
