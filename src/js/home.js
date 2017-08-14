@@ -3,6 +3,9 @@
 
     jQuery(document).ready(function($){
 
+      $("img").unveil();
+      $("img.work, img.reco").trigger("unveil");
+
       if(!$body.is('.home')){
         console.log('not Home')
         return;
@@ -77,12 +80,12 @@
     });
 
 
-    $window.load(function(){
-          /*=============================
-                Preloder
-        ==============================*/
-         $('.spinner').fadeOut();
-        $('.preloader').delay(350).fadeOut(500);
-        $body.delay(350).css({'overflow':'visible'});
-
-        });
+    // $window.load(function(){
+    //       /*=============================
+    //             Preloder
+    //     ==============================*/
+    //      $('.spinner').fadeOut();
+    //     $('.preloader').delay(350).fadeOut(500);
+    //     $body.delay(350).css({'overflow':'visible'});
+    //
+    //     });

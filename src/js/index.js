@@ -7,6 +7,7 @@ require('./libs/jquery.stellar.min')
 global.mixitup = require('mixitup')
 global.WOW = window.WOW = require('wowjs').WOW
 require('./libs/jqBootstrapValidation-1.3.7')
+require('./libs/jquery.unveil')
 
 require('./home')
 require('./blog')

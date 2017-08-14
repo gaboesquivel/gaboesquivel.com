@@ -23,11 +23,6 @@
     "watch:js": "onchange './src/js/' -- npm run build:js",
     "watch:img": "onchange './src/img/' -- npm run build:img"
   },
-  "gh-pages-deploy": {
-    "staticpath": "public",
-    "cname": "gaboesquivel.com",
-    "noprompt": false
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gaboesquivel/gaboesquivel.github.io.git"
@@ -58,6 +53,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "holderjs": "^2.9.4",
     "jquery": "^2.1.4",
     "magnific-popup": "^1.1.0",
     "mixitup": "^3.2.1",
