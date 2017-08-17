@@ -1043,12 +1043,12 @@ footer .copyright {
 ::-moz-selection {
   color: #fff;
   text-shadow: none;
-  background: #0085a1;
+  background: #c1c1c1;
 }
 ::selection {
   color: #fff;
   text-shadow: none;
-  background: #0085a1;
+  background: #c1c1c1;
 }
 img::selection {
   color: #fff;
