@@ -6,6 +6,29 @@
       $("img").unveil();
       $("img.work, img.reco").trigger("unveil");
 
+      /*===================================
+              owl carousel testimonial
+       ====================================*/
+      $(".testimonial-list").owlCarousel({
+          loop:true,
+          margin:30,
+          nav:false,
+          dots:true,
+          autoplay:true,
+          autoplayHoverPause:true,
+          responsive:{
+              0:{
+                  items:1
+              },
+              600:{
+                  items:2
+              },
+              1000:{
+                  items:3
+              }
+          }
+      });
+
       if(!$body.is('.home')){
         console.log('not Home')
         return;
@@ -52,29 +75,6 @@
       } catch(err){
         console.log('mixitup not initialized')
       }
-
-      /*===================================
-              owl carousel testimonial
-       ====================================*/
-      $(".testimonial-list").owlCarousel({
-          loop:true,
-          margin:30,
-          nav:false,
-          dots:true,
-          autoplay:true,
-          autoplayHoverPause:true,
-          responsive:{
-              0:{
-                  items:1
-              },
-              600:{
-                  items:2
-              },
-              1000:{
-                  items:3
-              }
-          }
-      });
 
 
     });
