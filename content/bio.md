@@ -1,7 +1,7 @@
 +++
 date = "2017-07-30T12:07:01-06:00"
 author = ""
-description = "I'm Gabo. I'm honored you are reading this."
+description = "This is a short history of my life in the tech world"
 title = "Hola!"
 type= "about"
 +++
@@ -40,6 +40,6 @@ I currently provide consulting, custom software development and staff augmentati
 Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
 Learn more at <a target="_blank" href="https://corticaltouch.com">corticaltouch.com</a>
 
-<div class="center-align-wrapper">
+<!-- <div class="center-align-wrapper">
 	<img alt="Beach" src="/img/bio/gaboesquivel-playa.jpg"/>
-</div>
+</div> -->
