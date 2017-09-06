@@ -19,9 +19,16 @@
   transition: none !important
 }
 
+@media only screen and (max-width: 767px){
+  #logo-gaboesquivel {
+    background-position-y: top;
+  }
+}
+
 .top-nav-collapse #logo-gaboesquivel {
   background-position-y: top;
 }
+
 
 @media only screen
   and (min-device-width: 320px)
@@ -68,4 +75,11 @@
 .pagination>li>span:hover {
   color: #666;
   pointer: cursor;
+}
+
+a, a:visited{
+  color: #404040;
+}
+a:hover{
+  color: #ffc814;
 }

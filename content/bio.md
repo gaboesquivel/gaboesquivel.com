@@ -31,9 +31,14 @@ In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter nam
 	<img alt="Capoeira" src="/img/bio/gaboesquivel-coral.jpg"/>
 </div>
 
-This year, 2017, I started a new DevOps meetup group in San Jose focused on cloud computing, virtualization, systems reliability engineering and process automation with 400 members as of today. I also joined a FinTech startup ( a neobank ) as CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app with the most modern and cost effective technology stack en latam in financial services; very unfortunately the relationship with the CEO didn't work well at the end so I couldn't continue working with them, but I did leave a great engineer and friend of mine taking care of business and I wish them great success.
+This year, 2017, I worked with a FinTech startup ( a neobank ) as CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app utilizing one of the most modern and cost effective technology stacks en latam in financial services.
 
-I recently founded a consulting and staff augmentation company called Cortical Touch through which I continue offering my professional services as on-demand CTO/VPE/Consultant for startups and enterprise clients. The team augmentation service is also very good, our pool is curated very carefully. Learn more at <a target="_blank" href="https://corticaltouch.com">corticaltouch.com</a>
+After the neobank project I started working with Blockchain (Distributed Ledger Technology) and formed <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a hub for exploring and hacking Blockchain/Web3 solutions in Costa Rica.
+
+I currently provide consulting, custom software development and staff augmentation services for startups and enterprise clients through a company called Cortical Touch. Our developer network is highly specialized in JavaScript Applications using ReactNative, React Web, AngularJS, Ionic, VueJS, Node.js, Express, Hapi and more. Our second strongest profile is SysAdmin and Cloud engineers specialized in AWS, DevOps Automation and Network Security.
+
+Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
+Learn more at <a target="_blank" href="https://corticaltouch.com">corticaltouch.com</a>
 
 <div class="center-align-wrapper">
 	<img alt="Beach" src="/img/bio/gaboesquivel-playa.jpg"/>
