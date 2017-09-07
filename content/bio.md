@@ -17,9 +17,9 @@ By the end of 2009 I got my first job as Web Developer building wordpress sites 
 
 In 2010 I started Costa Rica JS, a meetup group in San José for people interested applications development with JavaScript. At the time Node.js was starting the get traction and SPA frameworks where blooming. Today the Costa Rican JS community is the largest meetup in Central America with more than 1600 members.
 
-<div class="center-align-wrapper">
+<!-- <div class="center-align-wrapper">
 	<img alt="Capoeira" src="/img/bio/gaboesquivel-fullstackday.jpg"/>
-</div>
+</div> -->
 
 In 2011 I started to work independently as a freelance developer and during the course of the years I have had the opportunity to work in many different projects in multicultural, multi-timezone remote agile teams. I worked with several clients, mainly digital agencies, startups and development shops.
 

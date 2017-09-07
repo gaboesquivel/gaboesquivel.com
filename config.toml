@@ -6,7 +6,7 @@ canonifyURLs = false
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [params]
-  description = "I help companies develop software products and make technical decisions."
+  description = "I help companies develop software products and make technical decisions. Specializing in JavaScript & Blockchain."
   email = "contact@gaboesquivel.com"
   dateForm = "Monday, Jan 2, 2006"
 
