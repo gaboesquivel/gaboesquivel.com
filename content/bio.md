@@ -33,9 +33,9 @@ In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter nam
 
 This year, 2017, I worked with a FinTech startup ( a neobank ) as CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app utilizing one of the most modern and cost effective technology stacks en latam in financial services.
 
-After the neobank project I started working with Blockchain (Distributed Ledger Technology) and formed <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a hub for exploring and hacking Blockchain/Web3 solutions in Costa Rica.
+After the neobank project I started working with Blockchain and Distributed Ledger Technology and formed <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a hub for investigation and development of blockchain based solutions.
 
-I currently provide consulting, custom software development and staff augmentation services for startups and enterprise clients through a company called Cortical Touch. Our developer network is highly specialized in JavaScript Applications using ReactNative, React Web, AngularJS, Ionic, VueJS, Node.js, Express, Hapi and more. Our second strongest profile is SysAdmin and Cloud engineers specialized in AWS, DevOps Automation and Network Security.
+I provide consulting, custom development and staff augmentation services for startups and enterprise clients through <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>, I company I founded. Our developer network is highly specialized in JavaScript Applications using ReactNative, React Web, AngularJS, Ionic, VueJS, Node.js, Express, Hapi and more. Our second strongest profile is SysAdmin and Cloud engineers specialized in AWS, DevOps Automation and Network Security.
 
 Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
 Learn more at <a target="_blank" href="https://corticaltouch.com">corticaltouch.com</a>
