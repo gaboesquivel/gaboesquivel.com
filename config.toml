@@ -1,8 +1,8 @@
 languageCode = "en-us"
-title = "Gabo Esquivel - Software Engineer and Consultant"
+title = "Gabo Esquivel - Software Engineer"
 googleAnalytics = "UA-33521499-1"
-baseurl = "https:gaboesquivel.com/"
-canonifyURLs = false
+baseurl = "/"
+#canonifyURLs = true
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [params]
