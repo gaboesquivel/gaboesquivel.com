@@ -1,7 +1,7 @@
 languageCode = "en-us"
 title = "Gabo Esquivel - Software Engineer and Consultant"
 googleAnalytics = "UA-33521499-1"
-baseurl = "/"
+baseurl = "https:gaboesquivel.com/"
 canonifyURLs = false
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
