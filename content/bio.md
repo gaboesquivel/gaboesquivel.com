@@ -6,7 +6,6 @@ title = "Hola!"
 type= "about"
 +++
 
-
 My name is Gabriel Esquivel, everyone calls me "Gabo". I was born in Costa Rica in 1984 and was raised by a loving family that thought me well to respect others and always focus on the solution to problems.
 
 Since I was a little child I've loved sports, specially Soccer, but also Capoeira (brazilian martial), Yoga and Surfing; I dreamed with traveling the world, meet different cultures and learning new languages; so I dedicated some time prior to Bachelors to study foreign languages and today I can communicate fluently in English, Portuguese, Italian and Spanish.
