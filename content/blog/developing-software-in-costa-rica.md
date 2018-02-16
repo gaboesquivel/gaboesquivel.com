@@ -42,13 +42,12 @@ Elion Chin, co-founder of MoodLogic - one of the first online music recommendati
 &nbsp;
 <h3>Costa Rica Elevated by lostnfree</h3>
 <div class="center-align-wrapper">
-<iframe src="https://player.vimeo.com/video/196952762" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/196952762">Costa Rica Elevated</a> from <a href="https://vimeo.com/nefty">&Nu;eftali</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<iframe style="max-width:100%;" src="https://player.vimeo.com/video/196952762" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 <h3>Costa Rica: A Little Piece of Paradise by NatGeo</h3>
 <div class="center-align-wrapper">
-<iframe width="640" height="360" src="https://www.youtube.com/embed/M0AqiF_pmxc" frameborder="0" allowfullscreen></iframe>
+<iframe  style="max-width:100%;"  width="640" height="360" src="https://www.youtube.com/embed/M0AqiF_pmxc" frameborder="0" allowfullscreen></iframe>
 </div>
 
 &nbsp;
