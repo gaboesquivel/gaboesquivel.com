@@ -22,7 +22,9 @@ In 2010 I started Costa Rica JS, a meetup group in San José for people interest
 
 In 2011 I started to work independently as a freelance developer and during the course of the years I have had the opportunity to work in many different projects in multicultural, multi-timezone remote agile teams. I worked with several clients, mainly digital agencies, startups and development shops.
 
-Through hard work and a lot of study and practice I grew from web developer with skills for client side apps to a fullstack engineer that can work end to end, from mobile apps to cloud, databases and devops automation. I've played the role of lead architect and agile manager in my recent engagements, mentoring and leading the development team from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be and also leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
+Through hard work, a lot of study and practice I grew from web developer with skills for client side apps to a fullstack engineer that can work end to end, from mobile apps to cloud, databases, devops automation and blockchain.
+
+I've played the role of lead architect, agile manager and head of engineering, mentoring and leading the development team from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be while leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
 
 In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter named Coral, my motivation and my happiness.
 
@@ -30,14 +32,13 @@ In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter nam
 	<img alt="Capoeira" src="/img/bio/gaboesquivel-coral.jpg"/>
 </div>
 
-This year, 2017, I worked with a FinTech startup ( a neobank ) as CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app utilizing one of the most modern and cost effective technology stacks en latam in financial services.
+In 2017, I worked for banking startup as CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app with one of the most modern and cost effective technology stacks en latam in financial services.
 
-After the neobank project I started working with Blockchain and decentralized technology and formed <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a hub for research and development of blockchain based solutions.
+After the neobank project I started working with decentralized technology  and blockchain,  and founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a hub for research and development of blockchain based solutions.
 
-I provide consulting, custom development and staff augmentation services for startups and enterprise clients through <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>, I company I founded. Our developer network is highly specialized in JavaScript Applications using ReactNative, React Web, AngularJS, Ionic, VueJS, Node.js, Express, Hapi and more. Our second strongest profile is SysAdmin and Cloud engineers specialized in AWS, DevOps Automation and Network Security.
+Shortly after I joined <a href="https://knowledge.io" target="_blank">Knowledge.io</a> as Head of Engineering and Blockchain Architect, leading a team of very talented engineers based in Costa Rica. Knowledge.io is a blockchain powered knowledge sharing platform which enables consumers and experts to prove their knowledge in many areas of expertise, and earn tokens which can be redeemed for real-life rewards. The platform also contains the Q&ADS Knowledge Score Targeting enabling marketers and advertisers to target advertising at real people who have proven expertise in their areas, avoiding many issues prevalent with adtech today.
 
-Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
-Learn more at <a target="_blank" href="https://corticaltouch.com">corticaltouch.com</a>
+I also own a boutique consulting, custom development and staff augmentation company that works with startups and enterprise clients <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>. Our developer network is highly specialized in JavaScript Applications, DevOps and Blockchain. Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
 
 <!-- <div class="center-align-wrapper">
 	<img alt="Beach" src="/img/bio/gaboesquivel-playa.jpg"/>
