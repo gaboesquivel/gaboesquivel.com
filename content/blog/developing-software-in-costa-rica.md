@@ -17,16 +17,22 @@ tags:
 ---
 Coming back to Costa Rica and enjoy my country while working on software applications is one of the best decisions I ever made. Check out these pictures I took with my phone at Playa Manzanillo, near to Santa Teresa - Mal País, a natural paradise with world class surfing that ranks among the most beautiful beaches of Costa Rica and you'll agree is the best place to live or invest in the country.
 
-<div class="center-align-wrapper">
-<img alt="playa-manazanillo-sunset" src="/img/2014/01/playa-manazanillo-sunset-300x225.jpg" />
-<img alt="vacas-playa-manzanillo" src="/img/2014/01/vacas-playa-manzanillo-300x225.jpg"/>
-<img alt="playa-manzanillo-reef" src="/img/2014/01/playa-manzanillo-reef-300x225.jpg" />
-<img alt="rocks-playa-manzanillo" src="/img/2014/01/rocks-playa-manzanillo-300x225.jpg"/>
+<div class="center-align-wrapper" style="margin: 3px 0;">
+  <img alt="playa-manazanillo-sunset" src="/img/2014/01/playa-manazanillo-sunset-300x225.jpg"  />
+  <img alt="vacas-playa-manzanillo" src="/img/2014/01/vacas-playa-manzanillo-300x225.jpg" />
 </div>
+<div class="center-align-wrapper" style="margin: 3px 0;">
+  <img alt="playa-manzanillo-reef" src="/img/2014/01/playa-manzanillo-reef-300x225.jpg" />
+  <img alt="rocks-playa-manzanillo" src="/img/2014/01/rocks-playa-manzanillo-300x225.jpg" />
 
-Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel location in all of both Central and South America. Malpais and Montezuma both have many of the best restaurants in the entire country, since many international chefs have moved to the area. The area is also a major center of Costa Rica Yoga with over a dozen places to learn/practice and many yoga retreats and surf+yoga retreat combinations.
+</div>
+<br><br/>
 
-[Elion Chin](https://angel.co/elion-chin), co-founder of MoodLogic - one of the first online music recommendation systems, is leading [Silicon Beach](http://bit.ly/SiliconBeachCR) a forum for entrepreneurs & people looking to invest in, work at, advise or network with startups in Costa Rica to promote the technology talent of Costa Rica and drive the start-up culture in a fulfilling and healthy environment to deliver the best.
+<p>
+Santa Teresa was recently awarded by Trip Advisor as the #1 highest-rated travel location in all of both Central and South America. Malpais and Montezuma both have many of the best restaurants in the entire country, since many international chefs have moved to the area. The area is also a major center of Costa Rica Yoga with over a dozen places to learn/practice and many yoga retreats and surf+yoga retreat combinations.</p>
+
+<p>
+Elion Chin, co-founder of MoodLogic - one of the first online music recommendation systems, is leading <a target="_blank" src="http://bit.ly/SiliconBeachCR">Silicon Beach</a> a forum for entrepreneurs & people looking to invest in, work at, advise or network with startups in Costa Rica to promote the technology talent of Costa Rica and drive the start-up culture in a fulfilling and healthy environment to deliver the best.</p>
 
 <div class="center-align-wrapper">
 	<img alt="Silicon Beach Costa Rica" src="/img/2014/01/silicon-beach-costa-rica.png"/>
