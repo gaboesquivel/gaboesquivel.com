@@ -51,5 +51,3 @@ Elion Chin, co-founder of MoodLogic - one of the first online music recommendati
 </div>
 
 &nbsp;
-
-Feel free to contact me if you are looking for advise or network with the local software development community.
