@@ -48,7 +48,7 @@ My services include:
 <strong>Process implementation</strong>: Definition of software engineering processes and standards.   
 <strong>DevOps culture</strong>: transparency, collaboration, automation and infra-as-code as means to achieve secure and reliable infrastructure.   
 <strong>Project management</strong>: Manage day-to-day engineering tasks following agile development principles and best practices.  
-<strong>Hands on coding</strong>: I'm a programmer and I enjoy writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity, AWS Cloud, Infra-as-Code with CloudFormation, Docker, NoSQL and SQL, Node.js, React and React Native.  
+<strong>Hands on coding</strong>: I'm a programmer and I enjoy writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity/Web3, AWS Cloud, Infra-as-Code with CloudFormation, Docker, NoSQL and SQL, Node.js, React and React Native.  
 
 
 Additionally Cortical Touch can help you augment your staff quickly with qualified developers. Our developer  network is highly specialized in JavaScript Applications, DevOps and Blockchain.
