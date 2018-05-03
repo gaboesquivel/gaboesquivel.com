@@ -1,7 +1,7 @@
 +++
 date = "2017-07-30T12:07:01-06:00"
 author = ""
-description = "This is a short history of my life in the tech world"
+description = "This is a short history of my life"
 title = "Hola!"
 type= "about"
 +++
@@ -14,7 +14,7 @@ In 2007 I started my Software Engineering studies at CenfoTec University in San 
 
 By the end of 2009 I got my first job as Web Developer building wordpress sites and around a year later I was hired as UI Engineer for americanexpress.com through an outsourcing company based in Costa Rica.
 
-In 2010 I started Costa Rica JS, a meetup group in San José for people interested applications development with JavaScript. At the time Node.js was starting the get traction and SPA frameworks where blooming. Today the Costa Rican JS community is the largest meetup in Central America with more than 1600 members.
+In 2010 I started Costa Rica JS, a meetup group in San José for people interested in development with JavaScript. At the time Node.js was starting the get traction and SPA frameworks where blooming. Today the Costa Rican JS community is the largest meetup in Central America with more than 1700 members.
 
 <!-- <div class="center-align-wrapper">
 	<img alt="Capoeira" src="/img/bio/gaboesquivel-fullstackday.jpg"/>
@@ -26,19 +26,34 @@ Through hard work, a lot of study and practice I grew from web developer with sk
 
 I've played the role of lead architect, agile manager and head of engineering, mentoring and leading the development team from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be while leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
 
-In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter named Coral, my motivation and my happiness.
+In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter named Coral, my biggest motivation.
 
 <div class="center-align-wrapper">
 	<img alt="Capoeira" src="/img/bio/gaboesquivel-coral.jpg"/>
 </div>
 
-In 2017, I worked for banking startup as CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app with one of the most modern and cost effective technology stacks en latam in financial services.
+In 2017, I worked for banking startup as interim CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app with one of the most modern and cost effective technology stacks en latam in financial services.
 
-After the neobank project I started working with decentralized technology  and blockchain,  and founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a hub for research and development of blockchain based solutions.
+After the neobank project I started working with decentralized solutions and blockchain, and founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for the study, promotion and development of blockchain based solutions.
 
-Shortly after I joined <a href="https://knowledge.io" target="_blank">Knowledge.io</a> as Head of Engineering and Blockchain Architect, leading a team of very talented engineers based in Costa Rica. Knowledge.io is a blockchain powered knowledge sharing platform which enables consumers and experts to prove their knowledge in many areas of expertise, and earn tokens which can be redeemed for real-life rewards. The platform also contains the Q&ADS Knowledge Score Targeting enabling marketers and advertisers to target advertising at real people who have proven expertise in their areas, avoiding many issues prevalent with adtech today.
+Shortly after I joined <a href="https://knowledge.io" target="_blank">Knowledge.io</a> as Head of Engineering and Blockchain Architect, leading a team of very talented engineers. I helped the company through their ICO and contributed to design of cloud services for their Ads Platform and Marketplace, and the Knowledge Ethereum wallet: a centralized wallet solution for all knowledge users and clients focusing mainly in cloud security and user experience.
 
-I also own a boutique consulting, custom development and staff augmentation company that works with startups and enterprise clients <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>. Our developer network is highly specialized in JavaScript Applications, DevOps and Blockchain. Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
+Today I provide consultation and development services to startups and enterprise clients through <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>, I boutique software consultancy I own.
+
+My services include:
+
+<strong>Technical leadership:</strong> I lead software engineering teams and act as on-demand CTO/VPE/Consultant.   
+<strong>Consultation</strong> on software product ideation, validation, definition, roadmap creation and product life-cycle management.   
+<strong>Software architecture</strong>: Design of robust and cost effective architectures leveraging modern tech without unnecessary complexity.   
+<strong>Process implementation</strong>: Definition of software engineering processes and standards.   
+<strong>DevOps culture</strong>: transparency, collaboration, automation and infra-as-code as means to achieve secure and reliable infrastructure.   
+<strong>Project management</strong>: Manage day-to-day engineering tasks following agile development principles and best practices.  
+<strong>Hands on coding</strong>: I'm a programmer and I enjoy writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity, AWS Cloud, Infra-as-Code with CloudFormation, Docker, NoSQL and SQL, Node.js, React and React Native.  
+
+
+Additionally Cortical Touch can help you augment your staff quickly with qualified developers.Our developer  network is highly specialized in JavaScript Applications, DevOps and Blockchain.
+
+Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
 
 <!-- <div class="center-align-wrapper">
 	<img alt="Beach" src="/img/bio/gaboesquivel-playa.jpg"/>
