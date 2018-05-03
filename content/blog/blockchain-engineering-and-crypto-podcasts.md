@@ -3,7 +3,7 @@ title: "My Favorite Blockchain Engineering and Crypto Podcasts"
 subtitle: "A curated list of blockchain and crypto podcasts"
 date: 2018-04-03
 description: "Keep up to speed with crypto and blockchain development techniques and technologies."
-cover: /img/2018/01/knowledge-icon.jpg
+cover: /img/2018/03/radio.jpg
 categories:
   - software development
   - ethereum
