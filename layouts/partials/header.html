@@ -7,6 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="{{ .Description }}" property="og:description">
     <meta name="author" content="gaboesquivel.com">
+    <meta property="og:image" content="{{ .Params.cover  }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:site_name" content="gaboesquivel.com">
+
+    <meta name="twitter:title" content="{{ .Title  }}">
+    <meta name="twitter:description" content="{{ .Description }}">
+    <meta name="twitter:image" content="{{ .Params.cover  }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gaboesquivel">
+    <meta name="twitter:image:alt" content="{{ .Title  }}">
 
     <title>{{ .Title  }}</title>
 
