@@ -36,7 +36,7 @@ In 2017, I worked for banking startup as interim CTO and Chief Architect and led
 
 After the neobank project I started working with decentralized solutions and blockchain, and founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for the study, promotion and development of blockchain based solutions.
 
-Shortly after I joined <a href="https://knowledge.io" target="_blank">Knowledge.io</a> as Head of Engineering and Blockchain Architect, leading a team of very talented engineers. I helped the company through their ICO and contributed to the design of cloud services for their Ads Platform and Marketplace, and the Knowledge Ethereum wallet: a centralized wallet solution for all knowledge users and clients, focusing mainly in cloud security and user experience.
+Shortly after I joined knowledge.io as Head of Engineering and Blockchain Architect, leading a team of very talented engineers. I helped the company through their ICO and contributed to the design of the cloud services for their Ads Platform and Marketplace, and the Knowledge Ethereum wallet: a centralized wallet solution for all knowledge users and clients, focusing mainly in cloud security and user experience.
 
 Today I provide consultation and development services to startups and enterprise clients through <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>, I boutique software consultancy I own.
 
