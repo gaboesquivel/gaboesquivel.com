@@ -13,7 +13,7 @@ categories:
   - blokchain
 ---
 
-The past year I've dedicated my time to the study and development of blockchain based solutions. It's a new paradigm and everything changes very quickly, just like the open source world, a bit more hectic I'd say. There's a lot going on and it's hard to keep pace. One of the resources that really help me keep track of new techniques and technologies are the podcasts, I hear them while I drive, wait on lines, jogging, even when taking a shower. I think it's a great way to utilize that "idle" time more productively.  This is a small curated list of my favorite blockchain podcasts.
+The past year I've dedicated my time to the study and development of blockchain based solutions. It's a new paradigm and everything changes very quickly, just like the open source world, a bit more hectic I'd say. There's a lot going on and it's hard to keep pace. One of the resources that really help me keep track of new techniques and technologies are the podcasts, I listed to them while I drive, wait on lines, jogging, even when taking a shower. I think it's a great way to utilize that "idle" time more productively.  This is a small curated list of my favorite blockchain podcasts.
 
 <br>
 
