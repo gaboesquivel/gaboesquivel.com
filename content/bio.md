@@ -34,7 +34,7 @@ In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter nam
 
 In 2017, I worked for banking startup as interim CTO and Chief Architect and led the formation of a world class team and the development of an alpha version of the app with one of the most modern and cost effective technology stacks en latam in financial services.
 
-After the neobank project I started working with decentralized solutions and blockchain, and founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for the study, promotion and development of blockchain based solutions.
+After the neobank project I started studying decentralized systems and blockchain, and founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for the research, promotion and development of blockchain based solutions.
 
 Shortly after I joined knowledge.io as head of engineering and blockchain architect, leading a team of very talented engineers. I helped the company through their ICO and contributed to the design of the cloud services for their Ads Platform and Marketplace, and the Knowledge Ethereum wallet: a centralized wallet solution for all knowledge users and clients, focusing mainly in cloud security and user experience.
 
