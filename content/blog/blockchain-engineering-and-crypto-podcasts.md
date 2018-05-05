@@ -76,6 +76,6 @@ This podcast was created as a way to help explain and help others learn more abo
 <br>
 
 These are my recommendations, podcasts I've listened to and enjoyed.   
-On player.fm you can a more <a href="https://player.fm/podcasts/Blockchain" target="_blank">player.fm/podcasts/Blockchain</a>
+On player.fm you can find more <a href="https://player.fm/podcasts/Blockchain" target="_blank">player.fm/podcasts/Blockchain</a>
 
 If you have good podcast recommendations feel to share them with me on twitter. <a href="https://twitter.com/gaboesquivel" target="_blank">@gaboesquivel</a>   
