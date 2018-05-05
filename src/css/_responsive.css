@@ -10,14 +10,14 @@ NOTE: This is responsive stylesheet of the template, This file contains the styl
 *************************************************/
 
 /* Medium Layout: 1280px. */
-@media only screen and (min-width: 992px) and (max-width: 1200px) { 
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
   .about-text {
     padding: 10px 0;
 }
-    
+
 }
 /* Tablet Layout: 768px. */
-@media only screen and (min-width: 768px) and (max-width: 991px) { 
+@media only screen and (min-width: 768px) and (max-width: 991px) {
   .welcome-area .home-arrow {
   bottom: -220px;
 }
@@ -30,13 +30,13 @@ NOTE: This is responsive stylesheet of the template, This file contains the styl
 }
 .author-adress {
   margin-top: 30px;
-}  
-    
-    
+}
+
+
 }
 /* Mobile Layout lower than: 320px. */
-@media only screen and (max-width: 767px) { 
-    
+@media only screen and (max-width: 767px) {
+
 .section-title h2 {
   font-size: 32px;
 }
@@ -85,7 +85,7 @@ NOTE: This is responsive stylesheet of the template, This file contains the styl
 }
   .navbar-toggle .icon-bar {
   background: #333 none repeat scroll 0 0
-}  
+}
 .navbar-header {
     display: inline-block;
     float: right;
@@ -122,7 +122,7 @@ NOTE: This is responsive stylesheet of the template, This file contains the styl
     text-align: left !important;
     display: block;
 }
-    
+
 .welcome-text{
     font-size: 34px;
 }
@@ -166,25 +166,34 @@ NOTE: This is responsive stylesheet of the template, This file contains the styl
   line-height: 35px;
   width: 35px;
   margin-bottom: 10px;
-}   
+}
 
 
 .footer{
-    
+
 }
 .footer-text P{
     font-size: 14px;
     }
-    
-    
+
+
 }
 
 
 /* Wide Mobile Layout: 480px. */
-@media only screen and (min-width: 480px) and (max-width: 767px) { 
-    
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
 .mobile-menu-activated ul.nav.navbar-nav li a{padding: 10px 5px;}
-    
+
 
 }
 
+/* hack for menu correct display */
+@media only screen and (min-width: 767px) and (max-width: 1000px) {
+
+#tweets-link {
+  display: none;
+}
+
+
+}
