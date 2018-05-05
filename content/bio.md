@@ -48,7 +48,7 @@ My services include:
 <strong>Process implementation</strong>: Definition of software engineering processes and standards.   
 <strong>DevOps culture</strong>: transparency, collaboration, automation and infra-as-code as means to achieve secure and reliable infrastructure.   
 <strong>Project management</strong>: Manage day-to-day engineering tasks following agile development principles and best practices.  
-<strong>Hands on coding</strong>: Yes!, I code, I love it! I'm a programmer that enjoys writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity/Web3, AWS Cloud, Infra-as-Code with CloudFormation, Docker, NoSQL and SQL, Node.js, React and React Native.  
+<strong>Hands on coding</strong>: Yes!, I code, I love it! I'm a programmer that enjoys writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity/Web3, AWS Cloud, Infra-as-Code with CloudFormation, Docker, NoSQL and SQL, Node.js, GraphQL, React and React Native.  
 
 I lead development teams from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be; And leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
 
