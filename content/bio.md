@@ -38,9 +38,7 @@ After the neobank project I started studying decentralized systems and blockchai
 
 Shortly after I joined knowledge.io as head of engineering and blockchain architect, leading a team of very talented engineers. I helped the company through their ICO and contributed to the design of the cloud services for their Ads Platform and Marketplace, and the Knowledge Ethereum wallet: a centralized wallet solution for all knowledge users and clients, focusing mainly in cloud security and user experience.
 
-I led these development teams from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be; And leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
-
-Today I provide consultation and development services to startups and enterprise clients through <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>, I boutique software consultancy I own.
+Today I provide consultation and development services to startups and enterprise clients.
 
 My services include:
 
@@ -50,10 +48,11 @@ My services include:
 <strong>Process implementation</strong>: Definition of software engineering processes and standards.   
 <strong>DevOps culture</strong>: transparency, collaboration, automation and infra-as-code as means to achieve secure and reliable infrastructure.   
 <strong>Project management</strong>: Manage day-to-day engineering tasks following agile development principles and best practices.  
-<strong>Hands on coding</strong>: I'm a programmer and I enjoy writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity/Web3, AWS Cloud, Infra-as-Code with CloudFormation, Docker, NoSQL and SQL, Node.js, React and React Native.  
+<strong>Hands on coding</strong>: Yes!, I code, I love it! I'm a programmer that enjoys writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity/Web3, AWS Cloud, Infra-as-Code with CloudFormation, Docker, NoSQL and SQL, Node.js, React and React Native.  
 
+I lead development teams from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be; And leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
 
-Additionally Cortical Touch can help you augment your staff quickly with qualified developers. Our developer  network is highly specialized in JavaScript Applications, DevOps and Blockchain.
+I run a small boutique software consultancy firm called <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>, we can help you augment your staff quickly with qualified developers. Our developer network is highly specialized in JavaScript Applications, DevOps and Blockchain.
 
 Our consultation service can give you perspective on the state of your architecture and give you actionable advice.
 
