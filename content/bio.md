@@ -24,8 +24,6 @@ In 2011 I started to work independently as a freelance developer and during the 
 
 Through hard work, a lot of study and practice I grew from web developer with skills for client side apps to a fullstack engineer that can work end to end, from mobile apps to cloud, databases, devops automation and blockchain.
 
-I've played the role of lead architect, agile manager and head of engineering, mentoring and leading the development team from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be while leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
-
 In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter named Coral, my biggest motivation.
 
 <div class="center-align-wrapper">
@@ -50,7 +48,7 @@ My services include:
 <strong>Project management</strong>: Manage day-to-day engineering tasks following agile development principles and best practices.  
 <strong>Hands on coding</strong>: Yes!, I code, I love it! I'm a programmer that enjoys writing clean code that solves real life problems. Mainly in JavaScript. My toolbelt includes: Blockchain, Ethereum/Solidity/Web3, AWS Cloud, Infra-as-Code with CloudFormation, Docker, Serverless, NoSQL and SQL, Node.js, GraphQL, React and React Native.  
 
-I lead development teams from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, trying to make engineers as happy an productive as they can possibly be; And leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
+I lead development teams from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, mentoring, trying to make engineers as happy an productive as they can possibly be; And leveraging technologies that provide competitive business advantages such as less time-to-market and better user experiences.
 
 I run a small boutique software consultancy firm called <a href="https://corticaltouch.com" target="_blank">Cortical Touch</a>, we can help you augment your staff quickly with qualified developers. Our developer network is highly specialized in JavaScript Applications, DevOps and Blockchain.
 
