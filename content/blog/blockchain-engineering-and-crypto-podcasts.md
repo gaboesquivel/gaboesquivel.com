@@ -10,12 +10,11 @@ categories:
   - ico
   - cryptocurrency
   - smart contracts
-  - blokchain
+  - blockchain
 ---
 
 The past year I've dedicated my time to the study and development of blockchain based solutions. It's a new paradigm and everything changes very quickly, just like the open source world, a bit more hectic I'd say. There's a lot going on and it's hard to keep pace. One of the resources that really help me keep track of new techniques and technologies are the podcasts, I listed to them while I drive, wait on lines, jogging, even when taking a shower. I think it's a great way to utilize that "idle" time more productively.  This is a small curated list of my favorite blockchain podcasts.
 
-<br>
 
 ### Software Engineering Radio
 
@@ -25,7 +24,6 @@ Software Engineering Radio is a podcast targeted at the professional software de
 
 <a href="https://softwareengineeringdaily.com/category/blockchain/" target="_blank">softwareengineeringdaily.com/category/blockchain</a>    
 
-<br>
 
 ### Epicenter
 
@@ -33,7 +31,6 @@ This is another great podcast. It covers decentralized technologies, including B
 
 <a href="https://epicenter.tv/" target="_blank">epicenter.tv</a>   
 
-<br>
 
 ### The Changelog
 
@@ -41,7 +38,6 @@ The Changelog is a podcast and engineering community that covers what&#8217;s fr
 
 <a href="https://changelog.com/topic/blockchain" target="_blank">changelog.com/topic/blockchain</a>    
 
-<br>
 
 ### Blockchain Innovation
 
@@ -49,7 +45,6 @@ Every Tuesday Frederick Munawa interviews the brightest minds in Blockchain and 
 
 <a href="http://blockchain.global/blockchain-innovation/" target="_blank">blockchain.global/blockchain-innovation</a>  
 
-<br>
 
 ### Blockchain Insider by 11:FS
 
@@ -57,7 +52,6 @@ In really enjoy all of the 11FS podcasts. Blockchain Insider, hosted by Simon Ta
 
 <a href="http://blockchain.global/blockchain-innovation/" target="_blank">blockchain.global/blockchain-innovation</a>  
 
-<br>
 
 ### Unchained
 
@@ -65,7 +59,6 @@ In this podcast, host Laura Shin, an independent journalist covering all things 
 
 <a href="http://unchainedpodcast.co/" target="_blank">unchainedpodcast.co</a>  
 
-<br>
 
 ### Blockchain 360
 
