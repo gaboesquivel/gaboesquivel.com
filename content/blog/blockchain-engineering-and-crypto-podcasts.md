@@ -59,12 +59,26 @@ In this podcast, host Laura Shin, an independent journalist covering all things 
 
 <a href="http://unchainedpodcast.co/" target="_blank">unchainedpodcast.co</a>  
 
+### Cryptonomics
+
+Niklas and Fabian, two engineers/economist from Sweden with a great interest for cryptocurrencies and blockchain.
+
+Instead of only looking at cryptocurrencies from a technical standpoint they include the whole perspective, taking into account the economic implications as well.  
+
+<a href="https://www.youtube.com/channel/UCB18fYf4aoWz7Bi4PfBIvAg" target="_blank">youtube.com/channel/UCB18fYf4aoWz7Bi4PfBIvAg</a>  
+
 
 ### Blockchain 360
 
 This podcast was created as a way to help explain and help others learn more about Blockchain.  It was designed to be a discussion of industry leaders about the current state of blockchain, discussing current projects utilizing blockchain, as well as a forward view of the potential of blockchain.
 
 <a href="http://www.blockchain-360.com/" target="_blank">blockchain-360.com</a>  
+
+### GO EOS
+
+Empowering EOS, First and Always. Community hub, media, always neutral - future of the web 3.0.
+
+<a href="http://eosrad.io" target="_blank">eosrad.io</a>  
 
 <br>
 
