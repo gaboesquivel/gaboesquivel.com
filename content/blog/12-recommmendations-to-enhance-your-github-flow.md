@@ -98,7 +98,7 @@ Always define and follow clear commit message standards for your projects, some 
 
 Additionally, I strongly suggest you scope your messages for a better changelog generation. When you scope your messages your changelogs can be more informative. The AngularJS commit conventions and changelog generation is a great example [gist.github.com/stephenparish/9941e89d80e2bc58a153#generating-changelogmd](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#generating-changelogmd)
 
-### Define Coding Style Standards and Pre-commit Hooks
+### Define Coding Style Standards and Configure Pre-commit Hooks
 
 Defining coding standards and enforce them through pre-commits hooks is essential for writing maintainable code. By following these standards you make sure all code looks the same regardless who wrote it, facilitating taking over and maintaining code written by someone else.
 
@@ -155,7 +155,7 @@ You may also found these packages useful [dominique-mueller/automatic-release](h
 
 ### Automate Deployments with Tag Hooks
 
-It's not necessary to use release branches as proposed Git Flow. You take the deployment artifact from your git tags; In the link you will learn more about how to deploy git tags to heroku using TravisCI [docs.travis-ci.com/user/deployment/heroku](https://docs.travis-ci.com/user/deployment/heroku/). It's very simple, you just need to set the tags attribute to true. You can accomplish the same behavior with any other CI server.
+It's not necessary to use release branches as proposed on GitFlow. You take the deployment artifact from your git tags; In the link you will learn more about how to deploy git tags to heroku using TravisCI [docs.travis-ci.com/user/deployment/heroku](https://docs.travis-ci.com/user/deployment/heroku/). It's very simple, you just need to set the tags attribute to true. You can accomplish the same behavior with any other CI server.
 
 For a development environment you can setup hook that deploys the latest master commit  and for feature environments, it's ok to have not so long living branches, optionally you could provision ephemeral test environments for each PR request, however, this is more complex and not really required.
 
