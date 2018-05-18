@@ -80,6 +80,12 @@ Empowering EOS, First and Always. Community hub, media, always neutral - future 
 
 <a href="http://eosrad.io" target="_blank">eosrad.io</a>  
 
+### Ivan on Tech
+
+Ivan Liljeqvist is a software developer from Sweden. This channel is all about cryptocurrencies and the blockchain technology. 
+
+<a href="http://youtube.com/user/LiljeqvistIvan" target="_blank">youtube.com/user/LiljeqvistIvan</a>  
+
 <br>
 
 These are my recommendations, podcasts I've listened to and enjoyed.   
