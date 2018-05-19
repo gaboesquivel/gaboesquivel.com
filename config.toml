@@ -6,7 +6,7 @@ baseurl = "/"
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [params]
-  description = "I help companies develop software products and make technical decisions. Blockchain, OSS, DevOps."
+  description = "Open Source and Decentralized Applications. Blockchain, OSS, DevOps. EOS Enthusiast."
   email = "contact@gaboesquivel.com"
   dateForm = "Monday, Jan 2, 2006"
 
