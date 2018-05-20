@@ -13,12 +13,12 @@
 
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="Gabo Esquivel - Software Engineer">
-    <meta itemprop="description" content="I help companies develop software products and make technical decisions.">
+    <meta itemprop="description" content="{{ $isHomePage := eq .Title .Site.Title }}{{ .Site.Params.description }}{{ if eq $isHomePage false }} - {{ .Description }}{{ end }}">
     <meta itemprop="image" content="https://gaboesquivel.com/img/intro-bg.jpg">
 
     <!-- Twitter -->
     <meta name="twitter:title" content="Gabo Esquivel - Software Engineer">
-    <meta name="twitter:description" content="I help companies develop software products and make technical decisions.">
+    <meta name="twitter:description" content="{{ $isHomePage := eq .Title .Site.Title }}{{ .Site.Params.description }}{{ if eq $isHomePage false }} - {{ .Description }}{{ end }}">
     <meta name="twitter:image" content="https://gaboesquivel.com/img/intro-bg.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@gaboesquivel">
@@ -28,7 +28,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://gaboesquivel.com" />
     <meta property="og:image" content="https://gaboesquivel.com/img/intro-bg.jpg" />
-    <meta property="og:description" content="I help companies develop software products and make technical decisions." />
+    <meta property="og:description" content="{{ $isHomePage := eq .Title .Site.Title }}{{ .Site.Params.description }}{{ if eq $isHomePage false }} - {{ .Description }}{{ end }}" />
     <meta property="og:site_name" content="gaboesquivel.com" />
 
 
