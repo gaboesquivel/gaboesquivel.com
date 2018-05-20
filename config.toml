@@ -1,7 +1,7 @@
 languageCode = "en-us"
 title = "Gabo Esquivel - DApp Developer"
 googleAnalytics = "UA-33521499-1"
-baseurl = "/"
+baseurl = "https://gaboesquivel.com"
 #canonifyURLs = true
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
