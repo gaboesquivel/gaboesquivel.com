@@ -28,10 +28,10 @@ In 2016 I married @laubits, my beloved wife who gave me a beautiful daughter nam
 	<img alt="Capoeira" src="/img/bio/gaboesquivel-coral.jpg"/>
 </div>
 
-In 2017, I worked for banking startup as interim CTO and Chief Architect and led the formation of a world-class team and the development of the first version of the app, leveraging AWS Cloud, Serverless, Infra-as-Code and React Native.
+In 2017, I worked for a neo-bank startup ( holawink.com ) as interim CTO and Chief Architect and led the formation of a world-class team and the development of the first version of the app, leveraging AWS Cloud, Serverless, Infra-as-Code and React Native.
 
-While working on the neo-bank app and I discovered Blockchain technology and my mind was blown away. I started reading more about it and haven't been able to stop since. After the neo-bank project I co-founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for the research, promotion, and development of blockchain based solutions and about as the same time I joined at knowledge.io as head of engineering and helped the company during their ICO.
+While working on the neo-bank app and I discovered blockchain technology and my mind was blown away. I started reading more about it and haven't been able to stop since. After the neo-bank project I co-founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for the research, promotion, and development of blockchain based solutions and about as the same time I joined at knowledge.io as head of engineering and helped the company during their ICO.
 
-After Knowledge's ICO, I got involved in the EOS open source community contributing to the development of the global and local ecosystem through [EOS Costa Rica] (https://github.com/eoscostarica), Costa Rica's EOS community and block producer candidate.
+After Knowledge's ICO, I got involved in the EOS community contributing to the development of the global and local ecosystem through [EOS Costa Rica] (https://github.com/eoscostarica), Costa Rica's EOS community and block producer candidate.
 
 I provide consultation and development services to startups and enterprise clients. [Get in Touch](/contact)
