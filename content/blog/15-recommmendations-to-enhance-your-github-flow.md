@@ -18,17 +18,17 @@ On my journey, I've followed different workflows depending on the project and to
 
 The attributes of good quality software are many: robustness, testability, resilience, modularity, maintainability, usability, security, performance, scalability and more depending on the type of application you are building. On this article I'll mainly focus on the following characteristics:
 
-- Good documentation: readme, documentation sites, and changelogs.
-- Well defined coding standards and conventions.
-- Proper versioning with semver.
-- Automated tests: not too many, focus on functional non-regression tests.
-- Developer happiness, sure!
+* Good documentation: readme, documentation sites, and changelogs.
+* Well defined coding standards and conventions.
+* Proper versioning with semver.
+* Automated tests: not too many, focus on functional non-regression tests.
+* Developer happiness, sure!
 
 To accomplish this I'm proposing a pragmatic Github flow leveraging open source tools that help facilitate and automate many of the tasks required to achieve this goal.
 
 If you are working on an open source project you want to publish your project Github, that's a fact. Git and Github have radically changed the way OSS is developed by becoming the de-facto common language for version control and definitive place for collaboration respectively.
 
-The official workflow proposed by Github is called __github flow__ and it's very well documented on their website [guides.github.com/introduction/flow](https://guides.github.com/introduction/flow/), most open source projects follow this workflow with slightly different flavors.
+The official workflow proposed by Github is called **github flow** and it's very well documented on their website [guides.github.com/introduction/flow](https://guides.github.com/introduction/flow/), most open source projects follow this workflow with slightly different flavors.
 
 ![](/img/2018/05/github-flow.png)
 
@@ -52,49 +52,49 @@ Taking the time to write Github templates for your issues and pull request will 
 
 Learn more at [blog.github.com/2016-02-17-issue-and-pull-request-templates](https://blog.github.com/2016-02-17-issue-and-pull-request-templates/)
 
-__Some general guidelines for bug reports__:   
+**Some general guidelines for bug reports**:
 
 Before submitting an issue please check that you've completed the following steps:
 
-- Made sure you're on the latest version
-- Used the search feature to ensure that the bug hasn't been reported before
+* Made sure you're on the latest version
+* Used the search feature to ensure that the bug hasn't been reported before
 
-Bug reports should contain the following information:   
+Bug reports should contain the following information:
 
-- Summary: A brief description.
-- Steps to reproduce: How did you encounter the bug? Instructions to reproduce it.
-- Expected behavior: How did you expect it to behave?
-- Actual behavior: How did it actually behave?
-- References: Links to any related tickets or information sources.
-- If possible, attach visual documentation of the bug. Screenshots, video and/or animated gifs.
+* Summary: A brief description.
+* Steps to reproduce: How did you encounter the bug? Instructions to reproduce it.
+* Expected behavior: How did you expect it to behave?
+* Actual behavior: How did it actually behave?
+* References: Links to any related tickets or information sources.
+* If possible, attach visual documentation of the bug. Screenshots, video and/or animated gifs.
 
-__Pull Request General Guidelines__:
+**Pull Request General Guidelines**:
 
-- Please make sure that there aren't existing pull requests attempting to address the issue mentioned.
-- Check for related issues on the issue tracker.
-- Non-trivial changes should be discussed on an issue first.
-- Let us know you're working on the issue.
-- Develop in a topic branch, not master.
-- Provide useful pull request description.
-- Follow project commit guidelines.
-- Write a good description of your PR.
-- Link to the Github issue in the description.
+* Please make sure that there aren't existing pull requests attempting to address the issue mentioned.
+* Check for related issues on the issue tracker.
+* Non-trivial changes should be discussed on an issue first.
+* Let us know you're working on the issue.
+* Develop in a topic branch, not master.
+* Provide useful pull request description.
+* Follow project commit guidelines.
+* Write a good description of your PR.
+* Link to the Github issue in the description.
 
 ### Use the Command Line
 
 The console is your friend. In my experience learning to interact with Github from the command line is the best use of your time if you work with open source technologies. There are many nice GUIs, however, none of them will give the flexibility of the command line. There's also tooling that will make life much simpler and a more efficient developer that is only available for the command line:
 
-- __hub__ is a command-line wrapper for git that makes you better at GitHub. Whether you are a beginner or an experienced contributor to open-source, hub makes it easier to fetch repositories, navigate project pages, fork repos and even submit pull requests, all from the command-line. [hub.github.com](https://hub.github.com/)
-- __tj/git-extras__ is a set of git utilities such as repo summary, repl, changelog population, author commit percentages and more. [github.com/tj/git-extras](https://github.com/tj/git-extras)
+* **hub** is a command-line wrapper for git that makes you better at GitHub. Whether you are a beginner or an experienced contributor to open-source, hub makes it easier to fetch repositories, navigate project pages, fork repos and even submit pull requests, all from the command-line. [hub.github.com](https://hub.github.com/)
+* **tj/git-extras** is a set of git utilities such as repo summary, repl, changelog population, author commit percentages and more. [github.com/tj/git-extras](https://github.com/tj/git-extras)
 
 ### Follow Strict Commit Message Standards ( Scoped Commits )
 
 Always define and follow clear commit message standards for your projects, some general guidelines are:
 
-- Commit each fix as a separate change.
-- Provide useful commit messages.
-- Provide a short commit message in the first line (50-100 character). Looking at the output of `gitk` or `git log --oneline` might help you understand why.
-- Reference the git issue on the body of your commit message.
+* Commit each fix as a separate change.
+* Provide useful commit messages.
+* Provide a short commit message in the first line (50-100 character). Looking at the output of `gitk` or `git log --oneline` might help you understand why.
+* Reference the git issue on the body of your commit message.
 
 Additionally, I strongly suggest you scope your messages for a better changelog generation. When you scope your messages your changelogs can be more informative. The AngularJS commit conventions and changelog generation is a great example [gist.github.com/stephenparish/9941e89d80e2bc58a153#generating-changelogmd](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#generating-changelogmd)
 
@@ -114,7 +114,7 @@ Learn more at [docs.travis-ci.com/user/pull-requests](https://docs.travis-ci.com
 
 ### Protect Your Master Branch and Require Code Reviews
 
-Github gives you the possibility to protect your master branch against direct commits, forced pushes and rebase. This is very important when collaborating with others on a project.  Additionally, you want code reviews as required step in order to merge code into master. By configuring this on the settings tab of each repository.
+Github gives you the possibility to protect your master branch against direct commits, forced pushes and rebase. This is very important when collaborating with others on a project. Additionally, you want code reviews as required step in order to merge code into master. By configuring this on the settings tab of each repository.
 
 By protecting master and enforcing code reviews you are going peace of mind that it'll be unlikely that undesired code will land in master and the no one in the team will affect others modifying the master git history or pushing unreviewed code.
 
@@ -122,10 +122,10 @@ By protecting master and enforcing code reviews you are going peace of mind that
 
 This is a hot debate: Merge vs Squash vs rebase. I believe squash merge is the best approach for the following reasons:
 
-- not all developers know how to properly rebase a pull request on top of master, that's a fact. Many developers will simply merge master on top of their changes. Squash merge gets rid of those merge messages that are useless to construct a changelog later and add noise to the git log.
-- not all contributors will follow the commit guidelines, squash merge allows to control the commit message that land in the master branch.
+* not all developers know how to properly rebase a pull request on top of master, that's a fact. Many developers will simply merge master on top of their changes. Squash merge gets rid of those merge messages that are useless to construct a changelog later and add noise to the git log.
+* not all contributors will follow the commit guidelines, squash merge allows to control the commit message that land in the master branch.
 
-In order to follow a squash merge workflow successfully it is necessary that every pull request is scoped to a specific feature, bug fix or chore.  
+In order to follow a squash merge workflow successfully it is necessary that every pull request is scoped to a specific feature, bug fix or chore.
 
 ### Semver, Github Tags, Releases and Automated Changelogs
 
@@ -133,9 +133,9 @@ Versioning is super important in software and especially in open source projects
 
 Given a version number MAJOR.MINOR.PATCH, increment the:
 
-- MAJOR version when you make incompatible API changes,
-- MINOR version when you add functionality in a backward-compatible manner, and
-- PATCH version when you make backward-compatible bug fixes.
+* MAJOR version when you make incompatible API changes,
+* MINOR version when you add functionality in a backward-compatible manner, and
+* PATCH version when you make backward-compatible bug fixes.
 
 Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
 
@@ -157,11 +157,11 @@ You may also found these packages useful [dominique-mueller/automatic-release](h
 
 It's not necessary to use release branches as proposed on GitFlow. You take the deployment artifact from your git tags; In the link you will learn more about how to deploy git tags to heroku using TravisCI [docs.travis-ci.com/user/deployment/heroku](https://docs.travis-ci.com/user/deployment/heroku/). It's very simple, you just need to set the tags attribute to true. You can accomplish the same behavior with any other CI server.
 
-For a development environment you can setup hook that deploys the latest master commit  and for feature environments, it's ok to have not so long living branches, optionally you could provision ephemeral test environments for each PR request, however, this is more complex and not really required.
+For a development environment you can setup hook that deploys the latest master commit and for feature environments, it's ok to have not so long living branches, optionally you could provision ephemeral test environments for each PR request, however, this is more complex and not really required.
 
 ### Setup a Github Stream Channel on Your Chat Room
 
-This is a very convenient way to track the activity on your Github repositories from a single place, the place where you communicate with your team is ideal. These are simple notifications stream on a topic room or several ones. But there much more you could do on your chat rooms, in 2013 Github coined the term __ChatOps__, you can learn about it here [youtube.com/watch?v=NST3u-GjjFw](https://www.youtube.com/watch?v=NST3u-GjjFw)
+This is a very convenient way to track the activity on your Github repositories from a single place, the place where you communicate with your team is ideal. These are simple notifications stream on a topic room or several ones. But there much more you could do on your chat rooms, in 2013 Github coined the term **ChatOps**, you can learn about it here [youtube.com/watch?v=NST3u-GjjFw](https://www.youtube.com/watch?v=NST3u-GjjFw)
 
 ### Automate Dependency Updates
 
@@ -173,17 +173,17 @@ A couple tools that will help you are [greenkeeper.io](https://greenkeeper.io) a
 
 Open source developers have built many useful extensions that enhance your Github's experience, here's a list you may find useful.
 
-+ [GitHub Avatars](https://GitHub.com/anasnakawa/chrome-GitHub-avatars) [[chrome](https://chrome.google.com/webstore/detail/avatars-for-GitHub/pgjmdbklnfklcjfbonjfkdhaonlfogbb)] - Display avatars in GitHub news feed.
-+ [GitHub Awesome Autocomplete](https://GitHub.algolia.com/) [[chrome](https://chrome.google.com/webstore/detail/GitHub-awesome-autocomple/djkfdjpoelphhdclfjhnffmnlnoknfnd)] [[firefox](https://addons.mozilla.org/en-US/firefox/addon/GitHub-awesome-autocomplete/)] – Add instant search capabilities to GitHub search box.
-+ [GitHub Categoric](https://GitHub.com/ozlerhakan/categoric) [[chrome](https://chrome.google.com/webstore/detail/GitHub-categoric/gbfpmfhnfmobaichcfnhdobencecomhg)] – Categorize your mixed GitHub notifications.
-+ [GitHub Hovercard](https://GitHub.com/Justineo/GitHub-hovercard) [[chrome](https://chrome.google.com/webstore/detail/GitHub-hovercard/mmoahbbnojgkclgceahhakhnccimnplk)] [[firefox](https://addons.mozilla.org/en-US/firefox/addon/GitHub-hovercard/)] - Neat user/repo/issue hovercard for GitHub.
-+ [GitHub Isometric Contributions](https://GitHub.com/jasonlong/isometric-contributions) [[chrome](https://chrome.google.com/webstore/detail/isometric-contributions/mjoedlfflcchnleknnceiplgaeoegien?hl=en&gl=US)] [[safari](https://GitHub.com/jasonlong/isometric-contributions/blob/master/safari/isometric-contributions.safariextz?raw=true)] – Render an isometric pixel art version of your GitHub contribution graph.
-+ [GitHub Linker](https://GitHub.com/octo-linker/chrome-extension) [[chrome](https://chrome.google.com/webstore/detail/octo-linker/jlmafbaeoofdegohdhinkhilhclaklkp)] – Link dependencies in a package or bower file to their GitHub page.
-+ [GitHub Octotree](https://GitHub.com/buunguyen/octotree) [[chrome](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc)] [[safari](https://GitHub.com/buunguyen/octotree#install-on-safari)] [[firefox](https://addons.mozilla.org/en-US/firefox/addon/octotree/)] [[opera](https://addons.opera.com/en/extensions/details/octotree/)] – Display GitHub code in tree format.
-+ [GitHub Selfies](https://GitHub.com/thieman/GitHub-selfies) [[chrome](https://chrome.google.com/webstore/detail/GitHub-selfies/ldnpkdnkgkogfnahcnldaedcoadjbkbl)] – Add selfies to your pull requests and comments on GitHub.
-+ [GitHub Stars Tagger](https://GitHub.com/artisologic/GitHub-stars-tagger) [[chrome](https://chrome.google.com/webstore/detail/GitHub-stars-tagger/aaihhjepepgajmehjdmfkofegfddcabc)] – Add tags to your starred repositories directly on GitHub.
-+ [Github NPM Hub](https://Github.com/zeke/npm-hub) [[chrome](https://chrome.google.com/webstore/detail/npm-hub/kbbbjimdjbjclaebffknlabpogocablj)] - Explore npm dependencies on GitHub repos
-+ [Github vscode-icons](https://Github.com/dderevjanik/Github-vscode-icons) [[chrome](https://chrome.google.com/webstore/detail/Github-vscode-icons/hoccpcefjcgnabbmojbfoflggkecmpgd)] show vscode-icons in the repository browser.
+* [GitHub Avatars](https://GitHub.com/anasnakawa/chrome-GitHub-avatars) [[chrome](https://chrome.google.com/webstore/detail/avatars-for-GitHub/pgjmdbklnfklcjfbonjfkdhaonlfogbb)] - Display avatars in GitHub news feed.
+* [GitHub Awesome Autocomplete](https://GitHub.algolia.com/) [[chrome](https://chrome.google.com/webstore/detail/GitHub-awesome-autocomple/djkfdjpoelphhdclfjhnffmnlnoknfnd)] [[firefox](https://addons.mozilla.org/en-US/firefox/addon/GitHub-awesome-autocomplete/)] – Add instant search capabilities to GitHub search box.
+* [GitHub Categoric](https://GitHub.com/ozlerhakan/categoric) [[chrome](https://chrome.google.com/webstore/detail/GitHub-categoric/gbfpmfhnfmobaichcfnhdobencecomhg)] – Categorize your mixed GitHub notifications.
+* [GitHub Hovercard](https://GitHub.com/Justineo/GitHub-hovercard) [[chrome](https://chrome.google.com/webstore/detail/GitHub-hovercard/mmoahbbnojgkclgceahhakhnccimnplk)] [[firefox](https://addons.mozilla.org/en-US/firefox/addon/GitHub-hovercard/)] - Neat user/repo/issue hovercard for GitHub.
+* [GitHub Isometric Contributions](https://GitHub.com/jasonlong/isometric-contributions) [[chrome](https://chrome.google.com/webstore/detail/isometric-contributions/mjoedlfflcchnleknnceiplgaeoegien?hl=en&gl=US)] [[safari](https://GitHub.com/jasonlong/isometric-contributions/blob/master/safari/isometric-contributions.safariextz?raw=true)] – Render an isometric pixel art version of your GitHub contribution graph.
+* [GitHub Linker](https://GitHub.com/octo-linker/chrome-extension) [[chrome](https://chrome.google.com/webstore/detail/octo-linker/jlmafbaeoofdegohdhinkhilhclaklkp)] – Link dependencies in a package or bower file to their GitHub page.
+* [GitHub Octotree](https://GitHub.com/buunguyen/octotree) [[chrome](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc)] [[safari](https://GitHub.com/buunguyen/octotree#install-on-safari)] [[firefox](https://addons.mozilla.org/en-US/firefox/addon/octotree/)] [[opera](https://addons.opera.com/en/extensions/details/octotree/)] – Display GitHub code in tree format.
+* [GitHub Selfies](https://GitHub.com/thieman/GitHub-selfies) [[chrome](https://chrome.google.com/webstore/detail/GitHub-selfies/ldnpkdnkgkogfnahcnldaedcoadjbkbl)] – Add selfies to your pull requests and comments on GitHub.
+* [GitHub Stars Tagger](https://GitHub.com/artisologic/GitHub-stars-tagger) [[chrome](https://chrome.google.com/webstore/detail/GitHub-stars-tagger/aaihhjepepgajmehjdmfkofegfddcabc)] – Add tags to your starred repositories directly on GitHub.
+* [Github NPM Hub](https://Github.com/zeke/npm-hub) [[chrome](https://chrome.google.com/webstore/detail/npm-hub/kbbbjimdjbjclaebffknlabpogocablj)] - Explore npm dependencies on GitHub repos
+* [Github vscode-icons](https://Github.com/dderevjanik/Github-vscode-icons) [[chrome](https://chrome.google.com/webstore/detail/Github-vscode-icons/hoccpcefjcgnabbmojbfoflggkecmpgd)] show vscode-icons in the repository browser.
 
 You can see more on [GitHub Browser Extensions](https://GitHub.com/showcases/GitHub-browser-extensions).
 
