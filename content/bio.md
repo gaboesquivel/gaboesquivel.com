@@ -32,6 +32,10 @@ In 2017, I worked for a neo-bank startup ( holawink.com ) as interim CTO and Chi
 
 While working on the neo-bank app and I discovered blockchain technology and my mind was blown away. I started reading more about it and haven't been able to stop since. After the neo-bank project I co-founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for the research, promotion, and development of blockchain based solutions and about as the same time I joined at knowledge.io as head of engineering and helped the company during their ICO.
 
-After Knowledge's ICO, I got involved in the EOS community contributing to the development of the global and local ecosystem through [EOS Costa Rica] (https://github.com/eoscostarica), Costa Rica's EOS community and block producer candidate.
+<div class="center-align-wrapper">
+  <img alt="blockchain costa rica" src="/img/2018/06/blockchain-costa-rica.jpg"  />
+</div>
+
+After Knowledge's ICO, I got involved in the EOS community contributing to the development of the global and local ecosystem through [EOS Costa Rica](https://github.com/eoscostarica), Costa Rica's EOS community and block producer candidate.
 
 I provide consultation and development services to startups and enterprise clients. [Get in Touch](/contact)

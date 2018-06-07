@@ -1,9 +1,9 @@
 ---
 title: "Blockchain Technology in Costa Rica"
-subtitle: "The blockchain ecosystem in Costa Rica, BlockchainCR and the Costarrican Blockchain Association."
-date: 2018-04-04
-description: "The blockchain ecosystem in Costa Rica, BlockchainCR and the Costarrican Blockchain Association."
-cover: /img/2018/06/blockchain-costa-rica.jpg
+subtitle: "The Blockchain ecosystem in Costa Rica, BlockchainCR and the Costarrican Blockchain Association."
+date: 2018-04-02
+description: "The Blockchain ecosystem in Costa Rica, BlockchainCR and the Costarrican Blockchain Association."
+cover: /img/2018/05/github-flow.png
 categories:
   - software development
   - open source
@@ -26,4 +26,4 @@ During these months we have been able to identify the local experts, institution
 
 A very important step is the recent formation of a legal entity that will be looking to formally represent the sector and lobby with governmental institutions and regulators to raise awareness and understanding of the new possibilities enabled by these technologies: The Costarrican Blockchain Association, an open entity formed by companies and individuals using, promoting and working with blockchain technology. BlockchainCR is also an open space for all those who are already working with blockchain to show their projects to the community, share lessons learned and, through collaboration, become a leading country.
 
-Everyone is welcome to join and participate! You can learn more at <a href="https://blockchaincr.com">blockchaincr.com</a>
+Everyone is welcome a to join and participate! You can learn more at <a href="https://blockchaincr.com"></
