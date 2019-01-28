@@ -6,7 +6,7 @@ baseurl = "https://gaboesquivel.com"
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [params]
-  description = "Open Source and Decentralized Applications. Blockchain, OSS, DevOps. EOS Enthusiast."
+  description = "Software Engineer specialized in EOSIO Blockchains, Smart Contracts, Modern Web and JavaScript. Co-founder of Blockchain Costa Rica."
   email = "contact@gaboesquivel.com"
   dateForm = "Monday, Jan 2, 2006"
 
