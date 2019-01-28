@@ -25,7 +25,7 @@ function startForm() {
               firstName = name.split(' ').slice(0, -1).join(' ');
           }
           $.ajax({
-              url: "https://formspree.io/contact@gaboesquivel.com",
+              url: "https://formspree.io/gabo@eoscostarica.io",
               method: "POST",
               data: {
                   name: name,
