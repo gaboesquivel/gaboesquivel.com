@@ -3,7 +3,7 @@ title: "TicoBlockchain 2019 Recap"
 subtitle: "Recapitulation of TicoBlockchain Conference 2019."
 date: 2019-02-10
 description: "Recapitulation of TicoBlockchain Conference 2019."
-cover: /img/2019/02/ticoblockchain_eosio_workshop.png
+cover: /img/2019/02/ticoblockchain_eosio_workshop.jpg
 categories:
   - software development
   - eosio
