@@ -1,12 +1,12 @@
 languageCode = "en-us"
-title = "Gabo Esquivel - Blockchain, Smart Contracts and Modern Web"
+title = "Gabo Esquivel - Software Developer"
 googleAnalytics = "UA-33521499-1"
 baseurl = "https://gaboesquivel.com"
 #canonifyURLs = true
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [params]
-  description = "Software Engineer specialized in EOSIO Blockchains, Smart Contracts, Modern Web and JavaScript. Co-founder of Blockchain Costa Rica."
+  description = "Software Engineer and consultant. I help companies develop software products and make technical decisions."
   email = "contact@gaboesquivel.com"
   dateForm = "Monday, Jan 2, 2006"
 
