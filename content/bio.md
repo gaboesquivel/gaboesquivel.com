@@ -42,7 +42,7 @@ In 2018, I got involved in EOSIO, contributing to the development of the global 
   <img alt="eosio" src="/img/bio/gaboesquivel-eosio.jpg"  />
 </div>
 
-In 2019 I started <a href="https://blockmatic.io" target="_blank">Blockmatic.io</a>, a boutique software development firm specialized in blockchain and cryptocurrency. Blockmatic provides services to startups and enterprise clients developing on the blockchain.  Working closely with stakeholders and developers in the design and development of software applications, taking ideas from conception to production and successful execution.</p>
+In 2019 I started <a href="https://blockmatic.io" target="_blank">Blockmatic.io</a>, a boutique software development firm specialized in blockchain and cryptocurrency. Blockmatic provides services to startups and enterprise clients developing on the blockchain.</p>
 
 
 [Get in Touch](/contact)
