@@ -1,10 +1,9 @@
-+++
-date = "2017-07-30T12:07:01-06:00"
-author = ""
-description = "A brief summary of my professional life."
-title = "You Only Live Once"
-type= "about"
-+++
+---
+description: A brief summary of my professional life.
+title: You Only Live Once
+cover: /img/bio/gaboesquivel-eosio.jpg
+type: about
+---
 
 My name is Gabriel Esquivel, everyone calls me “Gabo”. I'm a proponent of decentralized applications, open source technology stacks, devops, continuous delivery, lightweight agile methodologies, lean development and modern web technologies.
 

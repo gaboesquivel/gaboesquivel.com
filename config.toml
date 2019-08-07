@@ -6,7 +6,7 @@ baseurl = "https://gaboesquivel.com"
 rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [params]
-  description = "Software Engineer specialized in Blockchain and Modern Web and JavaScript."
+  description = "Software Engineer specialized in Blockchain and Modern Web."
   email = "contact@gaboesquivel.com"
   dateForm = "Monday, Jan 2, 2006"
 
