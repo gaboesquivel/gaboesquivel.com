@@ -12,3 +12,6 @@ rssLink = "https://feeds.feedburner.com/gaboesquivel"
 
 [permalinks]
   blog = "blog/:year/:title/"
+
+[markup.goldmark.renderer]
+unsafe= true
