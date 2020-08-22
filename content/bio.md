@@ -1,5 +1,5 @@
 ---
-description: A brief summary of my professional life.
+description: Summary of my professional life.
 title: You Only Live Once
 cover: /img/bio/gaboesquivel-eosio.jpg
 type: about
@@ -37,14 +37,13 @@ Also in 2017, I co-founded <a href="https://blockchaincr.com" target="_blank">Bl
   <img alt="blockchain costa rica" src="/img/2018/06/blockchain-costa-rica.jpg"  />
 </div>
 
-In 2018, I got involved in EOSIO, contributing to the development of the global and local ecosystem through [EOS Costa Rica](https://github.com/eoscostarica).
+In 2018, I got involved in EOSIO and have contributing to the development of the global and local ecosystem through [EOS Costa Rica](https://github.com/eoscostarica), [Emanate](https://emanate.live), [Sense Chat](https://www.sense.chat/) and [Bitcash](https://bitcash.org/).
 
 <div class="center-align-wrapper">
   <img alt="eosio" src="/img/bio/gaboesquivel-eosio.jpg"  />
 </div>
 
 In 2019 I started <a href="https://blockmatic.io" target="_blank">Blockmatic.io</a>, a company specializing in blockchain technology, smart contracts and digital assets. Blockmatic is building a robust ecosystem of people and tools for the development of blockchain applications.
-
 
 [Get in Touch](/contact)
 
