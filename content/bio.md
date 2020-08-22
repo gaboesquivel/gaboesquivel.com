@@ -5,7 +5,7 @@ cover: /img/bio/gaboesquivel-eosio.jpg
 type: about
 ---
 
-My name is Gabriel Esquivel, everyone calls me “Gabo”. I'm a proponent of decentralized applications, open source technology stacks, devops, continuous delivery, lightweight agile methodologies, lean development and modern web technologies.
+My name is Gabriel Esquivel, everyone calls me “Gabo”. I'm a proponent of decentralized applications, open source technology stacks, devops culture, lightweight agile methodologie and modern web technologies.
 
 Things I do:
 
@@ -14,6 +14,8 @@ Things I do:
 - Leading and coaching development teams.
 - Technical insight in support of strategic decision making.
 - Overseeing technical execution from prototype to production.
+
+My preferred tech stack:  Linux, Node, EOSIO Smart Contracts, Infra as Code with Pulumi, GraphQL, React and React Native.
 
 In 2007 I started my software engineering studies at CenfoTec University in San José where I discovered my passion software product development and the potential of the web platform.
 
@@ -25,23 +27,23 @@ In 2010 I started Costa Rica JS, a meetup group in San José for people interest
   <img alt="command line" src="/img/bio/gaboesquivel-speaker.jpg"  />
 </div>
 
-In 2011 I started to work independently as a freelance developer and during the course of the years, I have had opportunity to collaborate on many different projects and played several engineering leadership roles, leading teams from the perspective of someone that has been there in the trenches; keeping a positive and friendly attitude, mentoring trying to make engineers as happy an productive as they can possibly be.
+In 2011 I started to work independently as a freelance developer and during the course of the years, I have had opportunity to collaborate on many different projects and played several engineering roles.
 
-In 2017, I worked for the a neo-bank startup <a href="https://holawink.com" target="_blank">Wink</a> as a chief architect and led the formation of a world-class team and the development of the first version of the app.
+In 2017, I joined the neo-bank startup <a href="https://holawink.com" target="_blank">Wink</a> as a chief architect and led the formation of a world-class team and the development of the first version of the app.
 
-Also in 2017, I co-founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>,  a community hub for knowledge sharing, promoting and studying blockchain technologies and decentralized applications. 
+Also in 2017, I co-founded <a href="https://blockchaincr.com" target="_blank">BlockchainCR</a>, a community hub for studying and promoting blockchain technology and decentralized applications in Costa Rica. 
 
 <div class="center-align-wrapper">
   <img alt="blockchain costa rica" src="/img/2018/06/blockchain-costa-rica.jpg"  />
 </div>
 
-In 2018, I got involved in EOSIO, contributing to the development of the global and local ecosystem through [EOS Costa Rica](https://github.com/eoscostarica).</p>
+In 2018, I got involved in EOSIO, contributing to the development of the global and local ecosystem through [EOS Costa Rica](https://github.com/eoscostarica).
 
 <div class="center-align-wrapper">
   <img alt="eosio" src="/img/bio/gaboesquivel-eosio.jpg"  />
 </div>
 
-In 2019 I started <a href="https://blockmatic.io" target="_blank">Blockmatic.io</a>, a boutique software development firm specialized in blockchain and cryptocurrency. Blockmatic provides services to startups and enterprise clients developing on the blockchain.</p>
+In 2019 I started <a href="https://blockmatic.io" target="_blank">Blockmatic.io</a>, a company specializing in blockchain technology, smart contracts and digital assets. Blockmatic is building a robust ecosystem of people and tools for the development of blockchain applications.
 
 
 [Get in Touch](/contact)
