@@ -5,11 +5,11 @@ cover: /img/bio/gaboesquivel-eosio.jpg
 type: about
 ---
 
-My name is Gabriel Esquivel, everyone calls me “Gabo”. I'm a proponent of decentralized applications, open source technology stacks, devops culture, lightweight agile methodologie and modern web technologies.
+My name is Gabriel Esquivel, everyone calls me “Gabo”. I’m a proponent of decentralized applications, open-source technology stacks, devops culture, lightweight agile methodologies and modern web technologies.
 
 Things I do:
 
-- Fullstack hands on programming.
+- Fullstack hands-on programming.
 - Infrastructure, DevOps and reliability engineering.
 - Leading and coaching development teams.
 - Technical insight in support of strategic decision making.
@@ -27,7 +27,7 @@ In 2010 I started Costa Rica JS, a meetup group in San José for people interest
   <img alt="command line" src="/img/bio/gaboesquivel-speaker.jpg"  />
 </div>
 
-In 2011 I started to work independently as a freelance developer and during the course of the years, I have had opportunity to collaborate on many different projects and played several engineering roles.
+In 2011 I started to work independently as a freelance developer and during the years I have had opportunity to collaborate on many different projects and played several engineering roles.
 
 In 2017, I joined the neo-bank startup <a href="https://holawink.com" target="_blank">Wink</a> as a chief architect and led the formation of a world-class team and the development of the first version of the app.
 
