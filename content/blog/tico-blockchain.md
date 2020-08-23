@@ -1,5 +1,5 @@
 ---
-title: "TicoBlockchain: International Crypto Conference in Costa Rica"
+title: "International Crypto Conference in Costa Rica"
 subtitle: "On February 2nd the first international blockchain and cryptocurrency conference in Costa Rica will be held in San José."
 date: 2019-01-29
 description: "The first international blockchain and cryptocurrency conference in Costa Rica."
@@ -10,7 +10,7 @@ categories:
   - smart contracts
   - blockchain
 ---
-On February 2nd the first international blockchain and cryptocurrency conference in Costa Rica will be held in San José.
+On February 2nd 2019, the first international blockchain and cryptocurrency conference in Costa Rica will be held in San José.
 
 You’ll listen to great business and technical conferences, as well as actual technical workshops for running smart contracts and understanding what blockchains are.
 

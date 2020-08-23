@@ -1,5 +1,5 @@
 ---
-title: "15 Recommendations to Enhance your Github Flow"
+title: "Recommendations to Enhance your Github Flow"
 subtitle: "An opinionated list of tips to enhance your workflow on Github."
 date: 2018-04-03
 description: "An opinionated list of tips to enhance your Github workflow."

@@ -1,8 +1,8 @@
 ---
 title: "TicoBlockchain 2019 Recap"
-subtitle: "Recapitulation of TicoBlockchain Conference 2019."
+subtitle: "Recapitulation of the First International Blockchain and Cryptocurrency conference in Costa Rica."
 date: 2019-02-10
-description: "Recapitulation of TicoBlockchain Conference 2019."
+description: "Recapitulation of the First International Blockchain and Cryptocurrency conference in Costa Rica."
 cover: /img/2019/02/ticoblockchain_eosio_workshop.jpg
 categories:
   - software development
@@ -22,7 +22,7 @@ I had the privilege to speak about open source, blockchain and EOS Costa Rica's 
 
 ![](/img/2019/02/ticoblockchain_open_source_talk.jpg)
 
-I also gave a workshop on EOSIO and smart contract development to a great group of people, mostly Sr. Engineers working on finance services, ethereum, gambling and automation.
+I also gave a workshop on EOSIO and smart contract development to a great group of people, mostly Sr. Engineers working on financial services, gambling and automation.
 
 ![](/img/2019/02/ticoblockchain_eosio_workshop.jpg)
 
