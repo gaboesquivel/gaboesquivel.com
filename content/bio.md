@@ -37,7 +37,7 @@ Also in 2017, I co-founded <a href="https://blockchaincr.com" target="_blank">Bl
   <img alt="blockchain costa rica" src="/img/2018/06/blockchain-costa-rica.jpg"  />
 </div>
 
-In 2018, I got involved in EOSIO and have contributing to the development of the global and local ecosystem through [EOS Costa Rica](https://github.com/eoscostarica), [Emanate](https://emanate.live), [Sense Chat](https://www.sense.chat/) and [Bitcash](https://bitcash.org/).
+In 2018 I got involved in EOSIO contributing to the development of [EOS Costa Rica](https://github.com/eoscostarica), [Emanate](https://emanate.live), [Sense Chat](https://www.sense.chat/) and [Bitcash](https://bitcash.org/).
 
 <div class="center-align-wrapper">
   <img alt="eosio" src="/img/bio/gaboesquivel-eosio.jpg"  />
