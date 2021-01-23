@@ -3,7 +3,7 @@ title: "GraphQL Code Generation for TypeScript"
 subtitle: "Generate TypeScript from a GraphQL schema with Codegen"
 date: 2020-09-03
 description: "How to generate TypeScript from a GraphQL schema with Codegen."
-cover: /img/2020/09/github-flow.png
+cover: /img/2020/09/graphql.png
 categories:
   - software development
   - GraphQL
