@@ -1,5 +1,5 @@
 ---
-title: "GraphQL Code Generation for TypeScript"
+title: "TypeScript Code Generation from GraphQL"
 subtitle: "Generate TypeScript from a GraphQL schema with Codegen"
 date: 2020-09-03
 description: "How to generate TypeScript from a GraphQL schema with Codegen."
