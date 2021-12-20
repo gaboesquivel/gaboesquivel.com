@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>javascript on Gabo Esquivel - Software Developer</title>
+    <link>https://gaboesquivel.com/tags/javascript/</link>
+    <description>Recent content in javascript on Gabo Esquivel - Software Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 23 Aug 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://gaboesquivel.com/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>In-Place Editing with contenteditable and AngularJS</title>
+      <link>https://gaboesquivel.com/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</link>
+      <pubDate>Sat, 23 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2014/in-place-editing-with-contenteditable-and-angularjs/</guid>
+      <description>&lt;p&gt;In-place editing provides an easy way to let the user edit parts of a page without having to be redirected to an edit page. Instead, the user can just click around on a page an edit the elements he or she wishes to change – without reloading the page. When the user hovers over an editable area, the background color of the element changes. When clicked, the text becomes editable.&lt;/p&gt;
+&lt;p&gt;You can make an element editable by adding the contenteditable attribute in your markup. This attribute has three possible values: &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, and &lt;code&gt;inherit&lt;/code&gt;. Specifying inherit will make the element editable if it’s immediate parent is editable.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;editable&amp;quot; contenteditable=&amp;quot;true&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The following directive uses contenteditable attribute and ng-model for data binding.&lt;/p&gt;
+&lt;p data-height=&#34;452&#34; data-theme-id=&#34;8070&#34; data-slug-hash=&#34;mgCAG&#34; data-default-tab=&#34;result&#34; class=&#39;codepen&#39;&gt;See the Pen &lt;a href=&#39;http://codepen.io/gaboesquivel/pen/mgCAG/&#39;&gt;Editing Page Elements with contenteditable&lt;/a&gt; by Gabo Esquivel (&lt;a href=&#39;http://codepen.io/gaboesquivel&#39;&gt;@gaboesquivel&lt;/a&gt;) on &lt;a href=&#39;http://codepen.io&#39;&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+&lt;script async src=&#34;//codepen.io/assets/embed/ei.js&#34;&gt;&lt;/script&gt;
+&lt;p&gt; &lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node.js HTTPS and SSL Certificate for Development</title>
+      <link>https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/</link>
+      <pubDate>Thu, 21 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2014/node.js-https-and-ssl-certificate-for-development/</guid>
+      <description>&lt;p&gt;HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your data. It is the most popular network protocol for establishiing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I&amp;rsquo;ll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes.&lt;/p&gt;
+&lt;h3 id=&#34;self-signed-ssl-certificate&#34;&gt;Self-Signed SSL Certificate&lt;/h3&gt;
+&lt;p&gt;There are two kinds of certificates: those signed by a &amp;lsquo;&lt;a href=&#34;http://en.wikipedia.org/wiki/Certificate_authority&#34;&gt;Certificate Authority&lt;/a&gt;&amp;rsquo;, or CA, and &amp;lsquo;self-signed certificates&amp;rsquo;. A Certificate Authority is a trusted source for an SSL certificate, and using a certificate from a CA allows your users to be trust the identity of your website. In most cases, you would want to use a CA-signed certificate in a production environment - for testing purposes, however, a self-signed certicate will do just fine.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>My Favorite Engineering Podcasts</title>
+      <link>https://gaboesquivel.com/blog/2012/my-favorite-engineering-podcasts/</link>
+      <pubDate>Sat, 22 Dec 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2012/my-favorite-engineering-podcasts/</guid>
+      <description>&lt;p&gt;updated on 05/2015.&lt;/p&gt;
+&lt;h2 id=&#34;javascript-jabber&#34;&gt;Javascript Jabber&lt;/h2&gt;
+&lt;p&gt;Simply the best Javascript podcast out there.
+By Charles Max Wood, Joe Eames, Merrick Christensen, AJ O&amp;rsquo;Neal, Jamison Dance, Aaron Frost&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://javascriptjabber.com/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;http://javascriptjabber.com/&#34;&gt;http://javascriptjabber.com/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;nodeup-8211-nodejs-awesomeness&#34;&gt;NodeUp – NodeJS Awesomeness&lt;/h2&gt;
+&lt;p&gt;A node.js podcast put together by @ffloat and @dshaw..&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://nodeup.com/&#34; target=&#34;_blank&#34;&gt;nodeup.com&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;the-changelog-8211-open-source-moves-fast-keep-up&#34;&gt;The ChangeLog – Open Source Moves Fast. Keep up.&lt;/h2&gt;
+&lt;p&gt;The Changelog is a weekly podcast and blog that covers what’s fresh and new in Open Source.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://thechangelog.com/&#34; target=&#34;_blank&#34;&gt;thechangelog.com&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

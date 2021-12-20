@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>eos on Gabo Esquivel - Software Developer</title>
+    <link>https://gaboesquivel.com/categories/eos/</link>
+    <description>Recent content in eos on Gabo Esquivel - Software Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Apr 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://gaboesquivel.com/categories/eos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blockchain Technology in Costa Rica</title>
+      <link>https://gaboesquivel.com/blog/2018/blockchain-technology-in-costa-rica/</link>
+      <pubDate>Mon, 02 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2018/blockchain-technology-in-costa-rica/</guid>
+      <description>On September 2017 BlockchainCR was founded, a community hub for studying and promoting blockchain technology in Costa Rica. It is an organization founded with the intention of making Costa Rica a leading country in the use of blockchain, decentralized networks, and distributed ledger technologies.
+ We meet regularly to network with people interested in blockchain technology, including innovators, entrepreneurs, engineers, entrepreneurs, educators, government and anyone curious about blockchain and its many applications.</description>
+    </item>
+    
+  </channel>
+</rss>

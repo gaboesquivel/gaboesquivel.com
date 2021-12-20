@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git workflow on Gabo Esquivel - Software Developer</title>
+    <link>https://gaboesquivel.com/categories/git-workflow/</link>
+    <description>Recent content in git workflow on Gabo Esquivel - Software Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 03 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gaboesquivel.com/categories/git-workflow/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TypeScript Code Generation from GraphQL</title>
+      <link>https://gaboesquivel.com/blog/2020/typescript-code-generation-from-graphql/</link>
+      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2020/typescript-code-generation-from-graphql/</guid>
+      <description>Presentation at GraphQL Texas, an event sponsored and organized by BoltSource.io
+    Presentación Comunidades de software + TypeScript y Graphql en español para Community Conf, PanamaJS.
+   </description>
+    </item>
+    
+    <item>
+      <title>Recommendations to Enhance your Github Flow</title>
+      <link>https://gaboesquivel.com/blog/2018/recommendations-to-enhance-your-github-flow/</link>
+      <pubDate>Tue, 03 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2018/recommendations-to-enhance-your-github-flow/</guid>
+      <description>I&amp;rsquo;ve been working on software development for 10 years now and along the way, I&amp;rsquo;ve had the opportunity to collaborate on several open source projects and also worked on many non-open source projects where we used Github as our version control repository, on small and large teams.
+On my journey, I&amp;rsquo;ve followed different workflows depending on the project and today I want to share with you what I consider to be a effective and pragmatic workflow for building and maintaining good quality software that can be applied to any project.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>data visualization on Gabo Esquivel - Software Developer</title>
+    <link>https://gaboesquivel.com/categories/data-visualization/</link>
+    <description>Recent content in data visualization on Gabo Esquivel - Software Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 29 Aug 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://gaboesquivel.com/categories/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data Visualization in Costa Rica</title>
+      <link>https://gaboesquivel.com/blog/2013/data-visualization-in-costa-rica/</link>
+      <pubDate>Thu, 29 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2013/data-visualization-in-costa-rica/</guid>
+      <description>I’m very excited to announce that we’re starting a data visualization meetup group in Costa Rica!
+At Hack/Hackers San José event I finally had the pleasure to meet Yuri Engelhardt in person after months of exchanging emails and ideas about data visualization. Yuri is the co-founder of Show Me Data, an annual multidisciplinary course and public event that brings together the University of Amsterdam (UvA) and the Utrecht Graduate School of Visual Art and Design (maHKU) students to get familiar with the world of data visualization.</description>
+    </item>
+    
+  </channel>
+</rss>

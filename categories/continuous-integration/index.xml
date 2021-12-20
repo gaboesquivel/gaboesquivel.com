@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>continuous integration on Gabo Esquivel - Software Developer</title>
+    <link>https://gaboesquivel.com/categories/continuous-integration/</link>
+    <description>Recent content in continuous integration on Gabo Esquivel - Software Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Jul 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://gaboesquivel.com/categories/continuous-integration/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>On Continuous Delivery</title>
+      <link>https://gaboesquivel.com/blog/2015/on-continuous-delivery/</link>
+      <pubDate>Fri, 10 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2015/on-continuous-delivery/</guid>
+      <description>&lt;p&gt;Continuous delivery is practice in software development in which development teams work in a way that allows companies to update their systems at any point in time or continuously through automated processes, the system’s code base is always deployable and tested.&lt;/p&gt;
+&lt;h2 id=&#34;why-is-it-important&#34;&gt;Why is it important?&lt;/h2&gt;
+&lt;p&gt;Continuous delivery is a more efficient way to build software as it enables a team to get constant feedback on the application’s changes and updates, allowing you detect problems early and consequently improve quality, reduce costs and deployment frictions. This constant feedback also gives the team a realistic view of development progress instead of relying on perceptions.&lt;/p&gt;
+&lt;p&gt;Continuous Delivery gives a company the ability to react quickly and respond to change. Having fluid a process of software development allows you to make changes on your strategy more easily and rapidly.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

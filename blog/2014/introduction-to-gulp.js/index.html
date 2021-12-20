@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" ontent="&#34;Automation of repetitive and critical tasks is key to develop a successful software product.&#34;" property="og:description">
+    <meta name="author" content="gaboesquivel.com">
+    <meta property="og:image" content="https://gaboesquivel.com/img/2014/04/gulp-js.jpg">
+    <meta property="og:url" content="https://gaboesquivel.com/blog/2014/introduction-to-gulp.js/">
+    <meta property="og:site_name" content="gaboesquivel.com">
+
+    <meta name="twitter:title" content="Introduction to Gulp.js">
+    <meta name="twitter:description" content="Automation of repetitive and critical tasks is key to develop a successful software product.">
+    <meta name="twitter:image" content="https://gaboesquivel.com/img/2014/04/gulp-js.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gaboesquivel">
+    <meta name="twitter:image:alt" content="Introduction to Gulp.js">
+
+    <title>Introduction to Gulp.js</title>
+
+    
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link href="/css/styles.css" rel="stylesheet">
+
+    
+    
+    
+</head>
+
+<body class="blog">
+
+
+  <header class="navbar custom-navbar navbar-fixed-top">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                  <div class="logo">
+                     <div class="navbar-header">
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                          </button>
+                      </div>
+                      <a id="logo-gaboesquivel" class="theme-color" href="/"></a>
+                  </div>
+              </div>
+
+              <div class="col-md-9 col-sm-8 col-xs-12">
+                 <nav class="main-menu">
+                  <div class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav"> 
+                          <li><a class="smoth-scroll theme-color" id="about-link" href="/#about">About</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/#services">what i do</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/#projects">projects</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/bio/">bio</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/blog/">blog</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/contact/">contact</a></li>
+                          <li><a class="smoth-scroll theme-color" href="https://github.com/gaboesquivel">github</a></li>
+                          <li><a id="tweets-link" class="smoth-scroll theme-color" href="/tweets/">tweets</a></li>
+                      </ul>
+                  </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+  
+
+
+<div class="blog-post">
+  
+  
+  <header class="intro-header" style="background-image: url('/img/post-bg.jpg')">
+  
+    <div class="container">
+      <div class="row">
+         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+           <div class="post-heading">
+             <h1>Introduction to Gulp.js</h1>
+             <h2 class="subheading">Code Over Configuration</h2>
+           </div>
+         </div>
+      </div>
+    </div>
+  </header>
+
+  
+  <article>
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <p>Automation of repetitive and critical tasks is key to develop a successful software product. Automated tasks will minimize software cost, reduce software delivery time as well as improving the product quality and reduce human error. Investing time in automating tasks will allow you to focus on developing features.</p>
+<p><em>“War is of vital importance to the state; hence it is a subject of inquiry which can on no account be neglected”</em></p>
+<ul>
+<li>Sun Tzu, Art of War</li>
+</ul>
+<p>In this post I will introduce you to Gulp.js, a javascript task runner that helps you automate your development process.</p>
+<p>##Setting Up your Web App Build System</p>
+<p>When developing modern web applications there are critical tasks you want to automate:</p>
+<ul>
+<li>testing: code linting, unit testing, e2e tests</li>
+<li>css preprocessing ( sass, less, …)</li>
+<li>optimization: concatenating and minifying css and scripts, compressing new or modified images, &hellip;</li>
+<li>deploying updates to a staging or production server</li>
+</ul>
+<p>There are many tools that will help you automate these tasks. Which one to choose? Grunt, Gulp, Brunch, Broccoli,…</p>
+<p>Back in 2012 Grunt.js came out and it was quickly adopted by the community, plugins started to proliferate and it became king for task automation on the client side, playing well with Bower and Yeoman. Like many other developers I’ve been using Grunt on my projects and it gets the job done but recently I started to use Gulp, another open source project with faster build times and a Unix/Node philosophical approach to solve problems.</p>
+<p>Gulp.js focuses on code over configuration. By harnessing the power of Node streams, it enables faster build times by avoiding the need to write temporary files to disk. This is one of the main differences with Grunt. Stream instances are basically Unix pipes. They can be readable, writable or both and are easy to reason about &ndash; you can pipe a readable stream to a writable stream by doing readableStream.pipe(writableStream).</p>
+<p><em>“Streams come to us from the earliest days of unix and have proven themselves over the decades as a dependable way to compose large systems out of small components that do one thing well.<br>
+You can then plug the output of one stream to the input of another and use libraries that operate abstractly on streams to institute higher-level flow control.”</em></p>
+<ul>
+<li>substack</li>
+</ul>
+<p>Other advantages of using Gulp are:</p>
+<ul>
+<li>Using standard libraries to accomplish tasks</li>
+<li>Small, idiomatic Node modules that do one thing well</li>
+<li>Tasks are executed with maximum concurrency</li>
+<li>Really simple and elegant API</li>
+</ul>
+<p>Learning the new flow control techniques will make you more efficient. To learn more about node streams read the <a href="https://github.com/substack/stream-handbook">Stream Handbook</a> by James Halliday and play on the <a href="http://nodestreams.com">Node.js Stream Playground</a> by John Resig. Another great resource is <a href="http://maxogden.com/node-streams.html">Node Streams: How do they work?</a> by Max Ogden, it comes with a screencast version of the article.</p>
+<p>Gulp has only few functions to learn: <br>
+<strong>task(name, fn)</strong> : it registers the function and you can optionally specify some dependencies if other tasks need to run first. <br>
+<strong>run(tasks&hellip;)</strong> : runs all tasks with maximum concurrency. <br>
+<strong>watch(glob, fn)</strong> : runs a function when a file that matches the glob changes <br>
+<strong>src(glob)</strong> :  returns a readable stream. Takes a file system glob and starts emitting files that match. This is piped to other streams.<br>
+<strong>dest(folder)</strong> : returns a writable stream. File objects piped to this are saved to the file system.</p>
+<p>This article will walk you through all of the intimidating stuff and introduce you to the core ideas that you will need to know to start using gulp. <a href="http://travismaynard.com/writing/getting-started-with-gulp">http://travismaynard.com/writing/getting-started-with-gulp</a></p>
+<p>There&rsquo;s a Javascript Jabber episode with the creator of Gulp: <a href="http://javascriptjabber.com/097-jsj-gulp-js-with-eric-schoffstall">JSJ Gulp.js with Eric Schoffstall</a></p>
+<p>Caveats: the Gulp.js team is working on bringing in a new task system to improve efficiency ( even more ) and it might include some API changes, you can follow the progress here <a href="https://github.com/gulpjs/gulp/issues/355">https://github.com/gulpjs/gulp/issues/355</a></p>
+<p>##So why should I use Gulp instead of Grunt?</p>
+<p><a href="http://twitter.com/markdalgleish">Mark Dalgleish</a> published a great presentation that covers the history of Grunt and Gulp and their differences: <a href="http://markdalgleish.github.io/presentation-build-wars-gulp-vs-grunt">http://markdalgleish.github.io/presentation-build-wars-gulp-vs-grunt</a></p>
+<p>Another great article that is worth reading is <a href="http://blog.ponyfoo.com/2014/01/09/gulp-grunt-whatever">Gulp, Grunt, Whatever..</a> by <a href="http://twitter.com/nzgb">Nicolas Bevacqua</a></p>
+<p>The main reasons why I decided to switch to Gulp are:</p>
+<ul>
+<li>Grunt uses JSON-like data configuration files; Gulp uses leaner, simpler JavaScript code.</li>
+<li>Grunt plugins often perform multiple tasks; Gulp plugins are designed to do one thing only.</li>
+<li>Grunt requires plug-ns for basic functionality such as file watching; Gulp has them built-in.</li>
+</ul>
+<p>You can find gulp plugins at <a href="http://gulpjs.com/plugins">http://gulpjs.com/plugins</a> and <a href="https://npmjs.org/browse/keyword/gulpplugin">https://npmjs.org/browse/keyword/gulpplugin</a></p>
+<p>##Conclusion</p>
+<p>Gulp.js and node streams are more natural to understand than a huge config file and it also provides more flexibility and speed. Grunt is more mature. I think that both Grunt and Gulp can happily co-exist, If you are using it successfully, there’s no reason to switch Gulp unless you really want or need more flow control and you feel comfortable working with streams and living on the edge.</p>
+              </div>
+          </div>
+      </div>
+  </article>
+</div>
+
+
+
+
+    <hr>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <ul class="list-inline text-center">
+                
+                  <li>
+                    <a href="/contact">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </li>
+                
+
+                <li>
+                  <a href="https://github.com/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://linkedin.com/in/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://twitter.com/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://medium.com/@gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-medium fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://angel.co/@gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-angellist fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://stackoverflow.com/users/250435/gabo-esquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://plus.google.com/u/0/+GaboEsquivel1" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://facebook.com/gaboesquiveldev" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="footer">
+  <div class="container">
+    <div class="row wow zoomIn" data-wow-delay="0.4s">
+      <div class="col-md-12 text-center">
+        <p>&copy;2018 <strong>Gabo Esquivel</strong>. Software Engineer</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+    <script src="/js/bundle.js"></script>
+
+    <script>
+        window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+        ga('create','UA-33521499-1','auto');ga('send','pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>programming on Gabo Esquivel - Software Developer</title>
+    <link>https://gaboesquivel.com/tags/programming/</link>
+    <description>Recent content in programming on Gabo Esquivel - Software Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Mar 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://gaboesquivel.com/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Films and Documentaries Worth Watching</title>
+      <link>https://gaboesquivel.com/blog/2015/films-and-documentaries-worth-watching/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gaboesquivel.com/blog/2015/films-and-documentaries-worth-watching/</guid>
+      <description>This is a curated list of films and documentaries related to the internet, programming and hacking. If you are a web developer or consider yourself a problem solver you will probably enjoy them. These films contain historical and philosophical content on subjects related to programming, the internet, the evolution of human consciousness, activism, social action, environmental causes, open source and free software movements.
+The Internet&amp;rsquo;s Own Boy: The Story of Aaron Swartz (2014) The Internet’s Own Boy follows the story of programming prodigy and information activist Aaron Swartz.</description>
+    </item>
+    
+  </channel>
+</rss>

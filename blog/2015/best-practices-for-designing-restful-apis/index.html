@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" ontent="&#34;When designing an API there are important decisions that have great impact on the way other applications will interact with the service.&#34;" property="og:description">
+    <meta name="author" content="gaboesquivel.com">
+    <meta property="og:image" content="https://gaboesquivel.com/img/2015/10/web-api.jpg">
+    <meta property="og:url" content="https://gaboesquivel.com/blog/2015/best-practices-for-designing-restful-apis/">
+    <meta property="og:site_name" content="gaboesquivel.com">
+
+    <meta name="twitter:title" content="Best Practices for Designing RESTful APIs">
+    <meta name="twitter:description" content="When designing an API there are important decisions that have great impact on the way other applications will interact with the service.">
+    <meta name="twitter:image" content="https://gaboesquivel.com/img/2015/10/web-api.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gaboesquivel">
+    <meta name="twitter:image:alt" content="Best Practices for Designing RESTful APIs">
+
+    <title>Best Practices for Designing RESTful APIs</title>
+
+    
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link href="/css/styles.css" rel="stylesheet">
+
+    
+    
+    
+</head>
+
+<body class="blog">
+
+
+  <header class="navbar custom-navbar navbar-fixed-top">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                  <div class="logo">
+                     <div class="navbar-header">
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                          </button>
+                      </div>
+                      <a id="logo-gaboesquivel" class="theme-color" href="/"></a>
+                  </div>
+              </div>
+
+              <div class="col-md-9 col-sm-8 col-xs-12">
+                 <nav class="main-menu">
+                  <div class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav"> 
+                          <li><a class="smoth-scroll theme-color" id="about-link" href="/#about">About</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/#services">what i do</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/#projects">projects</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/bio/">bio</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/blog/">blog</a></li>
+                          <li><a class="smoth-scroll theme-color" href="/contact/">contact</a></li>
+                          <li><a class="smoth-scroll theme-color" href="https://github.com/gaboesquivel">github</a></li>
+                          <li><a id="tweets-link" class="smoth-scroll theme-color" href="/tweets/">tweets</a></li>
+                      </ul>
+                  </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+  
+
+
+<div class="blog-post">
+  
+  
+  <header class="intro-header" style="background-image: url('/img/post-bg.jpg')">
+  
+    <div class="container">
+      <div class="row">
+         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+           <div class="post-heading">
+             <h1>Best Practices for Designing RESTful APIs</h1>
+             <h2 class="subheading">Plan and design robust and maintainable APIs</h2>
+           </div>
+         </div>
+      </div>
+    </div>
+  </header>
+
+  
+  <article>
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <p>An application-programming interface (API) exposes functionality of a software application for other software clients to use. Through APIs applications interact with each other and share data without any user knowledge or intervention.</p>
+<p>Modern web applications typically have RESTful JSON APIs. REST stands for <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Representational State Transfer</a> and it is a software architecture style consisting of guidelines and best practices for building scalable web services. JSON stands for JavaScript Object Notation and it is a minimal, readable format for structuring data.</p>
+<div class='center-align-wrapper'>
+	<img src='/img/2015/10/API-Diagram.png' class='no-border'/>
+</div>
+<p>When designing an API there are important decisions that have great impact on the way other applications will interact with the service. Once an API has been defined and other software clients make use of it, changes to the API are costly and should be avoided. By following standards and best practices you reduce the need to API changes to a minimum.</p>
+<!-- more -->
+<p>The following is a list of <strong>pragmatic best practices</strong> applicable both to public and private APIs:</p>
+<h2 id="keep-your-base-urls-simple">Keep your base URLs simple</h2>
+<p>The key principles of REST involve separating your API into logical <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_1">resources</a> and each of these resources will typically have a base url. Simple and intuitive base URL design will make using your API easy.</p>
+<p>The base url should consist of plural nouns for those resources and verbs should be avoided. For instance if we are creating the API for interacting with buildings on a construction management system the base url for that resource would be <code>/api/buildings</code> and in order to identify a single building resource we use its <a href="https://en.wikipedia.org/wiki/Uniform_resource_name">URN</a> &ldquo;/buildings/{buildingId}&rdquo;. These other urls should be avoided <code>/api/getAllBuildings</code>, <code>/api/getCompletedBuildings</code>, <code>/api/building</code>.</p>
+<h2 id="use-standard-methods">Use Standard Methods</h2>
+<p>Always use HTTP verbs for CRUD (Create-Read-Update-Delete) operations. The primary and most-commonly-used HTTP methods are POST, GET, PUT, and DELETE and in a REST API these methods correspond to create, read, update, and delete operations, respectively. There are other verbs, too, but they are utilized with less frequently.</p>
+<h2 id="allow-http-method-overriding">Allow HTTP method overriding</h2>
+<p>Some proxies support only POST and GET methods. To support a RESTful API with these limitations, the API needs a way to override the HTTP method.
+Use the custom HTTP Header <code>X-HTTP-Method-Override</code> to override the POST Method.</p>
+<h2 id="use-rest-metadata">Use REST Metadata</h2>
+<p>In addition to exposing application data, resources can also include other information that is specific to the RESTful API. Such information includes URLs and relationships.
+The following table lists generic attributes that are defined and have a specific meaning on all resources. They should not be used for mapping application model attributes.</p>
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Type</th>
+    <th>Meaning</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>Identifies the unique ID of a resource.</td>
+  </tr>
+  <tr>
+    <td>href</td>
+    <td>String</td>
+    <td>Identifies the URL of the current resource.</td>
+  </tr>
+  <tr>
+    <td>link</td>
+    <td>Object</td>
+    <td>Identifies a relationship for a resource. This attribute is itself an object and has "rel" "href" attributes.</td>
+  </tr>
+</table>
+<p>Presenting the fully qualified URL for every resource aids discoverability by allowing for new resources to be consumed by just embedding a new reference (link). Pagination is a great example for when to use linking when returning resource collections.</p>
+<pre><code class="json">
+{
+  "href" : "https://mycompany.com/api/buildings?offset=50&amp;limit=50",
+  "offset": 50,
+  "limit": 50,
+  "first": {
+      "href": "https://mycompany.com/api/buildings"
+  },
+   "prev": {
+      "href": "https://mycompany.com/api/buildings"
+  },
+  "next": {
+      "href": "https://mycompany.com/api/buildings?offset=100&amp;limit=50"
+  },
+  "last": {
+      "href": "https://mycompany.com/api/buildings?offset=550&amp;limit=50"
+  },
+  "items": [
+    {
+      ... building 51 name/value pairs ...
+    },
+    ...,
+    {
+      ... building 100 name/value pairs ...
+    }
+  }
+}
+</code></pre>
+<h2 id="simplify-associations">Simplify Associations</h2>
+<p>Resources almost always have relationship to other resources. Represent this associations in the URL. Eg:
+<code>GET api/buildings/6543/assets</code> This url will return all assets of that specific building and you could create assets for that building using <code>POST api/buildings/6543/assets</code></p>
+<h2 id="complexities-under-the-query-string">Complexities Under the Query String</h2>
+<p>Most APIs need to perform tasks that go beyond the resource level scope of the uniform resource locator (URL), these tasks can include filtering by state or other attributes associated with a resource. Eg. <code>/api/buildings?completed=true&amp;location=us</code> this is how you will query for all completed buildings in the US.</p>
+<p>Typically when you request a resource on a RESTful API you will have nested resources that will come in the form of a reference. Query string flags can be used for resource expansion when you know in advance that you are going to need the extra information about the related resources and you aim reduce to API requests for performance. In this case you can optionally specify which relationships to expand in the query string. Eg. <code>api/buildings?expand=assets</code></p>
+<h2 id="handle-errors-with-http-status-codes-and-messages">Handle Errors with HTTP Status Codes and Messages</h2>
+<p>Your API should respond with the appropriate <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">http status code</a> along with a message in the response body, a message for the developer and a message for the end-user when appropriate. Eg. 404 Status <code>{&quot;errors&quot;:[{&quot;message&quot;:&quot;Sorry, that page does not exist&quot;,&quot;code&quot;:34}]}</code> in addition to descriptive error text. Error messages may contain machine-parseable codes.</p>
+<p>There are many http status codes, however most API providers use a small subset. These codes should suffice:</p>
+<p>200 OK – [GET]<br>
+201 CREATED – [POST/PUT/PATCH]<br>
+204 NO CONTENT – [DELETE]<br>
+304 NOT MODIFIED<br>
+400 INVALID REQUEST – [POST/PUT/PATCH]<br>
+401 UNAUTHORIZED<br>
+403 FORBIDDEN<br>
+404 NOT FOUND<br>
+500 INTERNAL SERVER ERROR</p>
+<h2 id="always-use-httpstls">Always use HTTPS/TLS</h2>
+<p>No exceptions here. HTTPS matters. All communications should be secured by default. With https information remains confidential from prying eyes because only your browser and the server can decrypt the traffic. Today, your web APIs can get accessed from anywhere there is internet: coffee shops, airports among others. Not all of these networks are secure. Many don&rsquo;t encrypt communications at all, allowing for easy eavesdropping or impersonation if authentication credentials are hijacked. For more in depth explanation of why https matters watch <a href="https://www.youtube.com/watch?v=cBhZ6S0PFCY">HTTPS Everywhere</a> , a talk given by Ilya Grigorik and Pierre Far at Google I/O 2014.</p>
+<h2 id="versioning">Versioning</h2>
+<p>Software applications are never finished, they are constantly evolving and whenever breaking changes in your API are inevitable you need to introduce a new version.</p>
+<h4 id="url-for-api-versioning">URL for API versioning</h4>
+<p>The most pragmatic way to manage API versions it to put the version number at the base of your URL, for example <code>api.example.com/v1/path/to/resource</code>. Versioning by URL allows developers to figure out which version of the service is in use at a glance. Just look at the HTTP request URL, and you know everything. <code>/api/v1/</code> <code>/api/v2/</code> and so forth. You can also use the API version as a parameter <code>?version=v2</code> if you want to provide a different way to query different versions thru the url.</p>
+<h4 id="support-accept-header">Support Accept Header</h4>
+<p>RFC4288 section 3.2 outlines how a vendor, i.e. an application, can make use of customizable MIME types in the Accept header. An application can make use of this to include a version number as part of the Accept header used for content negotiation.</p>
+<pre><code class="apache">GET /api/buildings/1234 HTTP/1.1
+Accept: application/vnd.constructionManagementApp-v1+json
+</code></pre>
+<p>The vnd part is the vendor definition as outlined in <a href="http://tools.ietf.org/html/rfc4288#section-3.2">RFC4288</a>.</p>
+<h2 id="attribute-names-in-camelcase">Attribute Names in camelCase</h2>
+<p>snake_case is easy to read, however if you are using JSON it makes sense to follow <a href="https://github.com/rwaldron/idiomatic.js#user-content-naming">JavaScript&rsquo;s naming conventions</a> specially if the consumer applications are likely to be written in javascript too.</p>
+<h2 id="clean-responses">Clean Responses</h2>
+<p>In the JSON responses don&rsquo;t include internal-specific names (e.g. &ldquo;node&rdquo; and &ldquo;taxonomy term&rdquo;).</p>
+<h2 id="mock-responses">Mock Responses</h2>
+<p>It is suggested that each resource accept a &lsquo;mock&rsquo; parameter on the testing server. Passing this parameter should return a mock data response (bypassing the backend).</p>
+<p>Implementing this feature early in development ensures that the API will exhibit consistent behavior, supporting a test driven development methodology.</p>
+<p>Note: If the mock parameter is included in a request to the production environment, an error should be raised.</p>
+<h2 id="provide-documentation">Provide Documentation</h2>
+<p>Always provide documentation for an API. Documentation is important. There are tools that auto-generate very stylish documentation for an APIs based on annotations on your API functions, <a href="http://apidocjs.com/">apidoc</a> and <a href="https://github.com/tripit/slate">slate</a> generate excellent API documentation sites.</p>
+<div class="notes">
+This article is inspired in lessons learned through experience and also borrows from:   
+<ul>
+	<li><a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api">Best Practices for Designing a Pragmatic RESTful API</a>, by Vinay Sahni</li>
+	<li><a href="http://pages.apigee.com/web-api-design-ebook.html">Web API Design</a>, by Brian Mulloy, Apigee</li>
+	<li><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.ht">Fielding's Dissertation on REST</a></li>
+</ul>  
+</div>
+
+              </div>
+          </div>
+      </div>
+  </article>
+</div>
+
+
+
+
+    <hr>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <ul class="list-inline text-center">
+                
+                  <li>
+                    <a href="/contact">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </li>
+                
+
+                <li>
+                  <a href="https://github.com/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://linkedin.com/in/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://twitter.com/gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://medium.com/@gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-medium fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://angel.co/@gaboesquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-angellist fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://stackoverflow.com/users/250435/gabo-esquivel" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://plus.google.com/u/0/+GaboEsquivel1" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="https://facebook.com/gaboesquiveldev" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="footer">
+  <div class="container">
+    <div class="row wow zoomIn" data-wow-delay="0.4s">
+      <div class="col-md-12 text-center">
+        <p>&copy;2018 <strong>Gabo Esquivel</strong>. Software Engineer</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+    <script src="/js/bundle.js"></script>
+
+    <script>
+        window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+        ga('create','UA-33521499-1','auto');ga('send','pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+</body>
+
+</html>
+
