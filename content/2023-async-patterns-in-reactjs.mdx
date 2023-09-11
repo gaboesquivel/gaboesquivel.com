@@ -1,0 +1,120 @@
+---
+title: Async Patterns in ReactJS Apps
+publishedAt: 2023-07-05
+summary: Async Patterns for maintaining a clear separation between core logic and presentation.
+---
+
+Having spent several years working with ReactJS and SPAs, I hold a steadfast belief in the importance of maintaining a clear separation between core logic and presentation (view logic). 
+
+In this post, you'll discover patterns that can assist you in achieving this crucial separation. By retaining your core logic in Vanilla JavaScript or TypeScript and utilizing the `useAsync` and `useAsyncFn` hooks to handle asynchronous calls, you can establish a robust foundation for your projects. This approach not only enhances code maintainability but also promotes reusability and scalability, ensuring a more efficient and organized development process.
+
+Within a `services` directory you want to place plain JavaScript functions interacting with external APIs and storage systems. These functions expertly encapsulate the logic necessary for managing HTTPS requests, WebSocket communication, web storage, and API queries. 
+
+In the following examples are going to be consuming the following PolkadotJS vanilla service from React.
+
+```tsx
+// Import
+import { ApiPromise, WsProvider } from '@polkadot/api';
+import { executePromisesInSeries } from '~/lib/async';
+
+const wsProvider = new WsProvider('wss://rpc.polkadot.io');
+
+export async function getApi(){
+ return ApiPromise.create({ provider: wsProvider });
+}
+
+export async function getChain(){
+  const api = await getApi()
+  return api.rpc.system.chain()
+}
+
+export async function getLatestHeader() {
+  const api = await getApi()
+  return api.rpc.chain.getHeader();
+}
+
+export async function getGenisisHash(){
+  const api = await getApi()
+  return api.genesisHash.toHex()
+}
+
+export async function someVanillaSeries(){
+  const tasks = [
+    getChain, 
+    getGenisisHash, 
+    getChain
+  ];
+  return executePromisesInSeries(tasks)
+}
+
+export async function someVanillaParallel(){
+  const result = await Promise.all([getGenisisHash(), getChain()])
+  return await result
+}
+
+export async function someVanillaConditional(){
+  const chain = await getChain()
+  const genesisHash = chain ? await getGenisisHash(): null
+  return genesisHash
+}
+```
+
+If you dont wish to reconnect to the web socket on every service call, you could make use of a global window scope to keep a reference to your connected api client, eg `window.myappscope.api`.
+
+## Async call on component mounting
+
+```tsx
+import { useAsync } from "~/hooks/use-async-fn"
+import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain"
+
+export function AsyncOnEnventConditial(){
+  const [conditionalCallState, callConditionalFn] = useAsync(someVanillaConditional)
+  const [parallelCallState, callParallelFn] = useAsync(someVanillaParallel)
+  const [seriesCallState, callSeriesFn] = useAsync(someVanillaSeries)
+  
+  return (
+    <div>
+      <h1>Async on Component Mounted Conditionally</h1>
+      <pre>{JSON.stringify(conditionalCallState)}</pre>
+
+      <h1>Async on Component Mounted in Parallel</h1>
+      <pre>{JSON.stringify(parallelCallState, null, 2)}</pre>
+
+      <h1>Async on Component Mounted in Series</h1>
+      <pre>{JSON.stringify(seriesCallState, null, 2)}</pre>
+    </div>
+  )
+}
+```
+
+
+## Async call on browser event
+
+```tsx
+import { useAsyncFn } from "~/hooks/use-async-fn"
+import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain"
+
+export function AsyncOnEnventConditial(){
+  const [conditionalCallState, callConditionalFn] = useAsyncFn(someVanillaConditional)
+  const [parallelCallState, callParallelFn] = useAsyncFn(someVanillaParallel)
+  const [seriesCallState, callSeriesFn] = useAsyncFn(someVanillaSeries)
+  
+  return (
+    <div>
+      <h1>Async on Event Conditionally</h1>
+      <button onClick={callConditionalFn}>get data in conditionally</button>
+      <pre>{JSON.stringify(conditionalCallState)}</pre>
+
+      <h1>Async on Event in Parallel</h1>
+      <button onClick={callParallelFn}>get data in parallel</button>
+      <pre>{JSON.stringify(parallelCallState, null, 2)}</pre>
+
+       <h1>Async on Event in Series</h1>
+      <button onClick={callParallelFn}>get data in series</button>
+      <pre>{JSON.stringify(seriesCallState, null, 2)}</pre>
+    </div>
+  )
+}
+```
+
+I borrowed `useAsync` and `useAsyncFn` function from a great library I often use called `react-use`. These functions catch errors internally and each call state variable contains `{ error, loading, data }` from you async call, that means you dont need to write try/catch statements or updating loading variable. This pattern provide a clean reative pattern for your react components.
