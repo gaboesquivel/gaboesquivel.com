@@ -2,7 +2,7 @@ import './global.css';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import Sidebar from './components/navbar';
+import Navbar from './components/navbar';
 import { Analytics } from '@vercel/analytics/react';
 
 const graphik = localFont({
@@ -25,15 +25,15 @@ const graphik = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
-    default: 'Lee Robinson',
-    template: '%s | Lee Robinson',
+    default: 'Gabo Esquivel',
+    template: '%s | Gabo Esquivel',
   },
-  description: 'Developer, writer, and creator.',
+  description: 'Software Engineer | 15+ Years in Tech | Web3 Advocate',
   openGraph: {
-    title: 'Lee Robinson',
-    description: 'Developer, writer, and creator.',
+    title: 'Gabo Esquivel',
+    description: 'Software Engineer | 15+ Years in Tech | Web3 Advocate',
     url: 'https://gaboesquivel.com',
-    siteName: 'Lee Robinson',
+    siteName: 'Gabo Esquivel',
     locale: 'en_US',
     type: 'website',
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Lee Robinson',
+    title: 'Gabo Esquivel',
     card: 'summary_large_image',
   },
   verification: {
@@ -73,7 +73,7 @@ export default function RootLayout({
     >
       <body className="flex flex-col max-w-2xl mx-4 mt-8 mb-40 antialiased md:flex-row lg:mx-auto">
         <main className="flex flex-col flex-auto min-w-0 px-2 mt-6 md:px-0">
-          <Sidebar />
+          <Navbar />
           {children}
           <Analytics />
         </main>
