@@ -29,9 +29,9 @@ const computedFields = {
       dateModified: doc.publishedAt,
       description: doc.summary,
       image: doc.image
-        ? `https://leerob.io${doc.image}`
-        : `https://leerob.io/og?title=${doc.title}`,
-      url: `https://leerob.io/blog/${doc._raw.flattenedPath}`,
+        ? `https://gaboesquivel.com${doc.image}`
+        : `https://gaboesquivel.com/og?title=${doc.title}`,
+      url: `https://gaboesquivel.com/blog/${doc._raw.flattenedPath}`,
       author: {
         '@type': 'Person',
         name: 'Lee Robinson',

@@ -23,7 +23,7 @@ const graphik = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://leerob.io'),
+  metadataBase: new URL('https://gaboesquivel.com'),
   title: {
     default: 'Lee Robinson',
     template: '%s | Lee Robinson',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Lee Robinson',
     description: 'Developer, writer, and creator.',
-    url: 'https://leerob.io',
+    url: 'https://gaboesquivel.com',
     siteName: 'Lee Robinson',
     locale: 'en_US',
     type: 'website',
