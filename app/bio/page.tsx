@@ -75,7 +75,7 @@ export default function BioPage() {
 
 
 <p className="prose prose-neutral dark:prose-invert">
-  ... more coming soon</p>
+  ... more coming soon.</p>
     
            <ul className="flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
         
