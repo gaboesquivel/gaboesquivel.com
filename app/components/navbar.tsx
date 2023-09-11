@@ -12,9 +12,9 @@ const navItems = {
   '/blog': {
     name: 'blog',
   },
-  '/guestbook': {
-    name: 'guestbook',
-  },
+  // '/projects': {
+  //   name: 'projects',
+  // },
 };
 
 export default function Navbar() {
@@ -28,10 +28,10 @@ export default function Navbar() {
       <div className="lg:sticky lg:top-20">
         <LayoutGroup>
           <nav
-            className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
+            className="relative flex flex-row items-start px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
             id="nav"
           >
-            <div className="flex flex-row space-x-0 pr-10">
+            <div className="flex flex-row pr-10 space-x-0">
               {Object.entries(navItems).map(([path, { name }]) => {
                 const isActive = path === pathname;
                 return (
@@ -45,7 +45,7 @@ export default function Navbar() {
                       }
                     )}
                   >
-                    <span className="relative py-1 px-2">
+                    <span className="relative px-2 py-1">
                       {name}
                       {path === pathname ? (
                         <motion.div

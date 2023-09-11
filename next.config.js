@@ -28,6 +28,7 @@ const ContentSecurityPolicy = `
     default-src 'self' vercel.live;
     script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live;
     style-src 'self' 'unsafe-inline';
+    frame-src 'self' https://www.youtube.com data:;
     img-src * blob: data:;
     media-src 'none';
     connect-src *;
@@ -46,10 +47,10 @@ const securityHeaders = [
     value: 'origin-when-cross-origin',
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-  {
-    key: 'X-Frame-Options',
-    value: 'DENY',
-  },
+  // {
+  //   key: 'X-Frame-Options',
+  //   value: 'DENY',
+  // },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
   {
     key: 'X-Content-Type-Options',

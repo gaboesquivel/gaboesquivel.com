@@ -25,12 +25,12 @@ export default async function BlogPage() {
             className="flex flex-col mb-4 space-y-1"
             href={`/blog/${post.slug}`}
           >
-            <div className="flex flex-col w-full">
-              <p className="tracking-tight text-neutral-900 dark:text-neutral-100">
+            <ul className="flex flex-col w-full">
+              <li className="tracking-tight text-neutral-900 dark:text-neutral-100">
                 {post.title}
-              </p>
+              </li>
 
-            </div>
+            </ul>
           </Link>
         ))}
     </section>

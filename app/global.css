@@ -47,7 +47,7 @@ html {
 }
 
 .prose pre code {
-  @apply text-neutral-800 dark:text-neutral-200 p-0;
+  @apply p-0 text-neutral-800 dark:text-neutral-200;
   border: initial;
 }
 
@@ -101,7 +101,7 @@ table {
 }
 
 [data-rehype-pretty-code-fragment] code {
-  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm text-black;
+  @apply grid min-w-full p-0 text-sm text-black break-words bg-transparent border-0 rounded-none;
   counter-reset: line;
   box-decoration-break: clone;
 }
@@ -124,11 +124,15 @@ table {
   @apply relative;
 }
 [data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply rounded-md bg-slate-500 bg-opacity-10 p-1;
+  @apply p-1 rounded-md bg-slate-500 bg-opacity-10;
 }
 [data-rehype-pretty-code-title] {
   @apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];
 }
 [data-rehype-pretty-code-title] + pre {
-  @apply mt-0 rounded-t-none border-t-0;
+  @apply mt-0 border-t-0 rounded-t-none;
+}
+
+p {
+  margin-bottom: 1em;
 }
