@@ -21,8 +21,9 @@ export async function GET(req: NextRequest) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          backgroundColor: 'black'
           // backgroundImage: 'url(https://gaboesquivel.com/images/gabo-workshop.jpg)',
+          // backgroundSize: 'cover'
+          background: '#110f0f'
         }}
       >
         <div
