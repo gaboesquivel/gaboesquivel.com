@@ -1,6 +1,6 @@
 ---
 title: Async Patterns in React
-publishedAt: 2023-07-05
+publishedAt: 2023-09-05
 summary: Async Patterns for maintaining a clear separation between core logic and presentation.
 ---
 
@@ -118,3 +118,5 @@ export function AsyncOnEnventConditial(){
 ```
 
 I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called <a href="https://github.com/streamich/react-use" target="_blank">react-use</a>. These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates. 
+
+Additional examples can be found on the following GitHub repository: https://github.com/gaboesquivel/react-async
