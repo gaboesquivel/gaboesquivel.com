@@ -6,11 +6,11 @@ summary: Async Patterns for maintaining a clear separation between core logic an
 
 Having spent several years working with ReactJS and SPAs, I hold a steadfast belief in the importance of maintaining a clear separation between core logic and presentation (view logic). 
 
-In this post, you'll discover patterns that can assist you in achieving this crucial separation. By retaining your core logic in Vanilla JavaScript or TypeScript and utilizing the `useAsync` and `useAsyncFn` hooks to handle asynchronous calls, you can establish a robust foundation for your projects. This approach not only enhances code maintainability but also promotes reusability and scalability, ensuring a more efficient and organized development process.
+In this post, I'll cover patterns that can assist you in achieving this crucial separation. By retaining your core logic in Vanilla JavaScript or TypeScript and utilizing the `useAsync` and `useAsyncFn` hooks to handle asynchronous calls, you can establish a robust foundation for your projects. This approach not only enhances code maintainability but also promotes reusability and scalability, ensuring a more efficient and organized development process.
 
-Within a `services` directory you want to place plain JavaScript functions interacting with external APIs and storage systems. These functions expertly encapsulate the logic necessary for managing HTTPS requests, WebSocket communication, web storage, and API queries. 
+Inside a `services` directory, your goal is to house plain JavaScript functions responsible for interacting with external APIs and storage systems. These functions serve as adept containers for handling HTTPS requests, WebSocket communication, web storage, and API queries. 
 
-In the following examples are going to be consuming the following PolkadotJS vanilla service from React.
+In the forthcoming examples, I'll demonstrate the consumption of the PolkadotJS vanilla service from within React components.
 
 ```tsx
 // Import
@@ -59,9 +59,9 @@ export async function someVanillaConditional(){
 }
 ```
 
-If you dont wish to reconnect to the web socket on every service call, you could make use of a global window scope to keep a reference to your connected api client, eg `window.myappscope.api`.
+If you'd like to avoid reconnecting to the WebSocket with each service call, you have the option to utilize the global window scope to maintain a reference to your connected API client. For instance, you can use `window.myappscope.api`.
 
-## Async call on component mounting
+## Async calls on component mounted
 
 ```tsx
 import { useAsync } from "~/hooks/use-async-fn"
@@ -88,7 +88,7 @@ export function AsyncOnEnventConditial(){
 ```
 
 
-## Async call on browser event
+## Async calls on browser event
 
 ```tsx
 import { useAsyncFn } from "~/hooks/use-async-fn"
@@ -117,4 +117,4 @@ export function AsyncOnEnventConditial(){
 }
 ```
 
-I borrowed `useAsync` and `useAsyncFn` function from a great library I often use called `react-use`. These functions catch errors internally and each call state variable contains `{ error, loading, data }` from you async call, that means you dont need to write try/catch statements or updating loading variable. This pattern provide a clean reative pattern for your react components.
+I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called <a href="https://github.com/streamich/react-use" target="_blank">react-use</a>. These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates. 
