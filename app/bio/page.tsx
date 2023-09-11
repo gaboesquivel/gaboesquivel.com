@@ -52,6 +52,27 @@ export default function BioPage() {
         </div>
  </div>
 
+<p className="prose prose-neutral dark:prose-invert">In 2018, I joined <a href="https://eoscostarica.io" className="prose-link">EOS Costa Rica</a> as a lead engineer, responsible for managing infrastructure and developing smart contracts for EOSIO networks.</p>
+
+<p className="prose prose-neutral dark:prose-invert">Between 2019 and 2021, I had the privilege of working with several exciting decentralized applications (dapps). Notable projects include:</p>
+
+
+  <p className="prose prose-neutral dark:prose-invert"><a href="https://emanate.live" className="prose-link">Emanate</a>: A groundbreaking network marketplace designed for music enthusiasts and creators. Emanate leverages immediate payments and automated technology to connect players within the music industry like never before. Powered by Web3 technology, this platform handles the entire music creation journey, encompassing distribution, promotion, and monetization.</p>
+
+  <p className="prose prose-neutral dark:prose-invert"><a href="https://www.sense.chat/" className="prose-link">Sense Chat</a>: A blockchain technology and DeFi (Decentralized Finance) company that focuses on developing consumer products through tokenized systems and incentives. Sense Chat offers a secure platform for chatting and conducting transactions with friends and family, ensuring that your data remains private and protected from third-party surveillance.</p>
+
+  <p className="prose prose-neutral dark:prose-invert"><a href="https://bitcash.org/" className="prose-link">Bitcash</a>: An innovative application that facilitates the exchange of currency with others, allowing users to convert their funds into local currency stablecoins or bitUSD. Bitcash also supports the trading of bitUSD for cryptocurrencies like Bitcoin, Ethereum, USDT, and smaller coins such as Grin. BitcashDAO provides members with opportunities for participation and decision-making.</p>
+
+
+<p className="prose prose-neutral dark:prose-invert">These experiences enriched my understanding of blockchain technology and decentralized applications, providing valuable insights into the dynamic world of Web3.</p>
+
+<p className="prose prose-neutral dark:prose-invert">In 2021, I joined <a href="https://raremint.com/" className="prose-link">RareMint</a>  to develop a platform that offers genuine real-world sports collectible assets and transforms them into digital experiences through asset-backed NFTs on both the Ethereum and Polygon blockchains.</p>
+
+
+<p className="prose prose-neutral dark:prose-invert">In 2022, I contributed to the development of the Ethereum/WebGL communication channel at <a href="https://ztx.foundation/" className="prose-link">ZTX</a>, a web3 metaverse platform empowering creators and communities to build, play and earn. ZTX is the blockchain initiative backed by Jump Crypto and ZEPETO — the largest metaverse in Asia with over 400 million lifetime users.
+</p>
+
+
 
 <p className="prose prose-neutral dark:prose-invert">
   ... more coming soon</p>
