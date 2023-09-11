@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     default: 'Gabo Esquivel',
     template: '%s | Gabo Esquivel',
   },
-  description: 'Software Engineer | 15+ Years in Tech | Web3 Advocate',
+  description: 'Software Architect | 15+ Years in Tech | Web3 Advocate',
   openGraph: {
     title: 'Gabo Esquivel',
-    description: 'Software Engineer | 15+ Years in Tech | Web3 Advocate',
+    description: 'Software Architect | 15+ Years in Tech | Web3 Advocate',
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
     locale: 'en_US',
