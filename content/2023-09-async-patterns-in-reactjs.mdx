@@ -10,10 +10,9 @@ In this post, I'll cover patterns that can assist you in achieving this separati
 
 Inside a `services` directory, your goal is to house plain JavaScript functions responsible for interacting with external APIs and storage systems. These functions serve as adept containers for handling HTTPS requests, WebSocket communication, web storage, and API queries. 
 
-In the forthcoming examples, I'll demonstrate the consumption of the PolkadotJS vanilla service from within React components.
+In the forthcoming examples, I'll demonstrate the consumption of the PolkadotJS vanilla service from within React components following this approach.
 
 ```tsx
-// Import
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { executePromisesInSeries } from '~/lib/async';
 
@@ -68,9 +67,9 @@ import { useAsync } from "~/hooks/use-async-fn"
 import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain"
 
 export function AsyncOnEnventConditial(){
-  const [conditionalCallState, callConditionalFn] = useAsync(someVanillaConditional)
-  const [parallelCallState, callParallelFn] = useAsync(someVanillaParallel)
-  const [seriesCallState, callSeriesFn] = useAsync(someVanillaSeries)
+  const conditionalCallState = useAsync(someVanillaConditional)
+  const parallelCallState = useAsync(someVanillaParallel)
+  const seriesCallState = useAsync(someVanillaSeries)
   
   return (
     <div>
