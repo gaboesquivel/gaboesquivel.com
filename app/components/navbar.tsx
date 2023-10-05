@@ -78,6 +78,18 @@ export default function Navbar() {
                       github
                     </span>
                   </Link>
+              <Link
+                    key={783798798797}
+                    href={"https://gaboesquivel.com/gaboesquivel-cv.pdf"}
+                    target='_blank'
+                    className={clsx(
+                      'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle'
+                    )}
+                  >
+                    <span className="relative px-2 py-1">
+                      cv
+                    </span>
+                  </Link>
             </div>
           </nav>
         </LayoutGroup>
