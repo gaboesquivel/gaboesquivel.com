@@ -15,6 +15,9 @@ const navItems = {
   '/bio': {
     name: 'bio',
   },
+  //  '/work': {
+  //   name: 'work',
+  // },
 };
 
 export default function Navbar() {

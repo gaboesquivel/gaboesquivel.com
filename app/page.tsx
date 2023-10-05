@@ -26,7 +26,7 @@ export default function HomePage() {
 
 
       <p className="prose prose-neutral dark:prose-invert">
-      I advocate for the use of open source technology stacks, decentralized finance (DeFi), a DevOps culture, and streamlined agile methodologies, including mob programming. My primary focus lies at the crossroads of emerging technologies, financial services, and delivering exceptional user experiences.
+      I advocate for the use of open source technology stacks, decentralized finance (DeFi), a DevOps culture, and streamlined agile methodologies. My primary focus lies at the crossroads of emerging technologies, financial services, and delivering exceptional user experiences.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
