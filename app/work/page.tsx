@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import {projects} from 'gaboesquivel'
+import gaboesquivel from 'gaboesquivel'
 
 export default function BioPage() {
   return (
     <section>
         <ul>
-        {projects.map((project, index) => (
+        {gaboesquivel.projects.map((project, index) => (
           <li key={index}>
             <h3>{project.title}</h3>
             <p>{project.description}</p>
