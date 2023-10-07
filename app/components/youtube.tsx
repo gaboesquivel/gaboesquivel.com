@@ -1,29 +1,19 @@
 "use client"
+import { connect } from 'net';
 import { useState } from 'react';
-import YouTube from 'react-youtube';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
-export function YouTubePlayer ({ url }:{url: string}) {
+export function YouTubePlayer ({ url, title }:{url: string, title:string}) {
   const [videoId] = useState(getVideoId(url))
-  // Set up event handlers
-  const onReady = (event) => {
-    // Access the player instance
-    const player = event.target;
 
-    // For example, you can automatically play the video
-    // player.playVideo();
-  };
-
-  const onError = (error) => {
-    console.error('YouTube Player Error:', error);
-  };
 
   if (!videoId) return null
 
   return (
-    <YouTube
-      videoId={videoId}
-      onReady={onReady}
-      onError={onError}
+    <LiteYouTubeEmbed
+      id={videoId}
+      title={title}
     />
   );
 };
@@ -32,5 +22,6 @@ export function YouTubePlayer ({ url }:{url: string}) {
 function getVideoId(video:string){
   const url = new URL(video)
   const params = new URLSearchParams(url.search)
- return params.get('v')
+  const videoId = params.get('v')
+ return videoId
 }
