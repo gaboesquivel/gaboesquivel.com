@@ -25,14 +25,14 @@ export default function WorkPAge() {
                     // width={'100%'} // Set your desired width
                     // height={400} // Set your desired height
                     fill={true}
-                         style={{objectFit:"cover"}}
+                    style={{objectFit:"cover"}}
                   />
                 </div>
               </a> 
      
             <p>
               {project.technologies.map((tech, techIndex) => (
-                <span key={techIndex}>{tech} {techIndex !== project.technologies.length - 1 ? ", ": ""}</span>
+                <span key={techIndex}>{tech}{techIndex !== project.technologies.length - 1 ? ", ": ""}</span>
               ))}
             </p>
                 
