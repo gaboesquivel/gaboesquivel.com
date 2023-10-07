@@ -25,6 +25,7 @@ export default function WorkPAge() {
                     // width={'100%'} // Set your desired width
                     // height={400} // Set your desired height
                     fill={true}
+                         style={{objectFit:"cover"}}
                   />
                 </div>
               </a> 
