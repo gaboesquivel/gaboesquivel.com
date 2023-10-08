@@ -7,15 +7,22 @@ export default function WorkPAge() {
   return (
     <section>
         <ul>
-        {projects.map((project, index) => (
-          <li key={index}>
+        {projects.map((project, projectId) => (
+          <li key={projectId}>
 
 
              <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
             <Balancer>{project.title}</Balancer>
             </h2>
 
-            <p>{project.description}</p>
+            {project.description.split("\\n").map(function(item, descriptionId) {
+                return (
+                    <p key={projectId+"-"+descriptionId}>
+                        {item}
+                        <br/>
+                    </p>
+                )
+            })}
 
               <a href={project.link} target="_blank" rel="noopener noreferrer">
                 <div className='h-[400px] w-full relative mb-6'>
