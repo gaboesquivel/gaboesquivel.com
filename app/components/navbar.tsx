@@ -15,9 +15,9 @@ const navItems = {
   '/bio': {
     name: 'bio',
   },
-  //  '/work': {
-  //   name: 'work',
-  // },
+   '/projects': {
+    name: 'projects',
+  },
 };
 
 export default function Navbar() {

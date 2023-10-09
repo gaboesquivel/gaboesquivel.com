@@ -57,10 +57,10 @@ export default function WorkPAge() {
 
                
             {project.video && (
-                  <div className='h-[400px] w-full relative mb-6'>
-                    <YouTubePlayer title={project.title} url={project.video}/> 
-                  </div>
-                  )
+              <div className='h-[400px] w-full relative mb-6'>
+                <YouTubePlayer title={project.title} url={project.video}/> 
+              </div>
+              )
             }
            
 

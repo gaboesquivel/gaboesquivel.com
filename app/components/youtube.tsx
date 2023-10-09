@@ -11,10 +11,9 @@ export function YouTubePlayer ({ url, title }:{url: string, title:string}) {
   if (!videoId) return null
 
   return (
-    <LiteYouTubeEmbed
-      id={videoId}
-      title={title}
-    />
+    <iframe width={"100%"} height={"100%"} src={`https://www.youtube.com/embed/${videoId}?rel=0`} title={title}
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowFullScreen />  
   );
 };
 
