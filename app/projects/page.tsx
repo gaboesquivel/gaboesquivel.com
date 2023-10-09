@@ -25,7 +25,7 @@ export default function WorkPAge() {
             })}
 
               <a href={project.link} target="_blank" rel="noopener noreferrer">
-                <div className='h-[400px] w-full relative mb-6'>
+                <div className='h-[200px] md:h-[400px] w-full relative mb-6'>
                   <Image
                     src={project.image.replace("https://gaboesquivel.com","")}
                     alt={`${project.title} Image`} // Provide alt text
@@ -57,7 +57,7 @@ export default function WorkPAge() {
 
                
             {project.video && (
-              <div className='h-[400px] w-full relative mb-6'>
+              <div className='h-[200px] md:h-[400px] w-full relative mb-6'>
                 <YouTubePlayer title={project.title} url={project.video}/> 
               </div>
               )

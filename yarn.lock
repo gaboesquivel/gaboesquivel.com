@@ -3203,11 +3203,6 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-lite-youtube-embed@^2.3.52:
-  version "2.3.52"
-  resolved "https://registry.yarnpkg.com/react-lite-youtube-embed/-/react-lite-youtube-embed-2.3.52.tgz#7f8125a03e7a940745b63d11abd6821ffe1babe5"
-  integrity sha512-G010PvCavA4EqL8mZ/Sv9XXiHnjMfONW+lmNeCRnSEPluPdptv2lZ0cNlngrj7K9j7luc8pbpyrmNpKbD9VMmw==
-
 react-tweet@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-tweet/-/react-tweet-3.1.1.tgz#dc9a3a5dfef5e6290698df23c459e805ffebe5b3"
