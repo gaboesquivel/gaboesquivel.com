@@ -7,8 +7,11 @@ export default function HomePage() {
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">hi, I'm Gabo Esquivel ( gab-o )</h1>
       
       <p className="prose prose-neutral dark:prose-invert"> 
-        I'm a full-stack software engineer with over 15 years of experience, specializing in web3 technologies since 2017. My background includes work on numerous blockchain projects, a decade with NodeJS and cloud platforms, as well as advanced expertise in React, React Native, Docker and TypeScript.
-      </p>
+      With over 15 years in the tech industry, I'm a full-stack software engineer specializing in fintech and web3 since 2016. My career highlights include architecting Bitcash Bank, a pioneering crypto bank, and 'Wink', Costa Rica's first neo-bank which revolutionized online banking. My expertise spans NodeJS, cloud platforms, React, React Native, Docker, TypeScript, and foundational knowledge in Rust, Go, C++, and Python, complemented by ongoing AI explorations.
+        </p>
+      {/* <p className="prose prose-neutral dark:prose-invert"> 
+        With over 15 years of experience, I am a seasoned full-stack software engineer with a specialized focus on fintech and web3 technologies, a domain I have been actively involved in since 2016. My career features a wealth of blockchain initiatives, including Bitcash Bank, a crypto bank founded on smart contracts, offering crypto collateralized stable coins across multiple countries and exchange systems. Another significant achievement is architecting 'Wink', Costa Rica's pioneering neo-bank. Wink has been a game-changer in the banking sector, introducing a mobile app that transformed traditional banking by enabling effortless online transactions, thus phasing out the need for physical branches. Alongside this, I bring a decade of deep engagement with NodeJS and cloud platforms, complemented by advanced expertise in React, React Native, Docker, and TypeScript. My solid foundation in Rust, Go, C++, and Python, along with my continuous exploration in AI, place me at the forefront of emerging tech trends. 
+        </p> */}
 
  <div className="gap-4 my-8 columns-1">
  <div className="relative mb-4 h-60">
