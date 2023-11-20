@@ -27,19 +27,18 @@ export default function HomePage() {
  </div>
 
       <p className="prose prose-neutral dark:prose-invert">
-        I am an advocate for leveraging open source technologies, embracing the transformative potential of decentralized finance (DeFi), endorsing a DevOps mindset, and applying agile methodologies with precision. My expertise is centered on the fusion of emerging tech, financial service innovations, and the delivery of outstanding user experiences.
-      </p>
+        Committed to the power of open source, I am deeply involved in advancing decentralized finance (DeFi) and fostering a DevOps culture. My approach is rooted in agile methodologies, striving for precision in technology implementation. My professional focus is on melding emerging technologies with innovations in financial services to create superior user experiences. </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-        The allure of cryptocurrency for me lies in its revolutionary offering of asset control and financial independence. Blockchain technology acts as the bedrock for this, providing a strong guarantee of direct asset ownership that sidesteps traditional financial institution constraints. In the realm of DeFi, we’re witnessing profound advancements that pave the way for more inclusive, transparent, and robust financial services. This movement is not just about technological advancements; it’s reshaping how we engage in financial transactions across borders instantly, heralding a new era in economic interaction. The ongoing evolution in this space is a testament to the nascent stages of a more extensive financial transformation.
-       </p>
+        My fascination with cryptocurrency stems from its transformative nature in asset management and financial autonomy. Blockchain technology, the foundation of this transformation, ensures direct asset control, bypassing conventional financial systems. DeFi is at the forefront of creating more accessible, transparent, and resilient financial services. This evolution goes beyond mere technology; it signifies a paradigm shift in global financial interactions, ushering in a new era of instant, borderless economic exchanges. We are at the early stages of a significant financial revolution.
+        </p>
 
        <p className="prose prose-neutral dark:prose-invert">
         Professionally, I assist organizations in crafting and evolving software products, making strategic technical decisions, and collaborating closely with stakeholders and development teams. From initial concept to successful market launch, I am involved in every phase, ensuring ideas are realized to their full potential. My consultancy services are provided through my company, Blockmatic Labs LLC.
  </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-      Blockchain, DeFi, NodeJS, Databases, Linux, Docker, Cloud, GraphQL, React, React Native
+      Fintech, Blockchain, DeFi, AI, Cloud, GraphQL, NodeJS, Docker, React, React Native
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
