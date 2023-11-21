@@ -15,7 +15,7 @@ export default function WorkPAge() {
             <Balancer>{project.title}</Balancer>
             </h2>
 
-            {project.description.split("\\n").map(function(item, descriptionId) {
+            {project.description.split("\n").map(function(item, descriptionId) {
                 return (
                     <p key={projectId+"-"+descriptionId}>
                         {item}
