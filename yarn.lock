@@ -1541,10 +1541,10 @@ function-bind@^1.1.1:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
 
-gaboesquivel@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/gaboesquivel/-/gaboesquivel-3.1.2.tgz#693b8a4a4e9b00325e26c833cefe02a4f75c5f06"
-  integrity sha512-Tzq68/63dtk/pjRPzRmi4R3Z77kk0vHxCrM41Mjc0rgDpay3fq8OdIMiou5c/3P+JTi2q6mVMtscLGey1DuzfA==
+gaboesquivel@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/gaboesquivel/-/gaboesquivel-3.2.0.tgz#0ebbc6f604a1ad358ad8108207fba2c4de7d0496"
+  integrity sha512-Es9qMfpXXvqjWuNlISj8RNrHf0rSyyJYVTc+xE9SFHMlbjZ1F8UOTxgnqCNDVR12upsVY963uF2SuB6nmHJvhQ==
 
 gaxios@^6.0.0, gaxios@^6.0.3:
   version "6.1.1"
