@@ -40,3 +40,5 @@ next-env.d.ts
 .contentlayer
 
 .env
+
+__dev
