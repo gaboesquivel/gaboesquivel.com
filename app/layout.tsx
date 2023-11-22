@@ -22,16 +22,17 @@ const graphik = localFont({
   display: 'swap',
 });
 
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
-    default: 'Gabo Esquivel',
-    template: '%s | Gabo Esquivel',
+    default: 'Gabo Esquivel - Fintech, Web3, AI',
+    template: '%s | Gabo Esquivel - Fintech, Web3, AI',
   },
-  description: 'Software Architect - Fintech, Web3, AI',
+  description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in fintech, web3 technologies, and AI.',
   openGraph: {
-    title: 'Gabo Esquivel',
-    description: 'Software Architect - Fintech, Web3, AI',
+    title: 'Gabo Esquivel - Fintech, Web3, AI',
+    description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in fintech, web3 technologies, and AI.',  
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
     locale: 'en_US',
