@@ -38,10 +38,6 @@ export default function HomePage() {
  </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-      Fintech, Blockchain, DeFi, AI, Cloud, GraphQL, NodeJS, Docker, React, React Native
-      </p>
-
-      <p className="prose prose-neutral dark:prose-invert">
       Spoken languages: English, Spanish, Portuguese, and Italian.
       </p>
 
