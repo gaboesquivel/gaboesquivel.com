@@ -35,11 +35,11 @@ export default function HomePage() {
 
        <p className="prose prose-neutral dark:prose-invert">
         Professionally, I assist organizations in crafting and evolving software products, making strategic technical decisions, and collaborating closely with stakeholders and development teams. From initial concept to successful market launch, I am involved in every phase, ensuring ideas are realized to their full potential. My consultancy services are provided through my company, Blockmatic Labs LLC.
- </p>
+      </p>
+
 
       <p className="prose prose-neutral dark:prose-invert">
-      Spoken languages: English, Spanish, Portuguese, and Italian.
-      </p>
+      I fluently speak English, Spanish, Portuguese, and Italian, and I have a diverse array of interests that enrich both my personal life and professional perspective. I am actively engaged in cryptocurrency trading and long-term fundamental investment, complementing these activities with technical analysis to gain deeper insights into market trends and the evolving world of blockchain technology. Additionally, I enjoy hiking, an activity that allows me to connect with nature and fuels my creative thinking, providing a refreshing counterbalance to my tech-centric professional life. </p>
 
            <ul className="flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
         
