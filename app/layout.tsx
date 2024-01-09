@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     default: 'Gabo Esquivel - Web3, Crypto, AI',
     template: '%s | Gabo Esquivel - Web3, Crypto, AI',
   },
-  description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in fintech, web3 technologies, and AI.',
+  description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in web3, crypto and AI.',
   openGraph: {
     title: 'Gabo Esquivel - Web3, Crypto, AI',
-    description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in fintech, web3 technologies, and AI.',  
+    description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in web, crypto and AI.',  
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
     locale: 'en_US',
