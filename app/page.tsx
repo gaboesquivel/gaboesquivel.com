@@ -7,16 +7,15 @@ export default function HomePage() {
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">hi, I'm Gabo Esquivel ( gab-o )</h1>
       
       <p className="prose prose-neutral dark:prose-invert"> 
-      With over 15 years in the tech industry, I'm a full-stack software engineer specializing in and web3 since 2017. My career highlights include architecting Bitcash Bank, a pioneering crypto bank, and 'Wink', Costa Rica's first neo-bank which revolutionized online banking. My expertise spans NodeJS, cloud platforms, React, React Native, Docker, TypeScript, and foundational knowledge in Rust, Go, C++, and Python, complemented by ongoing AI explorations.
-        </p>
-      {/* <p className="prose prose-neutral dark:prose-invert"> 
-        With over 15 years of experience, I am a seasoned full-stack software engineer with a specialized focus on fintech and web3 technologies, a domain I have been actively involved in since 2016. My career features a wealth of blockchain initiatives, including Bitcash Bank, a crypto bank founded on smart contracts, offering crypto collateralized stable coins across multiple countries and exchange systems. Another significant achievement is architecting 'Wink', Costa Rica's pioneering neo-bank. Wink has been a game-changer in the banking sector, introducing a mobile app that transformed traditional banking by enabling effortless online transactions, thus phasing out the need for physical branches. Alongside this, I bring a decade of deep engagement with NodeJS and cloud platforms, complemented by advanced expertise in React, React Native, Docker, and TypeScript. My solid foundation in Rust, Go, C++, and Python, along with my continuous exploration in AI, place me at the forefront of emerging tech trends. 
-        </p> */}
+        I'm a full-stack software engineer focused on building innovative products with a great user experience. My expertise spans smart contracts, nodejs, cloud platforms, react, react native, docker, typescript, and foundational knowledge in rust, go, c++, and python, complemented by ongoing AI explorations. My approach is rooted in agile methodologies, striving for precision in technology implementation.
+      </p>
+
+      {/* With over 15 years in the tech industry,  My career highlights include architect≠\≠ing Bitcash Bank, a pioneering crypto bank, and 'Wink', Costa Rica's first neo-bank which revolutionized online banking. */}
 
  <div className="gap-4 my-8 columns-1">
  <div className="relative mb-4 h-60">
           <Image
-            alt="Me giving a workshop at workshop 2019"
+            alt="Me giving a workshop in 2019"
             src={workshop}
             fill
             sizes="(max-width: 768px) 213px, 33vw"
@@ -26,20 +25,17 @@ export default function HomePage() {
         </div>
  </div>
 
-      <p className="prose prose-neutral dark:prose-invert">
-        Committed to the power of open source, I am deeply involved in advancing decentralized finance (DeFi) and fostering a DevOps culture. My approach is rooted in agile methodologies, striving for precision in technology implementation. My professional focus is on melding emerging technologies with innovations in financial services to create superior user experiences. </p>
-
-      <p className="prose prose-neutral dark:prose-invert">
-        My fascination with cryptocurrency stems from its transformative nature in asset management and financial autonomy. Blockchain technology, the foundation of this transformation, ensures direct asset control, bypassing conventional financial systems. DeFi is at the forefront of creating more accessible, transparent, and resilient financial services. This evolution goes beyond mere technology; it signifies a paradigm shift in global financial interactions, ushering in a new era of instant, borderless economic exchanges. We are at the early stages of a significant financial revolution.
-        </p>
+      {/* <p className="prose prose-neutral dark:prose-invert">
+        I'm committed to the power of open source and deeply involved in advancing decentralized finance (DeFi). My fascination with cryptocurrency stems from its transformative nature in asset management and financial autonomy. Blockchain technology, the foundation of this transformation, ensures direct asset control, bypassing conventional financial systems. DeFi is at the forefront of creating more accessible, transparent, and resilient financial services. This evolution goes beyond mere technology; it signifies a paradigm shift in global financial interactions, ushering in a new era of instant, borderless economic exchanges. We are at the early stages of a significant financial revolution.
+      </p> */}
 
        <p className="prose prose-neutral dark:prose-invert">
-        Professionally, I assist organizations in crafting and evolving software products, making strategic technical decisions, and collaborating closely with stakeholders and development teams. From initial concept to successful market launch, I am involved in every phase, ensuring ideas are realized to their full potential. My consultancy services are provided through my company, Blockmatic Labs LLC.
+        I assist organizations in crafting and evolving software products, making strategic technical decisions, and collaborating closely with stakeholders and development teams. From initial concept to successful market launch, I am involved in every phase, ensuring ideas are realized to their full potential.
       </p>
 
 
       <p className="prose prose-neutral dark:prose-invert">
-      I fluently speak English, Spanish, Portuguese, and Italian, and I have a diverse array of interests that enrich both my personal life and professional perspective. I am actively engaged in cryptocurrency trading and long-term fundamental investment, complementing these activities with technical analysis to gain deeper insights into market trends and the evolving world of blockchain technology. Additionally, I enjoy hiking, an activity that allows me to connect with nature and fuels my creative thinking, providing a refreshing counterbalance to my tech-centric professional life. </p>
+      I fluently speak English, Spanish, Portuguese, and Italian, and I have a diverse array of interests that enrich both my personal life and professional perspective. I am actively engaged in cryptocurrency trading and long-term fundamental investment, complementing these activities with technical analysis to gain deeper insights into market trends. On my free time I enjoy hiking, an activity that allows me to connect with nature and fuels my creative thinking, providing a refreshing counterbalance to my tech-centric professional life. </p>
 
            <ul className="flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
         
