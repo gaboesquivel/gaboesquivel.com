@@ -7,7 +7,7 @@ export default function HomePage() {
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">hi, I'm Gabo Esquivel ( gab-o )</h1>
       
       <p className="prose prose-neutral dark:prose-invert"> 
-        I'm a full-stack software engineer focused on building innovative products with a great user experience. My expertise spans react, react native, typescript, cloud platforms, nodejs, evm, smart contracts and foundational knowledge in rust, go and python, complemented by ongoing AI explorations. My approach is rooted in agile methodologies, striving for precision in technology implementation.
+        I'm a full-stack software engineer focused on building innovative products with a great user experience. My expertise spans   reactjs, react native, typescript, nodejs, cloud platforms, evm, smart contracts and foundational knowledge in rust, go and python, complemented by ongoing AI explorations. My approach is rooted in agile methodologies, striving for precision in technology implementation.
       </p>
 
       {/* With over 15 years in the tech industry,  My career highlights include architect≠\≠ing Bitcash Bank, a pioneering crypto bank, and 'Wink', Costa Rica's first neo-bank which revolutionized online banking. */}
