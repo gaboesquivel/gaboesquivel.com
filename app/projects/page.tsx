@@ -9,8 +9,6 @@ export default function WorkPAge() {
         <ul>
         {projects.map((project, projectId) => (
           <li key={projectId}>
-
-
              <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
             <Balancer>{project.title}</Balancer>
             </h2>
