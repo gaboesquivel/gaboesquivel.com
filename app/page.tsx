@@ -41,11 +41,9 @@ export default function HomePage() {
                  My approach is rooted in agile methodologies, striving for precision in technology implementation.
 I am fluent in English, Spanish, Portuguese, and Italian. My professional services are offered through my company, Blockmatic LLC. If you are developing innovative solutions in AI and Web3, I would love to collaborate. Please contact me to discuss how we can work together.</p>
 
-
+{/* For intro video: worked on diverse projects in different sectors primarly Entertainment, Fintech, Web3 and more recently AI,  I believe we are going to see unparalleled transformation with AI, Web3 and Privacy Tech  */}
       {/* <p className="prose prose-neutral dark:prose-invert">
     I am fluent in English, Spanish, Portuguese, and Italian. Actively engaged in cryptocurrency trading and long-term fundamental investment. In my free time, I enjoy hiking, which allows me to connect with nature and fuels my creative thinking.</p> */}
-
-
 
            <ul className="flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
         

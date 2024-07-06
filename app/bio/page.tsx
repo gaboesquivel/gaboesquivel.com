@@ -5,7 +5,7 @@ import blockchaincr from 'public/images/2018/06/blockchain-costa-rica.jpg';
 export default function BioPage() {
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter">My Professional Journey</h1>
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter">Professional Journey</h1>
       
 <p className="prose prose-neutral dark:prose-invert">
     I started my journey at <a href="https://www.cenfotec.ac.cr/" target="_blank" className="prose-link">CenfoTec University</a> in San José in 2006, where I developed a passion for software product development and the possibilities of the web platform. In 2008, I began working as a web developer, mainly building WordPress sites. In 2009, I advanced to a UI Engineer role for <a href="https://www.americanexpress.com" target="_blank" className="prose-link">americanexpress.com</a>, which marked the start of my deep dive into web technologies.

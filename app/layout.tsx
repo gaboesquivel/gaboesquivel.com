@@ -72,9 +72,9 @@ export default function RootLayout({
         // graphik.variable
       )}
     >
-      <body className="mb-40 antialiased relative">
+      <body className="relative mb-40 antialiased">
         <div className='w-full h-0.5 bg-accent sticky top-0 z-50' />
-        <main className=" mx-4 flex flex-col max-w-2xl lg:mx-auto flex-auto min-w-0 px-2 mt-6 md:px-0">
+        <main className="flex flex-col flex-auto max-w-2xl min-w-0 px-2 px-4 mt-6 lg:mx-auto md:px-0">
           <Navbar />
           {children}
           <Analytics />
