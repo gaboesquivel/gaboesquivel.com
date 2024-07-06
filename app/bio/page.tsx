@@ -62,8 +62,9 @@ export default function BioPage() {
     In 2022, I contributed to the development of the Ethereum/WebGL communication channel at <a href="https://ztx.foundation/" target="_blank" className="prose-link">ZTX</a>, a web3 metaverse platform empowering creators and communities to build, play, and earn. ZTX is the blockchain initiative backed by Jump Crypto and ZEPETO — the largest metaverse in Asia with over 400 million lifetime users.
 </p>
 <p className="prose prose-neutral dark:prose-invert">
-    In 2023, I joined <a href="https://bitlauncher.ai" target="_blank" className="prose-link">bitlauncher.ai</a> as a lead developer. It's an AI and Web3 launchpad revolutionizing startup funding. Our platform introduces a cutting-edge batch auction system for token sales, ensuring transparent and equitable price discovery. It runs on EVM and it's a fork of the Gnosis Auction system. Participants bid during a fixed period, and tokens are distributed at a uniform clearing price, providing equal opportunities for all investors. Join us in reshaping the startup funding landscape for fairness and transparency.
+    In 2023, I joined <a href="https://bitlauncher.ai" target="_blank" className="prose-link">bitlauncher.ai</a> as a lead developer. It's an AI and Web3 launchpad revolutionizing startup funding. The platform offers a cutting-edge batch auction system for token sales, ensuring transparent and equitable price discovery. 
 </p>
+
 <p className="prose prose-neutral dark:prose-invert">
     My journey continues to evolve as remain focused on user-centric innovation and new technologies, particularly AI and Web3.
 </p>

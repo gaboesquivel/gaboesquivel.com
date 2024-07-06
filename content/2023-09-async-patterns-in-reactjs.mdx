@@ -1,0 +1,121 @@
+---
+title: Async Patterns in React ( PolkadotJS demo )
+publishedAt: 2023-09-05
+summary: Async Patterns for maintaining a clear separation between core logic and presentation.
+---
+
+Having spent several years working with ReactJS and SPAs, I hold a steadfast belief in the importance of maintaining a clear separation between core logic and presentation (view logic). 
+
+In this post, I'll cover patterns that can assist you in achieving this separation. By retaining your core logic in Vanilla JavaScript or TypeScript and utilizing the `useAsync` and `useAsyncFn` hooks to handle asynchronous calls, you can establish a robust foundation for your projects. 
+
+Inside a `services` directory, your goal is to house plain JavaScript functions responsible for interacting with external APIs and storage systems. These functions serve as adept containers for handling HTTPS requests, WebSocket communication, web storage, and API queries. 
+
+In the forthcoming examples, I'll demonstrate the consumption of the PolkadotJS vanilla service from within React components following this approach.
+
+```tsx
+import { ApiPromise, WsProvider } from '@polkadot/api';
+import { executePromisesInSeries } from '~/lib/async';
+
+const wsProvider = new WsProvider('wss://rpc.polkadot.io');
+
+export async function getApi(){
+ return ApiPromise.create({ provider: wsProvider });
+}
+
+export async function getChain(){
+  const api = await getApi()
+  return api.rpc.system.chain()
+}
+
+export async function getLatestHeader() {
+  const api = await getApi()
+  return api.rpc.chain.getHeader();
+}
+
+export async function getGenisisHash(){
+  const api = await getApi()
+  return api.genesisHash.toHex()
+}
+
+export async function someVanillaSeries(){
+  const tasks = [
+    getChain, 
+    getGenisisHash, 
+    getChain
+  ];
+  return executePromisesInSeries(tasks)
+}
+
+export async function someVanillaParallel(){
+  const result = await Promise.all([getGenisisHash(), getChain()])
+  return await result
+}
+
+export async function someVanillaConditional(){
+  const chain = await getChain()
+  const genesisHash = chain ? await getGenisisHash(): null
+  return genesisHash
+}
+```
+
+If you'd like to avoid reconnecting to the WebSocket with each service call, you have the option to utilize the global window scope to maintain a reference to your connected API client. For instance, you can use `window.myappscope.api`.
+
+## Async calls on component mounted
+
+```tsx
+import { useAsync } from "~/hooks/use-async-fn"
+import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain"
+
+export function AsyncOnEnventConditial(){
+  const conditionalCallState = useAsync(someVanillaConditional)
+  const parallelCallState = useAsync(someVanillaParallel)
+  const seriesCallState = useAsync(someVanillaSeries)
+  
+  return (
+    <div>
+      <h1>Async on Component Mounted Conditionally</h1>
+      <pre>{JSON.stringify(conditionalCallState)}</pre>
+
+      <h1>Async on Component Mounted in Parallel</h1>
+      <pre>{JSON.stringify(parallelCallState, null, 2)}</pre>
+
+      <h1>Async on Component Mounted in Series</h1>
+      <pre>{JSON.stringify(seriesCallState, null, 2)}</pre>
+    </div>
+  )
+}
+```
+
+
+## Async calls on browser events
+
+```tsx
+import { useAsyncFn } from "~/hooks/use-async-fn"
+import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain"
+
+export function AsyncOnEnventConditial(){
+  const [conditionalCallState, callConditionalFn] = useAsyncFn(someVanillaConditional)
+  const [parallelCallState, callParallelFn] = useAsyncFn(someVanillaParallel)
+  const [seriesCallState, callSeriesFn] = useAsyncFn(someVanillaSeries)
+  
+  return (
+    <div>
+      <h1>Async on Event Conditionally</h1>
+      <button onClick={callConditionalFn}>get data in conditionally</button>
+      <pre>{JSON.stringify(conditionalCallState)}</pre>
+
+      <h1>Async on Event in Parallel</h1>
+      <button onClick={callParallelFn}>get data in parallel</button>
+      <pre>{JSON.stringify(parallelCallState, null, 2)}</pre>
+
+       <h1>Async on Event in Series</h1>
+      <button onClick={callSeriesFn}>get data in series</button>
+      <pre>{JSON.stringify(seriesCallState, null, 2)}</pre>
+    </div>
+  )
+}
+```
+
+I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called <a href="https://github.com/streamich/react-use" target="_blank">react-use</a>. These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates. 
+
+Additional examples can be found on the following GitHub repository: https://github.com/gaboesquivel/react-async

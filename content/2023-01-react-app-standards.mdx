@@ -1,0 +1,316 @@
+---
+title: Code Conventions for Scalable React Apps 
+publishedAt: 2023-01-29
+summary: An opinioned list of React coding conventions.
+---
+
+These guidelines are designed to uphold code consistency, enhance readability, and foster effective collaboration throughout your project.
+
+For an in-depth exploration of these principles in the context of JavaScript, I recommend referring to the [Clean Code JavaScript repository](https://github.com/ryanmcdermott/clean-code-javascript).
+
+## JavaScript Conventions
+
+- **Functional and Declarative Code**: Harness the capabilities of modern JavaScript features and TypeScript to craft code that embodies functional and declarative principles. This approach enhances code readability and maintainability, ensuring your codebase remains comprehensible and easy to work with.
+
+- **Meaningful Naming**: Elevate the clarity of your code by employing meaningful and self-explanatory variable and function names. For boolean variables, wield auxiliary verbs like `does`, `has`, `is`, and `should` to illuminate their purpose. For instance, when creating a button component, opt for names such as `isDisabled` or `isLoading` to clearly convey their intended functionality.
+
+- **Component Modularity**: Embrace the concept of component modularity by breaking down larger components into smaller, focused parts with minimal props. Prioritize composability over sprawling monolithic components, promoting a more flexible and maintainable codebase.
+
+- **Collocation**: Foster code organization by collocating related code files within the same directory, especially when they are used exclusively in a specific component. For instance, within the `pages/dashboard` directory, consider placing components, utilities, and hooks that are uniquely associated with that route. Elevate components to the shared folder only when they demonstrate utility across multiple locations or serve as foundational building blocks (e.g., "primitives").
+
+- **File Naming**: Create a cohesive folder structure with lowercase, dash-separated folder names, such as `components/auth-wizard`. Within these folders, adhere to consistent file naming conventions, including extensions like:
+  - `.config.ts`
+  - `.test.ts`
+  - `.context.tsx`
+  - `.type.ts`
+  - `.service.ts`
+  - `.lib.ts`
+  - `.page.tsx` (with the file name matching the route name, e.g., `dashboard.page.tsx`)
+  - `.hook.ts` (optional, hooks following the `use-something` pattern are easy to identify as such)
+
+Eg: `import { NftItem } from './nft-item`
+
+```
+└── nft-item
+    ├── index.ts   ( exports )
+    ├── nft-item.tsx
+    ├── nft-item-header.tsx
+    ├── nft-item-footer.tsx
+    ├── nft-item-main.tsx
+    ├── use-nft-item.ts
+    ├── nft-item.type.ts
+    ├── nft-item.context.tsx
+    └── nft-item.test.tsx
+```
+
+Following this file naming pattern empowers you to swiftly identify each file's type, streamlining your code navigation process. It saves valuable time and enhances your coding efficiency over time.
+
+- **Avoid Hasty Abstractions**: Abstraction is a powerful tool, but it should be wielded judiciously. Avoid rushing into abstractions; instead, introduce them when they organically fit your codebase. Don't shy away from code duplication initially, as it's a stepping stone towards well-considered abstractions. Learn more about this approach in this insightful article by Kent C. Dodds: [Aha Programming](https://kentcdodds.com/blog/aha-programming).
+
+- **Avoid Default Exports**: Opt for named exports over default exports. Named exports enhance code clarity and maintainability by explicitly specifying the exported items, leaving no room for ambiguity. This also helps with intellisense and automatica imports on your ide.
+
+- **Infer TypeScript Return Types**: Harness TypeScript's type inference capabilities to automatically deduce precise return types from your functions. This streamlines your code by reducing boilerplate and maintenance surface.
+
+- **Receive an Object, Return an Object (RORO)**: Many functions should adhere to the RORO pattern, where they receive an object as a parameter and return an object as a result. This pattern enhances flexibility and clarity. Here's an example:
+
+```ts
+// services/account/account.service.ts
+export async function getAccounts({ account, limit = 15, offset = 0 }: GetAccountsParams) {
+  // Implementation...
+  return { accounts: [] }
+}
+
+// types/services.type.ts
+export interface ServiceParams {
+  limit?: number
+  offset?: number
+}
+
+// services/account/account.type.ts
+export interface GetAccountsParams extends ServiceParams {
+  account?: string
+}
+```
+
+## React Conventions
+
+- **Function Component Declaration**: Declare React components using the `function` keyword for a cleaner syntax and better linting support. ( rules of hooks seem not work well with components declared with const )
+
+- **Use `const` for Methods**: When defining methods within a component, use `const` to cleary differiante them from the components and lib functions.
+
+- **Code Order**: Maintain a consistent code order within your components:
+
+  - Function component declaration
+  - Inner components
+  - TypeScript types
+  - Text and static content
+
+- **Ternaries over `&&` in JSX**: When dealing with conditional rendering in JSX, prefer ternaries over `&&` for clarity and readability.
+
+Eg:
+
+```tsx
+// imports
+
+// the react component at the top since it's what you typically want to see first
+export function MyReactComponent({ myParam }: MyReactComponentParams) {
+  const {data, isLoading, error} = useAsyncFn(api.loadData)
+
+  const myMethod = () => console.log(myParam)
+
+  useEffect(()=>{
+    console.log('component mounted')
+  })
+
+  if(isLoading) return <p>loading...</p>
+  
+  if(error) return <p>error loading data.</p>
+
+  return (
+    <div className="bg-slate-100 md:flex">
+      <p>{content.headline}</p>
+      {data? <h1>{data.title()}</h1> :null}
+      {data?.items?.map(Item) }
+      <button onClick={myMethod}>{content.button}</button>
+    </div>
+  )
+}
+
+// inner components
+function Item({description}:{description:string}){
+  return <li className="text-blue md:flex">{description}</li>
+}
+
+// types at the bottom, if there are too many consider a .type.ts file in the dir.
+export interface MyReactComponentParams {
+  myParam: boolean
+}
+
+// text and static content, this helps keep component code more tidy and easy to read 
+// when supporting internationalization you must keep text in variables too.
+const content = {
+  headline: 'A new world awaits. Be the first to discover it.',
+  button: 'Let\'s go!'
+}
+```
+
+
+## Error Handling
+
+Basic rule is throwing errors on services and libs and catch them on the react component to display a friendly message. Async utility hooks will catch them internally removing the try/catch boilerplate in presentational code.
+
+Use this error lib to easily work with JS error objects. See https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript 
+
+```tsx
+export type ErrorWithMessage = {
+  message: string
+}
+
+export function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'message' in error &&
+    typeof (error as Record<string, unknown>).message === 'string'
+  )
+}
+
+export function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
+  if (isErrorWithMessage(maybeError)) return maybeError
+
+  try {
+    return new Error(JSON.stringify(maybeError))
+  } catch {
+    // fallback in case there's an error stringifying the maybeError
+    // like with circular references for example.
+    return new Error(String(maybeError))
+  }
+}
+
+export function getErrorMessage(error: unknown) {
+  return toErrorWithMessage(error).message
+}
+
+```
+
+## Suggested File Structure
+
+```
+.
+├── index.html
+├── package.json
+├── postcss.config.ts
+├── public
+│   ├── favicon.png
+│   ├── images
+│   │   └── icons
+│   ├── index.tsx
+│   ├── manifest.webmanifest
+│   └── styles
+│       ├── global.css
+│       └── tailwind.css
+├── src
+│   ├── app.tsx
+│   ├── config
+│   │   ├── chain
+│   │   ├── client
+│   │   └── site.ts
+│   ├── icons
+│   │   ├── index.ts
+│   │   └── lucide-preact.icon.tsx
+│   ├── lib
+│   │   ├── encoding
+│   │   └── error
+│   ├── hooks
+│   │   ├── use-hook.ts
+│   │   └── use-other-hook.ts
+│   ├── context
+│   │   ├── global.context.ts
+│   │   └── other-global.context.ts
+│   ├── layouts
+│   │   ├── root.layout.ts
+│   │   └── sidebar.layout.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── dashboard
+│   │   │   ├── index.ts
+│   │   │   ├── dashboard.page.tsx
+│   │   │   ├── dashboard.type.tsx
+│   │   │   ├── dashboard-main.ts
+│   │   │   ├── dashboard-footer.ts
+│   │   │   ├── dashboard-header.ts
+│   │   │   ├── use-dashboard.ts
+│   │   │   ├── dashboard.context.ts
+│   │   │   └── dashboard.lib.ts
+│   │   └── wallet
+│   ├── services
+│   │   ├── chain
+│   │   ├── pinata
+│   │   └── sentry
+│   ├── shared
+│   │   ├── button
+│   │   └── modal
+│   └── vite-env.d.ts
+├── tailwind.config.ts
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+## Lib
+
+The "lib" directory is exclusively designated for pure utility functions with zero side effects. These functions refrain from executing storage operations, initiating HTTP calls, or causing any external impacts. They are solely designed to process input and generate output without influencing external states or resources.
+
+## Services
+
+Within the "services" directory, you'll find plain JavaScript functions interacting with external APIs and storage systems. These functions expertly encapsulate the logic necessary for managing HTTPS requests, WebSocket communication, web storage, and API queries.
+
+## Pages
+
+The "pages" directory serves as the home for components and code exclusively utilized within specific pages of your application.
+
+## Shared
+
+In the "shared" directory, you'll discover components that are shared across multiple pages.
+
+When working in monorepos you may want to keep shared code as a package.
+
+## Layouts
+
+The layouts dir contain container components, providing the foundational structure your application.
+The layout component provides the structure and you pass it the components to display on each section.
+
+```tsx
+import { RootLayout } from 'layouts/root';
+
+export function Homepage() {
+  return (
+    <RootLayout
+      aside={
+        <>
+          <HelpBox />
+          <Statistics />
+        </>
+      }
+      heading="Contracts"
+    >
+      <Contracts />
+    </RootLayout>
+  );
+}
+```
+
+
+## React State
+
+When it comes to managing state in your components, thoughtful decisions about the structure and organization of your state variables can significantly impact your code's clarity and maintainability. 
+
+### Async State Handling
+
+For handling data fetching and asynchronous state flags, embrace tools like `useAsync`, `useAsyncFn`, and `SWR`. These tools simplify asynchronous data management and provide a convenient `{data, isLoading, error}` structure to work with. Keep your async source code in the `services` folder as vanillajs functions and then import them and wrap them with these utility hooks in your components. Eg: `useAsyncFn(api.loadData)`, this way the core functionality is not embedded in the presentational ui code.
+
+### Group Related State
+
+When multiple state variables are consistently updated together, think about consolidating them into a single state variable. This approach minimizes contradictions within your state and simplifies maintenance.
+
+### Avoid Redundant State
+
+If you can derive certain information from component props or existing state variables during rendering, avoid duplicating that information in component state. This practice promotes cleaner and more efficient code.
+
+### Minimize Duplication
+
+Avoid duplicating data between multiple state variables or within nested objects. Duplication complicates data synchronization and can lead to inconsistencies. Strive to reduce redundancy in your state structure.
+
+### Flatten Nested State
+
+Deeply nested state structures can be cumbersome to update and manage. Whenever possible, opt for a flat state structure. This approach simplifies state updates and enhances code maintainability.
+
+### Keep State Serializable
+
+To ensure the smooth functioning of features like persistence and time-travel debugging, it's advisable to store only plain serializable objects, arrays, and primitives in your state. While it's technically possible to include non-serializable items, doing so can introduce complexities and potential issues with these essential features.
+
+### Use Arrays Instead of Maps
+
+When working with state collections, favor arrays over maps. Arrays are more predictable and performant in most cases, contributing to a smoother development experience.
+
+By following these principles and considering the structure and organization of your state variables, you can create a robust and maintainable state management system for your Preact applications. This approach ensures that your code remains easy to update and debug, reducing the chances of introducing bugs and enhancing the overall quality of your application.

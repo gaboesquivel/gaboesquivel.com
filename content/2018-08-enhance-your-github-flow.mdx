@@ -1,0 +1,83 @@
+---
+title: Enhancing Your GitHub Workflow
+publishedAt: 2018-08-08
+summary: Tips for improving your GitHub workflow in software development.
+---
+
+With a decade of experience in software development, I've had the privilege of contributing to various open source and non-open source projects using GitHub. Today, I'd like to share an effective and practical workflow that can enhance the quality of your software, applicable to any project.
+
+Key aspects of quality software include robustness, testability, modularity, maintainability, and more. In this article, I'll primarily focus on:
+
+- Comprehensive documentation: READMEs, documentation sites, and changelogs.
+- Clear coding standards and conventions.
+- Semantic versioning (SemVer).
+- Automated tests, with an emphasis on functional non-regression tests.
+- An excellent developer experience.
+
+To achieve these goals, I propose a pragmatic GitHub workflow that leverages open-source tools to automate essential tasks.
+
+If you're involved in an open-source project, publishing it on GitHub is a must. GitHub has transformed open-source development by becoming the go-to platform for version control and collaboration.
+
+GitHub offers great flexibility, allowing each project to define its release and documentation processes, merge strategies, preferred tools, commit standards, and code review practices tailored to their needs. This adaptability recognizes that there's no one-size-fits-all solution for every team.
+
+Here are some recommendations based on my experience:
+
+## Prioritize and Track Progress with GitHub Projects
+
+Utilize GitHub Projects, introduced in September 2016, to organize, prioritize, and track your work. It enables you to create Kanban-style boards for efficient project and organization-level task management. If you're using GitHub issues, this feature can greatly enhance project organization and communication. [Learn more](https://help.github.com/articles/tracking-the-progress-of-your-work-with-project-boards).
+
+## Classify Issues with Tags
+
+Tagging your GitHub issues simplifies navigation for developers and encourages collaboration. By tagging issues, you reduce entry friction, making it easier for contributors to get involved.
+
+## Leverage GitHub Templates for Pull Requests and Issues
+
+Creating GitHub templates for issues and pull requests streamlines the bug reporting and feature request process, ensuring that developers provide all necessary information. Check out [GitHub's guide](https://blog.github.com/2016-02-17-issue-and-pull-request-templates) for details.
+
+## Use the Command Line
+
+Mastering GitHub's command-line interface provides flexibility and efficiency when working with open-source technologies. Tools like **hub** and **git-extras** enhance your experience and productivity. [hub](https://hub.github.com) simplifies GitHub interactions, while [git-extras](https://github.com/tj/git-extras) offers various Git utilities.
+
+## Follow Clear Commit Message Standards (Scoped Commits)
+
+Define and adhere to clear commit message standards. Ensure each fix is a separate change, provide concise commit messages, and reference related issues. Scoping your messages aids in generating informative changelogs. The AngularJS commit conventions offer a great example. [Learn more](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#generating-changelogmd).
+
+## Define Coding Style Standards and Set Up Pre-commit Hooks
+
+Maintain code consistency by defining coding standards and enforcing them with pre-commit hooks. Using tools like Prettier and StandardJS (or others of your choice) ensures uniform code formatting. **husky** is a valuable tool for configuring pre-commit hooks.
+
+## Configure Automated Tests and Checks on Pull Requests
+
+Implement automated functional tests, security checks, and code style verification for every pull request. Configure continuous integration with tools like Travis CI to run tests automatically and prevent merging if checks fail. [Learn more](https://docs.travis-ci.com/user/pull-requests).
+
+## Protect Your Master Branch and Require Code Reviews
+
+Safeguard your master branch from direct commits and enforce code reviews to ensure code quality. GitHub provides settings to enable these protections in your repository.
+
+## Squash Your Pull Requests
+
+Consider squash merging as it simplifies your Git history and eliminates merge noise. This approach is especially valuable when not all contributors follow commit guidelines.
+
+## Semantic Versioning, GitHub Tags, Releases, and Automated Changelogs
+
+Embrace semantic versioning (SemVer) for clarity in versioning. Create Git tags for each version to help users understand changes easily. Integrating Conventional Commits enhances changelog generation. Travis CI can automate this process. [Learn more](https://semver.org) and [Conventional Commits](https://conventionalcommits.org).
+
+## Automate Deployments with Tag Hooks
+
+Instead of using release branches, deploy directly from Git tags. Tools like Travis CI simplify the process, allowing you to deploy to platforms like Heroku. Configure hooks to deploy the latest master commit for development environments.
+
+## Set Up a GitHub Stream Channel in Your Chat Room
+
+Track GitHub activity conveniently by integrating notifications into your team's chat room. This is known as ChatOps and streamlines communication. [Learn more](https://www.youtube.com/watch?v=NST3u-GjjFw).
+
+## Automate Dependency Updates
+
+Automate the task of keeping dependencies up to date using tools like Greenkeeper.io and david-dm.org. These tools create pull requests with updated versions, which can be tested automatically to ensure compatibility.
+
+## Enhance Your GitHub UI Experience with Extensions
+
+Explore extensions that improve your GitHub experience, such as GitHub Avatars, GitHub Awesome Autocomplete, GitHub Hovercard, and more. These extensions enhance various aspects of GitHub's user interface.
+
+## Continuous Learning and Improvement
+
+Stay up to date with GitHub's evolving practices and tools. Regularly check GitHub announcements, community standards, and GitHub Training & Guides on YouTube for valuable insights. [GitHub Training & Guides on YouTube](https://www.youtube.com/githubguides).
