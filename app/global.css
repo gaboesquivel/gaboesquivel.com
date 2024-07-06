@@ -3,26 +3,29 @@
 @tailwind utilities;
 
 ::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
+  @apply bg-gray-800 text-accent
 }
 
 html {
   min-width: 360px;
 }
 
+
 .prose .anchor {
   @apply absolute invisible no-underline;
 
-  margin-left: -1em;
-  padding-right: 0.5em;
-  width: 80%;
-  max-width: 700px;
+  /* margin-left: -1em; */
+  /* padding-right: 0.5em; */
+  /* width: 90%; */
+  /* max-width: 700px; */
   cursor: pointer;
 }
 
 .anchor:hover {
   @apply visible;
+}
+.prose{
+  @apply mx-0 max-w-full;
 }
 
 .prose a {
@@ -135,7 +138,7 @@ table {
 
 p {
   margin-bottom: 1em;
-  line-height: 2;
+  line-height: 1.75;
 }
 
 a {

@@ -15,7 +15,7 @@ export default function WorkPAge() {
 
             {project.description.split("\n").map(function(item, descriptionId) {
                 return (
-                    <p key={projectId+"-"+descriptionId}>
+                    <p key={projectId+"-"+descriptionId} className="prose prose-neutral dark:prose-invert">
                         {item}
                         <br/>
                     </p>
