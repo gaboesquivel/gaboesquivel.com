@@ -37,15 +37,16 @@ export default function Navbar() {
             <div className="flex flex-row pr-10 space-x-0">
               {Object.entries(navItems).map(([path, { name }]) => {
                 const isActive = path === pathname;
+                // console.log({isActive, path, pathname})
                 return (
                   <Link
                     key={path}
                     href={path}
                     className={clsx(
-                      'transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle',
-                      {
-                        'text-neutral-500': !isActive,
-                      }
+                      'transition-all hover:text-neutral-800 dark:hover:text-accent flex align-middle',
+                 
+                         isActive? 'text-accent' : 'text-neutral-500'
+                      
                     )}
                   >
                     <span className="relative px-2 py-1">

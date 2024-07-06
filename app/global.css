@@ -135,4 +135,9 @@ table {
 
 p {
   margin-bottom: 1em;
+  line-height: 2;
+}
+
+a {
+  @apply hover:text-accent decoration-0 !important;
 }

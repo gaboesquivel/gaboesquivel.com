@@ -12,6 +12,9 @@ export default {
       fontFamily: {
         sans: ['var(--font-graphik)'],
       },
+      colors: {
+        accent: '#54e8b3',
+      },
       typography: {
         quoteless: {
           css: {

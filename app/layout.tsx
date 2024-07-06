@@ -68,12 +68,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={clsx(
-        'text-black bg-white dark:text-white dark:bg-[#111010]',
-        graphik.variable
+        'text-black bg-white dark:text-white dark:bg-black font-mono font-thin',
+        // graphik.variable
       )}
     >
-      <body className="flex flex-col max-w-2xl mx-4 mt-8 mb-40 antialiased md:flex-row lg:mx-auto">
-        <main className="flex flex-col flex-auto min-w-0 px-2 mt-6 md:px-0">
+      <body className="mb-40 antialiased relative">
+        <div className='w-full h-0.5 bg-accent sticky top-0 z-50' />
+        <main className=" mx-4 flex flex-col max-w-2xl lg:mx-auto flex-auto min-w-0 px-2 mt-6 md:px-0">
           <Navbar />
           {children}
           <Analytics />
