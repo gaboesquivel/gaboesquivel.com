@@ -1,38 +1,20 @@
 import './global.css';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import Navbar from './components/navbar';
 import { Analytics } from '@vercel/analytics/react';
-
-const graphik = localFont({
-  src: [
-    {
-      path: '../public/fonts/Graphik-Regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/Graphik-Medium.ttf',
-      weight: '600',
-      style: 'bold',
-    },
-  ],
-  variable: '--font-graphik',
-  display: 'swap',
-});
-
+import { Footer } from './components/footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
-    default: 'Gabo Esquivel - Web3, Crypto, AI',
-    template: '%s | Gabo Esquivel - Web3, Crypto, AI',
+    default: 'Gabo Esquivel - Web3, AI',
+    template: '%s | Gabo Esquivel - Web3, AI',
   },
-  description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in Web3, Crypto and AI.',
+  description: 'Full-stack software engineer with over 15+ years of experience, specializing in Web3 and AI.',
   openGraph: {
-    title: 'Gabo Esquivel - Web3, Crypto, AI',
-    description: 'Seasoned full-stack software engineer with 15+ years of experience, specializing in Web3, Crypto and AI.',  
+    title: 'Gabo Esquivel - Web3, AI',
+    description: 'Full-stack software engineer with over 15 years of experience, specializing in Web3 and AI.',  
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
     locale: 'en_US',
@@ -69,7 +51,6 @@ export default function RootLayout({
       lang="en"
       className={clsx(
         'text-black bg-white dark:text-white dark:bg-black font-mono font-thin',
-        // graphik.variable
       )}
     >
       <body className="relative mb-40 antialiased">
@@ -77,6 +58,7 @@ export default function RootLayout({
         <main className="flex flex-col flex-auto max-w-2xl min-w-0 px-4 mt-6 lg:mx-auto md:px-0">
           <Navbar />
           {children}
+          <Footer />
           <Analytics />
         </main>
       </body>
