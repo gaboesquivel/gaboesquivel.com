@@ -22,22 +22,24 @@ export async function GET(req: NextRequest) {
           alignItems: 'flex-start',
           justifyContent: 'center',
           // backgroundImage: 'url(https://gaboesquivel.com/images/gabo-workshop.jpg)',
-          // backgroundSize: 'cover'
-          background: '#110f0f'
+          // backgroundSize: 'cover',
+          background: 'black'
         }}
       >
         <div
           style={{
-            marginLeft: 190,
-            marginRight: 190,
+            margin: '0 auto',
             display: 'flex',
+            justifyContent: 'center',
             fontSize: 130,
             fontFamily: 'Kaisei Tokumin',
             letterSpacing: '-0.05em',
             fontStyle: 'normal',
-            color: 'white',
+            color: '#54e8b3',
             lineHeight: '120px',
             whiteSpace: 'pre-wrap',
+            width: '70%',
+            textAlign: 'center',
           }}
         >
           {postTitle}
