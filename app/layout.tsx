@@ -8,12 +8,12 @@ import { Footer } from './components/footer';
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
-    default: 'Gabo Esquivel - Web3, AI',
-    template: '%s | Gabo Esquivel - Web3, AI',
+    default: 'Gabo Esquivel - Engineering Web3 & AI',
+    template: '%s | Engineering Web3 & AI',
   },
   description: 'Full-stack software engineer with over 15+ years of experience, specializing in Web3 and AI.',
   openGraph: {
-    title: 'Gabo Esquivel - Web3, AI',
+    title: 'Gabo Esquivel - Engineering Web3 & AI',
     description: 'Full-stack software engineer with over 15 years of experience, specializing in Web3 and AI.',  
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         url: 'https://gaboesquivel.com/images/default-og.webp',
         width: 1200,
         height: 630,
-        alt: 'Gabo Esquivel - Web3, AI',
+        alt: 'Gabo Esquivel - Engineering Web3 & AI',
       },
     ],
   },
