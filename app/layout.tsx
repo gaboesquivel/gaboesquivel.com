@@ -50,7 +50,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={clsx(
-        'text-black bg-white dark:text-white dark:bg-black font-mono font-thin',
+        'dark text-white bg-black font-mono font-thin',
       )}
     >
       <body className="relative mb-40 antialiased">
