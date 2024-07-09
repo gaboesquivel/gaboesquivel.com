@@ -18,15 +18,7 @@ export const metadata: Metadata = {
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
     locale: 'en_US',
-    type: 'website',
-    images: [
-      {
-        url: 'https://gaboesquivel.com/images/default-og.webp',
-        width: 1200,
-        height: 630,
-        alt: 'Gabo Esquivel - Engineering Web3 & AI',
-      },
-    ],
+    type: 'website'
   },
   robots: {
     index: true,
