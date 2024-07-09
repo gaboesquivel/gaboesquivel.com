@@ -29,4 +29,5 @@ export default {
     hoverOnlyWhenSupported: true,
   },
   plugins: [typography],
+    darkMode: 'class',
 } satisfies Config;
