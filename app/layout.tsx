@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
     default: 'Gabo Esquivel - Engineering the Future',
-    template: '%s | Engineering Web3 & AI',
+    template: '%s | Engineering the Future',
   },
   description: 'Sr. full-stack engineer specializing in Web3 and AI.',
   openGraph: {
-    title: 'Gabo Esquivel - Engineering Web3 & AI',
+    title: 'Gabo Esquivel - Engineering the Future',
     description: 'Sr. full-stack engineer specializing in Web3 and AI.',  
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
