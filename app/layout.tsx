@@ -8,13 +8,13 @@ import { Footer } from './components/footer';
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
-    default: 'Gabo Esquivel - Engineering Web3 & AI',
+    default: 'Gabo Esquivel - Engineering the Future',
     template: '%s | Engineering Web3 & AI',
   },
-  description: 'Full-stack software engineer with over 15+ years of experience, specializing in Web3 and AI.',
+  description: 'Sr. full-stack engineer specializing in Web3 and AI.',
   openGraph: {
     title: 'Gabo Esquivel - Engineering Web3 & AI',
-    description: 'Full-stack software engineer with over 15 years of experience, specializing in Web3 and AI.',  
+    description: 'Sr. full-stack engineer specializing in Web3 and AI.',  
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
     locale: 'en_US',
