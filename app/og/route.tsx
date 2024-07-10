@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import bgimage from '../opengraph-image.png';
 import Image from 'next/image';
 
 export const runtime = 'edge';
@@ -27,7 +26,7 @@ export async function GET(req: NextRequest) {
         }}
       >
         <Image
-          src={bgimage}
+          src="https://gaboesquivel.com/images/opengraph-image.png"
           alt="Background Image"
           layout="fill"
           objectFit="cover"
