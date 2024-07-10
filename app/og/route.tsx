@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/server';
 import { NextRequest } from 'next/server';
+import bgimage from '../opengraph-image.png';
+import Image from 'next/image';
 
 export const runtime = 'edge';
 
@@ -21,11 +23,17 @@ export async function GET(req: NextRequest) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          // backgroundImage: 'url(https://gaboesquivel.com/images/gabo-workshop.jpg)',
-          // backgroundSize: 'cover',
-          background: 'black'
+          position: 'relative'
         }}
       >
+        <Image
+          src={bgimage}
+          alt="Background Image"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          style={{ zIndex: -1 }}
+        />
         <div
           style={{
             margin: '0 auto',
