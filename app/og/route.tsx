@@ -1,17 +1,12 @@
 import { ImageResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import Image from 'next/image';
 
 export const runtime = 'edge';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const postTitle = searchParams.get('title');
-  const font = fetch(
-    new URL('../../public/fonts/kaisei-tokumin-bold.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer());
-  const fontData = await font;
-
+ 
   return new ImageResponse(
     (
       <div
@@ -22,47 +17,50 @@ export async function GET(req: NextRequest) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          position: 'relative'
+          position: 'relative',
+          backgroundImage: 'url(https://gaboesquivel.com/images/opengraph-image.png)',
+          backgroundSize: '100% 100%',
+          backgroundRepeat: 'no-repeat',
+          background: 'black'
         }}
       >
-        <Image
-          src="https://gaboesquivel.com/images/opengraph-image.png"
-          alt="Background Image"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          style={{ zIndex: -1 }}
-        />
-        <div
+        {/* <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+            zIndex: 1
+          }}
+        /> */}
+        {/* <div
           style={{
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'center',
             fontSize: 130,
-            fontFamily: 'Kaisei Tokumin',
+            // fontFamily: 'monospace',
             letterSpacing: '-0.05em',
             fontStyle: 'normal',
-            color: '#54e8b3',
+            color: 'white',
             lineHeight: '120px',
             whiteSpace: 'pre-wrap',
-            width: '70%',
+            width: '75%',
             textAlign: 'center',
+            zIndex: 2,
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+            background: 'rgba(0, 0, 0, 0.7)'
           }}
         >
           {postTitle}
-        </div>
+        </div> */}
       </div>
     ),
     {
       width: 1920,
       height: 1080,
-      fonts: [
-        {
-          name: 'Kaisei Tokumin',
-          data: fontData,
-          style: 'normal',
-        },
-      ],
     }
   );
 }
