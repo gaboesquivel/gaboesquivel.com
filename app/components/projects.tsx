@@ -14,7 +14,7 @@ export function Projects({projects, tag}: {projects: any[], tag: string}) {
             </h2>
             <nav className='flex flex-wrap gap-2 md:gap-4'>
                 {options.map((option, optionIndex) => (
-                    <Link key={optionIndex} href={`/projects/${option !== 'full-time' ? option : ''}`} className={cn('rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800', tag === option ? 'text-accent' : '')}>
+                    <Link key={optionIndex} href={`/work/${option !== 'full-time' ? option : ''}`} className={cn('rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800', tag === option ? 'text-accent' : '')}>
                         {option}
                     </Link>
                 ))}
