@@ -1,16 +1,27 @@
 ---
-title: Async Patterns in React ( PolkadotJS )
+title: Async Patterns in React (PolkadotJS)
 publishedAt: 2023-09-05
 summary: Async Patterns for maintaining a clear separation between core logic and presentation.
 ---
+Updated in May 2024
 
-Having spent several years working with ReactJS and SPAs, I hold a steadfast belief in the importance of maintaining a clear separation between core logic and presentation (view logic). 
+### Leveraging TanStack for Async Operations
 
-In this post, I'll cover patterns that can assist you in achieving this separation. By retaining your core logic in Vanilla JavaScript or TypeScript and utilizing the `useAsync` and `useAsyncFn` hooks to handle asynchronous calls, you can establish a robust foundation for your projects. 
+In my recent work on [bitLauncher.ai](https://bitlauncher.ai), I've started using Wagmi, and I really appreciate its design and feature set. This shift has led me to use the `useQuery` hook more frequently than the `useAsync` helpers I used previously in the PolkadotJS examples.
 
-Inside a `services` directory, your goal is to house plain JavaScript functions responsible for interacting with external APIs and storage systems. These functions serve as adept containers for handling HTTPS requests, WebSocket communication, web storage, and API queries. 
+When working with React, I now recommend using TanStack (formerly known as React Query) for managing asynchronous operations and state. TanStack Query offers powerful caching, request deduplication, and persistence, which are essential for a seamless developer experience.
 
-In the forthcoming examples, I'll demonstrate the consumption of the PolkadotJS vanilla service from within React components following this approach.
+Wagmi leverages TanStack Query for caching, request deduplication, and persistence. It provides over 20 hooks for working with wallets, ENS, contracts, transactions, signing, and more. Additionally, Wagmi includes built-in wallet connectors for injected providers, WalletConnect, MetaMask, and Coinbase Wallet. Major projects like Coinbase, Stripe, Shopify, Uniswap, Optimism, ENS, and Sushi use Wagmi, demonstrating its robustness and reliability.
+
+The new Parity Capi Multisig App [Parity Capi Multisig App](https://github.com/paritytech/capi-multisig-app) also uses TanStack internally.
+
+---
+
+In this post, we'll explore patterns that help achieve a clean separation between core logic and presentation in your projects. By keeping your core logic in Vanilla TypeScript and utilizing the useAsync and useAsyncFn hooks for asynchronous operations, you can build a solid foundation for your applications.
+
+Within a services directory, you'll store plain JavaScript functions that handle interactions with external APIs and storage systems. These functions are designed to manage HTTP requests, WebSocket communications, web storage, and API queries effectively.
+
+In the examples that follow, I'll show how to consume the PolkadotJS vanilla service from React components using this approach.
 
 ```tsx
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -19,22 +30,22 @@ import { executePromisesInSeries } from '~/lib/async';
 const wsProvider = new WsProvider('wss://rpc.polkadot.io');
 
 export async function getApi(){
- return ApiPromise.create({ provider: wsProvider });
+  return ApiPromise.create({ provider: wsProvider });
 }
 
 export async function getChain(){
-  const api = await getApi()
-  return api.rpc.system.chain()
+  const api = await getApi();
+  return api.rpc.system.chain();
 }
 
 export async function getLatestHeader() {
-  const api = await getApi()
+  const api = await getApi();
   return api.rpc.chain.getHeader();
 }
 
 export async function getGenisisHash(){
-  const api = await getApi()
-  return api.genesisHash.toHex()
+  const api = await getApi();
+  return api.genesisHash.toHex();
 }
 
 export async function someVanillaSeries(){
@@ -43,33 +54,33 @@ export async function someVanillaSeries(){
     getGenisisHash, 
     getChain
   ];
-  return executePromisesInSeries(tasks)
+  return executePromisesInSeries(tasks);
 }
 
 export async function someVanillaParallel(){
-  const result = await Promise.all([getGenisisHash(), getChain()])
-  return await result
+  const result = await Promise.all([getGenisisHash(), getChain()]);
+  return await result;
 }
 
 export async function someVanillaConditional(){
-  const chain = await getChain()
-  const genesisHash = chain ? await getGenisisHash(): null
-  return genesisHash
+  const chain = await getChain();
+  const genesisHash = chain ? await getGenisisHash() : null;
+  return genesisHash;
 }
 ```
 
 If you'd like to avoid reconnecting to the WebSocket with each service call, you have the option to utilize the global window scope to maintain a reference to your connected API client. For instance, you can use `window.myappscope.api`.
 
-## Async calls on component mounted
+## Async Calls on Component Mounted
 
 ```tsx
-import { useAsync } from "~/hooks/use-async-fn"
-import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain"
+import { useAsync } from "~/hooks/use-async-fn";
+import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain";
 
-export function AsyncOnEnventConditial(){
-  const conditionalCallState = useAsync(someVanillaConditional)
-  const parallelCallState = useAsync(someVanillaParallel)
-  const seriesCallState = useAsync(someVanillaSeries)
+export function AsyncOnComponentMounted(){
+  const conditionalCallState = useAsync(someVanillaConditional);
+  const parallelCallState = useAsync(someVanillaParallel);
+  const seriesCallState = useAsync(someVanillaSeries);
   
   return (
     <div>
@@ -82,40 +93,40 @@ export function AsyncOnEnventConditial(){
       <h1>Async on Component Mounted in Series</h1>
       <pre>{JSON.stringify(seriesCallState, null, 2)}</pre>
     </div>
-  )
+  );
 }
 ```
 
-
-## Async calls on browser events
+## Async Calls on Browser Events
 
 ```tsx
-import { useAsyncFn } from "~/hooks/use-async-fn"
-import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain"
+import { useAsyncFn } from "~/hooks/use-async-fn";
+import { someVanillaConditional, someVanillaParallel, someVanillaSeries } from "~/services/chain";
 
-export function AsyncOnEnventConditial(){
-  const [conditionalCallState, callConditionalFn] = useAsyncFn(someVanillaConditional)
-  const [parallelCallState, callParallelFn] = useAsyncFn(someVanillaParallel)
-  const [seriesCallState, callSeriesFn] = useAsyncFn(someVanillaSeries)
+export function AsyncOnEvent(){
+  const [conditionalCallState, callConditionalFn] = useAsyncFn(someVanillaConditional);
+  const [parallelCallState, callParallelFn] = useAsyncFn(someVanillaParallel);
+  const [seriesCallState, callSeriesFn] = useAsyncFn(someVanillaSeries);
   
   return (
     <div>
       <h1>Async on Event Conditionally</h1>
-      <button onClick={callConditionalFn}>get data in conditionally</button>
+      <button onClick={callConditionalFn}>Get data conditionally</button>
       <pre>{JSON.stringify(conditionalCallState)}</pre>
 
       <h1>Async on Event in Parallel</h1>
-      <button onClick={callParallelFn}>get data in parallel</button>
+      <button onClick={callParallelFn}>Get data in parallel</button>
       <pre>{JSON.stringify(parallelCallState, null, 2)}</pre>
 
        <h1>Async on Event in Series</h1>
-      <button onClick={callSeriesFn}>get data in series</button>
+      <button onClick={callSeriesFn}>Get data in series</button>
       <pre>{JSON.stringify(seriesCallState, null, 2)}</pre>
     </div>
-  )
+  );
 }
 ```
 
-I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called <a href="https://github.com/streamich/react-use" target="_blank">react-use</a>. These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates. 
+I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called [react-use](https://github.com/streamich/react-use). These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates.
 
-Additional examples can be found on the following GitHub repository: https://github.com/gaboesquivel/react-async
+For more examples and code snippets, check out the [GitHub repository](https://github.com/gaboesquivel/react-async).
+
