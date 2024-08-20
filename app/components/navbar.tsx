@@ -18,6 +18,9 @@ const navItems = {
   '/blog': {
     name: 'blog',
   },
+  '/cv': {
+    name: 'cv',
+  },
 };
 
 export default function Navbar() {
@@ -79,7 +82,7 @@ export default function Navbar() {
                       github
                     </span>
                   </Link>
-              <Link
+              {/* <Link
                     key={783798798797}
                     href={"https://gaboesquivel.com/gaboesquivel-cv.pdf"}
                     target='_blank'
@@ -90,7 +93,7 @@ export default function Navbar() {
                     <span className="relative px-2 py-1">
                       cv
                     </span>
-                  </Link>
+                  </Link> */}
             </div>
           </nav>
         </LayoutGroup>
