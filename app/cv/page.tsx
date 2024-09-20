@@ -72,24 +72,7 @@ const experiences = [
       "EOS EVM", "Node.js", "AI SDK", "Claude Sonnet", "Cursor", "SourceryAI", "OpenAI"
     ]
   },
-  {
-    "company": "Bitcash",
-    "location": "Remote",
-    "duration": "Jan 2020 - Present · 4 yrs 8 mos",
-    "description": "Bitcash app allows you to exchange your money for local currency stablecoins or bitUSD, which you can then use to buy cryptocurrencies.",
-    "achievements": [
-      "Designed and developed a full-stack architecture using React, Vite, Node.js, PostgreSQL, Hasura GraphQL and Google Cloud",
-      "Developed p2p exchange system, internal realtime chat and backend matching engine",
-      "Implemented realtime indexer for EOS that deserialize EOS binary data using Node.js worker threads and stores data in a PostgreSQL database in Google Cloud",
-      "Developed webauthn key management allowing to sign transactions directly on the browser without requiring any wallet app bypassing the appstores restrictions",
-      "Developed QR request for signature allowing user login to other apps like Bitlauncher.ai and sign transactions securely by scanning a QR code, using Supabase subscriptions and webhooks",
-      "Setup initial multisig on EOS contracts while the DAO voting tools are still under development",
-      "Transitioned to a consultant role for technical decisions in July 2021, providing architectural guidance and expertise while focusing on EVM NFT development at RareMint"
-    ],
-    "techStack": [
-      "React", "Vite", "Node.js", "PostgreSQL", "Hasura GraphQL", "Google Cloud", "EOS", "WebAuthn", "Supabase", "TypeScript"
-    ]
-  },
+
   {
     "company": "ZTX",
     "location": "Remote",
@@ -122,8 +105,26 @@ const experiences = [
     ]
   },
   {
+    "company": "Bitcash",
+    "location": "Remote - Part-time",
+    "duration": "Jan 2020 - Jul 2021 · 1 yr 7 mos",
+    "description": "Bitcash app allows you to exchange your money for local currency stablecoins or bitUSD, which you can then use to buy cryptocurrencies.",
+    "achievements": [
+      "Designed and developed a full-stack architecture using React, Vite, Node.js, PostgreSQL, Hasura GraphQL and Google Cloud",
+      "Developed p2p exchange system, internal realtime chat and backend matching engine",
+      "Implemented realtime indexer for EOS that deserialize EOS binary data using Node.js worker threads and stores data in a PostgreSQL database in Google Cloud",
+      "Developed webauthn key management allowing to sign transactions directly on the browser without requiring any wallet app bypassing the appstores restrictions",
+      "Developed QR request for signature allowing user login to other apps like Bitlauncher.ai and sign transactions securely by scanning a QR code, using Supabase subscriptions and webhooks",
+      "Setup initial multisig on EOS contracts while the DAO voting tools are still under development",
+      "Transitioned to a consultant role for technical decisions in July 2021, providing architectural guidance and expertise while focusing on EVM NFT development at RareMint"
+    ],
+    "techStack": [
+      "React", "Vite", "Node.js", "PostgreSQL", "Hasura GraphQL", "Google Cloud", "EOS", "WebAuthn", "Supabase", "TypeScript"
+    ]
+  },
+  {
     "company": "Tractor Supply",
-    "location": "Remote",
+    "location": "Remote - Contract",
     "duration": "Jul 2020 - Dec 2020 · 6 mos",
     "description": "Tractor Supply is a leading global supplier of agricultural equipment and supplies.",
     "achievements": [
@@ -134,7 +135,7 @@ const experiences = [
   },
   {
     "company": "Emanate",
-    "location": "Remote",
+    "location": "Remote - Contract",
     "duration": "Dec 2019 - Jul 2020 · 8 mos",
     "description": "Emanate is a social media platform for artists to share their work and connect with other artists.",
     "achievements": [
