@@ -1,26 +1,45 @@
+import './cv.css'
+
 export default async function CVPage() {
   return (
-    <section className="p-0 m-0">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter">Curriculum Vitae</h1>
+    <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl">
+        <span className="hidden print:inline text-black">Gabo Esquivel - Sr. Engineer</span>
+        <span className="print:hidden ">Curriculum Vitae</span>
+      </h1>
+
+      <div className="mb-8 print:block hidden print:text-gray-700">
+        <p className="mb-4">
+          I'm a full-stack software engineer with over 15 years of experience assisting organizations in crafting and evolving software products from initial concept to successful market launch, ensuring ideas are realized to their full potential.
+        </p>
+        <p className="mb-4">
+          My focus is emerging technologies and user-centric innovation. My expertise spans web3, cloud, and full-stack web and mobile development, complemented by ongoing explorations in artificial intelligence.
+        </p>
+        <p className="mb-4">
+          My approach is rooted in agile methodologies, striving for parecision in technology implementation. I am fluent in English, Spanish, Portuguese, and Italian.
+        </p>
+      </div>
+
+
       <div className="space-y-8">
         {experiences.map((experience, index) => (
           <div key={index} >
-            <h2 className="text-xl font-semibold mb-2">{experience.company}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+            <h2 className="text-xl font-semibold mb-2 print:text-black">{experience.company}</h2>
+            <p className="text-sm exp-duration dark:text-gray-400 mb-2">
               {experience.location} • {experience.duration}
             </p>
-            <p className="mb-4 text-gray-700 dark:text-gray-300">
+            <p className="mb-4 exp-description dark:text-gray-300">
               {experience.description}
             </p>
-            <h3 className="font-medium mb-2">Key Achievements:</h3>
-            <ul className="list-disc pl-5 mb-4 space-y-1 text-gray-700 dark:text-gray-300">
+            <h3 className="font-medium mb-2 exp-description">Key Achievements:</h3>
+            <ul className="list-disc pl-5 mb-4 space-y-1 text-gray-700 dark:text-gray-300 !print:text-gray-700">
               {experience.achievements.map((achievement, achIndex) => (
                 <li key={achIndex}>{achievement}</li>
               ))}
             </ul>
             <div className="flex flex-wrap gap-2">
               {experience.techStack.map((tech, techIndex) => (
-                <span key={techIndex} className="rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800 text-xs font-medium text-gray-800 dark:text-gray-200 text-accent">
+                <span key={techIndex} className="rounded-md px-2 py-1 hidden print:hidden bg-neutral-200 dark:bg-neutral-800 text-xs font-medium text-gray-700 dark:text-gray-200 text-accent">
                   {tech}
                 </span>
               ))}

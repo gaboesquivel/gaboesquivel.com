@@ -1,0 +1,24 @@
+@media print {
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  p, li, .exp-description{
+    @apply text-gray-700 !important;
+  }
+  .exp-duration{
+    @apply text-gray-300 !important;
+  }
+  .navbar {
+    display: none;
+  }
+  .cv-content {
+    display: block !important;
+    /* color: #333333 !important; */
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+}
