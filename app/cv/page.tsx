@@ -122,17 +122,17 @@ const experiences = [
       "React", "Vite", "Node.js", "PostgreSQL", "Hasura GraphQL", "Google Cloud", "EOS", "WebAuthn", "Supabase", "TypeScript"
     ]
   },
-  {
-    "company": "Tractor Supply",
-    "location": "Remote - Contract",
-    "duration": "Jul 2020 - Dec 2020 · 6 mos",
-    "description": "Tractor Supply is a leading global supplier of agricultural equipment and supplies.",
-    "achievements": [
-      "Evaluated and provided improvement feedback to inhouse team on React Native architecture, such as removing unnecessary abstractions, code duplication and OO patterns in favor of a more functional approach",
-      "Developed augmented reality feature to allow users to scan and visualize tents and storage units in their field using ViroReact"
-    ],
-    "techStack": ["React Native", "ViroReact", "TypeScript"]
-  },
+  // {
+  //   "company": "Tractor Supply",
+  //   "location": "Remote - Contract",
+  //   "duration": "Jul 2020 - Dec 2020 · 6 mos",
+  //   "description": "Tractor Supply is a leading global supplier of agricultural equipment and supplies.",
+  //   "achievements": [
+  //     "Evaluated and provided improvement feedback to inhouse team on React Native architecture, such as removing unnecessary abstractions, code duplication and OO patterns in favor of a more functional approach",
+  //     "Developed augmented reality feature to allow users to scan and visualize tents and storage units in their field using ViroReact"
+  //   ],
+  //   "techStack": ["React Native", "ViroReact", "TypeScript"]
+  // },
   {
     "company": "Emanate",
     "location": "Remote - Contract",
