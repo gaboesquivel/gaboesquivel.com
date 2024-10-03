@@ -21,9 +21,26 @@ In the rapidly evolving landscape of Web3 development, creating efficient, scala
 2. Efficient data handling with API reads and EVM transaction writes
 3. Optimized data fetching using React Query
 4. Feature-based code organization
-5. Pragmatic abstraction
+5. Pragmatic abstraction (AHA Programming)
 
 Let's dive deeper into each of these principles.
+
+
+### Code Collocation
+
+Code collocation is a principle in React development that emphasizes organizing code by feature or functionality rather than by file type. This approach, championed by Kent C. Dodds and others in the React community, offers several benefits:
+
+1. **Improved Maintainability**: By keeping related code close together, it's easier to understand and modify features.
+2. **Better Scalability**: As your application grows, collocated code remains manageable and doesn't spread across multiple directories.
+3. **Faster Development**: Developers can focus on one feature at a time without jumping between different files and folders.
+4. **Easier Refactoring**: When code is collocated, it's simpler to extract or move features as needed.
+
+In practice, code collocation in React might look like this:
+
+- Instead of separate directories for components, styles, and tests, you might have a feature-based structure.
+- Related components, hooks, utilities, and tests are kept in the same directory.
+
+For a more detailed explanation and examples, refer to Kent C. Dodds' article on the subject: [Colocation](https://kentcdodds.com/blog/colocation).
 
 ### Managing State with URLs
 
@@ -74,3 +91,23 @@ Best Practices:
 4. **Prefetching**: Utilize React Query's prefetching capabilities to load data before it's needed.
 
 By leveraging cached queries effectively, you can significantly optimize your application's data fetching strategy, leading to improved performance and a better user experience.
+
+
+### Pragmatic Abstraction (AHA Programming)
+
+Pragmatic Abstraction, often referred to as AHA Programming, is a development philosophy that emphasizes simplicity and practicality in software design. It encourages developers to avoid unnecessary complexity and to focus on creating solutions that are both effective and easy to understand.
+
+Key Principles:
+
+1. **Avoid Premature Optimization**: Start with a simple and clear solution, and only optimize when necessary.
+2. **Keep It Simple**: Use straightforward approaches that are easy to understand and maintain.
+3. **Focus on the Problem**: Concentrate on solving the problem at hand rather than creating a more complex solution.
+4. **Use Standard Libraries**: Leverage well-established libraries and patterns that have proven track records.
+5. **Avoid Over-Engineering**: Resist the urge to create overly complex designs that may be harder to maintain.
+
+Benefits:
+
+1. **Simplicity**: AHA programming leads to simpler, more understandable code.
+2. **Maintainability**: Code that is easy to understand is easier to maintain.
+3. **Flexibility**: Simpler designs are more flexible and can adapt to changes more easily.
+
