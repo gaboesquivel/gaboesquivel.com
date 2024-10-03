@@ -1,0 +1,76 @@
+---
+title: Modern Next.js Web3 Architecture
+publishedAt: 2024-10-01
+summary: Building scalable Web3 apps with Next.js
+image: /images/2024/10/nextjs-web3-architecture.webp
+---
+
+In the rapidly evolving landscape of Web3 development, creating efficient, scalable, and user-friendly applications is crucial. This guide outlines a modern architecture for building Web3 applications using Next.js, incorporating best practices and optimizations for performance and maintainability.
+
+
+{/* Prevent CLS by setting a minimum height */}
+<div style={{ minHeight: '300px' }}>
+![Next.js Web3 Architecture](/images/2024/10/nextjs-web3-architecture.webp)
+</div>
+
+
+
+## Architectural Principles
+
+1. URL-based state management
+2. Efficient data handling with API reads and EVM transaction writes
+3. Optimized data fetching using React Query
+4. Feature-based code organization
+5. Pragmatic abstraction
+
+Let's dive deeper into each of these principles.
+
+### Managing State with URLs
+
+Relying on URLs for state changes in Next.js enhances user experience by preserving application state across page reloads and enabling easy sharing. This approach is particularly useful for managing user settings, filters, and other dynamic data.
+
+Benefits of URL-Based State Management:
+
+1. **Persistence**: State information encoded in the URL survives page refreshes, crucial for applications where users may navigate away and return later.
+2. **Shareability**: Users can share specific application states via URLs, allowing direct access to particular views or settings.
+3. **SEO Advantages**: Canonical URLs help search engines understand which version of a page should be indexed, preventing duplicate content issues.
+
+
+### One Subscription per Route
+
+Implementing a single subscription for each route in your API architecture offers several advantages:
+
+1. **Reduced Connection Overhead**: Fewer active connections lead to improved performance and lower latency.
+2. **Simplified Management**: Easier to implement changes and troubleshoot issues with fewer subscriptions.
+3. **Streamlined Traffic Management**: More efficient handling of requests and responses, optimizing resource allocation.
+
+Cached Queries
+
+Singleton instances of queries are a powerful optimization technique that reduces server connections and improves data consistency across components. This approach is particularly beneficial when multiple components require the same data, allowing them to share a single query instance.
+
+Benefits of Cached Queries:
+
+1. **Reduced Server Load**: By minimizing redundant API calls, singleton queries decrease the overall load on your server.
+2. **Improved Performance**: Fewer network requests lead to faster page loads and a smoother user experience.
+3. **Consistent Data**: All components access the same data instance, ensuring consistency throughout the application.
+4. **Efficient Caching**: Centralized data management simplifies cache invalidation and updates.
+
+Implementation with React Query:
+
+React Query provides built-in support for singleton queries through its intelligent caching mechanism. The query key acts as a unique identifier:
+
+Key aspects of React Query's caching behavior:
+
+1. **Caching**: Identical query keys return cached data, avoiding unnecessary API calls.
+2. **Smart Refetching**: React Query automatically refetches stale data or when specific conditions are met (e.g., window focus, network reconnection).
+3. **Shared State**: Components using the same query key share data and loading states.
+4. **Automatic Deduplication**: Simultaneous requests for the same data are consolidated into a single API call.
+
+Best Practices:
+
+1. **Consistent Query Keys**: Use a standardized format for query keys to ensure proper caching and deduplication.
+2. **Granular Keys**: Include relevant parameters in the query key for precise cache management.
+3. **Global Queries**: For app-wide data, consider initializing queries at the root level.
+4. **Prefetching**: Utilize React Query's prefetching capabilities to load data before it's needed.
+
+By leveraging cached queries effectively, you can significantly optimize your application's data fetching strategy, leading to improved performance and a better user experience.
