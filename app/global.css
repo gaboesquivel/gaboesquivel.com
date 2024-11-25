@@ -43,6 +43,7 @@ html {
 
 .prose pre {
   @apply border border-neutral-800 bg-neutral-900;
+  padding: 0 !important;
 }
 
 .prose code {
@@ -64,10 +65,10 @@ html {
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
 }
-
 code[class*='language-'],
 pre[class*='language-'] {
-  @apply text-neutral-50;
+  @apply text-neutral-50 ;
+
 }
 
 pre::-webkit-scrollbar {
@@ -77,6 +78,11 @@ pre::-webkit-scrollbar {
 pre {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+
+}
+
+pre code {
+  padding: 10px !important;
 }
 
 /* Remove Safari input shadow on mobile */

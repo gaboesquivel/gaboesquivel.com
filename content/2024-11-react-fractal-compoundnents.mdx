@@ -1,0 +1,248 @@
+---
+title: React Fractal Compoundents
+publishedAt: 2024-11-25
+summary: Modular Design for a Compounding Effect
+image: /images/2024/10/nextjs-web3-architecture.webp
+---
+
+In software development, the principles of fractals and compounding unlock opportunities for modularity, scalability, and reusability. In this post, we’ll explore how fractal components in React can emulate the self-similarity found in nature, leveraging a consistent, layered design. Along the way, we'll borrow concepts from finance—how small, consistent actions compound over time—and show how applying these to your codebase can multiply software delivery efficiency.
+
+
+{/* Prevent CLS by setting a minimum height */}
+<div style={{ minHeight: '300px' }}>
+![React Fractal compoundnents](/images/2024/11/react-fractal-compoundnents.webp)
+</div>
+
+## Fractals: The Power of Self-Similarity
+
+Fractals are recursive patterns that maintain their structure across different scales. Think of a fern leaf: its smallest parts mirror the structure of the whole. This concept of self-similarity ensures predictability and simplicity in complexity, a feature that’s crucial in software systems.
+
+
+## Compounding in Finance and Code
+
+In finance, compounding refers to generating earnings on reinvested earnings over time. Small, regular contributions snowball into substantial growth. Applied to software, this idea means designing systems where small improvements or extensions compound value without introducing technical debt. Fractal components create reusable building blocks that fit together seamlessly, enabling developers to move faster with less friction.
+
+
+## React Fractal Components: A Recipe for Modularity
+
+In React, fractal design combines self-similarity with modularity. Here's how this approach applies:
+
+1. **Uniform Folder Structures:** Each folder mirrors the same structure—organized by routes, features, or components. 
+   
+2. **Consistent Tech Stack:** All components follow the same standards:
+   - **tanstack/react-query**: Standardized data fetching and caching, following a predictable query model.
+   - **nuqs**: URL-based state management decouples components from internal logic.
+   - **Supabase**: A backend with API logic abstracted into dedicated folders, making backend and frontend portable and reusable.
+
+3. **Scalable Design Systems:** Shadcn/UI and Tailwind CSS ensure a consistent and portable UI, adaptable even for generative design workflows (GenerativeUI).
+
+4. **Collocation with AHA Workflow:** Components are refactored only when they naturally reveal the need for reusability (Avoid Hasty Abstractions).
+
+
+## Folder Structure
+
+The project uses a consistent, self-similar folder hierarchy, promoting predictability and reusability:
+
+```bash
+repo/
+  - supabase/
+    - src/
+        - market/
+           - index.ts
+           - types.ts
+        - account/
+          - index.ts
+          - types.ts
+  - hooks/
+    - src/
+      - market/
+        - index.ts
+        - types.ts
+        - use-markets.ts
+      - account/
+        - index.ts
+        - types.ts
+        - use-account.ts
+  - app/
+    - src/
+      - market/
+        - list/
+          - index.tsx
+          - types.ts
+        - detail/
+          - use-market-collateral.ts
+          - index.tsx
+          - types.ts
+      - account/
+        - index.tsx
+        - hooks/
+          - use-account-health.ts
+          - use-account-positions.ts
+          - types.ts
+        - health.tsx
+        - positions.tsx
+        - types.ts    
+```
+
+
+## Concrete Implementation
+
+### 1. Data Fetching with React Query
+
+Here’s how data fetching logic is standardized and portable, ensuring reuse on the frontend and backend:
+
+```ts
+// repo/hooks/useMarkets.ts
+
+import { useQuery } from '@tanstack/react-query'
+import { createSupabaseClient } from '@repo/supabase'
+import { getMarkets } from '@/api/market'
+
+export function useMarkets() {
+  return useQuery({
+    queryKey: ['markets'],
+    queryFn: async () => {
+      const supabase = await createSupabaseClient()
+      return getMarkets({ supabase })
+    }
+  })
+}
+```
+
+This hook fetches markets consistently across your app. It uses **tanstack/react-query** for caching and a Supabase abstraction to isolate backend logic.
+
+
+### 2. Reusable Components
+
+Components are portable, decoupled, and reactive to URL state. Here's an example:
+
+```tsx
+// repo/app/market/list/index.tsx
+
+import { useMarkets } from '@repo/hooks'
+import { useQueryStates } from 'nuqs'
+
+export function MarketList() {
+  const { data: markets, isLoading } = useMarkets()
+  const [, setStates] = useQueryStates({
+    marketId: {},
+    dialog: { defaultValue: '' }
+  })
+
+  if (isLoading) return <div>Loading...</div>
+  if (!markets?.length) return <div>No markets found</div>
+
+  return (
+    <div>
+      {markets.map((market) => (
+        <div key={market.id}>
+          <h3>{market.name}</h3>
+          <button onClick={() => setStates({
+            marketId: market.id,
+            dialog: 'deposit'
+          })}>
+            Deposit
+          </button>
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+```tsx
+import {dialogs} from './dialog-catalog'
+function AppDialog() {
+  const [dialog] = useQueryState('dialog')  
+  if (!dialog) return null
+
+  return (
+    <Dialog open={Boolean(marketId)}>
+      <DialogContent>
+        {dialogs[dialog]}
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+```
+
+```tsx
+// app dialogs catalog
+import { DepositDialogContent } from './deposit-dialog-content.tsx'
+
+export dialogs = {
+  deposit: <DepositDialogContent/>
+}
+
+````
+
+
+```tsx
+// deposit-dialog-content.tsx
+export function DepositDialogContent() {
+  const { data: markets, isLoading } = useMarkets()
+  const [marketId] = useQueryState('marketId')
+  const [, setStates] = useQueryStates({
+    marketId: {},
+    dialog: { defaultValue: '' }
+  })
+  const market = markets?.find(market => market.id === marketId)
+
+  if(!market) return null
+
+// removes url values on close
+  const handleClose = () => {
+    setStates({
+      marketId: undefined,
+      dialog: undefined
+    })
+  }
+
+  return (
+    <>
+      <DialogHeader>
+        <DialogTitle>
+          Deposit to {market.name}
+        </DialogTitle>
+        <DialogDescription>
+          Deposit {market.numeraire.symbol} as collateral
+        </DialogDescription>
+      </DialogHeader>
+      {/* Add deposit form here */}
+      <DialogFooter>
+        <Button variant="outline" onClick={handleClose}>
+          Close
+        </Button>
+      </DialogFooter>
+    </>
+  )
+}
+
+```
+
+The dialog functionality utilizes **nuqs** for URL-based state management, ensuring components remain context-independent and fully reusable across the application. Each component operates in isolation, with no dependencies or awareness of one another, achieving complete decoupling. Meanwhile, TanStack Query’s robust caching, accessed via `useMarkets`, streamlines data fetching by avoiding redundant requests, ensuring optimal performance and seamless UI responsiveness. By adhering to consistent patterns, components become intuitive and predictable, significantly reducing cognitive load during development and enhancing overall maintainability.
+
+## Supporting Tools
+
+To maintain consistency and productivity:
+
+- **Cursor Rules:** Templates and conventions for fractal components are embedded in development workflows to guide AI-assisted coding.
+- **Biome and Turbo/Bun:** Ensure consistent linting, code style, and monorepo encapsulation.
+
+
+## Why It Matters
+
+By following a fractal approach:
+
+- **Modularity Scales:** Developers can confidently extend features without breaking the system.
+- **Consistency Accelerates Delivery:** Predictable folder structures and shared patterns reduce onboarding time.
+- **Reusability Compounds Value:** Self-contained, decoupled components are portable across projects.
+
+
+React fractal components don’t just organize your code—they redefine how you think about scalability. Build with self-similarity, compound your progress, and unlock the potential for exponential software delivery.
+
+{/* Prevent CLS by setting a minimum height */}
+<div style={{ minHeight: '300px' }}>
+![React compoundnents](/images/2024/11/leo-compundnents.png)
+</div>
