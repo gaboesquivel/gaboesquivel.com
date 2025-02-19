@@ -1,0 +1,173 @@
+---
+title: Math in JavaScript and DeFi
+publishedAt: 2025-01-19
+summary: Best Practices for Math in JS & DeFi
+image: /images/2025/01/math-in-javascript-defi.webp
+---
+
+Mathematics in JavaScript can be tricky, especially when dealing with financial applications like DeFi. Precision errors, floating-point quirks, and handling large numbers are all challenges developers must address. In this post, we’ll cover key math issues in JavaScript, best practices for handling numbers in DeFi, and tools like `bignumber.js`, `BigInt`, and `viem` utilities.
+
+
+{/* Prevent CLS by setting a minimum height */}
+<div style={{ minHeight: '300px' }}>
+![Math in JavaScript and DeFi](/images/2025/01/math-in-javascript-defi.webp)
+</div>
+
+
+## The Basics: Floating-Point Math in JavaScript
+
+JavaScript uses **IEEE 754 floating-point arithmetic**, which introduces quirks when performing arithmetic operations. This can lead to unexpected results:
+
+```js
+console.log(0.1 + 0.2); // 0.30000000000000004
+console.log(0.3 - 0.1); // 0.19999999999999998
+```
+
+### Why Is This a Problem in DeFi?
+
+DeFi applications require **precise calculations**, especially when dealing with token balances, staking rewards, and interest rates. Small precision errors can lead to significant discrepancies in financial transactions.
+
+
+## Handling Precision: Decimals in DeFi
+
+Most ERC-20 tokens and DeFi protocols use **fixed decimal places** instead of floating-point numbers. Token balances are usually represented in their smallest unit (e.g., wei for ETH, satoshis for BTC) and later formatted for human readability.
+
+### Example: Converting Token Amounts
+
+```js
+const tokenDecimals = 18;
+const rawBalance = BigInt("1000000000000000000"); // 1 ETH in wei
+const formattedBalance = Number(rawBalance) / 10 ** tokenDecimals;
+console.log(formattedBalance); // 1.0
+```
+
+While using JavaScript’s `Number` type for such conversions works, it is prone to floating-point precision errors. A better approach is to use a **Big Number library** like `bignumber.js`, which ensures robustness, consistency, and improved readability when dealing with precise financial calculations.
+
+### Why `bignumber.js`?
+- **Arbitrary precision**: Prevents floating-point errors.
+- **Performance optimized**: Faster than alternatives like `decimal.js`.
+- **Compact**: Smaller than other libraries.
+- **Well-maintained**: Reliable and actively supported.
+
+### When to Consider Alternatives:
+- If only basic decimal math is needed, `big.js` is smaller and faster.
+- For advanced math functions, `decimal.js` offers more capabilities.
+- If working with large integers only, **native `BigInt`** is a viable alternative.
+
+### Example: Safe Arithmetic with `bignumber.js`
+
+```js
+import BigNumber from "bignumber.js";
+
+const a = new BigNumber("0.1");
+const b = new BigNumber("0.2");
+const sum = a.plus(b);
+
+console.log(sum.toString()); // "0.3"
+```
+
+Using `bignumber.js` ensures predictable behavior and avoids floating-point inaccuracies.
+
+
+## Math on EVM: Using Viem’s Utilities
+
+When working with Ethereum Virtual Machine (EVM) transactions, **Viem** provides utilities for handling numeric conversions:
+
+```js
+import { parseUnits, formatUnits } from "viem";
+
+const amountInWei = parseUnits("1.5", 18);
+console.log(amountInWei.toString()); // "1500000000000000000"
+
+const formatted = formatUnits(amountInWei, 18);
+console.log(formatted); // "1.5"
+```
+
+Viem ensures accurate and safe unit conversions when interacting with smart contracts.
+
+
+## Best Practices for Math in JavaScript and DeFi
+
+### 1. Avoid Floating-Point Math for Financial Calculations
+Use **BigInt**, `bignumber.js`, or Viem utilities instead of `Number` when handling token amounts.
+
+### 2. Keep Math in Pure Functions
+Mathematical operations should be performed outside React components and stored in separate modules:
+
+```js
+// utils/math.js
+import BigNumber from "bignumber.js";
+
+export function add(a, b) {
+  if (a === null || b === null) return null;
+  return new BigNumber(a).plus(new BigNumber(b)).toString();
+}
+```
+
+This makes the code testable, reusable, and easier to maintain.
+
+### Example: Forecasting Staking Rewards
+
+```js
+import BigNumber from "bignumber.js";
+
+export function calculateStakingRewards(initialStake, apr, days) {
+  if (!initialStake || !apr || !days) return null;
+  
+  const stake = new BigNumber(initialStake);
+  const rate = new BigNumber(apr).div(100);
+  const time = new BigNumber(days).div(365);
+  
+  return stake.times(rate).times(time).plus(stake).toString();
+}
+
+// Usage
+const reward = calculateStakingRewards("1000", "5", "30");
+console.log(reward); // Returns estimated stake + rewards after 30 days
+```
+
+This function keeps staking reward calculations pure and reusable, ensuring predictable behavior across different parts of the application.
+
+### 3. Use Standardized Libraries for Token Operations
+Instead of writing manual conversions, rely on **Viem** or **ethers.js** utilities.
+
+### 4. Always Validate and Format User Inputs
+Ensure inputs are properly formatted before performing calculations:
+
+```js
+const userInput = "1.23456789";
+const amount = new BigNumber(userInput);
+if (!amount.isFinite()) throw new Error("Invalid number");
+```
+
+### 5. Use Null Instead of Zero Defaults
+Using `null` as a default value instead of `0` avoids unintended calculations where `0` could lead to incorrect results:
+
+```js
+function safeDivide(a, b) {
+  if (a === null || b === null || b.isZero()) return null;
+  return a.dividedBy(b).toString();
+}
+```
+
+This prevents division by zero errors and incorrect assumptions in calculations.
+
+### 6. Use TypeScript for Type Safety
+Enforcing type safety prevents unexpected errors in financial calculations:
+
+```ts
+import BigNumber from "bignumber.js";
+
+function multiply(a: string | null, b: string | null): string | null {
+  if (a === null || b === null) return null;
+  return new BigNumber(a).times(new BigNumber(b)).toString();
+}
+```
+
+
+## Conclusion: Precision Matters
+
+Math is critical in DeFi applications, and improper handling can lead to significant financial discrepancies. By avoiding floating-point math, using `bignumber.js` for precision, and leveraging EVM utilities like **Viem**, you can ensure reliable and secure calculations in your DeFi projects.
+
+Follow best practices, keep math in pure functions, and validate inputs to build robust financial applications. Using `null` instead of `0` as a default value prevents unintended calculations and errors.
+
