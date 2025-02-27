@@ -1,17 +1,15 @@
 'use client'
 
-import { Printer } from 'lucide-react'
+import { FileText } from 'lucide-react'
 
 export function PrintButton() {
-  const handlePrint = () => window.print()
-
   return (
-    <button
-      type="button"
-      onClick={handlePrint}
+    <a
+      href="/gaboesquivel-cv.pdf"
+      download="gaboesquivel-cv.pdf"
       className="print:hidden flex items-center gap-2 text-sm hover:text-accent transition-colors"
     >
-      Print <Printer className="h-3.5 w-3.5" />
-    </button>
+      PDF <FileText className="h-3.5 w-3.5" />
+    </a>
   )
-} 
+}
