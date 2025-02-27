@@ -1,9 +1,9 @@
 import './global.css';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
-import Navbar from './components/navbar';
+import Navbar from './components/layout/navbar';
 import { Analytics } from '@vercel/analytics/react';
-import { Footer } from './components/footer';
+import { Footer } from './components/layout/footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),

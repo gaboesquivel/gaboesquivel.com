@@ -1,4 +1,4 @@
-import { Projects } from 'app/components/projects';
+import { Projects } from 'app/components/work/projects';
 import {projects} from 'gaboesquivel';
 
 export default function WorkPage({params}: {params: {tag: string}}){

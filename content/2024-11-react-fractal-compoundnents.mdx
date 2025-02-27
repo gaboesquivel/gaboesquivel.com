@@ -97,7 +97,7 @@ Here’s how data fetching logic is standardized and portable, ensuring reuse on
 // repo/hooks/useMarkets.ts
 
 import { useQuery } from '@tanstack/react-query'
-import { createSupabaseClient } from '@repo/supabase'
+import { createSupabaseClient } from '@repo/db'
 import { getMarkets } from '@/api/market'
 
 export function useMarkets() {
