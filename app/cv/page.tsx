@@ -12,13 +12,13 @@ export default function CVPage() {
 
       <div className="mb-8 print:block hidden print:text-gray-700">
         <p className="mb-4">
-          I'm a full-stack software engineer with over 15 years of experience assisting organizations in crafting and evolving software products from initial concept to successful market launch, ensuring ideas are realized to their full potential.
+          Full-stack engineer with 15+ years of experience in Web3, AI, and fintech. I specialize in designing scalable systems, leading engineering teams, and leveraging blockchain and AI for product innovation. Fluent in English, Spanish, Portuguese, and Italian.
         </p> 
         <p className="mb-4">
           My focus is emerging technologies and user-centric innovation. My expertise spans web3, cloud, and full-stack web and mobile development, complemented by ongoing explorations in artificial intelligence.
         </p>
         <p className="mb-4">
-          My approach is rooted in agile methodologies, striving for parecision in technology implementation. I am fluent in English, Spanish, Portuguese, and Italian.
+          My approach is rooted in agile methodologies, striving for precision in technology implementation.
         </p>
       </div>
 
@@ -57,7 +57,15 @@ const experiences = [
   {
     "company": "Bitlauncher",
     "location": "Remote",
-    "duration": "Nov 2023 - Present · 10 mos",
+    "duration": (() => {
+      const startDate = new Date('2023-11-01');
+      const now = new Date();
+      const diffInMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+      const years = Math.floor(diffInMonths / 12);
+      const months = diffInMonths % 12;
+      const formattedDuration = `${years > 0 ? `${years} yr${years > 1 ? 's' : ''} ` : ''}${months > 0 ? `${months} mo${months > 1 ? 's' : ''}` : ''}`.trim();
+      return `Nov 2023 - Present · ${formattedDuration}`;
+    })(),
     "description": "Bitlauncher is an AI and crypto launchpad platform that provides early access to promising AI unicorn startups through token sales and auctions.",
     "achievements": [
       "Designed full-stack architecture using Viem, Wagmi, Alchemy, Trigger.dev, Supabase, Next.js 14, and ShadcnUI for a scalable and responsive platform",
@@ -81,13 +89,12 @@ const experiences = [
     "duration": "Aug 2022 - Aug 2023 · 1 yr 1 mo",
     "description": "ZTX is a virtual world platform integrating cryptocurrency for digital asset ownership. Users can mint, trade, and utilize blockchain-based items within the game, creating a decentralized virtual economy that enhances gameplay and user engagement.",
     "achievements": [
-      "Setup the initial React frontend using Next.js, TailwindCSS and Framer Motion",
-      "Implemented WebGL EVM wallet connector using MetaMask, Ethers and a custom JavaScript event system",
+      "Setup the initial React architecture using Next.js, TailwindCSS and Framer Motion",
+      "Implemented a WebGL EVM wallet connector using Ethers and a custom JavaScript event system",
       "Set up advanced analytics and reporting using Google Analytics Tag Manager"
     ],
     "techStack": [
-      "React", "Next.js", "TailwindCSS", "Framer Motion", "WebGL", "MetaMask", "Ethers",
-      "Google Analytics Tag Manager"
+      "React", "Next.js", "TailwindCSS", "Framer Motion", "WebGL", "Ethers", "Analytics"
     ]
   },
   {
