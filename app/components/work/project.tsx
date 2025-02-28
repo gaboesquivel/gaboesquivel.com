@@ -25,7 +25,11 @@ export function Project({
         )
       })}
 
-      <a href={project.link} target="_blank" rel="noopener noreferrer">
+      <a
+        href={full ? project.link : `/work/${project.slug}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div className="h-[200px] md:h-[400px] w-full relative mb-6">
           <Image
             src={project.image.replace('https://gaboesquivel.com', '')}
@@ -88,7 +92,15 @@ export function Project({
         </div>
       )}
 
-      <p className="text-sm mt-10">
+      {full && project.link && project.link !== project.repo && (
+        <p className="text-sm mt-10">
+          <span className="font-bold">Link:</span>{' '}
+          <a href={project.link} target="_blank" rel="noopener noreferrer">
+            {project.link}
+          </a>
+        </p>
+      )}
+      <p className="text-sm ">
         {' '}
         <span className="font-bold">Stack:</span>{' '}
         {project.technologies.map((tech, techIndex) => (
