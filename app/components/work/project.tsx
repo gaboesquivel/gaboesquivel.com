@@ -1,6 +1,7 @@
 import Balancer from 'react-wrap-balancer'
 import Image from 'next/image'
 import { YouTubePlayer } from 'app/components/youtube'
+import { Library } from 'lucide-react'
 
 export function Project({
   project,
@@ -37,28 +38,59 @@ export function Project({
         </div>
       </a>
 
-      {full && project.achievements && project.achievements.length > 0 && (
-        <div className="lmb-4">
-          {project.achievements.map((achievement, index) => (
-            <p
-              key={`${project.slug}-achievement-${index}`}
-              className="prose prose-neutral dark:prose-invert"
-            >
-              {achievement}
-            </p>
+      {full && project.story && project.story.length > 0 && (
+        <div className="mb-4">
+          {project.story.map((achievement, index) => (
+            <p key={`${project.slug}-achievement-${index}`}>{achievement}</p>
           ))}
         </div>
       )}
 
-      {project.video && (
+      {full && project.video && (
         <div className="h-[200px] md:h-[400px] w-full relative mb-6">
           <YouTubePlayer title={project.title} url={project.video} />
         </div>
       )}
 
-      <p className="text-sm">
+      {full && project.achievements && project.achievements.length > 0 && (
+        <>
+          <h3 className="font-bold text-base tracking-tighter mb-4">
+            Achievements:
+          </h3>
+          <ol className="mb-4 list-disc list-inside space-y-4">
+            {project.achievements.map((achievement, index) => (
+              <li
+                key={`${project.slug}-achievement-${index}`}
+                className="text-base"
+              >
+                {achievement}
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
+
+      {full && project.images && project.images.length > 0 && (
+        <div className="mb-4">
+          {project.images.map((image) => (
+            <div
+              key={`${image}`}
+              className="h-[200px] md:h-[400px] w-full relative mb-6"
+            >
+              <Image
+                src={image.replace('https://gaboesquivel.com', '')}
+                alt={`${project.title} Image`} // Provide alt text
+                fill={true}
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <p className="text-sm mt-10">
         {' '}
-        Stack:{' '}
+        <span className="font-bold">Stack:</span>{' '}
         {project.technologies.map((tech, techIndex) => (
           <span key={`${project.slug}-${techIndex}`}>
             {tech}
@@ -67,16 +99,14 @@ export function Project({
         ))}
       </p>
 
-      <p className="text-sm">
-        {project.repo && (
-          <span>
-            Repo:{' '}
-            <a href={project.repo} target="_blank" rel="noopener noreferrer">
-              {project.repo}
-            </a>
-          </span>
-        )}
-      </p>
+      {full && project.repo && (
+        <p className="text-sm">
+          <span className="font-bold">Repo:</span>{' '}
+          <a href={project.repo} target="_blank" rel="noopener noreferrer">
+            {project.repo}
+          </a>
+        </p>
+      )}
     </div>
   )
 }
