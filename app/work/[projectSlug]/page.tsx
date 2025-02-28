@@ -3,5 +3,5 @@ import {projects} from 'gaboesquivel';
 
 export default function ProjectPage({params}: {params: {projectSlug: string}}){
   const [project] = projects.filter(project => project.slug === params.projectSlug);
-  return <Project project={project} />
+  return <Project project={project} full={true} />
 }
