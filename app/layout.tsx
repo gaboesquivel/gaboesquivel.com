@@ -1,9 +1,9 @@
 import './global.css';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
-import Navbar from './components/layout/navbar';
+import Navbar from '../components/layout/navbar';
 import { Analytics } from '@vercel/analytics/react';
-import { Footer } from './components/layout/footer';
+import { Footer } from '../components/layout/footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
@@ -55,7 +55,7 @@ export default function RootLayout({
     >
       <body className="relative mb-40 antialiased">
         <div className='w-full h-0.5 bg-accent sticky top-0 z-50' />
-        <main className="flex flex-col flex-auto max-w-2xl min-w-0 px-4 mt-6 lg:mx-auto md:px-0">
+        <main className="flex flex-col flex-auto max-w-3xl min-w-0 px-4 mt-6 lg:mx-auto md:px-0">
           <Navbar />
           {children}
           {/* <Footer /> */}

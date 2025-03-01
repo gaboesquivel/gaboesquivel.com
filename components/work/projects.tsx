@@ -7,15 +7,15 @@ import {Project} from './project';
 
 const options = ['full-time', 'contract', 'ai', 'web3', 'lead', 'oss', 'hackathon', 'other'] // 'personal'
 
-export function Projects({projects, tag, showMoreLink = true}: {projects: any[], tag?: string, showMoreLink?: boolean}) {
+export function Projects({projects, type, showMoreLink = true}: {projects: any[], type?: string, showMoreLink?: boolean}) {
   return (
       <section>
               <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
-            {tag ? <Balancer>My Portfolio - <span className="capitalize">{tag}</span></Balancer> : null }
+            {type ? <Balancer>My Portfolio - <span className="capitalize">{type}</span></Balancer> : null }
             </h2>
             <nav className='flex flex-wrap gap-2 md:gap-4'>
                 {options.map((option) => (
-                    <Link key={option} href={`/work/t/${option !== 'full-time' ? option : ''}`} className={cn('rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800', tag === option ? 'text-accent' : '')}>
+                    <Link key={option} href={`/work/t/${option !== 'full-time' ? option : ''}`} className={cn('rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800', type === option ? 'text-accent' : '')}>
                         {option}
                     </Link>
                 ))}

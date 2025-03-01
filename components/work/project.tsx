@@ -1,14 +1,14 @@
 import Balancer from 'react-wrap-balancer'
 import Image from 'next/image'
-import { YouTubePlayer } from 'app/components/youtube'
-import { Library } from 'lucide-react'
+import { YouTubePlayer } from 'components/youtube'
+import Link from 'next/link'
 
 export function Project({
   project,
   full = false,
 }: { project: any; full?: boolean }) {
   return (
-    <div>
+    <div className='mb-10'>
       <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
         <Balancer>{project.title}</Balancer>
       </h2>
@@ -103,11 +103,13 @@ export function Project({
       <p className="text-sm ">
         {' '}
         <span className="font-bold">Stack:</span>{' '}
-        {project.technologies.map((tech, techIndex) => (
-          <span key={`${project.slug}-${techIndex}`}>
-            {tech}
-            {techIndex !== project.technologies.length - 1 ? ', ' : ''}
-          </span>
+        {project.tech.map((tech, techIndex) => (
+          <Link href={`/tech/${tech}`} key={`${project.slug}-${techIndex}`}>
+            <span>
+              {tech}
+              {techIndex !== project.tech.length - 1 ? ', ' : ''}
+            </span>
+          </Link>
         ))}
       </p>
 

@@ -12,15 +12,19 @@ const navItems = {
   '/bio': {
     name: 'bio',
   },
+  '/cv': {
+    name: 'cv',
+  },
    '/work': {
     name: 'work',
   },
   '/blog': {
     name: 'blog',
   },
-  '/cv': {
-    name: 'cv',
+  '/tech': {
+    name: 'tech',
   },
+
 };
 
 export default function Navbar() {
@@ -83,7 +87,7 @@ export default function Navbar() {
                     </span>
                   </Link>
 
-                  <Link
+                  {/* <Link
                     key={809809809800}
                     href={"https://x.com/gaboesquivel"}
                     target='_blank'
@@ -95,6 +99,19 @@ export default function Navbar() {
                       twitter
                     </span>
                   </Link>
+
+                  <Link
+                    key={450837204897}
+                    href={"https://www.linkedin.com/in/gaboesquivel/"}
+                    target='_blank'
+                    className={clsx(
+                      'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle'
+                    )}
+                  >
+                    <span className="relative px-2 py-1">
+                      linkedin
+                    </span>
+                  </Link> */}
               
             </div>
           </nav>

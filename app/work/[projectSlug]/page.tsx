@@ -1,7 +1,7 @@
-import { Project } from 'app/components/work/project';
-import {projects} from 'gaboesquivel';
+import { Project } from 'components/work/project';
+import { getProjectBySlug } from 'gaboesquivel';
 
 export default function ProjectPage({params}: {params: {projectSlug: string}}){
-  const [project] = projects.filter(project => project.slug === params.projectSlug);
+  const project = getProjectBySlug(params.projectSlug);
   return <Project project={project} full={true} />
 }

@@ -1,5 +1,6 @@
 import './cv.css'
-import { PrintButton } from '../components/print-button'
+import { PrintButton } from '../../components/print-button'
+import Link from 'next/link'
 
 export default function CVPage() {
   return (
@@ -41,9 +42,11 @@ export default function CVPage() {
             </ul>
             <div className="flex flex-wrap gap-2">
               {experience.techStack.map((tech) => (
-                <span key={experience.company + tech} className="rounded-md px-2 py-1 hidden print:hidden bg-neutral-200 dark:bg-neutral-800 text-xs font-medium text-gray-700 dark:text-gray-200 text-accent">
-                  {tech}
-                </span>
+                <Link href={`/tech/${tech}`} key={experience.company + tech}>
+                  <span className="rounded-md px-2 py-1 hidden print:hidden bg-neutral-200 dark:bg-neutral-800 text-xs font-medium text-gray-700 dark:text-gray-200 text-accent">
+                    {tech}
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
