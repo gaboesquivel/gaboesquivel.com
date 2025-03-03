@@ -13,7 +13,7 @@
         "date-fns": "^2.30.0",
         "dotenv": "^16.3.1",
         "framer-motion": "^10.16.4",
-        "gaboesquivel": "3.4.10",
+        "gaboesquivel": "3.4.11",
         "googleapis": "^126.0.1",
         "lucide-react": "^0.476.0",
         "next": "13.4.19",
@@ -506,7 +506,7 @@
 
     "function-bind": ["function-bind@1.1.2", "", {}, "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA=="],
 
-    "gaboesquivel": ["gaboesquivel@3.4.10", "", {}, "sha512-Q428fFRnwCw3E4SjnWef2nA3MgnFDq9oWazAEd7WkZRWwkIUPb2ad/rUTEjMtQUeR3/LvNxum/6hCm2SAAPqZw=="],
+    "gaboesquivel": ["gaboesquivel@3.4.11", "", {}, "sha512-EMr3nWRxOZNoVGwQoGzH1XZSkYjqK4f9zygy+wkFdaVLGU1FE7Suh7ti3Ejy5LgWBbNlG1/RcydjBCpw69/YHw=="],
 
     "gaxios": ["gaxios@6.7.1", "", { "dependencies": { "extend": "^3.0.2", "https-proxy-agent": "^7.0.1", "is-stream": "^2.0.0", "node-fetch": "^2.6.9", "uuid": "^9.0.1" } }, "sha512-LDODD4TMYx7XXdpwxAVRAIAuB0bzv0s+ywFonY46k126qzQHT9ygyoa9tncmOiQmmDrik65UYsEkv3lbfqQ3yQ=="],
 
@@ -1307,8 +1307,6 @@
     "micromark/debug/ms": ["ms@2.1.3", "", {}, "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="],
 
     "prebuild-install/tar-fs/tar-stream": ["tar-stream@2.2.0", "", { "dependencies": { "bl": "^4.0.3", "end-of-stream": "^1.4.1", "fs-constants": "^1.0.0", "inherits": "^2.0.3", "readable-stream": "^3.1.1" } }, "sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ=="],
-
-    "rehype-slug/@types/hast/@types/unist": ["@types/unist@3.0.3", "", {}, "sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q=="],
 
     "rehype-slug/unist-util-visit/@types/unist": ["@types/unist@3.0.3", "", {}, "sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q=="],
 
