@@ -1,5 +1,6 @@
+'use client'
 import type { TechStackItemWithProjects } from "gaboesquivel";
-import { Project } from "components/work/project";
+import { ProjectsMasonry } from "components/shared/projects-masonry";
 
 export default function TechStack({
 	tech,
@@ -16,9 +17,7 @@ export default function TechStack({
 				<p className="prose prose-neutral dark:prose-invert" key={experience}>{experience}</p>
 			))}
 
-			{tech.projects.map((project) => (
-				<Project key={project.title} project={project} />
-			))}
+			<ProjectsMasonry projects={tech.projects} identifier={tech.name} />
 		</div>
 	);
 }
