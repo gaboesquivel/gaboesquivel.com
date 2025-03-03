@@ -11,7 +11,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   return (
     <Link 
       href={`/project/${project.slug}`}
-      className="group block overflow-hidden rounded-lg border border-zinc-200/50 dark:border-zinc-700/50 transition-all duration-300"
+      className="group block overflow-hidden rounded-lg border border-zinc-200/50 dark:border-zinc-700/50 transition-all duration-300 w-full h-full flex flex-col"
     >
       {/* Image container with aspect ratio and overflow control */}
       <div className="relative aspect-video overflow-hidden rounded-t-lg">
@@ -26,7 +26,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
         )}
       </div>
       {/* Content section with title and description */}
-      <div className="p-4">
+      <div className="p-4 flex-grow">
         <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-zinc-100">
           {project.title}
         </h3>

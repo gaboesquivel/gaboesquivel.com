@@ -22,7 +22,7 @@ export function ProjectsMasonry({ projects, identifier = 'projects' }: ProjectsM
         {projects.map((project, index) => (
           <motion.div
             key={project.title}
-            className="w-full"
+            className="w-full h-full flex"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
