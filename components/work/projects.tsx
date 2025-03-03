@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { cn } from 'lib/utils';
 import {ProjectsMasonry} from 'components/shared/projects-masonry';
 
-const options = ['full-time', 'contract', 'ai', 'web3', 'lead', 'oss', 'hackathon', 'other'] // 'personal'
+const options = ['featured', 'full-time', 'contract', 'web3', 'ai', 'lead', 'oss', 'all'] 
 
 export function Projects({projects, type, showMoreLink = true}: {projects: any[], type?: string, showMoreLink?: boolean}) {
   return (
