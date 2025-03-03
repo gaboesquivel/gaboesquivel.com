@@ -1,76 +1,71 @@
 export function Footer() {
-  return (
-    <footer className="print:hidden">
-         <ul className="flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
-        
-         <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://calendly.com/gaboesquivel/30min"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">schedule a call</p>
-          </a>
-        </li>
 
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="mailto:contact@gaboesquivel.com"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">email me</p>
-          </a>
-        </li>
-        
-         <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://linkedin.com/in/gaboesquivel"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">linkedin</p>
-          </a>
-        </li>
-        
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://twitter.com/gaboesquivel"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">follow me</p>
-          </a>
-        </li>
-        
-      </ul>
+  return (
+    <footer className="py-12 mt-28">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+          
+            <ul className="space-y-2">
+              <li>
+                <a href="https://github.com/gaboesquivel" className="text-gray-300 hover:text-white transition-colors">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/gaboesquivel" className="text-gray-300 hover:text-white transition-colors">
+                  Twitter
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com/in/gaboesquivel"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+     
+            <ul className="space-y-2">
+              <li>
+                <a href="/blog" className="text-gray-300 hover:text-white transition-colors">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="/work" className="text-gray-300 hover:text-white transition-colors">
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a href="/tech" className="text-gray-300 hover:text-white transition-colors">
+                  Technologies
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+       
+            <p className="text-gray-300 mb-2">Interested in working together?  <br/>
+            <a
+              href="mailto:contact@gaboesquivel.com"
+              className="inline-block hover:text-white transition-colors text-accent pt-2"
+              target="_blank"
+              rel="noopener noreferrer"
+   
+            > 
+           Let's connect
+            </a></p>
+         
+          </div>
+        </div>
+      </div>
     </footer>
-  );
+  )
 }
 
-function ArrowIcon() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-labelledby="arrowIconTitle"
-    >
-      <title id="arrowIconTitle">External link arrow</title>
-      <path
-        d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
