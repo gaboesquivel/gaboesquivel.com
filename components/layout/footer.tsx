@@ -1,8 +1,8 @@
 export function Footer() {
 
   return (
-    <footer className="py-12 mt-28">
-      <div className="max-w-4xl mx-auto px-4">
+    <footer className="mt-28">
+      <div className="max-w-4xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
           
@@ -33,7 +33,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <a href="/blog" className="text-gray-300 hover:text-white transition-colors">
-                  Blog
+                  Articles
                 </a>
               </li>
               <li>
@@ -43,7 +43,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="/tech" className="text-gray-300 hover:text-white transition-colors">
-                  Technologies
+                  Tech Stack
                 </a>
               </li>
             </ul>
