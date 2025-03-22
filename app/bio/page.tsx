@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import workshop from 'public/images/bio/gaboesquivel-workshop.jpg';
-import blockchaincr from 'public/images/2018/06/blockchain-costa-rica.jpg';
+import workshop from 'public/images/bio/nodeschool-costa-rica.jpg';
+import blockchaincr from 'public/images/bio/gabo-coding.jpg';
 
 export default function BioPage() {
   return (
@@ -14,12 +14,12 @@ export default function BioPage() {
     In 2010, I founded <a href="https://www.meetup.com/Costa-Rica-JS/" target="_blank" className="prose-link">Costa Rica JS</a>, a meetup group for JavaScript enthusiasts in San José, which later became Central America's largest meetup community in this field, with over 2000 members, as Node.js and SPA frameworks gained momentum.
 </p>
  <div className="gap-4 my-8 columns-1">
- <div className="relative mb-4 h-60">
+ <div className="relative mb-4 h-[500px]">
           <Image
             alt="Me giving a workshop at workshop 2019"
             src={workshop}
             fill
-            sizes="(max-width: 768px) 213px, 33vw"
+            sizes="(max-width: 768px) 500px, 33vw"
             priority
             className="object-cover rounded-lg"
           />
@@ -33,18 +33,18 @@ export default function BioPage() {
     A significant turn in my career came in 2016 when I joined <a href="https://holawink.com" target="_blank" className="prose-link">Wink</a>, a neo-bank startup, as an architect. There, I led the team and the development of the app's initial version, delving into financial technologies and discovering the transformative power of blockchain and Bitcoin, sparking my interest in Web3.
 </p>
 <p className="prose prose-neutral dark:prose-invert">
-    In 2017, I co-founded <a href="https://asoblockchain.org" target="_blank" className="prose-link">AsoBlockchain and CryptoCantinaCR</a>, a community hub for studying and promoting blockchain technology and decentralized applications in Costa Rica, and joined the <a href="http://knowledge.io" target="_blank" className="prose-link">Knowledge</a> team to develop the tokens and applications for their ICO.
+    In 2017, I co-founded <a href="https://asoblockchain.org" target="_blank" className="prose-link">AsoBlockchain</a> and <a href="https://medium.com/blockchaincr/costa-ricas-crypto-cantina-5452e8c83f1d" target="_blank" className="prose-link">CryptoCantinaCR</a>, a community hub for studying and promoting blockchain technology and decentralized applications in Costa Rica, and joined the <a href="http://knowledge.io" target="_blank" className="prose-link">Knowledge</a> team to develop the tokens and applications for their ICO.
 </p>
 
  <div className="gap-4 my-8 columns-1">
- <div className="relative mb-4 h-60">
+ <div className="relative mb-4 h-[500px]">
       <Image
         alt="Me giving a workshop at BlockchainCR"
         src={blockchaincr}
         fill
-        sizes="(max-width: 768px) 213px, 33vw"
+        sizes="(max-width: 768px) 500px, 33vw"
         priority
-        className="object-cover rounded-lg"
+        className="object-cover object-top rounded-lg"
       />
     </div>
  </div>
