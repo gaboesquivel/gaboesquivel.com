@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import clsx from 'clsx';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { LayoutGroup, motion } from 'framer-motion';
+import clsx from 'clsx'
+import { LayoutGroup, motion } from 'framer-motion'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const navItems = {
   '/': {
@@ -15,7 +15,7 @@ const navItems = {
   '/cv': {
     name: 'cv',
   },
-   '/work': {
+  '/work': {
     name: 'work',
   },
   '/blog': {
@@ -24,18 +24,17 @@ const navItems = {
   '/tech': {
     name: 'tech',
   },
-
-};
+}
 
 export default function Navbar() {
-  let pathname = usePathname() || '/';
+  let pathname = usePathname() || '/'
   if (pathname.includes('/blog/')) {
-    pathname = '/blog';
+    pathname = '/blog'
   }
 
   return (
-    <aside className="-ml-[8px] mb-16 tracking-tight navbar print:hidden">
-      <div className="lg:sticky lg:top-20">
+    <nav className="-ml-[8px] mb-16 tracking-tight navbar print:hidden">
+      <div className="lg:top-20">
         <LayoutGroup>
           <nav
             className="relative flex flex-row items-start px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
@@ -43,7 +42,7 @@ export default function Navbar() {
           >
             <div className="flex flex-row pr-10 space-x-0">
               {Object.entries(navItems).map(([path, { name }]) => {
-                const isActive = path === pathname;
+                const isActive = path === pathname
                 // console.log({isActive, path, pathname})
                 return (
                   <Link
@@ -51,9 +50,8 @@ export default function Navbar() {
                     href={path}
                     className={clsx(
                       'transition-all hover:text-neutral-800 dark:hover:text-accent flex align-middle',
-                 
-                         isActive? 'text-accent' : 'text-neutral-500'
-                      
+
+                      isActive ? 'text-accent' : 'text-neutral-500',
                     )}
                   >
                     <span className="relative px-2 py-1">
@@ -71,23 +69,21 @@ export default function Navbar() {
                       ) : null}
                     </span>
                   </Link>
-                );
+                )
               })}
 
               <Link
-                    key={898989898}
-                    href={"https://github.com/gaboesquivel"}
-                    target='_blank'
-                    className={clsx(
-                      'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle'
-                    )}
-                  >
-                    <span className="relative px-2 py-1">
-                      github
-                    </span>
-                  </Link>
+                key={898989898}
+                href={'https://github.com/gaboesquivel'}
+                target="_blank"
+                className={clsx(
+                  'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle',
+                )}
+              >
+                <span className="relative px-2 py-1">github</span>
+              </Link>
 
-                  {/* <Link
+              {/* <Link
                     key={809809809800}
                     href={"https://x.com/gaboesquivel"}
                     target='_blank'
@@ -112,11 +108,10 @@ export default function Navbar() {
                       linkedin
                     </span>
                   </Link> */}
-              
             </div>
           </nav>
         </LayoutGroup>
       </div>
-    </aside>
-  );
+    </nav>
+  )
 }
