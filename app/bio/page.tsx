@@ -87,9 +87,7 @@ export default function BioPage() {
         , which focuses on educational initiatives and lobbying efforts with regulators and banks
         and{' '}
         <a
-          href="https://medium.com/blockchaincr/costa-ricas-crypto-cantina-5452e8c83f1d"
-          target="_blank"
-          rel="noreferrer"
+          href="/project/cryptocantinacr"
           className="prose-link"
         >
           CryptoCantinaCR

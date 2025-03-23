@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { YouTubePlayer } from 'components/youtube'
 import Link from 'next/link'
 import { VimeoPlayer } from 'components/vimeo'
+import {getTechStackByTag, Tag} from 'gaboesquivel';
 
 export function Project({
   project,
@@ -108,14 +109,16 @@ export function Project({
       <p className="text-sm ">
         {' '}
         <span className="font-bold">Stack:</span>{' '}
-        {project.tech.map((tech, techIndex) => (
-          <Link href={`/tech/${tech}`} key={`${project.slug}-${techIndex}`}>
+        {project.tech.map((tech, techIndex) => {
+            const techItem = getTechStackByTag(tech as Tag); 
+          return(
+          <Link href={`/tech/${techItem?.slug}`} key={`${project.slug}-${techIndex}`}>
             <span>
-              {tech}
+              {tech.name}
               {techIndex !== project.tech.length - 1 ? ', ' : ''}
             </span>
           </Link>
-        ))}
+        )})}
       </p>
 
       {full && project.repo && (
