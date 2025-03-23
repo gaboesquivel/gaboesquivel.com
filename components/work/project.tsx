@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { YouTubePlayer } from 'components/youtube'
 import Link from 'next/link'
 import { VimeoPlayer } from 'components/vimeo'
-import {getTechStackByTag, Tag} from 'gaboesquivel';
+import {getTechStackByTag, type Tag} from 'gaboesquivel';
 
 export function Project({
   project,
@@ -110,7 +110,8 @@ export function Project({
         {' '}
         <span className="font-bold">Stack:</span>{' '}
         {project.tech.map((tech, techIndex) => {
-            const techItem = getTechStackByTag(tech as Tag); 
+          console.log(tech)
+          const techItem = getTechStackByTag(tech as Tag); 
           return(
           <Link href={`/tech/${techItem?.slug}`} key={`${project.slug}-${techIndex}`}>
             <span>
