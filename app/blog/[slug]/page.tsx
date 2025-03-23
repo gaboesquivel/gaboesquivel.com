@@ -1,16 +1,16 @@
-import type { Metadata } from 'next';
-import { notFound, redirect } from 'next/navigation';
-import { Mdx } from 'components/mdx';
-import { allBlogs } from 'contentlayer/generated';
-import Balancer from 'react-wrap-balancer';
-import { formatDate } from 'lib/utils';
-import {PostCard} from '../../../components/blog/post-card';
+import { Mdx } from 'components/mdx'
+import { allBlogs } from 'contentlayer/generated'
+import { formatDate } from 'lib/utils'
+import type { Metadata } from 'next'
+import { notFound, redirect } from 'next/navigation'
+import Balancer from 'react-wrap-balancer'
+import { LatestPosts } from '../../../components/blog/latest-posts'
 
 export async function generateMetadata({
   params,
 }): Promise<Metadata | undefined> {
-  const post = allBlogs.find((post) => post.slug === params.slug);
-  if (!post) redirect('/blog');
+  const post = allBlogs.find((post) => post.slug === params.slug)
+  if (!post) redirect('/blog')
 
   const {
     title,
@@ -18,10 +18,10 @@ export async function generateMetadata({
     summary: description,
     image,
     slug,
-  } = post;
+  } = post
   const ogImage = image
     ? `https://gaboesquivel.com${image}`
-    : `https://gaboesquivel.com/og?title=${title}`;
+    : `https://gaboesquivel.com/og?title=${title}`
 
   return {
     title,
@@ -44,32 +44,31 @@ export async function generateMetadata({
       description,
       images: [ogImage],
     },
-  };
+  }
 }
 
 function getLatestPosts(currentPost, limit = 4) {
   // Filter out the current post and get only published posts
-  const otherPosts = allBlogs.filter(
-    (post) => post.slug !== currentPost.slug
-  );
+  const otherPosts = allBlogs.filter((post) => post.slug !== currentPost.slug)
 
   // Sort by date descending to get the most recent posts
   const sortedPosts = [...otherPosts].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  )
 
   // Take only the specified number of posts
-  return sortedPosts.slice(0, limit);
+  return sortedPosts.slice(0, limit)
 }
 
 export default async function Blog({ params }) {
-  const post = allBlogs.find((post) => post.slug === params.slug);
+  const post = allBlogs.find((post) => post.slug === params.slug)
 
   if (!post) {
-    notFound();
+    notFound()
   }
 
-  const latestPosts = getLatestPosts(post);
+  const latestPosts = getLatestPosts(post)
 
   return (
     <section>
@@ -89,18 +88,8 @@ export default async function Blog({ params }) {
         </p>
       </div>
       <Mdx code={post.body.code} />
-      
-      {latestPosts.length > 0 && (
-        <div className="mt-16">
-          <h2 className="font-bold text-xl mb-4">More Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {latestPosts.map((post) => (
-             <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}
 
+      <LatestPosts title="More Articles" />
+    </section>
+  )
+}
