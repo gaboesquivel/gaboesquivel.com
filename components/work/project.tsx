@@ -133,7 +133,7 @@ export function Project({
           <ul className="list-disc list-inside">
             {project.related.map((relatedLink, index) => (
               <li key={`${project.slug}-related-${index}`}>
-                <a href={relatedLink.url.replace('https://gaboesquivel.com', '')} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                <a href={relatedLink.url.replace('https://gaboesquivel.com', '')} className="text-blue-500 hover:underline">
                   {relatedLink.title}
                 </a>
               </li>
