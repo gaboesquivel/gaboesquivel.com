@@ -50,6 +50,16 @@ export const Blog = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
+    category: {
+      type: 'list',
+      of: { type: 'string' },
+      required: false,
+    },
+    tech: {
+      type: 'list',
+      of: { type: 'string' },
+      required: false,
+    },
     publishedAt: {
       type: 'string',
       required: true,

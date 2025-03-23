@@ -3,9 +3,11 @@ title: useMemo and useCallback Are (Mostly) Obsolete
 publishedAt: 2025-01-17
 summary: Why useMemo and useCallback hooks are becoming obsolete in modern React applications
 image: /images/2025/01/use-memo-use-callback-obsolete.webp
+category: ['ReactJS', 'JavaScript']
+tech: ['ReactJS', 'TypeScript', 'NextJS']
 ---
 
-For years, `useMemo` and `useCallback` have been the go-to tools for React developers looking to optimize performance by avoiding unnecessary computations and function re-creations. However, with the latest advancements in React, their necessity has significantly diminished. In this post, I’ll break down why they are now mostly redundant and when you might still need them.
+For years, `useMemo` and `useCallback` have been the go-to tools for React developers looking to optimize performance by avoiding unnecessary computations and function re-creations. However, with the latest advancements in React, their necessity has significantly diminished. In this post, I'll break down why they are now mostly redundant and when you might still need them.
 
 
 {/* Prevent CLS by setting a minimum height */}
@@ -16,7 +18,7 @@ For years, `useMemo` and `useCallback` have been the go-to tools for React devel
 
 ## The Original Use Case: Preventing Unnecessary Renders
 
-React’s reconciliation algorithm is quite efficient, but unnecessary re-renders can still impact performance, especially in complex applications. The idea behind `useMemo` and `useCallback` was simple:
+React's reconciliation algorithm is quite efficient, but unnecessary re-renders can still impact performance, especially in complex applications. The idea behind `useMemo` and `useCallback` was simple:
 
 - **`useMemo`**: Caches the result of a computation, preventing recalculations unless dependencies change.
 - **`useCallback`**: Caches a function reference to prevent child components from unnecessarily re-rendering when passed as props.
@@ -24,10 +26,10 @@ React’s reconciliation algorithm is quite efficient, but unnecessary re-render
 This made sense in the era when React re-renders were more aggressive and when components frequently relied on referential equality to determine updates.
 
 
-## Why They’re No Longer Necessary in Most Cases
+## Why They're No Longer Necessary in Most Cases
 
 ### 1. **Modern React Optimizations Make Them Redundant**
-With **React 18’s Concurrent Mode**, **automatic batching**, and improvements in **React Compiler** optimizations (like RSC and React Forget), React has become significantly smarter about avoiding unnecessary re-renders. Components now update more efficiently, reducing the need for manual memoization.
+With **React 18's Concurrent Mode**, **automatic batching**, and improvements in **React Compiler** optimizations (like RSC and React Forget), React has become significantly smarter about avoiding unnecessary re-renders. Components now update more efficiently, reducing the need for manual memoization.
 
 - **Automatic Memoization in React Compiler**: The React team is working on a compiler that will optimize component re-renders automatically, removing the need for `useMemo` and `useCallback` in most cases.
 - **Rendering Scheduling and Priority Management**: React now schedules renders more intelligently, making unnecessary recomputations a smaller issue than before.
@@ -39,7 +41,7 @@ One of the problems with `useMemo` and `useCallback` is that they hold onto refe
 Many developers use `useCallback` out of habit, believing it prevents unnecessary re-renders. But in most cases, **inline functions are already optimized** by modern JavaScript engines, making `useCallback` redundant.
 
 - **Modern V8 optimizations** ensure that functions declared inline inside a component are efficiently garbage-collected and reallocated.
-- **Referential equality checks** are not always meaningful in React reconciliation, as components don’t always rely on the same function reference.
+- **Referential equality checks** are not always meaningful in React reconciliation, as components don't always rely on the same function reference.
 
 ### 4. **React.memo Is Usually a Better Approach**
 Instead of manually memoizing functions with `useCallback`, simply wrapping a component with `React.memo` is often the more effective and concise solution.
@@ -69,7 +71,7 @@ While largely unnecessary, `useMemo` and `useCallback` still have valid use case
    ```
 
 2. **Memoizing Dependencies in Custom Hooks**
-   - If a custom hook depends on function identity, `useCallback` ensures the function reference doesn’t change between renders.
+   - If a custom hook depends on function identity, `useCallback` ensures the function reference doesn't change between renders.
    
    ```tsx
    const fetchData = useCallback(() => fetch(apiUrl), [apiUrl]);
@@ -95,5 +97,5 @@ While largely unnecessary, `useMemo` and `useCallback` still have valid use case
 
 The takeaway? In **modern React apps, you should default to not using `useMemo` and `useCallback` unless you truly need them.** Overusing them leads to **unnecessary complexity**, potential memory overhead, and ironically, worse performance.
 
-Instead, trust React’s rendering optimizations and use these hooks only when profiling reveals a bottleneck. The era of manually memoizing everything is fading—React itself is becoming smart enough to handle performance for us.
+Instead, trust React's rendering optimizations and use these hooks only when profiling reveals a bottleneck. The era of manually memoizing everything is fading—React itself is becoming smart enough to handle performance for us.
 

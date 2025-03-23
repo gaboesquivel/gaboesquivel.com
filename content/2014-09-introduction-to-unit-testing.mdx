@@ -1,7 +1,9 @@
 ---
-title: "Software Unit Testing"
-publishedAt: 2014-09-19 09:31:08 -0600
-summary: Testing a web application is critical to ensure the program does what is supposed to do and that new functionality and changes don't brake existing parts of the application. 
+title: Introduction to Unit Testing
+publishedAt: 2014-09-01
+summary: Getting started with unit testing in JavaScript
+category: ['Testing']
+tech: ['JavaScript', 'Jest', 'Mocha']
 ---
 
 Testing a web application is critical to ensure the program does what is supposed to do and that new functionality and changes don't brake existing parts of the application. Well-tested applications are more easily extended. 
@@ -21,7 +23,7 @@ Unit testing works by isolating small "units" of code so that it can be tested f
 
 __What is a unit?__ In the best case, it is a pure function that you can deal with in some way. It can also be a whole class or multiple classes working together to achieve one single logical purpose that can be verified. In web applications DOM manipulations come into play as well. People might argue about this definition of Unit, Object-oriented design tends to treat a class as the unit, procedural or functional approaches might consider a single function as a unit. But really it's a situational thing - the team decides what makes sense to be a unit for the purposes of their understanding of the system and its testing. Pragmatism.
 
-In Test Driven Development (TDD) tests are supposed to be written first, before the logic you want to test. You write a test that fails then the necessary code to pass the test and later you can refactor your code to improve it and optimize it. This is known as the "test-driven development mantra" or cycle: "Red - Green - Refactor". However when you starting to work on some functionality you’re going to be changing functions and abstracting parts away, and if you are writing something that is going to change a lot, writing tests would be a waste of time, specially when prototyping. However there are also benefits in writing the tests first. What I believe in is in writing __testable code__ and writing unit tests whenever you consider is good time for it. In general, code that is tightly-coupled or requires complex initialization is hard to test.
+In Test Driven Development (TDD) tests are supposed to be written first, before the logic you want to test. You write a test that fails then the necessary code to pass the test and later you can refactor your code to improve it and optimize it. This is known as the "test-driven development mantra" or cycle: "Red - Green - Refactor". However when you starting to work on some functionality you're going to be changing functions and abstracting parts away, and if you are writing something that is going to change a lot, writing tests would be a waste of time, specially when prototyping. However there are also benefits in writing the tests first. What I believe in is in writing __testable code__ and writing unit tests whenever you consider is good time for it. In general, code that is tightly-coupled or requires complex initialization is hard to test.
 
 Following the SOLID Software Design Principles is a very good way to design code that can be easily tested.
 
@@ -51,7 +53,7 @@ A Testing Framework is going to be required. It is possible to write a little ap
 
 Automated Unit Testing is a great way to continuously check that the units you are working on continue to work as intended. To be effective, automated tests must meet very specific objectives:
  
-1.  Every developer must be able to run the combined collection of all the developer’s tests.
+1.  Every developer must be able to run the combined collection of all the developer's tests.
 2.  The continuous integration (CI) server must be able to run the entire suite of tests without any manual intervention.
 
 Although through unit tests you can prove the small units work perfectly in isolation, the units of code may blow up when combined and that's why you need Integration Testing, a logical extension of unit testing. In its simplest form, two units that have already been tested are combined into a component and the interface between them is tested. A component, in this sense, refers to an integrated aggregate of more than one unit.

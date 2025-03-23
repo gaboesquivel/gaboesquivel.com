@@ -134,7 +134,7 @@ export function ProjectDetails({
 
     {full && project.related && project.related.length > 0 && (
         <div className="mt-6">
-          <h4 className="text-lg font-semibold mb-2">Related Posts:</h4>
+          <h4 className="text-lg font-semibold mb-2">Related Posts</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {project.related.map((relatedLink) => (
                <PostCard key={relatedLink.url} post={{slug: relatedLink.url.replace('https://gaboesquivel.com/blog/', ''), title: relatedLink.title, publishedAt: relatedLink.publishedAt}} />

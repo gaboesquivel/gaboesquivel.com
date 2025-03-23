@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { Mdx } from 'components/mdx';
 import { allBlogs } from 'contentlayer/generated';
 import Balancer from 'react-wrap-balancer';
-import Link from 'next/link';
 import { formatDate } from 'lib/utils';
 import {PostCard} from '../../../components/blog/post-card';
 
@@ -11,9 +10,7 @@ export async function generateMetadata({
   params,
 }): Promise<Metadata | undefined> {
   const post = allBlogs.find((post) => post.slug === params.slug);
-  if (!post) {
-    return;
-  }
+  if (!post) redirect('/blog');
 
   const {
     title,
