@@ -1,4 +1,4 @@
-import { techStack } from "gaboesquivel";
+import { getProjectsByTechnology, techStack } from "gaboesquivel";
 import Link from "next/link";
 
 export default function TechStackPage() {
@@ -8,29 +8,33 @@ export default function TechStackPage() {
 				Gabo's Tech Stack
 			</h1>
 			<ul>
-				{techStack.map((tech) => (
-					<Link
-						key={tech.tag}
-						className="flex flex-col space-y-1"
-						href={`/tech/${tech.slug}`}
-					>
-						<ul className="flex flex-col w-full">
-							<li className="tracking-tight text-neutral-90 dark:text-neutral-100 hover:text-accent">
-								<p className="my-2">
-									{tech.name}{" "}
-									<span className="text-xs text-neutral-400">
+				{techStack.map((tech) => {
+					const projects = getProjectsByTechnology(tech.tag);
+					return (
+						<Link
+							key={tech.tag}
+							className="flex flex-col space-y-1"
+							href={`/tech/${tech.slug}`}
+						>
+							<ul className="flex flex-col w-full">
+								<li className="tracking-tight text-neutral-90 dark:text-neutral-100 hover:text-accent">
+									<p className="my-2">
+										{tech.name}{" "}
+										<span className="text-xs text-neutral-400">
+											{" "}
+											since {tech.since} · {projects.length}{" "}
+											{projects.length === 1 ? "project" : "projects"}{" "}
+										</span>
+									</p>
+									<p className="prose prose-neutral text-white text-sm">
 										{" "}
-										since {tech.since}{" "}
-									</span>
-								</p>
-								<p className="prose prose-neutral text-white text-sm">
-									{" "}
-									{tech.description}
-								</p>
-							</li>
-						</ul>
-					</Link>
-				))}
+										{tech.description}
+									</p>
+								</li>
+							</ul>
+						</Link>
+					);
+				})}
 			</ul>
 		</div>
 	);
