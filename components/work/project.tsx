@@ -3,12 +3,12 @@ import Image from 'next/image'
 import { YouTubePlayer } from 'components/youtube'
 import Link from 'next/link'
 import { VimeoPlayer } from 'components/vimeo'
-import {getTechStackByTag, type Tag} from 'gaboesquivel';
+import {getTechStackByTag, type Tag, type Project} from 'gaboesquivel';
 
-export function Project({
+export function ProjectDetails({
   project,
   full = false,
-}: { project: any; full?: boolean }) {
+}: { project: Project; full?: boolean }) {
   return (
     <div className='mb-10'>
       <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
@@ -110,12 +110,12 @@ export function Project({
         {' '}
         <span className="font-bold">Stack:</span>{' '}
         {project.tech.map((tech, techIndex) => {
-          console.log(tech)
           const techItem = getTechStackByTag(tech as Tag); 
+          if (!techItem) return null
           return(
           <Link href={`/tech/${techItem?.slug}`} key={`${project.slug}-${techIndex}`}>
             <span>
-              {tech.name}
+              {techItem.name}
               {techIndex !== project.tech.length - 1 ? ', ' : ''}
             </span>
           </Link>
