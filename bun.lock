@@ -13,7 +13,7 @@
         "date-fns": "^2.30.0",
         "dotenv": "^16.3.1",
         "framer-motion": "^10.16.4",
-        "gaboesquivel": "3.8.1",
+        "gaboesquivel": "3.8.2",
         "googleapis": "^126.0.1",
         "lucide-react": "^0.476.0",
         "next": "13.4.19",
@@ -506,7 +506,7 @@
 
     "function-bind": ["function-bind@1.1.2", "", {}, "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA=="],
 
-    "gaboesquivel": ["gaboesquivel@3.8.1", "", {}, "sha512-cMIV4xFRXwi5bTwWbiEk3diumutQfMJ4Y2LgezMXwf4oALoaJPk0xXwvIHAcVEYkE+uMVyAwwBrbiTZNF4wUEw=="],
+    "gaboesquivel": ["gaboesquivel@3.8.2", "", {}, "sha512-4M6rfj3jm0+k3t38BSgz0kkUN0QkZ5R4FnRknN/SoLF4JsCMGWm3WZEAHltFC0sejH4hBYEb+LBrnlLVioTdqA=="],
 
     "gaxios": ["gaxios@6.7.1", "", { "dependencies": { "extend": "^3.0.2", "https-proxy-agent": "^7.0.1", "is-stream": "^2.0.0", "node-fetch": "^2.6.9", "uuid": "^9.0.1" } }, "sha512-LDODD4TMYx7XXdpwxAVRAIAuB0bzv0s+ywFonY46k126qzQHT9ygyoa9tncmOiQmmDrik65UYsEkv3lbfqQ3yQ=="],
 
