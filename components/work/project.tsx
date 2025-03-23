@@ -126,6 +126,21 @@ export function Project({
           </a>
         </p>
       )}
+
+    {full && project.related && project.related.length > 0 && (
+        <div className="mt-6">
+          <h4 className="text-lg font-semibold mb-2">Related Posts:</h4>
+          <ul className="list-disc list-inside">
+            {project.related.map((relatedLink, index) => (
+              <li key={`${project.slug}-related-${index}`}>
+                <a href={relatedLink.url.replace('https://gaboesquivel.com', '')} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                  {relatedLink.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
