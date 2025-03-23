@@ -3,7 +3,7 @@ export function Footer() {
   return (
     <footer className="mt-28">
       <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
           <div>
           
             <ul className="space-y-2">
@@ -49,8 +49,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-       
+          <div className="col-span-2 sm:col-span-1">
             <p className="text-gray-300 mb-2">Interested in working together?  <br/>
             <a
               href="mailto:contact@gaboesquivel.com"

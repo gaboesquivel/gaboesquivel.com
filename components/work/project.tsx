@@ -2,6 +2,7 @@ import Balancer from 'react-wrap-balancer'
 import Image from 'next/image'
 import { YouTubePlayer } from 'components/youtube'
 import Link from 'next/link'
+import { VimeoPlayer } from 'components/vimeo'
 
 export function Project({
   project,
@@ -52,7 +53,11 @@ export function Project({
 
       {full && project.video && (
         <div className="h-[200px] md:h-[400px] w-full relative mb-6">
-          <YouTubePlayer title={project.title} url={project.video} />
+          {project.video.includes('youtube') ? (
+            <YouTubePlayer title={project.title} url={project.video} />
+          ) : project.video.includes('vimeo') ? (
+            <VimeoPlayer title={project.title} url={project.video} />
+          ) : null}
         </div>
       )}
 
