@@ -12,7 +12,7 @@ export default function TechStackPage() {
 					<Link
 						key={tech.tag}
 						className="flex flex-col space-y-1"
-						href={`/tech/${tech.tag}`}
+						href={`/tech/${tech.slug}`}
 					>
 						<ul className="flex flex-col w-full">
 							<li className="tracking-tight text-neutral-90 dark:text-neutral-100 hover:text-accent">
