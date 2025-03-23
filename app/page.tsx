@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import workshop from 'public/images/gabo-workshop.jpg';
+// import workshop from 'public/images/gabo-workshop.jpg';
+import workshop from 'public/images/work/nodeschool-3.jpg';
 
 export default function HomePage() {
   return (
