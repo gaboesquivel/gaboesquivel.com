@@ -1,8 +1,22 @@
 import Image from 'next/image'
 import nodeschool from 'public/images/bio/nodeschool-costa-rica.jpg'
 import gabocoding from 'public/images/bio/gabo-coding.jpg'
+import { allBlogs } from 'contentlayer/generated'
+import { PostCard } from '../../components/blog/post-card'
+
+function getLatestPosts(limit = 4) {
+  // Sort by date descending to get the most recent posts
+  const sortedPosts = [...allBlogs].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+  // Take only the specified number of posts
+  return sortedPosts.slice(0, limit);
+}
 
 export default function BioPage() {
+  const latestPosts = getLatestPosts();
+
   return (
     <section>
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">
@@ -186,14 +200,28 @@ export default function BioPage() {
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-        Throughout my 15+ year journey, I've evolved into a product engineer who
-        bridges technical execution with user experience. My focus remains on
+        Throughout my 15+ year journey, I've evolved into a{' '}
+        <a href="/blog/2025-03-the-product-engineer" className="prose-link">
+          product engineer
+        </a>{' '}
+        who bridges technical execution with user experience. My focus remains on
         emerging technologies like Web3 and AI, but always through the lens of
         solving real human problems and delivering tangible value. Whether it's
         architecting decentralized systems or implementing AI solutions, I
         approach each challenge by combining technical expertise with product
         thinking to create solutions that truly resonate with users.
       </p>
+
+      {latestPosts.length > 0 && (
+        <div className="mt-16">
+          <h2 className="font-bold text-xl mb-4">Lastest Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {latestPosts.map((post) => (
+              <PostCard key={post.slug} post={post} />
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   )
 }
