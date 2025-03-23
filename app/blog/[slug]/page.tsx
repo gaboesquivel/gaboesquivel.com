@@ -4,6 +4,8 @@ import { Mdx } from 'components/mdx';
 import { allBlogs } from 'contentlayer/generated';
 import Balancer from 'react-wrap-balancer';
 import Link from 'next/link';
+import { formatDate } from 'lib/utils';
+import {PostCard} from '../../../components/blog/post-card';
 
 export async function generateMetadata({
   params,
@@ -96,16 +98,7 @@ export default async function Blog({ params }) {
           <h2 className="font-bold text-xl mb-4">More Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {latestPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="block p-4 border border-neutral-200 dark:border-neutral-800 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-              >
-                <h3 className="font-medium mb-1">{post.title}</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  {formatDate(post.publishedAt)}
-                </p>
-              </Link>
+             <PostCard key={post.slug} post={post} />
             ))}
           </div>
         </div>
@@ -114,31 +107,3 @@ export default async function Blog({ params }) {
   );
 }
 
-function formatDate(date: string) {
-  const currentDate = new Date();
-  const targetDate = new Date(date);
-
-  const yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
-  const monthsAgo = currentDate.getMonth() - targetDate.getMonth();
-  const daysAgo = currentDate.getDate() - targetDate.getDate();
-
-  let formattedDate = '';
-
-  if (yearsAgo > 0) {
-    formattedDate = `${yearsAgo}y ago`;
-  } else if (monthsAgo > 0) {
-    formattedDate = `${monthsAgo}mo ago`;
-  } else if (daysAgo > 0) {
-    formattedDate = `${daysAgo}d ago`;
-  } else {
-    formattedDate = 'Today';
-  }
-
-  const fullDate = targetDate.toLocaleString('en-us', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
-  return `${fullDate} (${formattedDate})`;
-}

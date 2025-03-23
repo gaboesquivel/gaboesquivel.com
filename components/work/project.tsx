@@ -4,6 +4,7 @@ import { YouTubePlayer } from 'components/youtube'
 import Link from 'next/link'
 import { VimeoPlayer } from 'components/vimeo'
 import {getTechStackByTag, type Tag, type Project} from 'gaboesquivel';
+import {PostCard} from '../blog/post-card';
 
 export function ProjectDetails({
   project,
@@ -134,15 +135,11 @@ export function ProjectDetails({
     {full && project.related && project.related.length > 0 && (
         <div className="mt-6">
           <h4 className="text-lg font-semibold mb-2">Related Posts:</h4>
-          <ul className="list-disc list-inside">
-            {project.related.map((relatedLink, index) => (
-              <li key={`${project.slug}-related-${index}`}>
-                <a href={relatedLink.url.replace('https://gaboesquivel.com', '')} className="text-blue-500 hover:underline">
-                  {relatedLink.title}
-                </a>
-              </li>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {project.related.map((relatedLink) => (
+               <PostCard key={relatedLink.url} post={{slug: relatedLink.url.replace('https://gaboesquivel.com/blog/', ''), title: relatedLink.title, publishedAt: relatedLink.publishedAt}} />
             ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>
