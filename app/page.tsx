@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import workshop from 'public/images/gabo-workshop.jpg'
+import { LatestPosts } from '../components/blog/latest-posts'
 
 export default function HomePage() {
   return (
@@ -58,6 +59,8 @@ export default function HomePage() {
         </a>{' '}
         to discuss how we can work together.
       </p>
+
+      <LatestPosts />
     </section>
   )
 }
