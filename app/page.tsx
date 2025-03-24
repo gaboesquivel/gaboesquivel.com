@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import workshop from 'public/images/gabo-workshop.jpg'
 
 export default function HomePage() {
@@ -12,7 +13,12 @@ export default function HomePage() {
         I'm a full-stack software engineer with over 15 years of experience
         assisting organizations in crafting and evolving software products from
         initial concept to successful market launch, ensuring ideas are realized
-        to their full potential.
+        to their full potential. I act as a{' '}
+        <Link href="/blog/2025-03-the-product-engineer" className="prose-link">
+          product engineer
+        </Link>{' '}
+        who bridges technical execution with user experience and business
+        strategy.
       </p>
 
       <div className="gap-4 my-8 columns-1">
@@ -28,9 +34,17 @@ export default function HomePage() {
         </div>
       </div>
       <p className="prose prose-neutral dark:prose-invert">
-        My focus is emerging technologies and user-centric innovation. My
-        expertise spans web3, cloud, and full-stack web and mobile development,
-        complemented by ongoing explorations in artificial intelligence.
+        My focus is on emerging technologies and user-centric innovation. My
+        expertise spans{' '}
+        <Link href="/work/web3" className="prose-link">
+          web3
+        </Link>
+        , cloud, and full-stack web and mobile development, complemented by
+        ongoing explorations in{' '}
+        <Link href="/work/ai" className="prose-link">
+          artificial intelligence
+        </Link>
+        .
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
