@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import gabocoding from 'public/images/bio/gabo-coding.jpg'
 import nodeschool from 'public/images/bio/nodeschool-costa-rica.jpg'
@@ -249,4 +250,23 @@ export default function BioPage() {
       <LatestPosts />
     </section>
   )
+}
+
+export const metadata: Metadata = {
+  title: 'Bio | Gabo Esquivel',
+  description:
+    'Professional journey of Gabo Esquivel, a product engineer specializing in Web3 and AI technologies with over 15 years of experience in software development.',
+  openGraph: {
+    title: 'Bio | Gabo Esquivel',
+    description:
+      'Professional journey of Gabo Esquivel, a product engineer specializing in Web3 and AI technologies with over 15 years of experience in software development.',
+    images: [
+      {
+        url: '/images/bio/gabo-coding.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Gabo Esquivel coding',
+      },
+    ],
+  },
 }
