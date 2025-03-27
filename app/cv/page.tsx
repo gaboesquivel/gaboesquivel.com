@@ -1,6 +1,8 @@
 import './cv.css'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import workshop from 'public/images/gabo-workshop.jpg'
 import { PrintButton } from '../../components/print-button'
 import { experience } from './experience'
 
@@ -11,26 +13,38 @@ export default function CVPage() {
         <span className="hidden print:inline text-black">
           Gabo Esquivel - Sr. Engineer
         </span>
-        <span className="print:hidden ">Curriculum Vitae</span>
+        <span className="print:hidden">Curriculum Vitae</span>
         <PrintButton />
       </h1>
 
+      {/* <div className="gap-4 my-8 columns-1 hidden print:block">
+        <div className="relative mb-4 h-60">
+          <Image
+            alt="Me giving a workshop in 2019"
+            src={workshop}
+            fill
+            sizes="(max-width: 768px) 213px, 33vw"
+            priority
+            className="object-cover rounded-lg"
+          />
+        </div>
+      </div> */}
+
       <div className="mb-8 print:block hidden print:text-gray-700">
         <p className="mb-4">
-          Full-stack engineer with 15+ years of experience in Web3, AI, and
-          fintech. I specialize in designing scalable systems, leading
-          engineering teams, and leveraging blockchain and AI for product
-          innovation. Fluent in English, Spanish, Portuguese, and Italian.
+          I'm a full-stack software engineer with over 15 years of experience
+          assisting organizations in crafting and evolving software products
+          from initial concept to successful market launch, ensuring ideas are
+          realized to their full potential. I act as a product engineer who
+          bridges technical execution with user experience and business
+          strategy.
         </p>
         <p className="mb-4">
-          My focus is emerging technologies and user-centric innovation. My
+          My focus is on emerging technologies and user-centric innovation. My
           expertise spans web3, cloud, and full-stack web and mobile
           development, complemented by ongoing explorations in artificial
-          intelligence.
-        </p>
-        <p className="mb-4">
-          My approach is rooted in agile methodologies, striving for precision
-          in technology implementation.
+          intelligence. I am fluent in English, Spanish, Portuguese, and
+          Italian.
         </p>
       </div>
 

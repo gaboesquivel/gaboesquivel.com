@@ -1,19 +1,23 @@
 export function Footer() {
-
   return (
-    <footer className="mt-28">
+    <footer className="mt-28 print:hidden">
       <div className="max-w-4xl mx-auto">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
           <div>
-          
             <ul className="space-y-2">
               <li>
-                <a href="https://github.com/gaboesquivel" className="text-gray-300 hover:text-white transition-colors">
+                <a
+                  href="https://github.com/gaboesquivel"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
                   GitHub
                 </a>
               </li>
               <li>
-                <a href="https://twitter.com/gaboesquivel" className="text-gray-300 hover:text-white transition-colors">
+                <a
+                  href="https://twitter.com/gaboesquivel"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
                   Twitter
                 </a>
               </li>
@@ -29,20 +33,28 @@ export function Footer() {
           </div>
 
           <div>
-     
             <ul className="space-y-2">
               <li>
-                <a href="/blog" className="text-gray-300 hover:text-white transition-colors">
+                <a
+                  href="/blog"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
                   Articles
                 </a>
               </li>
               <li>
-                <a href="/work" className="text-gray-300 hover:text-white transition-colors">
+                <a
+                  href="/work"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
                   Projects
                 </a>
               </li>
               <li>
-                <a href="/tech" className="text-gray-300 hover:text-white transition-colors">
+                <a
+                  href="/tech"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
                   Tech Stack
                 </a>
               </li>
@@ -50,21 +62,20 @@ export function Footer() {
           </div>
 
           <div className="col-span-2 sm:col-span-1">
-            <p className="text-gray-300 mb-2">Interested in working together?  <br/>
-            <a
-              href="mailto:contact@gaboesquivel.com"
-              className="inline-block hover:text-white transition-colors text-accent pt-2"
-              target="_blank"
-              rel="noopener noreferrer"
-   
-            > 
-           Let's connect
-            </a></p>
-         
+            <p className="text-gray-300 mb-2">
+              Interested in working together? <br />
+              <a
+                href="mailto:contact@gaboesquivel.com"
+                className="inline-block hover:text-white transition-colors text-accent pt-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Let's connect
+              </a>
+            </p>
           </div>
         </div>
       </div>
     </footer>
   )
 }
-
