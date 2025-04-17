@@ -27,10 +27,7 @@ const navItems = {
 }
 
 export default function Navbar() {
-  let pathname = usePathname() || '/'
-  if (pathname.includes('/blog/')) {
-    pathname = '/blog'
-  }
+  const pathname = usePathname() || '/'
 
   return (
     <nav className="-ml-[8px] mb-16 tracking-tight navbar print:hidden">
@@ -42,7 +39,8 @@ export default function Navbar() {
           >
             <div className="flex flex-row pr-10 space-x-0">
               {Object.entries(navItems).map(([path, { name }]) => {
-                const isActive = path === pathname
+                const isActive =
+                  path === '/' ? pathname === '/' : pathname.includes(path)
                 // console.log({isActive, path, pathname})
                 return (
                   <Link
