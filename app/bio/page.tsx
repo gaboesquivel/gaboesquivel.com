@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import gabocoding from 'public/images/bio/gabo-coding.jpg'
 import nodeschool from 'public/images/bio/nodeschool-costa-rica.jpg'
 import { LatestPosts } from '../../components/blog/latest-posts'
@@ -21,26 +22,26 @@ export default function BioPage() {
         >
           CenfoTec University
         </a>{' '}
-        in San José in 2006, where I discovered my passion for software product
+        in San José in 2006, where I discovered a passion for software product
         development. By 2008, I was crafting custom WordPress solutions for
         businesses at InterGraphicDESIGNS. In 2009, I stepped into a UI Engineer
         role at{' '}
-        <a href="/project/american-express" className="prose-link">
+        <Link href="/project/american-express" className="prose-link">
           American Express
-        </a>
+        </Link>
         , where I helped modernize their web platform and implement responsive
         layouts.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
         In 2010, I founded{' '}
-        <a href="/project/costa-rica-js" className="prose-link">
+        <Link href="/project/costa-rica-js" className="prose-link">
           Costa Rica JS
-        </a>
-        , which became Central America's largest JavaScript community with over
-        2000 developers. It was incredible to see how this community helped
-        foster the region's tech ecosystem as Node.js and modern web frameworks
-        gained prominence.
+        </Link>
+        , which grew to become Central America's largest JavaScript community,
+        with over 2,000 developers. It was incredible to see how this community
+        helped foster the region's tech ecosystem as Node.js and modern web
+        frameworks gained prominence.
       </p>
 
       <div className="gap-4 my-8 columns-1">
@@ -57,105 +58,107 @@ export default function BioPage() {
       </div>
 
       <p className="prose prose-neutral dark:prose-invert">
-        My involvement in the local tech community helped kickstart my career as
-        a freelance developer. I worked on diverse projects across multiple
+        My involvement in the local tech community helped to kickstart my career
+        as a freelance developer. I worked on diverse projects across multiple
         industries:
       </p>
       <ul className="list-disc pl-4 mb-4 space-y-1">
         <li className="prose prose-neutral dark:prose-invert">
           A tennis tournament management system for{' '}
-          <a href="/project/fantasy-tennis" className="prose-link">
+          <Link href="/project/fantasy-tennis" className="prose-link">
             Fantasy Tennis
-          </a>
+          </Link>
         </li>
         <li className="prose prose-neutral dark:prose-invert">
           A flight display system for{' '}
-          <a href="/project/arinc-microfids" className="prose-link">
+          <Link href="/project/arinc-microfids" className="prose-link">
             ARINC Microfids
-          </a>
+          </Link>
         </li>
         <li className="prose prose-neutral dark:prose-invert">
           A fitness tracking app that connected with Fitbit for{' '}
-          <a href="/project/4tius-fitness-data-tracker" className="prose-link">
+          <Link
+            href="/project/4tius-fitness-data-tracker"
+            className="prose-link"
+          >
             4Tius
-          </a>
+          </Link>
         </li>
         <li className="prose prose-neutral dark:prose-invert">
           An energy usage monitoring tool for{' '}
-          <a href="/project/gridium" className="prose-link">
+          <Link href="/project/gridium" className="prose-link">
             Gridium
-          </a>
+          </Link>
         </li>
         <li className="prose prose-neutral dark:prose-invert">
           A movie streaming app for{' '}
-          <a href="/project/amc-yeah-tv-facebook-app" className="prose-link">
+          <Link href="/project/amc-yeah-tv-facebook-app" className="prose-link">
             AMC Networks
-          </a>
+          </Link>
         </li>
         <li className="prose prose-neutral dark:prose-invert">
           An online marketplace for{' '}
-          <a href="/project/bureau-of-trade-beta" className="prose-link">
+          <Link href="/project/bureau-of-trade-beta" className="prose-link">
             Bureau of Trade
-          </a>{' '}
+          </Link>{' '}
           integrated with eBay
         </li>
         <li className="prose prose-neutral dark:prose-invert">
           The community website for{' '}
-          <a href="/project/elder-scrolls-online" className="prose-link">
+          <Link href="/project/elder-scrolls-online" className="prose-link">
             Elder Scrolls Online
-          </a>
+          </Link>
         </li>
         <li className="prose prose-neutral dark:prose-invert">
           A restaurant recommendation service for{' '}
-          <a href="/project/eat-arcade" className="prose-link">
+          <Link href="/project/eat-arcade" className="prose-link">
             Eat Arcade
-          </a>{' '}
+          </Link>{' '}
           in NYC
         </li>
       </ul>
 
       <p className="prose prose-neutral dark:prose-invert">
         In 2015, I joined{' '}
-        <a href="/project/wink" className="prose-link">
+        <Link href="/project/wink" className="prose-link">
           Wink
-        </a>
-        , Costa Rica's first digital bank, as their software architect. I led
-        the development of their mobile banking platform, implementing
-        everything from biometric verification systems to core banking
-        integrations.
+        </Link>
+        , Costa Rica's first digital bank, as a software architect. I led the
+        development of their mobile banking platform, implementing everything
+        from biometric verification systems to core banking integrations.
       </p>
       <p className="prose prose-neutral dark:prose-invert">
         My journey into Web3 began in 2017 at{' '}
-        <a href="/project/knowledge-io" className="prose-link">
+        <Link href="/project/knowledge-io" className="prose-link">
           Knowledge.io
-        </a>
-        , where I got hands-on experience with Ethereum, developing the ERC20
-        token, supporting their ICO and building their Web3 marketplace. That
+        </Link>
+        , where I gained hands-on experience with Ethereum, developing the ERC20
+        token, supporting their ICO, and building their Web3 marketplace. That
         same year, I co-founded{' '}
-        <a href="/project/asoblockchain" className="prose-link">
+        <Link href="/project/asoblockchain" className="prose-link">
           AsoBlockchain, Costa Rica's Blockchain Association
-        </a>
+        </Link>
         , which focuses on educational initiatives and lobbying efforts with
         regulators and banks and{' '}
-        <a href="/project/cryptocantinacr" className="prose-link">
+        <Link href="/project/cryptocantinacr" className="prose-link">
           CryptoCantinaCR
-        </a>{' '}
+        </Link>{' '}
         crypto-focused meetups.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
-        <a href="/project/eos-costa-rica" className="prose-link">
+        <Link href="/project/eos-costa-rica" className="prose-link">
           EOS Costa Rica
-        </a>
+        </Link>
         , I participated in the EOS Mainnet launch and managed other EOSIO-based
         blockchain validators. I architected a custom private blockchain for
         Grant Thornton Labs that enabled efficient intercompany transactions and
         tax management using a stablecoin system, with immutable record trails
         via IPFS. I also developed{' '}
-        <a href="/project/eos-rate" className="prose-link">
+        <Link href="/project/eos-rate" className="prose-link">
           EOS Rate
-        </a>
+        </Link>
         , a community-driven tool for rating Block Producers, and contributed to
         the local blockchain ecosystem through workshops and meetups.
       </p>
@@ -175,27 +178,27 @@ export default function BioPage() {
 
       <p className="prose prose-neutral dark:prose-invert">
         Between 2019 and 2021, I worked on several exciting projects:{' '}
-        <a href="/project/emanate" className="prose-link">
+        <Link href="/project/emanate" className="prose-link">
           Emanate
-        </a>
+        </Link>
         , a Web3-powered music platform where I maintained the streaming service
         and back office for artist revenue distribution;{' '}
-        <a href="/project/make-sense-labs" className="prose-link">
+        <Link href="/project/make-sense-labs" className="prose-link">
           Sense Chat
-        </a>
-        , a secure messaging app with built-in wallet and token incentives for
+        </Link>
+        , a secure messaging app with a built-in wallet and token incentives for
         communities; and{' '}
-        <a href="/project/bitcashbank" className="prose-link">
+        <Link href="/project/bitcashbank" className="prose-link">
           Bitcash
-        </a>
-        , a p2p exchange system with crypto-collateralized stablecoins.
+        </Link>
+        , a P2P exchange system with crypto-collateralized stablecoins.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
-        <a href="/project/bitcashbank" className="prose-link">
+        <Link href="/project/bitcashbank" className="prose-link">
           Bitcash
-        </a>
+        </Link>
         , we developed an innovative peer-to-peer exchange system featuring
         browser-based transaction signing and a clever QR code system for secure
         cross-app authentication. We also implemented real-time chat for direct
@@ -204,9 +207,9 @@ export default function BioPage() {
 
       <p className="prose prose-neutral dark:prose-invert">
         In 2021, at{' '}
-        <a href="/project/raremint" className="prose-link">
+        <Link href="/project/raremint" className="prose-link">
           Raremint
-        </a>
+        </Link>
         , I enhanced their NFT marketplace for digitized sports collectibles. I
         developed a specialized EVM NFT data indexer that significantly improved
         marketplace performance and implemented SSR to optimize the user
@@ -214,37 +217,65 @@ export default function BioPage() {
       </p>
       <p className="prose prose-neutral dark:prose-invert">
         In 2022, at{' '}
-        <a href="/project/ztx" className="prose-link">
+        <Link href="/project/ztx" className="prose-link">
           ZTX
-        </a>
+        </Link>
         , I established the foundational React architecture and implemented
-        wallet connectivity patterns that enabled seamless integration between
-        the game engine and blockchain interactions.
+        wallet connectivity patterns, enabling seamless integration between the
+        game engine and blockchain interactions.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-        Since late 2023 at{' '}
-        <a href="/project/bitlauncher" className="prose-link">
+        Since late 2022 at{' '}
+        <Link href="/project/bitlauncher" className="prose-link">
           bitlauncher.ai
-        </a>
-        , I've been exploring the intersection of AI and Web3, taking a product
-        engineering approach that balances technical execution with user
+        </Link>
+        , I've been exploring the intersection of AI and Web3, adopting a
+        product engineering approach that balances technical execution with user
         experience. My work involves implementing cross-chain token bridges,
         building real-time bidding systems, developing AI chatbots with data
         retrieval, and creating AI-assisted development workflows.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
+        In 2023, parallel to bitlauncher, I worked with{' '}
+        <Link href="/project/opyn" className="prose-link">
+          Opyn
+        </Link>
+        , a decentralized options protocol on Arbitrum. I implemented their
+        initial trading interface and data indexing setup for Arbitrum Testnet.
+        This experience deepened my understanding of financial primitives
+        onchain, especially around composability, capital efficiency, and
+        risk-managed exposure.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert">
+        At{' '}
+        <Link href="/project/sfera-legal" className="prose-link">
+          Sfera Legal
+        </Link>{' '}
+        in 2024, I integrated an AI assistant into their mobile app, enhancing
+        legal productivity through voice and chat interfaces.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert">
         Throughout my 15+ year journey, I've evolved into a{' '}
-        <a href="/blog/2025-03-the-product-engineer" className="prose-link">
+        <Link href="/blog/2025-03-the-product-engineer" className="prose-link">
           product engineer
-        </a>{' '}
+        </Link>{' '}
         who bridges technical execution with user experience. My focus remains
-        on emerging technologies like Web3 and AI, but always through the lens
-        of solving real human problems and delivering tangible value. Whether
-        it's architecting decentralized systems or implementing AI solutions, I
-        approach each challenge by combining technical expertise with product
-        thinking to create solutions that truly resonate with users.
+        on emerging technologies like{' '}
+        <Link href="/web3" className="prose-link">
+          Web3
+        </Link>{' '}
+        and{' '}
+        <Link href="/ai" className="prose-link">
+          AI
+        </Link>
+        , but always through the lens of solving real human problems and
+        delivering tangible value. Whether it's architecting decentralized
+        systems or implementing AI solutions, I approach each challenge by
+        combining technical expertise with product thinking to create solutions
       </p>
 
       <LatestPosts />
@@ -253,13 +284,11 @@ export default function BioPage() {
 }
 
 export const metadata: Metadata = {
-  title: 'Bio | Gabo Esquivel',
-  description:
-    'Professional journey of Gabo Esquivel, a product engineer specializing in Web3 and AI technologies with over 15 years of experience in software development.',
+  title: 'Professional Journey | Gabo Esquivel',
+  description: 'Product engineer specializing in Web3 and AI technologies.',
   openGraph: {
-    title: 'Bio | Gabo Esquivel',
-    description:
-      'Professional journey of Gabo Esquivel, a product engineer specializing in Web3 and AI technologies with over 15 years of experience in software development.',
+    title: 'Professional Journey | Gabo Esquivel',
+    description: 'Product engineer specializing in Web3 and AI technologies.',
     images: [
       {
         url: '/images/bio/gabo-coding.jpg',

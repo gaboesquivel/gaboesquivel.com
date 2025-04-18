@@ -30,21 +30,19 @@ export default function CVPage() {
         </div>
       </div> */}
 
-      <div className="mb-8 print:block hidden print:text-gray-700">
+      <div className="mb-8 print:block print:text-gray-700">
         <p className="mb-4">
-          I'm a full-stack software engineer with over 15 years of experience
-          assisting organizations in crafting and evolving software products
-          from initial concept to successful market launch, ensuring ideas are
-          realized to their full potential. I act as a product engineer who
-          bridges technical execution with user experience and business
-          strategy.
+          With over 15 years in full-stack software engineering, I help
+          organizations turn initial ideas into market-ready software products,
+          ensuring concepts reach their full potential. I work as a product
+          engineer, bridging technical execution with user experience and
+          business strategy.
         </p>
         <p className="mb-4">
-          My focus is on emerging technologies and user-centric innovation. My
-          expertise spans web3, cloud, and full-stack web and mobile
-          development, complemented by ongoing explorations in artificial
-          intelligence. I am fluent in English, Spanish, Portuguese, and
-          Italian.
+          My focus is on emerging technologies and user-focused innovation. My
+          skills include web3, cloud, and full-stack web and mobile development,
+          along with ongoing work in artificial intelligence. I am fluent in
+          English, Spanish, Portuguese, and Italian.
         </p>
       </div>
 

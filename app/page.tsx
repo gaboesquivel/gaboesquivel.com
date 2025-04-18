@@ -37,12 +37,12 @@ export default function HomePage() {
       <p className="prose prose-neutral dark:prose-invert">
         My focus is on emerging technologies and user-centric innovation. My
         expertise spans{' '}
-        <Link href="/work/web3" className="prose-link">
+        <Link href="/web3" className="prose-link">
           web3
         </Link>
         , cloud, and full-stack web and mobile development, complemented by
         ongoing explorations in{' '}
-        <Link href="/work/ai" className="prose-link">
+        <Link href="/ai" className="prose-link">
           artificial intelligence
         </Link>
         .
@@ -52,8 +52,8 @@ export default function HomePage() {
         My approach is rooted in agile methodologies, striving for precision in
         technology implementation. I am fluent in English, Spanish, Portuguese,
         and Italian. My professional services are offered through my company,
-        Blockmatic LLC. If you are developing innovative solutions in AI and
-        Web3, I would love to collaborate. Please{' '}
+        Blockmatic Labs LLC. If you are developing innovative solutions in AI
+        and Web3, I would love to collaborate. Please{' '}
         <a href="mailto:contact@gaboesquivel.com" className="prose-link">
           contact me
         </a>{' '}

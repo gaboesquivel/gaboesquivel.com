@@ -12,8 +12,11 @@ const navItems = {
   '/bio': {
     name: 'bio',
   },
-  '/cv': {
-    name: 'cv',
+  '/web3': {
+    name: 'web3',
+  },
+  '/ai': {
+    name: 'ai',
   },
   '/work': {
     name: 'work',
@@ -21,8 +24,8 @@ const navItems = {
   '/blog': {
     name: 'blog',
   },
-  '/tech': {
-    name: 'tech',
+  '/cv': {
+    name: 'cv',
   },
 }
 
