@@ -2,6 +2,8 @@ import { LatestPosts } from 'components/blog/latest-posts'
 import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import aiPic from 'public/images/ai/ai.webp'
 
 export default function CVPage() {
   return (
@@ -14,6 +16,32 @@ export default function CVPage() {
       </h1>
 
       <div className="mb-8 print:block print:text-gray-700">
+        <p className="mb-4">
+          AI is reshaping the world, fundamentally changing how we live, work,
+          and interact with technology. Over the past few years, I've focused
+          deeply on building real-world AI applications that bridge blockchain
+          and advanced user interactions—from experimental hackathon projects to
+          specialized chatbot platforms and AI launchpads. Today, my work is
+          centered on redefining user experience: moving beyond static
+          interfaces to create systems where chat, search, and action converge.
+          I believe AI is no longer just a backend feature—it's becoming the new
+          operating system for software, making interactions more natural,
+          dynamic, and intuitive.
+        </p>
+
+        {/* <div className="gap-4 my-8 columns-1">
+          <div className="relative mb-4 h-60">
+            <Image
+              alt="Artificial Intelligence"
+              src={aiPic}
+              fill
+              sizes="(max-width: 768px) 213px, 33vw"
+              priority
+              className="object-cover rounded-lg"
+            />
+          </div>
+        </div> */}
+
         <h2 className="text-xl font-bold mb-4">Starting With OpenAI (2022)</h2>
         <p className="mb-4">
           My journey into the world of AI began in 2022 when I started
@@ -44,10 +72,10 @@ export default function CVPage() {
           streaming with Next.js to provide a better user experience.
         </p>
         <h2 className="text-xl font-bold mb-4">
-          BitLauncher: AI and Crypto Launchpad (2023)
+          Bitlauncher: AI and Crypto Launchpad (2023)
         </h2>
         <p className="mb-4">
-          BitLauncher was conceived as a cutting-edge AI and crypto launchpad
+          Bitlauncher was conceived as a cutting-edge AI and crypto launchpad
           platform, designed to democratize the investment process by providing
           early access to promising AI unicorn startups through token sales and
           auctions. The platform's batch auction system ensured fair and
@@ -74,16 +102,6 @@ export default function CVPage() {
           tracking APIs using advanced tools, resulting in a more responsive
           legal operation that accelerated knowledge access and reduced research
           friction.
-        </p>
-        <h2 className="text-xl font-bold mb-4">AI for User Experience</h2>
-        <p className="mb-4">
-          Currently, I'm exploring how AI can enhance user experience by
-          creating interfaces that combine chat, search, and execution, removing
-          unnecessary buttons and clutter. I'm also developing assistive UX
-          patterns that reduce user effort without hiding complexity and
-          devtools that streamline complex workflows using LLMs. AI is no longer
-          just a backend feature; it's becoming the operating system for how we
-          use software, and I'm excited to be part of building that future.
         </p>
       </div>
 

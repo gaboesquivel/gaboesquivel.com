@@ -34,6 +34,7 @@ export default function HomePage() {
           />
         </div>
       </div>
+
       <p className="prose prose-neutral dark:prose-invert">
         My focus is on emerging technologies and user-centric innovation. My
         expertise spans{' '}

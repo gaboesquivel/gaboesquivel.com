@@ -2,6 +2,8 @@ import { LatestPosts } from 'components/blog/latest-posts'
 import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import aiPic from 'public/images/ai/ai.webp'
 
 export default function CVPage() {
   const type = 'web3'
@@ -15,20 +17,44 @@ export default function CVPage() {
       </h1>
 
       <div className="mb-8 print:block print:text-gray-700">
+        <p className="mb-4">
+          Before I found my way into Web3, I spent years building inside the
+          walls of traditional finance. It gave me a front-row seat to how money
+          moves—and how much potential was being left on the table. As I worked
+          to modernize financial services, I realized the real opportunity
+          wasn’t just better apps or smoother UX; it was rethinking the entire
+          architecture of value itself. That insight led me to blockchain, open
+          protocols, and eventually a new chapter in my career—one driven by
+          decentralization, transparency, and permissionless innovation.
+        </p>
+
+        {/* <div className="gap-4 my-8 columns-1">
+          <div className="relative mb-4 h-60">
+            <Image
+              alt="Artificial Intelligence"
+              src={aiPic}
+              fill
+              sizes="(max-width: 768px) 213px, 33vw"
+              priority
+              className="object-cover rounded-lg"
+            />
+          </div>
+        </div> */}
+
         <h2 className="text-xl font-bold mb-4">
           AMEX & Mobile Neobank (Pre-2017)
         </h2>
         <p className="mb-4">
-          My journey in Fintech began in Apr 2010 when I joined American Express
-          (AMEX) as UI Engineer, helping with migration from DoJo to jQuery and
-          development of credit cards system for the main site. In 2015 I was
-          hired as Lead Architect to build the first mobile neobank in Costa
-          Rica—a fully compliant platform created to modernize financial
-          services. It taught me the complexities of banking infrastructure,
-          regulation, and mobile-first UX. But working within a traditional
-          financial system made one thing clear: we needed a new architecture
-          for value on the internet. That was when I shifted my focus to Open
-          Banking and soon after Bitcoin and blockchain technology.
+          My journey in fintech began in 2010 when I joined American Express
+          (AMEX) as a UI Engineer, helping migrate their credit card systems
+          from DoJo to jQuery. In 2015, I was hired as Lead Architect to build
+          Costa Rica’s first mobile neobank—a fully compliant platform created
+          to modernize banking through mobile-first experiences. These years
+          deepened my understanding of financial infrastructure, regulatory
+          frameworks, and the challenges of innovation inside traditional
+          systems. The limits I encountered there pushed me to explore new
+          models beyond conventional finance, setting the stage for my
+          transition into blockchain technology.
         </p>
 
         <h2 className="text-xl font-bold mb-4 mt-6">
