@@ -103,7 +103,7 @@ export default function CVPage() {
         </p> */}
 
         <h2 className="text-xl font-bold mb-4 mt-6">
-          DEFI: Bitcash Bank (2020)
+          DeFi: Bitcash Bank (2020)
         </h2>
         <p className="mb-4">
           Later in 2020, I joined Bitcash Bank, a crypto-native banking
