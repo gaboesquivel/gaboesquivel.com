@@ -87,21 +87,20 @@ export default function CVPage() {
           efficiently.
         </p>
         <h2 className="text-xl font-bold mb-4">
-          SferaLegal: AI for Legal Operations (2024)
+          LegalAgent: AI for Legal Operations (2024)
         </h2>
         <p className="mb-4">
-          At SferaLegal, a legaltech innovator in LATAM, I helped with the
-          development of a mobile app featuring voice and text interfaces that
-          transformed how their legal team accessed and understood internal
-          documentation. By implementing a secure, retrieval-augmented
-          generation (RAG) system using OpenAI, we enabled lawyers to query
-          contracts, memos, and regulatory docs in natural language. This
-          project also involved developing a backend system to manage the
-          system's prompts, allowing admins to adjust the assistant's behavior.
-          Additionally, we integrated third-party systems like billing and case
-          tracking APIs using advanced tools, resulting in a more responsive
-          legal operation that accelerated knowledge access and reduced research
-          friction.
+          At LegalAgent, I helped with the development of a mobile app featuring
+          voice and text interfaces that transformed how their legal team
+          accessed and understood internal documentation. By implementing a
+          secure, retrieval-augmented generation (RAG) system using OpenAI, we
+          enabled lawyers to query contracts, memos, and regulatory docs in
+          natural language. This project also involved developing a backend
+          system to manage the system's prompts, allowing admins to adjust the
+          assistant's behavior. Additionally, we integrated third-party systems
+          like billing and case tracking APIs using advanced tools, resulting in
+          a more responsive legal operation that accelerated knowledge access
+          and reduced research friction.
         </p>
       </div>
 
