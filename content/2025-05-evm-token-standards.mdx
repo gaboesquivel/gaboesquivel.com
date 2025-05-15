@@ -82,18 +82,43 @@ Introduced by Enjin in 2018, [ERC-1155](https://eips.ethereum.org/EIPS/eip-1155)
 
 ERC-6909 offers a simpler, developer-friendly way to manage fungible assets at scale—without the operational overhead of ERC-1155.
 
+## ERC-7281: Cross-Chain Token Identity
 
-## 🧠 Summary Table
+[ERC-7281](https://eips.ethereum.org/EIPS/eip-7281) introduces a **standardized interface for identifying tokens across chains** by embedding the `chainId` into the token’s interface.
 
-| Feature                     | ERC-20      | ERC-1155               | ERC-6909         |
-| --------------------------- | ----------- | ---------------------- | ---------------- |
-| Token Types                 | 1 Fungible  | Many (Fungible + NFTs) | Many (Fungible)  |
-| Batch Operations            | ❌           | ✅                      | ❌ (customizable) |
-| Transfer Callbacks          | ❌           | ✅                      | ❌                |
-| NFT Support                 | ❌           | ✅                      | ❌                |
-| Approval Model              | Per-address | Global operator        | Global + Per-ID  |
-| Gas Efficiency              | Medium      | High                   | Highest          |
-| Simplicity (Dev Experience) | ✅           | ❌                      | ✅                |
+### Why it matters:
+
+As multichain ecosystems grow, **ambiguity in token identity** becomes a major problem. For example, `USDC` on Ethereum L1 and `USDC` on Arbitrum may be totally different tokens. ERC-7281 helps **prevent confusion, spoofing, and misrepresentation** in dApps, bridges, and explorers.
+
+### Key Features:
+
+* Adds `chainId()` function to token interfaces
+* Extends `symbol()`, `name()`, and `decimals()` with optional `chainId`-aware context
+* Helps wallets and protocols **differentiate tokens across L1s, L2s, and sidechains**
+* Aids in bridge security and cross-chain composability
+
+### Use Cases:
+
+* Cross-chain token registries
+* Safe bridging and token routing
+* dApps displaying accurate token info across chains
+
+### Compatibility:
+
+ERC-7281 is **complementary** to ERC-20, ERC-1155, and even ERC-6909. It doesn’t replace them—it enhances them by giving tokens **global uniqueness**.
+
+## 🧠 Updated Comparison Table
+
+| Feature               | ERC-20      | ERC-1155               | ERC-6909        | ERC-7281          |
+| --------------------- | ----------- | ---------------------- | --------------- | ----------------- |
+| Token Types           | 1 Fungible  | Many (Fungible + NFTs) | Many (Fungible) | Any (extension)   |
+| Batch Operations      | ❌           | ✅                      | ❌               | N/A               |
+| Transfer Callbacks    | ❌           | ✅                      | ❌               | N/A               |
+| NFT Support           | ❌           | ✅                      | ❌               | ❌ (enhancement)   |
+| Approval Model        | Per-address | Global operator        | Global + Per-ID | N/A               |
+| Cross-Chain Awareness | ❌           | ❌                      | ❌               | ✅ via `chainId()` |
+| Gas Efficiency        | Medium      | High                   | Highest         | Depends on base   |
+| Usage                 | Tokens      | Games, NFTs            | DeFi vaults     | Wallets, bridges  |
 
 
 ## ✍️ Final Thoughts
