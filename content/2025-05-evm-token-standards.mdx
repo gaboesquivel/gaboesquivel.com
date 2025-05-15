@@ -1,0 +1,110 @@
+---
+title: EVM Token Standards Overview
+publishedAt: 2025-05-15
+summary: Ethereum token standards. ERC-20, ERC-1155, and ERC-6909
+image: /images/2025/05/evm-token-standards.webp
+category: ['Web3', 'DeFi', 'Blockchain']
+tech: ['EVM', 'Ethereum']
+---
+
+Ethereum’s innovation has been fueled not just by smart contracts but also by token standards—defined interfaces that let developers build interoperable assets. These standards govern how tokens behave, transfer, and interact with wallets and dApps.
+
+In this post, we’ll break down three core Ethereum token standards: **ERC-20**, **ERC-1155**, and the newer **ERC-6909**. Whether you’re a developer, investor, or curious observer, understanding these standards helps decode how the Web3 economy operates.
+
+{/* Prevent CLS by setting a minimum height */}
+<div style={{ minHeight: '300px' }}>
+![EVM Token Standards](/images/2025/05/evm-token-standards.webp)
+</div>
+
+## 🟢 ERC-20: The Fungible Token Blueprint
+
+**Launched** in 2015, [ERC-20](https://eips.ethereum.org/EIPS/eip-20) is the original token standard for Ethereum. It defines a set of functions for fungible tokens—tokens that are identical and interchangeable, like currency.
+
+### Key Features:
+
+* Each token contract represents one asset type
+* Functions: `transfer`, `approve`, `transferFrom`, `balanceOf`, `totalSupply`
+* Widespread adoption in DeFi, DAOs, and ICOs
+
+### Use Cases:
+
+* Stablecoins (e.g., USDC, DAI)
+* Governance tokens (e.g., UNI, AAVE)
+* Wrapped assets (e.g., WBTC)
+
+### Limitations:
+
+* No batch operations
+* One contract = one asset
+* Not suitable for NFTs or multi-token systems
+
+
+## 🟣 ERC-1155: Multi-Asset, Multi-Use
+
+Introduced by Enjin in 2018, [ERC-1155](https://eips.ethereum.org/EIPS/eip-1155) is a multi-token standard that allows a single contract to represent multiple token types—both fungible and non-fungible.
+
+### Key Features:
+
+* Supports **batch operations**
+* Combines NFTs and fungibles in one contract
+* Efficient minting and transferring of multiple assets
+
+### Use Cases:
+
+* Gaming (e.g., weapons, armor, currency in one contract)
+* Digital collectibles
+* Metaverse economies
+
+### Trade-offs:
+
+* More complex to implement
+* Requires `safeTransferFrom` and `onERC1155Received` callbacks for safe interactions
+
+
+## 🔵 ERC-6909: The Lean Multi-Token Standard
+
+[ERC-6909](https://eips.ethereum.org/EIPS/eip-6909) is a newer, lightweight alternative to ERC-1155, ideal for DeFi protocols that need to represent multiple fungible asset types efficiently.
+
+### Key Features:
+
+* Minimal interface for managing multiple token types
+* No mandatory callbacks
+* Built-in per-token allowances (vs. global approvals only in 1155)
+* More gas-efficient than both ERC-20 and ERC-1155
+
+### Use Cases:
+
+* Vault shares
+* LP tokens (e.g., used in Uniswap v4 PoolManager)
+* Tokenized funds with multiple classes
+
+### Why It Matters:
+
+ERC-6909 offers a simpler, developer-friendly way to manage fungible assets at scale—without the operational overhead of ERC-1155.
+
+
+## 🧠 Summary Table
+
+| Feature                     | ERC-20      | ERC-1155               | ERC-6909         |
+| --------------------------- | ----------- | ---------------------- | ---------------- |
+| Token Types                 | 1 Fungible  | Many (Fungible + NFTs) | Many (Fungible)  |
+| Batch Operations            | ❌           | ✅                      | ❌ (customizable) |
+| Transfer Callbacks          | ❌           | ✅                      | ❌                |
+| NFT Support                 | ❌           | ✅                      | ❌                |
+| Approval Model              | Per-address | Global operator        | Global + Per-ID  |
+| Gas Efficiency              | Medium      | High                   | Highest          |
+| Simplicity (Dev Experience) | ✅           | ❌                      | ✅                |
+
+
+## ✍️ Final Thoughts
+
+Each Ethereum token standard serves a specific purpose:
+
+* **ERC-20** is perfect for simple fungible assets.
+* **ERC-1155** shines in multi-asset and NFT-rich environments like games.
+* **ERC-6909** introduces a powerful, efficient pattern for multi-token DeFi applications.
+
+The evolution of these standards reflects Ethereum’s versatility—and the growing demands of developers to build faster, leaner, and more composable financial infrastructure.
+
+If you’re building dApps, wallets, or protocols, choosing the right token standard isn’t just a technical decision—it’s a product design choice. Pick wisely.
+
