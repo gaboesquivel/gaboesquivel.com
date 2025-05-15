@@ -10,7 +10,7 @@ export function PostGrid({
 }) {
   if (posts.length === 0) return null
 
-  const difference = formatDateDifference(posts[0].publishedAt)
+  // const difference = formatDateDifference(posts[0].publishedAt)
 
   return (
     <div className="mt-16">
@@ -24,7 +24,7 @@ export function PostGrid({
           >
             <h3 className="mb-1 font-medium">{post.title}</h3>
             {post.publishedAt && (
-              <p className="text-neutral-600 text-sm dark:text-neutral-400">{`${formatDate(post.publishedAt)} (${difference})`}</p>
+              <p className="text-neutral-600 text-sm dark:text-neutral-400">{`${formatDate(post.publishedAt)}`}</p>
             )}
           </Link>
         ))}
