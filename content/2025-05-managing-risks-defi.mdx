@@ -1,0 +1,59 @@
+---
+title:  Managing Risks in DeFi
+publishedAt: 2025-05-15
+summary: DeFi risks including impermanent loss, smart contract exploits, rug pulls, and real-world examples
+image: /images/2025/05/amms-yield-farming.webp
+category: ['Web3', 'DeFi', 'Blockchain']
+tech: ['EVM', 'Ethereum', 'Solana', 'Cosmos']
+---
+Decentralized Finance (DeFi) has unlocked powerful financial primitives like AMMs, liquidity pools, and yield farming. However, these innovations introduce unique risks. This article breaks down core DeFi risks, explains their mechanisms, and references real-world incidents to demonstrate critical awareness.
+
+{/* Prevent CLS by setting a minimum height */}
+<div style={{ minHeight: '300px' }}>
+![Managing Risks in DeFi](/images/2025/05/amms-yield-farming.webp)
+</div>
+
+## Impermanent Loss
+
+AMMs like Uniswap rebalance token ratios, exposing LPs to impermanent loss (IL) when asset prices diverge. This loss becomes permanent upon withdrawal. For example, LPs often lose value during volatile markets unless offset by fees. In Uniswap v3, \~50% of LPs lost money due to IL exceeding fees. Bancor's failed IL protection during a 2022 market crash highlighted the challenge of mitigating this risk.
+
+## Smart Contract Exploits
+
+DeFi protocols are built on immutable smart contracts. Vulnerabilities like reentrancy or logic errors can lead to catastrophic losses. The 2016 DAO hack, Curve's \$70M Vyper bug exploit (2023), and bZx’s repeated exploits underscore how even audited code can fail. Developers must prioritize audits, bug bounties, and conservative design.
+
+## Rug Pulls
+
+Rug pulls occur when developers drain liquidity or abandon projects, leaving users with worthless tokens. Notable examples include AnubisDAO (\$60M exit scam) and Meerkat Finance (\$31M). Red flags include anonymous teams, unaudited contracts, and unrealistic yields. DYOR (Do Your Own Research) is crucial.
+
+## Systemic Risk from Composability
+
+DeFi's composability enables innovation but introduces cascading failure risks. Protocols like Iron Finance and Terra’s UST collapse (2021-2022) show how dependencies across protocols (e.g., shared collateral) can amplify shocks. One failure can trigger a chain reaction across multiple dApps.
+
+## Flash Loan Attacks
+
+Flash loans allow borrowing without collateral if repaid within the same transaction. Attackers use them to exploit weak protocols, often manipulating prices or governance. Examples include bZx (2020), Harvest Finance (\$34M), and Alpha Homora (\$37M). Protocols must guard against price manipulation and enforce governance delays.
+
+## Oracle Manipulation
+
+Protocols relying on on-chain DEX prices can be exploited via manipulated trades. Mango Markets (2022) was drained of \$117M by inflating MNGO token prices and borrowing against the inflated value. Secure, time-weighted oracles (e.g., Chainlink) are essential.
+
+## Rehypothecation
+
+DeFi enables recursive use of collateral (e.g., stETH), creating opaque chains of risk. One token can underpin multiple layers of borrowing or liquidity provision. This hidden leverage can destabilize the system during stress, as seen with Terra and stETH depegging.
+
+## Liquidation Spirals
+
+Over-leveraged positions in volatile markets can lead to cascading liquidations. MakerDAO’s "Black Thursday" (2020) saw \$8M in ETH sold for zero due to auction failures. Protocols must use conservative collateral ratios and robust liquidation mechanisms.
+
+## Governance Attacks
+
+DeFi governance is vulnerable when attackers borrow tokens to pass malicious proposals. Beanstalk lost \$182M in a flash loan-enabled attack. Mitigations include timelocks, quorum requirements, and snapshot-based voting.
+
+## Always DYOR
+
+DeFi users and developers must vet protocols: audit reports, team transparency, token distribution, and governance design all matter. Platforms like DeFiSafety and Rekt.News help evaluate risk. Awareness and due diligence are non-negotiable.
+
+
+# Conclusion 
+
+DeFi presents exciting opportunities and real threats. Technical savvy and risk-conscious design are essential. Hiring managers should seek developers who understand these risks and build defensively. Smart DeFi participation requires vigilance, skepticism, and above all—verification over trust.
