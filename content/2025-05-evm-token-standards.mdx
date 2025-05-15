@@ -20,19 +20,19 @@ In this post, we'll break down four core Ethereum token standards: **ERC-20**, *
 
 **Launched** in 2015, [ERC-20](https://eips.ethereum.org/EIPS/eip-20) is the original token standard for Ethereum. It defines a set of functions for fungible tokens—tokens that are identical and interchangeable, like currency.
 
-### Key Features:
+**Key Features:**
 
 * Each token contract represents one asset type
 * Functions: `transfer`, `approve`, `transferFrom`, `balanceOf`, `totalSupply`
 * Widespread adoption in DeFi, DAOs, and ICOs
 
-### Use Cases:
+**Use Cases:**
 
 * Stablecoins (e.g., USDC, DAI)
 * Governance tokens (e.g., UNI, AAVE)
 * Wrapped assets (e.g., WBTC)
 
-### Limitations:
+**Limitations:**
 
 * No batch operations
 * One contract = one asset
@@ -43,19 +43,19 @@ In this post, we'll break down four core Ethereum token standards: **ERC-20**, *
 
 Introduced by Enjin in 2018, [ERC-1155](https://eips.ethereum.org/EIPS/eip-1155) is a multi-token standard that allows a single contract to represent multiple token types—both fungible and non-fungible.
 
-### Key Features:
+**Key Features:**
 
 * Supports **batch operations**
 * Combines NFTs and fungibles in one contract
 * Efficient minting and transferring of multiple assets
 
-### Use Cases:
+**Use Cases:**
 
 * Gaming (e.g., weapons, armor, currency in one contract)
 * Digital collectibles
 * Metaverse economies
 
-### Trade-offs:
+**Trade-offs:**
 
 * More complex to implement
 * Requires `safeTransferFrom` and `onERC1155Received` callbacks for safe interactions
@@ -65,20 +65,20 @@ Introduced by Enjin in 2018, [ERC-1155](https://eips.ethereum.org/EIPS/eip-1155)
 
 [ERC-6909](https://eips.ethereum.org/EIPS/eip-6909) is a newer, lightweight alternative to ERC-1155, ideal for DeFi protocols that need to represent multiple fungible asset types efficiently.
 
-### Key Features:
+**Key Features:**
 
 * Minimal interface for managing multiple token types
 * No mandatory callbacks
 * Built-in per-token allowances (vs. global approvals only in 1155)
 * More gas-efficient than both ERC-20 and ERC-1155
 
-### Use Cases:
+**Use Cases:**
 
 * Vault shares
 * LP tokens (e.g., used in Uniswap v4 PoolManager)
 * Tokenized funds with multiple classes
 
-### Why It Matters:
+**Why It Matters:**
 
 ERC-6909 offers a simpler, developer-friendly way to manage fungible assets at scale—without the operational overhead of ERC-1155.
 
@@ -86,24 +86,24 @@ ERC-6909 offers a simpler, developer-friendly way to manage fungible assets at s
 
 [ERC-7281](https://eips.ethereum.org/EIPS/eip-7281) introduces a **standardized interface for identifying tokens across chains** by embedding the `chainId` into the token's interface.
 
-### Why it matters:
+**Why it matters:**
 
 As multichain ecosystems grow, **ambiguity in token identity** becomes a major problem. For example, `USDC` on Ethereum L1 and `USDC` on Arbitrum may be totally different tokens. ERC-7281 helps **prevent confusion, spoofing, and misrepresentation** in dApps, bridges, and explorers.
 
-### Key Features:
+**Key Features:**
 
 * Adds `chainId()` function to token interfaces
 * Extends `symbol()`, `name()`, and `decimals()` with optional `chainId`-aware context
 * Helps wallets and protocols **differentiate tokens across L1s, L2s, and sidechains**
 * Aids in bridge security and cross-chain composability
 
-### Use Cases:
+**Use Cases:**
 
 * Cross-chain token registries
 * Safe bridging and token routing
 * dApps displaying accurate token info across chains
 
-### Compatibility:
+**Compatibility:**
 
 ERC-7281 is **complementary** to ERC-20, ERC-1155, and even ERC-6909. It doesn't replace them—it enhances them by giving tokens **global uniqueness**.
 
