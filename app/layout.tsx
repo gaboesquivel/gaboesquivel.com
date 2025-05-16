@@ -59,7 +59,7 @@ export default function RootLayout({
       </head>
       <body className="relative mb-40 antialiased">
         <div className="w-full h-0.5 bg-accent sticky top-0 z-50" />
-        <main className="flex flex-col flex-auto max-w-3xl min-w-0 px-4 mt-6 lg:mx-auto">
+        <main className="flex flex-col flex-auto max-w-4xl min-w-0 px-6 mt-8 lg:mx-auto">
           <Navbar />
           {children}
           <Footer />
