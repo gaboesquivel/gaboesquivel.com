@@ -1,0 +1,90 @@
+---
+title: Scaling and Securing WebSocket Connections
+publishedAt: 2025-05-16
+summary: Strategies for building robust WebSocket backends with session affinity, TLS encryption, proper authentication, and inter-node communication for high-availability environments
+image: /images/2025/05/order-books-amms.webp
+category: ['Engineering', 'Backend']
+tech: ['Bun', 'NodeJS']
+---
+
+WebSockets are essential for real-time applications—from trading engines to AI assistants. But when you move from prototype to production, things get tricky. Especially when uptime, load balancing, and secure communication matter.
+
+Here’s how I approach scaling WebSocket backends in high-availability environments without compromising security or developer experience.
+
+
+{/* Prevent CLS by setting a minimum height */}
+<div style={{ minHeight: '300px' }}>
+![Crypto Trading: Order Books and AMMs](/images/2025/05/order-books-amms.webp)
+</div>
+
+## Persistent Connections Meet Distributed Systems
+
+WebSockets maintain a long-lived TCP connection, which breaks traditional stateless load balancing. That’s where session affinity (sticky sessions) come in.
+
+**NGINX**, **HAProxy**, and most managed load balancers like AWS ALB*support sticky sessions based on cookies or IP hashing. This ensures clients consistently route to the same backend node, keeping their connection alive.
+
+
+## Secure It: wss\:// or Bust
+
+You should *never* run production WebSockets over `ws://`. Always use `wss://` (TLS-encrypted).
+
+You can terminate TLS at the load balancer (e.g., Cloudflare or NGINX) and forward traffic to internal nodes over plain TCP. Just make sure to:
+
+* Use valid certificates (Let’s Encrypt or managed)
+* Redirect all insecure connections
+* Set proper CORS policies if the frontend is hosted separately
+
+
+## Auth Is Not Optional
+
+WebSocket connections don’t support traditional HTTP headers after the handshake. So you need to authenticate early and smartly.
+
+I usually go with:
+
+* JWT-based auth on connection
+* Validated via query string or an initial message payload
+* Optionally, revalidate tokens periodically in long sessions
+
+Pair that with **Redis** or **Kafka** for coordinating presence, rate-limiting, or propagating bans across nodes.
+
+
+## Redis Pub/Sub: The Backbone of Multi-Node Messaging
+
+In multi-instance setups, your WebSocket servers need to communicate. If one user connects to Node A, and their friend connects to Node B, how do they chat?
+
+Simple: publish to a central broker. I usually default to **Redis Pub/Sub** for simplicity and speed. If you need durability or streaming, go Kafka.
+
+
+## Bun WebSocket: A New Performance Baseline
+
+If you're building with [Bun](https://bun.sh/), you get access to its fast native WebSocket implementation.
+
+Bun WebSocket is extremely lightweight and handles thousands of concurrent connections with low memory overhead. You can:
+
+* Launch a standalone server using Bun's `serve()` with native `upgrade` handling
+* Integrate with Redis Pub/Sub or a shared memory queue
+* Use Bun's edge-focused performance to run it close to users
+
+It’s a solid choice for edge-native, low-latency real-time apps.
+
+
+## Rate-Limiting, Monitoring, and DDoS Protection
+
+Never expose a WebSocket server directly to the open internet without protection. Use:
+
+* **Cloudflare** or a WAF in front
+* Basic IP-based rate limiting at the load balancer
+* Application-level limits for messages per second/user
+* Logging and metrics via Prometheus, Datadog, or Sentry
+
+## TL;DR Checklist
+
+* Sticky sessions via load balancer (cookie or IP hash)
+* TLS with `wss://` only
+* Token-based auth handshake
+* Redis for pub/sub or shared state
+* Bun WebSocket for low-latency edge-native performance
+* Rate limiting + monitoring
+* Health checks and auto-scaling
+
+Whether it’s Web3 trading apps, multiplayer UIs, or streaming AI results. WebSockets are powerful, but they demand a clear architecture to scale securely.
