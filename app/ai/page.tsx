@@ -2,21 +2,38 @@ import { LatestPosts } from 'components/blog/latest-posts'
 import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
-import Image from 'next/image'
-import aiPic from 'public/images/ai/ai.webp'
+import Link from 'next/link'
 
-export default function CVPage() {
+export default function AIExperiencePage() {
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
         <span className="hidden print:inline text-black">
-          Gabo Esquivel - Sr. AI Engineer
+          Gabo Esquivel - AI Engineer
         </span>
         <span className="print:hidden">Artificial Intelligence Experience</span>
       </h1>
 
       <div className="mb-8 print:block print:text-gray-700">
         <p className="mb-4">
+          With over 15 years in full-stack software engineering, I help
+          organizations turn initial ideas into market-ready software products,
+          ensuring concepts reach their full potential. I work as a product
+          engineer, bridging technical execution with user experience and
+          business strategy.
+        </p>
+        <p className="mb-4 hidden print:block">
+          Over the past few years, I've focused deeply on building real-world AI
+          applications that bridge blockchain and advanced user
+          interactions—from experimental hackathon projects to specialized
+          chatbot platforms and AI launchpads. Today, my work is centered on
+          redefining user experience: moving beyond static interfaces to create
+          systems where chat, search, and action converge. I believe AI is no
+          longer just a backend feature—it's becoming the new operating system
+          for software, making interactions more natural, dynamic, and
+          intuitive.
+        </p>
+        <p className="mb-4 print:hidden">
           AI is reshaping the world, fundamentally changing how we live, work,
           and interact with technology. Over the past few years, I've focused
           deeply on building real-world AI applications that bridge blockchain
@@ -104,15 +121,24 @@ export default function CVPage() {
         </p>
       </div>
 
-      <Projects
-        heading="Projects"
-        projects={projects.filter((project) => project.type.includes('ai'))}
-      />
+      <div className="print:hidden">
+        <Projects
+          heading="Projects"
+          projects={projects.filter((project) => project.type.includes('ai'))}
+        />
 
-      <LatestPosts
-        category="Artificial Intelligence"
-        title="Latest Artificial Intelligence Articles"
-      />
+        <LatestPosts
+          category="Artificial Intelligence"
+          title="Latest Artificial Intelligence Articles"
+        />
+      </div>
+      <div className="hidden print:block print:text-gray-700">
+        More details on my AI experience can be found on my website{' '}
+        <Link href="/work/ai" className="text-green-700">
+          gaboesquivel.com
+        </Link>
+        .
+      </div>
     </section>
   )
 }
