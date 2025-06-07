@@ -1,0 +1,105 @@
+---
+title: AI Model Context Protocol (MCP)
+publishedAt: 2025-06-08
+summary: Exploring the Model Context Protocol (MCP) for standardizing AI model interactions using TypeScript
+image: /images/2025/05/evm-token-standards.webp
+category: ['Engineering', 'Backend', 'Artificial Intelligence']
+tech: ['RAG', 'NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
+---
+
+
+As AI systems grow more capable, Model Context Protocol (MCP)—proposed by Anthropic in 2024—has emerged as a foundational standard for connecting models to external data, tools, and services. Originally proposed by Anthropic in 2024, MCP was designed to provide a universal interface for connecting AI models to external data, tools, and services—similar to how USB standardized hardware connectivity. Introduced by Anthropic, MCP defines how AI models interface with external tools and data, offering a consistent, modular structure for building real-world intelligent systems.
+
+In this post, we'll unpack what MCP means in practice and how to implement it using TypeScript and modern AI tooling.
+
+{/* Prevent Cumulative Layout Shift (CLS) */}
+<div className="min-h-[300px]">
+  <img 
+    src="/images/2025/05/evm-token-standards.webp"
+    alt="Illustration of MCP's role in AI model integration"
+    className="w-full"
+  />
+</div>
+
+## What Is MCP?
+
+MCP is a specification that standardizes how AI models interact with external APIs, databases, and tools. By clearly defining context, tools, and workflows, MCP simplifies the development of agentic systems that go beyond simple prompting.
+
+It allows developers to:
+
+* Declare available tools and capabilities
+* Share memory and execution logs across calls
+* Maintain clean separation between model logic and business logic
+
+## Why MCP Matters Now
+
+The AI ecosystem has evolved rapidly:
+
+* We're building multi-step reasoning systems, not one-shot prompts.
+* LLMs now support function calling, streaming, and memory integration.
+* Tooling like LangChain.js, Mastra, and Vercel AI SDK enables MCP architecture with TypeScript.
+
+MCP offers a standardized interface to manage this complexity and improve reusability, observability, and control.
+
+## Implementing MCP in TypeScript
+
+TypeScript's static typing, modular architecture, and growing ecosystem of AI libraries make it an ideal language for building systems that follow the MCP specification.
+
+We'll walk through how each pillar of MCP is implemented using TS-native frameworks.
+
+### Modular: Isolated Units of Capability
+
+```tsx
+// tools/search.ts
+export const search = async (query: string) => {
+  const res = await fetch(`/api/search?q=${query}`);
+  return res.json();
+};
+
+// memory/vector.ts
+export const storeEmbedding = async (embedding: number[]) => {
+  await db.insert({ embedding });
+};
+```
+
+### Composable: Wiring Modules Dynamically
+
+```tsx
+import { Agent } from 'mastra';
+import { search } from './tools/search';
+import { storeEmbedding } from './memory/vector';
+
+const agent = new Agent({ tools: [search], memory: { store: storeEmbedding } });
+await agent.run("Find latest AI news and store key terms");
+```
+
+### Persistent: Retaining State Across Sessions
+
+```tsx
+const memory = new VectorMemory({ db: pgvector });
+
+await memory.save({ userId: '123', embedding: await getEmbedding("AI regulation") });
+const context = await memory.query({ userId: '123' });
+```
+
+This persistence allows agents to evolve contextually, supporting long-term planning and behavior.
+
+## Use Cases
+
+* Agents that remember user preferences
+* Workflow automation with persistent state
+* Multi-agent systems coordinating via shared memory
+* AI-powered dashboards with modular, updatable logic
+
+## Key Challenges
+
+| Challenge     | Considerations                                   |
+| ------------- | ------------------------------------------------ |
+| Interop       | Standardizing interfaces between modules         |
+| State storage | Choosing the right DB for persistence            |
+| Composability | Ensuring modules can be reused cleanly           |
+| Type safety   | Using TS to enforce contracts between components |
+
+## Final Thoughts
+
+MCP marks a turning point in how we interface AI models with the world. It abstracts complexity, enforces modularity, and promotes interoperability—qualities that make AI systems easier to maintain, scale, and trust. For developers working with TypeScript and modern AI stacks, MCP isn't just a spec—it's a foundation for building future-ready intelligence.
