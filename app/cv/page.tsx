@@ -55,13 +55,11 @@ export default function CVPage() {
             <p className="text-sm exp-duration dark:text-gray-400 mb-2">
               {experience.location} • {experience.duration}
             </p>
-            <p className="mb-4 exp-description dark:text-gray-300">
-              {experience.description}
-            </p>
+            <p className="mb-4 exp-description">{experience.description}</p>
             <h3 className="font-medium mb-2 exp-description">
               Key Achievements:
             </h3>
-            <ul className="list-disc pl-5 mb-4 space-y-1 text-gray-700 dark:text-gray-300 !print:text-gray-700">
+            <ul className="list-disc pl-5 mb-4 space-y-1 ">
               {experience.achievements.map((achievement) => (
                 <li key={achievement}>{achievement}</li>
               ))}

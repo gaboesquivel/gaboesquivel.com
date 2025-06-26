@@ -19,11 +19,11 @@ export const experience = [
     achievements: [
       'Designed full-stack architecture using Viem, Wagmi, Alchemy, Trigger.dev, Supabase, Next.js 14, and ShadcnUI',
       'Developed a custom token bridge for swapping USDT, USDC, and BITUSD to USDCred tokens, enabling seamless bidding within the platform',
-      'Deployed Gnosis auction Solidity contracts to EOS EVM and created a bidding interface with real-time updates',
+      'Deployed Gnosis auction Solidity contracts to EOS EVM and created a bidding interface for it',
       'Developed a wallet interface displaying real-time EVM balances',
       'Built a custom indexer for EOS EVM using Node.js, Viem EVM event subscriptions through websockets',
-      'Implemented AI SDK integration and chat prompting mechanism for masterbots.ai',
-      'Established AI-driven development workflow using v0.dev, Anthropic Claude Sonnet, Cursor IDE, and SourceryAI',
+      'AI SDK integration and prompting mechanism for masterbots.ai',
+      'Established AI-driven development workflow using v0.dev, Anthropic Claude Sonnet, Cursor and SourceryAI',
     ],
     techStack: [
       'Viem',
