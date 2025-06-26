@@ -17,14 +17,13 @@ export const experience = [
     description:
       'Bitlauncher is an AI and crypto launchpad platform that provides early access to promising AI unicorn startups through token sales and auctions.',
     achievements: [
-      'Designed full-stack architecture using Viem, Wagmi, Alchemy, Trigger.dev, Supabase, Next.js 14, and ShadcnUI for a scalable and responsive platform',
+      'Designed full-stack architecture using Viem, Wagmi, Alchemy, Trigger.dev, Supabase, Next.js 14, and ShadcnUI',
       'Developed a custom token bridge for swapping USDT, USDC, and BITUSD to USDCred tokens, enabling seamless bidding within the platform',
-      'Implemented a transaction data indexing system using Supabase for efficient querying, real-time subscriptions, and data aggregation analytics',
-      'Deployed Gnosis auction Solidity contracts to EOS EVM and created a bidding interface with real-time updates via Supabase subscriptions',
-      'Developed a wallet interface displaying real-time EVM balances through Wagmi token balance subscriptions and EOS token balances via RPC polling',
-      'Integrated AI SDK for internationalization automation and established AI-driven development workflow using v0.dev, Anthropic Claude Sonnet, Cursor IDE, and SourceryAI',
-      'Built a custom indexer for EOS EVM using Node.js, Viem EVM event subscriptions, and dFuse stream for EOS',
-      'Implemented AI SDK integration and chat prompting mechanism for masterbots.ai, featuring specialized AI agents',
+      'Deployed Gnosis auction Solidity contracts to EOS EVM and created a bidding interface with real-time updates',
+      'Developed a wallet interface displaying real-time EVM balances',
+      'Built a custom indexer for EOS EVM using Node.js, Viem EVM event subscriptions through websockets',
+      'Implemented AI SDK integration and chat prompting mechanism for masterbots.ai',
+      'Established AI-driven development workflow using v0.dev, Anthropic Claude Sonnet, Cursor IDE, and SourceryAI',
     ],
     techStack: [
       'Viem',
