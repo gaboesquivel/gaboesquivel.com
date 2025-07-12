@@ -15,7 +15,7 @@ export default function AIExperiencePage() {
       </h1>
 
       <div className="mb-8 print:block print:text-gray-700">
-        <p className="mb-4">
+        <p className="mb-4 print:block hidden">
           With over 15 years in full-stack software engineering, I help
           organizations turn initial ideas into market-ready software products,
           ensuring concepts reach their full potential. I work as a product
