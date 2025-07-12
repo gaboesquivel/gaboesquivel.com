@@ -2,18 +2,7 @@ export const experience = [
   {
     company: 'Bitlauncher',
     location: 'Remote',
-    duration: (() => {
-      const startDate = new Date('2023-11-01')
-      const now = new Date()
-      const diffInMonths =
-        (now.getFullYear() - startDate.getFullYear()) * 12 +
-        (now.getMonth() - startDate.getMonth())
-      const years = Math.floor(diffInMonths / 12)
-      const months = diffInMonths % 12
-      const formattedDuration =
-        `${years > 0 ? `${years} yr${years > 1 ? 's' : ''} ` : ''}${months > 0 ? `${months} mo${months > 1 ? 's' : ''}` : ''}`.trim()
-      return `Nov 2023 - Present · ${formattedDuration}`
-    })(),
+    duration: 'Nov 2023 - Jul 2025 · 1 yr 9 mos',
     description:
       'Bitlauncher is an AI and crypto launchpad platform that provides early access to promising AI unicorn startups through token sales and auctions.',
     achievements: [
