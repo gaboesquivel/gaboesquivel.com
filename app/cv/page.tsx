@@ -29,20 +29,16 @@ export default function CVPage() {
           />
         </div>
       </div> */}
-
       <div className="mb-8 print:block print:text-gray-700">
         <p className="mb-4">
-          With over 15 years in full-stack software engineering, I help
-          organizations turn initial ideas into market-ready software products,
-          ensuring concepts reach their full potential. I work as a product
-          engineer, bridging technical execution with user experience and
-          business strategy.
+          With 15+ years in full-stack engineering, I help organizations turn
+          ideas into market-ready products—bridging technical execution, user
+          experience, and business strategy.
         </p>
         <p className="mb-4">
-          My focus is on emerging technologies and user-focused innovation. My
-          skills include web3, cloud, and full-stack web and mobile development,
-          along with ongoing work in artificial intelligence. I am fluent in
-          English, Spanish, Portuguese, and Italian.
+          I focus on emerging tech and user-driven innovation, with expertise in
+          web3, cloud, full-stack web/mobile, and AI. Fluent in English,
+          Spanish, Portuguese, and Italian.
         </p>
       </div>
 

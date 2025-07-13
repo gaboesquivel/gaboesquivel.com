@@ -37,7 +37,7 @@ export const experience = [
     location: 'Remote',
     duration: 'Aug 2022 - Aug 2023 · 1 yr 1 mo',
     description:
-      'ZTX is a virtual world platform integrating cryptocurrency for digital asset ownership. Users can mint, trade, and utilize blockchain-based items within the game, creating a decentralized virtual economy that enhances gameplay and user engagement.',
+      'ZTX is a virtual world platform that integrates cryptocurrency for digital asset ownership. Users can mint, trade, and use items in-game.',
     achievements: [
       'Built a WebGL EVM wallet connector using Ethers and a custom JavaScript event system',
       'Set up advanced analytics and reporting using Google Analytics Tag Manager',
@@ -134,7 +134,7 @@ export const experience = [
     location: 'Hybrid',
     duration: 'Mar 2018 - Jan 2020 · 1 yr 11 mos',
     description:
-      'EOS Costa Rica is an independently-owned, self-funded, bare-metal Genesis block producer that provides stable and secure infrastructure for the EOS mainnet. They also offer custom blockchain development services for enterprises and organizations.',
+      'Block producer offering infrastructure and blockchain development services.',
     achievements: [
       'Participated in the EOS Mainnet launch and managed other EOSIO-based blockchain validators',
       'Configured a private EOSIO blockchain for Grant Thornton Labs and developed an application MVP enabling efficient intercompany transactions and tax management using a stablecoin, with an immutable records trail via hashing and IPFS',
@@ -148,7 +148,7 @@ export const experience = [
     location: 'Remote',
     duration: 'Sep 2017 - May 2018 · 9 mos',
     description:
-      'Knowledge.io was a blockchain-based platform launched in 2017 aimed at revolutionizing how knowledge is valued and shared. It sought to create a decentralized ecosystem where individuals could earn tokens by sharing their knowledge, thereby monetizing their expertise.',
+      'Knowledge.io was a 2017 blockchain platform that enabled users to earn tokens by sharing expertise, creating a decentralized ecosystem for valuing and monetizing knowledge.',
     achievements: [
       'Deployed ERC20 token for ICO on Ethereum mainnet with Truffle',
       'Built marketplace and wallet dashboard using React and Web3.js',
@@ -161,7 +161,7 @@ export const experience = [
     location: 'On-site',
     duration: 'Apr 2015 - Mar 2018 · 3 yrs',
     description:
-      "Wink (holawink.com) is Costa Rica's first neobank and a fintech company that provides digital banking solutions and financial services to underserved populations in Latin America. Their platform offers mobile banking, digital wallets, and innovative financial products.",
+      "Wink (holawink.com) was Costa Rica's first mobile neobank, providing digital banking and financial services focused on user experience and ease of use.",
     achievements: [
       'Led backend architecture, integrations, and security',
       'Recruited and coordinated with partner banks and vendors',
@@ -175,7 +175,7 @@ export const experience = [
     location: 'Hybrid',
     duration: 'Nov 2012 - Apr 2014 · 1 yr 6 mos',
     description:
-      'YEAH! was a streaming movie service launched by AMC Networks on March 12, 2013, during the South by Southwest (SXSW) festival. It aimed to provide a unique viewing experience by curating classic genre films—such as horror, sci-fi, and action-adventure—while enhancing them with interactive bonus content.',
+      'YEAH! was a streaming movie service by AMC Networks, launched at SXSW 2013. It curated classic genre films—horror, sci-fi, action-adventure—and enhanced them with interactive bonus content for a unique viewing experience.',
     achievements: [
       'Led frontend team, collaborating with creative and backend teams',
       'Built interactive video streaming frontend for Facebook app',
@@ -190,7 +190,7 @@ export const experience = [
     location: 'On-site',
     duration: 'Apr 2010 - Nov 2012 · 2 yrs 8 mos',
     description:
-      "American Express (AMEX) is a multinational financial services corporation headquartered in New York City. Founded in 1850, it has become one of the world's most recognizable and prestigious brands in the financial industry. AMEX is best known for its credit card, charge card, and traveler's cheque businesses.",
+      'AMEX is a global financial services leader, best known for its credit and charge cards.',
     achievements: [
       'Contributed to the migration from Dojo to jQuery',
       'Implemented responsive layouts, A/B testing, and analytics',
