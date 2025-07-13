@@ -18,14 +18,12 @@ export default function CVPage() {
 
       <div className="mb-8 print:block print:text-gray-700">
         <p className="mb-4">
-          Before diving into Web3, I spent years building products in
-          traditional finance. It gave me a close-up view of how money moves—and
-          how much inefficiency is built into the system. While working to
-          modernize financial services, I came to see that the real opportunity
-          wasn’t just better interfaces—it was rethinking the entire foundation
-          of value. That insight led me to blockchain, open protocols, and a new
-          chapter driven by decentralization, transparency, and permissionless
-          innovation.
+          Before Web3, I worked on products in traditional finance, where I saw
+          firsthand how money moves—and how inefficient the system really is.
+          The biggest opportunity wasn’t just improving interfaces; it was
+          rethinking the entire foundation of value. That realization led me to
+          blockchain, open protocols, and a new chapter focused on
+          decentralization, transparency, and permissionless innovation.
         </p>
         {/* <div className="gap-4 my-8 columns-1">
           <div className="relative mb-4 h-60">
@@ -47,9 +45,7 @@ export default function CVPage() {
           as a UI Engineer to help transition their credit card systems from
           DoJo to jQuery. In 2015, I became Lead Architect for Costa Rica’s
           first mobile neobank—a fully compliant platform designed to bring
-          modern banking to mobile. These roles gave me a deep understanding of
-          financial infrastructure, regulatory systems, and the constraints of
-          innovating within traditional institutions.
+          modern banking to mobile.
         </p>
         <h2 className="text-xl font-bold mb-4 mt-6">
           Entering Web3: Knowledge ICO (2017)
@@ -77,17 +73,16 @@ export default function CVPage() {
           enterprise-grade transparency on-chain.
         </p>{' '}
         <p className="mb-4">
-          I also created EOS Rate, a community-driven Block Producer rating tool
-          that became widely adopted in the EOS ecosystem. Alongside product
-          work, I led local outreach efforts through workshops, meetups, and
-          advocacy.
+          I also help develop EOS Rate, a community-driven Block Producer rating
+          tool that became widely adopted in the EOS ecosystem. Alongside
+          product work, I led local outreach efforts through workshops, meetups,
+          and advocacy.
         </p>
         <p className="mb-4">
-          Between 2019 and 2021, I contributed to two Web3 consumer apps. At
-          Emanate, where I maintained the streaming service and artist revenue
-          distribution. At Sense Chat, I helped build a secure messaging app
-          with an integrated wallet and token incentives for community
-          engagement.
+          Between 2019 and 2021, I worked on two Web3 consumer apps: at Emanate,
+          I maintained the streaming platform and managed artist revenue
+          distribution; at Sense Chat, I helped build a secure messaging app
+          with integrated wallet and token incentives for community engagement.
         </p>
         {/* <p className="mb-4">
           These projects deepened my understanding of decentralized identity,
