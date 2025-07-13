@@ -27,7 +27,6 @@ export default function CVPage() {
           protocols, and eventually a new chapter in my career—one driven by
           decentralization, transparency, and permissionless innovation.
         </p>
-
         {/* <div className="gap-4 my-8 columns-1">
           <div className="relative mb-4 h-60">
             <Image
@@ -40,23 +39,18 @@ export default function CVPage() {
             />
           </div>
         </div> */}
-
         <h2 className="text-xl font-bold mb-4">
           AMEX & Mobile Neobank (Pre-2017)
         </h2>
         <p className="mb-4">
-          My journey in fintech began in 2010 when I joined American Express
-          (AMEX) as a UI Engineer, helping migrate their credit card systems
-          from DoJo to jQuery. In 2015, I was hired as Lead Architect to build
-          Costa Rica’s first mobile neobank—a fully compliant platform created
-          to modernize banking through mobile-first experiences. These years
-          deepened my understanding of financial infrastructure, regulatory
-          frameworks, and the challenges of innovation inside traditional
-          systems. The limits I encountered there pushed me to explore new
-          models beyond conventional finance, setting the stage for my
-          transition into blockchain technology.
+          My fintech journey started in 2010 at American Express, where I joined
+          as a UI Engineer to help transition their credit card systems from
+          DoJo to jQuery. In 2015, I became Lead Architect for Costa Rica’s
+          first mobile neobank—a fully compliant platform designed to bring
+          modern banking to mobile. These roles gave me a deep understanding of
+          financial infrastructure, regulatory systems, and the constraints of
+          innovating within traditional institutions.
         </p>
-
         <h2 className="text-xl font-bold mb-4 mt-6">
           Entering Web3: Knowledge ICO (2017)
         </h2>
@@ -68,62 +62,56 @@ export default function CVPage() {
           wallet-based authentication, token systems, and decentralized
           identity.
         </p>
-
         <h2 className="text-xl font-bold mb-4 mt-6">EOS Era (2018–2020)</h2>
         <p className="mb-4">
-          From 2018 to 2020, I immersed myself in the EOS ecosystem, drawn by
-          its performance and developer experience. At EOS Costa Rica, I
-          participated in the EOS Mainnet launch, managed infrastructure for
-          EOSIO-based validators, and delivered custom blockchain development
-          services.
+          From 2018 to 2020, I focused on the EOS ecosystem, drawn by its
+          performance and developer ergonomics. At EOS Costa Rica, I helped
+          launch the EOS Mainnet, managed infrastructure for EOSIO-based
+          validators, and delivered custom blockchain solutions.
+        </p>{' '}
+        <p className="mb-4">
+          One key project was a private blockchain for Grant Thornton Labs,
+          designed to streamline intercompany transactions and automate tax
+          logic using a USD-pegged stablecoin. The system featured immutable
+          audit trails via IPFS and public proof publication—an early example of
+          enterprise-grade transparency on-chain.
+        </p>{' '}
+        <p className="mb-4">
+          I also created EOS Rate, a community-driven Block Producer rating tool
+          that became widely adopted in the EOS ecosystem. Alongside product
+          work, I led local outreach efforts through workshops, meetups, and
+          advocacy.
         </p>
         <p className="mb-4">
-          I architected a custom private blockchain for Grant Thornton Labs,
-          enabling efficient intercompany transactions and automated tax logic
-          using a USD-pegged stablecoin. The solution included immutable audit
-          trails via IPFS and public proof publication. It was an early attempt
-          at bridging enterprise processes with blockchain transparency.
-        </p>
-        <p className="mb-4">
-          During this time, I also developed EOS Rate, a community-driven rating
-          tool for EOS Block Producers that became widely used in the ecosystem.
-          I actively contributed to local blockchain adoption through workshops,
-          meetups, and ecosystem evangelism.
-        </p>
-        <p className="mb-4">
-          Between 2019 and 2021, I worked on Emanate: A Web3-powered music
-          platform, where I maintained the streaming service and artist revenue
-          distribution backend, and Sense Chat: A secure messaging app with
-          integrated wallet and token incentive mechanics for community
+          Between 2019 and 2021, I contributed to two Web3 consumer apps. At
+          Emanate, where I maintained the streaming service and artist revenue
+          distribution. At Sense Chat, I helped build a secure messaging app
+          with an integrated wallet and token incentives for community
           engagement.
         </p>
         {/* <p className="mb-4">
           These projects deepened my understanding of decentralized identity,
           Web3-native UX, and protocol-level data architecture.
         </p> */}
-
         <h2 className="text-xl font-bold mb-4 mt-6">
           DeFi: Bitcash Bank (2020)
         </h2>
         <p className="mb-4">
-          Later in 2020, I joined Bitcash Bank, a crypto-native banking
-          experiment focused on expanding financial access. I worked across the
-          stack—developing token dashboards, backend services, and a UI for
-          managing balances and transactions. It was a real-world exploration of
-          decentralized finance, grounded in practical product development. I
-          helped build a consumer-grade EOS wallet with WebAuthN key management
-          and smooth onboarding, aiming to make it usable for all users.
-          Additionally, I contributed to the development of a P2P system and
-          overcollateralized crypto stablecoins for each country using a simple
-          single AMM, enhancing the platform's financial offerings.
+          In late 2020, I joined Bitcash Bank, a crypto-native banking
+          experiment aimed at expanding financial access. I worked across the
+          stack—building token dashboards, backend services, and a UI for
+          managing balances and transactions. The product centered around a
+          consumer-grade wallet with WebAuthN-based key management and smooth
+          onboarding, designed for mainstream usability. I contributed to the
+          development of a P2P system and overcollateralized crypto stablecoins
+          for each country.
         </p>
         <p className="mb-4">
-          I also built ChainGraph, a high-performance blockchain data indexer
-          that enabled fast and reliable querying of EOS transaction data. This
-          work deepened my understanding of blockchain data structures, indexing
-          strategies, and real-time data streaming.
+          During this time, I also built ChainGraph, a high-performance
+          blockchain indexer for EOS. It enabled fast, reliable transaction data
+          queries, and strengthened my expertise in blockchain data structures,
+          indexing, and real-time data pipelines.
         </p>
-
         <h2 className="text-xl font-bold mb-4 mt-6">
           Back to EVM: NFT Marketplaces (2021)
         </h2>
@@ -144,7 +132,6 @@ export default function CVPage() {
           search. Speed, modularity, and creator-centric economics were key
           design principles.
         </p>
-
         <h2 className="text-xl font-bold mb-4 mt-6">
           Bitlauncher: Onchain AI Capital (2022)
         </h2>
@@ -167,7 +154,6 @@ export default function CVPage() {
           leveraged vector search and OpenAI APIs to deliver intelligent
           responses sourced from an indexed knowledge base.
         </p> */}
-
         <h2 className="text-xl font-bold mb-4 mt-6">
           Derivatives: Opyn Options (2023)
         </h2>
@@ -188,7 +174,6 @@ export default function CVPage() {
           onchain—especially around composability, capital efficiency, and
           risk-managed exposure.
         </p>
-
         {/* <h2 className="text-xl font-bold mb-4 mt-6">
           Today: Building BasilicEVM
         </h2>
