@@ -159,16 +159,13 @@ export default function CVPage() {
           Derivatives: Opyn Options (2023)
         </h2>
         <p className="mb-4">
-          In parallel to BitLauncher, I worked closely with the Opyn team to
-          help set up their testnet private beta frontend, integrating the
-          protocol into early-stage interfaces and configuring the environment
-          for internal user testing.
-        </p>
-        <p className="mb-4">
+          I worked closely with the Opyn team to help set up their testnet
+          private beta frontend, integrating the protocol into early-stage
+          interfaces and configuring the environment for internal user testing.
           Beyond integration, I contributed to custom frontend components and
           UI/UX prototypes for trading interfaces, vault positions, margin
-          mechanics, and option flows. I also experimented with AI assistant to
-          support user onboarding.
+          mechanics, and option flows, and also experimented with AI assistant
+          to support user onboarding.
         </p>
         <p className="mb-4">
           This period deepened my understanding of financial primitives
