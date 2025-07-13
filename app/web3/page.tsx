@@ -116,27 +116,28 @@ export default function CVPage() {
           Back to EVM: NFT Marketplaces (2021)
         </h2>
         <p className="mb-4">
-          In 2021, I returned to the EVM ecosystem, just before NFTs went
-          mainstream. I worked on two marketplaces experimenting with tokenized
-          assets.
+          In 2021, as NFTs reached global mainstream—and trading volumes
+          exploded—it marked the next critical phase of my EVM journey. I
+          contributed to two marketplaces exploring the tokenization of
+          real-world and gaming assets.
         </p>
         <p className="mb-4">
           At RareMint, I helped build a platform for minting NFTs backed by
-          real-world collectibles. I led contract integration, metadata
-          workflows, and the marketplace UI. Supported the initial auctions on
+          physical collectibles. I led smart contract integration, metadata
+          pipelines, and the marketplace UI, supporting the initial auctions on
           Polygon.
         </p>
         <p className="mb-4">
-          At ZTX, I delivered the Web3 interface for a gaming-backed NFT
-          platform—focusing on wallet connection, minting flows, and marketplace
-          search. Speed, modularity, and creator-centric economics were key
-          design principles.
+          At ZTX, I delivered the Web3 interface for a gaming-centric NFT
+          platform—focusing on wallet connectivity, minting workflows, and
+          searchable asset discovery. The product emphasized speed, modular
+          design, and creator-first economics.
         </p>
         <h2 className="text-xl font-bold mb-4 mt-6">
           Bitlauncher: Onchain AI Capital (2022)
         </h2>
         <p className="mb-4">
-          In late 2022, I joined BitLauncher, a decentralized launch platform
+          In late 2022, I joined Bitlauncher, a decentralized launch platform
           for AI startups raising capital through batch token auctions. The
           protocol is a fork of the widely-used Gnosis Auction contracts,
           adapted for fair price discovery through sealed-bid batch auctions.
