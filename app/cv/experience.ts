@@ -86,12 +86,11 @@ export const experience = [
     description:
       'Bitcash app allows you to exchange your money for local currency stablecoins or bitUSD, which you can then use to buy cryptocurrencies.',
     achievements: [
-      'Architected and implemented a full-stack platform leveraging React, Vite, Node.js, PostgreSQL, Hasura GraphQL, and Google Cloud',
-      'Created a peer-to-peer exchange, integrated real-time chat, and built a backend matching engine',
-      'Built a real-time EOS indexer that deserializes EOS binary data using Node.js worker threads and persists it in PostgreSQL on Google Cloud',
-      'Implemented WebAuthn-based key management, enabling direct in-browser transaction signing without external wallet apps, bypassing app store limitations',
-      'Enabled secure QR-based signature requests for seamless login and transaction signing in external apps like Bitlauncher.ai, utilizing Supabase subscriptions and webhooks',
-      'Built ChainGraph, a high-performance blockchain indexer for EOS',
+      'Architected and implemented a full-stack platform using React, Vite, Node.js, PostgreSQL, Hasura GraphQL, and Google Cloud',
+      'Developed a peer-to-peer exchange, integrated real-time chat, and built a backend matching engine',
+      'Built a real-time EOS indexer that deserializes EOS binary data with Node.js worker threads and persists it in PostgreSQL on Google Cloud',
+      'Implemented WebAuthn-based key management for direct in-browser transaction signing, eliminating the need for external wallet apps and bypassing app store restrictions',
+      'Enabled secure QR-based signature requests for seamless login and transaction signing in external apps like Bitlauncher.ai, using Supabase subscriptions and webhooks',
     ],
     techStack: [
       'React',
@@ -137,10 +136,10 @@ export const experience = [
     description:
       'EOS Costa Rica is an independently-owned, self-funded, bare-metal Genesis block producer that provides stable and secure infrastructure for the EOS mainnet. They also offer custom blockchain development services for enterprises and organizations.',
     achievements: [
-      'Participated in the EOS Mainnet launch and managed other EOSIO based blockchain validators',
-      'Configured private EOSIO blockchain for Grant Thorton Labs and a application MVP that allows efficient intercompany transactions and tax management using a stable coin, as well as providing unmutable records trail using hashing mechanism and IPFS',
-      'Developed EOS Rate frontend using React and Styled components',
-      'Assisted in recruiting and onboarding new team members, public speaking, workshops, training and community engagement. Eg TicoBlockchain.cr and CryptoCantina Meetups',
+      'Participated in the EOS Mainnet launch and managed other EOSIO-based blockchain validators',
+      'Configured a private EOSIO blockchain for Grant Thornton Labs and developed an application MVP enabling efficient intercompany transactions and tax management using a stablecoin, with an immutable records trail via hashing and IPFS',
+      'Developed the EOS Rate frontend using React and Styled Components',
+      'Assisted with recruiting, onboarding, public speaking, workshops, training, and community engagement (e.g., TicoBlockchain.cr and CryptoCantina Meetups)',
     ],
     techStack: ['EOSIO', 'React', 'Styled Components', 'IPFS'],
   },
@@ -151,9 +150,9 @@ export const experience = [
     description:
       'Knowledge.io was a blockchain-based platform launched in 2017 aimed at revolutionizing how knowledge is valued and shared. It sought to create a decentralized ecosystem where individuals could earn tokens by sharing their knowledge, thereby monetizing their expertise.',
     achievements: [
-      'Deployed ERC20 token for ICO on Ethereum mainnet using Truffle',
-      'Developed marketplace and wallet dashboard using React and Web3.js',
-      'Helped maintain a mobile trivia game that allowed users to earn tokens by answering questions',
+      'Deployed ERC20 token for ICO on Ethereum mainnet with Truffle',
+      'Built marketplace and wallet dashboard using React and Web3.js',
+      'Maintained mobile trivia game enabling users to earn tokens by answering questions',
     ],
     techStack: ['Ethereum', 'Truffle', 'React', 'Web3.js'],
   },
@@ -164,10 +163,10 @@ export const experience = [
     description:
       "Wink (holawink.com) is Costa Rica's first neobank and a fintech company that provides digital banking solutions and financial services to underserved populations in Latin America. Their platform offers mobile banking, digital wallets, and innovative financial products.",
     achievements: [
-      'Software architecture, technical leadership I was responsible for the entire backend architecture, integrations and security',
-      "Technical recruiting and coordination with the partner banks' department and vendors",
-      'Developed KYC features with biometrics using a third party service and React Native bridge components',
-      'Integration with the partner banks API',
+      'Led backend architecture, integrations, and security',
+      'Recruited and coordinated with partner banks and vendors',
+      'Built biometric KYC with React Native bridge',
+      'Integrated partner bank APIs',
     ],
     techStack: ['React Native', 'React', 'Node.js', 'AWS'],
   },
@@ -178,11 +177,11 @@ export const experience = [
     description:
       'YEAH! was a streaming movie service launched by AMC Networks on March 12, 2013, during the South by Southwest (SXSW) festival. It aimed to provide a unique viewing experience by curating classic genre films—such as horror, sci-fi, and action-adventure—while enhancing them with interactive bonus content.',
     achievements: [
-      "Led a frontend team of 5 developers, coordinating efforts between AMC's creative team and backend developers to deliver a seamless user experience",
-      "Developed an interactive video streaming frontend for the Facebook app, leveraging the platform's social features to enhance user engagement",
-      'Architected and implemented a comprehensive back-office system, integrating Brightcove for efficient video content management and delivery',
-      'Enhanced the viewing experience by integrating interactive elements such as minute-by-minute trivia, exclusive interviews, and quizzes into the video player, allowing users to engage with content without interrupting playback',
-      'Optimized the platform to support a curated selection of iconic films, each featuring 400-500 pieces of original, interactive content',
+      'Led frontend team, collaborating with creative and backend teams',
+      'Built interactive video streaming frontend for Facebook app',
+      'Implemented back-office with Brightcove integration',
+      'Added interactive trivia, interviews, and quizzes to video player',
+      'Optimized platform for curated films with 400+ interactive elements each',
     ],
     techStack: ['JavaScript', 'Brightcove', 'Facebook API'],
   },
@@ -193,9 +192,9 @@ export const experience = [
     description:
       "American Express (AMEX) is a multinational financial services corporation headquartered in New York City. Founded in 1850, it has become one of the world's most recognizable and prestigious brands in the financial industry. AMEX is best known for its credit card, charge card, and traveler's cheque businesses.",
     achievements: [
-      'Contributed to the migration from DoJo to jQuery',
-      'Implemented responsive layouts, A/B testing and analytics',
-      'Developed credit card marketing components for comparison and comparison sliders as well as dedicated marketing landing pages',
+      'Contributed to the migration from Dojo to jQuery',
+      'Implemented responsive layouts, A/B testing, and analytics',
+      'Developed credit card marketing components for comparison sliders and dedicated landing pages',
     ],
     techStack: [
       'JavaScript',
