@@ -6,13 +6,12 @@ export const experience = [
     description:
       'Bitlauncher is an AI and crypto launchpad platform that provides early access to promising AI unicorn startups through token sales and auctions.',
     achievements: [
-      'Designed full-stack architecture using Viem, Wagmi, Alchemy, Trigger.dev, Supabase, Next.js 14, and ShadcnUI',
-      'Developed a custom token bridge for swapping USDT, USDC, and BITUSD to USDCred tokens, enabling seamless bidding within the platform',
-      'Deployed Gnosis auction Solidity contracts to EOS EVM and created a bidding interface for it',
-      'Developed a wallet interface displaying real-time EVM balances',
-      'Built a custom indexer for EOS EVM using Node.js, Viem EVM event subscriptions through websockets',
+      'Designed full-stack architecture with Viem, Wagmi, Supabase, Next.js 14',
+      'Built a token bridge for swapping USDT, USDC, and BITUSD to USDCred tokens',
+      'Integrated Gnosis auction contracts and wallet interface with realtime balances',
+      'Developed a custom EVM indexer via WebSocket event subscriptions',
       'AI SDK integration and prompting mechanism for masterbots.ai',
-      'Established AI-driven development workflow using v0.dev, Anthropic Claude Sonnet, Cursor and SourceryAI',
+      'Established AI-driven development workflow using Claude, v0.dev, Cursor and SourceryAI',
     ],
     techStack: [
       'Viem',
@@ -40,9 +39,9 @@ export const experience = [
     description:
       'ZTX is a virtual world platform integrating cryptocurrency for digital asset ownership. Users can mint, trade, and utilize blockchain-based items within the game, creating a decentralized virtual economy that enhances gameplay and user engagement.',
     achievements: [
-      'Setup the initial React architecture using Next.js, TailwindCSS and Framer Motion',
-      'Implemented a WebGL EVM wallet connector using Ethers and a custom JavaScript event system',
+      'Built a WebGL EVM wallet connector using Ethers and a custom JavaScript event system',
       'Set up advanced analytics and reporting using Google Analytics Tag Manager',
+      'React architecture using Next.js, TailwindCSS and Framer Motion',
     ],
     techStack: [
       'React',
@@ -61,10 +60,10 @@ export const experience = [
     description:
       'RareMint is a platform for rare and unique digital assets. It allows users to mint, trade, and collect unique digital assets.',
     achievements: [
-      'Built an EVM NFT data indexer using Moralis streams, Node.js and PostgreSQL on Google Cloud',
-      'Enhanced NFT marketplace responsiveness by refactoring the codebase to use RemixRun SSR, TailwindCSS and GraphQL queries, paying special attention to web vitals and best practices for filtering and sorting data on the frontend',
+      'Built NFT indexer using Moralis streams, Node.js and PostgreSQL',
+      'Enhanced NFT marketplace responsiveness using Remix, TailwindCSS and GraphQL queries',
       'Integrated Wallet Connect for secure wallet connections and transactions',
-      'Assisted the launch of the first auctions Pokemon cards on Polygon network',
+      'Assisted the launch of the first auctions Pokemon cards on Polygon',
     ],
     techStack: [
       'Moralis',
@@ -87,13 +86,12 @@ export const experience = [
     description:
       'Bitcash app allows you to exchange your money for local currency stablecoins or bitUSD, which you can then use to buy cryptocurrencies.',
     achievements: [
-      'Designed and developed a full-stack architecture using React, Vite, Node.js, PostgreSQL, Hasura GraphQL and Google Cloud',
-      'Developed p2p exchange system, internal realtime chat and backend matching engine',
-      'Implemented realtime indexer for EOS that deserialize EOS binary data using Node.js worker threads and stores data in a PostgreSQL database in Google Cloud',
-      'Developed webauthn key management allowing to sign transactions directly on the browser without requiring any wallet app bypassing the appstores restrictions',
-      'Developed QR request for signature allowing user login to other apps like Bitlauncher.ai and sign transactions securely by scanning a QR code, using Supabase subscriptions and webhooks',
-      'Setup initial multisig on EOS contracts while the DAO voting tools are still under development',
-      'Transitioned to a consultant role for technical decisions in July 2021, providing architectural guidance and expertise while focusing on EVM NFT development at RareMint',
+      'Architected and implemented a full-stack platform leveraging React, Vite, Node.js, PostgreSQL, Hasura GraphQL, and Google Cloud',
+      'Created a peer-to-peer exchange, integrated real-time chat, and built a backend matching engine',
+      'Built a real-time EOS indexer that deserializes EOS binary data using Node.js worker threads and persists it in PostgreSQL on Google Cloud',
+      'Implemented WebAuthn-based key management, enabling direct in-browser transaction signing without external wallet apps, bypassing app store limitations',
+      'Enabled secure QR-based signature requests for seamless login and transaction signing in external apps like Bitlauncher.ai, utilizing Supabase subscriptions and webhooks',
+      'Built ChainGraph, a high-performance blockchain indexer for EOS',
     ],
     techStack: [
       'React',
@@ -206,18 +204,18 @@ export const experience = [
       'Analytics platforms',
     ],
   },
-  {
-    company: 'InterGraphicDESIGNS',
-    location: 'On-site',
-    duration: 'Jul 2008 - Apr 2010 · 1 yr 10 mos',
-    description:
-      'InterGraphicDESIGNS is a web design and development company specializing in creating custom WordPress solutions for businesses. They focus on delivering tailored websites and web applications that combine aesthetic appeal with functional efficiency.',
-    achievements: [
-      'Crafted custom sites and modules using WordPress, PHP, CSS and JavaScript',
-      'Developed custom WordPress plugins for custom post types, taxonomies and admin dashboards',
-      'Integrated third party services like Google Maps with custom pointer and interactive content for our db',
-      'Built a newsletter for Scotiabank using WordPress',
-    ],
-    techStack: ['WordPress', 'PHP', 'CSS', 'JavaScript', 'Google Maps API'],
-  },
+  // {
+  //   company: 'InterGraphicDESIGNS',
+  //   location: 'On-site',
+  //   duration: 'Jul 2008 - Apr 2010 · 1 yr 10 mos',
+  //   description:
+  //     'InterGraphicDESIGNS is a web design and development company specializing in creating custom WordPress solutions for businesses. They focus on delivering tailored websites and web applications that combine aesthetic appeal with functional efficiency.',
+  //   achievements: [
+  //     'Crafted custom sites and modules using WordPress, PHP, CSS and JavaScript',
+  //     'Developed custom WordPress plugins for custom post types, taxonomies and admin dashboards',
+  //     'Integrated third party services like Google Maps with custom pointer and interactive content for our db',
+  //     'Built a newsletter for Scotiabank using WordPress',
+  //   ],
+  //   techStack: ['WordPress', 'PHP', 'CSS', 'JavaScript', 'Google Maps API'],
+  // },
 ]
