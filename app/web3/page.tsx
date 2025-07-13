@@ -18,14 +18,14 @@ export default function CVPage() {
 
       <div className="mb-8 print:block print:text-gray-700">
         <p className="mb-4">
-          Before I found my way into Web3, I spent years building inside the
-          walls of traditional finance. It gave me a front-row seat to how money
-          moves—and how much potential was being left on the table. As I worked
-          to modernize financial services, I realized the real opportunity
-          wasn’t just better apps or smoother UX; it was rethinking the entire
-          architecture of value itself. That insight led me to blockchain, open
-          protocols, and eventually a new chapter in my career—one driven by
-          decentralization, transparency, and permissionless innovation.
+          Before diving into Web3, I spent years building products in
+          traditional finance. It gave me a close-up view of how money moves—and
+          how much inefficiency is built into the system. While working to
+          modernize financial services, I came to see that the real opportunity
+          wasn’t just better interfaces—it was rethinking the entire foundation
+          of value. That insight led me to blockchain, open protocols, and a new
+          chapter driven by decentralization, transparency, and permissionless
+          innovation.
         </p>
         {/* <div className="gap-4 my-8 columns-1">
           <div className="relative mb-4 h-60">
