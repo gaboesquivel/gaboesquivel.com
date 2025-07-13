@@ -76,7 +76,7 @@ export default function AIExperiencePage() {
           with pgvector to support scalable, context-aware interactions.
         </p>
         <h2 className="text-xl font-bold mb-4">
-          Bitlauncher: AI and Crypto Launchpad (2023)
+          Bitlauncher: AI Crypto Launchpad (2023)
         </h2>
         <p className="mb-4">
           Bitlauncher is an AI crypto launchpad giving users early access to
