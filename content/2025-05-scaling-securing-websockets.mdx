@@ -21,7 +21,7 @@ Here’s how I approach scaling WebSocket backends in high-availability environm
 
 WebSockets maintain a long-lived TCP connection, which breaks traditional stateless load balancing. That’s where session affinity (sticky sessions) come in.
 
-**NGINX**, **HAProxy**, and most managed load balancers like AWS ALB*support sticky sessions based on cookies or IP hashing. This ensures clients consistently route to the same backend node, keeping their connection alive.
+**NGINX**, **HAProxy**, and most managed load balancers like AWS ALB support sticky sessions based on cookies or IP hashing. This ensures clients consistently route to the same backend node, keeping their connection alive.
 
 
 ## Secure It: wss\:// or Bust
