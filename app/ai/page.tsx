@@ -22,28 +22,14 @@ export default function AIExperiencePage() {
           engineer, bridging technical execution with user experience and
           business strategy.
         </p>
-        <p className="mb-4 hidden print:block">
-          Over the past few years, I've focused deeply on building real-world AI
-          applications that bridge blockchain and advanced user
-          interactions—from experimental hackathon projects to specialized
-          chatbot platforms and AI launchpads. Today, my work is centered on
-          redefining user experience: moving beyond static interfaces to create
-          systems where chat, search, and action converge. I believe AI is no
-          longer just a backend feature—it's becoming the new operating system
-          for software, making interactions more natural, dynamic, and
-          intuitive.
-        </p>
-        <p className="mb-4 print:hidden">
-          AI is reshaping the world, fundamentally changing how we live, work,
-          and interact with technology. Over the past few years, I've focused
-          deeply on building real-world AI applications that bridge blockchain
-          and advanced user interactions—from experimental hackathon projects to
-          specialized chatbot platforms and AI launchpads. Today, my work is
-          centered on redefining user experience: moving beyond static
-          interfaces to create systems where chat, search, and action converge.
-          I believe AI is no longer just a backend feature—it's becoming the new
-          operating system for software, making interactions more natural,
-          dynamic, and intuitive.
+        <p className="mb-4">
+          AI is transforming how we live, work, and interact with technology.
+          Over the past few years, I’ve focused on building AI applications at
+          the intersection of blockchain and user experience—from hackathon
+          prototypes to production-grade chatbots and AI launchpads. My current
+          work centers on redefining interaction: moving beyond static
+          interfaces toward systems where voice, chat, search, and action
+          converge for more natural, dynamic experiences.
         </p>
 
         {/* <div className="gap-4 my-8 columns-1">
@@ -59,7 +45,7 @@ export default function AIExperiencePage() {
           </div>
         </div> */}
 
-        <h2 className="text-xl font-bold mb-4">Starting With OpenAI (2022)</h2>
+        {/* <h2 className="text-xl font-bold mb-4">Starting With OpenAI (2022)</h2>
         <p className="mb-4">
           My journey into the world of AI began in 2022 when I started
           experimenting with OpenAI's APIs. The potential of AI to revolutionize
@@ -68,40 +54,38 @@ export default function AIExperiencePage() {
           interact with technology. This realization ignited my passion for
           exploring AI-driven user experiences, where voice, text, and embedded
           capabilities lead the way.
-        </p>
+        </p> */}
         <h2 className="text-xl font-bold mb-4">
-          Wizard World: Hackathon Experimentation (2023)
+          Wizard World: NFT Generation (2023)
         </h2>
         <p className="mb-4">
-          During the Flow Hackathon 2022, I embarked on an exciting project
-          called Wizard World. This progressive web app was designed to connect
-          OpenAI's LLM models with the Flow blockchain, enabling the generation
-          of AI images and their minting as NFTs.
+          Built during the Flow Hackathon, Wizard World connected OpenAI’s LLMs
+          with the Flow blockchain. The app enabled users to generate AI images
+          and mint them as NFTs—bridging creative expression with on-chain
+          ownership.
         </p>
         <h2 className="text-xl font-bold mb-4">
           Masterbots: Specialized AI Bots (2023)
         </h2>
         <p className="mb-4">
-          By focusing on domain-specific AI chatbots, Masterbots.ai provides
-          users with advanced specialized bots capable of handling complex tasks
-          and large contexts. We use magic prompt engineering techniques under
-          the hood to provide better responses and integration of AI SDK
-          streaming with Next.js to provide a better user experience.
+          Masterbots.ai delivers domain-specific chatbots optimized for complex
+          tasks and long-context interactions. By using advanced prompt
+          engineering techniques, we improve response quality and create more
+          capable, user-friendly assistants. I contributed by designing the
+          platform’s architecture, integrating Next.js, the AI SDK, and Supabase
+          with pgvector to support scalable, context-aware interactions.
         </p>
         <h2 className="text-xl font-bold mb-4">
           Bitlauncher: AI and Crypto Launchpad (2023)
         </h2>
         <p className="mb-4">
-          Bitlauncher was conceived as a cutting-edge AI and crypto launchpad
-          platform, designed to democratize the investment process by providing
-          early access to promising AI unicorn startups through token sales and
-          auctions. The platform's batch auction system ensured fair and
-          transparent price discovery, eliminating traditional barriers and
-          biases in fundraising. Recently, we introduced an AI chatbot assistant
-          with RAG for document retrieval, utilizing the experimental RSC AI
-          SDK. This addition has significantly enhanced user interaction and
-          information access, allowing users to retrieve detailed information
-          efficiently.
+          Bitlauncher is an AI crypto launchpad giving users early access to
+          promising AI startups via token sales and batch auctions. We
+          implemented a fair price discovery mechanism and recently added a
+          chatbot powered by RAG and the experimental RSC AI SDK, enabling fast,
+          conversational access to investment docs and platform data. I led the
+          development and designed the full architecture, using Next.js, the AI
+          SDK, and Supabase with pgvector to build a robust, scalable platform.
         </p>
         <h2 className="text-xl font-bold mb-4">
           LegalAgent: AI for Legal Operations (2024)
@@ -110,14 +94,14 @@ export default function AIExperiencePage() {
           At LegalAgent, I helped with the development of a mobile app featuring
           voice and text interfaces that transformed how their legal team
           accessed and understood internal documentation. By implementing a
-          secure, retrieval-augmented generation (RAG) system using OpenAI, we
-          enabled lawyers to query contracts, memos, and regulatory docs in
-          natural language. This project also involved developing a backend
-          system to manage the system's prompts, allowing admins to adjust the
-          assistant's behavior. Additionally, we integrated third-party systems
-          like billing and case tracking APIs using advanced tools, resulting in
-          a more responsive legal operation that accelerated knowledge access
-          and reduced research friction.
+          secure, retrieval-augmented generation (RAG) system we enabled lawyers
+          to query contracts, memos, and regulatory docs in natural language.
+          This project also involved developing a backend system to manage the
+          system's prompts, allowing admins to adjust the assistant's behavior.
+          Additionally, we integrated third-party systems like billing and case
+          tracking APIs using advanced tools, resulting in a more responsive
+          legal operation that accelerated knowledge access and reduced research
+          friction.
         </p>
       </div>
 
@@ -133,7 +117,7 @@ export default function AIExperiencePage() {
         />
       </div>
       <div className="hidden print:block print:text-gray-700">
-        More details on my AI experience can be found on my website{' '}
+        More details on my work can be found on my website{' '}
         <Link href="/work/ai" className="text-green-700">
           gaboesquivel.com
         </Link>
