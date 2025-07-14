@@ -23,13 +23,11 @@ export default function AIExperiencePage() {
           business strategy.
         </p>
         <p className="mb-4">
-          AI is transforming how we live, work, and interact with technology.
-          Over the past few years, I’ve focused on building AI applications at
-          the intersection of blockchain and user experience—from hackathon
-          prototypes to production-grade chatbots and AI launchpads. My current
-          work centers on redefining interaction: moving beyond static
-          interfaces toward systems where voice, chat, search, and action
-          converge for more natural, dynamic experiences.
+          AI is reshaping how we live, work, and interact with technology. The
+          past few years, I’ve focused on building AI applications that
+          prioritize user experience—moving beyond static interfaces toward
+          systems where voice, chat, search, and action converge into more
+          natural, dynamic interactions.
         </p>
 
         {/* <div className="gap-4 my-8 columns-1">
