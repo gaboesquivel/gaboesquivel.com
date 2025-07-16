@@ -13,19 +13,10 @@ export default function BioPage() {
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert">
-        I began my tech journey at{' '}
-        <a
-          href="https://www.cenfotec.ac.cr/"
-          target="_blank"
-          rel="noreferrer"
-          className="prose-link"
-        >
-          CenfoTec University
-        </a>{' '}
-        in San José in 2006, where I discovered a passion for software product
-        development. By 2008, I was crafting custom WordPress solutions for
-        businesses at InterGraphicDESIGNS. In 2009, I stepped into a UI Engineer
-        role at{' '}
+        I began my tech journey at CenfoTec University in San José in 2006,
+        where I discovered a passion for software product development. By 2008,
+        I was crafting custom WordPress solutions for businesses at
+        InterGraphicDESIGNS. In 2009, I stepped into a UI Engineer role at{' '}
         <Link href="/project/american-express" className="prose-link">
           American Express
         </Link>
