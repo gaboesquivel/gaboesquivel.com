@@ -1,0 +1,97 @@
+---
+title: Web3 Composability
+publishedAt: 2025-09-08
+summary: The Decade of Web3 Infrastructure We Should Be Building On
+image: /images/2025/05/evm-token-standards.webp
+category: ['Engineering', 'Backend', 'Frontend', 'Web3', 'DeFi', 'Blockchain']
+tech: ['EVM', 'Web3', 'Ethereum']
+---
+
+If there’s one concept that defines Web3, it’s composability—the ability to connect decentralized protocols like Lego blocks to create entirely new financial and digital applications. This isn’t just a developer convenience. It’s what makes the entire Web3 ecosystem move faster, innovate faster, and coordinate at global scale.
+
+When you start a new project today, you’re not starting from scratch. You’re standing on the shoulders of a decade of shared standards, open protocols, and financial primitives that have been battle-tested in the wild.
+
+{/* Prevent Cumulative Layout Shift (CLS) */}
+<div className="min-h-[300px]">
+  <img 
+    src="/images/2025/06/prompt-injection.webp"
+    alt="Web3 composability: Building blocks of decentralized protocols"
+    className="w-full"
+  />
+</div>
+
+
+## The Core Building Blocks
+
+### Token Standards
+
+ERC-20, ERC-721, ERC-1155, and their extensions form the language of value transfer on-chain. They ensure your token can move seamlessly across wallets, DEXs, lending protocols, and DAOs. Without this baseline, nothing else would fit together.
+
+### Launch Mechanisms
+
+For token distribution, multiple patterns now exist:
+- Initial DEX Offerings (IDOs): Uniswap, SushiSwap, and other AMMs.
+- Liquidity Bootstrapping Pools (LBPs): Balancer’s mechanism for dynamic price discovery.
+- Auction Protocols: Gnosis Auction, MISO, and similar frameworks offering batch and Dutch auctions to reduce MEV.
+
+These are proven launch rails—no need to invent your own token sale mechanics.
+
+### Liquidity Infrastructure
+
+Protocols like Uniswap, Curve, and Balancer standardized automated liquidity provision. Aggregators like 1inch and Paraswap route across pools. Bridges extend liquidity across chains. This liquidity layer is critical for market access and stability.
+
+### Governance
+
+DAO infrastructure has matured into its own stack:
+- On-chain governance: Compound, Aragon.
+- Off-chain signaling: Snapshot.
+- Treasury management: Safe (Gnosis Safe).
+- DAO frameworks: DAOstack, Tally.
+
+Governance today is modular—plug and play, rather than bespoke.
+
+### DeFi Primitives
+
+The backbone of composability:
+- Lending/Borrowing: Aave, Compound, MakerDAO.
+- Derivatives/Synthetics: Synthetix, Perpetual Protocol, dYdX.
+- Yield strategies: Yearn, Enzyme, Idle.
+- Stablecoins: DAI, USDC, FRAX as units of account and settlement.
+
+These modules are not silos—they’re APIs in the form of smart contracts. Yearn builds on Curve, Curve integrates MakerDAO stablecoins, and DAOs govern them all.
+
+### The Expansion: L2s and Cross-Chain Standards
+
+Originally, composability meant “Ethereum composability.” Gas costs limited use cases. Layer 2s (Optimism, Arbitrum, zkSync, Starknet) changed that, enabling cheaper execution while keeping Ethereum security. Today, the same primitives exist across L2s—often connected via canonical bridges and shared governance models.
+
+Meanwhile, cross-chain composability is taking shape:
+- ERC-20 cross-chain extensions (e.g. LayerZero’s OFT standard).
+- Cosmos IBC for token and message passing.
+- Generalized messaging protocols like Axelar, Wormhole, and Hyperlane.
+
+This is the next phase: not just a composable stack on Ethereum, but a composable network of chains and execution layers. A token can be issued on Ethereum, gain liquidity on an L2, and flow into a Cosmos appchain—without losing its identity or governance hooks.
+
+## The Risk of Interdependence
+
+Of course, with shared infrastructure comes systemic risk. Protocol dependencies create exposure: a bug in a stablecoin can ripple through lending markets, liquidity pools, and DAO treasuries. Terra/Luna showed how interconnected systems amplify shocks. The multi-chain era makes this even more complex.
+
+Mitigation strategies—audits, circuit breakers, risk frameworks—are essential. But the answer is not to reject composability. It’s to use it responsibly.
+
+## Why Composability Matters for Founders
+
+For founders, CTOs, and product leaders, composability changes the economics of building:
+- Speed to market: You don’t build your own exchange or lending pool. You integrate Uniswap or Aave.
+- Focus on differentiation: Your innovation layer is the product experience or unique mechanism—not the plumbing.
+- Network effects: By using standards, your token or DAO is instantly compatible with existing wallets, DEXs, and treasuries.
+
+Think of it like building on the internet: you don’t reimplement TCP/IP, HTTP, or SSL. You build products that leverage them.
+
+## Don’t Reinvent the Wheel
+
+When starting a new Web3 project:
+- Use existing standards (ERC-20, ERC-721, DAO frameworks).
+- Leverage battle-tested primitives (Uniswap, Maker, Safe, Snapshot).
+- Compose across chains and L2s where it makes sense.
+
+The last decade gave us a financial internet of open, permissionless APIs. Reinventing them is wasted effort. Composing with them is how you build something new.
+
