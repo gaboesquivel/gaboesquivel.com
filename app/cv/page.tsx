@@ -1,4 +1,5 @@
 import './cv.css'
+import { Calendar, Github, Linkedin, Mail } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,6 +30,7 @@ export default function CVPage() {
           />
         </div>
       </div> */}
+
       <div className="mb-8 print:block print:text-gray-700">
         <p className="mb-4">
           With 15+ years in full-stack engineering, I help organizations turn
@@ -63,7 +65,7 @@ export default function CVPage() {
             <div className="flex flex-wrap gap-2">
               {experience.techStack.map((tech) => (
                 <Link href={`/tech/${tech}`} key={experience.company + tech}>
-                  <span className="rounded-md px-2 py-1 hidden print:hidden bg-neutral-200 dark:bg-neutral-800 text-xs font-medium text-gray-700 dark:text-gray-200 text-accent">
+                  <span className="rounded-md px-2 py-1 hidden print:hidden bg-neutral-200 dark:bg-neutral-800 text-xs font-medium text-gray-700 dark:text-gray-200">
                     {tech}
                   </span>
                 </Link>
@@ -71,6 +73,58 @@ export default function CVPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Contact Information - Print Only */}
+      <div className="hidden print:block mb-8 print:text-gray-700 pt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div>
+            <p className="mb-2 flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              <a
+                href="mailto:contact@gaboesquivel.com"
+                className="text-accent hover:underline print:no-underline"
+              >
+                contact@gaboesquivel.com
+              </a>
+            </p>
+            <p className="mb-2 flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              <a
+                href="https://gaboesquivel.com/cal"
+                className="text-accent hover:underline print:no-underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                gaboesquivel.com/cal
+              </a>
+            </p>
+          </div>
+          <div>
+            <p className="mb-2 flex items-center gap-2">
+              <Github className="h-4 w-4" />
+              <a
+                href="https://github.com/gaboesquivel"
+                className="text-accent hover:underline print:no-underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                github.com/gaboesquivel
+              </a>
+            </p>
+            <p className="mb-2 flex items-center gap-2">
+              <Linkedin className="h-4 w-4" />
+              <a
+                href="https://linkedin.com/in/gaboesquivel"
+                className="text-accent hover:underline print:no-underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                linkedin.com/in/gaboesquivel
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )
