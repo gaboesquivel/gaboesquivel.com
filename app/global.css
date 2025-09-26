@@ -166,7 +166,8 @@ a {
   }
   
   .prose, .prose p, .prose li, .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6, .prose a {
-    color: #000000 !important;
+    color: #666666 !important;
+    font-size: 12px !important;
   }
   
   .navbar, .print\\:hidden {

@@ -22,13 +22,6 @@ export default function AIExperiencePage() {
         engineer, bridging technical execution with user experience and business
         strategy.
       </p>
-      <p className="prose prose-neutral dark:prose-invert print:block hidden">
-        I prefer to work through 1099 arrangements—either short-term contracts
-        or full-time engagements—through my US-based company, Blockmatic Labs,
-        LLC. This setup makes it simple for clients to engage me with clear
-        contracts, compliance, and IP protection built in. Based in Costa Rica,
-        I operate on US Mountain Time with quick flights to major US cities.
-      </p>
 
       <p className="prose prose-neutral dark:prose-invert">
         The past few years, I've focused on building AI applications that

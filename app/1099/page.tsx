@@ -23,11 +23,11 @@ export default function ContractWorkPage() {
 
       <h2 className="text-xl font-bold mb-4">How I Work</h2>
       <p className="prose prose-neutral dark:prose-invert">
-        I prefer to work through 1099 arrangements—either short-term contracts
-        or full-time engagements—through my US-based company, Blockmatic Labs,
-        LLC. This setup makes it simple for clients to engage me with clear
-        contracts, compliance, and IP protection built in. Based in Costa Rica,
-        I operate on US Mountain Time with quick flights to major US cities.
+        I prefer to work through 1099 arrangements through my US-based company,
+        Blockmatic Labs, LLC. This setup makes it simple for clients to engage
+        me with clear contracts, compliance, and IP protection built in. Based
+        in Costa Rica, I operate on US Mountain Time with quick flights to major
+        US cities.
       </p>
       <p className="prose prose-neutral dark:prose-invert">
         If you're interested in working with me, feel free to book time on my

@@ -40,29 +40,30 @@ export default function CVPage() {
         web3, cloud, full-stack web/mobile, and AI. Fluent in English, Spanish,
         Portuguese, and Italian.
       </p>
-      <p className="prose prose-neutral dark:prose-invert">
-        I prefer to work through 1099 arrangements—either short-term contracts
-        or full-time engagements—through my US-based company, Blockmatic Labs,
-        LLC. This setup makes it simple for clients to engage me with clear
-        contracts, compliance, and IP protection built in. Based in Costa Rica,
-        I operate on US Mountain Time with quick flights to major US cities.
-      </p>{' '}
-      <div className="space-y-8">
+
+      <div className="space-y-8 mt-12">
         {experience.map((experience) => (
           <div key={experience.company}>
             <h2 className="text-xl font-semibold mb-2 print:text-black">
               {experience.company}
             </h2>
-            <p className="text-sm exp-duration dark:text-gray-400 mb-2 print:text-lg">
+            <p className="text-sm exp-duration dark:text-gray-400 mb-2 print:text-xs">
               {experience.location} • {experience.duration}
             </p>
-            <p className="mb-4 exp-description">{experience.description}</p>
+            <p className="mb-4 exp-description prose prose-neutral dark:prose-invert">
+              {experience.description}
+            </p>
             {/* <h3 className="font-medium mb-2 exp-description">
               Key Achievements:
             </h3> */}
             <ul className="list-disc pl-5 mb-4 space-y-1 ">
               {experience.achievements.map((achievement) => (
-                <li key={achievement}>{achievement}</li>
+                <li
+                  className="prose prose-neutral dark:prose-invert"
+                  key={achievement}
+                >
+                  {achievement}
+                </li>
               ))}
             </ul>
             <div className="flex flex-wrap gap-2">
