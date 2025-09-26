@@ -28,6 +28,10 @@ html {
   @apply mx-0 max-w-full;
 }
 
+.prose li{
+  @apply leading-none;
+}
+
 .prose a {
   @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
 }
