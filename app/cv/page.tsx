@@ -1,10 +1,11 @@
 import './cv.css'
-import { Calendar, Github, Linkedin, Mail } from 'lucide-react'
+import { Calendar, Github, Linkedin, Mail, Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import workshop from 'public/images/gabo-workshop.jpg'
 import { PrintButton } from '../../components/print-button'
+import { ContactInfo } from '../../components/shared/contact-info'
 import { experience } from './experience'
 
 export default function CVPage() {
@@ -17,7 +18,6 @@ export default function CVPage() {
         <span className="print:hidden">Curriculum Vitae</span>
         <PrintButton />
       </h1>
-
       {/* <div className="gap-4 my-8 columns-1 hidden print:block">
         <div className="relative mb-4 h-60">
           <Image
@@ -30,27 +30,30 @@ export default function CVPage() {
           />
         </div>
       </div> */}
-
-      <div className="mb-8 print:block print:text-gray-700">
-        <p className="mb-4">
-          With 15+ years in full-stack engineering, I help organizations turn
-          ideas into market-ready products—bridging technical execution, user
-          experience, and business strategy.
-        </p>
-        <p className="mb-4">
-          I focus on emerging tech and user-driven innovation, with expertise in
-          web3, cloud, full-stack web/mobile, and AI. Fluent in English,
-          Spanish, Portuguese, and Italian.
-        </p>
-      </div>
-
+      <p className="prose prose-neutral dark:prose-invert">
+        With 15+ years in full-stack engineering, I help organizations turn
+        ideas into market-ready products—bridging technical execution, user
+        experience, and business strategy.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert">
+        I focus on emerging tech and user-driven innovation, with expertise in
+        web3, cloud, full-stack web/mobile, and AI. Fluent in English, Spanish,
+        Portuguese, and Italian.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert">
+        I prefer to work through 1099 arrangements—either short-term contracts
+        or full-time engagements—through my US-based company, Blockmatic Labs,
+        LLC. This setup makes it simple for clients to engage me with clear
+        contracts, compliance, and IP protection built in. Based in Costa Rica,
+        I operate on US Mountain Time with quick flights to major US cities.
+      </p>{' '}
       <div className="space-y-8">
         {experience.map((experience) => (
           <div key={experience.company}>
             <h2 className="text-xl font-semibold mb-2 print:text-black">
               {experience.company}
             </h2>
-            <p className="text-sm exp-duration dark:text-gray-400 mb-2">
+            <p className="text-sm exp-duration dark:text-gray-400 mb-2 print:text-lg">
               {experience.location} • {experience.duration}
             </p>
             <p className="mb-4 exp-description">{experience.description}</p>
@@ -74,58 +77,7 @@ export default function CVPage() {
           </div>
         ))}
       </div>
-
-      {/* Contact Information - Print Only */}
-      <div className="hidden print:block mb-8 print:text-gray-700 pt-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="mb-2 flex items-center gap-2">
-              <Mail className="h-4 w-4" />
-              <a
-                href="mailto:contact@gaboesquivel.com"
-                className="text-accent hover:underline print:no-underline"
-              >
-                contact@gaboesquivel.com
-              </a>
-            </p>
-            <p className="mb-2 flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
-              <a
-                href="https://gaboesquivel.com/cal"
-                className="text-accent hover:underline print:no-underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                gaboesquivel.com/cal
-              </a>
-            </p>
-          </div>
-          <div>
-            <p className="mb-2 flex items-center gap-2">
-              <Github className="h-4 w-4" />
-              <a
-                href="https://github.com/gaboesquivel"
-                className="text-accent hover:underline print:no-underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                github.com/gaboesquivel
-              </a>
-            </p>
-            <p className="mb-2 flex items-center gap-2">
-              <Linkedin className="h-4 w-4" />
-              <a
-                href="https://linkedin.com/in/gaboesquivel"
-                className="text-accent hover:underline print:no-underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                linkedin.com/in/gaboesquivel
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
+      <ContactInfo />
     </section>
   )
 }

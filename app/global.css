@@ -150,3 +150,34 @@ p {
 a {
   @apply hover:text-accent decoration-0 !important;
 }
+
+/* Print styles - ensure all text is black when printing */
+@media print {
+  * {
+    color: #000000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  body {
+    color: #000000 !important;
+    background: #ffffff !important;
+  }
+  
+  .prose, .prose p, .prose li, .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6, .prose a {
+    color: #000000 !important;
+  }
+  
+  .navbar, .print\\:hidden {
+    display: none !important;
+  }
+  
+  .print\\:block {
+    display: block !important;
+  }
+  
+  .print\\:inline {
+    display: inline !important;
+  }
+}

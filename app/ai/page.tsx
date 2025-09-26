@@ -3,6 +3,7 @@ import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ContactInfo } from '../../components/shared/contact-info'
 
 export default function AIExperiencePage() {
   return (
@@ -14,23 +15,29 @@ export default function AIExperiencePage() {
         <span className="print:hidden">Artificial Intelligence Experience</span>
       </h1>
 
-      <div className="mb-8 print:block print:text-gray-700">
-        <p className="mb-4 print:block hidden">
-          With over 15 years in full-stack software engineering, I help
-          organizations turn initial ideas into market-ready software products,
-          ensuring concepts reach their full potential. I work as a product
-          engineer, bridging technical execution with user experience and
-          business strategy.
-        </p>
-        <p className="mb-4">
-          AI is reshaping how we live, work, and interact with technology. The
-          past few years, I’ve focused on building AI applications that
-          prioritize user experience—moving beyond static interfaces toward
-          systems where voice, chat, search, and action converge into more
-          natural, dynamic interactions.
-        </p>
+      <p className="prose prose-neutral dark:prose-invert print:block hidden">
+        With over 15 years in full-stack software engineering, I help
+        organizations turn initial ideas into market-ready software products,
+        ensuring concepts reach their full potential. I work as a product
+        engineer, bridging technical execution with user experience and business
+        strategy.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert print:block hidden">
+        I prefer to work through 1099 arrangements—either short-term contracts
+        or full-time engagements—through my US-based company, Blockmatic Labs,
+        LLC. This setup makes it simple for clients to engage me with clear
+        contracts, compliance, and IP protection built in. Based in Costa Rica,
+        I operate on US Mountain Time with quick flights to major US cities.
+      </p>
 
-        {/* <div className="gap-4 my-8 columns-1">
+      <p className="prose prose-neutral dark:prose-invert">
+        The past few years, I've focused on building AI applications that
+        prioritize user experience—moving beyond static interfaces toward
+        systems where voice, chat, search, and action converge into more
+        natural, dynamic interactions.
+      </p>
+
+      {/* <div className="gap-4 my-8 columns-1">
           <div className="relative mb-4 h-60">
             <Image
               alt="Artificial Intelligence"
@@ -43,7 +50,7 @@ export default function AIExperiencePage() {
           </div>
         </div> */}
 
-        {/* <h2 className="text-xl font-bold mb-4">Starting With OpenAI (2022)</h2>
+      {/* <h2 className="text-xl font-bold mb-4">Starting With OpenAI (2022)</h2>
         <p className="mb-4">
           My journey into the world of AI began in 2022 when I started
           experimenting with OpenAI's APIs. The potential of AI to revolutionize
@@ -53,55 +60,54 @@ export default function AIExperiencePage() {
           exploring AI-driven user experiences, where voice, text, and embedded
           capabilities lead the way.
         </p> */}
-        <h2 className="text-xl font-bold mb-4">
-          Wizard World: NFT Generation (2023)
-        </h2>
-        <p className="mb-4">
-          Built during the Flow Hackathon, Wizard World connected OpenAI’s LLMs
-          with the Flow blockchain. The app enabled users to generate AI images
-          and mint them as NFTs—bridging creative expression with on-chain
-          ownership.
-        </p>
-        <h2 className="text-xl font-bold mb-4">
-          Masterbots: Specialized AI Bots (2023)
-        </h2>
-        <p className="mb-4">
-          Masterbots.ai delivers domain-specific chatbots optimized for complex
-          tasks and long-context interactions. By using advanced prompt
-          engineering techniques, we improve response quality and create more
-          capable, user-friendly assistants. I contributed by designing the
-          platform’s architecture, integrating Next.js, the AI SDK, and Supabase
-          with pgvector to support scalable, context-aware interactions.
-        </p>
-        <h2 className="text-xl font-bold mb-4">
-          Bitlauncher: AI Crypto Launchpad (2023)
-        </h2>
-        <p className="mb-4">
-          Bitlauncher is an AI crypto launchpad giving users early access to
-          promising AI startups via token sales and batch auctions. We
-          implemented a fair price discovery mechanism and recently added a
-          chatbot powered by RAG and the experimental RSC AI SDK, enabling fast,
-          conversational access to investment docs and platform data. I led the
-          development and designed the full architecture, using Next.js, the AI
-          SDK, and Supabase with pgvector to build a robust, scalable platform.
-        </p>
-        <h2 className="text-xl font-bold mb-4">
-          LegalAgent: AI for Legal Operations (2024)
-        </h2>
-        <p className="mb-4">
-          At LegalAgent, I helped with the development of a mobile app featuring
-          voice and text interfaces that transformed how their legal team
-          accessed and understood internal documentation. By implementing a
-          secure, retrieval-augmented generation (RAG) system we enabled lawyers
-          to query contracts, memos, and regulatory docs in natural language.
-          This project also involved developing a backend system to manage the
-          system's prompts, allowing admins to adjust the assistant's behavior.
-          Additionally, we integrated third-party systems like billing and case
-          tracking APIs using advanced tools, resulting in a more responsive
-          legal operation that accelerated knowledge access and reduced research
-          friction.
-        </p>
-      </div>
+      <h2 className="text-xl font-bold mb-4">
+        Wizard World: NFT Generation (2023)
+      </h2>
+      <p className="prose prose-neutral dark:prose-invert">
+        Built during the Flow Hackathon, Wizard World connected OpenAI's LLMs
+        with the Flow blockchain. The app enabled users to generate AI images
+        and mint them as NFTs—bridging creative expression with on-chain
+        ownership.
+      </p>
+      <h2 className="text-xl font-bold mb-4">
+        Masterbots: Specialized AI Bots (2023)
+      </h2>
+      <p className="prose prose-neutral dark:prose-invert">
+        Masterbots.ai delivers domain-specific chatbots optimized for complex
+        tasks and long-context interactions. By using advanced prompt
+        engineering techniques, we improve response quality and create more
+        capable, user-friendly assistants. I contributed by designing the
+        platform's architecture, integrating Next.js, the AI SDK, and Supabase
+        with pgvector to support scalable, context-aware interactions.
+      </p>
+      <h2 className="text-xl font-bold mb-4">
+        Bitlauncher: AI Crypto Launchpad (2023)
+      </h2>
+      <p className="prose prose-neutral dark:prose-invert">
+        Bitlauncher is an AI crypto launchpad giving users early access to
+        promising AI startups via token sales and batch auctions. We implemented
+        a fair price discovery mechanism and recently added a chatbot powered by
+        RAG and the experimental RSC AI SDK, enabling fast, conversational
+        access to investment docs and platform data. I led the development and
+        designed the full architecture, using Next.js, the AI SDK, and Supabase
+        with pgvector to build a robust, scalable platform.
+      </p>
+      <h2 className="text-xl font-bold mb-4">
+        LegalAgent: AI for Legal Operations (2024)
+      </h2>
+      <p className="prose prose-neutral dark:prose-invert">
+        At LegalAgent, I helped with the development of a mobile app featuring
+        voice and text interfaces that transformed how their legal team accessed
+        and understood internal documentation. By implementing a secure,
+        retrieval-augmented generation (RAG) system we enabled lawyers to query
+        contracts, memos, and regulatory docs in natural language. This project
+        also involved developing a backend system to manage the system's
+        prompts, allowing admins to adjust the assistant's behavior.
+        Additionally, we integrated third-party systems like billing and case
+        tracking APIs using advanced tools, resulting in a more responsive legal
+        operation that accelerated knowledge access and reduced research
+        friction.
+      </p>
 
       <div className="print:hidden">
         <Projects
@@ -114,13 +120,7 @@ export default function AIExperiencePage() {
           title="Latest Artificial Intelligence Articles"
         />
       </div>
-      <div className="hidden print:block print:text-gray-700">
-        More details on my work can be found on my website{' '}
-        <Link href="/work/ai" className="text-green-700">
-          gaboesquivel.com
-        </Link>
-        .
-      </div>
+      <ContactInfo />
     </section>
   )
 }

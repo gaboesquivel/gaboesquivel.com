@@ -18,7 +18,7 @@ export default function TechStackPage() {
               href={`/tech/${tech.slug}`}
             >
               <ul className="flex flex-col w-full">
-                <li className="tracking-tight text-neutral-90 dark:text-neutral-100 hover:text-accent">
+                <li className="tracking-tight text-neutral-900 dark:text-neutral-100 hover:text-accent">
                   <p className="my-2">
                     {tech.name}{' '}
                     <span className="text-xs text-neutral-400">
@@ -27,7 +27,7 @@ export default function TechStackPage() {
                       {projects.length === 1 ? 'project' : 'projects'}{' '}
                     </span>
                   </p>
-                  <p className="prose prose-neutral text-white text-sm">
+                  <p className="prose prose-neutral dark:prose-invert text-sm">
                     {' '}
                     {tech.description}
                   </p>

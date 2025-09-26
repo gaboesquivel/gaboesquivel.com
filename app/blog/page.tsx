@@ -26,7 +26,7 @@ export default async function BlogPage() {
             href={`/blog/${post.slug}`}
           >
             <ul className="flex flex-col w-full">
-              <li className="tracking-tight text-neutral-90 dark:text-neutral-100 hover:text-accent">
+              <li className="tracking-tight text-neutral-900 dark:text-neutral-100 hover:text-accent">
                {post.title}  <span className='text-xs text-neutral-400'>| {new Date(post.publishedAt).toLocaleString('en-US', { year: 'numeric'})}</span>
               </li>
 

@@ -27,10 +27,10 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       </div>
       {/* Content section with title and description */}
       <div className="p-4 flex-grow">
-        <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-zinc-100">
+        <h3 className="text-xl font-semibold mb-2 text-neutral-900 dark:text-neutral-100">
           {project.title}
         </h3>
-        <p className="text-zinc-700 dark:text-zinc-300 line-clamp-3">
+        <p className="prose prose-neutral dark:prose-invert line-clamp-3">
           {project.description}
         </p>
       </div>

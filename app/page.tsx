@@ -11,15 +11,18 @@ export default function HomePage() {
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert">
-        I'm a full-stack software engineer with over 15 years of experience
-        assisting organizations in crafting and evolving software products from
-        initial concept to successful market launch, ensuring ideas are realized
-        to their full potential. I act as a{' '}
+        I help organizations turn ideas into market-ready software products.
+        With over 15 years of experience as a{' '}
+        <Link href="/tech" className="prose-link">
+          full-stack
+        </Link>{' '}
+        and{' '}
         <Link href="/blog/2025-03-the-product-engineer" className="prose-link">
           product engineer
-        </Link>{' '}
-        who bridges technical execution with user experience and business
-        strategy.
+        </Link>
+        , I bridge technical execution with user experience and business
+        strategy, ensuring that every project moves from concept to launch with
+        both technical depth and business clarity.
       </p>
 
       <div className="gap-4 my-8 columns-1">
@@ -39,26 +42,54 @@ export default function HomePage() {
         My focus is on emerging technologies and user-centric innovation. My
         expertise spans{' '}
         <Link href="/web3" className="prose-link">
-          web3
+          Web3
         </Link>
         , cloud, and full-stack web and mobile development, complemented by
         ongoing explorations in{' '}
         <Link href="/ai" className="prose-link">
-          artificial intelligence
-        </Link>
-        .
+          AI
+        </Link>{' '}
+        and how it can redefine the way people interact with software.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
         My approach is rooted in agile methodologies, striving for precision in
-        technology implementation. I am fluent in English, Spanish, Portuguese,
-        and Italian. My professional services are offered through my company,
-        Blockmatic Labs LLC. If you are developing innovative solutions in AI
-        and Web3, I would love to collaborate. Please{' '}
+        technology implementation and continuous improvement throughout the
+        development process. I've been working remotely with international teams
+        for over 12 years, bringing{' '}
+        <Link href="/work" className="prose-link">
+          proven experience
+        </Link>{' '}
+        in delivering results across time zones.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert">
+        I usually work through 1099 engagements—whether short-term or
+        full-time—via my US-based company, Blockmatic Labs LLC, which provides
+        clients with straightforward contracts, built-in compliance, and IP
+        protection. I'm based in Costa Rica, aligned with US Mountain Time, and
+        only a short flight away from major US cities.
+      </p>
+      <p className="prose prose-neutral dark:prose-invert">
+        If you're building innovative solutions in{' '}
+        <Link href="/ai" className="prose-link">
+          AI
+        </Link>{' '}
+        or{' '}
+        <Link href="/web3" className="prose-link">
+          Web3
+        </Link>
+        ,{' '}
         <a href="mailto:contact@gaboesquivel.com" className="prose-link">
-          contact me
-        </a>{' '}
-        to discuss how we can work together.
+          let's connect
+        </a>
+        .
+      </p>
+      <p className="prose prose-neutral dark:prose-invert">
+        You can view my work portfolio{' '}
+        <Link href="/work" className="prose-link">
+          here
+        </Link>
+        .
       </p>
 
       <LatestPosts />
