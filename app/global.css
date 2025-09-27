@@ -155,6 +155,10 @@ a {
   @apply hover:text-accent decoration-0 !important;
 }
 
+.cta-link {
+  @apply inline-block transition-colors text-accent no-underline;
+}
+
 /* Print styles - ensure all text is black when printing */
 @media print {
   * {

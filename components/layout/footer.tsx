@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export function Footer() {
   return (
     <footer className="mt-28 print:hidden">
@@ -64,14 +66,9 @@ export function Footer() {
           <div className="col-span-2 sm:col-span-1">
             <p className="text-gray-300 mb-2">
               Interested in working together? <br />
-              <a
-                href="mailto:contact@gaboesquivel.com"
-                className="inline-block hover:text-white transition-colors text-accent pt-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href="/connect" className="cta-link pt-2">
                 Let's connect
-              </a>
+              </Link>
             </p>
           </div>
         </div>

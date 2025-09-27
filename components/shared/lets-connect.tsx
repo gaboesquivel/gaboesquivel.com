@@ -1,15 +1,15 @@
 import Link from 'next/link'
 export function LetsConnect() {
   return (
-    <>
-      <p className="prose prose-neutral dark:prose-invert">
+    <div className="prose prose-neutral dark:prose-invert">
+      <p>
         I usually work through remote 1099 contracts with my US-based company,
         Blockmatic Labs LLC. This gives clients straightforward contracts,
         compliance peace of mind, and IP protection. I’m based in Costa Rica,
         aligned with US Mountain Time, and conveniently close for quick trips to
         major US cities.
       </p>
-      <p className="prose prose-neutral dark:prose-invert">
+      <p>
         If you're building innovative solutions in{' '}
         <Link href="/ai" className="prose-link">
           AI
@@ -19,18 +19,18 @@ export function LetsConnect() {
           Web3
         </Link>
         ,{' '}
-        <a href="mailto:contact@gaboesquivel.com" className="prose-link">
+        <Link href="/connect" className="cta-link">
           let's connect
-        </a>
+        </Link>
         .
       </p>
-      <p className="prose prose-neutral dark:prose-invert">
+      <p>
         You can view my work portfolio{' '}
-        <Link href="/work" className="prose-link">
+        <Link href="/work" className="cta-link">
           here
         </Link>
         .
       </p>
-    </>
+    </div>
   )
 }

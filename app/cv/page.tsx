@@ -1,9 +1,7 @@
 import './cv.css'
-import { Calendar, Github, Linkedin, Mail, Phone } from 'lucide-react'
+import { LatestPosts } from 'components/blog/latest-posts'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
-import workshop from 'public/images/gabo-workshop.jpg'
 import { PrintButton } from '../../components/print-button'
 import { ContactInfo } from '../../components/shared/contact-info'
 import { experience } from './experience'
@@ -18,18 +16,7 @@ export default function CVPage() {
         <span className="print:hidden">Curriculum Vitae</span>
         <PrintButton />
       </h1>
-      {/* <div className="gap-4 my-8 columns-1 hidden print:block">
-        <div className="relative mb-4 h-60">
-          <Image
-            alt="Me giving a workshop in 2019"
-            src={workshop}
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="object-cover rounded-lg"
-          />
-        </div>
-      </div> */}
+
       <p className="prose prose-neutral dark:prose-invert">
         With 15+ years in full-stack engineering, I help organizations turn
         ideas into market-ready products—bridging technical execution, user
@@ -79,6 +66,7 @@ export default function CVPage() {
         ))}
       </div>
       <ContactInfo />
+      <LatestPosts />
     </section>
   )
 }

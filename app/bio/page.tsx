@@ -254,6 +254,14 @@ export default function BioPage() {
         in financial primitives like composability, capital efficiency, and risk
         management.
       </p>
+      <p className="prose prose-neutral dark:prose-invert">
+        At{' '}
+        <Link href="/project/masterbots" className="prose-link">
+          Masterbots.ai
+        </Link>
+        , in 2024, I architected the Next.js application and developed a
+        platform with specialized chatbots and AI-driven workflows.
+      </p>
 
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -264,15 +272,9 @@ export default function BioPage() {
         and chat interfaces to enhance productivity and case file access.
       </p>
 
-      <p className="prose prose-neutral dark:prose-invert">
-        At{' '}
-        <Link href="/project/masterbots" className="prose-link">
-          Masterbots.ai
-        </Link>
-        , I architected the Next.js application and developed a platform with
-        specialized chatbots and AI-driven workflows.
-      </p>
-
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        My Approach
+      </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Throughout my 15+ year journey, I've evolved into a{' '}
         <Link href="/blog/2025-03-the-product-engineer" className="prose-link">
@@ -300,220 +302,43 @@ export default function BioPage() {
       </h2>
 
       <div className="prose prose-neutral dark:prose-invert hidden print:block">
-        <h3 className="text-lg font-semibold mb-2">Languages & Core</h3>
-        <ul className="list-disc pl-4 mb-4 space-y-1 leading-relaxed">
+        <ul className="list-none space-y-2 leading-relaxed">
           <li>
-            TypeScript{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2012 · 20 projects
-            </span>
+            <strong>Languages & Core:</strong> TypeScript, JavaScript, Solidity,
+            C++, Ruby on Rails, SQL / PostgreSQL, GraphQL, CSS
           </li>
           <li>
-            JavaScript{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2009 · 16 projects
-            </span>
-          </li>
-          <li>
-            Solidity{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2017 · 5 projects
-            </span>
-          </li>
-          <li>
-            C++{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2018 · 3 projects
-            </span>
-          </li>
-          <li>
-            Ruby on Rails{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2009 · 2 projects
-            </span>
-          </li>
-          <li>
-            SQL / PostgreSQL{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2012 · multiple projects
-            </span>
-          </li>
-          <li>
-            GraphQL{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2015 · 8 projects
-            </span>
-          </li>
-          <li>
-            CSS{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2009 · 19 projects
-            </span>
-          </li>
-        </ul>
-
-        <h3 className="text-lg font-semibold mb-2">Frontend & UI</h3>
-        <ul className="list-disc pl-4 mb-4 space-y-1 leading-relaxed">
-          <li>
-            ReactJS{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2013 · 18 projects
-            </span>
-          </li>
-          <li>
-            React Native{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2015 · 5 projects
-            </span>
-          </li>
-          <li>
-            Next.js{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2012 · 7 projects
-            </span>
-          </li>
-          <li>
+            <strong>Frontend & UI:</strong> ReactJS, React Native, Next.js,
             Remix, Expo, AngularJS, WebGL, Tailwind CSS, ShadcnUI, Framer
-            Motion, Stitches, Zustand, Zod, TanStack Query/Form/Start, nuqs
-          </li>
-          <li>Bootstrap, LESS, SASS, Mootools, jQuery</li>
-        </ul>
-
-        <h3 className="text-lg font-semibold mb-2">Backend & Infra</h3>
-        <ul className="list-disc pl-4 mb-4 space-y-1 leading-relaxed">
-          <li>
-            Node.js{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2009 · 16 projects
-            </span>
+            Motion, Stitches, Zustand, Zod, TanStack Query/Form/Start, nuqs,
+            Bootstrap, LESS, SASS, Mootools, jQuery
           </li>
           <li>
-            Supabase{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2022 · 2 projects
-            </span>
+            <strong>Backend & Infra:</strong> Node.js, Supabase, MongoDB, Redis,
+            Express, Hasura, Serverless, Trigger.dev
           </li>
           <li>
-            MongoDB{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2018 · 2 projects
-            </span>
+            <strong>Cloud & DevOps:</strong> AWS, GCP, Azure, Heroku, Netlify,
+            Vercel, Docker, Terraform, CI/CD (GitHub Actions, GitLab CI)
           </li>
           <li>
-            Redis{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2015 · 1 project
-            </span>
-          </li>
-          <li>Express, Hasura, Serverless, Trigger.dev</li>
-        </ul>
-
-        <h3 className="text-lg font-semibold mb-2">Cloud & DevOps</h3>
-        <ul className="list-disc pl-4 mb-4 space-y-1 leading-relaxed">
-          <li>
-            AWS{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2015 · 6 projects
-            </span>
-          </li>
-          <li>
-            GCP{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2018 · 8 projects
-            </span>
-          </li>
-          <li>
-            Azure{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              · 2 projects
-            </span>
-          </li>
-          <li>Heroku, Netlify, Vercel</li>
-          <li>
-            Docker{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2013 · 9 projects
-            </span>
-          </li>
-          <li>
-            Terraform{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2019 · 1 project
-            </span>
-          </li>
-          <li>CI/CD (GitHub Actions, GitLab CI)</li>
-        </ul>
-
-        <h3 className="text-lg font-semibold mb-2">Web3 & Blockchain</h3>
-        <ul className="list-disc pl-4 mb-4 space-y-1 leading-relaxed">
-          <li>
-            Ethereum / EVM{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2017 · 7 projects
-            </span>
-          </li>
-          <li>
-            EOS / Antelope{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2018 · 6 projects
-            </span>
-          </li>
-          <li>Polygon, Arbitrum, Optimism, Base, zkEVMs</li>
-          <li>
-            Flow Blockchain, Niftory{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2020–2022 · 2 projects
-            </span>
-          </li>
-          <li>
-            Polkadot / Substrate{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2023 · 3 projects
-            </span>
-          </li>
-          <li>
-            NFTs{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2022 · 4 projects
-            </span>
-          </li>
-          <li>
-            Libraries & Tooling: Viem, Wagmi, EthersJS, Ponder, Foundry,
+            <strong>Web3 & Blockchain:</strong> Ethereum / EVM, EOS / Antelope,
+            Polygon, Arbitrum, Optimism, Base, zkEVMs, Flow Blockchain, Niftory,
+            Polkadot / Substrate, NFTs, Viem, Wagmi, EthersJS, Ponder, Foundry,
             Hardhat, ThirdWeb, OpenZeppelin, Chainlink, The Graph, Moralis,
             WalletConnect, WebAuthn, Gnosis Auctions, IPFS, ChainGraph
           </li>
-        </ul>
-
-        <h3 className="text-lg font-semibold mb-2">AI & Data</h3>
-        <ul className="list-disc pl-4 mb-4 space-y-1 leading-relaxed">
           <li>
-            OpenAI{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2022 · 4 projects
-            </span>
+            <strong>AI & Data:</strong> OpenAI, AI SDKs, LLMs, RAG
+            architectures, Realtime API, Anthropic Claude, Cursor, v0.dev,
+            SourceryAI, pgvector for vector search
           </li>
           <li>
-            AI SDKs{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2023 · 3 projects
-            </span>
+            <strong>Other Tools & Platforms:</strong> Stripe, Twilio,
+            Brightcove, Omniture, Adobe mBox, Google Analytics, Tag Manager,
+            ViroAR, WordPress, DatoCMS, Content Management Systems, Biometrics,
+            Faye, Data Charts
           </li>
-          <li>
-            LLMs{' '}
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              since 2023 · 2 projects
-            </span>
-          </li>
-          <li>RAG architectures, Realtime API, Anthropic Claude</li>
-          <li>Cursor, v0.dev, SourceryAI</li>
-          <li>pgvector for vector search</li>
-        </ul>
-
-        <h3 className="text-lg font-semibold mb-2">Other Tools & Platforms</h3>
-        <ul className="list-disc pl-4 mb-4 space-y-1 leading-relaxed">
-          <li>Stripe, Twilio, Brightcove, Omniture, Adobe mBox</li>
-          <li>Google Analytics, Tag Manager, ViroAR, WordPress, DatoCMS</li>
-          <li>Content Management Systems, Biometrics, Faye, Data Charts</li>
         </ul>
       </div>
 
