@@ -7,11 +7,11 @@ export function ContactInfo() {
       <div className="hidden print:block mb-8 pt-6">
         <h2 className="text-xl font-semibold  mb-4">Let's Work Together</h2>
         <p className="prose prose-neutral dark:prose-invert">
-          I prefer to work through 1099 arrangements through my US-based
-          company, Blockmatic Labs, LLC. This setup makes it simple for clients
-          to engage me with clear contracts, compliance, and IP protection built
-          in. Based in Costa Rica, I operate on US Mountain Time with quick
-          flights to major US cities.
+          I prefer to work through remote 1099 arrangements via my US-based
+          company, Blockmatic Labs LLC. This structure makes it easy for clients
+          to engage me, with clear contracts, built-in compliance, and IP
+          protection. Based in Costa Rica, I work on US Mountain Time and am
+          just a short flight from major US cities.
         </p>
         <div className="grid grid-cols-2 gap-x-8 gap-y-2 pt-4">
           <div className="flex items-center gap-2">

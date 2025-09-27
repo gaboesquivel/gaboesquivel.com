@@ -63,10 +63,10 @@ export default function HomePage() {
         in delivering results across time zones.
       </p>
       <p className="prose prose-neutral dark:prose-invert">
-        I usually work through 1099 engagements via my US-based company,
-        Blockmatic Labs LLC, which provides clients with straightforward
-        contracts, built-in compliance, and IP protection. I'm based in Costa
-        Rica, aligned with US Mountain Time, and only a short flight away from
+        I usually work through remote 1099 contracts with my US-based company,
+        Blockmatic Labs LLC. This gives clients straightforward contracts,
+        compliance peace of mind, and IP protection. I’m based in Costa Rica,
+        aligned with US Mountain Time, and conveniently close for quick trips to
         major US cities.
       </p>
       <p className="prose prose-neutral dark:prose-invert">
