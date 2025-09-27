@@ -4,6 +4,8 @@ import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+// THIS PAGE IS A IDEA TO LATER ADD A CONTACT PAGE WITH ALL MY INFO, HOW I WORK, WHERE I LIFE AND MAIL FROM PAGE AND CALENDAR
+//
 export default function ContractWorkPage() {
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">

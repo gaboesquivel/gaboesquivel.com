@@ -1,4 +1,4 @@
-import { formatDate, formatDateDifference } from 'lib/utils'
+import { formatDate } from 'lib/utils'
 import Link from 'next/link'
 
 export function PostGrid({
@@ -13,7 +13,7 @@ export function PostGrid({
   // const difference = formatDateDifference(posts[0].publishedAt)
 
   return (
-    <div className="mt-16">
+    <div className="mt-16 print:hidden">
       <h2 className="mb-4 font-bold text-xl">{title}</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {posts.map((post) => (
