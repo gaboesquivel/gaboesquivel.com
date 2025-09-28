@@ -297,7 +297,7 @@ export default function BioPage() {
 
       <ContactInfo />
 
-      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight hidden print:block">
+      {/* <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight hidden print:block">
         Tech Stack
       </h2>
 
@@ -340,7 +340,7 @@ export default function BioPage() {
             Faye, Data Charts
           </li>
         </ul>
-      </div>
+      </div> */}
 
       <LetsConnect />
       <LatestPosts />

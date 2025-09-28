@@ -1,38 +1,25 @@
 import { Calendar, Github, Linkedin, Mail, Phone } from 'lucide-react'
 import Link from 'next/link'
 
-export function ContactInfo({ hidden = true, intro = false, email = false }) {
+export function ContactInfo({ hidden = true }) {
   return (
     <>
       <div className={`${hidden ? 'hidden' : ''} print:block mb-8 pt-6 `}>
         <h2 className="text-xl font-semibold  mb-4">Let's Work Together</h2>
-        {intro ? <p className="">INTRO TEXT HERE</p> : null}
+
         <p className="prose prose-neutral dark:prose-invert">
-          I prefer to work through remote 1099 arrangements via my US-based
-          company, Blockmatic Labs LLC. This structure makes it easy for clients
-          to engage me, with clear contracts, built-in compliance, and IP
-          protection. Based in Costa Rica, I work on US Mountain Time and am
-          just a short flight from major US cities.
+          I typically work through remote 1099 contracts via my US-based
+          company, Blockmatic Labs LLC. This setup gives clients straightforward
+          contracts, built-in compliance, and IP protection. Based in Costa
+          Rica, I operate on US Mountain Time and am just a short flight from
+          major US cities.
         </p>
-        {email ? (
-          <>
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold">Send me a message</h3>
-              <form className="space-y-4">
-                <textarea
-                  placeholder="Tell me about your project, timeline, and how I can help..."
-                  className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-2 border-accent border text-accent font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-          </>
-        ) : null}
+        <p className="prose prose-neutral dark:prose-invert">
+          If you’re exploring something ambitious—a decentralized system, an
+          AI-powered product, or an idea that needs a strong technical
+          foundation—I’d be happy to hear from you.
+        </p>
+
         <div className="grid grid-cols-2 gap-x-8 pt-4">
           <Link
             href="tel:+13156452818"

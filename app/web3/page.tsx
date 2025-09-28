@@ -1,4 +1,5 @@
 import { LatestPosts } from 'components/blog/latest-posts'
+import { ContactInfo } from 'components/shared/contact-info'
 import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
@@ -180,10 +181,14 @@ export default function CVPage() {
           developer-focused experience.
         </p> */}
 
-      <Projects
-        heading="Projects"
-        projects={projects.filter((project) => project.type.includes(type))}
-      />
+      <div className="print:hidden">
+        <Projects
+          heading="Projects"
+          projects={projects.filter((project) => project.type.includes(type))}
+        />
+      </div>
+
+      <ContactInfo />
 
       <LatestPosts category="Web3" title="Latest Web3 Articles" />
     </section>

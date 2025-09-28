@@ -54,10 +54,16 @@ export default function HomePage() {
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-        My approach is rooted in agile methodologies, striving for precision in
-        technology implementation and continuous improvement throughout the
-        development process. I've been working remotely with international teams
-        for over 12 years, bringing{' '}
+        My approach is rooted in agile methodologies and guided by my{' '}
+        <Link
+          href="/blog/2025-02-engineering-principles"
+          className="prose-link"
+        >
+          engineering principles
+        </Link>
+        , striving for precision in technology implementation and continuous
+        improvement throughout the development process. I've been working
+        remotely with international teams for over 12 years, bringing{' '}
         <Link href="/work" className="prose-link">
           proven experience
         </Link>{' '}

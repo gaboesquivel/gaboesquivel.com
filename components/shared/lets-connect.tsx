@@ -1,7 +1,7 @@
 import Link from 'next/link'
 export function LetsConnect() {
   return (
-    <div className="prose prose-neutral dark:prose-invert">
+    <div className="prose prose-neutral dark:prose-invert print:hidden">
       <p>
         I usually work through remote 1099 contracts with my US-based company,
         Blockmatic Labs LLC. This gives clients straightforward contracts,
