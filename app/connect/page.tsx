@@ -1,6 +1,7 @@
 import { LatestPosts } from 'components/blog/latest-posts'
 import { ContactInfo } from 'components/shared/contact-info'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { ContactForm } from './contact-form'
 
 // THIS PAGE IS A IDEA TO LATER ADD A CONTACT PAGE WITH ALL MY INFO, HOW I WORK, WHERE I LIFE AND MAIL FROM PAGE AND CALENDAR
@@ -26,7 +27,11 @@ export default function ContractWorkPage() {
       <p className="prose prose-neutral dark:prose-invert">
         If you’re exploring something ambitious—a decentralized system, an
         AI-powered product, or an idea that needs a strong technical
-        foundation—I’d be happy to hear from you.
+        foundation—I’d be happy to hear from you. Feel free to book on my{' '}
+        <Link href="/cal" className="prose-link text-accent no-underline">
+          calendar
+        </Link>{' '}
+        or send me a message.
       </p>
 
       <div className="mt-6">

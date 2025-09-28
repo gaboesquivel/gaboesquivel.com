@@ -1,7 +1,9 @@
 'use client'
 
-import { useEffect, useState, useTransition } from 'react'
+import { useForm } from '@tanstack/react-form'
+import { useState, useTransition } from 'react'
 import { submitContactForm } from './actions'
+import { type ContactFormData, contactSchema } from './schema'
 
 type FormState = {
   success: boolean
@@ -10,68 +12,58 @@ type FormState = {
 }
 
 export function ContactForm() {
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
   const [formState, setFormState] = useState<FormState | null>(null)
-  const [hasSubmitted, setHasSubmitted] = useState(false)
   const [isPending, startTransition] = useTransition()
 
-  const isEmailValid = email.includes('@') && email.includes('.')
-  const isMessageValid = message.length >= 200
-  const isFormValid = isEmailValid && isMessageValid && !isPending
-
-  // Keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setEmail('')
-        setMessage('')
-        setFormState(null)
-      }
+  const getErrorMessage = (error: unknown): string => {
+    if (typeof error === 'string') return error
+    if (error && typeof error === 'object' && 'message' in error) {
+      return String(error.message)
     }
-
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log('🔧 Client: Form submission started')
-    setHasSubmitted(true)
-
-    if (!isFormValid) {
-      console.log('🔧 Client: Form validation failed', {
-        isEmailValid,
-        isMessageValid,
-        email,
-        messageLength: message.length,
-      })
-      return
+    if (
+      error &&
+      typeof error === 'object' &&
+      'issues' in error &&
+      Array.isArray(error.issues) &&
+      error.issues[0] &&
+      typeof error.issues[0] === 'object' &&
+      'message' in error.issues[0]
+    ) {
+      return String(error.issues[0].message)
     }
+    return 'Invalid input'
+  }
 
-    console.log('🔧 Client: Form validation passed, submitting...')
-    startTransition(async () => {
+  const form = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      subject: '',
+      message: '',
+    } as ContactFormData,
+    validators: {
+      onSubmit: contactSchema,
+    },
+    onSubmit: async ({ value }) => {
       const formData = new FormData()
-      formData.append('email', email)
-      formData.append('message', message)
+      formData.append('name', value.name)
+      formData.append('email', value.email)
+      formData.append('company', value.company)
+      formData.append('subject', value.subject)
+      formData.append('message', value.message)
       formData.append('timestamp', Date.now().toString())
 
-      console.log('🔧 Client: Calling server action with data:', {
-        email,
-        messageLength: message.length,
-      })
-      const result = await submitContactForm(formData)
-      console.log('🔧 Client: Server response:', result)
-      setFormState(result)
+      startTransition(async () => {
+        const result = await submitContactForm(formData)
+        setFormState(result)
 
-      if (result.success) {
-        console.log('🔧 Client: Success, clearing form')
-        setEmail('')
-        setMessage('')
-        setHasSubmitted(false)
-      }
-    })
-  }
+        if (result.success) {
+          form.reset()
+        }
+      })
+    },
+  })
 
   return (
     <div className="space-y-6">
@@ -87,69 +79,175 @@ export function ContactForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-2">
-            Email Address
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
-            className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
-            required
-            disabled={isPending}
-          />
-          {hasSubmitted && (!email || !isEmailValid) && (
-            <p className="text-red-600 text-sm mt-2">
-              x{' '}
-              {!email
-                ? 'Email address is required'
-                : 'Please enter a valid email address'}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium mb-2">
-            Message
-          </label>
-          <textarea
-            id="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Tell me about your project, timeline, and how I can help..."
-            className="w-full h-60 sm:h-80 px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-colors"
-            required
-            disabled={isPending}
-          />
-          <div className="flex justify-between items-center mt-2">
-            <p className="text-sm text-gray-600">
-              {hasSubmitted && message.length < 200 ? (
-                <span className="text-red-600">
-                  x{' '}
-                  {!message
-                    ? 'Message is required'
-                    : `${200 - message.length} more characters needed`}
-                </span>
-              ) : message.length >= 200 ? (
-                <span className="text-green-600">✓ Message length is good</span>
-              ) : (
-                <span className="text-gray-500">
-                  {200 - message.length} more characters needed
-                </span>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          form.handleSubmit()
+        }}
+        className="space-y-4"
+        noValidate
+      >
+        <form.Field name="name">
+          {(field) => (
+            <div>
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium mb-2"
+              >
+                Name
+              </label>
+              <input
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                placeholder="Your full name"
+                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                disabled={isPending}
+              />
+              {field.state.meta.errors.length > 0 && (
+                <p className="text-red-600 text-sm mt-2">
+                  ✗ {getErrorMessage(field.state.meta.errors[0])}
+                </p>
               )}
-            </p>
-            <p className="text-sm text-gray-500">{message.length}/5000</p>
-          </div>
-        </div>
+            </div>
+          )}
+        </form.Field>
+
+        <form.Field name="email">
+          {(field) => (
+            <div>
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium mb-2"
+              >
+                Email Address
+              </label>
+              <input
+                id={field.name}
+                name={field.name}
+                type="email"
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                placeholder="your@email.com"
+                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                disabled={isPending}
+              />
+              {field.state.meta.errors.length > 0 && (
+                <p className="text-red-600 text-sm mt-2">
+                  ✗ {getErrorMessage(field.state.meta.errors[0])}
+                </p>
+              )}
+            </div>
+          )}
+        </form.Field>
+
+        <form.Field name="company">
+          {(field) => (
+            <div>
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium mb-2"
+              >
+                Company
+              </label>
+              <input
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                placeholder="Your company name"
+                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                disabled={isPending}
+              />
+              {field.state.meta.errors.length > 0 && (
+                <p className="text-red-600 text-sm mt-2">
+                  ✗ {getErrorMessage(field.state.meta.errors[0])}
+                </p>
+              )}
+            </div>
+          )}
+        </form.Field>
+
+        <form.Field name="subject">
+          {(field) => (
+            <div>
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium mb-2"
+              >
+                Subject
+              </label>
+              <input
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                placeholder="Email subject line"
+                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                disabled={isPending}
+              />
+              {field.state.meta.errors.length > 0 && (
+                <p className="text-red-600 text-sm mt-2">
+                  ✗ {getErrorMessage(field.state.meta.errors[0])}
+                </p>
+              )}
+            </div>
+          )}
+        </form.Field>
+
+        <form.Field name="message">
+          {(field) => (
+            <div>
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium mb-2"
+              >
+                Message
+              </label>
+              <textarea
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                placeholder="Tell me about your project, timeline, and how I can help..."
+                className="w-full h-60 sm:h-80 px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-colors"
+                disabled={isPending}
+              />
+              <div className="flex justify-between items-center mt-2">
+                <p className="text-sm text-gray-600">
+                  {field.state.meta.errors.length > 0 ? (
+                    <span className="text-red-600">
+                      ✗ {getErrorMessage(field.state.meta.errors[0])}
+                    </span>
+                  ) : field.state.value.length >= 10 ? (
+                    <span className="text-green-600">
+                      ✓ Message length is good
+                    </span>
+                  ) : (
+                    <span className="text-gray-500">
+                      {10 - field.state.value.length} more characters needed
+                    </span>
+                  )}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {field.state.value.length}/5000
+                </p>
+              </div>
+            </div>
+          )}
+        </form.Field>
 
         <div className="flex justify-end">
           <button
             type="submit"
-            className="px-6 py-2 w-full border-accent border text-accent font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset"
+            disabled={isPending}
+            className="px-6 py-2 w-full border-accent border text-accent font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset disabled:opacity-50"
           >
             {isPending ? 'Sending...' : 'Send Message'}
           </button>
