@@ -3,7 +3,6 @@ import { z } from 'zod'
 export const contactSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(1, 'Company is required'),
   subject: z.string().min(1, 'Subject is required'),
   message: z
     .string()

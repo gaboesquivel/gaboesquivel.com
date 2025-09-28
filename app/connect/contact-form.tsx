@@ -38,7 +38,6 @@ export function ContactForm() {
     defaultValues: {
       name: '',
       email: '',
-      company: '',
       subject: '',
       message: '',
     } as ContactFormData,
@@ -49,7 +48,6 @@ export function ContactForm() {
       const formData = new FormData()
       formData.append('name', value.name)
       formData.append('email', value.email)
-      formData.append('company', value.company)
       formData.append('subject', value.subject)
       formData.append('message', value.message)
       formData.append('timestamp', Date.now().toString())
@@ -144,33 +142,6 @@ export function ContactForm() {
           )}
         </form.Field>
 
-        <form.Field name="company">
-          {(field) => (
-            <div>
-              <label
-                htmlFor={field.name}
-                className="block text-sm font-medium mb-2"
-              >
-                Company
-              </label>
-              <input
-                id={field.name}
-                name={field.name}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                placeholder="Your company name"
-                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
-                disabled={isPending}
-              />
-              {field.state.meta.errors.length > 0 && (
-                <p className="text-red-600 text-sm mt-2">
-                  ✗ {getErrorMessage(field.state.meta.errors[0])}
-                </p>
-              )}
-            </div>
-          )}
-        </form.Field>
 
         <form.Field name="subject">
           {(field) => (

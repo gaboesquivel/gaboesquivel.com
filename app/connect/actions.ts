@@ -33,7 +33,6 @@ export async function submitContactForm(formData: FormData) {
     const rawData = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
-      company: formData.get('company') as string,
       subject: formData.get('subject') as string,
       message: formData.get('message') as string,
       timestamp: Date.now(),
@@ -71,42 +70,11 @@ export async function submitContactForm(formData: FormData) {
 
     // Send email via Resend
     const { data, error } = await resend.emails.send({
-      from: 'Contact Form <noreply@gaboesquivel.com>',
+      from: `${validatedData.name} <noreply@gaboesquivel.com>`,
       to: ['gabo@gaboesquivel.com'],
       replyTo: validatedData.email,
       subject: validatedData.subject,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; border-bottom: 2px solid #007acc; padding-bottom: 10px;">
-            New Contact Form Submission
-          </h2>
-          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${validatedData.name}</p>
-            <p><strong>Email:</strong> ${validatedData.email}</p>
-            <p><strong>Company:</strong> ${validatedData.company}</p>
-            <p><strong>Subject:</strong> ${validatedData.subject}</p>
-            <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
-          </div>
-          <div style="background: #fff; padding: 20px; border: 1px solid #e9ecef; border-radius: 8px;">
-            <h3 style="color: #333; margin-top: 0;">Message:</h3>
-            <div style="white-space: pre-wrap; line-height: 1.6;">
-              ${validatedData.message}
-            </div>
-          </div>
-        </div>
-      `,
-      text: `
-New Contact Form Submission
-
-Name: ${validatedData.name}
-Email: ${validatedData.email}
-Company: ${validatedData.company}
-Subject: ${validatedData.subject}
-Submitted: ${new Date().toLocaleString()}
-
-Message:
-${validatedData.message}
-      `,
+      text: validatedData.message,
     })
 
     if (error) {

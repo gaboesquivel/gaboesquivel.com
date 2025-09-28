@@ -12,7 +12,7 @@ export default function ContractWorkPage() {
       <h1 className="text-2xl font-bold tracking-tighter  mb-4">
         Let's Work Together
       </h1>
-      <p className="prose prose-neutral dark:prose-invert">
+      {/* <p className="prose prose-neutral dark:prose-invert">
         I’m Gabo Esquivel, a product-focused engineer with 15+ years of
         experience building at the intersection of AI, crypto, and finance. I
         help teams bring new ideas to market by bridging deep technical work
@@ -23,15 +23,11 @@ export default function ContractWorkPage() {
         Blockmatic Labs LLC. This setup gives clients straightforward contracts,
         built-in compliance, and IP protection. Based in Costa Rica, I operate
         on US Mountain Time and am just a short flight from major US cities.
-      </p>
+      </p> */}
       <p className="prose prose-neutral dark:prose-invert">
         If you’re exploring something ambitious—a decentralized system, an
         AI-powered product, or an idea that needs a strong technical
-        foundation—I’d be happy to hear from you. Feel free to book on my{' '}
-        <Link href="/cal" className="prose-link text-accent no-underline">
-          calendar
-        </Link>{' '}
-        or send me a message.
+        foundation—I’d be happy to hear from you.
       </p>
 
       <div className="mt-6">
