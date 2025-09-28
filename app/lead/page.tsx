@@ -136,6 +136,29 @@ export default function TechLeadExperiencePage() {
         that bypassed traditional branch visits. Successfully built and led a
         development team from the ground up.
       </p>
+      {/* 
+      <h2 className="text-xl font-bold mb-4">
+        Photo and Go: Contract Leadership (2016-2017)
+      </h2>
+
+      <p className="prose prose-neutral dark:prose-invert">
+        At{' '}
+        <Link href="/project/photo-and-go" className="prose-link">
+          Photo and Go
+        </Link>
+        , I had my first real leadership experience leading the refactoring and
+        upgrade of MyPhoto.com's photo editor and backend systems. This was a
+        pivotal moment in my career where I transitioned from individual
+        contributor to technical leader. I was responsible for the complete
+        overhaul of the existing platform, implementing modern ReactJS and
+        Node.js architecture while maintaining seamless e-commerce integration.
+        I led the technical direction and execution, focusing on creating a
+        smooth and intuitive user experience while implementing AWS
+        infrastructure for scalable cloud storage and processing. This project
+        marked my first experience managing technical execution and established
+        the foundation for my future leadership roles in building innovative
+        digital experiences.
+      </p> */}
 
       <h2 className="text-xl font-bold mb-4">
         EOS Costa Rica: Blockchain Infrastructure (2018-2020)
