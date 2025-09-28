@@ -16,10 +16,14 @@ export default function HomePage() {
         With over 15 years of experience as a{' '}
         <Link href="/tech" className="prose-link">
           full-stack
-        </Link>{' '}
-        and{' '}
+        </Link>
+        ,{' '}
         <Link href="/blog/2025-03-the-product-engineer" className="prose-link">
           product engineer
+        </Link>{' '}
+        and{' '}
+        <Link href="/lead" className="prose-link">
+          tech lead
         </Link>
         , I bridge technical execution with user experience and business
         strategy, ensuring that every project moves from concept to launch with
