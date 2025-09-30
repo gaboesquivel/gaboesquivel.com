@@ -8,6 +8,7 @@
 
 html {
   min-width: 360px;
+  overflow-x: hidden;
 }
 
 
@@ -25,7 +26,9 @@ html {
   @apply visible;
 }
 .prose{
-  @apply mx-0 max-w-full;
+  @apply mx-0 max-w-full overflow-hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .prose li {
@@ -54,6 +57,8 @@ html {
 
 .prose code {
   @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-100 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-neutral-900;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .prose pre code {
@@ -63,7 +68,8 @@ html {
 
 .prose img {
   /* Don't apply styles to next/image */
-  @apply m-0;
+  @apply m-0 max-w-full;
+  height: auto;
 }
 
 .prose > :first-child {
@@ -84,7 +90,8 @@ pre::-webkit-scrollbar {
 pre {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 pre code {
@@ -106,9 +113,11 @@ input[type='email'] {
 
 table {
   display: block;
-  max-width: fit-content;
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
   white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
 .prose .callout > p {
