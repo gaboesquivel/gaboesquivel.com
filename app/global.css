@@ -8,9 +8,10 @@
 
 html {
   min-width: 360px;
+  width: 100%;
   overflow-x: hidden;
+  max-width: 100vw;
 }
-
 
 .prose .anchor {
   @apply absolute invisible no-underline;
@@ -25,7 +26,7 @@ html {
 .anchor:hover {
   @apply visible;
 }
-.prose{
+.prose {
   @apply mx-0 max-w-full overflow-hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -41,7 +42,7 @@ html {
 
 .prose .anchor:before {
   @apply text-accent;
-  content: '#';
+  content: "#";
   margin-left: -1.5em;
   padding: 0.5em;
 }
@@ -77,10 +78,9 @@ html {
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
 }
-code[class*='language-'],
-pre[class*='language-'] {
-  @apply text-neutral-50 ;
-
+code[class*="language-"],
+pre[class*="language-"] {
+  @apply text-neutral-50;
 }
 
 pre::-webkit-scrollbar {
@@ -99,8 +99,8 @@ pre code {
 }
 
 /* Remove Safari input shadow on mobile */
-input[type='text'],
-input[type='email'] {
+input[type="text"],
+input[type="email"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -178,29 +178,40 @@ a {
     box-shadow: none !important;
     text-shadow: none !important;
   }
-  
+
   body {
     color: #000000 !important;
     background: #ffffff !important;
   }
-  
-  .prose, .prose p, .prose li, .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6, .prose a {
+
+  .prose,
+  .prose p,
+  .prose li,
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6,
+  .prose a {
     color: #666666 !important;
     font-size: 12px !important;
   }
-  
-  .navbar, .print\\:hidden {
+
+  .navbar,
+  .print\\:hidden {
     display: none !important;
   }
-  
+
   .print\\:block {
     display: block !important;
   }
-  
+
   .print\\:inline {
     display: inline !important;
   }
-  .prose img, .prose .latest-posts {
+  .prose img,
+  .prose .latest-posts {
     display: none !important;
   }
 }
