@@ -210,6 +210,7 @@ a {
   .print\\:inline {
     display: inline !important;
   }
+  
   .prose img,
   .prose .latest-posts {
     display: none !important;
