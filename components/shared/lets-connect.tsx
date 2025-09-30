@@ -5,9 +5,15 @@ export function LetsConnect() {
       <p>
         I usually work through remote 1099 contracts with my US-based company,
         Blockmatic Labs LLC. This gives clients straightforward contracts,
-        compliance peace of mind, and IP protection. I’m based in Costa Rica,
-        aligned with US Mountain Time, and conveniently close for quick trips to
-        major US cities.
+        compliance peace of mind, and IP protection. I’m based in{' '}
+        <Link
+          href="/blog/2014-01-developing-software-in-costa-rica"
+          className="prose-link"
+        >
+          Costa Rica
+        </Link>
+        , aligned with US Mountain Time, and conveniently close for quick trips
+        to major US cities.
       </p>
       <p>
         If you're building innovative solutions in{' '}
