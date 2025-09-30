@@ -16,6 +16,14 @@ export default function FrontendExperiencePage() {
         <span className="print:hidden">Frontend Engineering Experience</span>
       </h1>
 
+      <p className="prose prose-neutral dark:prose-invert print:block hidden">
+        With over 15 years in full-stack software engineering, I help
+        organizations turn initial ideas into market-ready software products,
+        ensuring concepts reach their full potential. I work as a product
+        engineer, bridging technical execution with user experience and business
+        strategy.
+      </p>
+
       <p className="prose prose-neutral dark:prose-invert">
         Throughout my career, I've focused on crafting exceptional user
         experiences through clean, performant frontend code. My approach

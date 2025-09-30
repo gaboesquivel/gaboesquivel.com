@@ -5,17 +5,15 @@ import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-export default function ReactNativeExperiencePage() {
+export default function MobileExperiencePage() {
   const type = 'mobile'
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
         <span className="hidden print:inline text-black">
-          Gabo Esquivel - React Native & Mobile Developer
+          Gabo Esquivel - Mobile Developer
         </span>
-        <span className="print:hidden">
-          React Native & Mobile Development Experience
-        </span>
+        <span className="print:hidden">Mobile Development Experience</span>
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -133,13 +131,13 @@ export default function ReactNativeExperiencePage() {
 }
 
 export const metadata: Metadata = {
-  title: 'React Native & Mobile Development Experience - Gabo Esquivel',
+  title: 'Mobile Development Experience - Gabo Esquivel',
   description:
-    'React Native Developer with extensive experience in mobile-first applications, cross-platform development, wallet integrations, and AI assistants',
+    'Mobile Developer with extensive experience in React Native, cross-platform development, wallet integrations, and AI assistants',
   keywords: [
-    'react native developer',
     'mobile app development',
     'cross-platform mobile',
+    'react native',
     'wallet integrations',
     'AI assistants',
     'mobile-first design',
@@ -151,9 +149,9 @@ export const metadata: Metadata = {
     'React Native bridges',
   ],
   openGraph: {
-    title: 'React Native & Mobile Development Experience - Gabo Esquivel',
+    title: 'Mobile Development Experience - Gabo Esquivel',
     description:
-      'React Native Developer with extensive experience in mobile-first applications, cross-platform development, wallet integrations, and AI assistants',
+      'Mobile Developer with extensive experience in React Native, cross-platform development, wallet integrations, and AI assistants',
     type: 'profile',
   },
 }

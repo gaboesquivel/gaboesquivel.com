@@ -18,6 +18,14 @@ export default function FullstackExperiencePage() {
         </span>
       </h1>
 
+      <p className="prose prose-neutral dark:prose-invert print:block hidden">
+        With over 15 years in full-stack software engineering, I help
+        organizations turn initial ideas into market-ready software products,
+        ensuring concepts reach their full potential. I work as a product
+        engineer, bridging technical execution with user experience and business
+        strategy.
+      </p>
+
       <p className="prose prose-neutral dark:prose-invert">
         As a full-stack engineer, I bridge the gap between frontend experiences,
         backend systems, and cloud infrastructure. My approach focuses on
