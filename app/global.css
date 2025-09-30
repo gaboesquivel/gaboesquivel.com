@@ -28,17 +28,19 @@ html {
   @apply mx-0 max-w-full;
 }
 
-.prose li{
-  @apply leading-none;
+.prose li {
+  @apply leading-[1.75] mb-4;
 }
 
 .prose a {
   @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
 }
 
-.prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+.prose .anchor:before {
+  @apply text-accent;
   content: '#';
+  margin-left: -1.5em;
+  padding: 0.5em;
 }
 
 .prose *:hover > .anchor {
