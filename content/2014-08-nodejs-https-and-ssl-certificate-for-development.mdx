@@ -78,13 +78,13 @@ var socket = io.connect('https://localhost:443/',{secure: true});
 &nbsp;   
 
 > Nodejitsu http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server 
-> NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy server, however, using a synchronous function during a request will force the server to deal with the requests one by one!
+> NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy [server](/backend), however, using a synchronous function during a request will force the [server](/backend) to deal with the requests one by one!
 
 For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: [OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs)
 
 
 __References__   
- - [Painless Self Signed Certificates in node.js ](https://github.com/coolaj86/node-ssl-root-cas/wiki/Painless-Self-Signed-Certificates-in-node.js)   
+ - [Painless Self Signed Certificates in node.js](https://github.com/coolaj86/node-ssl-root-cas/wiki/Painless-Self-Signed-Certificates-in-node.js)   
  - [Nodejitsu Docs: How to create an HTTPS server](http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server)    
  - [Heroku Dev Center: Creating a Self-Signed SSL Certificate](https://devcenter.heroku.com/articles/ssl-certificate-self)         
  - [How to create a self-signed SSL Certificate](http://www.akadia.com/services/ssh_test_certificate.html)

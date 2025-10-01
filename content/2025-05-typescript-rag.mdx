@@ -7,7 +7,7 @@ category: ['Engineering', 'Backend', 'Artificial Intelligence']
 tech: ['RAG', 'NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 ---
 
-Retrieval-Augmented Generation (RAG) is becoming a standard architecture for building LLM-powered applications. By combining information retrieval with text generation, RAG enables large language models to answer queries using external knowledge sources. This approach improves accuracy and allows responses to include up-to-date or proprietary data not present in the model's original training.
+Retrieval-Augmented Generation (RAG) is becoming a standard architecture for building [LLM-powered applications](/ai). By combining information retrieval with text generation, RAG enables large language models to answer queries using external knowledge sources. This approach improves accuracy and allows responses to include up-to-date or proprietary data not present in the model's original training.
 
 {/* Prevent Cumulative Layout Shift (CLS) */}
 <div className="min-h-[300px]">
@@ -22,8 +22,8 @@ Retrieval-Augmented Generation (RAG) is becoming a standard architecture for bui
 
 RAG systems follow a two-step process:
 
-1. **Retrieval**: Relevant information is fetched from a knowledge base. This starts by chunking documents and converting them into vector embeddings using models like OpenAI's `text-embedding-3-small` or open-source options like `sentence-transformers`. These embeddings are stored in a vector database.
-2. **Generation**: When a query comes in, it's also embedded into vector space. The system performs a similarity search to retrieve the most relevant chunks, which are then fed as context into a language model like GPT-4 to generate a coherent and informed response.
+1. **Retrieval**: Relevant information is fetched from a knowledge base. This starts by chunking documents and converting them into vector embeddings using models like [OpenAI](/tech/openai)'s `text-embedding-3-small` or open-source options like `sentence-transformers`. These embeddings are stored in a vector database.
+2. **Generation**: When a query comes in, it's also embedded into vector space. The system performs a similarity search to retrieve the most relevant chunks, which are then fed as context into a language model like [GPT-4](/tech/openai) to generate a coherent and informed response.
 
 This architecture decouples the model from the data, making it flexible for dynamic, domain-specific applications.
 
@@ -43,13 +43,13 @@ RAG enables:
 * Chatbots that provide accurate, up-to-date responses.
 * Document Q\&A systems across PDFs, websites, or internal wikis.
 
-## NodeJS in the RAG Stack
+## [NodeJS](/tech/node-js) in the RAG Stack
 
-NodeJS is becoming an increasingly powerful option for building RAG systems, especially for teams already working within the JavaScript/TypeScript ecosystem. Thanks to robust embedding APIs and integration options, developers can:
+[NodeJS](/tech/node-js) is becoming an increasingly powerful option for building RAG systems, especially for teams already working within the [JavaScript/TypeScript ecosystem](/frontend). Thanks to robust embedding APIs and integration options, developers can:
 
 * Generate embeddings using services like OpenAI or Hugging Face Inference API.
 * Store and query data using `pgvector`, Pinecone, Weaviate, or Qdrant.
-* Implement end-to-end workflows using Next.js server functions, Vercel edge functions, or NodeJS servers.
+* Implement [end-to-end workflows](/fullstack) using Next.js server functions, Vercel edge functions, or NodeJS servers.
 
 The JavaScript ecosystem also benefits from a growing number of open source SDKs purpose-built for LLM apps. These toolkits simplify RAG implementation and provide patterns for streaming responses, function calling, vector search, and more.
 
@@ -110,8 +110,8 @@ There are several ways to store and query vectors:
 
 ## Real-World Projects
 
-I've applied RAG architectures in real-world projects like <a href="https://gaboesquivel.com/project/legal-agent">Legal Agent</a>, a legal AI assistant trained on court decisions and legal doctrine, and <a href="https://gaboesquivel.com/project/bitlauncher">Bitlauncher</a>, a decentralized launchpad that integrates AI for project evaluation and discovery.
+I've applied RAG architectures in real-world projects like [Legal Agent](/project/legalagent), a legal AI assistant trained on court decisions and legal doctrine, and [Bitlauncher](/project/bitlauncher), a [decentralized launchpad](/backend) that integrates AI for project evaluation and discovery.
 
 ## Final Thoughts
 
-While Python remains the ecosystem leader for AI tooling, the JavaScript/TypeScript stack is catching up fast—offering a familiar environment for web engineers diving into AI product development.
+While Python remains the ecosystem leader for AI tooling, the JavaScript/TypeScript stack is catching up fast—offering a familiar environment for [web engineers](/tech) diving into AI product development.

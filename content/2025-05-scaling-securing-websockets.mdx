@@ -7,9 +7,9 @@ category: ['Engineering', 'Backend']
 tech: ['Bun', 'NodeJS']
 ---
 
-WebSockets are essential for real-time applications—from trading engines to AI assistants. But when you move from prototype to production, things get tricky. Especially when uptime, load balancing, and secure communication matter.
+WebSockets are essential for [real-time applications](/backend)—from trading engines to AI assistants. But when you move from prototype to production, things get tricky. Especially when uptime, load balancing, and secure communication matter.
 
-Here’s how I approach scaling WebSocket backends in high-availability environments without compromising security or developer experience.
+Here's how I approach scaling WebSocket backends in high-availability environments without compromising security or [developer experience](/fullstack).
 
 
 {/* Prevent CLS by setting a minimum height */}
@@ -21,7 +21,7 @@ Here’s how I approach scaling WebSocket backends in high-availability environm
 
 WebSockets maintain a long-lived TCP connection, which breaks traditional stateless load balancing. That’s where session affinity (sticky sessions) come in.
 
-**NGINX**, **HAProxy**, and most managed load balancers like AWS ALB support sticky sessions based on cookies or IP hashing. This ensures clients consistently route to the same backend node, keeping their connection alive.
+**NGINX**, **HAProxy**, and most managed load balancers like [AWS](/tech/aws) ALB support sticky sessions based on cookies or IP hashing. This ensures clients consistently route to the same backend node, keeping their connection alive.
 
 
 ## Secure It: wss\:// or Bust
@@ -30,9 +30,9 @@ You should *never* run production WebSockets over `ws://`. Always use `wss://` (
 
 You can terminate TLS at the load balancer (e.g., Cloudflare or NGINX) and forward traffic to internal nodes over plain TCP. Just make sure to:
 
-* Use valid certificates (Let’s Encrypt or managed)
+* Use valid certificates (Let's Encrypt or managed)
 * Redirect all insecure connections
-* Set proper CORS policies if the frontend is hosted separately
+* Set proper CORS policies if the [frontend](/frontend) is hosted separately
 
 
 ## Auth Is Not Optional
@@ -45,7 +45,7 @@ I usually go with:
 * Validated via query string or an initial message payload
 * Optionally, revalidate tokens periodically in long sessions
 
-Pair that with **Redis** or **Kafka** for coordinating presence, rate-limiting, or propagating bans across nodes.
+Pair that with **[Redis](/tech/redis)** or **Kafka** for coordinating presence, rate-limiting, or propagating bans across nodes.
 
 
 ## Redis Pub/Sub: The Backbone of Multi-Node Messaging
@@ -87,4 +87,4 @@ Never expose a WebSocket server directly to the open internet without protection
 * Rate limiting + monitoring
 * Health checks and auto-scaling
 
-Whether it’s Web3 trading apps, multiplayer UIs, or streaming AI results. WebSockets are powerful, but they demand a clear architecture to scale securely.
+Whether it's [Web3](/web3) trading apps, multiplayer UIs, or streaming [AI](/ai) results. WebSockets are powerful, but they demand a clear architecture to scale securely.

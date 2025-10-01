@@ -100,7 +100,7 @@ export function MyReactComponent({ myParam }: MyReactComponentParams) {
   const myMethod = () => console.log(myParam)
 
   useEffect(()=>{
-    console.log('component mounted')
+    console.log('[component](/frontend) mounted')
   })
 
   if(isLoading) return <p>loading...</p>
@@ -122,12 +122,12 @@ function Item({description}:{description:string}){
   return <li className="text-blue md:flex">{description}</li>
 }
 
-// types at the bottom, if there are too many consider a .type.ts file in the dir.
+// types at the bottom, if there are too many consider a .type.[ts](/tech/typescript) file in the dir.
 export interface MyReactComponentParams {
   myParam: boolean
 }
 
-// text and static content, this helps keep component code more tidy and easy to read 
+// text and static content, this helps keep [component](/frontend) code more tidy and easy to read 
 // when supporting internationalization you must keep text in variables too.
 const content = {
   headline: 'A new world awaits. Be the first to discover it.',
@@ -138,9 +138,9 @@ const content = {
 
 ## Error Handling
 
-Basic rule is throwing errors on services and libs and catch them on the react component to display a friendly message. Async utility hooks will catch them internally removing the try/catch boilerplate in presentational code.
+Basic rule is throwing errors on services and libs and catch them on the [react](/tech/react) component to display a friendly message. Async utility hooks will catch them internally removing the try/catch boilerplate in presentational code.
 
-Use this error lib to easily work with JS error objects. See https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript 
+Use this error lib to easily work with [JS](/tech/javascript) error objects. See https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript 
 
 ```tsx
 export type ErrorWithMessage = {
@@ -189,7 +189,7 @@ export function getErrorMessage(error: unknown) {
 │   ├── manifest.webmanifest
 │   └── styles
 │       ├── global.css
-│       └── tailwind.css
+│       └── [tailwind](/tech/tailwind).css
 ├── src
 │   ├── app.tsx
 │   ├── config
@@ -223,7 +223,7 @@ export function getErrorMessage(error: unknown) {
 │   │   │   ├── use-dashboard.ts
 │   │   │   ├── dashboard.context.ts
 │   │   │   └── dashboard.lib.ts
-│   │   └── wallet
+│   │   └── [wallet](/web3)
 │   ├── services
 │   │   ├── chain
 │   │   ├── pinata
@@ -244,7 +244,7 @@ The "lib" directory is exclusively designated for pure utility functions with ze
 
 ## Services
 
-Within the "services" directory, you'll find plain JavaScript functions interacting with external APIs and storage systems. These functions expertly encapsulate the logic necessary for managing HTTPS requests, WebSocket communication, web storage, and API queries.
+Within the "services" directory, you'll find plain JavaScript functions interacting with external APIs and storage systems. These functions expertly encapsulate the logic necessary for managing HTTPS requests, WebSocket communication, web storage, and [API](/backend) queries.
 
 ## Pages
 

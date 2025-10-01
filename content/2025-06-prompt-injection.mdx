@@ -7,7 +7,7 @@ category: ['Engineering', 'Backend', 'Frontend', 'Artificial Intelligence', 'Sec
 tech: ['AI SDK', 'OpenAI']
 ---
 
-As large language models (LLMs) like ChatGPT become integral to modern applications, a new attack vector has emerged: prompt injection. Similar to SQL injection in traditional software, prompt injection manipulates input prompts to hijack the behavior of LLMs, leading to unintended and potentially harmful outputs.
+As large language models (LLMs) like ChatGPT become integral to modern [applications](/ai), a new attack vector has emerged: prompt injection. Similar to SQL injection in traditional software, prompt injection manipulates input prompts to hijack the behavior of LLMs, leading to unintended and potentially harmful outputs.
 
 {/* Prevent Cumulative Layout Shift (CLS) */}
 <div className="min-h-[300px]">
@@ -59,7 +59,7 @@ Restrict what tool calls can do. Prevent tools from making sensitive changes or 
 
 ### 5. **Use an LLM to Detect Malicious Prompts**
 
-Leverage an LLM to evaluate incoming content for signs of prompt injection or adversarial manipulation.
+Leverage an LLM to evaluate incoming content for signs of prompt injection or [adversarial manipulation](/backend).
 
 ### 6. **Treat Model Output as Untrusted**
 
@@ -67,7 +67,7 @@ Always handle model output (including markdown) as untrusted input. Sanitize or 
 
 ### 7. **Use Guardrails and Output Validation**
 
-Post-process outputs using regex, classifiers, or moderation APIs to catch unexpected or harmful content before it reaches the user.
+Post-process outputs using regex, classifiers, or moderation APIs to catch unexpected or harmful content before it reaches the [user](/frontend).
 
 ### 8. **Model Fine-Tuning and Instruction Tuning**
 
@@ -83,4 +83,4 @@ For agents or tools that take real-world actions, enforce strict access controls
 
 ## Final Thoughts
 
-Prompt injection is a growing security risk in the age of AI. As we integrate LLMs into critical systems, it's essential to design with adversarial input in mind. Like all software vulnerabilities, prevention starts with awareness and is strengthened by layered defense strategies. By isolating inputs, validating outputs, and monitoring activity, we can build safer, more resilient AI applications.
+Prompt injection is a growing security risk in the age of AI. As we integrate LLMs into critical [systems](/fullstack), it's essential to design with adversarial input in mind. Like all software vulnerabilities, prevention starts with awareness and is strengthened by layered defense strategies. By isolating inputs, validating outputs, and monitoring activity, we can build safer, more resilient [AI applications](/tech).

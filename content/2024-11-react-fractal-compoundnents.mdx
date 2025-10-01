@@ -7,12 +7,12 @@ category: ['Engineering', 'ReactJS']
 tech: ['ReactJS', 'TypeScript', 'NextJS']
 ---
 
-In software development, the principles of fractals and compounding unlock opportunities for modularity, scalability, and reusability. In this post, we'll explore how fractal components in React can emulate the self-similarity found in nature, leveraging a consistent, layered design. Along the way, we'll borrow concepts from finance—how small, consistent actions compound over time—and show how applying these to your codebase can multiply software delivery efficiency.
+In [software development](/fullstack), the principles of fractals and compounding unlock opportunities for modularity, scalability, and reusability. In this post, we'll explore how fractal components in [React](/frontend) can emulate the self-similarity found in nature, leveraging a consistent, layered design. Along the way, we'll borrow concepts from finance—how small, consistent actions compound over time—and show how applying these to your codebase can multiply software delivery efficiency.
 
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
-![React Fractal compoundnents](/images/2024/11/react-fractal-compoundnents.webp)
+![React Fractal compoundnents](/images/2024/11/[react](/tech/react)-fractal-compoundnents.webp)
 </div>
 
 ## Fractals: The Power of Self-Similarity
@@ -33,12 +33,12 @@ In React, fractal design combines self-similarity with modularity. Here's how th
    
 2. **Consistent Tech Stack:** All components follow the same standards:
    - **tanstack/react-query**: Standardized data fetching and caching, following a predictable query model.
-   - **viem**: Low-level Ethereum interactions with a modern TypeScript API.
+   - **viem**: Low-level [Ethereum](/web3) interactions with a modern TypeScript API.
    - **wagmi**: React hooks for Ethereum, built on top of react-query and viem for consistent data fetching patterns.
    - **nuqs**: URL-based state management decouples components from internal logic.
-   - **Supabase**: A backend with API logic abstracted into dedicated folders, making backend and frontend portable and reusable.
+   - **Supabase**: A [backend](/backend) with API logic abstracted into dedicated folders, making backend and frontend portable and reusable.
 
-3. **Scalable Design Systems:** Shadcn/UI and Tailwind CSS ensure a consistent and portable UI, adaptable even for generative design workflows (GenerativeUI).
+3. **Scalable Design Systems:** Shadcn/UI and Tailwind CSS ensure a consistent and portable UI, adaptable even for generative design workflows (GenerativeUI). This approach is essential for [modern UI development](/tech).
 
 4. **Collocation with AHA Workflow:** Components are refactored only when they naturally reveal the need for reusability (Avoid Hasty Abstractions).
 
@@ -106,7 +106,7 @@ export function useMarkets() {
   return useQuery({
     queryKey: ['markets'],
     queryFn: async () => {
-      const supabase = await createSupabaseClient()
+      const [supabase](/tech/supabase) = await createSupabaseClient()
       return getMarkets({ supabase })
     }
   })

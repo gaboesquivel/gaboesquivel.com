@@ -6,13 +6,13 @@ category: ['Engineering']
 tech: ['JavaScript', 'NodeJS', 'GraphQL', 'REST']
 ---
 
-An application-programming interface (API) exposes the functionality of a software application for other software clients to use. Through APIs, applications interact with each other and share data without any user knowledge or intervention.
+An application-programming interface ([API](/backend)) exposes the functionality of a software application for other software clients to use. Through APIs, applications interact with each other and share data without any user knowledge or intervention.
 
-Modern web applications typically have RESTful JSON APIs. REST stands for [Representational State Transfer](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm), and it is a software architecture style consisting of guidelines and best practices for building scalable web services. JSON stands for JavaScript Object Notation, and it is a minimal, readable format for structuring data.
+Modern web applications typically have RESTful JSON APIs. REST stands for [Representational State Transfer](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm), and it is a software architecture style consisting of guidelines and best practices for building scalable web services. JSON stands for [JavaScript](/tech/javascript) Object Notation, and it is a minimal, readable format for structuring data.
 
 ![API Diagram](/images/2015/10/API-Diagram.png)
 
-When designing an API, there are important decisions that have a great impact on the way other applications will interact with the service. Once an API has been defined and other software clients make use of it, changes to the API are costly and should be avoided. By following standards and best practices, you reduce the need for API changes to a minimum.
+When designing an [API](/backend), there are important decisions that have a great impact on the way other applications will interact with the service. Once an API has been defined and other software clients make use of it, changes to the API are costly and should be avoided. By following standards and best practices, you reduce the need for API changes to a minimum.
 
 The following is a list of pragmatic best practices applicable to both public and private APIs:
 
@@ -42,7 +42,7 @@ The following table lists generic attributes that are defined and have a specifi
 | href      | String  | Identifies the URL of the current resource. |
 | link      | Object  | Identifies a relationship for a resource. This attribute is itself an object and has "rel" "href" attributes. |
 
-Presenting the fully qualified URL for every resource aids discoverability by allowing for new resources to be consumed by just embedding a new reference (link). Pagination is a great example of when to use linking when returning resource collections.
+Presenting the fully qualified URL for every resource aids discoverability by allowing for new resources to be consumed by just [embedding](/ai) a new reference (link). Pagination is a great example of when to use linking when returning resource collections.
 
 ```json
 {
@@ -85,7 +85,7 @@ Most APIs need to perform tasks that go beyond the resource level scope of the u
 Typically when you request a resource on a RESTful API you will have nested resources that will come in the form of a reference. Query string flags can be used for resource expansion when you know in advance that you are going to need the extra information about the related resources and you aim reduce to API requests for performance. In this case you can optionally specify which relationships to expand in the query string. Eg. `api/buildings?expand=assets`
 
 ## Handle Errors with HTTP Status Codes and Messages
-Your API should respond with the appropriate [http status code](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) along with a message in the response body, a message for the developer and a message for the end-user when appropriate. Eg. 404 Status `{"errors":[{"message":"Sorry, that page does not exist","code":34}]}` in addition to descriptive error text. Error messages may contain machine-parseable codes.
+Your API should respond with the appropriate [http status code](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.[html](/frontend)) along with a message in the response body, a message for the developer and a message for the end-user when appropriate. Eg. 404 Status `{"errors":[{"message":"Sorry, that page does not exist","code":34}]}` in addition to descriptive error text. Error messages may contain machine-parseable codes.
 
 There are many http status codes, however most API providers use a small subset. These codes should suffice:
 

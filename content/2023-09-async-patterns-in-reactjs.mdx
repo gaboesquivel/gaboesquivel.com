@@ -9,19 +9,19 @@ Updated in May 2024
 
 ### Leveraging TanStack for Async Operations
 
-In my recent work on [bitLauncher.ai](https://bitlauncher.ai), I've started using Wagmi, and I really appreciate its design and feature set. This shift has led me to use the `useQuery` hook more frequently than the `useAsync` helpers I used previously in the PolkadotJS examples.
+In my recent work on [bitLauncher.ai](https://bitlauncher.[ai](/ai)), I've started using Wagmi, and I really appreciate its design and feature set. This shift has led me to use the `useQuery` hook more frequently than the `useAsync` helpers I used previously in the PolkadotJS examples.
 
-When working with React, I now recommend using TanStack (formerly known as React Query) for managing asynchronous operations and state. TanStack Query offers powerful caching, request deduplication, and persistence, which are essential for a seamless developer experience.
+When working with [React](/frontend), I now recommend using TanStack (formerly known as [React](/tech/react) Query) for managing asynchronous operations and state. TanStack Query offers powerful caching, request deduplication, and persistence, which are essential for a seamless developer experience.
 
-Wagmi leverages TanStack Query for caching, request deduplication, and persistence. It provides over 20 hooks for working with wallets, ENS, contracts, transactions, signing, and more. Additionally, Wagmi includes built-in wallet connectors for injected providers, WalletConnect, MetaMask, and Coinbase Wallet. Major projects like Coinbase, Stripe, Shopify, Uniswap, Optimism, ENS, and Sushi use Wagmi, demonstrating its robustness and reliability.
+Wagmi leverages TanStack Query for caching, request deduplication, and persistence. It provides over 20 hooks for working with wallets, ENS, contracts, transactions, signing, and more. Additionally, Wagmi includes built-in wallet connectors for injected providers, [WalletConnect](/tech/walletconnect), MetaMask, and Coinbase Wallet. Major [projects](/web3) like Coinbase, [Stripe](/tech/stripe), Shopify, Uniswap, Optimism, ENS, and Sushi use Wagmi, demonstrating its robustness and reliability.
 
 The new Parity Capi Multisig App [Parity Capi Multisig App](https://github.com/paritytech/capi-multisig-app) also uses TanStack internally.
 
 ---
 
-In this post, we'll explore patterns that help achieve a clean separation between core logic and presentation in your projects. By keeping your core logic in Vanilla TypeScript and utilizing the useAsync and useAsyncFn hooks for asynchronous operations, you can build a solid foundation for your applications.
+In this post, we'll explore patterns that help achieve a clean separation between core logic and presentation in your projects. By keeping your core logic in Vanilla [TypeScript](/tech/typescript) and utilizing the useAsync and useAsyncFn hooks for asynchronous operations, you can build a solid foundation for your [applications](/fullstack).
 
-Within a services directory, you'll store plain JavaScript functions that handle interactions with external APIs and storage systems. These functions are designed to manage HTTP requests, WebSocket communications, web storage, and API queries effectively.
+Within a services directory, you'll store plain JavaScript functions that handle interactions with external APIs and storage systems. These functions are designed to manage HTTP requests, WebSocket communications, web storage, and API queries effectively. This approach is essential for [backend](/backend) integration.
 
 In the examples that follow, I'll show how to consume the PolkadotJS vanilla service from React components using this approach.
 
@@ -128,7 +128,7 @@ export function AsyncOnEvent(){
 }
 ```
 
-I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called [react-use](https://github.com/streamich/react-use). These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates.
+I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called [react-use](https://github.com/streamich/react-use). These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates. This approach is particularly valuable for [technical teams](/tech) working with complex state management.
 
 For more examples and code snippets, check out the [GitHub repository](https://github.com/gaboesquivel/react-async).
 
