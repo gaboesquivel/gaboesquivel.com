@@ -11,111 +11,135 @@ export default function MobileExperiencePage() {
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
         <span className="hidden print:inline text-black">
-          Gabo Esquivel - Mobile Developer
+          Gabo Esquivel - Sr. React Native Engineer
         </span>
         <span className="print:hidden">Mobile Development Experience</span>
       </h1>
 
-      <p className="prose prose-neutral dark:prose-invert print:block hidden">
-        With over 15 years in full-stack software engineering, I help
-        organizations turn initial ideas into market-ready software products,
-        ensuring concepts reach their full potential. I work as a product
-        engineer, bridging technical execution with user experience and business
-        strategy.
-      </p>
-
       <p className="prose prose-neutral dark:prose-invert">
-        My mobile development journey has focused on creating cross-platform
-        applications with React Native. I'm passionate about mobile-first
-        experiences that feel native while leveraging the efficiency of
-        cross-platform development. My approach emphasizes performance
-        optimization, intuitive interfaces, and seamless integration with device
-        capabilities and backend services.
+        I've developed multiple mobile applications using React Native and Expo,
+        creating cross-platform experiences that combine native performance with
+        the flexibility of React development. My mobile projects range from
+        secure messaging apps to AI-powered legal assistants, each leveraging
+        modern mobile development practices and frameworks.
       </p>
 
       <h2 className="text-xl font-bold mb-4">
-        Banking & Fintech Mobile (2015-2018)
+        First Mobile Projects (2015-2019)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My journey into mobile development began with Wink, Costa Rica's first
-        mobile neobank. I implemented React Native bridges for biometric
-        authentication, creating a secure yet user-friendly banking experience.
-        This project required deep integration with native device capabilities
-        for secure biometric verification while maintaining a seamless
-        cross-platform experience. The application enabled users to complete
-        banking tasks entirely from their mobile devices, eliminating
-        traditional branch visits.
+        My mobile development journey began at{' '}
+        <Link href="/project/wink" className="prose-link">
+          Wink
+        </Link>{' '}
+        (2015), Costa Rica's first neo-bank, where I led the development of
+        their mobile banking platform. Using React Native, I implemented secure
+        biometric authentication and API integrations with partner banks. This
+        early experience established my approach to creating intuitive,
+        high-performance mobile experiences with security as a priority.
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        Secure Messaging: Sense Chat (2019)
+        AI-Powered Mobile Applications (2024-2025)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        At Sense Chat, I helped develop a secure React Native messaging
-        application with integrated EOS wallet functionality and token-based
-        incentives. This app combined encrypted communication channels with
-        blockchain wallet capabilities, allowing users to exchange messages and
-        cryptocurrency in a single interface. The implementation required
-        careful attention to security, offline capabilities, and seamless wallet
-        integration—all while maintaining a clean, intuitive UI that made
-        complex blockchain interactions accessible to mainstream users.
+        At{' '}
+        <Link href="/project/legal-agent" className="prose-link">
+          LegalAgent
+        </Link>{' '}
+        (2024-2025), I integrated a sophisticated AI assistant with both voice
+        and chat capabilities into their React Native (Expo) mobile app. The
+        assistant empowers lawyers to swiftly access case information, providing
+        contextual legal support, document summaries, and procedural guidance.
+        Using the Vercel AI SDK for chat and OpenAI's Realtime API for voice
+        features, I developed a seamless multimodal interface styled with
+        Tailwind CSS, supporting both Spanish and English.
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        Augmented Reality: Tractor Supply (2020)
+        Secure Messaging & Web3 Integration (2019-2020)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        For Tractor Supply, I worked on augmented reality product previews in
-        React Native. This feature allowed customers to visualize products in
-        their real-world environment before purchasing, significantly enhancing
-        the shopping experience for large outdoor equipment. The implementation
-        used React Native's AR capabilities combined with 3D product models and
-        real-time rendering, optimized for performance across device types. This
-        project demonstrated how mobile applications can bridge digital commerce
-        with physical reality through immersive experiences.
+        While working at{' '}
+        <Link href="/project/make-sense-labs" className="prose-link">
+          Sense Chat
+        </Link>{' '}
+        (2019-2020), I enhanced their React Native app's performance and
+        integrated it with the EOS mainnet for token functionality. The app
+        focused on user data privacy and featured a built-in wallet with token
+        incentives for communities. I optimized React Native components for
+        better performance and reduced load times, while implementing secure
+        blockchain-based transactions and enhanced security features for better
+        user protection.
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        Blockchain Gaming: Fantasy Top Shots (2021)
+        Financial Applications (2015)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        With Fantasy Top Shots, I built an Expo-based mobile game that
-        integrates Flow blockchain NFTs into a fantasy sports experience. The
-        application combines real-time sports data with blockchain collectibles,
-        allowing users to build lineups with their owned NFTs. The
-        implementation used Expo for rapid cross-platform deployment while
-        integrating Flow blockchain for secure NFT ownership verification. This
-        project explored new gaming models at the intersection of mobile,
-        blockchain, and fantasy sports.
+        For{' '}
+        <Link href="/project/wink" className="prose-link">
+          Wink
+        </Link>{' '}
+        (2015), Costa Rica's first neo-bank, I developed the first version of
+        their mobile app and backend services within AWS. The app eliminated the
+        need for physical branch visits, providing a complete online banking
+        experience. My responsibilities included API integration with partner
+        banks, implementing biometric authentication for enhanced security, and
+        forming a dedicated development team focused on innovation and
+        user-centric design. This project was a pioneering effort in the
+        region's fintech space, bringing modern banking to mobile users.
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        AI Assistant: Sfera Legal (2023-Present)
+        Gaming & Interactive Experiences (2022)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Most recently, at Sfera Legal, I developed a React Native application
-        featuring an advanced AI assistant with voice and chat capabilities.
-        This mobile app helps legal professionals access and understand complex
-        documentation through natural language interactions. The implementation
-        combines React Native's cross-platform efficiency with cutting-edge AI
-        technologies, including voice recognition, natural language processing,
-        and retrieval-augmented generation. The result is a powerful mobile tool
-        that accelerates legal work by reducing research friction and providing
-        contextual insights.
+        I've also developed mobile gaming experiences, including{' '}
+        <Link href="/project/fantasy-top-shots" className="prose-link">
+          Fantasy Top Shots
+        </Link>
+        —a mobile app game based on NBA Top Shot NFTs for the 2022 Flow
+        Hackathon. The app leverages the popularity of NBA Top Shot NFTs to
+        create an engaging gaming experience, allowing users to utilize their
+        NFTs in a fantasy sports setting. I implemented responsive UI and smooth
+        gameplay mechanics using React Native and Expo, while integrating Flow
+        blockchain technology for secure NFT transactions.
       </p>
 
+      <h2 className="text-xl font-bold mb-4 mt-6">
+        Augmented Reality & E-commerce (2021)
+      </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        This project represents the exciting future of mobile development—where
-        intelligent interfaces adapt to user needs and provide contextual
-        assistance through natural interactions. The combination of voice, chat,
-        and AI capabilities creates a more intuitive mobile experience that
-        feels less like using technology and more like collaborating with an
-        intelligent assistant.
+        While consulting for{' '}
+        <Link href="/project/tractor-supply" className="prose-link">
+          Tractor Supply
+        </Link>{' '}
+        (2021), I enhanced their mobile app by developing an augmented reality
+        feature for product previews. This integration allowed customers to
+        visualize products in their own space before purchasing. I also improved
+        the app's performance and code quality, implementing TypeScript for
+        better maintainability and scalability.
+      </p>
+
+      <h2 className="text-xl font-bold mb-4 mt-6">
+        Creative Web3 Experiences (2022-2023)
+      </h2>
+      <p className="prose prose-neutral dark:prose-invert">
+        For{' '}
+        <Link href="/project/wizard-world" className="prose-link">
+          Wizard World
+        </Link>{' '}
+        (2022), I built a progressive web app that connects to OpenAI's LLM
+        models to generate AI images and mint them on the Flow blockchain. This
+        app integrates AI with blockchain technology, enabling users to create
+        and own unique digital art pieces. The project showcases how mobile
+        interfaces can bridge creative expression with on-chain ownership.
       </p>
 
       <div className="print:hidden">
         <Projects
-          heading="Projects"
+          heading="Mobile Projects"
           projects={projects.filter((project) => project.type.includes(type))}
         />
       </div>
@@ -133,25 +157,25 @@ export default function MobileExperiencePage() {
 export const metadata: Metadata = {
   title: 'Mobile Development Experience - Gabo Esquivel',
   description:
-    'Mobile Developer with extensive experience in React Native, cross-platform development, wallet integrations, and AI assistants',
+    'React Native Developer with extensive experience building cross-platform mobile applications with Expo, TypeScript, and TanStack',
   keywords: [
+    'react native developer',
+    'expo',
     'mobile app development',
-    'cross-platform mobile',
-    'react native',
-    'wallet integrations',
-    'AI assistants',
-    'mobile-first design',
-    'Expo',
-    'biometric authentication',
-    'augmented reality',
-    'voice interfaces',
-    'blockchain mobile',
-    'React Native bridges',
+    'cross-platform',
+    'typescript',
+    'mobile UI/UX',
+    'app performance',
+    'native features',
+    'tailwind mobile',
+    'AI mobile integration',
+    'web3 mobile',
+    'mobile banking',
   ],
   openGraph: {
     title: 'Mobile Development Experience - Gabo Esquivel',
     description:
-      'Mobile Developer with extensive experience in React Native, cross-platform development, wallet integrations, and AI assistants',
+      'React Native Developer with extensive experience building cross-platform mobile applications with Expo, TypeScript, and TanStack',
     type: 'profile',
   },
 }

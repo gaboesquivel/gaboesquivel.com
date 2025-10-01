@@ -53,53 +53,71 @@ export default function AIExperiencePage() {
           exploring AI-driven user experiences, where voice, text, and embedded
           capabilities lead the way.
         </p> */}
-      <h2 className="text-xl font-bold mb-4">
-        Wizard World: NFT Generation (2023)
-      </h2>
+      <h2 className="text-xl font-bold mb-4">Early AI Exploration (2022)</h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Built during the Flow Hackathon, Wizard World connected OpenAI's LLMs
-        with the Flow blockchain. The app enabled users to generate AI images
-        and mint them as NFTs—bridging creative expression with on-chain
-        ownership.
+        My journey into AI development began in 2022 when I started
+        experimenting with OpenAI's APIs. I quickly recognized AI's potential to
+        transform user experiences, moving beyond traditional interfaces toward
+        more natural, dynamic interactions where voice, text, and embedded
+        intelligence could work together seamlessly.
       </p>
-      <h2 className="text-xl font-bold mb-4">
-        Masterbots: Specialized AI Bots (2023)
+
+      <h2 className="text-xl font-bold mb-4 mt-6">
+        Wizard World: AI-Generated NFTs (2022)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Masterbots.ai delivers domain-specific chatbots optimized for complex
-        tasks and long-context interactions. By using advanced prompt
-        engineering techniques, we improve response quality and create more
-        capable, user-friendly assistants. I contributed by designing the
-        platform's architecture, integrating Next.js, the AI SDK, and Supabase
-        with pgvector to support scalable, context-aware interactions.
+        Built during the Flow Hackathon in late 2022, Wizard World connected
+        OpenAI's image generation capabilities with the Flow blockchain. The
+        progressive web app enabled users to generate AI images through natural
+        language prompts and mint them as NFTs—bridging creative expression with
+        on-chain ownership. This project marked my first production
+        implementation of AI technologies in a user-facing application.
       </p>
-      <h2 className="text-xl font-bold mb-4">
-        Bitlauncher: AI Crypto Launchpad (2023)
+
+      <h2 className="text-xl font-bold mb-4 mt-6">
+        Masterbots: Specialized AI Assistants (2023-2024)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Bitlauncher is an AI crypto launchpad giving users early access to
-        promising AI startups via token sales and batch auctions. We implemented
-        a fair price discovery mechanism and recently added a chatbot powered by
-        RAG and the experimental RSC AI SDK, enabling fast, conversational
-        access to investment docs and platform data. I led the development and
-        designed the full architecture, using Next.js, the AI SDK, and Supabase
-        with pgvector to build a robust, scalable platform.
+        From mid-2023 to early 2024, I worked on Masterbots.ai, a platform
+        delivering domain-specific chatbots optimized for complex tasks and
+        long-context interactions. I contributed by designing the platform's
+        architecture, integrating Next.js with the AI SDK, and implementing
+        Supabase with pgvector to support scalable, context-aware interactions.
+        The project involved advanced prompt engineering techniques to improve
+        response quality and create more capable, user-friendly assistants that
+        could handle specialized knowledge domains.
       </p>
-      <h2 className="text-xl font-bold mb-4">
-        LegalAgent: AI for Legal Operations (2024)
+
+      <h2 className="text-xl font-bold mb-4 mt-6">
+        BitLauncher: AI Investment Platform (2023-2024)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        At LegalAgent, I helped with the development of a mobile app featuring
-        voice and text interfaces that transformed how their legal team accessed
-        and understood internal documentation. By implementing a secure,
-        retrieval-augmented generation (RAG) system we enabled lawyers to query
-        contracts, memos, and regulatory docs in natural language. This project
-        also involved developing a backend system to manage the system's
-        prompts, allowing admins to adjust the assistant's behavior.
+        From late 2023 into 2024, I enhanced BitLauncher—an AI crypto launchpad
+        giving users early access to promising AI startups via token sales and
+        batch auctions. Beyond the core platform, I implemented a conversational
+        assistant powered by retrieval-augmented generation (RAG) and the
+        experimental RSC AI SDK, enabling natural language access to investment
+        documentation and platform data. This integration transformed how users
+        researched potential investments, making complex information more
+        accessible through conversation rather than traditional document
+        navigation.
+      </p>
+
+      <h2 className="text-xl font-bold mb-4 mt-6">
+        LegalAgent: AI for Legal Operations (2024-2025)
+      </h2>
+      <p className="prose prose-neutral dark:prose-invert">
+        My most recent AI project (2024-2025) involved developing LegalAgent's
+        mobile app featuring both voice and text interfaces that transformed how
+        legal teams access and understand internal documentation. By
+        implementing a secure, retrieval-augmented generation (RAG) system, we
+        enabled lawyers to query contracts, memos, and regulatory documents
+        using natural language. This project also included a robust backend
+        system to manage the AI's prompts and behavior, allowing administrators
+        to fine-tune the assistant's responses for different contexts.
         Additionally, we integrated third-party systems like billing and case
-        tracking APIs using advanced tools, resulting in a more responsive legal
-        operation that accelerated knowledge access and reduced research
-        friction.
+        tracking APIs, resulting in a more responsive legal operation that
+        accelerated knowledge access and reduced research friction.
       </p>
 
       <div className="print:hidden">
