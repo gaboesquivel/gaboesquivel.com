@@ -62,7 +62,7 @@ Building efficient [React applications](/frontend) requires careful state manage
 Our BitLauncher project implemented a custom EVM indexer.
 
 // Enhanced with project page link:
-Our [BitLauncher project](/projects/bitlauncher) implemented a custom EVM indexer.
+Our [BitLauncher project](/project/bitlauncher) implemented a custom EVM indexer.
 ```
 
 ```markdown
@@ -70,7 +70,7 @@ Our [BitLauncher project](/projects/bitlauncher) implemented a custom EVM indexe
 We used Next.js App Router for server-side rendering.
 
 // Enhanced with tech page link:
-We used [Next.js App Router](/tech/nextjs) for server-side rendering.
+We used [Next.js App Router](/tech) for server-side rendering.
 ```
 
 5. **Priority Content:**
@@ -223,3 +223,10 @@ We used [Next.js App Router](/tech/nextjs) for server-side rendering.
    - Analyze which blog-to-landing links generate the most engagement
    - Test different linking strategies to optimize for both user experience and SEO
    - Regularly refine content organization based on analytics insights
+
+7. **External Inbound Link Strategy:**
+   - Encourage links from third-party sites to relevant landing pages rather than just homepage
+   - Create tailored landing pages for specific external referral sources
+   - Develop shareable expert content for each landing page category to attract inbound links
+   - Monitor and cultivate quality backlinks to specific expertise pages
+   - When guest posting, link back to the most relevant landing page for the topic
