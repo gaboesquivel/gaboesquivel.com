@@ -14,7 +14,7 @@ export default function HomePage() {
       <p className="prose prose-neutral dark:prose-invert">
         I help organizations turn ideas into market-ready software products.
         With over 15 years of experience as a{' '}
-        <Link href="/tech" className="prose-link">
+        <Link href="/fullstack" className="prose-link">
           full-stack
         </Link>
         ,{' '}
@@ -49,8 +49,19 @@ export default function HomePage() {
         <Link href="/web3" className="prose-link">
           Web3
         </Link>
-        , cloud, and full-stack web and mobile development, complemented by
-        ongoing explorations in{' '}
+        ,{' '}
+        <Link href="/backend" className="prose-link">
+          cloud
+        </Link>
+        , and{' '}
+        <Link href="/fullstack" className="prose-link">
+          full-stack
+        </Link>{' '}
+        web and{' '}
+        <Link href="/mobile" className="prose-link">
+          mobile
+        </Link>{' '}
+        development, complemented by ongoing explorations in{' '}
         <Link href="/ai" className="prose-link">
           AI
         </Link>{' '}

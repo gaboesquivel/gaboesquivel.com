@@ -28,11 +28,29 @@ export default function BackendExperiencePage() {
         Early Backend Development (2013-2016)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My backend journey began with projects that required robust data
-        processing and API development. In 2014, I built 4Tius Fitness Data
-        Tracker, a centralized platform for monitoring fitness metrics using
-        AWS, MongoDB, and Node.js. The system processed data from wearable
-        devices and provided analytics through RESTful APIs.
+        I adopted Node.js in Latin America around 2010-2011, when server-side
+        JavaScript was emerging. To build a regional community around this
+        technology, I founded{' '}
+        <Link href="/project/costa-rica-js" className="prose-link">
+          Costa Rica JS
+        </Link>{' '}
+        to promote server-side JavaScript technologies throughout the region.
+        Through{' '}
+        <Link
+          href="/blog/2016-06-nodeschool-international-day"
+          className="prose-link"
+        >
+          NodeSchool workshops
+        </Link>{' '}
+        and regular meetups, I helped local developers adopt JavaScript for both
+        client and server development. In 2014, I applied this expertise to
+        build{' '}
+        <Link href="/project/4tius-fitness-data-tracker" className="prose-link">
+          4Tius Fitness Data Tracker
+        </Link>
+        , implementing a fitness analytics platform with AWS, MongoDB, and
+        Node.js. The system processed wearable device data and served analytics
+        via RESTful APIs, leveraging Node.js for real-time data handling.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
@@ -86,9 +104,13 @@ export default function BackendExperiencePage() {
         , I worked extensively with blockchain infrastructure. I played a key
         role in the EOS mainnet launch and managed validators for multiple
         networks. A highlight of this period was building a custom private
-        blockchain for Grant Thornton to handle intercompany transactions and
-        tax management using stablecoins, featuring immutable audit trails via
-        IPFS and public proof publication.
+        blockchain for{' '}
+        <Link href="/project/grant-thornton" className="prose-link">
+          Grant Thornton
+        </Link>{' '}
+        to handle intercompany transactions and tax management using
+        stablecoins, featuring immutable audit trails via IPFS and public proof
+        publication.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
@@ -162,19 +184,30 @@ export default function BackendExperiencePage() {
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Throughout my career, I've implemented modern cloud architecture
-        principles in my backend systems. At Knowledge.io (2017), I built
-        scalable serverless infrastructure using AWS to support their ICO
-        platform. For BitcashBank (2020-2021), I designed cloud infrastructure
-        focused on handling financial transactions with high availability and
-        security requirements.
+        principles in my backend systems. At{' '}
+        <Link href="/project/knowledge-io" className="prose-link">
+          Knowledge.io
+        </Link>{' '}
+        (2017), I built scalable serverless infrastructure using AWS to support
+        their ICO platform. For BitcashBank (2020-2021), I designed cloud
+        infrastructure focused on handling financial transactions with high
+        availability and security requirements.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
         My experience spans AWS, GCP, and various serverless technologies,
         allowing me to build scalable, cost-efficient solutions tailored to
-        specific project needs. I've implemented CI/CD pipelines, container
-        orchestration, and infrastructure as code practices to ensure reliable
-        deployments and operations.
+        specific project needs. As a{' '}
+        <Link href="/fullstack" className="prose-link">
+          fullstack developer
+        </Link>
+        , I connect these backend systems with{' '}
+        <Link href="/frontend" className="prose-link">
+          modern interfaces
+        </Link>
+        , implementing CI/CD pipelines, container orchestration, and
+        infrastructure as code practices to ensure reliable deployments and
+        operations.
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">

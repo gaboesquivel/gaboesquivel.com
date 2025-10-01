@@ -17,26 +17,38 @@ export default function MobileExperiencePage() {
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert">
-        I've developed multiple mobile applications using React Native and Expo,
-        creating cross-platform experiences that combine native performance with
-        the flexibility of React development. My mobile projects range from
-        secure messaging apps to AI-powered legal assistants, each leveraging
-        modern mobile development practices and frameworks.
+        I specialize in React Native and Expo for cross-platform mobile
+        development, combining native performance with{' '}
+        <Link href="/frontend" className="prose-link">
+          React
+        </Link>
+        's component architecture. Using an{' '}
+        <Link href="/fullstack" className="prose-link">
+          end-to-end approach
+        </Link>
+        , I've built secure messaging platforms, banking applications, and
+        AI-powered legal assistants with optimized performance and consistent
+        cross-device experiences.
       </p>
 
       <h2 className="text-xl font-bold mb-4">
         First Mobile Projects (2015-2019)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My mobile development journey began at{' '}
+        I built my first React Native production app at{' '}
         <Link href="/project/wink" className="prose-link">
           Wink
         </Link>{' '}
-        (2015), Costa Rica's first neo-bank, where I led the development of
-        their mobile banking platform. Using React Native, I implemented secure
-        biometric authentication and API integrations with partner banks. This
-        early experience established my approach to creating intuitive,
-        high-performance mobile experiences with security as a priority.
+        (2015), Costa Rica's first neo-bank. As founder of{' '}
+        <Link href="/project/costa-rica-js" className="prose-link">
+          Costa Rica JS
+        </Link>{' '}
+        (2010) and early Node.js adopter, I recognized React Native's potential
+        for JavaScript unification across platforms. The implementation included
+        secure biometric authentication and banking API integrations—one of
+        Latin America's first production React Native apps. This established my
+        technical approach of maintaining native performance while leveraging
+        cross-platform efficiencies.
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">

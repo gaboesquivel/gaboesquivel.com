@@ -22,7 +22,11 @@ export default function Web3ExperiencePage() {
         biggest opportunity wasn't just improving interfaces; it was rethinking
         the entire foundation of value. That realization led me to blockchain,
         open protocols, and a new chapter focused on decentralization,
-        transparency, and permissionless innovation.
+        transparency, and permissionless innovation. Today, I combine my{' '}
+        <Link href="/fullstack" className="prose-link">
+          fullstack expertise
+        </Link>{' '}
+        with specialized blockchain knowledge to build comprehensive Web3 solutions.
       </p>
       <h2 className="text-xl font-bold mb-4">
         Financial Foundations (2010-2015)
@@ -106,8 +110,11 @@ export default function Web3ExperiencePage() {
           ChainGraph
         </Link>
         , a high-performance blockchain indexer and real-time GraphQL toolkit
-        specifically for EOSIO-based applications. This project enabled
-        efficient data subscriptions and querying across multiple blockchains,
+        specifically for EOSIO-based applications. Drawing on my{' '}
+        <Link href="/backend" className="prose-link">
+          backend engineering expertise
+        </Link>
+        , this project enabled efficient data subscriptions and querying across multiple blockchains,
         significantly improving the developer experience for building on EOSIO.
         This work strengthened my expertise in blockchain data structures,
         indexing, and real-time data pipelines.
@@ -181,8 +188,11 @@ export default function Web3ExperiencePage() {
         private beta frontend. I integrated their protocol into early-stage
         interfaces and configured testing environments while contributing to
         frontend components and UI/UX prototypes for trading interfaces, vault
-        positions, margin mechanics, and option flows. I also explored AI
-        assistant integration to improve user onboarding. This work deepened my
+        positions, margin mechanics, and option flows. I also explored{' '}
+        <Link href="/ai" className="prose-link">
+          AI assistant integration
+        </Link>{' '}
+        to improve user onboarding. This work deepened my
         understanding of on-chain financial primitives, particularly around
         composability, capital efficiency, and risk management.
       </p>

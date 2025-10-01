@@ -27,7 +27,15 @@ export default function AIExperiencePage() {
         The past few years, I've focused on building AI applications that
         prioritize user experience—moving beyond static interfaces toward
         systems where voice, chat, search, and action converge into more
-        natural, dynamic interactions.
+        natural, dynamic interactions. This experience builds upon my work in{' '}
+        <Link href="/web3" className="prose-link">
+          Web3
+        </Link>{' '}
+        and{' '}
+        <Link href="/fullstack" className="prose-link">
+          fullstack development
+        </Link>
+        , combining emerging technologies to create powerful user experiences.
       </p>
 
       {/* <div className="gap-4 my-8 columns-1">
@@ -107,8 +115,11 @@ export default function AIExperiencePage() {
         LegalAgent: AI for Legal Operations (2024-2025)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My most recent AI project (2024-2025) involved developing LegalAgent's
-        mobile app featuring both voice and text interfaces that transformed how
+        My most recent AI project (2024-2025) involved developing LegalAgent's{' '}
+        <Link href="/mobile" className="prose-link">
+          mobile app
+        </Link>{' '}
+        featuring both voice and text interfaces that transformed how
         legal teams access and understand internal documentation. By
         implementing a secure, retrieval-augmented generation (RAG) system, we
         enabled lawyers to query contracts, memos, and regulatory documents

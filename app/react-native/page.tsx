@@ -28,8 +28,15 @@ export default function ReactNativeExperiencePage() {
 
       <p className="prose prose-neutral dark:prose-invert">
         My mobile development journey has focused on creating cross-platform
-        applications with React Native. I'm passionate about mobile-first
-        experiences that feel native while leveraging the efficiency of
+        applications with React Native. As someone with extensive experience in{' '}
+        <Link href="/frontend" className="prose-link">
+          frontend development
+        </Link>{' '}
+        and{' '}
+        <Link href="/fullstack" className="prose-link">
+          fullstack architecture
+        </Link>{' '}
+        , I'm passionate about mobile-first experiences that feel native while leveraging the efficiency of
         cross-platform development. My approach emphasizes performance
         optimization, intuitive interfaces, and seamless integration with device
         capabilities and backend services.
@@ -72,8 +79,11 @@ export default function ReactNativeExperiencePage() {
         their real-world environment before purchasing, significantly enhancing
         the shopping experience for large outdoor equipment. The implementation
         used React Native's AR capabilities combined with 3D product models and
-        real-time rendering, optimized for performance across device types. This
-        project demonstrated how mobile applications can bridge digital commerce
+        real-time rendering, optimized for performance across device types. Like my{' '}
+        <Link href="/mobile" className="prose-link">
+          other mobile projects
+        </Link>{' '}
+        , this work demonstrated how mobile applications can bridge digital commerce
         with physical reality through immersive experiences.
       </p>
 
@@ -99,8 +109,11 @@ export default function ReactNativeExperiencePage() {
         featuring an advanced AI assistant with voice and chat capabilities.
         This mobile app helps legal professionals access and understand complex
         documentation through natural language interactions. The implementation
-        combines React Native's cross-platform efficiency with cutting-edge AI
-        technologies, including voice recognition, natural language processing,
+        combines React Native's cross-platform efficiency with cutting-edge{' '}
+        <Link href="/ai" className="prose-link">
+          AI technologies
+        </Link>{' '}
+        , including voice recognition, natural language processing,
         and retrieval-augmented generation. The result is a powerful mobile tool
         that accelerates legal work by reducing research friction and providing
         contextual insights.

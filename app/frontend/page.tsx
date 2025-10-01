@@ -17,11 +17,10 @@ export default function FrontendExperiencePage() {
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert">
-        With over 15 years of frontend experience, I've crafted engaging
-        interfaces across diverse platforms and industries. My journey spans
-        from early-career work with jQuery to modern React applications, always
-        focusing on building intuitive, performant interfaces that deliver
-        exceptional user experiences.
+        I've built frontend interfaces for over 15 years across multiple
+        industries and platforms. My technical progression spans from jQuery to
+        modern React applications, with consistent focus on performance,
+        intuitive design, and measurable user experience outcomes.
       </p>
 
       <h2 className="text-xl font-bold mb-4">Foundation Years (2008-2012)</h2>
@@ -85,16 +84,23 @@ export default function FrontendExperiencePage() {
         React & Component Architecture (2015-2019)
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My work with modern JavaScript frameworks began in 2015 during the{' '}
+        I implemented my first production React application in 2015 for the{' '}
         <Link href="/project/wink" className="prose-link">
           Wink
         </Link>{' '}
-        project, where I adopted React and Next.js early in their development.
-        This marked my transition to component-driven architecture and more
-        sophisticated state management patterns. During these formative years
-        (2015-2019), I built a strong foundation in React's ecosystem, working
-        with Redux for state management, implementing design systems, and
-        optimizing build processes.
+        neobank project. Having founded Costa Rica JS in 2010 and adopted
+        Node.js early, I was already focused on JavaScript innovation. This
+        project established component architecture patterns for financial
+        interfaces in the region. Through{' '}
+        <Link
+          href="/blog/2016-06-nodeschool-international-day"
+          className="prose-link"
+        >
+          NodeSchool workshops
+        </Link>{' '}
+        I extended React expertise throughout the regional developer community.
+        From 2015-2019, I worked extensively with Redux for state management,
+        built design systems, and implemented performance optimizations.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
@@ -119,10 +125,16 @@ export default function FrontendExperiencePage() {
       <p className="prose prose-neutral dark:prose-invert mt-4">
         My current toolkit includes TanStack Query for data fetching, Zod for
         validation, and TypeScript for type safety—creating robust, maintainable
-        frontends that deliver exceptional user experiences. This modern
-        approach has been applied across multiple projects, ensuring consistent
-        quality and performance while accelerating development cycles through
-        standardized patterns and practices.
+        frontends that deliver exceptional user experiences. As a{' '}
+        <Link href="/fullstack" className="prose-link">
+          fullstack developer
+        </Link>
+        , I integrate these frontend tools with{' '}
+        <Link href="/backend" className="prose-link">
+          backend systems
+        </Link>
+        , ensuring consistent quality and performance while accelerating
+        development cycles through standardized patterns and practices.
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">

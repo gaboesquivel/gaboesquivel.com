@@ -5,7 +5,7 @@ We already have:
 - `/ai` → Artificial Intelligence Experience
 - `/lead` → Tech lead experience
 - `/bio` → Biography with full experience
-- `/cv` → Curriculum Vitae
+- `/cv` → Curriculum Vitaebun 
 
 We will add the following landing pages:
 
