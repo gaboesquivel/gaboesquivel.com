@@ -7,9 +7,9 @@ category: ['Engineering', 'Backend']
 tech: ['Bun', 'NodeJS']
 ---
 
-WebSockets are essential for [real-time applications](/backend)—from trading engines to AI assistants. But when you move from prototype to production, things get tricky. Especially when uptime, load balancing, and secure communication matter.
+WebSockets are essential for real-time applications—from trading engines to AI assistants. But when you move from prototype to production, things get tricky. Especially when uptime, load balancing, and secure communication matter.
 
-Here's how I approach scaling WebSocket backends in high-availability environments without compromising security or [developer experience](/fullstack).
+Here's how I approach scaling WebSocket backends in high-availability environments without compromising security or developer experience.
 
 
 {/* Prevent CLS by setting a minimum height */}
@@ -32,7 +32,7 @@ You can terminate TLS at the load balancer (e.g., Cloudflare or NGINX) and forwa
 
 * Use valid certificates (Let's Encrypt or managed)
 * Redirect all insecure connections
-* Set proper CORS policies if the [frontend](/frontend) is hosted separately
+* Set proper CORS policies if the frontend is hosted separately
 
 
 ## Auth Is Not Optional

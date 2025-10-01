@@ -7,7 +7,7 @@ category: ['Engineering', 'Backend']
 tech: ['Bun', 'NodeJS', 'TypeScript', 'JavaScript']
 ---
 
-Bun has become my go-to [JavaScript](/tech/javascript) runtime for new [projects](/fullstack)—and it's not just about speed. It's about how much friction it removes from the development process. After years of juggling [Node.js](/tech/node-js), Deno, and various toolchains, Bun feels like the runtime I always wanted.
+Bun has become my go-to [JavaScript](/tech/javascript) runtime for new projects—and it's not just about speed. It's about how much friction it removes from the development process. After years of juggling [Node.js](/tech/nodejs), Deno, and various toolchains, Bun feels like the runtime I always wanted.
 
 {/* Prevent Cumulative Layout Shift (CLS) */}
 <div className="min-h-[300px]">
@@ -33,7 +33,7 @@ This consolidation means fewer dependencies and less configuration. No more stit
 
 ## Performance That Matters
 
-Bun is built with Zig and uses JavaScriptCore (Safari's engine) instead of V8. This [architectural choice](/backend) translates to real-world speed gains:
+Bun is built with Zig and uses JavaScriptCore (Safari's engine) instead of V8. This architectural choice translates to real-world speed gains:
 
 - HTTP servers in Bun can handle over 52,000 requests per second, outperforming both Node.js and Deno
 - Cold start times are over 60% faster than Node.js
@@ -129,7 +129,7 @@ const server = Bun.serve({
 });
 ```
 
-This native support allows for leaner applications and faster development when building chat apps, live feeds, or [multiplayer game backends](/tech).
+This native support allows for leaner applications and faster development when building chat apps, live feeds, or multiplayer game backends.
 
 ## The One Gotcha: Monorepo `nohoist` Support
 
@@ -141,7 +141,7 @@ For projects that rely heavily on `nohoist`, tools like Yarn or pnpm might still
 
 ## Final Thoughts
 
-Bun represents a significant step forward in [JavaScript runtime development](/frontend). Its integrated approach simplifies the developer experience, and its performance gains are tangible. While it has some areas to mature, particularly in monorepo support, it's a compelling choice for modern JavaScript and TypeScript projects.
+Bun represents a significant step forward in JavaScript runtime development. Its integrated approach simplifies the developer experience, and its performance gains are tangible. While it has some areas to mature, particularly in monorepo support, it's a compelling choice for modern JavaScript and TypeScript projects.
 
 For developers seeking a streamlined, high-performance environment, Bun is well worth exploring.
 

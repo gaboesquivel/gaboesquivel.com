@@ -7,7 +7,7 @@ category: ['Web3', 'DeFi', 'Blockchain', 'Ethereum']
 tech: ['JavaScript', 'TypeScript', 'EVM', 'Solidity']
 ---
 
-Mathematics in [JavaScript](/tech/javascript) can be tricky, especially when dealing with financial applications like [DeFi](/web3). Precision errors, floating-point quirks, and handling large numbers are all challenges [developers](/frontend) must address. In this post, we'll cover key math issues in [JavaScript](/tech/javascript), best practices for handling numbers in DeFi, and tools like `bignumber.js`, `BigInt`, and `viem` utilities.
+Mathematics in [JavaScript](/tech/javascript) can be tricky, especially when dealing with financial applications like [DeFi](/web3). Precision errors, floating-point quirks, and handling large numbers are all challenges developers must address. In this post, we'll cover key math issues in [JavaScript](/tech/javascript), best practices for handling numbers in DeFi, and tools like `bignumber.js`, `BigInt`, and `viem` utilities.
 
 
 {/* Prevent CLS by setting a minimum height */}
@@ -27,7 +27,7 @@ console.log(0.3 - 0.1); // 0.19999999999999998
 
 ### Why Is This a Problem in DeFi?
 
-DeFi applications require **precise calculations**, especially when dealing with token balances, staking rewards, and interest rates. Small precision errors can lead to significant discrepancies in financial transactions. This is a critical concern in [backend system](/backend) development.
+DeFi applications require **precise calculations**, especially when dealing with token balances, staking rewards, and interest rates. Small precision errors can lead to significant discrepancies in financial transactions. This is a critical concern in system development.
 
 
 ## Handling Precision: Decimals in DeFi
@@ -51,7 +51,7 @@ While using JavaScript's `Number` type for such conversions works, it is prone t
 - **Compact**: Smaller than other libraries.
 - **Well-maintained**: Reliable and actively supported.
 
-These features make it an essential [technology](/tech) for DeFi development.
+These features make it an essential technology for DeFi development.
 
 ### When to Consider Alternatives:
 - If only basic decimal math is needed, `big.js` is smaller and faster.
@@ -75,6 +75,6 @@ Using `bignumber.js` ensures predictable behavior and avoids floating-point inac
 
 ## Math on [EVM](/tech/evm): Using Viem's Utilities
 
-When working with [Ethereum](/tech/ethereum) Virtual Machine (EVM) transactions, **Viem** provides utilities for handling numeric conversions. This is particularly important for [full-stack development](/fullstack) across blockchain systems:
+When working with [Ethereum](/tech/ethereum) Virtual Machine ([EVM](/tech/evm)) transactions, **Viem** provides utilities for handling numeric conversions. This is particularly important for full-stack development across blockchain systems:
 
 ```

@@ -35,7 +35,7 @@ With **React 18's Concurrent Mode**, **automatic batching**, and improvements in
 - **Rendering Scheduling and Priority Management**: React now schedules renders more intelligently, making unnecessary recomputations a smaller issue than before.
 
 ### 2. **Garbage Collection & Memory Pressure Issues**
-One of the problems with `useMemo` and `useCallback` is that they hold onto references longer than necessary, leading to unnecessary memory retention. In some cases, their overuse can actually **harm** performance rather than help. This is a common issue in [software engineering](/tech).
+One of the problems with `useMemo` and `useCallback` is that they hold onto references longer than necessary, leading to unnecessary memory retention. In some cases, their overuse can actually **harm** performance rather than help. This is a common issue in software engineering.
 
 ### 3. **Inline Functions Are Cheap in Modern JavaScript Engines**
 Many developers use `useCallback` out of habit, believing it prevents unnecessary re-renders. But in most cases, **inline functions are already optimized** by modern JavaScript engines, making `useCallback` redundant.
@@ -61,7 +61,7 @@ export default function Parent({ count }) {
 
 
 ## When Should You Still Use `useMemo` or `useCallback`?
-While largely unnecessary, `useMemo` and `useCallback` still have valid use cases in [complex applications](/fullstack):
+While largely unnecessary, `useMemo` and `useCallback` still have valid use cases in complex applications:
 
 1. **Computationally Expensive Operations**
    - If a component performs expensive calculations, memoizing the result with `useMemo` prevents unnecessary recomputation.

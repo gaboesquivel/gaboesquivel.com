@@ -16,7 +16,7 @@ Decentralized Finance ([DeFi](/web3)) has unlocked powerful financial primitives
 ## Technical Risks
 
 ### Smart Contract Exploits
-DeFi protocols are built on immutable smart contracts and programs across different chains. Vulnerabilities like reentrancy ([EVM](/tech/evm)), program logic errors (Solana), or module bugs (Cosmos) can lead to catastrophic losses. The 2016 DAO hack, Curve's \$70M Vyper bug exploit (2023), and Mango Markets' \$117M Solana program exploit underscore how even audited code can fail. [Developers](/tech) must prioritize audits, bug bounties, and conservative design.
+DeFi protocols are built on immutable smart contracts and programs across different chains. Vulnerabilities like reentrancy ([EVM](/tech/evm)), program logic errors (Solana), or module bugs (Cosmos) can lead to catastrophic losses. The 2016 DAO hack, Curve's \$70M Vyper bug exploit (2023), and Mango Markets' \$117M Solana program exploit underscore how even audited code can fail. Developers must prioritize audits, bug bounties, and conservative design.
 
 ### Frontend Attacks
 Protocol frontends represent a critical vulnerability point across all chains. DNS hijacking and malicious UI modifications can lead to significant losses, as seen in the BadgerDAO frontend attack (\$120M). Mitigations include ENS integration, IPFS hosting, and proper security headers to protect users.
@@ -25,7 +25,7 @@ Protocol frontends represent a critical vulnerability point across all chains. D
 Token standards like ERC-20 (EVM), SPL (Solana), and CW20 (Cosmos) can introduce security risks. Unlimited token approvals have led to numerous exploits, while NFT contracts face reentrancy vulnerabilities. The OpenSea Wyvern protocol exploit highlighted these risks. Mitigations include limited approvals, security checks, and thorough standard audits.
 
 ### Gas Optimization Risks
-Transaction costs and optimization vary across chains. EVM chains face gas price volatility and MEV extraction, while Solana's fee model and Cosmos' gas parameters present different challenges. During high network congestion, users face failed transactions or excessive fees. Solutions include EIP-1559 (EVM), priority fees (Solana), and proper gas estimation tools integrated into [backend systems](/backend).
+Transaction costs and optimization vary across chains. EVM chains face gas price volatility and MEV extraction, while Solana's fee model and Cosmos' gas parameters present different challenges. During high network congestion, users face failed transactions or excessive fees. Solutions include EIP-1559 (EVM), priority fees (Solana), and proper gas estimation tools integrated into backend systems.
 
 ## Economic Risks
 
@@ -50,7 +50,7 @@ Cross-chain bridges face unique security challenges, with over \$2B lost to brid
 Protocols relying on on-chain DEX prices can be exploited via manipulated trades. Mango Markets (2022) was drained of \$117M by inflating MNGO token prices and borrowing against the inflated value. Secure, time-weighted oracles (e.g., Chainlink, Pyth, Band Protocol) are essential.
 
 ### Rehypothecation
-DeFi enables recursive use of collateral (e.g., stETH, stSOL, stATOM), creating opaque chains of risk. One token can underpin multiple layers of borrowing or liquidity provision. This hidden leverage can destabilize the [system](/fullstack) during stress, as seen with Terra and stETH depegging.
+DeFi enables recursive use of collateral (e.g., stETH, stSOL, stATOM), creating opaque chains of risk. One token can underpin multiple layers of borrowing or liquidity provision. This hidden leverage can destabilize the system during stress, as seen with Terra and stETH depegging.
 
 ### Systemic Risk from Composability
 DeFi's composability enables innovation but introduces cascading failure risks. Protocols like Iron Finance and Terra's UST collapse (2021-2022) show how dependencies across protocols (e.g., shared collateral) can amplify shocks. One failure can trigger a chain reaction across multiple dApps.
@@ -156,4 +156,4 @@ Stay informed with these essential tools:
    - [Mintscan](https://mintscan.io) - Cosmos transaction alerts
    - [Twitter Lists](https://twitter.com) - Protocol updates
 
-DeFi presents exciting opportunities and real threats. Technical savvy and risk-conscious design are essential. Hiring managers should seek [developers](/tech) who understand these risks and build defensively. Smart DeFi participation requires vigilance, skepticism, and above all—verification over trust.
+DeFi presents exciting opportunities and real threats. Technical savvy and risk-conscious design are essential. Hiring managers should seek developers who understand these risks and build defensively. Smart DeFi participation requires vigilance, skepticism, and above all—verification over trust.

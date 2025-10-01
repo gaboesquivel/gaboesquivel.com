@@ -30,47 +30,75 @@ These pages highlight work and technical expertise:
 ### Blog Post Link Integration
 Our refined content strategy focuses on strategically integrating high-value links within blog content while maintaining readability and user experience:
 
-1. **Strategic Link Categories:**
-   - **Experience/Main Landings:** Link to relevant expertise pages (`/frontend`, `/backend`, etc.) when discussing related concepts
-   - **Project Pages:** Link to specific project implementations that demonstrate concepts discussed
-   - **Tech Pages:** Link to technology expertise pages when discussing specific technologies
+1. **Strategic Link Categories & Hierarchy:**
+   - **Domain Specializations (Highest Priority):** Link broad domain concepts to specialization pages
+     - DeFi concepts → `/web3` (not to specific projects or tech)
+     - AI concepts → `/ai`
+     - Frontend patterns → `/frontend`
+     - Backend architecture → `/backend`
+     - Mobile development → `/react-native`
+     - Technical leadership → `/lead`
+   
+   - **Project Implementations (Medium Priority):** Link specific project mentions to project pages
+     - "BitLauncher" → `/project/bitlauncher`
+     - "Opyn protocol" → `/project/opyn`
+     - "Masterbots" → `/project/masterbots`
+     
+   - **Technology Mentions (Lower Priority):** Link specific technology mentions to tech pages
+     - "Next.js" → `/tech/next-js` (not just to generic `/tech`)
+     - "Supabase" → `/tech/supabase`
+     - "GraphQL" → `/tech/graphql`
+   
+   - **Chronological Integrity:** Always respect publication dates—never link to projects in posts dated before the project existed
 
-2. **Balanced Linking Principles:**
+2. **Precise Linking Rules:**
+   - **Domain Concepts Over Technologies:** When a concept belongs to a domain specialization, link to that specialization page rather than a technology page
+     - "DeFi primitives" → `/web3` (not to `/project/opyn` or `/tech`)
+     - "Blockchain indexing" → `/web3` (not to `/tech/blockchain`)
+     - "AI assistants" → `/ai` (not to `/tech/llm`)
+   
+   - **Specific Tech Links:** When mentioning specific technologies, link to their dedicated tech landing pages
+     - "Next.js App Router" → `/tech/next-js` (specific tech page, not generic `/tech`)
+     - "PostgreSQL" → `/tech/postgresql`
+     - "React" → `/tech/react`
+   
+   - **Project Name Recognition:** Only link explicit project name mentions to project pages
+     - Link "BitLauncher analytics dashboard" → `/project/bitlauncher`
+     - Don't link "our analytics dashboard" to a project page unless project is explicitly named
+
+3. **Balanced Linking Implementation:**
    - **Quality over Quantity:** Each link must provide genuine value to the reader
    - **Non-Repetition:** Use only one link per target page within a single blog post
    - **Natural Context:** Links must feel organic within the content's flow
    - **Diverse Anchors:** Use descriptive and varied anchor text that accurately describes the linked content
-
-3. **Implementation Guidelines:**
-   - Links should enhance reader understanding, not distract from content
-   - Limit to 3-5 total links per blog post (across all categories)
-   - Prioritize linking to content that extends or deepens the blog topic
-   - Balance link distribution across different page categories
+   - **Limit Per Post:** Maximum 3-5 total links per blog post (across all categories)
+   - **Hierarchy Distribution:** Prioritize domain specialization links (1-2), then add project links (0-1) and tech links (0-2) as relevant
+   - **Priority Order:** Domain Specialization > Project > Technology
 
 4. **Example Implementations:**
 
 ```markdown
 // Original blog text:
-Building efficient React applications requires careful state management.
+Building efficient React applications requires careful state management in modern DeFi interfaces.
 
-// Enhanced with experience landing page link:
-Building efficient [React applications](/frontend) requires careful state management.
+// Enhanced with precise linking strategy:
+Building efficient [React](/tech/react) applications requires careful state management in modern [DeFi interfaces](/web3).
 ```
 
 ```markdown
 // Original blog text:
-Our BitLauncher project implemented a custom EVM indexer.
+Our BitLauncher project implemented a custom EVM indexer using Node.js and PostgreSQL.
 
-// Enhanced with project page link:
-Our [BitLauncher project](/project/bitlauncher) implemented a custom EVM indexer.
+// Enhanced with precise linking strategy:
+Our [BitLauncher project](/project/bitlauncher) implemented a custom EVM indexer using [Node.js](/tech/nodejs) and [PostgreSQL](/tech/postgresql).
 ```
 
 ```markdown
 // Original blog text:
-We used Next.js App Router for server-side rendering.
+We used Next.js App Router for server-side rendering in our frontend applications.
 
-// Enhanced with tech page link:
-We used [Next.js App Router](/tech) for server-side rendering.
+// Enhanced with precise linking strategy:
+We used [Next.js App Router](/tech/next-js) for server-side rendering in our [frontend applications](/frontend).
 ```
 
 5. **Priority Content:**
@@ -198,12 +226,25 @@ We used [Next.js App Router](/tech) for server-side rendering.
      - **Tech:** JavaScript, TypeScript, React, Node.js, PostgreSQL, Supabase, Solidity, vector databases
 
 3. **Cross-Content Linking Architecture:**  
-   - **Blog to Experience:** Link blog posts to related expertise landing pages (max 1-2 per post)
-   - **Blog to Projects:** Link blog concepts to real-world implementations (max 1-2 per post)
-   - **Blog to Tech:** Link mentions of technologies to tech expertise pages (max 1-2 per post)
-   - **Landing to Landing:** Maintain strategic cross-links between related landing pages
-   - **Experience to Projects:** Link experience claims to specific project implementations
-   - **Projects to Tech:** Connect project showcases with technology expertise pages
+   - **Blog to Domain Specialization (Highest Priority):** Link domain concepts to specialization pages
+     - Link "DeFi applications" → `/web3`
+     - Link "AI assistants" → `/ai`
+     - Max 1-2 domain specialization links per post
+   
+   - **Blog to Projects (Medium Priority):** Link specific named projects to their pages
+     - Only link explicitly named projects: "BitLauncher" → `/project/bitlauncher`
+     - Respect chronology (only link to projects that existed at publication time)
+     - Max 0-1 project links per post
+   
+   - **Blog to Tech (Lower Priority):** Link specific tech mentions to dedicated tech pages
+     - Link "Next.js" → `/tech/next-js` (not generic `/tech`)
+     - Link "PostgreSQL" → `/tech/postgresql`
+     - Max 0-2 technology links per post
+   
+   - **Landing Page Interlinking:**
+     - **Specialization to Projects:** Link domain expertise to concrete project implementations
+     - **Specialization to Specialization:** Connect related domains (e.g., `/web3` → `/fullstack`)
+     - **Project to Tech:** Connect project implementations to specific technologies used
 
 4. **Content Strategy by Category:**  
    - **Experience Pages:** Emphasize domain expertise with practical achievements and project examples
@@ -225,8 +266,15 @@ We used [Next.js App Router](/tech) for server-side rendering.
    - Regularly refine content organization based on analytics insights
 
 7. **External Inbound Link Strategy:**
-   - Encourage links from third-party sites to relevant landing pages rather than just homepage
-   - Create tailored landing pages for specific external referral sources
-   - Develop shareable expert content for each landing page category to attract inbound links
-   - Monitor and cultivate quality backlinks to specific expertise pages
-   - When guest posting, link back to the most relevant landing page for the topic
+   - **Target Precise Landing Pages:** Direct external links to the most specific relevant landing page rather than homepage
+   - **Domain Specialization Priority:** Prioritize inbound links to domain specialization pages (/web3, /ai, /frontend, etc.) as they have long-term value
+   - **Technology Page Targeting:** For technology-specific mentions in external content, target specific tech pages (/tech/next-js, /tech/supabase)
+   - **Hierarchical Referral Mapping:**
+     - When mentioned in broad domain contexts → Link to specialization pages
+     - When mentioned with specific projects → Link to project pages
+     - When mentioned with specific technologies → Link to tech pages
+   - **Guest Posting Strategy:** When writing external content, link back following the same hierarchy:
+     - For domain concepts: Link to specialization pages first
+     - For specific project mentions: Link to project pages
+     - For specific tech discussions: Link to tech pages
+   - **Content Development:** Create shareable expert content aligned with each specialization domain to attract high-quality backlinks

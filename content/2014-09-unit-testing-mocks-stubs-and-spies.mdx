@@ -8,7 +8,7 @@ tech: ['JavaScript', 'Jest', 'Mocha']
 
 In unit testing isolation is key. The class/object/function you are testing is called the System Under Test (SUT) and the SUT often interacts with other part of the system, these parts are called Collaborators or Depedencies. When testing the simulation of the collaborators/dependencies and behaviors of these dependencies allows you to to test the units in isolation. Gerard Meszaros author of xUnit Test Patterns uses the term "Test Double" as the generic term for any kind of pretend object used in place of a real object for testing purposes. The name comes from the notion of a Stunt Double in movies.
 
-Mocks, Stubs, Spies, Dummies and Fakes are types of test doubles that will help you to accomplish the goal of isolation. There are several libraries that provide tools to easily create these objects in your tests. Sinon.[js](/tech/javascript) is a [javascript](/tech/javascript) library that provides standalone test spies, stubs and mocks with no dependencies that work with any unit testing framework.
+Mocks, Stubs, Spies, Dummies and Fakes are types of test doubles that will help you to accomplish the goal of isolation. There are several libraries that provide tools to easily create these objects in your tests. Sinon.js is a [JavaScript](/tech/javascript) library that provides standalone test spies, stubs and mocks with no dependencies that work with any unit testing framework.
 
 __Dummies__
 
@@ -65,7 +65,7 @@ __Stubs__
 
 Test stubs are fake objects with pre-programmed behavior ( Simulation of behaviour from other units ), Most of times they are simply returning fixed values. They are typically used for one of two reasons:
 
-- To avoid some inconvenient interface - for instance to avoid making actual requests to a [server](/backend) from tests.   
+- To avoid some inconvenient interface - for instance to avoid making actual requests to a server from tests.   
 - To feed the system with known data, forcing a specific code path.   
 
 Javascript is flexible enough to accomplish this easily without any library
@@ -78,7 +78,7 @@ Javascript is flexible enough to accomplish this easily without any library
 
 __Fakes__
 
-Fake objects have working implementations, but usually take some shortcut which makes them not suitable for production (an in memory [database](/backend) is a good example). The simplest way to think of a Fake is as a step up from a Stub. This means not only does it return values, but it also works just as a real Collaborator would.
+Fake objects have working implementations, but usually take some shortcut which makes them not suitable for production (an in memory database is a good example). The simplest way to think of a Fake is as a step up from a Stub. This means not only does it return values, but it also works just as a real Collaborator would.
 
 ```js
 var xhr, requests;
@@ -109,5 +109,5 @@ When most people talk about Mocks what they are actually referring to are Test D
 
 References:
 
-- [Mocks Aren't Stubs](http://martinfowler.com/articles/mocksArentStubs.[html](/frontend)) by Martin Fowler   
-- [XUnit Test Patterns: Test Double Patterns](http://xunitpatterns.com/Test%20Double%20Patterns.[html](/frontend))   
+- [Mocks Aren't Stubs](http://martinfowler.com/articles/mocksArentStubs.html) by Martin Fowler   
+- [XUnit Test Patterns: Test Double Patterns](http://xunitpatterns.com/Test%20Double%20Patterns.html)   
