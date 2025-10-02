@@ -4,19 +4,15 @@ import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import institutionsImg from 'public/images/work/grant-thornton.jpg'
+import institutionsImg from 'public/images/work/amex.jpg'
 import { ContactInfo } from '../../components/shared/contact-info'
 
 export default function InstitutionsExperiencePage() {
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
-        <span className="hidden print:inline text-black">
-          Gabo Esquivel - Enterprise Engineering
-        </span>
-        <span className="print:hidden">
-          Enterprise & Institutional Engineering Experience
-        </span>
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
+        <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
+        Enterprise & Institutional Engineering Experience
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -48,7 +44,7 @@ export default function InstitutionsExperiencePage() {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold mb-4">
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
         Enterprise Approach & Methodology
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
@@ -67,8 +63,8 @@ export default function InstitutionsExperiencePage() {
         excellent user experiences.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Grant Thornton: Enterprise Blockchain (2018-2020)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Grant Thornton: Enterprise Blockchain
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         As the main architect and tech lead at{' '}
@@ -91,8 +87,8 @@ export default function InstitutionsExperiencePage() {
         within the constraints of a regulated professional services environment.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Coopenae Bank: Wink Digital Banking (2015-2018)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Coopenae Bank: Wink Digital Banking
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Working with Coopenae, one of Costa Rica's largest cooperative banks, I
@@ -115,8 +111,8 @@ export default function InstitutionsExperiencePage() {
         expected of an established financial institution.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        American Express: Web Platform Modernization (2009-2011)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        American Express: Web Platform Modernization
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -143,8 +139,8 @@ export default function InstitutionsExperiencePage() {
         literacy initiatives.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        AMC Networks: YEAH! TV Streaming Platform (2012-2014)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        AMC Networks: YEAH! TV Streaming Platform
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -166,8 +162,8 @@ export default function InstitutionsExperiencePage() {
         innovative features on tight production timelines.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Tractor Supply Company: Mobile App Enhancement (2019)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Tractor Supply Company: Mobile App Enhancement
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         For{' '}
@@ -195,8 +191,8 @@ export default function InstitutionsExperiencePage() {
           projects={projects.filter(
             (project) =>
               (project.type.includes('featured') ||
-                project.name === 'Tractor Supply' ||
-                project.name === 'American Express') &&
+                project.title === 'Tractor Supply' ||
+                project.title === 'American Express') &&
               !project.type.includes('web3'),
           )}
         />

@@ -10,11 +10,9 @@ import { ContactInfo } from '../../components/shared/contact-info'
 export default function StartupsExperiencePage() {
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
-        <span className="hidden print:inline text-black">
-          Gabo Esquivel - Startup Engineering
-        </span>
-        <span className="print:hidden">Startup Engineering Experience</span>
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
+        <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
+        Startup Engineering Experience
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -45,7 +43,9 @@ export default function StartupsExperiencePage() {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold mb-4">Startup Philosophy & Approach</h2>
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Startup Philosophy & Approach
+      </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My approach to startup development is rooted in speed and quality - fast
         iteration coupled with scalable architecture decisions. I prioritize
@@ -64,8 +64,8 @@ export default function StartupsExperiencePage() {
         actually matter to users.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        BitLauncher: AI and Crypto Launchpad (2022-2025)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        BitLauncher: AI and Crypto Launchpad
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         As Tech Lead at{' '}
@@ -86,8 +86,8 @@ export default function StartupsExperiencePage() {
         developers, building capacity while maintaining product momentum.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Masterbots.ai: Specialized AI Platform (2023-2024)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Masterbots.ai Specialized AI Platform
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -103,8 +103,8 @@ export default function StartupsExperiencePage() {
         practical application of AI in solving specific domain problems.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        RareMint: NFT Collectibles Platform (2021-2022)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        RareMint: NFT Collectibles Platform
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         As Technical Lead at{' '}
@@ -121,8 +121,8 @@ export default function StartupsExperiencePage() {
         ownership of high-value items.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        ZTX: Web3 Metaverse Platform (2021-2022)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        ZTX: Web3 Metaverse Platform
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -139,8 +139,8 @@ export default function StartupsExperiencePage() {
         insights during the startup's growth phase.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        BitCash: Crypto Banking Platform (2020-2021)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        BitCash: Crypto Banking Platform
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -158,8 +158,8 @@ export default function StartupsExperiencePage() {
         eliminating the need for external wallet apps.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Wink: Costa Rica's First Digital Bank (2015-2018)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Wink: Costa Rica's First Digital Bank
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         As Software Architect at{' '}

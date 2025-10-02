@@ -3,19 +3,17 @@ import { ContactInfo } from 'components/shared/contact-info'
 import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import mobileImg from 'public/images/work/nodeschool.jpg'
 
 export default function ReactNativeExperiencePage() {
   const type = 'mobile'
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
-        <span className="hidden print:inline text-black">
-          Gabo Esquivel - React Native & Mobile Developer
-        </span>
-        <span className="print:hidden">
-          React Native & Mobile Development Experience
-        </span>
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
+        <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
+        React Native & Mobile Development Experience
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -27,7 +25,7 @@ export default function ReactNativeExperiencePage() {
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-        My mobile development journey has focused on creating cross-platform
+        My mobile development work focuses on creating cross-platform
         applications with React Native. As someone with extensive experience in{' '}
         <Link href="/frontend" className="prose-link">
           frontend development
@@ -36,18 +34,31 @@ export default function ReactNativeExperiencePage() {
         <Link href="/fullstack" className="prose-link">
           fullstack architecture
         </Link>{' '}
-        , I'm passionate about mobile-first experiences that feel native while leveraging the efficiency of
-        cross-platform development. My approach emphasizes performance
-        optimization, intuitive interfaces, and seamless integration with device
-        capabilities and backend services.
+        , I'm passionate about mobile-first experiences that feel native while
+        leveraging the efficiency of cross-platform development. My approach
+        emphasizes performance optimization, intuitive interfaces, and seamless
+        integration with device capabilities and backend services.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Banking & Fintech Mobile (2015-2018)
+      <div className="gap-4 my-8 columns-1 print:hidden">
+        <div className="relative mb-4 h-[500px]">
+          <Image
+            alt="Mobile App Development"
+            src={mobileImg}
+            fill
+            sizes="(max-width: 768px) 500px, 33vw"
+            priority
+            className="object-cover rounded-lg"
+          />
+        </div>
+      </div>
+
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Banking & Fintech Mobile
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My journey into mobile development began with Wink, Costa Rica's first
-        mobile neobank. I implemented React Native bridges for biometric
+        I started mobile development with Wink, Costa Rica's first mobile
+        neobank. I implemented React Native bridges for biometric
         authentication, creating a secure yet user-friendly banking experience.
         This project required deep integration with native device capabilities
         for secure biometric verification while maintaining a seamless
@@ -56,8 +67,8 @@ export default function ReactNativeExperiencePage() {
         traditional branch visits.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Secure Messaging: Sense Chat (2019)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Secure Messaging: Sense Chat
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At Sense Chat, I helped develop a secure React Native messaging
@@ -70,8 +81,8 @@ export default function ReactNativeExperiencePage() {
         complex blockchain interactions accessible to mainstream users.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Augmented Reality: Tractor Supply (2020)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Augmented Reality: Tractor Supply
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         For Tractor Supply, I worked on augmented reality product previews in
@@ -79,16 +90,17 @@ export default function ReactNativeExperiencePage() {
         their real-world environment before purchasing, significantly enhancing
         the shopping experience for large outdoor equipment. The implementation
         used React Native's AR capabilities combined with 3D product models and
-        real-time rendering, optimized for performance across device types. Like my{' '}
+        real-time rendering, optimized for performance across device types. Like
+        my{' '}
         <Link href="/mobile" className="prose-link">
           other mobile projects
         </Link>{' '}
-        , this work demonstrated how mobile applications can bridge digital commerce
-        with physical reality through immersive experiences.
+        , this work demonstrated how mobile applications can bridge digital
+        commerce with physical reality through immersive experiences.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Blockchain Gaming: Fantasy Top Shots (2021)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Fantasy Top Shots Blockchain Gaming
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         With Fantasy Top Shots, I built an Expo-based mobile game that
@@ -101,8 +113,8 @@ export default function ReactNativeExperiencePage() {
         blockchain, and fantasy sports.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        AI Assistant: Sfera Legal (2023-Present)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        AI Assistant: Sfera Legal
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Most recently, at Sfera Legal, I developed a React Native application
@@ -113,8 +125,8 @@ export default function ReactNativeExperiencePage() {
         <Link href="/ai" className="prose-link">
           AI technologies
         </Link>{' '}
-        , including voice recognition, natural language processing,
-        and retrieval-augmented generation. The result is a powerful mobile tool
+        , including voice recognition, natural language processing, and
+        retrieval-augmented generation. The result is a powerful mobile tool
         that accelerates legal work by reducing research friction and providing
         contextual insights.
       </p>

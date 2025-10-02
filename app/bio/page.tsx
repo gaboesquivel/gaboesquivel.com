@@ -137,7 +137,7 @@ export default function BioPage() {
       </h2>
 
       <p className="prose prose-neutral dark:prose-invert">
-        My Web3 journey began in 2017 at{' '}
+        I started Web3 in 2017 at{' '}
         <Link href="/project/knowledge-io" className="prose-link">
           Knowledge.io
         </Link>
@@ -276,7 +276,7 @@ export default function BioPage() {
         My Approach
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Throughout my 15+ year journey, I've evolved into a{' '}
+        With 15+ years of experience, I work as a{' '}
         <Link href="/blog/2025-03-the-product-engineer" className="prose-link">
           product engineer
         </Link>{' '}

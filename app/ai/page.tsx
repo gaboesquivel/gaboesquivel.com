@@ -2,17 +2,17 @@ import { LatestPosts } from 'components/blog/latest-posts'
 import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import aiImg from 'public/images/ai/ai.webp'
 import { ContactInfo } from '../../components/shared/contact-info'
 
 export default function AIExperiencePage() {
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
-        <span className="hidden print:inline text-black">
-          Gabo Esquivel - AI Engineer
-        </span>
-        <span className="print:hidden">Artificial Intelligence Experience</span>
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
+        <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
+        Artificial Intelligence Experience
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -24,10 +24,8 @@ export default function AIExperiencePage() {
       </p>
 
       <p className="prose prose-neutral dark:prose-invert">
-        The past few years, I've focused on building AI applications that
-        prioritize user experience—moving beyond static interfaces toward
-        systems where voice, chat, search, and action converge into more
-        natural, dynamic interactions. This experience builds upon my work in{' '}
+        My journey with artificial intelligence began as a natural extension of
+        my work in{' '}
         <Link href="/web3" className="prose-link">
           Web3
         </Link>{' '}
@@ -35,7 +33,14 @@ export default function AIExperiencePage() {
         <Link href="/fullstack" className="prose-link">
           fullstack development
         </Link>
-        , combining emerging technologies to create powerful user experiences.
+        . As I explored these fields, I found myself drawn to the human side of
+        technology—how we could create more intuitive ways for people to
+        interact with complex systems. What captivated me wasn't just AI's
+        technical capabilities, but its potential to transform interfaces into
+        conversations, making technology more accessible and natural. This
+        exploration became a personal passion, guiding my work toward building
+        tools that amplify human capabilities rather than simply automating
+        tasks.
       </p>
 
       {/* <div className="gap-4 my-8 columns-1">
@@ -61,74 +66,130 @@ export default function AIExperiencePage() {
           exploring AI-driven user experiences, where voice, text, and embedded
           capabilities lead the way.
         </p> */}
-      <h2 className="text-xl font-bold mb-4">Early AI Exploration (2022)</h2>
-      <p className="prose prose-neutral dark:prose-invert">
-        My journey into AI development began in 2022 when I started
-        experimenting with OpenAI's APIs. I quickly recognized AI's potential to
-        transform user experiences, moving beyond traditional interfaces toward
-        more natural, dynamic interactions where voice, text, and embedded
-        intelligence could work together seamlessly.
-      </p>
-
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Wizard World: AI-Generated NFTs (2022)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        First Steps
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Built during the Flow Hackathon in late 2022, Wizard World connected
-        OpenAI's image generation capabilities with the Flow blockchain. The
-        progressive web app enabled users to generate AI images through natural
-        language prompts and mint them as NFTs—bridging creative expression with
-        on-chain ownership. This project marked my first production
-        implementation of AI technologies in a user-facing application.
+        My hands-on AI journey began in 2022 when I started exploring OpenAI's
+        APIs during a period of intense personal curiosity. I still remember the
+        moment I first connected language models to a simple application and
+        watched it understand context and generate relevant responses—it felt
+        like glimpsing the future of software. Those early experiments weren't
+        just technical explorations; they reshaped how I thought about building
+        products. Interfaces no longer needed to be static collections of
+        buttons and forms—they could become dynamic conversations that adapted
+        to users' needs and contexts.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Masterbots: Specialized AI Assistants (2023-2024)
+      <div className="gap-4 my-8 columns-1 print:hidden">
+        <div className="relative mb-4 h-[500px]">
+          <Image
+            alt="AI Development"
+            src={aiImg}
+            fill
+            sizes="(max-width: 768px) 500px, 33vw"
+            priority
+            className="object-cover rounded-lg"
+          />
+        </div>
+      </div>
+
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Unleashing Creative Expression
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        From mid-2023 to early 2024, I worked on Masterbots.ai, a platform
-        delivering domain-specific chatbots optimized for complex tasks and
-        long-context interactions. I contributed by designing the platform's
-        architecture, integrating Next.js with the AI SDK, and implementing
-        Supabase with pgvector to support scalable, context-aware interactions.
-        The project involved advanced prompt engineering techniques to improve
-        response quality and create more capable, user-friendly assistants that
-        could handle specialized knowledge domains.
+        My first significant AI project came during the Flow Hackathon in late
+        2022, where I helped create{' '}
+        <Link href="/project/wizard-world" className="prose-link">
+          Wizard World
+        </Link>
+        —a platform connecting OpenAI's image generation capabilities with
+        blockchain technology. This project was particularly meaningful as it
+        combined two areas I was passionate about. What moved me most was
+        witnessing people who had never considered themselves creative suddenly
+        express artistic vision through simple language prompts, then preserve their
+        creations as NFTs. One user, a retired teacher, told me they'd never created 
+        digital art before but had generated over a dozen pieces they were proudly 
+        sharing with family. Seeing her face light up when describing her creations 
+        reinforced my belief that technology should expand human creative potential 
+        rather than replace it.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        BitLauncher: AI Investment Platform (2023-2024)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Building Specialized AI Assistants
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        From late 2023 into 2024, I enhanced BitLauncher—an AI crypto launchpad
-        giving users early access to promising AI startups via token sales and
-        batch auctions. Beyond the core platform, I implemented a conversational
-        assistant powered by retrieval-augmented generation (RAG) and the
-        experimental RSC AI SDK, enabling natural language access to investment
-        documentation and platform data. This integration transformed how users
-        researched potential investments, making complex information more
-        accessible through conversation rather than traditional document
-        navigation.
+        By mid-2023, I was deeply immersed in AI development, working on
+        <Link href="/project/masterbots" className="prose-link">
+          {' '}
+          Masterbots.ai
+        </Link>
+        —a platform I helped architect for creating domain-specific assistants.
+        This project moved beyond generic AI interactions to specialized
+        capabilities for specific knowledge areas. While the technical aspects
+        challenged me to explore vector databases and prompt engineering, what
+        truly excited me was seeing how these assistants could make specialized
+        knowledge more accessible to everyone. I remember implementing a feature
+        that allowed an assistant to explain complex medical terminology in
+        plain language, and watching a user's face light up when they finally
+        understood a condition they'd been researching. These moments reinforced
+        my belief that AI should democratize knowledge rather than gatekeep it.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        LegalAgent: AI for Legal Operations (2024-2025)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Democratizing Complex Knowledge
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My most recent AI project (2024-2025) involved developing LegalAgent's{' '}
+        Later in 2023, I had the opportunity to bring AI capabilities to
+        <Link href="/project/bitlauncher" className="prose-link">
+          {' '}
+          BitLauncher
+        </Link>
+        , merging my passions for AI and financial accessibility. Growing up in Costa Rica,
+        I witnessed how financial complexity often created barriers to participation for many.
+        This shaped my approach to the project—I wasn't just building a technical solution, but
+        addressing a deeply personal challenge of democratizing investment knowledge. 
+        
+        I developed a conversational assistant using retrieval-augmented generation that transformed
+        how people researched investment opportunities. During testing, I met a woman from my hometown
+        who had been intimidated by crypto jargon for years. After a brief conversation with our
+        assistant, she confidently explained auction mechanisms to another participant. That 
+        moment of transformation—from confusion to understanding—perfectly captured why I build
+        technology: to remove unnecessary barriers to knowledge and opportunity.
+      </p>
+
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Augmenting Professional Expertise
+      </h2>
+      <p className="prose prose-neutral dark:prose-invert">
+        My most recent and perhaps most impactful AI work has been with
+        <Link href="/project/legal-agent" className="prose-link">
+          {' '}
+          LegalAgent
+        </Link>{' '}
+        in 2024, where I helped develop their{' '}
         <Link href="/mobile" className="prose-link">
           mobile app
         </Link>{' '}
-        featuring both voice and text interfaces that transformed how
-        legal teams access and understand internal documentation. By
-        implementing a secure, retrieval-augmented generation (RAG) system, we
-        enabled lawyers to query contracts, memos, and regulatory documents
-        using natural language. This project also included a robust backend
-        system to manage the AI's prompts and behavior, allowing administrators
-        to fine-tune the assistant's responses for different contexts.
-        Additionally, we integrated third-party systems like billing and case
-        tracking APIs, resulting in a more responsive legal operation that
-        accelerated knowledge access and reduced research friction.
+        for legal professionals. This project represented a significant personal
+        milestone as it combined both voice and text interfaces in a high-stakes
+        professional context. Having grown up watching my father practice law
+        and struggle with the overwhelming volume of case documents, I felt a
+        personal connection to this challenge. Building a system that lawyers
+        could trust with sensitive information required not just technical
+        solutions but deep empathy for their workflow and concerns.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert mt-4">
+        What makes this project especially meaningful to me is the impact I've
+        seen firsthand. A lawyer who had spent three hours the previous week
+        searching for a specific precedent in a case file found it in seconds
+        using the voice assistant. Another mentioned that they could finally
+        review case notes while commuting, something previously impossible with
+        traditional interfaces. These stories reinforce my belief that AI should
+        amplify human expertise rather than attempt to replace it—augmenting
+        capabilities while respecting professional judgment and the
+        irreplaceable human elements of complex work.
       </p>
 
       <div className="print:hidden">

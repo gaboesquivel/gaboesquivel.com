@@ -10,13 +10,9 @@ import { ContactInfo } from '../../components/shared/contact-info'
 export default function TechLeadExperiencePage() {
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
-        <span className="hidden print:inline text-black">
-          Gabo Esquivel - Tech Lead & Startup 0 to 1
-        </span>
-        <span className="print:hidden">
-          Tech Lead & Startup 0 to 1 Experience
-        </span>
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
+        <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
+        Tech Lead & Startup 0 to 1 Experience
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -54,7 +50,7 @@ export default function TechLeadExperiencePage() {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold mb-4">
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
         Leadership Philosophy & Project Management Approach
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
@@ -79,11 +75,11 @@ export default function TechLeadExperiencePage() {
         to maintain mental clarity and prevent burnout.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Costa Rica JS: Community Leadership (2010-2015)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Costa Rica JS: Community Leadership
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My leadership journey began in 2010 when I founded{' '}
+        I started leading the tech community in 2010 when I founded{' '}
         <Link href="/project/costa-rica-js" className="prose-link">
           Costa Rica JS
         </Link>
@@ -102,8 +98,8 @@ export default function TechLeadExperiencePage() {
         foundation in community building and developer leadership.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        AMC Networks: YEAH! TV Streaming Platform (2012-2014)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        AMC Networks: YEAH! TV Streaming Platform
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At AMC Networks, I led the frontend team for{' '}
@@ -120,8 +116,8 @@ export default function TechLeadExperiencePage() {
         bonus content.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Wink: Costa Rica's First Digital Bank (2015-2018)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Wink: Costa Rica's First Digital Bank
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         As Software Architect at{' '}
@@ -160,8 +156,8 @@ export default function TechLeadExperiencePage() {
         digital experiences.
       </p> */}
 
-      <h2 className="text-xl font-bold mb-4">
-        EOS Costa Rica: Blockchain Infrastructure (2018-2020)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        EOS Costa Rica: Blockchain Infrastructure
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -224,8 +220,8 @@ export default function TechLeadExperiencePage() {
         meetups.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Bitcash: P2P Exchange Platform (2020-2021)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Bitcash: P2P Exchange Platform
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -255,8 +251,8 @@ export default function TechLeadExperiencePage() {
         training throughout the project lifecycle.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Bitlauncher: AI Crypto Launchpad & Masterbots (2023-2025)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Bitlauncher & Masterbots Leadership
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         As Tech Lead at{' '}

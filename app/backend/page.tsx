@@ -3,17 +3,17 @@ import { ContactInfo } from 'components/shared/contact-info'
 import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import backendImg from 'public/images/work/cryptocantina-london-room.jpg'
 
 export default function BackendExperiencePage() {
   const type = 'backend'
   return (
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
-        <span className="hidden print:inline text-black">
-          Gabo Esquivel - Sr. Backend Engineer
-        </span>
-        <span className="print:hidden">Backend Development Experience</span>
+      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
+        <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
+        Backend Development Experience
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert">
@@ -24,8 +24,21 @@ export default function BackendExperiencePage() {
         maintainable services that support business objectives.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        Early Backend Development (2013-2016)
+      <div className="gap-4 my-8 columns-1 print:hidden">
+        <div className="relative mb-4 h-[500px]">
+          <Image
+            alt="Backend Development"
+            src={backendImg}
+            fill
+            sizes="(max-width: 768px) 500px, 33vw"
+            priority
+            className="object-cover rounded-lg"
+          />
+        </div>
+      </div>
+
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Early Backend Development
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         I adopted Node.js in Latin America around 2010-2011, when server-side
@@ -66,8 +79,8 @@ export default function BackendExperiencePage() {
         systems handling sensitive financial data.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Financial Systems (2015-2021)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Financial Systems
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Building on my experience at Wink, I continued developing backend
@@ -93,8 +106,8 @@ export default function BackendExperiencePage() {
         securely and efficiently.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Blockchain Infrastructure (2018-2020)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Blockchain Infrastructure
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         From 2018 to 2020 at{' '}
@@ -123,8 +136,8 @@ export default function BackendExperiencePage() {
         mechanisms that became widely adopted in the EOS ecosystem.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Data Management & GraphQL (2020)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Data Management & GraphQL
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         In 2020, I created{' '}
@@ -140,8 +153,8 @@ export default function BackendExperiencePage() {
         and APIs for complex applications.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Blockchain Data Indexing (2021-2023)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Blockchain Data Indexing
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Building on my blockchain experience, I developed specialized data
@@ -179,8 +192,8 @@ export default function BackendExperiencePage() {
         information.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Cloud Architecture & DevOps (2017-Present)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        Cloud Architecture & DevOps
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Throughout my career, I've implemented modern cloud architecture
@@ -210,8 +223,8 @@ export default function BackendExperiencePage() {
         operations.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        AI & Vector Search Systems (2023-Present)
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+        AI & Vector Search Systems
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Since 2023, I've focused increasingly on integrating AI capabilities
@@ -225,9 +238,9 @@ export default function BackendExperiencePage() {
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
-        For BitLauncher (2024), I implemented a chatbot assistant for document
-        retrieval using the experimental RSC AI SDK, enhancing user interaction
-        and information access. Most recently, for{' '}
+        For BitLauncher (2022-2024), I implemented a chatbot assistant for
+        document retrieval using the experimental RSC AI SDK, enhancing user
+        interaction and information access. Most recently, for{' '}
         <Link href="/project/legal-agent" className="prose-link">
           LegalAgent
         </Link>
