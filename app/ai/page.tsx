@@ -12,7 +12,7 @@ export default function AIExperiencePage() {
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">
         <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
-        Artificial Intelligence Experience
+        AI Engineer
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -67,7 +67,7 @@ export default function AIExperiencePage() {
           capabilities lead the way.
         </p> */}
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        First Steps
+        AI Engineering Experience
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My hands-on AI journey began in 2022 when I started exploring OpenAI's
@@ -95,7 +95,7 @@ export default function AIExperiencePage() {
       </div>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Unleashing Creative Expression
+        Wizard World: NFT Generation
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My first significant AI project came during the Flow Hackathon in late
@@ -103,32 +103,63 @@ export default function AIExperiencePage() {
         <Link href="/project/wizard-world" className="prose-link">
           Wizard World
         </Link>
-        —a platform connecting OpenAI's image generation capabilities with
-        blockchain technology. This project was particularly meaningful as it
-        combined two areas I was passionate about. What moved me most was
-        witnessing people who had never considered themselves creative suddenly
-        express artistic vision through simple language prompts, then preserve their
-        creations as NFTs. One user, a retired teacher, told me they'd never created 
-        digital art before but had generated over a dozen pieces they were proudly 
-        sharing with family. Seeing her face light up when describing her creations 
-        reinforced my belief that technology should expand human creative potential 
-        rather than replace it.
+        —a platform connecting OpenAI's DALL-E image generation capabilities
+        with{' '}
+        <Link href="/web3" className="prose-link">
+          blockchain
+        </Link>{' '}
+        technology. The system used{' '}
+        <Link href="/tech/nextjs" className="prose-link">
+          Next.js
+        </Link>{' '}
+        for the frontend and integrated with{' '}
+        <Link href="/tech/flow" className="prose-link">
+          Flow
+        </Link>{' '}
+        blockchain through{' '}
+        <Link href="/tech/niftory" className="prose-link">
+          Niftory
+        </Link>
+        's NFT infrastructure.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert mt-4">
+        This project was particularly meaningful as it combined two areas I was
+        passionate about. What moved me most was witnessing people who had never
+        considered themselves creative suddenly express artistic vision through
+        simple language prompts, then preserve their creations as NFTs. One
+        user, a retired teacher, told me they'd never created digital art before
+        but had generated over a dozen pieces they were proudly sharing with
+        family. Seeing her face light up when describing her creations
+        reinforced my belief that technology should expand human creative
+        potential rather than replace it.
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Building Specialized AI Assistants
+        Masterbots: Specialized AI Bots
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        By mid-2023, I was deeply immersed in AI development, working on
+        By mid-2023, I was deeply immersed in AI development, working on{' '}
         <Link href="/project/masterbots" className="prose-link">
-          {' '}
           Masterbots.ai
         </Link>
         —a platform I helped architect for creating domain-specific assistants.
         This project moved beyond generic AI interactions to specialized
-        capabilities for specific knowledge areas. While the technical aspects
-        challenged me to explore vector databases and prompt engineering, what
-        truly excited me was seeing how these assistants could make specialized
+        capabilities for specific knowledge domains. I implemented a system
+        using{' '}
+        <Link href="/tech/pgvector" className="prose-link">
+          pgvector
+        </Link>{' '}
+        in{' '}
+        <Link href="/tech/supabase" className="prose-link">
+          Supabase
+        </Link>{' '}
+        for efficient semantic search and{' '}
+        <Link href="/tech/ai-sdk" className="prose-link">
+          Vercel AI SDK
+        </Link>
+        for streaming responses with optimized prompt patterns. What truly
+        excited me was seeing how these assistants could make specialized
         knowledge more accessible to everyone. I remember implementing a feature
         that allowed an assistant to explain complex medical terminology in
         plain language, and watching a user's face light up when they finally
@@ -137,47 +168,87 @@ export default function AIExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Democratizing Complex Knowledge
+        Bitlauncher: AI Crypto Launchpad
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Later in 2023, I had the opportunity to bring AI capabilities to
+        Later in 2023, I had the opportunity to bring AI capabilities to{' '}
         <Link href="/project/bitlauncher" className="prose-link">
-          {' '}
           BitLauncher
         </Link>
-        , merging my passions for AI and financial accessibility. Growing up in Costa Rica,
-        I witnessed how financial complexity often created barriers to participation for many.
-        This shaped my approach to the project—I wasn't just building a technical solution, but
-        addressing a deeply personal challenge of democratizing investment knowledge. 
-        
-        I developed a conversational assistant using retrieval-augmented generation that transformed
-        how people researched investment opportunities. During testing, I met a woman from my hometown
-        who had been intimidated by crypto jargon for years. After a brief conversation with our
-        assistant, she confidently explained auction mechanisms to another participant. That 
-        moment of transformation—from confusion to understanding—perfectly captured why I build
-        technology: to remove unnecessary barriers to knowledge and opportunity.
+        , merging my passions for{' '}
+        <Link href="/web3" className="prose-link">
+          Web3
+        </Link>{' '}
+        and financial accessibility. Growing up in Costa Rica, I witnessed how
+        financial complexity often created barriers to participation for many.
+        This shaped my approach to the project—I wasn't just building a
+        technical solution, but addressing a deeply personal challenge of
+        democratizing investment knowledge. I developed a conversational
+        assistant using retrieval-augmented generation (RAG) with{' '}
+        <Link href="/tech/ai-sdk" className="prose-link">
+          AI SDK
+        </Link>
+        ,{' '}
+        <Link href="/tech/openai" className="prose-link">
+          OpenAI
+        </Link>
+        , and a{' '}
+        <Link href="/tech/postgresql" className="prose-link">
+          PostgreSQL
+        </Link>{' '}
+        vector store that transformed how people researched investment
+        opportunities. The system included tool integration for accessing
+        real-time news and technical data about projects. During testing, I met
+        a woman from my hometown who had been intimidated by crypto jargon for
+        years. After a brief conversation with our assistant, she confidently
+        explained auction mechanisms to another participant. That moment of
+        transformation—from confusion to understanding—perfectly captured why I
+        build technology: to remove unnecessary barriers to knowledge and
+        opportunity.
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Augmenting Professional Expertise
+        LegalAgent: AI for Legal Operations
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        My most recent and perhaps most impactful AI work has been with
+        My most recent and perhaps most impactful AI work has been with{' '}
         <Link href="/project/legal-agent" className="prose-link">
-          {' '}
           LegalAgent
         </Link>{' '}
         in 2024, where I helped develop their{' '}
-        <Link href="/mobile" className="prose-link">
-          mobile app
+        <Link href="/react-native" className="prose-link">
+          React Native
         </Link>{' '}
-        for legal professionals. This project represented a significant personal
-        milestone as it combined both voice and text interfaces in a high-stakes
-        professional context. Having grown up watching my father practice law
-        and struggle with the overwhelming volume of case documents, I felt a
-        personal connection to this challenge. Building a system that lawyers
-        could trust with sensitive information required not just technical
-        solutions but deep empathy for their workflow and concerns.
+        app for legal professionals. This project represented a significant
+        personal milestone as it combined both voice and text interfaces in a
+        high-stakes professional context. I implemented a multimodal AI
+        assistant using{' '}
+        <Link href="/tech/openai" className="prose-link">
+          OpenAI
+        </Link>
+        's Realtime API for voice and Vercel{' '}
+        <Link href="/tech/ai-sdk" className="prose-link">
+          AI SDK
+        </Link>{' '}
+        for chat, creating a system that provides contextual legal support
+        through{' '}
+        <Link href="/tech/redis" className="prose-link">
+          Redis
+        </Link>
+        -backed RAG architecture. The frontend leveraged{' '}
+        <Link href="/tech/tanstack" className="prose-link">
+          TanStack
+        </Link>{' '}
+        and{' '}
+        <Link href="/tech/tailwind" className="prose-link">
+          Tailwind
+        </Link>
+        for a responsive mobile experience. Having grown up watching my father
+        practice law and struggle with the overwhelming volume of case
+        documents, I felt a personal connection to this challenge. Building a
+        system that lawyers could trust with sensitive information required not
+        just technical solutions but deep empathy for their workflow and
+        concerns.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">

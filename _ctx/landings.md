@@ -258,7 +258,11 @@ Enterprise software development requires careful attention to compliance and sec
 ## SEO Strategy
 
 1. **Page Structure & Organization:**  
-   - Each landing page follows consistent structure: intro (vision + philosophy), timeline/project highlights, closing insight  
+   - Each landing page follows consistent structure: personal connection intro, chronological project timeline, closing insight  
+   - Project-based headings that combine technology and project names
+   - First-person storytelling with specific pivotal moments and realizations
+   - Balance of technical details with personal values and human impact
+   - Cross-linking to related expertise areas
    - Clear page categorization (Experience, Professional, Portfolio) for improved user navigation
    - Consistent URL structure and semantic HTML across all landing pages
 

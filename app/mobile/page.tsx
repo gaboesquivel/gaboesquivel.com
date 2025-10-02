@@ -31,9 +31,7 @@ export default function MobileExperiencePage() {
         cross-device experiences.
       </p>
 
-      <h2 className="text-xl font-bold mb-4">
-        First Mobile Projects (2015-2019)
-      </h2>
+      <h2 className="text-xl font-bold mb-4">AI Engineering Experience</h2>
       <p className="prose prose-neutral dark:prose-invert">
         I built my first React Native production app at{' '}
         <Link href="/project/wink" className="prose-link">
@@ -52,7 +50,7 @@ export default function MobileExperiencePage() {
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        AI-Powered Mobile Applications (2024-2025)
+        LegalAgent: AI for Legal Operations
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
@@ -69,7 +67,7 @@ export default function MobileExperiencePage() {
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        Secure Messaging & Web3 Integration (2019-2020)
+        Secure Messaging & Web3 Integration
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         While working at{' '}
@@ -85,9 +83,7 @@ export default function MobileExperiencePage() {
         user protection.
       </p>
 
-      <h2 className="text-xl font-bold mb-4 mt-6">
-        Financial Applications (2015)
-      </h2>
+      <h2 className="text-xl font-bold mb-4 mt-6">Financial Applications</h2>
       <p className="prose prose-neutral dark:prose-invert">
         For{' '}
         <Link href="/project/wink" className="prose-link">
@@ -104,7 +100,7 @@ export default function MobileExperiencePage() {
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        Gaming & Interactive Experiences (2022)
+        Wizard World: NFT Generation
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         I've also developed mobile gaming experiences, including{' '}
@@ -120,7 +116,7 @@ export default function MobileExperiencePage() {
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        Augmented Reality & E-commerce (2021)
+        Masterbots: Specialized AI Bots
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         While consulting for{' '}
@@ -135,7 +131,7 @@ export default function MobileExperiencePage() {
       </p>
 
       <h2 className="text-xl font-bold mb-4 mt-6">
-        Creative Web3 Experiences (2022-2023)
+        Bitlauncher: AI Crypto Launchpad
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         For{' '}
