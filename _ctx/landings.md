@@ -12,6 +12,8 @@ These pages showcase professional expertise in specific domains:
 - `/ai` → AI Engineering Experience
 - `/react-native` → React Native & Mobile Development
 - `/lead` → Tech Leadership Experience
+- `/startups` → Startup Engineering Experience
+- `/institutions` → Enterprise & Institutional Engineering Experience
 - `/bio` → Comprehensive Biography
 
 ### 2. Professional Pages
@@ -38,6 +40,8 @@ Our refined content strategy focuses on strategically integrating high-value lin
      - Backend architecture → `/backend`
      - Mobile development → `/react-native`
      - Technical leadership → `/lead`
+     - Startup development → `/startups`
+     - Enterprise/institutional work → `/institutions`
    
    - **Project Implementations (Medium Priority):** Link specific project mentions to project pages
      - "BitLauncher" → `/project/bitlauncher`
@@ -56,6 +60,8 @@ Our refined content strategy focuses on strategically integrating high-value lin
      - "DeFi primitives" → `/web3` (not to `/project/opyn` or `/tech`)
      - "Blockchain indexing" → `/web3` (not to `/tech/blockchain`)
      - "AI assistants" → `/ai` (not to `/tech/llm`)
+     - "Startup MVP" → `/startups` (not to specific startup projects)
+     - "Enterprise compliance" → `/institutions` (not to specific institution projects)
    
    - **Specific Tech Links:** When mentioning specific technologies, link to their dedicated tech landing pages
      - "Next.js App Router" → `/tech/next-js` (specific tech page, not generic `/tech`)
@@ -87,6 +93,14 @@ Building efficient [React](/tech/react) applications requires careful state mana
 
 ```markdown
 // Original blog text:
+Startup development requires balancing rapid iteration with building for scale.
+
+// Enhanced with precise linking strategy:
+[Startup development](/startups) requires balancing rapid iteration with building for scale.
+```
+
+```markdown
+// Original blog text:
 Our BitLauncher project implemented a custom EVM indexer using Node.js and PostgreSQL.
 
 // Enhanced with precise linking strategy:
@@ -101,6 +115,14 @@ We used Next.js App Router for server-side rendering in our frontend application
 We used [Next.js App Router](/tech/next-js) for server-side rendering in our [frontend applications](/frontend).
 ```
 
+```markdown
+// Original blog text:
+Enterprise software development requires careful attention to compliance and security.
+
+// Enhanced with precise linking strategy:
+[Enterprise software development](/institutions) requires careful attention to compliance and security.
+```
+
 5. **Priority Content:**
    - Focus first on high-traffic blog posts
    - Prioritize recent content (2023-2025)
@@ -112,11 +134,11 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
 **Title:** Frontend Engineering Experience  
 **Focus:** React, Next.js, Tailwind, TypeScript, UI/UX, data-driven interfaces  
 **Projects to highlight (with links):**  
-- [Opyn](/projects/opyn) – Next.js 14 trading interface, shadcn/ui  
-- [RareMint](/projects/raremint) – Remix SSR marketplace, WalletConnect  
-- [ZTX](/projects/ztx) – React architecture, WebGL wallet integration  
-- [AMC Networks](/projects/amc-networks) – interactive video streaming frontend  
-- [American Express](/projects/american-express) – responsive layouts, A/B testing  
+- [Opyn](/project/opyn) – Next.js 14 trading interface, shadcn/ui  
+- [RareMint](/project/raremint) – Remix SSR marketplace, WalletConnect  
+- [ZTX](/project/ztx) – React architecture, WebGL wallet integration  
+- [AMC Networks](/project/amc-yeah-tv-facebook-app) – interactive video streaming frontend  
+- [American Express](/project/american-express) – responsive layouts, A/B testing  
 **Cross-links:**  
 - Link to [/backend](/backend) (backend systems behind the interfaces)  
 - Link to [/fullstack](/fullstack) (bridging frontend + backend)  
@@ -126,12 +148,12 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
 **Title:** Backend & Infrastructure Engineering Experience  
 **Focus:** Node.js, PostgreSQL, GraphQL, Supabase, indexing, APIs, cloud-native systems, infrastructure automation  
 **Projects to highlight (with links):**  
-- [BitLauncher](/projects/bitlauncher) – custom EVM indexer, Supabase subscriptions, GCP infra  
-- [Bitcash](/projects/bitcash) – backend matching engine, EOS indexer, WebAuthn transactions on GCP  
-- [ChainGraph](/projects/chaingraph) – real-time GraphQL toolkit, Dockerized infra  
-- [Wink](/projects/wink) – banking integrations, biometric KYC, AWS services  
-- [EOS Costa Rica](/projects/eos-costa-rica) – private blockchain infra with Terraform + Azure  
-- [Sfera Legal](/projects/sfera-legal) – RAG backend + cloud deployment  
+- [BitLauncher](/project/bitlauncher) – custom EVM indexer, Supabase subscriptions, GCP infra  
+- [Bitcash](/project/bitcashbank) – backend matching engine, EOS indexer, WebAuthn transactions on GCP  
+- [ChainGraph](/project/chaingraph) – real-time GraphQL toolkit, Dockerized infra  
+- [Wink](/project/wink) – banking integrations, biometric KYC, AWS services  
+- [EOS Costa Rica](/project/eos-costa-rica) – private blockchain infra with Terraform + Azure  
+- [Sfera Legal](/project/legal-agent) – RAG backend + cloud deployment  
 **Cross-links:**  
 - Link to [/frontend](/frontend) (how backend powers UI/UX)  
 - Link to [/fullstack](/fullstack) (end-to-end systems)  
@@ -141,12 +163,12 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
 **Title:** Full-Stack Product & Cloud Engineering  
 **Focus:** Bridging frontend, backend, infrastructure, and product strategy—end-to-end delivery with modern DevOps practices  
 **Projects to highlight (with links):**  
-- [BitLauncher](/projects/bitlauncher) – full architecture: Next.js + Node.js + Solidity + Supabase + GCP + Docker  
-- [Masterbots](/projects/masterbots) – Next.js + AI SDK + Supabase pgvector, GCP infra  
-- [Knowledge.io](/projects/knowledge) – React marketplace + Ethereum ICO + AWS serverless backend  
-- [Emanate](/projects/emanate) – React streaming platform + EOS + AWS backend  
-- [Eat Arcade](/projects/eat-arcade) – Node.js + AngularJS + Twilio + Stripe full-stack system  
-- [EOS Costa Rica](/projects/eos-costa-rica) – blockchain + Terraform infra + React client  
+- [BitLauncher](/project/bitlauncher) – full architecture: Next.js + Node.js + Solidity + Supabase + GCP + Docker  
+- [Masterbots](/project/masterbots) – Next.js + AI SDK + Supabase pgvector, GCP infra  
+- [Knowledge.io](/project/knowledge-io) – React marketplace + Ethereum ICO + AWS serverless backend  
+- [Emanate](/project/emanate) – React streaming platform + EOS + AWS backend  
+- [Eat Arcade](/project/eat-arcade) – Node.js + AngularJS + Twilio + Stripe full-stack system  
+- [EOS Costa Rica](/project/eos-costa-rica) – blockchain + Terraform infra + React client  
 **Cross-links:**  
 - Link to [/frontend](/frontend) (UI/UX focus)  
 - Link to [/backend](/backend) (server-side, infra, indexing)  
@@ -156,11 +178,11 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
 **Title:** React Native & Mobile Development  
 **Focus:** Mobile-first apps, cross-platform, wallet integrations, AI assistants  
 **Projects to highlight (with links):**  
-- [Sfera Legal](/projects/sfera-legal) – React Native app with voice + chat AI assistant  
-- [Sense Chat](/projects/sense-chat) – secure React Native app with EOS wallet and tokens  
-- [Wink](/projects/wink) – mobile neobank with React Native bridge for biometrics  
-- [Tractor Supply](/projects/tractor-supply) – AR product previews in React Native  
-- [Fantasy Top Shots](/projects/fantasy-top-shots) – Expo mobile game with Flow NFTs  
+- [Sfera Legal](/project/legal-agent) – React Native app with voice + chat AI assistant  
+- [Sense Chat](/project/make-sense-labs) – secure React Native app with EOS wallet and tokens  
+- [Wink](/project/wink) – mobile neobank with React Native bridge for biometrics  
+- [Tractor Supply](/project/tractor-supply) – AR product previews in React Native  
+- [Fantasy Top Shots](/project/fantasy-top-shots) – Expo mobile game with Flow NFTs  
 **Cross-links:**  
 - Link to [/frontend](/frontend) (UI/UX for web + mobile)  
 - Link to [/fullstack](/fullstack) (integrating mobile into full product delivery)  
@@ -170,11 +192,11 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
 **Title:** Web3 Development Experience  
 **Focus:** EVM development, DeFi protocols, blockchain infrastructure, token engineering  
 **Projects to highlight (with links):**  
-- [Opyn](/projects/opyn) – DeFi options protocol, Ethereum  
-- [BitLauncher](/projects/bitlauncher) – EVM infrastructure, Ethereum/L2s  
-- [RareMint](/projects/raremint) – NFT marketplace, Polygon  
-- [ZTX](/projects/ztx) – Web3 gaming, Flow blockchain  
-- [Emanate](/projects/emanate) – Music platform, EOS blockchain  
+- [Opyn](/project/opyn) – DeFi options protocol, Ethereum  
+- [BitLauncher](/project/bitlauncher) – EVM infrastructure, Ethereum/L2s  
+- [RareMint](/project/raremint) – NFT marketplace, Polygon  
+- [ZTX](/project/ztx) – Web3 gaming, Flow blockchain  
+- [Emanate](/project/emanate) – Music platform, EOS blockchain  
 **Cross-links:**  
 - Link to [/frontend](/frontend) (dApp interfaces)  
 - Link to [/backend](/backend) (blockchain indexers and infrastructure)  
@@ -184,9 +206,9 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
 **Title:** AI Engineering Experience  
 **Focus:** RAG systems, AI integrations, vector databases, prompt engineering  
 **Projects to highlight (with links):**  
-- [Sfera Legal](/projects/sfera-legal) – Legal AI assistant with voice interface  
-- [Masterbots](/projects/masterbots) – AI agent framework with multi-modal capabilities  
-- [BitLauncher](/projects/bitlauncher) – AI-powered analytics for crypto trading  
+- [Sfera Legal](/project/legal-agent) – Legal AI assistant with voice interface  
+- [Masterbots](/project/masterbots) – AI agent framework with multi-modal capabilities  
+- [BitLauncher](/project/bitlauncher) – AI-powered analytics for crypto trading  
 **Cross-links:**  
 - Link to [/frontend](/frontend) (AI-enhanced UIs)  
 - Link to [/backend](/backend) (vector databases, embedding systems)  
@@ -196,12 +218,42 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
 **Title:** Tech Leadership Experience  
 **Focus:** Engineering management, team building, technical strategy, mentorship  
 **Projects to highlight (with links):**  
-- [EOS Costa Rica](/projects/eos-costa-rica) – Building blockchain engineering teams  
-- [American Express](/projects/american-express) – Leading cross-functional teams  
-- [Opyn](/projects/opyn) – Technical direction for DeFi protocol  
+- [EOS Costa Rica](/project/eos-costa-rica) – Building blockchain engineering teams  
+- [American Express](/project/american-express) – Leading cross-functional teams  
+- [Opyn](/project/opyn) – Technical direction for DeFi protocol  
 **Cross-links:**  
 - Link to all technical landing pages showing breadth of expertise  
 - Link to [/bio](/bio) for more complete leadership background
+- Link to [/startups](/startups) and [/institutions](/institutions) for specific contexts
+
+### `/startups`
+**Title:** Startup Engineering Experience  
+**Focus:** 0 to 1 product development, MVP architecture, lean methodology, rapid iteration, technical foundation for scale  
+**Projects to highlight (with links):**  
+- [BitLauncher](/project/bitlauncher) – AI and crypto launchpad with token bridge and auction system  
+- [Masterbots](/project/masterbots) – AI platform with specialized chatbots and workflows  
+- [RareMint](/project/raremint) – NFT collectibles platform with Polygon integration  
+- [ZTX](/project/ztx) – Web3 metaverse with WebGL wallet integration  
+- [BitCash](/project/bitcashbank) – Crypto banking platform with WebAuthn transactions  
+- [Wink](/project/wink) – Costa Rica's first digital bank with biometric verification  
+**Cross-links:**  
+- Link to [/lead](/lead) (startup leadership aspects)  
+- Link to [/fullstack](/fullstack) (end-to-end startup solutions)  
+- Link to [/institutions](/institutions) (contrasting enterprise with startup work)
+
+### `/institutions`
+**Title:** Enterprise & Institutional Engineering Experience  
+**Focus:** Enterprise software, regulated industries, complex stakeholder management, security compliance, legacy integration  
+**Projects to highlight (with links):**  
+- [Grant Thornton](/project/eos-costa-rica) – Private blockchain for intercompany transactions  
+- [Coopenae Bank](/project/wink) – Digital banking platform for established financial institution  
+- [American Express](/project/american-express) – Web platform modernization for financial services  
+- [AMC Networks](/project/amc-yeah-tv-facebook-app) – Interactive streaming service for major media company  
+- [Tractor Supply](/project/tractor-supply) – Mobile app enhancements for major retail chain  
+**Cross-links:**  
+- Link to [/lead](/lead) (institutional leadership aspects)  
+- Link to [/fullstack](/fullstack) (enterprise-grade system architecture)  
+- Link to [/startups](/startups) (contrasting enterprise with startup methodologies)
 
 ## SEO Strategy
 
@@ -218,6 +270,8 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
      - **React Native:** React Native developer, mobile apps, cross-platform wallets, AI assistants, Expo apps  
      - **Web3:** Blockchain developer, smart contract engineer, DeFi developer, token engineering, EVM engineer
      - **AI:** AI engineer, RAG development, vector database integration, prompt engineering, LLM application developer
+     - **Startups:** Startup engineer, MVP development, 0 to 1 product engineering, startup technical co-founder, lean startup, continuous delivery, early-stage startups, Web3 startups, AI startups
+     - **Institutions:** Enterprise software engineer, institutional engineering, corporate technology, regulated industries, financial services technology, enterprise architecture, security compliance
    - **Professional Pages:**
      - **CV/Bio:** Senior software engineer, tech lead, engineering manager, blockchain consultant, AI consultant
      - **Connect:** Software engineering consultation, freelance developer, technical advisory
@@ -243,7 +297,7 @@ We used [Next.js App Router](/tech/next-js) for server-side rendering in our [fr
    
    - **Landing Page Interlinking:**
      - **Specialization to Projects:** Link domain expertise to concrete project implementations
-     - **Specialization to Specialization:** Connect related domains (e.g., `/web3` → `/fullstack`)
+     - **Specialization to Specialization:** Connect related domains (e.g., `/web3` → `/fullstack`, `/startups` → `/institutions`, `/lead` → `/startups`)
      - **Project to Tech:** Connect project implementations to specific technologies used
 
 4. **Content Strategy by Category:**  

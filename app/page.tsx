@@ -61,7 +61,15 @@ export default function HomePage() {
         <Link href="/mobile" className="prose-link">
           mobile
         </Link>{' '}
-        development, complemented by ongoing explorations in{' '}
+        development. I excel at both{' '}
+        <Link href="/startups" className="prose-link">
+          startup
+        </Link>{' '}
+        and{' '}
+        <Link href="/institutions" className="prose-link">
+          institutional
+        </Link>{' '}
+        engineering, complemented by ongoing explorations in{' '}
         <Link href="/ai" className="prose-link">
           AI
         </Link>{' '}
