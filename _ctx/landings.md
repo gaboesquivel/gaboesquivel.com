@@ -142,7 +142,7 @@ Enterprise software development requires careful attention to compliance and sec
 **Cross-links:**  
 - Link to [/backend](/backend) (backend systems behind the interfaces)  
 - Link to [/fullstack](/fullstack) (bridging frontend + backend)  
-- Link to [/react-native](/react-native) (mobile-first UI engineering)  
+- Link to [/mobile](/mobile) (mobile-first UI engineering)  
 
 ### `/backend`
 **Title:** Backend & Infrastructure Engineering Experience  
@@ -174,8 +174,8 @@ Enterprise software development requires careful attention to compliance and sec
 - Link to [/backend](/backend) (server-side, infra, indexing)  
 - Link to [/ai](/ai) and [/web3](/web3) (showing how fullstack cuts across AI + blockchain)  
 
-### `/react-native`
-**Title:** React Native & Mobile Development  
+### `/mobile`
+**Title:** Mobile Development Experience  
 **Focus:** Mobile-first apps, cross-platform, wallet integrations, AI assistants  
 **Projects to highlight (with links):**  
 - [Sfera Legal](/project/legal-agent) – React Native app with voice + chat AI assistant  
