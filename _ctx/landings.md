@@ -10,7 +10,7 @@ These pages showcase professional expertise in specific domains:
 - `/fullstack` → Full-Stack Product & Cloud Engineering
 - `/web3` → Web3 Development Experience
 - `/ai` → AI Engineering Experience
-- `/react-native` → React Native & Mobile Development
+- `/mobile` → React Native & Mobile Development
 - `/lead` → Tech Leadership Experience
 - `/startups` → Startup Engineering Experience
 - `/institutions` → Enterprise & Institutional Engineering Experience
@@ -33,12 +33,12 @@ These pages highlight work and technical expertise:
 Our refined content strategy focuses on strategically integrating high-value links within blog content while maintaining readability and user experience:
 
 1. **Strategic Link Categories & Hierarchy:**
-   - **Domain Specializations (Highest Priority):** Link broad domain concepts to specialization pages
-     - DeFi concepts → `/web3` (not to specific projects or tech)
-     - AI concepts → `/ai`
-     - Frontend patterns → `/frontend`
-     - Backend architecture → `/backend`
-     - Mobile development → `/react-native`
+   - **Domain Specializations (Highest Priority):** Link broad domain words to specialization pages
+     - DeFi and web3  → `/web3` 
+     - AI  → `/ai`
+     - Frontend  → `/frontend`
+     - Backend, DB and cloud  → `/backend`
+     - Mobile, React Native  → `/mobile`
      - Technical leadership → `/lead`
      - Startup development → `/startups`
      - Enterprise/institutional work → `/institutions`

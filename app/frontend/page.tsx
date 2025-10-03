@@ -32,7 +32,7 @@ export default function FrontendExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Early Frontend Experiences
+        First Interfaces & WordPress Customization
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My frontend journey began at InterGraphicDESIGNS in 2008, where I built
@@ -48,19 +48,22 @@ export default function FrontendExperiencePage() {
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
-        In 2010, joining American Express as a UI Engineer marked a significant
-        shift in my career. Suddenly I was working on systems used by millions
-        of cardholders worldwide, where even minor interface improvements could
-        significantly impact how people managed their finances. I remember the
-        intimidating responsibility of my first major update to the account
-        interface—knowing that any confusion could result in thousands of
-        customer service calls. This experience taught me the importance of
-        meticulous testing and performance optimization. Working with their data
-        analytics team showed me how A/B testing could transform interface
-        design from subjective opinions to measurable outcomes. These lessons in
-        data-driven design continue to influence how I approach frontend
-        development, always balancing creativity with concrete metrics of user
-        success.
+        In 2010, joining{' '}
+        <Link href="/project/american-express" className="prose-link">
+          American Express
+        </Link>{' '}
+        as a UI Engineer marked a significant shift in my career. Suddenly I was
+        working on systems used by millions of cardholders worldwide, where even
+        minor interface improvements could significantly impact how people
+        managed their finances. I remember the intimidating responsibility of my
+        first major update to the account interface—knowing that any confusion
+        could result in thousands of customer service calls. This experience
+        taught me the importance of meticulous testing and performance
+        optimization. Working with their data analytics team showed me how A/B
+        testing could transform interface design from subjective opinions to
+        measurable outcomes. These lessons in data-driven design continue to
+        influence how I approach frontend development, always balancing
+        creativity with concrete metrics of user success.
       </p>
 
       <div className="gap-4 my-8 columns-1 print:hidden">
@@ -77,7 +80,7 @@ export default function FrontendExperiencePage() {
       </div>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Creating Community Through Interfaces
+        Gaming & Interactive Media UIs
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         The period from 2012-2014 marked a special chapter in my career where I
@@ -134,7 +137,7 @@ export default function FrontendExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Embracing Component-Based Design
+        React & Component Architecture
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         In 2015, I embarked on a significant technical transition by
@@ -182,7 +185,7 @@ export default function FrontendExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Refining My Toolset
+        Modern Frontend Stack
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         Since 2020, I've focused on refining my frontend toolset to balance
@@ -217,7 +220,7 @@ export default function FrontendExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Exploring Blockchain Interfaces
+        Web3 UI/UX Development
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My journey into Web3 frontend development began in 2017 at{' '}
@@ -257,7 +260,7 @@ export default function FrontendExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Designing for Financial Innovation
+        DeFi & Marketplace Interfaces
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         The period from 2021-2023 allowed me to apply my accumulated experience
@@ -313,7 +316,7 @@ export default function FrontendExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Merging AI with Creative Expression
+        AI-Powered Interfaces
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My exploration of AI interfaces began in 2022 with{' '}
@@ -332,7 +335,7 @@ export default function FrontendExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Building Natural Conversations
+        Conversational UI & AI Assistants
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My most recent professional chapter, from 2023-2025, has been centered

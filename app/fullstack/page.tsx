@@ -18,24 +18,30 @@ export default function FullstackExperiencePage() {
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert">
-        Throughout my 15+ year journey as a product engineer, I've evolved from
-        building isolated components to architecting complete systems that
-        seamlessly integrate{' '}
+        My journey as a fullstack engineer began with a realization that
+        powerful software experiences require seamless integration across every
+        layer. While many developers specialized in either{' '}
         <Link href="/frontend" className="prose-link">
-          frontend experiences
+          frontend
         </Link>{' '}
-        with{' '}
+        or{' '}
         <Link href="/backend" className="prose-link">
-          resilient backends
-        </Link>
-        . My approach treats fullstack development as an integrated product
-        discipline where architecture decisions flow from user needs, focusing
-        on delivering cohesive, scalable products that solve real human problems
-        rather than viewing frontend and backend as separate concerns.
+          backend
+        </Link>{' '}
+        technologies, I found myself drawn to the connections between them—the
+        architecture that makes complete products possible. I still remember the
+        first time I built an application end-to-end, watching data flow from
+        database to interface without friction—it felt like completing a complex
+        puzzle where every piece had to fit perfectly. Throughout my career,
+        I've approached fullstack development as an integrated discipline where
+        architecture decisions flow from user needs, rather than treating UI and
+        infrastructure as separate concerns. This holistic perspective reflects
+        my belief that technology should deliver cohesive solutions to real
+        human problems, not just isolated technical achievements.
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Discovering My Path
+        Early Career & Community Building
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         I began my tech journey at CenfoTec University in 2006, discovering a
@@ -94,7 +100,7 @@ export default function FullstackExperiencePage() {
       </div>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Broadening My Experience
+        Diverse Project Experience
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         My community leadership opened doors to diverse projects that expanded
@@ -130,7 +136,7 @@ export default function FullstackExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Building Financial Systems
+        Digital Banking & Financial Platforms
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         After my American Express experience, I took on a new challenge at{' '}
@@ -291,7 +297,7 @@ export default function FullstackExperiencePage() {
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Building Trading Platforms
+        DeFi & Options Trading
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
         After my work with collectibles, I turned my attention to decentralized

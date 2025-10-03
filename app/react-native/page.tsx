@@ -16,28 +16,29 @@ export default function ReactNativeExperiencePage() {
         React Native & Mobile Development Experience
       </h1>
 
-      <p className="prose prose-neutral dark:prose-invert print:block hidden">
-        With over 15 years in full-stack software engineering, I help
-        organizations turn initial ideas into market-ready software products,
-        ensuring concepts reach their full potential. I work as a product
-        engineer, bridging technical execution with user experience and business
-        strategy.
-      </p>
-
       <p className="prose prose-neutral dark:prose-invert">
-        My mobile development work focuses on creating cross-platform
-        applications with React Native. As someone with extensive experience in{' '}
+        My journey into React Native development began with a desire to bridge
+        the gap between web and native experiences—seeking the perfect balance
+        between development efficiency and platform-specific excellence. Having
+        started my career in{' '}
         <Link href="/frontend" className="prose-link">
-          frontend development
-        </Link>{' '}
-        and{' '}
-        <Link href="/fullstack" className="prose-link">
-          fullstack architecture
-        </Link>{' '}
-        , I'm passionate about mobile-first experiences that feel native while
-        leveraging the efficiency of cross-platform development. My approach
-        emphasizes performance optimization, intuitive interfaces, and seamless
-        integration with device capabilities and backend services.
+          web development
+        </Link>
+        , I was immediately drawn to React Native when it emerged in 2015,
+        recognizing its potential to transform how we build cross-platform
+        applications. I still remember the moment I deployed my first React
+        Native app simultaneously to iOS and Android—watching the same codebase
+        render natively on different devices felt revolutionary. What began as
+        technical curiosity quickly became a passion for creating mobile
+        experiences that combine the best of both worlds: the development
+        velocity of React with the performance and capabilities of native
+        platforms. Throughout my career, I've approached mobile development with
+        a focus on creating interfaces that feel natural to users while
+        maintaining the cross-platform efficiency that makes React Native so
+        powerful. This philosophy reflects my belief that the best mobile
+        experiences disappear into the background, becoming seamless extensions
+        of how people live and work rather than drawing attention to the
+        technology itself.
       </p>
 
       <div className="gap-4 my-8 columns-1 print:hidden">
@@ -54,90 +55,173 @@ export default function ReactNativeExperiencePage() {
       </div>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Banking & Fintech Mobile
+        Digital Banking & Biometric Integration
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        I started mobile development with Wink, Costa Rica's first mobile
-        neobank. I implemented React Native bridges for biometric
-        authentication, creating a secure yet user-friendly banking experience.
-        This project required deep integration with native device capabilities
-        for secure biometric verification while maintaining a seamless
-        cross-platform experience. The application enabled users to complete
-        banking tasks entirely from their mobile devices, eliminating
-        traditional branch visits.
+        My first significant React Native project came in 2015 at{' '}
+        <Link href="/project/wink" className="prose-link">
+          Wink
+        </Link>
+        , Costa Rica's first mobile neobank. This was a pivotal moment in my
+        development journey, as React Native had only been publicly released
+        months earlier, making our implementation one of Latin America's first
+        production React Native apps. The technical challenge was substantial—I
+        needed to create custom native bridges for biometric authentication that
+        would work consistently across different devices while satisfying the
+        strict security requirements of financial services. I remember the
+        breakthrough moment when we successfully integrated TouchID with our
+        transaction workflow, creating a secure verification process that felt
+        almost magical in its simplicity from the user perspective.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert mt-4">
+        What made this project particularly significant was combining
+        cutting-edge mobile technology with the conservative requirements of
+        banking. The application needed to handle sensitive financial operations
+        while providing an intuitive interface that would encourage adoption
+        among users accustomed to traditional branch banking. The experience
+        taught me how to balance technical innovation with security and
+        reliability—creating native bridges that exposed platform capabilities
+        to JavaScript without compromising on performance or security. This
+        foundational project shaped my approach to mobile development,
+        establishing patterns for native module integration and cross-platform
+        consistency that I would refine in future projects.
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Secure Messaging: Sense Chat
+        Encrypted Messaging & Blockchain Wallets
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        At Sense Chat, I helped develop a secure React Native messaging
-        application with integrated EOS wallet functionality and token-based
-        incentives. This app combined encrypted communication channels with
-        blockchain wallet capabilities, allowing users to exchange messages and
-        cryptocurrency in a single interface. The implementation required
-        careful attention to security, offline capabilities, and seamless wallet
-        integration—all while maintaining a clean, intuitive UI that made
-        complex blockchain interactions accessible to mainstream users.
+        In 2019, my React Native journey continued at{' '}
+        <Link href="/project/make-sense-labs" className="prose-link">
+          Sense Chat
+        </Link>
+        , where I worked on a secure messaging platform with integrated
+        blockchain wallet functionality. This project presented unique technical
+        challenges—combining end-to-end encrypted communication with
+        cryptocurrency transactions in a single mobile interface. The
+        implementation required careful optimization of React Native components
+        and deep integration with the EOS blockchain, ensuring both security and
+        performance on resource-constrained mobile devices. I focused
+        particularly on creating a seamless user experience around key
+        management—traditionally one of the most friction-filled aspects of
+        blockchain applications.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert mt-4">
+        What made this project especially rewarding was solving complex
+        cryptographic challenges while maintaining an intuitive user experience.
+        I remember the satisfaction of watching new users send their first
+        encrypted message with attached tokens—a process that required multiple
+        cryptographic operations but appeared to users as a simple chat
+        interaction. This project demonstrated how React Native could bridge
+        sophisticated blockchain functionality with familiar mobile interfaces,
+        making complex technologies accessible to mainstream users. The
+        experience deepened my expertise in optimizing React Native for
+        performance-critical applications and integrating with native
+        cryptographic libraries—skills that would prove valuable across my later
+        mobile projects.
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Augmented Reality: Tractor Supply
+        Augmented Reality Product Visualization
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        For Tractor Supply, I worked on augmented reality product previews in
-        React Native. This feature allowed customers to visualize products in
-        their real-world environment before purchasing, significantly enhancing
-        the shopping experience for large outdoor equipment. The implementation
-        used React Native's AR capabilities combined with 3D product models and
-        real-time rendering, optimized for performance across device types. Like
-        my{' '}
-        <Link href="/mobile" className="prose-link">
-          other mobile projects
+        In 2021, my work with{' '}
+        <Link href="/project/tractor-supply" className="prose-link">
+          Tractor Supply Company
         </Link>{' '}
-        , this work demonstrated how mobile applications can bridge digital
-        commerce with physical reality through immersive experiences.
+        pushed the boundaries of what could be achieved with React Native, as I
+        implemented augmented reality product previews in their mobile
+        application. This feature allowed customers to visualize large outdoor
+        equipment in their actual environment before purchasing—a capability
+        that significantly enhanced the shopping experience while reducing
+        returns of bulky items. The technical implementation required
+        integrating ViroAR within React Native and optimizing 3D model rendering
+        for diverse device capabilities, ensuring smooth performance even on
+        older hardware.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert mt-4">
+        Beyond the technical challenges of AR implementation, this project
+        taught me valuable lessons about the product lifecycle in large retail
+        organizations. I worked closely with merchandising teams to understand
+        how customers evaluated products and what information they needed when
+        making purchase decisions. This collaboration ensured that the AR
+        feature addressed genuine customer needs rather than simply showcasing
+        technology. The experience reinforced my belief that successful mobile
+        development requires understanding both technical possibilities and user
+        contexts—creating features that solve real problems rather than
+        implementing technology for its own sake.
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        Fantasy Top Shots Blockchain Gaming
+        NFT-Based Mobile Gaming
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        With Fantasy Top Shots, I built an Expo-based mobile game that
-        integrates Flow blockchain NFTs into a fantasy sports experience. The
-        application combines real-time sports data with blockchain collectibles,
-        allowing users to build lineups with their owned NFTs. The
-        implementation used Expo for rapid cross-platform deployment while
-        integrating Flow blockchain for secure NFT ownership verification. This
-        project explored new gaming models at the intersection of mobile,
-        blockchain, and fantasy sports.
+        In 2022, I explored the intersection of mobile gaming and blockchain
+        through{' '}
+        <Link href="/project/fantasy-top-shots" className="prose-link">
+          Fantasy Top Shots
+        </Link>
+        , an Expo-based mobile game that integrated Flow blockchain NFTs into a
+        fantasy sports experience. This project was particularly exciting as it
+        represented a new paradigm for digital ownership in mobile
+        games—allowing players to use their NBA Top Shot collectibles as
+        playable assets with real utility beyond collection value. The
+        implementation leveraged Expo for rapid cross-platform deployment while
+        integrating with Flow blockchain for secure NFT ownership verification
+        and gameplay mechanics.
+      </p>
+
+      <p className="prose prose-neutral dark:prose-invert mt-4">
+        What I found most interesting about this project was exploring the game
+        design possibilities created by verifiable digital ownership. Unlike
+        traditional mobile games where all assets exist only within the game
+        ecosystem, Fantasy Top Shots connected to NFTs that had independent
+        value and could be traded on external marketplaces. This created
+        entirely new dynamics around asset acquisition and utilization. The
+        development process taught me how to balance on-chain verification
+        (which requires network connectivity and transaction time) with
+        responsive gameplay (which demands immediate feedback). These lessons in
+        creating hybrid on-chain/off-chain experiences have proven valuable
+        across multiple projects at the intersection of mobile and blockchain
+        technologies.
       </p>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
-        AI Assistant: Sfera Legal
+        Voice & Chat AI Legal Assistant
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        Most recently, at Sfera Legal, I developed a React Native application
-        featuring an advanced AI assistant with voice and chat capabilities.
-        This mobile app helps legal professionals access and understand complex
-        documentation through natural language interactions. The implementation
-        combines React Native's cross-platform efficiency with cutting-edge{' '}
-        <Link href="/ai" className="prose-link">
-          AI technologies
+        My most recent and technically sophisticated React Native project has
+        been at{' '}
+        <Link href="/project/legal-agent" className="prose-link">
+          LegalAgent
         </Link>{' '}
-        , including voice recognition, natural language processing, and
-        retrieval-augmented generation. The result is a powerful mobile tool
-        that accelerates legal work by reducing research friction and providing
-        contextual insights.
+        (2024-2025), where I developed a mobile application featuring an
+        advanced AI assistant with both voice and chat capabilities. This
+        project represents the cutting edge of what's possible in mobile
+        experiences—combining the efficiency of React Native with sophisticated
+        AI interactions that adapt to users' natural communication preferences.
+        The implementation uses OpenAI's Realtime API for voice transcription
+        and synthesis, alongside the Vercel AI SDK for chat, all integrated into
+        a responsive Expo application styled with Tailwind CSS.
       </p>
 
-      <p className="prose prose-neutral dark:prose-invert">
-        This project represents the exciting future of mobile development—where
-        intelligent interfaces adapt to user needs and provide contextual
-        assistance through natural interactions. The combination of voice, chat,
-        and AI capabilities creates a more intuitive mobile experience that
-        feels less like using technology and more like collaborating with an
-        intelligent assistant.
+      <p className="prose prose-neutral dark:prose-invert mt-4">
+        The most technically challenging aspect was creating a unified
+        experience across voice and text modalities—allowing users to seamlessly
+        switch between speaking and typing while maintaining conversation
+        context. The assistant connects to a sophisticated RAG architecture that
+        provides contextual legal support, document summaries, and procedural
+        guidance in both Spanish and English. What makes this project
+        particularly rewarding is seeing how it transforms how lawyers interact
+        with their case information—turning what was previously a tedious
+        document search process into a natural conversation. This project
+        exemplifies my belief in technology that adapts to human behavior rather
+        than forcing humans to adapt to technology, creating mobile experiences
+        that feel like extensions of natural human capabilities rather than
+        separate tools to be learned and managed.
       </p>
 
       <div className="print:hidden">
