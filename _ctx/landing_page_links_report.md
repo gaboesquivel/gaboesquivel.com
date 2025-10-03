@@ -38,13 +38,12 @@ This report provides a comprehensive analysis of how landing pages are linked fr
    - `/backend`: Limited coverage with 7 links across 6 articles
 
 3. **Poorly Linked Domain Pages**
-   - `/react-native`: Very limited coverage with 5 links across only 2 articles
+   - `/mobile`: Very limited coverage with 5 links across only 2 articles
    - `/fullstack`: Minimal coverage with 3 links across 3 articles
    - `/startups`: Minimal coverage with 3 links across 3 articles
    - `/institutions`: Minimal coverage with 3 links across 3 articles
 
 4. **Completely Unlinked Domain Pages**
-   - `/mobile`: No links found
    - `/bio`: No links found
 
 ### Professional Pages (Secondary Priority)
@@ -63,7 +62,7 @@ Portfolio pages have mixed linking status:
 ## Key Observations
 
 1. **Domain Concept Linking Gaps**
-   - Several key domain pages (`/mobile`, `/bio`) have no links at all
+   - Several key domain pages (`/bio`) have no links at all
    - Many domain pages (`/fullstack`, `/startups`, `/institutions`) have minimal linking
    - Even for well-linked domains, the coverage is inconsistent across articles
 
@@ -85,7 +84,7 @@ Portfolio pages have mixed linking status:
 ### Immediate Action Items
 
 1. **Add Links to Completely Unlinked Pages**
-   - Prioritize adding links to `/mobile` and `/bio` pages
+   - Prioritize adding links to `/bio` pages
    - Identify relevant articles where these domains are discussed but not linked
 
 2. **Improve Coverage of Poorly Linked Pages**

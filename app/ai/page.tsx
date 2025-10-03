@@ -216,7 +216,7 @@ export default function AIExperiencePage() {
           LegalAgent
         </Link>{' '}
         in 2024, where I helped develop their{' '}
-        <Link href="/react-native" className="prose-link">
+        <Link href="/mobile" className="prose-link">
           React Native
         </Link>{' '}
         app for legal professionals. This project represented a significant

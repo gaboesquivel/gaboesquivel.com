@@ -161,7 +161,7 @@ export function ProjectDetails({
               frontend: { display: 'Frontend', url: '/frontend' },
               backend: { display: 'Backend', url: '/backend' },
               fullstack: { display: 'Fullstack', url: '/fullstack' },
-              mobile: { display: 'React Native', url: '/react-native' },
+              mobile: { display: 'React Native', url: '/mobile' },
               web3: { display: 'Web3', url: '/web3' },
               ai: { display: 'AI', url: '/ai' },
             }
