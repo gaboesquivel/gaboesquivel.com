@@ -8,8 +8,21 @@ export function ContactInfo({ hidden = true }) {
         <h2 className="text-xl font-semibold  mb-4">Let's Work Together</h2>
 
         <p className="prose prose-neutral dark:prose-invert">
-          I typically work through remote 1099 contracts via my US-based
-          company, Blockmatic Labs LLC. This setup gives clients straightforward
+          I typically work through{' '}
+          <Link
+            href="/blog/2025-11-1099-contracting"
+            className="prose-link"
+          >
+            remote 1099 contracts
+          </Link>{' '}
+          via my US-based company,{' '}
+          <Link
+            href="/blog/2025-11-1099-contracting"
+            className="prose-link"
+          >
+            Blockmatic Labs LLC
+          </Link>
+          . This setup gives clients straightforward
           contracts, built-in compliance, and IP protection. Based in Costa
           Rica, I operate on US Mountain Time and am just a short flight from
           major US cities.

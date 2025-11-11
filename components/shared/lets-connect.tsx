@@ -3,8 +3,21 @@ export function LetsConnect() {
   return (
     <div className="prose prose-neutral dark:prose-invert print:hidden">
       <p>
-        I usually work through remote 1099 contracts with my US-based company,
-        Blockmatic Labs LLC. This gives clients straightforward contracts,
+        I usually work through{' '}
+        <Link
+          href="/blog/2025-11-1099-contracting"
+          className="prose-link"
+        >
+          remote 1099 contracts
+        </Link>{' '}
+        with my US-based company,{' '}
+        <Link
+          href="/blog/2025-11-1099-contracting"
+          className="prose-link"
+        >
+          Blockmatic Labs LLC
+        </Link>
+        . This gives clients straightforward contracts,
         compliance peace of mind, and IP protection. I’m based in{' '}
         <Link
           href="/blog/2014-01-developing-software-in-costa-rica"
