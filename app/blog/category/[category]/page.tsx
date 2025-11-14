@@ -1,7 +1,7 @@
 import { allBlogs } from 'contentlayer/generated'
 import { capitalizeWords } from 'lib/utils'
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { BlogPosts } from 'components/blog/blog-posts'
 
 export default async function BlogCategoryPage({
   params,
@@ -11,38 +11,10 @@ export default async function BlogCategoryPage({
   const category = params.category
   const displayCategory = capitalizeWords(category)
   return (
-    <section>
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
-        Gabo's Blog: {displayCategory}
-      </h1>
-      {allBlogs
-        .filter((post) => post.category?.includes(displayCategory))
-        .sort((a, b) => {
-          if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-            return -1
-          }
-          return 1
-        })
-        .map((post) => (
-          <Link
-            key={post.slug}
-            className="flex flex-col mb-4 space-y-1"
-            href={`/blog/${post.slug}`}
-          >
-            <ul className="flex flex-col w-full">
-              <li className="tracking-tight text-neutral-900 dark:text-neutral-100 hover:text-accent">
-                {post.title}{' '}
-                <span className="text-xs text-neutral-400">
-                  |{' '}
-                  {new Date(post.publishedAt).toLocaleString('en-US', {
-                    year: 'numeric',
-                  })}
-                </span>
-              </li>
-            </ul>
-          </Link>
-        ))}
-    </section>
+    <BlogPosts
+      category={category}
+      heading={`Gabo's Blog: ${displayCategory}`}
+    />
   )
 }
 
@@ -52,7 +24,9 @@ export async function generateStaticParams() {
   for (const post of allBlogs) {
     if (post.category) {
       for (const category of post.category) {
-        categories.add(category)
+        // Convert to lowercase and replace spaces with hyphens for URL
+        const categorySlug = category.toLowerCase().replace(/\s+/g, '-')
+        categories.add(categorySlug)
       }
     }
   }

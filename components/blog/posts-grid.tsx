@@ -15,12 +15,12 @@ export function PostGrid({
   return (
     <div className="mt-16 print:hidden">
       <h2 className="mb-4 font-bold text-xl">{title}</h2>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 w-full items-stretch">
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="block rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800"
+            className="block w-full h-full rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800 flex flex-col"
           >
             <h3 className="mb-1 font-medium">{post.title}</h3>
             {post.publishedAt && (

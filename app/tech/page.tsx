@@ -1,13 +1,14 @@
 import { getProjectsByTechnology, techStack } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Balancer from 'react-wrap-balancer'
 
 export default function TechStackPage() {
   return (
     <div>
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
-        Gabo's Tech Stack
-      </h1>
+      <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
+        <Balancer>Gabo's Tech Stack</Balancer>
+      </h2>
       <ul>
         {techStack.map((tech) => {
           const projects = getProjectsByTechnology(tech.tag)

@@ -4,6 +4,7 @@ import { allBlogs } from "contentlayer/generated";
 import type { TechStackItemWithProjects } from "gaboesquivel";
 import { LatestPosts } from "../blog/latest-posts";
 import { PostGrid } from "../blog/posts-grid";
+import Balancer from "react-wrap-balancer";
 
 export default function TechStack({
 	tech,
@@ -14,7 +15,9 @@ export default function TechStack({
 
 	return (
 		<div>
-			<h1 className="mb-8 font-bold text-2xl tracking-tighter">{tech.name}</h1>
+			<h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
+				<Balancer>{tech.name}</Balancer>
+			</h2>
 			<p className="prose prose-neutral dark:prose-invert">
 				{tech.description}
 			</p>
