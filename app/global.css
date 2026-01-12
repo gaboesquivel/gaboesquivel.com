@@ -73,6 +73,11 @@ html {
   height: auto;
 }
 
+.blog-content h2,
+.blog-content h3 {
+  text-transform: capitalize;
+}
+
 .prose > :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;

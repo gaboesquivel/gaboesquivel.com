@@ -2,7 +2,7 @@ import { allBlogs } from 'contentlayer/generated'
 import { PostGrid } from './posts-grid'
 
 export function LatestPosts({
-  limit = 6,
+  limit = 8,
   title = 'Latest Articles',
   category,
 }: { limit?: number; title?: string; category?: string }) {
@@ -14,7 +14,7 @@ export function LatestPosts({
 }
 
 function getLatestPosts({
-  limit = 6,
+  limit = 8,
   category,
 }: { limit?: number; category?: string }) {
   // Sort by date descending to get the most recent posts
