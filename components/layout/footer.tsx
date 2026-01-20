@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="mt-28 print:hidden">
       <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           <div>
             <ul className="space-y-2">
               <li>
@@ -31,40 +31,97 @@ export function Footer() {
                   LinkedIn
                 </a>
               </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Articles
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/work"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tech"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Tech Stack
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="/blog"
+                <Link
+                  href="/fullstack"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Articles
-                </a>
+                  Fullstack
+                </Link>
               </li>
               <li>
-                <a
-                  href="/work"
+                <Link
+                  href="/frontend"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Projects
-                </a>
+                  Frontend
+                </Link>
               </li>
               <li>
-                <a
-                  href="/tech"
+                <Link
+                  href="/backend"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Tech Stack
-                </a>
+                  Backend
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/lead"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Tech Lead
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/startups"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Startups
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/institutions"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Institutions
+                </Link>
               </li>
             </ul>
           </div>
 
-          <div className="col-span-2 sm:col-span-1">
+          <div>
             <p className="text-gray-300 mb-2">
+              I work on 1099 through{' '}
+              <Link
+                href="/blog/2025-11-1099-contracting"
+                className="text-gray-300 hover:text-white transition-colors underline"
+              >
+                Blockmatic Labs LLC
+              </Link>
+              . <br />
+              <br />
               Interested in working together? <br />
               <Link href="/connect" className="cta-link pt-2">
                 Let's connect

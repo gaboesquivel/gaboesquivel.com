@@ -24,9 +24,12 @@ const navItems = {
   '/blog': {
     name: 'blog',
   },
-  '/cv': {
-    name: 'cv',
-  },
+    '/cv': {
+      name: 'cv',
+    },
+    '/tech': {
+      name: 'tech',
+    },
 }
 
 export default function Navbar() {
@@ -78,37 +81,13 @@ export default function Navbar() {
                 href={'https://github.com/gaboesquivel'}
                 target="_blank"
                 className={clsx(
-                  'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle',
+                  'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 align-middle hidden md:flex',
                 )}
               >
                 <span className="relative px-2 py-1">github</span>
               </Link>
 
-              {/* <Link
-                    key={809809809800}
-                    href={"https://x.com/gaboesquivel"}
-                    target='_blank'
-                    className={clsx(
-                      'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle'
-                    )}
-                  >
-                    <span className="relative px-2 py-1">
-                      twitter
-                    </span>
-                  </Link>
-
-                  <Link
-                    key={450837204897}
-                    href={"https://www.linkedin.com/in/gaboesquivel/"}
-                    target='_blank'
-                    className={clsx(
-                      'text-neutral-500 transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle'
-                    )}
-                  >
-                    <span className="relative px-2 py-1">
-                      linkedin
-                    </span>
-                  </Link> */}
+            
             </div>
           </nav>
         </LayoutGroup>
