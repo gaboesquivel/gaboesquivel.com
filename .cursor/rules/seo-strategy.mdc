@@ -1,0 +1,99 @@
+---
+description: SEO strategy, keywords, and optimization guidelines for gaboesquivel.com
+glob: "app/**/*.tsx,content/**/*.mdx"
+alwaysApply: false
+---
+
+# SEO Strategy
+
+## Page Structure & Organization
+
+- Each landing page follows consistent structure: personal connection intro, chronological project timeline, closing insight
+- Project-based headings that combine technology and project names
+- First-person storytelling with specific pivotal moments and realizations
+- Balance of technical details with personal values and human impact
+- Cross-linking to related expertise areas
+- Clear page categorization (Experience, Professional, Portfolio) for improved user navigation
+- Consistent URL structure and semantic HTML across all landing pages
+
+## Keywords by Page Category
+
+### Experience Pages
+- **Frontend:** React developer, Next.js engineer, UI/UX, TypeScript, Tailwind, dApp interfaces  
+- **Backend:** Node.js engineer, Supabase, PostgreSQL, GraphQL APIs, blockchain indexers, AWS, Terraform, Google Cloud, infrastructure engineer  
+- **Fullstack:** Full-stack engineer, product engineering, end-to-end development, Web3 + AI integration, cloud architecture, DevOps  
+- **React Native:** React Native developer, mobile apps, cross-platform wallets, AI assistants, Expo apps  
+- **Web3:** Blockchain developer, smart contract engineer, DeFi developer, token engineering, EVM engineer
+- **AI:** AI engineer, RAG development, vector database integration, prompt engineering, LLM application developer
+- **Startups:** Startup engineer, MVP development, 0 to 1 product engineering, startup technical co-founder, lean startup, continuous delivery, early-stage startups, Web3 startups, AI startups
+- **Institutions:** Enterprise software engineer, institutional engineering, corporate technology, regulated industries, financial services technology, enterprise architecture, security compliance
+
+### Professional Pages
+- **CV/Bio:** Senior software engineer, tech lead, engineering manager, blockchain consultant, AI consultant
+- **Connect:** Software engineering consultation, freelance developer, technical advisory
+
+### Portfolio Pages
+- **Projects:** Case studies, software projects, technical implementations, client work
+- **Tech:** JavaScript, TypeScript, React, Node.js, PostgreSQL, Supabase, Solidity, vector databases
+
+## Cross-Content Linking Architecture
+
+### Blog to Domain Specialization (Highest Priority)
+Link domain concepts to specialization pages:
+- Link "DeFi applications" → `/web3`
+- Link "AI assistants" → `/ai`
+- Max 1-2 domain specialization links per post
+
+### Blog to Projects (Medium Priority)
+Link specific named projects to their pages:
+- Only link explicitly named projects: "BitLauncher" → `/project/bitlauncher`
+- Respect chronology (only link to projects that existed at publication time)
+- Max 0-1 project links per post
+
+### Blog to Tech (Lower Priority)
+Link specific tech mentions to dedicated tech pages:
+- Link "Next.js" → `/tech/next-js` (not generic `/tech`)
+- Link "PostgreSQL" → `/tech/postgresql`
+- Max 0-2 technology links per post
+
+### Landing Page Interlinking
+- **Specialization to Projects:** Link domain expertise to concrete project implementations
+- **Specialization to Specialization:** Connect related domains (e.g., `/web3` → `/fullstack`, `/startups` → `/institutions`, `/lead` → `/startups`)
+- **Project to Tech:** Connect project implementations to specific technologies used
+
+## Content Strategy by Category
+
+- **Experience Pages:** Emphasize domain expertise with practical achievements and project examples
+- **Professional Pages:** Focus on career narrative, skills progression, and professional background
+- **Portfolio Pages:** Showcase concrete implementations, technical decisions, and measurable outcomes
+- Use structured headings, bullet highlights, and concise sections for readability across all pages
+
+## Meta + Open Graph Strategy
+
+- Custom meta titles + descriptions per page category
+- Category-specific OG image templates for consistent branding
+- Use featured project images for portfolio-related pages
+- Include structured data (JSON-LD) for enhanced search results
+
+## Analytics & Continuous Optimization
+
+- Track user journey through page categories (Experience → Projects → Tech)
+- Monitor engagement metrics by page category
+- Analyze which blog-to-landing links generate the most engagement
+- Test different linking strategies to optimize for both user experience and SEO
+- Regularly refine content organization based on analytics insights
+
+## External Inbound Link Strategy
+
+- **Target Precise Landing Pages:** Direct external links to the most specific relevant landing page rather than homepage
+- **Domain Specialization Priority:** Prioritize inbound links to domain specialization pages (/web3, /ai, /frontend, etc.) as they have long-term value
+- **Technology Page Targeting:** For technology-specific mentions in external content, target specific tech pages (/tech/next-js, /tech/supabase)
+- **Hierarchical Referral Mapping:**
+  - When mentioned in broad domain contexts → Link to specialization pages
+  - When mentioned with specific projects → Link to project pages
+  - When mentioned with specific technologies → Link to tech pages
+- **Guest Posting Strategy:** When writing external content, link back following the same hierarchy:
+  - For domain concepts: Link to specialization pages first
+  - For specific project mentions: Link to project pages
+  - For specific tech discussions: Link to tech pages
+- **Content Development:** Create shareable expert content aligned with each specialization domain to attract high-quality backlinks

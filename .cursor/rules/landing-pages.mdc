@@ -1,0 +1,100 @@
+---
+description: Landing page structure, categories, and content guidelines for gaboesquivel.com
+glob: "app/**/*.tsx,content/**/*.mdx"
+alwaysApply: false
+---
+
+# Landing Pages Structure and Content
+
+## Page Categories
+
+### Experience & Main Landing Pages
+Domain expertise showcase pages:
+- `/frontend` → Frontend Engineering Experience
+- `/backend` → Backend & Infrastructure Engineering Experience  
+- `/fullstack` → Full-Stack Product & Cloud Engineering
+- `/web3` → Web3 Development Experience
+- `/ai` → AI Engineering Experience
+- `/mobile` → React Native & Mobile Development
+- `/lead` → Tech Leadership Experience
+- `/startups` → Startup Engineering Experience
+- `/institutions` → Enterprise & Institutional Engineering Experience
+- `/bio` → Comprehensive Biography
+
+### Professional Pages
+Structured professional information:
+- `/cv` → Curriculum Vitae (printable)
+- `/connect` → Professional contact information
+
+### Portfolio & Showcase Pages
+Work and technical expertise:
+- `/work` → Work portfolio overview and case studies
+- `/project` → Detailed project pages with specific implementations
+- `/tech` → Technology expertise and stack proficiency
+
+## Landing Page Content Structure
+
+Each landing page follows consistent structure:
+- Personal connection intro
+- Chronological project timeline
+- Closing insight
+- Project-based headings combining technology and project names
+- First-person storytelling with specific pivotal moments
+- Balance of technical details with personal values and human impact
+- Cross-linking to related expertise areas
+
+## Landing Page Descriptions
+
+### `/frontend`
+**Title:** Frontend Engineering Experience  
+**Focus:** React, Next.js, Tailwind, TypeScript, UI/UX, data-driven interfaces  
+**Projects:** Opyn, RareMint, ZTX, AMC Networks, American Express  
+**Cross-links:** `/backend`, `/fullstack`, `/mobile`
+
+### `/backend`
+**Title:** Backend & Infrastructure Engineering Experience  
+**Focus:** Node.js, PostgreSQL, GraphQL, Supabase, indexing, APIs, cloud-native systems, infrastructure automation  
+**Projects:** BitLauncher, Bitcash, ChainGraph, Wink, EOS Costa Rica, Sfera Legal  
+**Cross-links:** `/frontend`, `/fullstack`, `/web3`
+
+### `/fullstack`
+**Title:** Full-Stack Product & Cloud Engineering  
+**Focus:** Bridging frontend, backend, infrastructure, and product strategy—end-to-end delivery with modern DevOps practices  
+**Projects:** BitLauncher, Masterbots, Knowledge.io, Emanate, Eat Arcade, EOS Costa Rica  
+**Cross-links:** `/frontend`, `/backend`, `/ai`, `/web3`
+
+### `/mobile`
+**Title:** Mobile Development Experience  
+**Focus:** Mobile-first apps, cross-platform, wallet integrations, AI assistants  
+**Projects:** Sfera Legal, Sense Chat, Wink, Tractor Supply, Fantasy Top Shots  
+**Cross-links:** `/frontend`, `/fullstack`, `/ai`
+
+### `/web3`
+**Title:** Web3 Development Experience  
+**Focus:** EVM development, DeFi protocols, blockchain infrastructure, token engineering  
+**Projects:** Opyn, BitLauncher, RareMint, ZTX, Emanate  
+**Cross-links:** `/frontend`, `/backend`, `/fullstack`
+
+### `/ai`
+**Title:** AI Engineering Experience  
+**Focus:** RAG systems, AI integrations, vector databases, prompt engineering  
+**Projects:** Sfera Legal, Masterbots, BitLauncher  
+**Cross-links:** `/frontend`, `/backend`, `/fullstack`
+
+### `/lead`
+**Title:** Tech Leadership Experience  
+**Focus:** Engineering management, team building, technical strategy, mentorship  
+**Projects:** EOS Costa Rica, American Express, Opyn  
+**Cross-links:** All technical landing pages, `/bio`, `/startups`, `/institutions`
+
+### `/startups`
+**Title:** Startup Engineering Experience  
+**Focus:** 0 to 1 product development, MVP architecture, lean methodology, rapid iteration, technical foundation for scale  
+**Projects:** BitLauncher, Masterbots, RareMint, ZTX, BitCash, Wink  
+**Cross-links:** `/lead`, `/fullstack`, `/institutions`
+
+### `/institutions`
+**Title:** Enterprise & Institutional Engineering Experience  
+**Focus:** Enterprise software, regulated industries, complex stakeholder management, security compliance, legacy integration  
+**Projects:** Grant Thornton, Coopenae Bank, American Express, AMC Networks, Tractor Supply  
+**Cross-links:** `/lead`, `/fullstack`, `/startups`

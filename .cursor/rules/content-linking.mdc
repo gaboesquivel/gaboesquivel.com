@@ -1,0 +1,73 @@
+---
+description: Blog post link integration strategy and rules for internal linking
+glob: "content/**/*.mdx"
+alwaysApply: false
+---
+
+# Content Linking Strategy
+
+## Link Categories & Hierarchy
+
+### Domain Specializations (Highest Priority)
+Link broad domain words to specialization pages:
+- DeFi and web3 → `/web3` 
+- AI → `/ai`
+- Frontend → `/frontend`
+- Backend, DB and cloud → `/backend`
+- Mobile, React Native → `/mobile`
+- Technical leadership → `/lead`
+- Startup development → `/startups`
+- Enterprise/institutional work → `/institutions`
+
+### Project Implementations (Medium Priority)
+Link specific project mentions to project pages:
+- "BitLauncher" → `/project/bitlauncher`
+- "Opyn protocol" → `/project/opyn`
+- "Masterbots" → `/project/masterbots`
+
+### Technology Mentions (Lower Priority)
+Link specific technology mentions to tech pages:
+- "Next.js" → `/tech/next-js` (not generic `/tech`)
+- "Supabase" → `/tech/supabase`
+- "GraphQL" → `/tech/graphql`
+
+## Precise Linking Rules
+
+### Domain Concepts Over Technologies
+When a concept belongs to a domain specialization, link to that specialization page rather than a technology page:
+- "DeFi primitives" → `/web3` (not to `/project/opyn` or `/tech`)
+- "Blockchain indexing" → `/web3` (not to `/tech/blockchain`)
+- "AI assistants" → `/ai` (not to `/tech/llm`)
+- "Startup MVP" → `/startups` (not to specific startup projects)
+- "Enterprise compliance" → `/institutions` (not to specific institution projects)
+
+### Specific Tech Links
+When mentioning specific technologies, link to their dedicated tech landing pages:
+- "Next.js App Router" → `/tech/next-js` (specific tech page, not generic `/tech`)
+- "PostgreSQL" → `/tech/postgresql`
+- "React" → `/tech/react`
+
+### Project Name Recognition
+Only link explicit project name mentions to project pages:
+- Link "BitLauncher analytics dashboard" → `/project/bitlauncher`
+- Don't link "our analytics dashboard" to a project page unless project is explicitly named
+
+### Chronological Integrity
+Always respect publication dates—never link to projects in posts dated before the project existed.
+
+## Balanced Linking Implementation
+
+- **Quality over Quantity:** Each link must provide genuine value to the reader
+- **Non-Repetition:** Use only one link per target page within a single blog post
+- **Natural Context:** Links must feel organic within the content's flow
+- **Diverse Anchors:** Use descriptive and varied anchor text that accurately describes the linked content
+- **Limit Per Post:** Maximum 3-5 total links per blog post (across all categories)
+- **Hierarchy Distribution:** Prioritize domain specialization links (1-2), then add project links (0-1) and tech links (0-2) as relevant
+- **Priority Order:** Domain Specialization > Project > Technology
+
+## Priority Content
+
+Focus first on:
+- High-traffic blog posts
+- Recent content (2023-2025)
+- Posts with strong SEO potential based on search trends and keyword research
