@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { format, parse } from 'date-fns'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -25,13 +26,18 @@ export function formatDateDifference(date: string): string {
 }
 
 export function formatDate(date: string) {
-  const fullDate = new Date(date).toLocaleString('en-us', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
+  // Parse date-only strings (YYYY-MM-DD) as local dates to avoid timezone shifts
+  // For date-only strings, parse them directly to avoid UTC interpretation
+  let dateObj: Date
+  if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    // Date-only format: parse as local date to avoid timezone issues
+    dateObj = parse(date, 'yyyy-MM-dd', new Date())
+  } else {
+    // Other formats: use standard Date parsing
+    dateObj = new Date(date)
+  }
 
-  return `${fullDate}`
+  return format(dateObj, 'MMMM d, yyyy')
 }
 
 export function capitalizeWords(str: string): string {
