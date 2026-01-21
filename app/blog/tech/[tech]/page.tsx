@@ -20,12 +20,11 @@ export default async function BlogTechPage({
       </h2>
       {allBlogs
         .filter((post) => post.tech?.includes(techStack.tag))
-        .sort((a, b) => {
-          if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-            return -1
-          }
-          return 1
-        })
+        .sort(
+          (a, b) =>
+            new Date(b.publishedAt).getTime() -
+            new Date(a.publishedAt).getTime(),
+        )
         .map((post) => (
           <Link
             key={post.slug}

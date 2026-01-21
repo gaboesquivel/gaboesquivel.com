@@ -4,58 +4,106 @@ import { BlogPostsMasonry } from 'components/blog/blog-posts-masonry'
 import { cn } from 'lib/utils'
 import Link from 'next/link'
 
+// Allowed categories for blog page display
+const ALLOWED_CATEGORIES = [
+  'engineering',
+  'web3',
+  'defi',
+  'ai',
+  'ux',
+  'finance',
+  'community',
+] as const
+
+// Map from blog post category names to allowed category slugs
+const CATEGORY_MAP: Record<string, string> = {
+  'Engineering': 'engineering',
+  'Web3': 'web3',
+  'DeFi': 'defi',
+  'Artificial Intelligence': 'ai',
+  'AI': 'ai',
+  'UX': 'ux',
+  'Finance': 'finance',
+  'Community': 'community',
+}
+
+// Map from category slug to display name
+const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
+  'engineering': 'Engineering',
+  'web3': 'Web3',
+  'defi': 'DeFi',
+  'ai': 'AI',
+  'ux': 'UX',
+  'finance': 'Finance',
+  'community': 'Community',
+}
+
 function getUniqueCategories() {
   const categoryCounts = new Map<string, number>()
   
-  // Count posts per category
+  // Count posts per allowed category
   for (const post of allBlogs) {
     if (post.category) {
       for (const category of post.category) {
-        const count = categoryCounts.get(category) || 0
-        categoryCounts.set(category, count + 1)
+        const mappedCategory = CATEGORY_MAP[category]
+        if (mappedCategory && ALLOWED_CATEGORIES.includes(mappedCategory as typeof ALLOWED_CATEGORIES[number])) {
+          const count = categoryCounts.get(mappedCategory) || 0
+          categoryCounts.set(mappedCategory, count + 1)
+        }
       }
     }
   }
   
-  // Convert to array and sort by count (descending)
-  const sortedCategories = Array.from(categoryCounts.entries())
-    .sort((a, b) => b[1] - a[1])
-    .map(([category]) => category)
-  
-  // Move "Community" to the end if it exists
-  const communityIndex = sortedCategories.indexOf('Community')
-  if (communityIndex !== -1) {
-    sortedCategories.splice(communityIndex, 1)
-    sortedCategories.push('Community')
+  // Return only allowed categories that have posts, in the specified order
+  const result: string[] = []
+  for (const allowedCat of ALLOWED_CATEGORIES) {
+    if (categoryCounts.has(allowedCat)) {
+      result.push(allowedCat)
+    }
   }
   
-  return sortedCategories
+  return result
 }
 
 function normalizeCategoryForComparison(category: string): string {
   return category.toLowerCase().replace(/[-\s]+/g, ' ')
 }
 
+function mapCategoryToSlug(category: string): string {
+  // Check if it's already a slug
+  if (ALLOWED_CATEGORIES.includes(category as typeof ALLOWED_CATEGORIES[number])) {
+    return category
+  }
+  
+  // Try to map from display name
+  const normalized = normalizeCategoryForComparison(category)
+  for (const [displayName, slug] of Object.entries(CATEGORY_MAP)) {
+    if (normalizeCategoryForComparison(displayName) === normalized) {
+      return slug
+    }
+  }
+  
+  return category
+}
+
 function getFilteredPosts(category?: string) {
   let filtered = [...allBlogs]
 
   if (category && category !== 'all') {
-    const normalizedCategory = normalizeCategoryForComparison(category)
+    const categorySlug = mapCategoryToSlug(category)
     filtered = filtered.filter((post) => {
       if (!post.category) return false
       return post.category.some((cat) => {
-        const normalizedPostCategory = normalizeCategoryForComparison(cat)
-        return normalizedPostCategory === normalizedCategory
+        const mappedCategory = CATEGORY_MAP[cat]
+        return mappedCategory === categorySlug
       })
     })
   }
 
-  return filtered.sort((a, b) => {
-    if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-      return -1
-    }
-    return 1
-  })
+  return filtered.sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  )
 }
 
 export function BlogPosts({
@@ -88,17 +136,17 @@ export function BlogPosts({
           all
         </Link>
         {categories.map((cat) => {
-          const categorySlug = cat.toLowerCase().replace(/\s+/g, '-')
+          const displayName = CATEGORY_DISPLAY_NAMES[cat] || cat
           return (
             <Link
               key={cat}
-              href={`/blog/category/${categorySlug}`}
+              href={`/blog/category/${cat}`}
               className={cn(
                 'rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800',
-                currentCategory === categorySlug ? 'text-accent' : '',
+                currentCategory === cat ? 'text-accent' : '',
               )}
             >
-              {cat.toLowerCase()}
+              {displayName.toLowerCase()}
             </Link>
           )
         })}

@@ -290,7 +290,7 @@ export default function StartupsExperiencePage() {
           )}
         />
 
-        <LatestPosts category="Startup" title="Latest Startup Articles" />
+        <LatestPosts category="Startups" title="Latest Startup Articles" />
       </div>
       <ContactInfo />
     </section>

@@ -2,7 +2,7 @@ export const experience = [
   {
     company: 'Bitlauncher',
     location: 'Remote',
-    duration: 'Nov 2023 - Jul 2025 · 1 yr 9 mos',
+    duration: 'Nov 2023 - Nov 2025 · 2 yrs',
     description:
       'Bitlauncher is an AI and crypto launchpad platform that provides early access to promising AI unicorn startups through token sales and auctions.',
     achievements: [
@@ -83,6 +83,7 @@ export const experience = [
       'Ethers',
       'Analytics',
     ],
+    pageBreak: true,
   },
   {
     company: 'RareMint',
@@ -159,6 +160,7 @@ export const experience = [
       'Integration with the EOS blockchain and AWS backend services',
     ],
     techStack: ['EOS', 'AWS', 'React', 'Styled Components'],
+    pageBreak: true,
   },
   {
     company: 'EOS Costa Rica',
@@ -200,6 +202,7 @@ export const experience = [
       'Integrated partner bank APIs',
     ],
     techStack: ['React Native', 'React', 'Node.js', 'AWS'],
+    pageBreak: true,
   },
   {
     company: 'AMC Networks',

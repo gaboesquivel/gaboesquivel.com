@@ -189,6 +189,11 @@ a {
 }
 
 /* Print styles - ensure all text is black when printing */
+@page {
+  size: A4;
+  margin: 0.75in 0.5in;
+}
+
 @media print {
   * {
     color: #000000 !important;
@@ -216,7 +221,11 @@ a {
     font-size: 12px !important;
   }
 
+  /* Hide non-print UI elements */
+  nav,
   .navbar,
+  footer,
+  .no-print,
   .print\\:hidden {
     display: none !important;
   }
@@ -232,5 +241,55 @@ a {
   .prose img,
   .prose .latest-posts {
     display: none !important;
+  }
+
+  /* Page break utilities - modern with legacy fallbacks */
+  .page-break-before {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .no-break-inside {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .avoid-break-after {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Prevent breaking inline, absolute, or overflow containers */
+  *[style*="display: inline"],
+  *[style*="display:inline"],
+  *[style*="position: absolute"],
+  *[style*="position:absolute"],
+  *[style*="overflow: hidden"],
+  *[style*="overflow:hidden"] {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Prevent breaking list items and paragraphs */
+  li,
+  p {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure headings don't break from their content */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid;
+    page-break-after: avoid;
   }
 }

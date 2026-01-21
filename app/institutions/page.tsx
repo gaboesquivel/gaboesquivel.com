@@ -246,7 +246,7 @@ export default function InstitutionsExperiencePage() {
           )}
         />
 
-        <LatestPosts category="Enterprise" title="Latest Enterprise Articles" />
+        <LatestPosts category="Institutions" title="Latest Institutional Articles" />
       </div>
       <ContactInfo />
     </section>

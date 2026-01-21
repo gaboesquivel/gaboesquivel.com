@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { techStack } from 'gaboesquivel';
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -38,6 +39,55 @@ const computedFields = {
         name: 'Gabo Esquivel',
       },
     }),
+  },
+  techValidation: {
+    type: 'string',
+    resolve: (doc) => {
+      // Ensure tech is an array
+      if (!doc.tech) {
+        return 'valid' // Missing tech field is allowed
+      }
+
+      // Convert to array if it's not already
+      let techArray
+      if (Array.isArray(doc.tech)) {
+        techArray = doc.tech
+      } else if (typeof doc.tech === 'string') {
+        techArray = [doc.tech]
+      } else if (typeof doc.tech === 'object' && doc.tech !== null) {
+        // Handle case where contentlayer might wrap arrays in objects
+        // Try to extract array from object (e.g., if it's { items: [...] } or similar)
+        if (Array.isArray(doc.tech.items)) {
+          techArray = doc.tech.items
+        } else if (Array.isArray(doc.tech.data)) {
+          techArray = doc.tech.data
+        } else {
+          // Try to convert object values to array
+          techArray = Object.values(doc.tech).filter(
+            (v) => typeof v === 'string',
+          )
+        }
+      } else {
+        // If it's an unexpected type, skip validation for this doc
+        return 'valid'
+      }
+
+      if (!Array.isArray(techArray) || techArray.length === 0) {
+        return 'valid' // Empty arrays are allowed
+      }
+
+      const validTags = new Set(techStack.map((t) => t.tag))
+      const invalidTags = techArray.filter((tag) => !validTags.has(tag))
+
+      if (invalidTags.length > 0) {
+        throw new Error(
+          `Invalid tech tags in ${doc._raw.sourceFilePath}: ${invalidTags.join(', ')}\n` +
+            `Valid tags: ${Array.from(validTags).sort().join(', ')}`,
+        )
+      }
+
+      return 'valid'
+    },
   },
 };
 

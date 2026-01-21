@@ -30,7 +30,10 @@ export default function CVPage() {
 
       <div className="space-y-8 mt-12">
         {experience.map((experience) => (
-          <div key={experience.company}>
+          <div
+            key={experience.company}
+            className={experience.pageBreak ? 'page-break-before' : ''}
+          >
             <h2 className="text-xl font-semibold mb-2 print:text-black">
               {experience.company}
             </h2>
@@ -65,7 +68,9 @@ export default function CVPage() {
           </div>
         ))}
       </div>
-      <ContactInfo />
+      <div className="page-break-before">
+        <ContactInfo />
+      </div>
       <LatestPosts />
     </section>
   )

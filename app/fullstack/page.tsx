@@ -388,7 +388,7 @@ export default function FullstackExperiencePage() {
 
       <ContactInfo />
 
-      <LatestPosts category="Development" title="Latest Development Articles" />
+      <LatestPosts category="Fullstack" title="Latest Fullstack Articles" />
     </section>
   )
 }
