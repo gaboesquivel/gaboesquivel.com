@@ -36,7 +36,7 @@ export default function Navbar() {
   const pathname = usePathname() || '/'
 
   return (
-    <nav className="-ml-[8px] mb-16 tracking-tight navbar print:hidden">
+    <nav className="-ml-[8px] mb-10 tracking-tight navbar print:hidden">
       <div className="lg:top-20">
         <LayoutGroup>
           <nav
