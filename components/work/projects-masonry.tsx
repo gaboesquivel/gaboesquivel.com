@@ -9,6 +9,9 @@ interface ProjectsMasonryProps {
 }
 
 export function ProjectsMasonry({ projects, identifier = 'projects' }: ProjectsMasonryProps) {
+  const sortedProjects = [...projects].sort(
+    (a, b) => (a.order ?? Infinity) - (b.order ?? Infinity),
+  )
   return (
     <AnimatePresence mode="wait">
       <motion.div 
@@ -19,7 +22,7 @@ export function ProjectsMasonry({ projects, identifier = 'projects' }: ProjectsM
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {projects.map((project, index) => (
+        {sortedProjects.map((project, index) => (
           <motion.div
             key={project.title}
             className="w-full h-full flex"

@@ -4,7 +4,6 @@ import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import eoscrImg from 'public/images/work/eoscostarica.png'
 import winkImg from 'public/images/work/wink.png'
 import ztxImg from 'public/images/work/ztx.png'
 import { ContactInfo } from '../../components/shared/contact-info'
@@ -36,13 +35,13 @@ export default function StartupsExperiencePage() {
         outset.
       </p>
 
-      <div className="gap-4 my-8 grid grid-cols-1 md:grid-cols-3 print:hidden">
+      <div className="gap-4 my-8 grid grid-cols-1 md:grid-cols-2 print:hidden">
         <div className="relative mb-4 h-[300px]">
           <Image
             alt="Wink - Costa Rica's First Digital Bank"
             src={winkImg}
             fill
-            sizes="(max-width: 768px) 500px, 33vw"
+            sizes="(max-width: 768px) 500px, 50vw"
             priority
             className="object-cover rounded-lg"
           />
@@ -52,19 +51,11 @@ export default function StartupsExperiencePage() {
             alt="ZTX - Web3 Metaverse Platform"
             src={ztxImg}
             fill
-            sizes="(max-width: 768px) 500px, 33vw"
+            sizes="(max-width: 768px) 500px, 50vw"
             className="object-cover rounded-lg"
           />
         </div>
-        <div className="relative mb-4 h-[300px]">
-          <Image
-            alt="EOS Costa Rica - Blockchain Development"
-            src={eoscrImg}
-            fill
-            sizes="(max-width: 768px) 500px, 33vw"
-            className="object-cover rounded-lg"
-          />
-        </div>
+
       </div>
 
       <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
@@ -156,7 +147,7 @@ export default function StartupsExperiencePage() {
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
         We created flagship projects like{' '}
-        <Link href="/project/eosrate" className="prose-link">
+        <Link href="/project/eos-rate" className="prose-link">
           EOSRate
         </Link>
         , a community-driven rating platform for block producers, and developed
@@ -182,7 +173,7 @@ export default function StartupsExperiencePage() {
       <p className="prose prose-neutral dark:prose-invert">
         At{' '}
         <Link href="/project/bitcashbank" className="prose-link">
-          BitCash
+          BitcashBank
         </Link>{' '}
         (2020), I applied my experience with traditional fintech to the emerging
         world of cryptocurrency, developing a banking platform serving over
@@ -210,8 +201,7 @@ export default function StartupsExperiencePage() {
         capabilities with familiar e-commerce experiences, creating a platform
         that didn't feel intimidating to users new to digital collectibles. The
         technical execution included building a specialized EVM NFT data indexer
-        using Moralis streams and refactoring the marketplace with Remix for
-        server-side rendering—significantly improving performance for NFT
+        using Moralis streams and refactoring the marketplace with Next.js SSR—significantly improving performance for NFT
         browsing and trading.
       </p>
 
@@ -241,14 +231,9 @@ export default function StartupsExperiencePage() {
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
-        What distinguished this project was the integration of AI not just into
-        the product, but into our development processes. I established an
-        AI-driven development workflow using tools like Claude Sonnet, v0.dev,
-        and Cursor IDE, significantly enhancing team velocity while maintaining
-        code quality. This approach allowed our small team to accomplish
-        technical objectives that would typically require significantly more
-        resources, demonstrating how AI can transform startup engineering
-        practices.
+        I established AI-assisted development workflows for the team using tools
+        including Claude for automation scripts and Cursor IDE, which improved
+        velocity on tasks like internationalization and documentation.
       </p>
 
       <h3 className="mt-6 mb-3 text-lg font-medium tracking-tight">
@@ -282,11 +267,8 @@ export default function StartupsExperiencePage() {
       <div className="print:hidden">
         <Projects
           heading="Startup Projects"
-          projects={projects.filter(
-            (project) =>
-              project.type.includes('featured') &&
-              (project.type.includes('full-time') ||
-                project.type.includes('contract')),
+          projects={projects.filter((project) =>
+            project.type.includes('startup'),
           )}
         />
 

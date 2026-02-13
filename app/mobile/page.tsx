@@ -122,7 +122,7 @@ export default function MobileExperiencePage() {
         Augmented Reality & Retail Applications
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        In 2021, while consulting for{' '}
+        In 2020, while consulting for{' '}
         <Link href="/project/tractor-supply" className="prose-link">
           Tractor Supply
         </Link>

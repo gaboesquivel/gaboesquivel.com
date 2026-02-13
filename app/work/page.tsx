@@ -5,9 +5,9 @@ import type { Metadata } from 'next'
 
 export default function WorkPage() {
   const type = 'featured'
-  const filteredProjects = projects
-    .filter((project) => project.type.includes(type))
-    .sort((a, b) => a.order - b.order)
+  const filteredProjects = projects.filter((project) =>
+    project.type.includes(type),
+  )
   return (
     <>
       <Projects projects={filteredProjects} type={type} />

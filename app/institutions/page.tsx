@@ -203,7 +203,7 @@ export default function InstitutionsExperiencePage() {
         Tractor Supply: Retail Technology Innovation
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
-        In 2021, I consulted with{' '}
+        In 2020, I consulted with{' '}
         <Link href="/project/tractor-supply" className="prose-link">
           Tractor Supply Company
         </Link>
@@ -237,12 +237,8 @@ export default function InstitutionsExperiencePage() {
       <div className="print:hidden">
         <Projects
           heading="Institutional Projects"
-          projects={projects.filter(
-            (project) =>
-              (project.type.includes('featured') ||
-                project.title === 'Tractor Supply' ||
-                project.title === 'American Express') &&
-              !project.type.includes('web3'),
+          projects={projects.filter((project) =>
+            project.type.includes('institution'),
           )}
         />
 

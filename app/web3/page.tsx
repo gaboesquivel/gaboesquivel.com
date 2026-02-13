@@ -126,11 +126,8 @@ export default function Web3ExperiencePage() {
       <p className="prose prose-neutral dark:prose-invert mt-4">
         One key project was a private blockchain for Grant Thornton Labs,
         designed to streamline intercompany transactions and automate tax logic
-        using a USD-pegged stablecoin. The implementation used{' '}
-        <Link href="/tech/azure" className="prose-link">
-          Azure
-        </Link>
-        cloud infrastructure with{' '}
+        using a USD-pegged stablecoin. The implementation used Azure cloud
+        infrastructure with{' '}
         <Link href="/tech/reactjs" className="prose-link">
           React
         </Link>{' '}
@@ -138,11 +135,7 @@ export default function Web3ExperiencePage() {
         <Link href="/tech/nodejs" className="prose-link">
           Node.js
         </Link>{' '}
-        services. The system featured immutable audit trails via{' '}
-        <Link href="/tech/ipfs" className="prose-link">
-          IPFS
-        </Link>
-        and public proof publication—an early example of{' '}
+        services.         The system featured immutable audit trails and public proof publication—an early example of{' '}
         <Link href="/institutions" className="prose-link">
           enterprise-grade
         </Link>{' '}
@@ -208,19 +201,12 @@ export default function Web3ExperiencePage() {
           RareMint
         </Link>
         , I helped build a platform for minting NFTs backed by physical
-        collectibles. I led smart contract integration using{' '}
-        <Link href="/tech/ethers" className="prose-link">
+        collectibles.         I led smart contract integration using{' '}
+        <Link href="/tech/ethersjs" className="prose-link">
           Ethers.js
         </Link>
-        , metadata pipelines, and the{' '}
-        <Link href="/tech/remixrun" className="prose-link">
-          Remix
-        </Link>{' '}
-        SSR marketplace UI, supporting the initial auctions on{' '}
-        <Link href="/tech/polygon" className="prose-link">
-          Polygon
-        </Link>
-        .
+        , metadata pipelines, and Next.js SSR for the marketplace UI, supporting
+        the initial auctions on Polygon.
       </p>
 
       <p className="prose prose-neutral dark:prose-invert mt-4">

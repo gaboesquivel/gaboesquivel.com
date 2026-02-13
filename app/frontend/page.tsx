@@ -360,8 +360,8 @@ export default function FrontendExperiencePage() {
           BitLauncher
         </Link>{' '}
         (2023-2024), where I integrated an AI assistant that could retrieve and
-        explain complex investment documentation. Working with the experimental
-        RSC AI SDK taught me about the unique challenges of building interfaces
+        explain complex investment documentation. Working with the Vercel AI SDK
+        taught me about the unique challenges of building interfaces
         that adapt to different conversation contexts and how to visually
         represent when an AI is accessing different information sources. Most
         recently, my work at{' '}

@@ -68,7 +68,7 @@ export default function FullstackExperiencePage() {
 
       <p className="prose prose-neutral dark:prose-invert mt-4">
         At{' '}
-        <Link href="/project/amc-networks" className="prose-link">
+        <Link href="/project/amc-yeah-tv-facebook-app" className="prose-link">
           AMC Networks
         </Link>{' '}
         (2012-2014), I built an interactive streaming service that combined
@@ -171,7 +171,7 @@ export default function FullstackExperiencePage() {
         <Link href="/project/eat-arcade" className="prose-link">
           Eat Arcade
         </Link>{' '}
-        (2016-2017), creating a recommendation service for New York restaurants.
+        (2013), creating a recommendation service for New York restaurants.
         This project allowed me to experiment with integrating various services
         into a cohesive whole—connecting Twilio for SMS, Stripe for payments,
         and Google Maps for location. The matching algorithm I developed to pair
