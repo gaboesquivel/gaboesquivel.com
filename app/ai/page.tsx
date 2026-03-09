@@ -9,10 +9,10 @@ import { ContactInfo } from '../../components/shared/contact-info'
 
 export default function AIExperiencePage() {
   return (
-    <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
+    <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none print-no-links">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">
         <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
-        AI Engineer
+        AI Experience
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert print:block hidden">
@@ -167,7 +167,7 @@ export default function AIExperiencePage() {
         my belief that AI should democratize knowledge rather than gatekeep it.
       </p>
 
-      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight ">
         Bitlauncher: AI Crypto Launchpad
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
@@ -274,7 +274,9 @@ export default function AIExperiencePage() {
           title="Latest Artificial Intelligence Articles"
         />
       </div>
-      <ContactInfo />
+
+        <ContactInfo />
+      
     </section>
   )
 }

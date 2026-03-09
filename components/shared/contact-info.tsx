@@ -4,21 +4,21 @@ import Link from 'next/link'
 export function ContactInfo({ hidden = true }) {
   return (
     <>
-      <div className={`${hidden ? 'hidden' : ''} print:block mb-8 pt-6 `}>
+      <div className={`${hidden ? 'hidden' : ''} print:block mb-8 pt-14 print-keep-links`}>
         <h2 className="text-xl font-semibold  mb-4">Let's Work Together</h2>
 
         <p className="prose prose-neutral dark:prose-invert">
           I typically work through{' '}
           <Link
             href="/blog/2025-11-1099-contracting"
-            className="prose-link"
+            className="prose-link no-underline"
           >
             remote 1099 contracts
           </Link>{' '}
           via my US-based company,{' '}
           <Link
             href="/blog/2025-11-1099-contracting"
-            className="prose-link"
+            className="prose-link no-underline"
           >
             Blockmatic Labs LLC
           </Link>
@@ -90,7 +90,7 @@ export function ContactInfo({ hidden = true }) {
           </Link>
         </div>
       </div>
-      <div className="hidden print:block  prose prose-neutral dark:prose-invert ">
+      <div className="hidden print:block prose prose-neutral dark:prose-invert print-keep-links">
         More details on my work can be found on my website{' '}
         <Link href="/work/ai" className="text-green-700 pointer no-underline">
           gaboesquivel.com

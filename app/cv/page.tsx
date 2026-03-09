@@ -68,9 +68,25 @@ export default function CVPage() {
           </div>
         ))}
       </div>
-      <div className="page-break-before">
-        <ContactInfo />
+      <div className="hidden print:block mt-12">
+        <h2 className="text-xl font-semibold mb-4 print:text-black">
+          Education
+        </h2>
+        <div>
+          <h3 className="text-lg font-medium mb-1 print:text-black">
+            Universidad Cenfotec
+          </h3>
+          <p className="text-sm exp-duration dark:text-gray-400 mb-1 print:text-xs">
+            Bachelor of Science (BS), Software Engineering
+          </p>
+          <p className="text-sm exp-duration dark:text-gray-400 print:text-xs">
+            2006 - 2009
+          </p>
+        </div>
       </div>
+     
+        <ContactInfo />
+  
       <LatestPosts />
     </section>
   )

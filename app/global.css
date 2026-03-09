@@ -243,6 +243,21 @@ a {
     display: none !important;
   }
 
+  /* Disable links in print for web3, ai, bio - only ContactInfo links remain */
+  .print-no-links a {
+    pointer-events: none !important;
+    cursor: default !important;
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+
+  .print-no-links .print-keep-links a {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+
   /* Page break utilities - modern with legacy fallbacks */
   .page-break-before {
     break-before: page;

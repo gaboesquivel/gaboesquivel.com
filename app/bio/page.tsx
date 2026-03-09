@@ -9,7 +9,7 @@ import { LetsConnect } from '../../components/shared/lets-connect'
 
 export default function BioPage() {
   return (
-    <section>
+    <section className="print-no-links">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">
         <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
         Professional Journey
@@ -132,7 +132,7 @@ export default function BioPage() {
         planning, recruiting and training developers, and API integration with
         partner bank and vendors.
       </p>
-      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight page-break-before">
         Entering Web3
       </h2>
 
@@ -230,7 +230,7 @@ export default function BioPage() {
         connectivity for its blockchain-enabled virtual world.
       </p>
 
-      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight page-break-before">
         AI & Web3 Convergence
       </h2>
 
@@ -295,7 +295,9 @@ export default function BioPage() {
         enhances human capabilities and improves everyday life.
       </p>
 
-      <ContactInfo />
+      <div className="page-break-before">
+        <ContactInfo />
+      </div>
 
       {/* <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight hidden print:block">
         Tech Stack

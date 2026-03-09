@@ -10,7 +10,7 @@ import web3Img from 'public/images/work/ticoblockchain.jpg'
 export default function Web3ExperiencePage() {
   const type = 'web3'
   return (
-    <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
+    <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none print-no-links">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter">
         <span className="hidden print:inline text-black">Gabo Esquivel -</span>{' '}
         Web3 Experience
@@ -158,7 +158,7 @@ export default function Web3ExperiencePage() {
         integrated wallet and token incentives for community engagement.
       </p>
 
-      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight page-break-before">
         DeFi: Bitcash Bank & ChainGraph
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
@@ -236,7 +236,7 @@ export default function Web3ExperiencePage() {
         economics.
       </p>
 
-      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight">
+      <h2 className="mt-8 mb-4 text-xl font-semibold tracking-tight page-break-before">
         Bitlauncher: Onchain AI Capital
       </h2>
       <p className="prose prose-neutral dark:prose-invert">
@@ -285,7 +285,9 @@ export default function Web3ExperiencePage() {
         />
       </div>
 
-      <ContactInfo />
+      <div className="page-break-before">
+        <ContactInfo />
+      </div>
 
       <LatestPosts category="Web3" title="Latest Web3 Articles" />
     </section>

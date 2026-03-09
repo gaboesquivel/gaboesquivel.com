@@ -32,6 +32,32 @@ export const experience = [
     ],
   },
   {
+    company: 'LegalAgent',
+    location: 'Remote - Contract',
+    duration: '2025 · Contract',
+    description:
+      "LegalAgent is an AI-powered legal platform. I integrated an AI assistant with voice and chat capabilities into their React Native (Expo) mobile app, empowering lawyers to swiftly access case information with contextual legal support, document summaries, and procedural guidance.",
+    achievements: [
+      'Developed a multimodal AI assistant with voice and chat interfaces for a React Native app',
+      'Implemented RAG architecture for contextual legal support and document summarization',
+      'Created an admin dashboard with Microsoft SSO and document management features',
+      'Established a bilingual support system with real-time voice transcription and synthesis',
+    ],
+    techStack: [
+      'TypeScript',
+      'React Native',
+      'Expo',
+      'OpenAI',
+      'AI SDK',
+      'TanStack Query',
+      'TanStack Form',
+      'TanStack Start',
+      'Tailwind',
+      'Redis',
+      'PostgreSQL',
+    ],
+  },
+  {
     company: 'Opyn',
     location: 'Remote - Contract',
     duration: 'Oct 2024 - Feb 2025 · 6 mos',
@@ -62,6 +88,7 @@ export const experience = [
       'EVM',
       'Ethereum',
     ],
+    pageBreak: true,
   },
   {
     company: 'ZTX',
@@ -83,7 +110,6 @@ export const experience = [
       'Ethers',
       'Analytics',
     ],
-    pageBreak: true,
   },
   {
     company: 'RareMint',
@@ -136,6 +162,7 @@ export const experience = [
       'Supabase',
       'TypeScript',
     ],
+    pageBreak: true,
   },
   // {
   //   "company": "Tractor Supply",
@@ -160,7 +187,6 @@ export const experience = [
       'Integration with the EOS blockchain and AWS backend services',
     ],
     techStack: ['EOS', 'AWS', 'React', 'Styled Components'],
-    pageBreak: true,
   },
   {
     company: 'EOS Costa Rica',
@@ -188,6 +214,7 @@ export const experience = [
       'Maintained mobile trivia game enabling users to earn tokens by answering questions',
     ],
     techStack: ['Ethereum', 'Truffle', 'React', 'Web3.js'],
+    pageBreak: true,
   },
   {
     company: 'Wink',
@@ -202,7 +229,6 @@ export const experience = [
       'Integrated partner bank APIs',
     ],
     techStack: ['React Native', 'React', 'Node.js', 'AWS'],
-    pageBreak: true,
   },
   {
     company: 'AMC Networks',
@@ -236,6 +262,7 @@ export const experience = [
       'A/B testing tools',
       'Analytics platforms',
     ],
+    pageBreak: true,
   },
   // {
   //   company: 'InterGraphicDESIGNS',
