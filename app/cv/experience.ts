@@ -1,17 +1,29 @@
-export const experience = [
+export type CvExperience = {
+  company: string
+  title?: string
+  location: string
+  duration: string
+  description: string
+  achievements: string[]
+  techStack: string[]
+  pageBreak?: boolean
+}
+
+export const experience: CvExperience[] = [
   {
     company: 'Bitlauncher',
+    title: 'Software Engineer',
     location: 'Remote',
-    duration: 'Nov 2023 - Nov 2025 · 2 yrs',
+    duration: 'Nov 2023 – Nov 2025',
     description:
-      'Bitlauncher is an AI and crypto launchpad platform that provides early access to promising AI unicorn startups through token sales and auctions.',
+      'AI and crypto launchpad: early access to AI startups via token sales and auctions.',
     achievements: [
-      'Designed full-stack architecture with Viem, Wagmi, Supabase, Next.js 14',
-      'Built a token bridge for swapping USDT, USDC, and BITUSD to USDCred tokens',
-      'Integrated Gnosis auction contracts and wallet interface with realtime balances',
-      'Developed a custom EVM indexer via WebSocket event subscriptions',
-      'AI SDK integration and prompting mechanism for masterbots.ai',
-      'Established AI-driven development workflow using Claude, v0.dev, Cursor and SourceryAI',
+      'Architected full-stack platform on Next.js 14, Supabase, viem, and wagmi.',
+      'Built token bridge flows for USDT, USDC, and BITUSD into protocol tokens.',
+      'Integrated Gnosis auction contracts with wallet UX and realtime balance updates.',
+      'Developed custom EVM indexer using WebSocket event subscriptions.',
+      'Integrated AI SDKs and prompting for masterbots.ai.',
+      'Established AI-assisted engineering workflow with Claude, v0.dev, Cursor, and SourceryAI.',
     ],
     techStack: [
       'Viem',
@@ -36,12 +48,12 @@ export const experience = [
     location: 'Remote - Contract',
     duration: '2025 · Contract',
     description:
-      "LegalAgent is an AI-powered legal platform. I integrated an AI assistant with voice and chat capabilities into their React Native (Expo) mobile app, empowering lawyers to swiftly access case information with contextual legal support, document summaries, and procedural guidance.",
+      'AI legal platform: assistant with voice and chat for case context, documents, and procedures.',
     achievements: [
-      'Developed a multimodal AI assistant with voice and chat interfaces for a React Native app',
-      'Implemented RAG architecture for contextual legal support and document summarization',
-      'Created an admin dashboard with Microsoft SSO and document management features',
-      'Established a bilingual support system with real-time voice transcription and synthesis',
+      'Delivered multimodal AI assistant (voice and chat) in React Native (Expo).',
+      'Implemented RAG architecture for contextual legal support and document summarization.',
+      'Built admin dashboard with Microsoft SSO and document management.',
+      'Shipped bilingual voice support with realtime transcription and speech synthesis.',
     ],
     techStack: [
       'TypeScript',
@@ -60,15 +72,14 @@ export const experience = [
   {
     company: 'Opyn',
     location: 'Remote - Contract',
-    duration: 'Oct 2024 - Feb 2025 · 6 mos',
-    description:
-      'Opyn is a decentralized perpetual options protocol on Arbitrum. ',
+    duration: 'Oct 2024 – Feb 2025',
+    description: 'Decentralized perpetual options protocol on Arbitrum.',
     achievements: [
-      'Architected the Next.js app and data fetching mechanism',
-      'Built trading interface and custom UI/UX for options trading',
-      'Integrated Opyn protocol and Arbitrum Testnet using viem/wagmi',
-      'Set up onchain data indexing with Ponder and PostgreSQL (Supabase)',
-      'Prototyped AI assistant for user onboarding and support',
+      'Architected Next.js application structure and data-fetching approach.',
+      'Built trading interface and custom UI for options trading.',
+      'Integrated protocol and Arbitrum testnet with viem and wagmi.',
+      'Indexed onchain data with Ponder, PostgreSQL, and Supabase.',
+      'Prototyped LLM-based assistant for onboarding and support.',
     ],
     techStack: [
       'TypeScript',
@@ -93,13 +104,13 @@ export const experience = [
   {
     company: 'ZTX',
     location: 'Remote',
-    duration: 'Aug 2022 - Aug 2023 · 1 yr 1 mo',
+    duration: 'Aug 2022 – Aug 2023',
     description:
-      'ZTX is a virtual world platform that integrates cryptocurrency for digital asset ownership. Users can mint, trade, and use items in-game.',
+      'Virtual world with cryptocurrency-backed digital asset ownership.',
     achievements: [
-      'Built a WebGL EVM wallet connector using Ethers and a custom JavaScript event system',
-      'Set up advanced analytics and reporting using Google Analytics Tag Manager',
-      'React architecture using Next.js, TailwindCSS and Framer Motion',
+      'Implemented WebGL EVM wallet connector with Ethers.js and a custom JavaScript event system.',
+      'Configured analytics and reporting with Google Tag Manager.',
+      'Owned React architecture on Next.js with Tailwind CSS and Framer Motion.',
     ],
     techStack: [
       'React',
@@ -114,14 +125,14 @@ export const experience = [
   {
     company: 'RareMint',
     location: 'Remote',
-    duration: 'Jul 2021 - Dec 2022 · 1 yr 6 mos',
+    duration: 'Jul 2021 – Dec 2022',
     description:
-      'RareMint is a platform for rare and unique digital assets. It allows users to mint, trade, and collect unique digital assets.',
+      'NFT platform for minting, trading, and collecting digital assets.',
     achievements: [
-      'Built NFT indexer using Moralis streams, Node.js and PostgreSQL',
-      'Enhanced NFT marketplace responsiveness using Remix, TailwindCSS and GraphQL queries',
-      'Integrated Wallet Connect for secure wallet connections and transactions',
-      'Assisted the launch of the first auctions Pokemon cards on Polygon',
+      'Built NFT indexer using Moralis streams, Node.js, and PostgreSQL.',
+      'Improved marketplace responsiveness with Remix, Tailwind CSS, and GraphQL.',
+      'Integrated WalletConnect for wallet connections and transactions.',
+      'Supported launch of first Pokémon card auctions on Polygon.',
     ],
     techStack: [
       'Moralis',
@@ -140,15 +151,14 @@ export const experience = [
   {
     company: 'Bitcash',
     location: 'Remote - Part-time',
-    duration: 'Jan 2020 - Jul 2021 · 1 yr 7 mos',
-    description:
-      'Bitcash app allows you to exchange your money for local currency stablecoins or bitUSD, which you can then use to buy cryptocurrencies.',
+    duration: 'Jan 2020 – Jul 2021',
+    description: 'Fiat-to-stablecoin and crypto exchange application.',
     achievements: [
-      'Architected and implemented a full-stack platform using React, Vite, Node.js, PostgreSQL, Hasura GraphQL, and Google Cloud',
-      'Developed a peer-to-peer exchange, integrated real-time chat, and built a backend matching engine',
-      'Built a real-time EOS indexer that deserializes EOS binary data with Node.js worker threads and persists it in PostgreSQL on Google Cloud',
-      'Implemented WebAuthn-based key management for direct in-browser transaction signing, eliminating the need for external wallet apps and bypassing app store restrictions',
-      'Enabled secure QR-based signature requests for seamless login and transaction signing in external apps like Bitlauncher.ai, using Supabase subscriptions and webhooks',
+      'Architected full-stack platform: React, Vite, Node.js, PostgreSQL, Hasura GraphQL, Google Cloud.',
+      'Built peer-to-peer exchange, realtime chat, and backend matching engine.',
+      'Developed realtime EOS indexer: Node.js worker threads, binary deserialization, PostgreSQL on Google Cloud.',
+      'Implemented WebAuthn-based key management for in-browser transaction signing without external wallet apps.',
+      'Delivered QR-based signature requests for partner applications using Supabase subscriptions and webhooks.',
     ],
     techStack: [
       'React',
@@ -178,40 +188,38 @@ export const experience = [
   {
     company: 'Emanate',
     location: 'Remote - Contract',
-    duration: 'Dec 2019 - Jul 2020 · 8 mos',
-    description:
-      'Emanate is a social media platform for artists to share their work and connect with other artists.',
+    duration: 'Dec 2019 – Jul 2020',
+    description: 'Social platform for artists.',
     achievements: [
-      'Maintained and improved the streaming web app',
-      "Developed a back office for artists' token payments",
-      'Integration with the EOS blockchain and AWS backend services',
+      'Maintained and improved streaming web application.',
+      'Built back office for artist token payments.',
+      'Integrated EOS blockchain with AWS backend services.',
     ],
     techStack: ['EOS', 'AWS', 'React', 'Styled Components'],
   },
   {
     company: 'EOS Costa Rica',
     location: 'Hybrid',
-    duration: 'Mar 2018 - Jan 2020 · 1 yr 11 mos',
+    duration: 'Mar 2018 – Jan 2020',
     description:
-      'Block producer offering infrastructure and blockchain development services.',
+      'Block producer: infrastructure and blockchain development services.',
     achievements: [
-      'Participated in the EOS Mainnet launch and managed other EOSIO-based blockchain validators',
-      'Configured a private EOSIO blockchain for Grant Thornton Labs and developed an application MVP enabling efficient intercompany transactions and tax management using a stablecoin, with an immutable records trail via hashing and IPFS',
-      'Developed the EOS Rate frontend using React and Styled Components',
-      'Assisted with recruiting, onboarding, public speaking, workshops, training, and community engagement (e.g., TicoBlockchain.cr and CryptoCantina Meetups)',
+      'Participated in EOS mainnet launch and operated EOSIO-based validators.',
+      'Configured private EOSIO chain for Grant Thornton Labs; shipped MVP for intercompany transactions and tax workflows using a stablecoin, hashing, and IPFS for immutable records.',
+      'Developed EOS Rate frontend with React and Styled Components.',
+      'Led recruiting, onboarding, workshops, and community engagement (e.g., TicoBlockchain.cr, CryptoCantina).',
     ],
     techStack: ['EOSIO', 'React', 'Styled Components', 'IPFS'],
   },
   {
-    company: 'Knowledge',
+    company: 'Knowledge.io',
     location: 'Remote',
-    duration: 'Sep 2017 - May 2018 · 9 mos',
-    description:
-      'Knowledge.io was a 2017 blockchain platform that enabled users to earn tokens by sharing expertise, creating a decentralized ecosystem for valuing and monetizing knowledge.',
+    duration: 'Sep 2017 – May 2018',
+    description: 'Tokenized knowledge and expertise platform.',
     achievements: [
-      'Deployed ERC20 token for ICO on Ethereum mainnet with Truffle',
-      'Built marketplace and wallet dashboard using React and Web3.js',
-      'Maintained mobile trivia game enabling users to earn tokens by answering questions',
+      'Deployed ERC-20 token for ICO on Ethereum mainnet using Truffle.',
+      'Built marketplace and wallet dashboard with React and Web3.js.',
+      'Maintained mobile trivia game for token rewards.',
     ],
     techStack: ['Ethereum', 'Truffle', 'React', 'Web3.js'],
     pageBreak: true,
@@ -219,42 +227,41 @@ export const experience = [
   {
     company: 'Wink',
     location: 'On-site',
-    duration: 'Apr 2015 - Mar 2018 · 3 yrs',
+    duration: 'Apr 2015 – Mar 2018',
     description:
-      "Wink (holawink.com) was Costa Rica's first mobile neobank, providing digital banking and financial services focused on user experience and ease of use.",
+      'Mobile neobank: digital banking and financial services (holawink.com).',
     achievements: [
-      'Led backend architecture, integrations, and security',
-      'Recruited and coordinated with partner banks and vendors',
-      'Built biometric KYC with React Native bridge',
-      'Integrated partner bank APIs',
+      'Led backend architecture, integrations, and security.',
+      'Coordinated partner banks and vendors.',
+      'Built biometric KYC with React Native native bridge.',
+      'Integrated partner bank APIs.',
     ],
     techStack: ['React Native', 'React', 'Node.js', 'AWS'],
   },
   {
     company: 'AMC Networks',
     location: 'Hybrid',
-    duration: 'Nov 2012 - Apr 2014 · 1 yr 6 mos',
+    duration: 'Nov 2012 – Apr 2014',
     description:
-      'YEAH! was a streaming movie service by AMC Networks, launched at SXSW 2013. It curated classic genre films—horror, sci-fi, action-adventure—and enhanced them with interactive bonus content for a unique viewing experience.',
+      'Interactive streaming movie service YEAH! (SXSW 2013 launch): classic genre films with interactive bonus content.',
     achievements: [
-      'Led frontend team, collaborating with creative and backend teams',
-      'Built interactive video streaming frontend for Facebook app',
-      'Implemented back-office with Brightcove integration',
-      'Added interactive trivia, interviews, and quizzes to video player',
-      'Optimized platform for curated films with 400+ interactive elements each',
+      'Led frontend team with creative and backend partners.',
+      'Built interactive video streaming frontend for Facebook application.',
+      'Implemented back-office with Brightcove integration.',
+      'Shipped interactive trivia, interviews, and quizzes in the video player.',
+      'Optimized experiences for curated films with 400+ interactive elements each.',
     ],
     techStack: ['JavaScript', 'Brightcove', 'Facebook API'],
   },
   {
-    company: 'American Express (AMEX)',
+    company: 'American Express',
     location: 'On-site',
-    duration: 'Apr 2010 - Nov 2012 · 2 yrs 8 mos',
-    description:
-      'AMEX is a global financial services leader, best known for its credit and charge cards.',
+    duration: 'Apr 2010 – Nov 2012',
+    description: 'Global financial services and card products.',
     achievements: [
-      'Contributed to the migration from Dojo to jQuery',
-      'Implemented responsive layouts, A/B testing, and analytics',
-      'Developed credit card marketing components for comparison sliders and dedicated landing pages',
+      'Contributed to migration from Dojo to jQuery.',
+      'Implemented responsive layouts, A/B testing, and analytics.',
+      'Developed credit card marketing components: comparison sliders and landing pages.',
     ],
     techStack: [
       'JavaScript',
