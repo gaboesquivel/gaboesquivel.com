@@ -12,7 +12,7 @@ export default function CVPage() {
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
         <span className="hidden print:inline text-black">
-          Senior Full Stack Engineer (Web3 + AI)
+          Senior Full Stack Engineer
         </span>
         <span className="print:hidden">Curriculum Vitae</span>
         <PrintButton />
@@ -66,7 +66,7 @@ export default function CVPage() {
         ))}
       </div>
 
-      <div className="mt-12">
+      <div className="mt-12 hidden print:block">
         <h2 className="text-xl font-semibold mb-4 print:text-black">
           Education
         </h2>
@@ -83,8 +83,10 @@ export default function CVPage() {
         </div>
       </div>
 
-      <h2 className="text-xl font-semibold mb-3 mt-12 print:text-black">Skills</h2>
-      <div className="space-y-2 mb-10 prose prose-neutral dark:prose-invert text-sm">
+      <h2 className="text-xl font-semibold mb-3 mt-12 print:text-black hidden print:block">
+        Skills
+      </h2>
+      <div className="space-y-2 mb-10 prose prose-neutral dark:prose-invert text-sm hidden print:block">
         {skillGroups.map(({ label, keywords }) => (
           <p key={label} className="!my-1">
             <strong>{label}:</strong> {keywords}
@@ -92,7 +94,7 @@ export default function CVPage() {
         ))}
       </div>
 
-      <div className="mt-10 prose prose-neutral dark:prose-invert">
+      <div className="mt-10 prose prose-neutral dark:prose-invert hidden print:block">
         <h2 className="text-xl font-semibold mb-3 print:text-black not-prose">
           Additional Information
         </h2>
