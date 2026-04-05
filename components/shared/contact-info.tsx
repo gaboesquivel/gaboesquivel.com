@@ -24,8 +24,7 @@ export function ContactInfo({ hidden = true }) {
           </Link>
           . This setup gives clients straightforward
           contracts, built-in compliance, and IP protection. Based in Costa
-          Rica, I operate on US Mountain Time and am just a short flight from
-          major US cities.
+            Rica, I operate on US Mountain Time and am available for travel when needed.
         </p>
         <p className="prose prose-neutral dark:prose-invert">
           If you’re exploring something ambitious—a decentralized system, an

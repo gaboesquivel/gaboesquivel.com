@@ -25,8 +25,7 @@ export function LetsConnect() {
         >
           Costa Rica
         </Link>
-        , aligned with US Mountain Time, and conveniently close for quick trips
-        to major US cities.
+        , aligned with US Mountain Time, and available for travel when needed.
       </p>
       <p>
         If you're building innovative solutions in{' '}

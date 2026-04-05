@@ -12,15 +12,14 @@ export default function CVPage() {
     <section className="p-0 m-0 cv-content print:block print:w-full print:max-w-none">
       <h1 className="mb-8 text-2xl font-bold tracking-tighter print:text-3xl flex justify-between">
         <span className="hidden print:inline text-black">
-          Senior Full Stack Engineer
+          Gabo Esquivel - Senior Engineer
         </span>
         <span className="print:hidden">Curriculum Vitae</span>
         <PrintButton />
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert mb-8">
-        Gabo Esquivel  is a Senior Full Stack Engineer with 15+ years shipping production applications. Owns architecture and delivery across the TypeScript/React/Next.js/Node.js stack, PostgreSQL and cloud data stores, EVM integrations (viem, wagmi), and AI products (LLMs, RAG, AI SDKs). Builds APIs, onchain indexers, and high-traffic frontends for fintech, Web3, and AI. Fluent in English, Spanish, Portuguese, and Italian.
-      </p>
+      Full-Stack Engineer focused on building AI-powered products and crypto-native applications. I design and ship production systems end-to-end, combining modern stacks with LLMs, APIs, and onchain integrations. My work spans product architecture, backend systems, and user-facing applications, with a strong focus on delivering real-world impact. </p>
 
 
       <div className="space-y-8">
@@ -66,7 +65,7 @@ export default function CVPage() {
         ))}
       </div>
 
-      <div className="mt-12 hidden print:block">
+      {/* <div className="mt-12 hidden print:block">
         <h2 className="text-xl font-semibold mb-4 print:text-black">
           Education
         </h2>
@@ -81,9 +80,9 @@ export default function CVPage() {
             2006 – 2009
           </p>
         </div>
-      </div>
+      </div> */}
 
-      <h2 className="text-xl font-semibold mb-3 mt-12 print:text-black hidden print:block">
+      {/* <h2 className="text-xl font-semibold mb-3 mt-12 print:text-black hidden print:block">
         Skills
       </h2>
       <div className="space-y-2 mb-10 prose prose-neutral dark:prose-invert text-sm hidden print:block">
@@ -117,7 +116,7 @@ export default function CVPage() {
             </Link>
           </li>
         </ul>
-      </div>
+      </div> */}
 
       <ContactInfo />
 

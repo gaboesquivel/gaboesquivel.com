@@ -11,6 +11,32 @@ export type CvExperience = {
 
 export const experience: CvExperience[] = [
   {
+    company: 'LegalAgent',
+    location: 'Remote - Contract',
+    duration: '2025',
+    description:
+      'AI legal platform: assistant with voice and chat for case context, documents, and procedures.',
+    achievements: [
+      'Delivered multimodal AI assistant (voice and chat) in React Native (Expo).',
+      'Implemented RAG architecture for contextual legal support and document summarization.',
+      'Built admin dashboard with Microsoft SSO and document management.',
+      'Shipped bilingual voice support with realtime transcription and speech synthesis.',
+    ],
+    techStack: [
+      'TypeScript',
+      'React Native',
+      'Expo',
+      'OpenAI',
+      'AI SDK',
+      'TanStack Query',
+      'TanStack Form',
+      'TanStack Start',
+      'Tailwind',
+      'Redis',
+      'PostgreSQL',
+    ],
+  },
+  {
     company: 'Bitlauncher',
     title: 'Software Engineer',
     location: 'Remote',
@@ -41,32 +67,6 @@ export const experience: CvExperience[] = [
       'Cursor',
       'SourceryAI',
       'OpenAI',
-    ],
-  },
-  {
-    company: 'LegalAgent',
-    location: 'Remote - Contract',
-    duration: '2025 · Contract',
-    description:
-      'AI legal platform: assistant with voice and chat for case context, documents, and procedures.',
-    achievements: [
-      'Delivered multimodal AI assistant (voice and chat) in React Native (Expo).',
-      'Implemented RAG architecture for contextual legal support and document summarization.',
-      'Built admin dashboard with Microsoft SSO and document management.',
-      'Shipped bilingual voice support with realtime transcription and speech synthesis.',
-    ],
-    techStack: [
-      'TypeScript',
-      'React Native',
-      'Expo',
-      'OpenAI',
-      'AI SDK',
-      'TanStack Query',
-      'TanStack Form',
-      'TanStack Start',
-      'Tailwind',
-      'Redis',
-      'PostgreSQL',
     ],
   },
   {

@@ -12,6 +12,19 @@ export default function HomePage() {
       </h1>
 
       <p className="prose prose-neutral dark:prose-invert">
+
+       I help organizations turn ideas into production-ready software. I work across      <Link href="/ai" className="prose-link">
+          AI
+        </Link>{' '}, <Link href="/web3" className="prose-link">Web3</Link>, and modern      <Link href="/fullstack" className="prose-link">
+          full-stack
+        </Link>{' '} systems, designing and shipping products from concept to launch with a strong focus on real-world impact.
+      
+      </p>
+        
+      <p className="prose prose-neutral dark:prose-invert">
+      I operate across engineering, product, and user experience, helping teams turn concepts into working software that delivers measurable value.
+      </p>
+      {/* <p className="prose prose-neutral dark:prose-invert">
         I help organizations turn ideas into market-ready software products.
         With over 15 years of experience as a{' '}
         <Link href="/fullstack" className="prose-link">
@@ -28,7 +41,7 @@ export default function HomePage() {
         , I bridge technical execution with user experience and business
         strategy, ensuring that every project moves from concept to launch with
         both technical depth and business clarity.
-      </p>
+      </p> */}
 
       <div className="gap-4 my-8 columns-1">
         <div className="relative mb-4 h-60">
@@ -43,7 +56,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <p className="prose prose-neutral dark:prose-invert">
+      {/* <p className="prose prose-neutral dark:prose-invert">
         My focus is on emerging technologies and user-centric innovation. My
         expertise spans{' '}
         <Link href="/web3" className="prose-link">
@@ -74,9 +87,12 @@ export default function HomePage() {
           AI
         </Link>{' '}
         and how it can redefine the way people interact with software.
-      </p>
+      </p> */}
 
       <p className="prose prose-neutral dark:prose-invert">
+        I’ve worked remotely with international teams for over a decade, shipping production systems across time zones and collaborating closely with both startups and established companies.
+        </p>
+      {/* <p className="prose prose-neutral dark:prose-invert">
         My approach is rooted in agile methodologies and guided by my{' '}
         <Link
           href="/blog/2025-02-engineering-principles"
@@ -91,7 +107,7 @@ export default function HomePage() {
           proven experience
         </Link>{' '}
         in delivering results across time zones.
-      </p>
+      </p> */}
 
       <LetsConnect />
 
