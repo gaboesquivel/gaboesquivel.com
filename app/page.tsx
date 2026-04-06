@@ -90,8 +90,8 @@ export default function HomePage() {
       </p> */}
 
       <p className="prose prose-neutral dark:prose-invert">
-        I’ve worked remotely with international teams for over a decade, shipping production systems across time zones and collaborating closely with both startups and established companies.
-        </p>
+      I’ve spent over a decade working remotely with international teams, shipping production systems and bringing products from idea to launch across startups and established companies.
+       </p>
       {/* <p className="prose prose-neutral dark:prose-invert">
         My approach is rooted in agile methodologies and guided by my{' '}
         <Link
