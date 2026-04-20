@@ -1,7 +1,8 @@
 export type CvExperience = {
   company: string
-  title?: string
-  location: string
+  title: string
+  location: 'Remote' | 'Hybrid' | 'On-site'
+  type: 'Full-time' | 'Part-time' | 'Contract' 
   duration: string
   description: string
   achievements: string[]
@@ -12,7 +13,9 @@ export type CvExperience = {
 export const experience: CvExperience[] = [
   {
     company: 'LegalAgent',
-    location: 'Remote - Contract',
+    title: 'Software Engineer',
+    type: 'Contract',
+    location: 'Remote',
     duration: '2025',
     description:
       'AI legal platform: assistant with voice and chat for case context, documents, and procedures.',
@@ -39,6 +42,7 @@ export const experience: CvExperience[] = [
   {
     company: 'Bitlauncher',
     title: 'Software Engineer',
+    type: 'Full-time',
     location: 'Remote',
     duration: 'Nov 2023 – Nov 2025',
     description:
@@ -68,10 +72,13 @@ export const experience: CvExperience[] = [
       'SourceryAI',
       'OpenAI',
     ],
+    pageBreak: true,
   },
   {
     company: 'Opyn',
-    location: 'Remote - Contract',
+    title: 'Software Engineer',
+    location: 'Remote',
+    type: 'Contract',
     duration: 'Oct 2024 – Feb 2025',
     description: 'Decentralized perpetual options protocol on Arbitrum.',
     achievements: [
@@ -99,10 +106,12 @@ export const experience: CvExperience[] = [
       'EVM',
       'Ethereum',
     ],
-    pageBreak: true,
+
   },
   {
     company: 'ZTX',
+    title: 'Software Engineer',
+    type: 'Full-time',
     location: 'Remote',
     duration: 'Aug 2022 – Aug 2023',
     description:
@@ -124,6 +133,8 @@ export const experience: CvExperience[] = [
   },
   {
     company: 'RareMint',
+    title: 'Software Engineer',
+    type: 'Full-time',
     location: 'Remote',
     duration: 'Jul 2021 – Dec 2022',
     description:
@@ -150,7 +161,9 @@ export const experience: CvExperience[] = [
   },
   {
     company: 'Bitcash',
-    location: 'Remote - Part-time',
+    title: 'Lead Engineer',
+    type: 'Part-time',
+    location: 'Remote',
     duration: 'Jan 2020 – Jul 2021',
     description: 'Fiat-to-stablecoin and crypto exchange application.',
     achievements: [
@@ -187,7 +200,9 @@ export const experience: CvExperience[] = [
   // },
   {
     company: 'Emanate',
-    location: 'Remote - Contract',
+    title: 'Software Engineer',
+    location: 'Remote',
+    type: 'Contract',
     duration: 'Dec 2019 – Jul 2020',
     description: 'Social platform for artists.',
     achievements: [
@@ -199,6 +214,8 @@ export const experience: CvExperience[] = [
   },
   {
     company: 'EOS Costa Rica',
+    type: 'Full-time',
+    title: 'Lead Engineer',
     location: 'Hybrid',
     duration: 'Mar 2018 – Jan 2020',
     description:
@@ -212,7 +229,9 @@ export const experience: CvExperience[] = [
     techStack: ['EOSIO', 'React', 'Styled Components', 'IPFS'],
   },
   {
-    company: 'Knowledge.io',
+    company: 'Knowledge',
+    title: 'Software Engineer',
+    type: 'Contract',
     location: 'Remote',
     duration: 'Sep 2017 – May 2018',
     description: 'Tokenized knowledge and expertise platform.',
@@ -222,10 +241,11 @@ export const experience: CvExperience[] = [
       'Maintained mobile trivia game for token rewards.',
     ],
     techStack: ['Ethereum', 'Truffle', 'React', 'Web3.js'],
-    pageBreak: true,
   },
   {
     company: 'Wink',
+    title: 'Lead Engineer',
+    type: 'Full-time',
     location: 'On-site',
     duration: 'Apr 2015 – Mar 2018',
     description:
@@ -237,9 +257,12 @@ export const experience: CvExperience[] = [
       'Integrated partner bank APIs.',
     ],
     techStack: ['React Native', 'React', 'Node.js', 'AWS'],
+
   },
   {
     company: 'AMC Networks',
+    title: 'Lead UI Engineer',
+    type: 'Full-time',
     location: 'Hybrid',
     duration: 'Nov 2012 – Apr 2014',
     description:
@@ -252,9 +275,12 @@ export const experience: CvExperience[] = [
       'Optimized experiences for curated films with 400+ interactive elements each.',
     ],
     techStack: ['JavaScript', 'Brightcove', 'Facebook API'],
+    pageBreak: true,
   },
   {
     company: 'American Express',
+    title: 'UI Engineer',
+    type: 'Full-time',
     location: 'On-site',
     duration: 'Apr 2010 – Nov 2012',
     description: 'Global financial services and card products.',
@@ -269,7 +295,6 @@ export const experience: CvExperience[] = [
       'A/B testing tools',
       'Analytics platforms',
     ],
-    pageBreak: true,
   },
   // {
   //   company: 'InterGraphicDESIGNS',
