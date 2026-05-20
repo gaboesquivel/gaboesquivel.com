@@ -31,21 +31,21 @@ export function ContactInfo({ hidden = true }) {
 
         <div className="cv-contact-grid grid grid-cols-2 gap-x-8 pt-4">
           <Link
-            href="tel:+cv-contact-gri13156452818"
+            href="tel:17865537670"
             className="group flex items-center gap-2 no-underline"
           >
             <Phone className="h-4 w-4 shrink-0" />
             <span className="prose prose-neutral dark:prose-invert hover:text-accent !m-0 !p-0">
-              US +13156452818
+              US: +1 (786) 553-7670
             </span>
           </Link>
           <Link
-            href="tel:+50670367089"
+            href="https://wa.me/50670367089"
             className="group flex items-center gap-2 no-underline prose prose-neutral dark:prose-invert"
           >
             <Phone className="h-4 w-4 shrink-0" />
             <span className="prose prose-neutral dark:prose-invert hover:text-accent !m-0 !p-0">
-              CR +50670367089
+              WhatsApp: +506 7036 7089
             </span>
           </Link>
           <Link
