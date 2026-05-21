@@ -1,0 +1,119 @@
+---
+title: AI Agents are Infrastructure
+publishedAt: 2026-05-20
+summary: Managed and self-hosted AI agents, agentic infrastructure, and why the runtime around the model matters more than benchmarks alone.
+image: /images/2026/02/engineering-ai-era.webp
+category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
+tech: ['TypeScript', 'NextJS', 'NodeJS', 'React', 'AI SDK']
+---
+
+For years, AI product conversations centered on models: which reasons better, which is cheaper, which context window is largest. Those questions still matter, but building production systems changed what I optimize for. The more I ship with [AI](/ai), the clearer it becomes that the model is one layer. The configured system around it is the product.
+
+A capable LLM is not an agent. It is a reasoning engine: language, code, summaries, classification, and guesses about what to do next. Product behavior comes from everything wrapped around it: instructions, tone, tools, memory, permissions, workflows, runtime, and security boundaries. That system is the agent. Once agents act inside real workflows, they stop being experiments and start becoming infrastructure.
+
+{/* Prevent CLS with responsive aspect ratio */}
+<div className="image-container">
+![Managed AI Agents](/images/2026/02/engineering-ai-era.webp)
+</div>
+
+## The system is the agent
+
+The first mistake many teams make is treating the LLM and the agent as the same thing. An LLM receives context and returns output. It does not inherently know your product, codebase, customer, workflow, business rules, or security constraints. You supply that around the model.
+
+In [Engineering in the AI Era](/blog/2026-02-engineering-ai-era), I defined agents as an LLM operating in a loop with tools. This post goes one level deeper: the agent is the full shape you give that loop. It has a job, a role, a tone, capabilities, and boundaries. It may be a coding agent, support agent, research agent, sales agent, finance agent, legal workflow assistant, or internal operations agent.
+
+In a developer setup, that shape often comes from a system prompt, markdown instructions, a [`soul.md`](https://soul.md/) file, tool definitions, MCP servers, repo rules, and runtime code. In production you also need storage, identity, access control, observability, retries, approval flows, queues, and security policies.
+
+Agent design is not only prompt writing. Prompting is part of it, but the agent is the system around the model. Instructions define behavior. Tools define action. Memory defines persistence. Permissions define access. Workflow defines sequencing. Runtime defines where it lives and how it recovers from failure.
+
+A simple agent may call one tool and return one answer. A more advanced agent may follow a multi-step workflow, inspect documents, call APIs, update records, ask for approval, and coordinate with another agent. At that point you are not wrapping an LLM. You are shipping software with reasoning inside it.
+
+## From agent implementation to agentic infrastructure
+
+The simplest implementation is a tool-calling loop. The user asks for something, the model decides whether it needs a tool, the application executes the tool, the result returns to the model, and the model either calls another tool or finishes. That pattern is enough for many cases: a model, a strong system prompt, a few typed tools, and a loop with a sane step limit.
+
+Agentic systems outgrow a single loop quickly. Complex workflows need state across steps, persisted memory, retries, streamed progress, pauses for human review, resume after the browser closes, logs, and a clear user or organization identity. You also need to separate safe actions from actions that require approval.
+
+That is what I mean by agentic infrastructure: the layer that lets agents run reliably inside real products. Not only the model call, but runtime, orchestration, tools, security, observability, and ownership.
+
+Multi-agent setups add another dimension. One agent owns research. Another owns code changes. Another owns QA or customer communication. Another owns compliance or approval. Then you need orchestration that decides which agent acts, when control hands off, and how state survives the workflow.
+
+That orchestration can be a few TypeScript functions, LangGraph, the OpenAI Agents SDK, a managed platform, or a custom service. The brand matters less than the structure. Agentic systems need explicit boundaries, not improvised loops.
+
+## Managed agents
+
+Managed AI agents exist because most teams should not rebuild the same operational layer for every feature. A managed platform gives agents a place to run, remember, call tools, survive failures, and plug into product workflows without hand-wiring every piece of infrastructure.
+
+Vercel approaches this from the web application side. The AI SDK gives TypeScript developers typed streaming, structured outputs, tool calling, UI integration, and agent-style abstractions that fit modern apps. For teams on [Next.js](/tech/next-js), React, or Node.js, the agent can live next to the product interface instead of becoming a disconnected backend experiment.
+
+Cloudflare approaches it from an infrastructure-native angle. With Workers, Durable Objects, Workflows, and their Agents SDK, an agent can behave more like a stateful service with storage, scheduling, real-time connections, and lifecycle management. Real agents are often not stateless request handlers. They need memory, schedules, tools, coordination, and persistent connection to users or systems.
+
+Managed agents are not only about making AI easier. They give agents a runtime. A chatbot can live inside a request. A serious agent often cannot. If it must keep working after the user closes the browser, wait for an event, resume after failure, call multiple tools, coordinate with another agent, or wait for human approval, it needs durable execution, state, and observability.
+
+Managed does not mean automatic. A platform supplies runtime. Your team still defines the job, tools, boundaries, and trust model. The platform runs the agent. It does not decide what the agent may do inside your product.
+
+## Self-hosted agents
+
+The opposite approach is owning more of the stack. Self-hosted agents give control over where the agent runs, how state is stored, which models are used, how tools are exposed, and how workflows are governed. That matters when the agent touches sensitive data, proprietary logic, internal systems, financial operations, legal workflows, or regulated infrastructure.
+
+The tradeoff is operational load. You manage runtime, persistence, retries, tool security, observability, model providers, memory, human-in-the-loop flows, testing, and production behavior. That is real engineering work.
+
+Frameworks like LangChain and LangGraph help here. LangGraph fits stateful, controllable, multi-actor workflows where you need memory, human review, branching, and orchestration across steps or agents. OpenAI's Agents SDK is another code-first path where your application owns orchestration, tool execution, state, approvals, custom storage, and integration with existing product logic.
+
+Self-hosted does not mean primitive. It means choosing to own more of the architecture. For some teams that is correct. For others it is unnecessary weight.
+
+## Hybrid agents
+
+Most serious AI products will land hybrid. A team may use a managed model provider but own the tools. It may use the Vercel AI SDK for interface and streaming but keep critical workflows in a private backend. It may use Cloudflare for stateful agents at the edge but call internal APIs elsewhere. It may use LangGraph for orchestration and managed APIs from OpenAI, Anthropic, Google, or others. It may use self-hosted models for private workloads and managed models for general reasoning.
+
+The useful question is not managed versus self-hosted. It is which parts should be managed and which should stay under your control.
+
+The model can be managed. The runtime can be managed. The workflow can be custom. The tools can be private. Orchestration can be code. Memory can live in your database. The UI can use the AI SDK. A multi-agent graph can use LangGraph. Execution can use workers, queues, durable objects, or whatever fits the product.
+
+The best split depends on where risk and value live. Fast iteration on a great AI-powered interface favors managed infrastructure. Proprietary workflows, sensitive data, internal tools, or regulated operations may justify more control. Most teams end in the middle.
+
+## You do not need Python to build agentic systems
+
+Agentic systems do not require Python or LangChain by default. Python remains central for research, data tooling, evaluation, and model infrastructure. LangChain and LangGraph matter for complex workflows, especially in Python-heavy environments.
+
+Product engineers building web applications do not need to leave [TypeScript](/tech/typescript) to build agents. The Vercel AI SDK is a strong toolkit for models, instructions, tools, structured outputs, streaming, approval flows, and UI integration in apps that already ship sessions, auth, billing, permissions, dashboards, databases, APIs, and background jobs.
+
+If the product is already TypeScript and Next.js, keeping the agent layer close to the application layer is often the practical choice. If the work is deep data pipelines, model evaluation, or research-heavy systems, Python may be the better default. If the work is a product-facing agent that streams into a UI, calls typed tools, and uses existing APIs, TypeScript is a strong fit.
+
+Agentic means the system can reason, use tools, follow workflows, preserve context, and act inside constraints. Not a single language monopoly.
+
+## The security boundary is the product boundary
+
+The more capable an agent becomes, the more important the security model becomes. An agent with no tools is mostly conversational. An agent with tools can read files, query databases, modify records, send messages, open pull requests, execute code, or call internal APIs. Useful, and a different risk profile.
+
+Agent design becomes software architecture. What can the agent access? Which identity does it use? Which actions are read-only? Which are destructive? Which require approval? What gets logged? What is reversible? What happens when the model chooses badly, the tool returns bad data, or a user attempts prompt injection?
+
+These questions are not prompt-only. They need system-level answers: narrow tools, clear permissions, strong input validation, human approval for risky actions, observability, and inspectable workflows.
+
+The goal is not blind trust in the model. The goal is useful capability inside controlled boundaries. Once an agent can act, the infrastructure around it is part of the trust model.
+
+## Agent ownership inside teams
+
+As agentic systems grow, ownership will split the way service ownership does in microservice architectures. One team owns a research agent. Another owns support. Another owns coding. Another owns tools that expose internal systems. Another owns orchestration across agents.
+
+Agents are not only APIs. They have behavior, instructions, tone, memory, and decision boundaries. That makes ownership more interesting.
+
+A team that owns an agent maintains its role in the organization: what it does, which tools it may use, how it behaves, how it fails, how it asks for help, and how it is evaluated.
+
+This connects to [The Forward Deployed Engineer](/blog/2026-04-forward-deployed-engineer). As AI embeds into customer workflows, the most valuable engineers understand the problem, shape the workflow, connect product to technical systems, and ship what works in production. Agents amplify that role. A forward deployed engineer working with agents needs the user, the workflow, the data, the tools, and the deployment environment. The agent is useful when it fits how work actually happens, not when it only sounds intelligent.
+
+## The new layer
+
+Agents do not replace applications, developers, workflows, or product thinking. They become a new layer inside software.
+
+Some agents summarize, classify, route, or monitor. Some create documents, prepare reports, update records, open pull requests, or coordinate tasks. Some face users. Others run in the background. Some are managed. Others are self-hosted. Many are hybrid.
+
+What changes is that agents are things we deploy, configure, observe, secure, and govern. That is infrastructure.
+
+Models will keep improving: faster, cheaper, more capable, easier to access. As models commoditize, more product value moves to the agent layer: instructions, tools, workflows, memory, permissions, orchestration, and experience.
+
+That is where engineering judgment matters. The future of AI products is not only picking the best model. It is designing the right agentic system around it.
+
+Where does the agent live? What can it do? What should it remember? Which tools can it call? When should it ask for approval? How does it recover from failure? How do multiple agents coordinate? Which parts should be managed? Which parts should stay under your control?
+
+Those questions matter now. Agents are becoming AI infrastructure because they are moving from chat interfaces into real workflows. They are becoming workers inside software systems. Once software can reason and act, the runtime around that behavior matters as much as the model that powers it.
