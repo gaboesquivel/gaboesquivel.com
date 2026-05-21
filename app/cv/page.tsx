@@ -22,7 +22,8 @@ export default function CVPage() {
       </header>
     <div className="cv-summary">
       <p className="prose prose-neutral dark:prose-invert  cv-content ">  
-      I design and ship end-to-end software systems across full-stack applications, AI products, APIs, and onchain integrations. With 15+ years of experience, I help teams turn ideas into market-ready products across web, mobile, and cloud, working closely across engineering, product, and user experience. Fluent in English, Spanish, Portuguese, and Italian.</p>
+      I design and ship end-to-end software systems spanning full-stack applications, AI products, APIs, and onchain integrations. With 15+ years of experience, I help teams turn ideas into market-ready products across web, mobile, and cloud, working closely across engineering, product, and user experience. Fluent in English, Spanish, Portuguese, and Italian.
+</p>
 </div>
 <h2 className="text-xl font-semibold mb-4 mt-8">Highlights</h2>
 
