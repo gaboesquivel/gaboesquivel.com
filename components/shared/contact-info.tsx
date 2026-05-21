@@ -13,20 +13,13 @@ export function ContactInfo({ hidden = true }) {
 
         <div className="cv-contact-lede">
           <p className="prose prose-neutral dark:prose-invert">
-            I work through long-term or short-term 
-              remote 1099 contracts
-      
-            via my US-based company,
-      
-              Blockmatic Labs LLC
-            
-            . This setup gives clients straightforward contracts, built-in
-            compliance, and IP protection. Based in Costa Rica, I operate on
-            US Mountain Time and am available for travel when needed.
+            I’m open to long term or short term engagements, including direct
+            hire, international hire, or contractor setups through my US-based
+            company, Blockmatic Labs LLC. Based in Costa Rica and aligned with
+            US Mountain Time. Unable to work as W2. Available for travel when
+            needed.
           </p>
-          <p className="prose prose-neutral dark:prose-invert">
-          If you’re building something ambitious—whether a decentralized system, an AI-powered product, or a new idea that needs a strong technical foundation—I’d be glad to connect.
-          </p>
+ 
         </div>
 
         <div className="cv-contact-grid grid grid-cols-2 gap-x-8 pt-4">

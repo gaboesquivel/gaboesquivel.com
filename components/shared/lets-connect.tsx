@@ -1,31 +1,32 @@
 import Link from 'next/link'
+
 export function LetsConnect() {
   return (
     <div className="prose prose-neutral dark:prose-invert print:hidden">
       <p>
-        I usually work through{' '}
+        I’m open to long term or short term engagements, including direct hire,
+        international hire, or{' '}
         <Link
           href="/blog/2025-11-1099-contracting"
           className="prose-link"
         >
-          remote 1099 contracts
+          contractor setups
         </Link>{' '}
-        with my US-based company,{' '}
+        through my US-based company,{' '}
         <Link
           href="/blog/2025-11-1099-contracting"
           className="prose-link"
         >
           Blockmatic Labs LLC
         </Link>
-        . This gives clients straightforward contracts,
-        compliance peace of mind, and IP protection. I’m based in{' '}
+        . Based in{' '}
         <Link
           href="/blog/2014-01-developing-software-in-costa-rica"
           className="prose-link"
         >
           Costa Rica
-        </Link>
-        , aligned with US Mountain Time, and available for travel when needed.
+        </Link>{' '}
+        and aligned with US Mountain Time. Unable to work as W2.
       </p>
       <p>
         If you're building innovative solutions in{' '}

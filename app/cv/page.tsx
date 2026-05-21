@@ -22,19 +22,15 @@ export default function CVPage() {
       </header>
     <div className="cv-summary">
       <p className="prose prose-neutral dark:prose-invert  cv-content ">  
-      Building AI-powered products and crypto-native applications. I design and ship  systems end-to-end, working with modern stacks, LLMs, APIs, and onchain integrations.
-</p>
-<p className="prose prose-neutral dark:prose-invert cv-content">
-With 15+ years of experience, I help teams turn ideas into market-ready products across web, mobile, and cloud, collaborating across engineering, product, and user experience. Fluent in English, Spanish, Portuguese, and Italian.
-</p>
+      I design and ship end-to-end software systems across full-stack applications, AI products, APIs, and onchain integrations. With 15+ years of experience, I help teams turn ideas into market-ready products across web, mobile, and cloud, working closely across engineering, product, and user experience. Fluent in English, Spanish, Portuguese, and Italian.</p>
 </div>
 <h2 className="text-xl font-semibold mb-4 mt-8">Highlights</h2>
 
 <ul className="mb-8 space-y-1 list-none list-inside">
-  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">9+ years in crypto (DeFi, NFTs, EVM, onchain infrastructure)</li>
-  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">12+ years building 0→1 products across startups</li>
-  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Led engineering for Costa Rica’s first neobank (Wink), from architecture to production</li>
-  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Shipped AI, Web3, fintech, and consumer products used in production environments</li>
+  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">12+ years building 0→1 products across startups and growth-stage teams</li>
+  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Led engineering for Wink, Costa Rica’s first neobank, from architecture to launch</li>
+  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Delivered full-stack systems across fintech, AI, Web3, marketplaces, and consumer products</li>
+  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Deep crypto experience across smart contracts, tokenized systems, and infrastructure</li>
 </ul>
 
 <h2 className="text-xl font-semibold mb-4">Skills</h2>
@@ -50,7 +46,7 @@ With 15+ years of experience, I help teams turn ideas into market-ready products
     <strong>Backend:</strong> Node.js, PostgreSQL, Supabase, Prisma, Drizzle, GraphQL
   </li>
     <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-      <strong>Web3:</strong> Solidity, Foundry, Hardhat, Viem, Wagmi, Ponder, Ethers
+      <strong>Web3:</strong> Foundry, Hardhat, Viem, Wagmi, Ponder, Ethers
   </li>
   <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
     <strong>AI / ML:</strong> LLMs, AI SDK, RAG, Embeddings, Vector Search, Agent Workflows
