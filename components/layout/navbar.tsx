@@ -54,7 +54,7 @@ export default function Navbar() {
                     href={path}
                     className={clsx(
                       'transition-all hover:text-neutral-800 dark:hover:text-accent flex align-middle',
-
+                      path === '/tech' && 'hidden md:flex',
                       isActive ? 'text-accent' : 'text-neutral-500',
                     )}
                   >

@@ -11,7 +11,6 @@ const ALLOWED_CATEGORIES = [
   'defi',
   'ai',
   'ux',
-  'finance',
   'community',
 ] as const
 
