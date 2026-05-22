@@ -22,16 +22,16 @@ export default function CVPage() {
       </header>
     <div className="cv-summary">
       <p className="prose prose-neutral dark:prose-invert  cv-content ">  
-      I design and ship end-to-end software systems spanning full-stack applications, AI products, APIs, and onchain integrations. With 15+ years of experience, I help teams turn ideas into market-ready products across web, mobile, and cloud, working closely across engineering, product, and user experience. Fluent in English, Spanish, Portuguese, and Italian.
+      I design and ship end-to-end software across full-stack applications, AI, APIs, and onchain integrations. With 15+ years of experience, I help teams turn ideas into market-ready products for web, mobile, and cloud, working closely with engineering, product, and user experience teams. Fluent in English, Spanish, Portuguese, and Italian.
 </p>
 </div>
 <h2 className="text-xl font-semibold mb-4 mt-8">Highlights</h2>
 
 <ul className="mb-8 space-y-1 list-none list-inside">
-  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">12+ years building 0→1 products across startups and growth-stage teams</li>
+  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">12+ years building 0→1 products for startups and growth-stage teams</li>
   <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Led engineering for Wink, Costa Rica’s first neobank, from architecture to launch</li>
-  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Delivered full-stack systems across fintech, AI, Web3, marketplaces, and consumer products</li>
-  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Deep crypto experience across smart contracts, tokenized systems, and infrastructure</li>
+  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Delivered full-stack systems in fintech, AI, Web3, marketplaces, and consumer products</li>
+  <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">Deep crypto experience with smart contracts, tokenized systems, and infrastructure</li>
 </ul>
 
 <h2 className="text-xl font-semibold mb-4">Skills</h2>
