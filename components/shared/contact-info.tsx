@@ -29,7 +29,8 @@ export function ContactInfo({ hidden = true }) {
           >
             <Phone className="h-4 w-4 shrink-0" />
             <span className="prose prose-neutral dark:prose-invert hover:text-accent !m-0 !p-0">
-              US: +1 (786) 553-7670
+              US: +1 (786) 229 4440
+
             </span>
           </Link>
           <Link
