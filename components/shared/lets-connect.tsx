@@ -4,20 +4,12 @@ export function LetsConnect() {
   return (
     <div className="prose prose-neutral dark:prose-invert print:hidden">
       <p>
-        I’m open to long term or short term engagements, including direct hire,
-        international hire, or{' '}
+        Open to direct hire, international hire, or{' '}
         <Link
           href="/blog/2025-11-1099-contracting"
           className="prose-link"
         >
-          contractor setups
-        </Link>{' '}
-        through my US-based company,{' '}
-        <Link
-          href="/blog/2025-11-1099-contracting"
-          className="prose-link"
-        >
-          Blockmatic Labs LLC
+          contracting through Blockmatic Labs LLC
         </Link>
         . Based in{' '}
         <Link
@@ -25,8 +17,8 @@ export function LetsConnect() {
           className="prose-link"
         >
           Costa Rica
-        </Link>{' '}
-        and aligned with US Mountain Time. Unable to work as W2.
+        </Link>
+        , working US Mountain Time.
       </p>
       <p>
         If you're building innovative solutions in{' '}
