@@ -257,7 +257,7 @@ export const experience: CvExperience[] = [
       'Integrated partner bank APIs.',
     ],
     techStack: ['React Native', 'React', 'Node.js', 'AWS'],
-
+    pageBreak: true,
   },
   {
     company: 'AMC Networks',
@@ -275,7 +275,7 @@ export const experience: CvExperience[] = [
       'Optimized experiences for curated films with 400+ interactive elements each.',
     ],
     techStack: ['JavaScript', 'Brightcove', 'Facebook API'],
-    pageBreak: true,
+ 
   },
   {
     company: 'American Express',
