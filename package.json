@@ -9,7 +9,10 @@
     "hooks:pre-commit": "biome check --write --staged --no-errors-on-unmatched && git update-index --again",
     "skills:install": "bunx skills@latest experimental_install",
     "skills:update": "bunx skills@latest update",
-    "postinstall": "bun run skills:install"
+    "postinstall": "if [ -z \"$VERCEL\" ]; then bun run skills:install; fi"
+  },
+  "engines": {
+    "node": "24.x"
   },
   "dependencies": {
     "@agentofuser/remark-oembed": "^1.0.4",
@@ -53,7 +56,6 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.15",
-    "gaboesquivel-skills": "link:gaboesquivel-skills",
     "postcss": "^8.4.29",
     "simple-git-hooks": "2.11.1",
     "tailwindcss": "^3.3.3",
