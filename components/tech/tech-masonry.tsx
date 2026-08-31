@@ -1,6 +1,6 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
 import { TechCard } from 'components/tech/tech-card'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { TechStackItem } from 'gaboesquivel'
 
 interface TechMasonryProps {
@@ -14,7 +14,7 @@ export function TechMasonry({
 }: TechMasonryProps) {
   return (
     <AnimatePresence mode="wait">
-      <motion.div
+      <motion.ul
         key={identifier}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full items-stretch"
         initial={{ opacity: 0 }}
@@ -23,7 +23,7 @@ export function TechMasonry({
         transition={{ duration: 0.5 }}
       >
         {techStack.map((tech, index) => (
-          <motion.div
+          <motion.li
             key={tech.slug}
             className="w-full h-full"
             initial={{ opacity: 0, y: 20 }}
@@ -36,9 +36,9 @@ export function TechMasonry({
             }}
           >
             <TechCard tech={tech} />
-          </motion.div>
+          </motion.li>
         ))}
-      </motion.div>
+      </motion.ul>
     </AnimatePresence>
   )
 }

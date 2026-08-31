@@ -1,0 +1,12 @@
+---
+description: Two-repo workflow and this-pass boundaries
+alwaysApply: true
+---
+
+# Content Strategy
+
+- Package owns structured project data. This site owns narrative, routes, and presentation. Do not mix repositories in one commit or edit generated package output.
+- Package copy/types change: edit package → `bun run generate` and `bun run build` → `bun link` in the package → `bun link gaboesquivel` here → then edit site pages.
+- Use package descriptions for project cards. Do not write separate project essays on site pages.
+- This pass: do not rewrite blog MDX, `/work`, or project-page templates; do not restyle or upgrade Next.js. `/cv` stays the printable CV.
+- Writing copy: use the installed `gabo` skill. Per-route jobs: landing-pages rule.

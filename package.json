@@ -6,7 +6,10 @@
     "start": "next start",
     "lint": "biome check .",
     "lint:fix": "biome check . --write",
-    "hooks:pre-commit": "biome check --write --staged --no-errors-on-unmatched && git update-index --again"
+    "hooks:pre-commit": "biome check --write --staged --no-errors-on-unmatched && git update-index --again",
+    "skills:install": "bunx skills@latest add ./node_modules/gaboesquivel-skills --skill gabo -a cursor -a claude-code -y",
+    "skills:update": "bunx skills@latest update gabo",
+    "postinstall": "bun run skills:install"
   },
   "dependencies": {
     "@agentofuser/remark-oembed": "^1.0.4",
@@ -15,14 +18,13 @@
     "@tanstack/react-form": "^1.23.4",
     "@vercel/analytics": "^1.3.1",
     "@vercel/edge-config": "^0.2.1",
-    "biome": "^0.3.3",
     "caniuse-lite": "^1.0.30001701",
     "clsx": "^2.0.0",
     "contentlayer": "^0.3.4",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "framer-motion": "^10.16.4",
-    "gaboesquivel": "^4.3.0",
+    "gaboesquivel": "^5.0.0",
     "googleapis": "^126.0.1",
     "lucide-react": "^0.476.0",
     "next": "13.4.19",
@@ -45,11 +47,13 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "20.5.8",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.15",
+    "gaboesquivel-skills": "link:gaboesquivel-skills",
     "postcss": "^8.4.29",
     "simple-git-hooks": "2.11.1",
     "tailwindcss": "^3.3.3",

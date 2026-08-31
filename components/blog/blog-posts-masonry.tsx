@@ -1,7 +1,7 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
 import { BlogPostCard } from 'components/blog/blog-post-card'
 import type { Blog } from 'contentlayer/generated'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface BlogPostsMasonryProps {
   posts: Blog[]
@@ -14,7 +14,7 @@ export function BlogPostsMasonry({
 }: BlogPostsMasonryProps) {
   return (
     <AnimatePresence mode="wait">
-      <motion.div
+      <motion.ul
         key={identifier}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full items-stretch"
         initial={{ opacity: 0 }}
@@ -23,7 +23,7 @@ export function BlogPostsMasonry({
         transition={{ duration: 0.5 }}
       >
         {posts.map((post, index) => (
-          <motion.div
+          <motion.li
             key={post.slug}
             className="w-full h-full"
             initial={{ opacity: 0, y: 20 }}
@@ -36,10 +36,9 @@ export function BlogPostsMasonry({
             }}
           >
             <BlogPostCard post={post} />
-          </motion.div>
+          </motion.li>
         ))}
-      </motion.div>
+      </motion.ul>
     </AnimatePresence>
   )
 }
-

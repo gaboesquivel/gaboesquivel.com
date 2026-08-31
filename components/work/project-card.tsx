@@ -1,50 +1,63 @@
-'use client'
-import Image from 'next/image';
-import Link from 'next/link';
-import type { Project } from 'gaboesquivel';
+import type { Project } from 'gaboesquivel'
+import Image from 'next/image'
+import Link from 'next/link'
 
-/**
- * ProjectCard component displays a project in a card format
- * with image, title and description, linking to the project detail page
- */
-export function ProjectCard({ project, priority = false }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  priority = false,
+  showRole = false,
+  wide = false,
+}: {
+  project: Project
+  priority?: boolean
+  showRole?: boolean
+  wide?: boolean
+}) {
+  const src = project.image?.replace('https://gaboesquivel.com', '')
+
   return (
-    <Link 
+    <Link
       href={`/project/${project.slug}`}
-      className="group block overflow-hidden rounded-lg border border-zinc-200/50 dark:border-zinc-700/50 transition-all duration-300 w-full h-full flex flex-col"
+      className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-zinc-200/50 transition-all duration-300 dark:border-zinc-700/50"
     >
-      {/* Image container with aspect ratio and overflow control */}
-      <div className="relative aspect-video overflow-hidden rounded-t-lg">
-        {project.image && (
+      {src ? (
+        wide ? (
           <Image
-            src={project.image.replace('https://gaboesquivel.com', '')}
+            src={src}
             alt={project.title}
-            fill
-            priority={priority} // Load with priority if specified
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            width={1600}
+            height={1067}
+            priority={priority}
+            sizes="(max-width: 768px) 100vw, 896px"
+            className="h-auto w-full transition-transform duration-500 group-hover:scale-110"
+            style={{ width: '100%', height: 'auto' }}
           />
-        )}
-      </div>
-      {/* Content section with title and description */}
-      <div className="p-4 flex-grow">
-        <h3 className="text-xl font-semibold mb-2 text-neutral-900 dark:text-neutral-100">
+        ) : (
+          <div className="relative aspect-video overflow-hidden">
+            <Image
+              src={src}
+              alt={project.title}
+              fill
+              priority={priority}
+              sizes="(max-width: 768px) 100vw, 448px"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+          </div>
+        )
+      ) : null}
+      <div className="flex-grow p-4">
+        <h3 className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
           {project.title}
         </h3>
-        <p className="prose prose-neutral dark:prose-invert line-clamp-3">
+        {showRole && project.role ? (
+          <p className="mb-2 text-sm text-neutral-500 dark:text-neutral-400">
+            {project.role}
+          </p>
+        ) : null}
+        <p className="prose prose-neutral line-clamp-3 dark:prose-invert">
           {project.description}
         </p>
       </div>
     </Link>
-  );
+  )
 }
-
-/**
- * Props for the ProjectCard component
- * @property {Project} project - The project data to display
- * @property {boolean} priority - Whether to prioritize loading the image
- */
-interface ProjectCardProps {
-    project: Project;
-    priority?: boolean;
-}
-  

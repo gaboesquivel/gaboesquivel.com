@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "gabo": {
+      "source": "./node_modules/gaboesquivel-skills",
+      "sourceType": "local",
+      "computedHash": "4be93552e797f9cc88dfa6e2db1cf0b0c4b0e5ac8bc9a64075b8279abe872aa2"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import Balancer from 'react-wrap-balancer'
 
 import { ProjectsMasonry } from 'components/work/projects-masonry'
+import type { Project } from 'gaboesquivel'
 import { cn } from 'lib/utils'
 import Link from 'next/link'
 
@@ -21,7 +22,7 @@ export function Projects({
   heading,
   showMoreLink = true,
 }: {
-  projects: any[]
+  projects: Project[]
   type?: string
   heading?: string
   showMoreLink?: boolean
@@ -51,9 +52,7 @@ export function Projects({
         </nav>
       ) : null}
 
-      <ul>
-        <ProjectsMasonry projects={projects} identifier={type} />
-      </ul>
+      <ProjectsMasonry projects={projects} identifier={type} />
     </section>
   )
 }

@@ -1,100 +1,64 @@
 ---
-description: Landing page structure, categories, and content guidelines for gaboesquivel.com
-glob: "app/**/*.tsx,content/**/*.mdx"
+description: Page-specific jobs, evidence, and conversion paths
+glob: "app/**/page.tsx"
 alwaysApply: false
 ---
 
-# Landing Pages Structure and Content
+# Landing Page Constraints
 
-## Page Categories
+Use the installed `gabo` skill for voice. One page, one job. Do not use a personal-connection intro or chronological career template unless the page is `/bio`.
 
-### Experience & Main Landing Pages
-Domain expertise showcase pages:
-- `/frontend` → Frontend Engineering Experience
-- `/backend` → Backend & Infrastructure Engineering Experience  
-- `/fullstack` → Full-Stack Product & Cloud Engineering
-- `/web3` → Web3 Development Experience
-- `/ai` → AI Engineering Experience
-- `/mobile` → React Native & Mobile Development
-- `/lead` → Tech Leadership Experience
-- `/startups` → Startup Engineering Experience
-- `/institutions` → Enterprise & Institutional Engineering Experience
-- `/bio` → Comprehensive Biography
+## `/`
 
-### Professional Pages
-Structured professional information:
-- `/cv` → Curriculum Vitae (printable)
-- `/connect` → Professional contact information
+- Visitor: founder or product or technical lead
+- Question: who is Gabo, and is the work real?
+- Message: I build software products that make complex technology useful.
+- Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
+- Order: positioning, proof, projects, focus, bio preview, writing, `/connect`
 
-### Portfolio & Showcase Pages
-Work and technical expertise:
-- `/work` → Work portfolio overview and case studies
-- `/project` → Detailed project pages with specific implementations
-- `/tech` → Technology expertise and stack proficiency
+## `/bio`
 
-## Landing Page Content Structure
+- Job: the only complete career narrative
+- Spine: interfaces → products → complex systems → intelligent interfaces
+- Chapter evidence: `costa-rica-js`, `wink`, Web3 projects, `legal-agent`
+- State the access worldview once, grounded in Wink
+- End in the present and link to `/connect`
 
-Each landing page follows consistent structure:
-- Personal connection intro
-- Chronological project timeline
-- Closing insight
-- Project-based headings combining technology and project names
-- First-person storytelling with specific pivotal moments
-- Balance of technical details with personal values and human impact
-- Cross-linking to related expertise areas
+## `/ai`
 
-## Landing Page Descriptions
+- Job: production AI product capability
+- Primary evidence: `legal-agent`
+- Supporting evidence: `masterbots`, Bitlauncher AI work
+- Lower weight: `wizard-world`
+- Do not retell the career or invent users
+- CTA: `/connect`
 
-### `/frontend`
-**Title:** Frontend Engineering Experience  
-**Focus:** React, Next.js, Tailwind, TypeScript, UI/UX, data-driven interfaces  
-**Projects:** Opyn, RareMint, ZTX, AMC Networks, American Express  
-**Cross-links:** `/backend`, `/fullstack`, `/mobile`
+## `/web3`
 
-### `/backend`
-**Title:** Backend & Infrastructure Engineering Experience  
-**Focus:** Node.js, PostgreSQL, GraphQL, Supabase, indexing, APIs, cloud-native systems, infrastructure automation  
-**Projects:** BitLauncher, Bitcash, ChainGraph, Wink, EOS Costa Rica, Sfera Legal  
-**Cross-links:** `/frontend`, `/fullstack`, `/web3`
+- Job: Web3 and financial-systems depth, not a biography
+- Evidence: `knowledge-io`, `eos-costa-rica`, `chaingraph`, `ztx`, `raremint`, `opyn`, `bitlauncher`
+- Use American Express and `wink` only as a short financial-systems origin
+- CTA: `/connect`
 
-### `/fullstack`
-**Title:** Full-Stack Product & Cloud Engineering  
-**Focus:** Bridging frontend, backend, infrastructure, and product strategy—end-to-end delivery with modern DevOps practices  
-**Projects:** BitLauncher, Masterbots, Knowledge.io, Emanate, Eat Arcade, EOS Costa Rica  
-**Cross-links:** `/frontend`, `/backend`, `/ai`, `/web3`
+## `/work` and `/project/[slug]`
 
-### `/mobile`
-**Title:** Mobile Development Experience  
-**Focus:** Mobile-first apps, cross-platform, wallet integrations, AI assistants  
-**Projects:** Sfera Legal, Sense Chat, Wink, Tractor Supply, Fantasy Top Shots  
-**Cross-links:** `/frontend`, `/fullstack`, `/ai`
+Do not rewrite their structures in this content pass.
 
-### `/web3`
-**Title:** Web3 Development Experience  
-**Focus:** EVM development, DeFi protocols, blockchain infrastructure, token engineering  
-**Projects:** Opyn, BitLauncher, RareMint, ZTX, Emanate  
-**Cross-links:** `/frontend`, `/backend`, `/fullstack`
+## Capability Pages
 
-### `/ai`
-**Title:** AI Engineering Experience  
-**Focus:** RAG systems, AI integrations, vector databases, prompt engineering  
-**Projects:** Sfera Legal, Masterbots, BitLauncher  
-**Cross-links:** `/frontend`, `/backend`, `/fullstack`
+Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institutions`, `/lead`.
 
-### `/lead`
-**Title:** Tech Leadership Experience  
-**Focus:** Engineering management, team building, technical strategy, mentorship  
-**Projects:** EOS Costa Rica, American Express, Opyn  
-**Cross-links:** All technical landing pages, `/bio`, `/startups`, `/institutions`
+- Open with a short capability thesis
+- Use only relevant package projects as evidence
+- Do not include a career chronology
+- CTA: `/work`
+- `/lead` title: Technical Leadership
 
-### `/startups`
-**Title:** Startup Engineering Experience  
-**Focus:** 0 to 1 product development, MVP architecture, lean methodology, rapid iteration, technical foundation for scale  
-**Projects:** BitLauncher, Masterbots, RareMint, ZTX, BitCash, Wink  
-**Cross-links:** `/lead`, `/fullstack`, `/institutions`
+## `/connect`
 
-### `/institutions`
-**Title:** Enterprise & Institutional Engineering Experience  
-**Focus:** Enterprise software, regulated industries, complex stakeholder management, security compliance, legacy integration  
-**Projects:** Grant Thornton, Coopenae Bank, American Express, AMC Networks, Tractor Supply  
-**Cross-links:** `/lead`, `/fullstack`, `/startups`
+Use only facts already present in `LetsConnect`: direct hire, international hire, contracting through Blockmatic Labs LLC, Costa Rica, and US Mountain Time.
+
+## `/cv` and `/tech`
+
+- `/cv`: printable employment record; do not convert it into narrative copy
+- `/tech`: grouped stack index; preserve existing category URLs

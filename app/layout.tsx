@@ -8,13 +8,15 @@ import Navbar from '../components/layout/navbar'
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
-    default: 'Gabo Esquivel - Engineering the Future',
+    default: 'Gabo Esquivel | Product Engineer',
     template: '%s',
   },
-  description: 'Sr. full-stack engineer specializing in Web3 and AI.',
+  description:
+    'I build useful and delightful software products across AI, Web3, and full-stack applications.',
   openGraph: {
-    title: 'Gabo Esquivel',
-    description: 'Sr. full-stack engineer specializing in Web3 and AI.',
+    title: 'Gabo Esquivel | Product Engineer',
+    description:
+      'I build useful and delightful software products across AI, Web3, and full-stack applications.',
     url: 'https://gaboesquivel.com',
     siteName: 'Gabo Esquivel',
     locale: 'en_US',
@@ -32,7 +34,9 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Gabo Esquivel',
+    title: 'Gabo Esquivel | Product Engineer',
+    description:
+      'I build useful and delightful software products across AI, Web3, and full-stack applications.',
     card: 'summary_large_image',
   },
   verification: {
@@ -54,10 +58,7 @@ export default function RootLayout({
       )}
     >
       <head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
           rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>👩‍🚀</text></svg>"

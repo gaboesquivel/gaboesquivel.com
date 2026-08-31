@@ -1,20 +1,25 @@
 'use client'
-import { motion, AnimatePresence } from "framer-motion";
-import { ProjectCard } from "components/work/project-card";
-import type { Project } from "gaboesquivel";
+import { ProjectCard } from 'components/work/project-card'
+import { AnimatePresence, motion } from 'framer-motion'
+import type { Project } from 'gaboesquivel'
 
 interface ProjectsMasonryProps {
-  projects: Project[];
-  identifier?: string;
+  projects: Project[]
+  identifier?: string
 }
 
-export function ProjectsMasonry({ projects, identifier = 'projects' }: ProjectsMasonryProps) {
+export function ProjectsMasonry({
+  projects,
+  identifier = 'projects',
+}: ProjectsMasonryProps) {
   const sortedProjects = [...projects].sort(
-    (a, b) => (a.order ?? Infinity) - (b.order ?? Infinity),
+    (a, b) =>
+      (a.order ?? Number.POSITIVE_INFINITY) -
+      (b.order ?? Number.POSITIVE_INFINITY),
   )
   return (
     <AnimatePresence mode="wait">
-      <motion.div 
+      <motion.ul
         key={identifier}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-full overflow-hidden"
         initial={{ opacity: 0 }}
@@ -23,22 +28,22 @@ export function ProjectsMasonry({ projects, identifier = 'projects' }: ProjectsM
         transition={{ duration: 0.5 }}
       >
         {sortedProjects.map((project, index) => (
-          <motion.div
-            key={project.title}
+          <motion.li
+            key={project.slug}
             className="w-full h-full flex"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            transition={{ 
+            transition={{
               duration: 0.5,
               delay: index * 0.1,
-              ease: "easeOut"
+              ease: 'easeOut',
             }}
           >
             <ProjectCard project={project} />
-          </motion.div>
+          </motion.li>
         ))}
-      </motion.div>
+      </motion.ul>
     </AnimatePresence>
-  );
-} 
+  )
+}

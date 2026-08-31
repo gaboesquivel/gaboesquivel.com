@@ -1,8 +1,12 @@
-import Balancer from 'react-wrap-balancer'
-import { techStack, filterTechByCategory, getProjectsByTechnology } from 'gaboesquivel'
 import { TechMasonry } from 'components/tech/tech-masonry'
+import {
+  filterTechByCategory,
+  getProjectsByTechnology,
+  techStack,
+} from 'gaboesquivel'
 import { cn } from 'lib/utils'
 import Link from 'next/link'
+import Balancer from 'react-wrap-balancer'
 
 const categories = [
   'featured',
@@ -17,33 +21,28 @@ const categories = [
 export function TechList({
   category,
   heading,
+  showNavigation = true,
 }: {
   category?: string
   heading?: string
+  showNavigation?: boolean
 }) {
-  const currentCategory = category || 'featured'
+  const currentCategory = category ?? 'featured'
   const filteredTech = filterTechByCategory(techStack, currentCategory)
-  
-  // Sort tech items based on category
+
   const sortedTech = [...filteredTech].sort((a, b) => {
     const aProjects = getProjectsByTechnology(a.tag).length
     const bProjects = getProjectsByTechnology(b.tag).length
-    
-    // For featured category, use featuredOrder if available
+
     if (currentCategory === 'featured') {
-      const aOrder = a.featuredOrder ?? Infinity
-      const bOrder = b.featuredOrder ?? Infinity
-      
-      // First sort by featuredOrder (lower numbers first)
-      if (aOrder !== bOrder) {
-        return aOrder - bOrder
-      }
-      
-      // If featuredOrder is the same or both are Infinity, sort by project count
+      const aOrder = a.featuredOrder ?? Number.POSITIVE_INFINITY
+      const bOrder = b.featuredOrder ?? Number.POSITIVE_INFINITY
+
+      if (aOrder !== bOrder) return aOrder - bOrder
+
       return bProjects - aProjects
     }
-    
-    // For other categories, sort by project count (descending)
+
     return bProjects - aProjects
   })
 
@@ -55,24 +54,28 @@ export function TechList({
         </h2>
       ) : null}
 
-      <nav className="flex flex-wrap gap-2 md:gap-4 mb-8">
-        {categories.map((cat) => (
-          <Link
-            key={cat}
-            href={cat === 'featured' ? '/tech' : `/tech/${cat}`}
-            className={cn(
-              'rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800',
-              currentCategory === cat ? 'text-accent' : '',
-            )}
-          >
-            {cat}
-          </Link>
-        ))}
-      </nav>
+      {showNavigation ? (
+        <nav
+          aria-label="Technology categories"
+          className="mb-8 flex flex-wrap gap-2 md:gap-4"
+        >
+          {categories.map((cat) => (
+            <Link
+              key={cat}
+              href={cat === 'featured' ? '/tech' : `/tech/${cat}`}
+              aria-current={currentCategory === cat ? 'page' : undefined}
+              className={cn(
+                'rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800',
+                currentCategory === cat ? 'text-accent' : '',
+              )}
+            >
+              {cat}
+            </Link>
+          ))}
+        </nav>
+      ) : null}
 
-      <ul>
-        <TechMasonry techStack={sortedTech} identifier={currentCategory} />
-      </ul>
+      <TechMasonry techStack={sortedTech} identifier={currentCategory} />
     </section>
   )
 }

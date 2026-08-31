@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from '@tanstack/react-form'
-import { useState, useTransition } from 'react'
+import { useRef, useState } from 'react'
 import { submitContactForm } from './actions'
 import { type ContactFormData, contactSchema } from './schema'
 
@@ -11,28 +11,28 @@ type FormState = {
   message?: string
 }
 
+const getErrorMessage = (error: unknown): string => {
+  if (typeof error === 'string') return error
+  if (error && typeof error === 'object' && 'message' in error)
+    return String(error.message)
+  if (
+    error &&
+    typeof error === 'object' &&
+    'issues' in error &&
+    Array.isArray(error.issues) &&
+    error.issues[0] &&
+    typeof error.issues[0] === 'object' &&
+    'message' in error.issues[0]
+  )
+    return String(error.issues[0].message)
+
+  return 'Invalid input'
+}
+
 export function ContactForm() {
   const [formState, setFormState] = useState<FormState | null>(null)
-  const [isPending, startTransition] = useTransition()
-
-  const getErrorMessage = (error: unknown): string => {
-    if (typeof error === 'string') return error
-    if (error && typeof error === 'object' && 'message' in error) {
-      return String(error.message)
-    }
-    if (
-      error &&
-      typeof error === 'object' &&
-      'issues' in error &&
-      Array.isArray(error.issues) &&
-      error.issues[0] &&
-      typeof error.issues[0] === 'object' &&
-      'message' in error.issues[0]
-    ) {
-      return String(error.issues[0].message)
-    }
-    return 'Invalid input'
-  }
+  const [isPending, setIsPending] = useState(false)
+  const formOpenedAt = useRef(Date.now())
 
   const form = useForm({
     defaultValues: {
@@ -50,16 +50,26 @@ export function ContactForm() {
       formData.append('email', value.email)
       formData.append('subject', value.subject)
       formData.append('message', value.message)
-      formData.append('timestamp', Date.now().toString())
+      formData.append('timestamp', formOpenedAt.current.toString())
 
-      startTransition(async () => {
+      setIsPending(true)
+
+      try {
         const result = await submitContactForm(formData)
         setFormState(result)
 
         if (result.success) {
           form.reset()
+          formOpenedAt.current = Date.now()
         }
-      })
+      } catch {
+        setFormState({
+          success: false,
+          error: 'Unable to send your message. Please try again.',
+        })
+      } finally {
+        setIsPending(false)
+      }
     },
   })
 
@@ -67,10 +77,12 @@ export function ContactForm() {
     <div className="space-y-6">
       {formState && (
         <div
-          className={`p-4 rounded-lg ${
+          role={formState.success ? 'status' : 'alert'}
+          aria-live="polite"
+          className={`rounded-lg p-4 ${
             formState.success
-              ? ' border border-accent text-accent'
-              : ' border border-red-800 text-red-800'
+              ? 'border border-accent text-accent'
+              : 'border border-red-800 text-red-800'
           }`}
         >
           {formState.success ? formState.message : formState.error}
@@ -80,7 +92,7 @@ export function ContactForm() {
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          form.handleSubmit()
+          void form.handleSubmit()
         }}
         className="space-y-4"
         noValidate
@@ -142,7 +154,6 @@ export function ContactForm() {
           )}
         </form.Field>
 
-
         <form.Field name="subject">
           {(field) => (
             <div>
@@ -186,7 +197,7 @@ export function ContactForm() {
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
-                placeholder="Tell me about your project, timeline, and how I can help..."
+                placeholder="Describe the product, team, and what you need help with..."
                 className="w-full h-60 sm:h-80 px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-colors"
                 disabled={isPending}
               />

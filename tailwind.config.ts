@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
-import typography from '@tailwindcss/typography';
+import typography from '@tailwindcss/typography'
+import type { Config } from 'tailwindcss'
 
 export default {
   content: [
@@ -29,5 +29,5 @@ export default {
     hoverOnlyWhenSupported: true,
   },
   plugins: [typography],
-    darkMode: 'class',
-} satisfies Config;
+  darkMode: 'class',
+} satisfies Config

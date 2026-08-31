@@ -1,9 +1,9 @@
 'use server'
 
-import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { Resend } from 'resend'
 import { z } from 'zod'
-import { type ContactFormData, contactSchema } from './schema'
+import { contactSchema } from './schema'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -13,7 +13,12 @@ const rateLimitMap = new Map<string, { count: number; lastReset: number }>()
 export async function submitContactForm(formData: FormData) {
   try {
     // Basic rate limiting (5 requests per hour per IP)
-    const clientIP = process.env.VERCEL_IP || 'unknown'
+    const requestHeaders = headers()
+    const forwardedIP = requestHeaders
+      .get('x-forwarded-for')
+      ?.split(',')[0]
+      ?.trim()
+    const clientIP = forwardedIP || requestHeaders.get('x-real-ip') || 'unknown'
     const now = Date.now()
     const rateLimit = rateLimitMap.get(clientIP)
 
@@ -35,24 +40,22 @@ export async function submitContactForm(formData: FormData) {
       email: formData.get('email') as string,
       subject: formData.get('subject') as string,
       message: formData.get('message') as string,
-      timestamp: Date.now(),
     }
 
     // Minimum delay check (2 seconds in production, disabled in development)
-    const formTimestamp = formData.get('timestamp') as string
+    const formTimestamp = formData.get('timestamp')
+    const timestamp =
+      typeof formTimestamp === 'string'
+        ? Number.parseInt(formTimestamp, 10)
+        : Number.NaN
     const isDevelopment = process.env.NODE_ENV === 'development'
     const minDelay = isDevelopment ? 0 : 2000 // No delay in dev, 2s in production
+    const timeDiff = now - timestamp
 
-    if (formTimestamp) {
-      const timestamp = Number.parseInt(formTimestamp, 10)
-      if (!Number.isNaN(timestamp)) {
-        const timeDiff = now - timestamp
-        if (timeDiff < minDelay) {
-          return {
-            success: false,
-            error: 'Please wait a moment before submitting.',
-          }
-        }
+    if (Number.isNaN(timestamp) || timeDiff < minDelay) {
+      return {
+        success: false,
+        error: 'Please wait a moment before submitting.',
       }
     }
 
@@ -69,7 +72,7 @@ export async function submitContactForm(formData: FormData) {
     })
 
     // Send email via Resend
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: `${validatedData.name} <noreply@gaboesquivel.com>`,
       to: ['gabo@gaboesquivel.com'],
       replyTo: validatedData.email,

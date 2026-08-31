@@ -47,10 +47,7 @@ export function validateBlogPostTechTags(
       .join('\n\n')
 
     throw new Error(
-      `❌ Build failed: Found ${errors.length} blog post(s) with invalid tech tags.\n\n` +
-        `Invalid tags must match valid tech tags from gaboesquivel package.\n\n` +
-        `Errors:\n${errorMessages}\n\n` +
-        `Valid tech tags: ${Array.from(VALID_TECH_TAGS).sort().join(', ')}`,
+      `❌ Build failed: Found ${errors.length} blog post(s) with invalid tech tags.\n\nInvalid tags must match valid tech tags from gaboesquivel package.\n\nErrors:\n${errorMessages}\n\nValid tech tags: ${Array.from(VALID_TECH_TAGS).sort().join(', ')}`,
     )
   }
 }

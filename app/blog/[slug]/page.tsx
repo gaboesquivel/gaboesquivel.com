@@ -47,20 +47,6 @@ export async function generateMetadata({
   }
 }
 
-function getLatestPosts(currentPost, limit = 4) {
-  // Filter out the current post and get only published posts
-  const otherPosts = allBlogs.filter((post) => post.slug !== currentPost.slug)
-
-  // Sort by date descending to get the most recent posts
-  const sortedPosts = [...otherPosts].sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  )
-
-  // Take only the specified number of posts
-  return sortedPosts.slice(0, limit)
-}
-
 export default async function Blog({ params }) {
   const post = allBlogs.find((post) => post.slug === params.slug)
 
@@ -68,17 +54,16 @@ export default async function Blog({ params }) {
     notFound()
   }
 
-  const latestPosts = getLatestPosts(post)
-
   return (
     <section>
       <script
         type="application/ld+json"
         suppressHydrationWarning
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized from generated post data.
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(post.structuredData),
         }}
-      ></script>
+      />
       <h1 className="font-bold text-2xl tracking-tighter max-w-[650px]">
         <Balancer>{post.title}</Balancer>
       </h1>
@@ -89,7 +74,7 @@ export default async function Blog({ params }) {
       </div>
       <Mdx code={post.body.code} />
 
-      <LatestPosts title="More Articles" />
+      <LatestPosts title="More Articles" excludeSlug={post.slug} />
     </section>
   )
 }

@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { getProjectsByTechnologySlug } from 'gaboesquivel'
 import type { TechStackItem } from 'gaboesquivel'
+import Link from 'next/link'
 
 export function TechCard({ tech }: TechCardProps) {
   const projects = getProjectsByTechnologySlug(tech.slug)

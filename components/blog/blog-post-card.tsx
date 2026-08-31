@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { formatDate } from 'lib/utils'
 import type { Blog } from 'contentlayer/generated'
+import { formatDate } from 'lib/utils'
+import Link from 'next/link'
 
 /**
  * BlogPostCard component displays a blog post in a tile format
@@ -34,4 +34,3 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
 interface BlogPostCardProps {
   post: Blog
 }
-

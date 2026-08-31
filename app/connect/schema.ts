@@ -16,7 +16,6 @@ export const contactSchema = z.object({
         .replace(/on\w+\s*=/gi, '')
         .trim()
     }),
-  timestamp: z.number().optional(),
 })
 
 export type ContactFormData = z.infer<typeof contactSchema>
