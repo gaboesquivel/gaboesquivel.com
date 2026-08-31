@@ -5,7 +5,7 @@ const sections = [
   {
     heading: 'Building a neobank from its first version',
     paragraphs: [
-      "At Wink I shipped Costa Rica's first neobank while integrating partner-bank APIs, building biometric KYC in React Native, and forming the team. Bank integration and security were launch work.",
+      'At Wink, launch scope included the things that are easy to defer: partner-bank integration, biometric authentication, and a team that did not exist yet. A neobank has no useful version without them.',
     ],
     projectSlugs: ['wink'],
   },
@@ -19,16 +19,16 @@ const sections = [
   {
     heading: 'New product surfaces for digital assets',
     paragraphs: [
-      'At ZTX I built a WebGL wallet connector so EVM state lives inside the virtual-world UI. At RareMint I indexed NFT data with Moralis streams and wired WalletConnect into the Polygon marketplace for collectible auctions.',
+      'At ZTX I set up the early Next.js, Tailwind, and Framer Motion architecture for the virtual world, plus the analytics the team needed to see how it was used. At RareMint I indexed NFT data with Moralis streams and wired WalletConnect into the Polygon marketplace for collectible auctions.',
     ],
     projectSlugs: ['ztx', 'raremint'],
   },
   {
-    heading: 'AI products with operational boundaries',
+    heading: 'Specialized AI assistants',
     paragraphs: [
-      'For LegalAgent I shipped voice and chat with RAG plus an admin layer for SSO, documents, and prompt controls. For Masterbots I set up the Next.js architecture, built specialized assistant interfaces, and trained the team on the AI SDK workflow.',
+      'For Masterbots I set up the Next.js architecture, built the specialized assistant interfaces, and trained the team on the AI SDK workflow they would maintain.',
     ],
-    projectSlugs: ['masterbots', 'legal-agent'],
+    projectSlugs: ['masterbots'],
   },
 ]
 
@@ -37,8 +37,8 @@ export default function StartupsExperiencePage() {
     <CapabilityPage
       title="Startup product engineering"
       intro={[
-        'I help early-stage teams turn a product idea into a working system across architecture, interface, data, infrastructure, and delivery.',
-        'The goal is a foundation that supports the next decision without overbuilding for an imagined future. The evidence spans regulated fintech, Web3 marketplaces and launchpads, virtual worlds, and production AI.',
+        'Early-stage work is mostly deciding what not to build yet. I help founding teams get from an idea to a system that ships, without an architecture that assumes a scale nobody has reached.',
+        'That has meant a neobank, a token launchpad, a virtual world, a collectibles marketplace, and a platform for specialized AI assistants.',
       ]}
       sections={sections}
       postSlugs={[

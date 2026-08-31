@@ -1,70 +1,49 @@
 ---
 title: The Intersection of AI and Web3
 publishedAt: 2024-07-07
-summary: The convergence that will reshape our digital landscape
+summary: "A July 2024 snapshot of shared infrastructure between AI and Web3: compute, identity, data, and open networks."
 image: /images/2024/07/ai-robot.webp
 category: ['Web3', 'Artificial Intelligence', 'Startups', 'Fullstack']
 tech: ['JavaScript', 'TypeScript', 'OpenAI', 'Ethereum', 'AI SDK']
 ---
 
-{/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
+{/* Prevent CLS with responsive aspect ratio */}
+<div className="image-container">
 ![AI Web3](/images/2024/07/ai-robot.webp)
 </div>
 
-As technology continues to evolve at an unprecedented pace, we are on the cusp of a revolutionary transformation. 
+I have been building with [Web3](/web3) and, more recently, with [AI](/ai) in the same products. This note is what that overlap looked like in July 2024: not a forecast, a snapshot of the joints I was actually using.
 
-Over the past 15 years, I've had the privilege of working on a variety of projects that have spanned multiple industries. My early career saw me diving into the entertainment sector, where I explored the integration of technology in media and content creation. This was followed by a foray into fintech, where I developed solutions to enhance financial services through user-centric [mobile experiences](/mobile). My venture into [Web3](/web3) exposed me to the decentralized world of blockchain, smart contracts, and cryptocurrencies, which opened my eyes to the possibilities of a more transparent and equitable digital ecosystem.
-
-Most recently, my focus has shifted towards [AI](/ai), where I have been leveraging large language models to create intelligent solutions that can help people be more productive and creative. Each of these experiences has enriched my understanding and appreciation of how technology can transform industries and improve lives.
-
-#### Why AI and Web3?
-
-- **Unprecedented Transformation**: The fusion of AI and Web3 is set to bring about changes that we have never seen before. AI's ability to process and analyze vast amounts of data, combined with Web3's decentralized and transparent nature, creates a powerful synergy that can revolutionize everything from finance to healthcare, from supply chains to entertainment.
-
-- **Decentralization and Transparency**: Web3 technology, with its foundation in blockchain, offers a decentralized approach to digital interactions. This not only enhances security and privacy but also promotes transparency and trust. AI, when integrated with Web3, can leverage these decentralized networks to build more robust and tamper-proof systems. 
-
-- **Enhanced Privacy and Security**: Privacy tech is becoming increasingly important in our digital age. By combining AI with Web3, we can develop solutions that prioritize user privacy and data security. AI algorithms can be designed to operate on encrypted data, ensuring that sensitive information remains protected while still enabling valuable insights and functionality.
-
-- **Empowering Innovation**: At the intersection of AI and Web3, there is enormous potential for innovation. Decentralized AI platforms can democratize access to AI technologies, allowing developers and entrepreneurs from around the world to contribute to and benefit from these advancements. This open and collaborative environment fosters creativity and accelerates technological progress.
-
-- **Future-Proof Solutions**: As we look towards the future, it's clear that the technologies of AI and Web3 will play a crucial role in shaping our digital landscape. By focusing on these areas, I aim to develop solutions that are not only cutting-edge but also resilient and adaptable to future technological advancements.
-
+Web3 gives you shared state, signatures, and settlement that does not sit inside one company's database. Models give you judgment over messy inputs. The combination is interesting when the model needs a payment rail, an identity check, or a compute market that is not a single cloud invoice.
 
 ![AI Robot](/images/2024/07/ai-robot-web3.webp)
 
-The realms of Artificial Intelligence (AI) and Web3 are converging in several key ways:
+## Shared compute
 
-- **Decentralized Computing Power**
+Training and inference concentrate GPUs in a handful of providers. Peer-to-peer networks on chain try to meter spare capacity instead. I do not treat that as a finished cloud replacement. I treat it as a way to buy cycles without assuming AWS is the only meter. If AI is going to run closer to users and communities, the hardware map cannot be only three regions and two vendors.
 
-  The decentralization of computing power via peer-to-peer networks enabled by [Web3](/web3) makes it possible to reduce the concentration of computing capacity in the hands of a few large technological entities. This promotes a more equitable and global distribution of computing resources, which could radically transform the way [AI](/ai) is deployed and accessed around the world.
+## Identity when the other party might be a model
 
-- **Identity Authentication**
+Once text and images are cheap to fake, "is this a person" becomes an infrastructure problem. The chain world has been iterating on that in public. Worldcoin's iris-scan proof of personhood is the loudest example. I am not endorsing a biometric product. I am noting the constraint: sybil resistance for airdrops, votes, and rate limits gets harder when the attacker is a language model.
 
-  The blockchain industry is actively exploring initiatives to authenticate humanity in a cyberspace where the distinction between human and machine is becoming increasingly blurred. Projects like Worldcoin, which uses iris scan technology to verify identity, illustrate this trend.
+## Models looking at chain data
 
-- **Optimizing Blockchain with AI**
+The useful AI work on chain, for me, is boring and specific. Audit smart contract code for known classes of bugs. Scan the firehose of blocks and logs for fraud patterns, flow, and anomalies. Summarize that for a human who still signs the transaction. None of that requires a "decentralized ChatGPT." It requires tools that read hex and return something a reviewer can distrust productively.
 
-  AI can help improve blockchain by optimizing the auditing of smart contract codes to detect potential flaws, or by analyzing the vast amounts of data generated by blockchains to extract trends, identify fraud, anticipate market variations, and provide relevant analyses to investors and regulators.
+## Live data into models
 
-- **Real-Time Data Streams Powering AI**
+Prediction and automation get less theatrical when the model is fed a real-time stream instead of a CSV from last quarter. Platforms such as Synternet sit in that gap: take Web3 data, shape it, feed an agent or a dashboard. I care about the interface (stable schemas, latency, who can lie) more than the brand.
 
-  Real-time data streams are beginning to drive AI towards unprecedented levels of predictive analytics, automation, and smart decision-making. Platforms like Synternet are streamlining Web3 data to power the next generation of AI.
+Those four joints (compute, identity, contract review, live data) are the whole thesis I was willing to stand on in mid-2024. Broader claims about healthcare, supply chain, and entertainment can wait until someone ships them.
 
+## Two projects I was close to
 
-The convergence of AI and Web3 holds immense potential for transformative innovation and growth, with the power to revolutionize industries from entertainment and gaming to education and commerce. As these technologies evolve, we can expect an expanding array of use cases and applications across various domains. Moreover, this convergence can lead to the development of new business models and ecosystems that are more inclusive and equitable. By enabling decentralized governance and tokenization, we can create systems that empower users and foster a sense of ownership and participation.
-
-
-One of my favorite projects is [Morpheus](https://mor.org/about). Morpheus is designed to incentivize the first open-source peer-to-peer network of personal general-purpose AI (smart agents). The Morpheus network is powered by the MOR token, which rewards contributors who work together to build, maintain, and utilize the open-source decentralized AI infrastructure. This project exemplifies the potential of AI and Web3 to create collaborative, decentralized ecosystems that drive innovation and empower individuals.
+[Morpheus](https://mor.org/about) is the open-source attempt I keep watching: a peer-to-peer network of personal general-purpose agents, with the MOR token paying people who build, host, and use the infrastructure. User-owned inference, not another hosted assistant with a Discord.
 
 [![Morpheus AI](/images/2024/07/morpheus.png)](https://mor.org)
 
-As the current lead developer at the [Bitlauncher](/project/bitlauncher) open-source initiative, I am proud to share that [Bitlauncher](https://bitlauncher.ai/) supports AI startups by democratizing access to resources and funding through a decentralized, open-source platform. It features a batch auction system for token sales, ensuring fair and transparent price discovery. Participants bid during a fixed period, and tokens are distributed at a uniform price, eliminating manipulation and ensuring equal opportunities for all investors.
+At [Bitlauncher](/project/bitlauncher) I was lead developer on an open-source initiative that helps AI startups raise through a decentralized platform. The mechanism is a batch auction: a fixed bidding window, one clearing price, tokens allocated at that price. The point is fair discovery, not a private sale with a public theater.
 
 [![Bitlauncher](/images/work/bitlauncher.png)](https://bitlauncher.ai)
 
-#### Conclusion
-
-The intersection of [AI](/ai) and [Web3](/web3) represents a frontier of technological innovation that holds the promise of unparalleled transformation. By focusing my efforts on this convergence, I aim to contribute to the development of solutions that are secure, transparent, and future-proof. I am committed to exploring and harnessing the potential of these technologies to drive progress and create a better digital future.
-
-Join me on this exciting journey as we navigate the transformative potential of AI and Web3, and work together to build a more decentralized, transparent, and intelligent world.
+I will keep shipping at this intersection. The next year will either make these joints ordinary or show which ones were only whitepapers. I am more interested in the ordinary outcome.

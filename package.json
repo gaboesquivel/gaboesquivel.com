@@ -7,8 +7,8 @@
     "lint": "biome check .",
     "lint:fix": "biome check . --write",
     "hooks:pre-commit": "biome check --write --staged --no-errors-on-unmatched && git update-index --again",
-    "skills:install": "bunx skills@latest add ./node_modules/gaboesquivel-skills --skill gabo -a cursor -a claude-code -y",
-    "skills:update": "bunx skills@latest update gabo",
+    "skills:install": "bunx skills@latest experimental_install",
+    "skills:update": "bunx skills@latest update",
     "postinstall": "bun run skills:install"
   },
   "dependencies": {
@@ -24,7 +24,7 @@
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "framer-motion": "^10.16.4",
-    "gaboesquivel": "^5.0.0",
+    "gaboesquivel": "^5.1.0",
     "googleapis": "^126.0.1",
     "lucide-react": "^0.476.0",
     "next": "13.4.19",

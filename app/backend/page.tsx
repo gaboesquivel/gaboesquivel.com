@@ -5,21 +5,21 @@ const sections = [
   {
     heading: 'Blockchain data and realtime APIs',
     paragraphs: [
-      'I built ChainGraph as a GraphQL subscription toolkit for indexing and streaming EOSIO and Antelope data. At Bitlauncher I built a custom EOS EVM indexer with WebSocket event subscriptions and Supabase for queries, aggregation, and realtime feeds.',
+      'I built ChainGraph as a GraphQL subscription toolkit for indexing and streaming EOSIO and Antelope data. At Bitlauncher I built the EOS EVM indexer on viem event subscriptions and a dFuse stream, with Supabase for queries, aggregation, and realtime subscriptions.',
     ],
     projectSlugs: ['chaingraph', 'bitlauncher'],
   },
   {
     heading: 'Exchange and protocol services',
     paragraphs: [
-      'At Bitcash I built the matching engine, Hasura GraphQL APIs, WebAuthn signing path, and a realtime EOS indexer with worker threads and binary deserialization. At Opyn I ran Ponder over PostgreSQL so the trading interface reads indexed protocol state instead of reconstructing it in the client.',
+      'At Bitcash I built the matching engine, Hasura GraphQL APIs, WebAuthn signing path, and a realtime EOS indexer with worker threads and binary deserialization. At Opyn the trading interface reads protocol state from a Ponder indexer over PostgreSQL rather than reconstructing it in the client.',
     ],
     projectSlugs: ['bitcashbank', 'opyn'],
   },
   {
     heading: 'Retrieval and application services',
     paragraphs: [
-      'For LegalAgent I implemented RAG as an application service with Microsoft SSO, document operations, prompt controls, and retrieval categories behind the Expo assistant.',
+      'For LegalAgent the retrieval layer is an application service rather than a prompt. Document categorization decides what is eligible for retrieval, and system prompts are managed as data in the admin instead of shipped in code.',
     ],
     projectSlugs: ['legal-agent'],
   },
@@ -30,8 +30,8 @@ export default function BackendExperiencePage() {
     <CapabilityPage
       title="Backend engineering"
       intro={[
-        'I build APIs, indexers, realtime data systems, and application services where correctness, security, and operability affect the product directly.',
-        'The backend can be a GraphQL layer over blockchain events, exchange infrastructure with browser signing, or a retrieval system behind a voice assistant. I choose boundaries around the data and product behavior the system has to support.',
+        'APIs, indexers, realtime data, and application services are the layers where a mistake becomes lost money, leaked data, or a product nobody can operate.',
+        'Mine have been a GraphQL layer over blockchain events, a matching engine with browser-based signing, and a retrieval system behind a voice assistant. Different domains, same question each time: what is the source of truth, and who is allowed to move it?',
       ]}
       sections={sections}
       postSlugs={[

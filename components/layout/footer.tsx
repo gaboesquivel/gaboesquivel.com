@@ -92,18 +92,26 @@ export function Footer() {
                   CV
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/explore"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Explore
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
             <ul className="space-y-2">
               <li className="text-gray-300">
-                Available for direct hire or{' '}
+                Open to direct hire, international hire, or{' '}
                 <Link
                   href="/blog/2025-11-1099-contracting"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  1099 contracting
+                  contracting through Blockmatic Labs LLC
                 </Link>
                 .
                 <br />

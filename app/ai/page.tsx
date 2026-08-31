@@ -1,97 +1,76 @@
 import { LatestPosts } from 'components/blog/latest-posts'
 import { LetsConnect } from 'components/shared/lets-connect'
+import {
+  PageImage,
+  PageSection,
+  PageTitle,
+  Prose,
+} from 'components/shared/page-layout'
 import { ProjectEvidence } from 'components/work/project-evidence'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import aiImg from 'public/images/ai/ai.webp'
 
 export default function AIExperiencePage() {
   return (
     <section>
-      <h1 className="mb-6 text-3xl font-bold tracking-tighter">
-        AI product engineering
-      </h1>
-      <p className="prose prose-neutral dark:prose-invert">
-        I build production AI products where models are one part of a complete
-        system. The work includes conversational and voice interfaces,
-        retrieval, application state, authentication, document operations, and
-        the controls a team needs to run the product after launch.
-      </p>
-      <p className="prose prose-neutral dark:prose-invert">
-        My focus is the boundary between model behavior and product behavior:
-        what context reaches the model, how the interface communicates state,
-        where deterministic application logic belongs, and how people manage the
-        knowledge behind the assistant.
-      </p>
+      <PageTitle>AI product engineering</PageTitle>
+      <Prose>
+        A production AI product is mostly not the model. It is the voice and
+        chat around it, the retrieval that decides what the model even sees, and
+        the controls a team needs to run the thing after launch. That is the
+        part I build.
+      </Prose>
+      <Prose>
+        Model behavior is probabilistic. Product behavior cannot be. Most of the
+        work sits on that line, deciding what the model gets to decide and what
+        stays ordinary application logic.
+      </Prose>
 
-      <div className="my-8">
-        <div className="relative h-[420px]">
-          <Image
-            alt="AI product engineering"
-            src={aiImg}
-            fill
-            sizes="(max-width: 768px) 100vw, 896px"
-            priority
-            className="rounded-lg object-cover"
-          />
-        </div>
-      </div>
+      <PageImage alt="AI product engineering" src={aiImg} priority />
 
-      <h2 className="mb-4 mt-12 text-2xl font-semibold tracking-tight">
-        LegalAgent: voice, chat, and retrieval
-      </h2>
-      <p className="prose prose-neutral dark:prose-invert">
-        For LegalAgent, I built a React Native and Expo assistant with voice,
-        chat, bilingual realtime transcription and synthesis, and RAG for case
-        context and document summaries.
-      </p>
-      <p className="prose prose-neutral dark:prose-invert">
-        I also built the TanStack Start administration system for Microsoft SSO,
-        document management, prompt controls, and retrieval categories. Those
-        tools let the team control access, maintain source material, and manage
-        the instructions behind the assistant.
-      </p>
+      <PageSection title="LegalAgent: voice, chat, and retrieval">
+        <Prose>
+          For LegalAgent, I built a React Native and Expo assistant with voice,
+          chat, bilingual realtime transcription and synthesis, and RAG for case
+          context and document summaries.
+        </Prose>
+        <Prose>
+          I also built the TanStack Start administration system for Microsoft
+          SSO, document management, prompt controls, and retrieval categories.
+          Those tools let the team control access, maintain source material, and
+          manage the instructions behind the assistant.
+        </Prose>
 
-      <ProjectEvidence slugs={['legal-agent']} columns={1} />
+        <ProjectEvidence slugs={['legal-agent']} columns={1} />
+      </PageSection>
 
-      <h2 className="mb-4 mt-12 text-2xl font-semibold tracking-tight">
-        Specialized assistants inside larger products
-      </h2>
-      <p className="prose prose-neutral dark:prose-invert">
-        For Masterbots, I worked on the Next.js architecture and built separate
-        interfaces for domain-specific assistants. I integrated AI SDK tooling
-        and internationalization automation, then trained the team on the
-        implementation.
-      </p>
-      <p className="prose prose-neutral dark:prose-invert">
-        For Bitlauncher, I built a RAG chatbot with tools for current news and
-        video content and added AI-assisted internationalization. The assistant
-        could retrieve and explain information while balances, bids, contracts,
-        and transactions remained grounded in deterministic application data.
-      </p>
+      <PageSection title="Specialized assistants inside larger products">
+        <Prose>
+          For Masterbots, I worked on the Next.js architecture and built
+          separate interfaces for domain-specific assistants. I integrated AI
+          SDK tooling and internationalization automation, then trained the team
+          on the implementation.
+        </Prose>
+        <Prose>
+          For Bitlauncher, I built a RAG chatbot with tools for current news and
+          video content and added AI-assisted internationalization. The
+          assistant could retrieve and explain information while balances, bids,
+          contracts, and transactions remained grounded in deterministic
+          application data.
+        </Prose>
 
-      <ProjectEvidence slugs={['masterbots', 'bitlauncher']} />
+        <Prose>
+          Further back,{' '}
+          <Link href="/project/wizard-world" className="prose-link">
+            Wizard World
+          </Link>{' '}
+          was a 2022 Flow Hackathon PWA that wired DALL-E generation into a
+          Next.js flow and minted the results through Niftory.
+        </Prose>
 
-      <h2 className="mb-4 mt-12 text-2xl font-semibold tracking-tight">
-        Earlier interface experiments
-      </h2>
-      <p className="prose prose-neutral dark:prose-invert">
-        Wizard World was a 2022 Flow Hackathon PWA that connected DALL-E image
-        generation to a Next.js product flow and used Niftory to mint the
-        resulting assets on Flow.
-      </p>
-      <p className="prose prose-neutral dark:prose-invert">
-        Across these products, AI is one system boundary among many. Useful
-        products still need source management, authentication, explicit tool
-        boundaries, interface feedback, and operational controls.
-      </p>
-
-      <p className="mt-6">
-        <Link href="/project/wizard-world" className="prose-link">
-          View Wizard World
-        </Link>
-      </p>
+        <ProjectEvidence slugs={['masterbots', 'bitlauncher']} />
+      </PageSection>
 
       <LatestPosts
         title="Writing about AI products"
@@ -102,10 +81,9 @@ export default function AIExperiencePage() {
         ]}
       />
 
-      <h2 className="mb-4 mt-12 text-2xl font-semibold tracking-tight">
-        Build an AI product
-      </h2>
-      <LetsConnect />
+      <PageSection title="Build an AI product">
+        <LetsConnect />
+      </PageSection>
     </section>
   )
 }

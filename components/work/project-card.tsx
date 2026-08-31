@@ -1,4 +1,6 @@
+import { proseClass } from 'components/shared/spacing'
 import type { Project } from 'gaboesquivel'
+import { cn } from 'lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -22,16 +24,18 @@ export function ProjectCard({
     >
       {src ? (
         wide ? (
-          <Image
-            src={src}
-            alt={project.title}
-            width={1600}
-            height={1067}
-            priority={priority}
-            sizes="(max-width: 768px) 100vw, 896px"
-            className="h-auto w-full transition-transform duration-500 group-hover:scale-110"
-            style={{ width: '100%', height: 'auto' }}
-          />
+          <div className="overflow-hidden">
+            <Image
+              src={src}
+              alt={project.title}
+              width={1600}
+              height={1067}
+              priority={priority}
+              sizes="(max-width: 768px) 100vw, 896px"
+              className="h-auto w-full transition-transform duration-500 group-hover:scale-110"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </div>
         ) : (
           <div className="relative aspect-video overflow-hidden">
             <Image
@@ -54,9 +58,7 @@ export function ProjectCard({
             {project.role}
           </p>
         ) : null}
-        <p className="prose prose-neutral line-clamp-3 dark:prose-invert">
-          {project.description}
-        </p>
+        <p className={cn(proseClass, 'line-clamp-3')}>{project.description}</p>
       </div>
     </Link>
   )

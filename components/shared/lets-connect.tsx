@@ -1,8 +1,10 @@
+import { proseClass } from 'components/shared/spacing'
+import { cn } from 'lib/utils'
 import Link from 'next/link'
 
 export function LetsConnect() {
   return (
-    <div className="prose prose-neutral dark:prose-invert print:hidden">
+    <div className={cn(proseClass, 'print:hidden')}>
       <p>
         Open to direct hire, international hire, or{' '}
         <Link href="/blog/2025-11-1099-contracting" className="prose-link">
@@ -18,10 +20,9 @@ export function LetsConnect() {
         , working US Mountain Time.
       </p>
       <p>
-        If you're building a software product and need help making a complex
-        system useful,{' '}
+        Tell me what you're building and where it's stuck.{' '}
         <Link href="/connect" className="cta-link">
-          start a conversation
+          Start a conversation
         </Link>
         .
       </p>

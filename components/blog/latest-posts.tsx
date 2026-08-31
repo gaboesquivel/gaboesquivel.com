@@ -48,18 +48,20 @@ function getLatestPosts({
   )
 
   let pool = allSorted
-  if (category) pool = pool.filter((post) => post.category?.includes(category))
-  if (tech) pool = pool.filter((post) => post.tech?.includes(tech))
+  if (category)
+    pool = pool.filter((post) =>
+      post.category?.some((c) => c.toLowerCase() === category.toLowerCase()),
+    )
+  if (tech)
+    pool = pool.filter((post) =>
+      post.tech?.some((t) => t.toLowerCase() === tech.toLowerCase()),
+    )
   if (excludeSlug) pool = pool.filter((post) => post.slug !== excludeSlug)
 
-  if (slugs) {
-    const curated = slugs.flatMap((slug) =>
-      pool.filter((post) => post.slug === slug),
-    )
-    const curatedSlugs = new Set(curated.map((post) => post.slug))
-    const backfill = pool.filter((post) => !curatedSlugs.has(post.slug))
-    return [...curated, ...backfill].slice(0, limit)
-  }
+  if (slugs)
+    return slugs
+      .flatMap((slug) => pool.filter((post) => post.slug === slug))
+      .slice(0, limit)
 
   return pool.slice(0, limit)
 }

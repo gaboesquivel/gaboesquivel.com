@@ -1,5 +1,5 @@
 ---
-title:  Managing Risks in DeFi
+title: Managing Risks in DeFi
 publishedAt: 2025-05-14
 summary: DeFi risks including impermanent loss, smart contract exploits, rug pulls, and real-world examples
 image: /images/2025/05/defi-risk-management.webp
@@ -64,7 +64,7 @@ DeFi governance is vulnerable when attackers borrow tokens to pass malicious pro
 Despite DeFi's decentralized nature, many protocols retain centralization risks through admin keys and upgradeable contracts. The Multichain bridge hack (\$130M, 2023) demonstrated how admin key compromise can lead to catastrophic losses. Centralized oracles and price feeds also create single points of failure. Mitigations include timelocks, multi-sig governance, and decentralized oracle networks.
 
 ### Regulatory Risks
-DeFi protocols face evolving regulatory landscapes across jurisdictions. SEC actions against DeFi protocols demonstrate the challenges of compliance in a decentralized environment. Projects must balance decentralization with regulatory requirements, often implementing KYC/AML solutions while maintaining protocol security.
+DeFi protocols face changing regulation across jurisdictions. SEC actions against DeFi protocols demonstrate the challenges of compliance in a decentralized environment. Projects must balance decentralization with regulatory requirements, often implementing KYC/AML solutions while maintaining protocol security.
 
 ### Sandwich Attacks
 Sandwich attacks occur when MEV (Maximal Extractable Value) bots front-run and back-run user transactions in DEXs. While most common on EVM chains, similar attacks can occur on Solana and Cosmos. The attacker places a buy order before the victim's trade (front-run) and a sell order after (back-run), profiting from the price impact. This can cost users 0.5-2% per trade. Notable examples include the \$1.2M sandwich attack on a single Uniswap trade in 2021. Mitigations include using DEX aggregators, private transactions, or protocols with anti-MEV features like CowSwap's batch auctions.

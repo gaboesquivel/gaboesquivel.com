@@ -1,8 +1,7 @@
 ---
 title: Scaling and Securing WebSocket Connections
 publishedAt: 2025-05-16
-summary: Strategies for building robust WebSocket backends with session affinity, TLS encryption, proper authentication, and inter-node communication for high-availability environments
-image: /images/2025/05/order-books-amms.webp
+summary: Strategies for building WebSocket backends with session affinity, TLS encryption, proper authentication, and inter-node communication for high-availability environments
 category: ['Engineering', 'Backend']
 tech: ['NodeJS']
 ---
@@ -11,13 +10,7 @@ WebSockets are essential for real-time applications—from trading engines to AI
 
 Here's how I approach scaling WebSocket backends in high-availability environments without compromising security or developer experience.
 
-
-{/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![Secure WebSockets](/images/2025/05/order-books-amms.webp)
-</div>
-
-## Persistent Connections Meet Distributed Systems
+## Persistent connections and distributed systems
 
 WebSockets maintain a long-lived TCP connection, which breaks traditional stateless load balancing. That’s where session affinity (sticky sessions) come in.
 

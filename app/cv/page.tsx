@@ -90,9 +90,6 @@ export default function CVPage() {
             {exp.title && (
               <p className="exp-duration cv-entry-meta text-sm font-medium text-gray-400 mb-4">
                 {exp.location} • {exp.type} • {exp.duration}
-                {/* <span className="text-sm exp-duration dark:text-gray-400 mb-2 print:text-xs">
-              {exp.location} • {exp.type} • {exp.duration} 
-            </span>*/}
               </p>
             )}
 
@@ -112,23 +109,6 @@ export default function CVPage() {
           </div>
         ))}
       </div>
-
-      {/* <div className="mt-12 hidden print:block">
-        <h2 className="text-xl font-semibold mb-4 print:text-black">
-          Education
-        </h2>
-        <div>
-          <h3 className="text-lg font-medium mb-1 print:text-black">
-            Universidad Cenfotec
-          </h3>
-          <p className="text-sm exp-duration dark:text-gray-400 mb-1 print:text-xs">
-            Bachelor of Science (BS), Software Engineering
-          </p>
-          <p className="text-sm exp-duration dark:text-gray-400 print:text-xs">
-            2006 – 2009
-          </p>
-        </div>
-      </div> */}
 
       <ContactInfo />
 

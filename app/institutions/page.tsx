@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Interactive media at AMC Networks',
     paragraphs: [
-      'At AMC I led the YEAH! Facebook frontend across Brightcove streaming, Facebook integration, and a back-office, shipping in-player trivia, interviews, and quizzes.',
+      'At AMC the YEAH! launch meant shipping against SXSW 2013 with Brightcove, Facebook, and an internal back-office all in scope.',
     ],
     projectSlugs: ['amc-yeah-tv-facebook-app'],
   },
@@ -26,7 +26,7 @@ const sections = [
   {
     heading: 'Regulated banking and retail mobile',
     paragraphs: [
-      'At Wink I integrated partner-bank APIs and biometric KYC inside a regulated neobank mobile app. On Tractor Supply I added ViroAR product previews and React Native performance work inside an existing retail application.',
+      'At Wink the product depended on partner banks, so I coordinated their API integrations and vendors alongside the security work a regulated financial product requires. On Tractor Supply I worked inside an existing React Native retail app, improving performance and code quality and introducing TypeScript.',
     ],
     projectSlugs: ['wink', 'tractor-supply'],
   },
@@ -37,8 +37,8 @@ export default function InstitutionsExperiencePage() {
     <CapabilityPage
       title="Institutional software engineering"
       intro={[
-        'I deliver software inside financial services, media, professional services, and retail organizations where scale, regulation, existing systems, and multiple stakeholders shape the architecture.',
-        'The engineering goal is controlled change: introduce a useful capability while preserving the security, reliability, data, and operational boundaries the organization depends on.',
+        'Inside a large organization the constraint is rarely the technology. It is the systems already running, the people who depend on them, and the rules the company answers to.',
+        'I have shipped under those conditions at American Express, AMC Networks, Grant Thornton, Wink, and Tractor Supply: adding a real capability without disturbing what the organization already relies on.',
       ]}
       sections={sections}
       postSlugs={[

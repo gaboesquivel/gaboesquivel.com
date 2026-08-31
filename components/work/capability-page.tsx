@@ -1,4 +1,5 @@
 import { LatestPosts } from 'components/blog/latest-posts'
+import { PageSection, PageTitle, Prose } from 'components/shared/page-layout'
 import Link from 'next/link'
 import { ProjectEvidence } from './project-evidence'
 
@@ -21,42 +22,31 @@ export function CapabilityPage({
 }) {
   return (
     <section>
-      <h1 className="mb-6 text-3xl font-bold tracking-tighter">{title}</h1>
+      <PageTitle>{title}</PageTitle>
       {intro.map((paragraph) => (
-        <p key={paragraph} className="prose prose-neutral dark:prose-invert">
-          {paragraph}
-        </p>
+        <Prose key={paragraph}>{paragraph}</Prose>
       ))}
 
       {sections.map(({ heading, paragraphs, projectSlugs }) => (
-        <div key={heading}>
-          <h2 className="mb-4 mt-12 text-2xl font-semibold tracking-tight">
-            {heading}
-          </h2>
+        <PageSection key={heading} title={heading}>
           {paragraphs.map((paragraph) => (
-            <p
-              key={paragraph}
-              className="prose prose-neutral dark:prose-invert"
-            >
-              {paragraph}
-            </p>
+            <Prose key={paragraph}>{paragraph}</Prose>
           ))}
           <ProjectEvidence slugs={projectSlugs} />
-        </div>
+        </PageSection>
       ))}
 
       <LatestPosts title={writingTitle} slugs={postSlugs} />
 
-      <h2 className="mb-4 mt-12 text-2xl font-semibold tracking-tight">
-        See the work
-      </h2>
-      <p className="prose prose-neutral dark:prose-invert">
-        Explore the{' '}
-        <Link href="/work" className="prose-link">
-          project portfolio
-        </Link>{' '}
-        for implementation details, systems, and technology.
-      </p>
+      <PageSection title="See the work">
+        <Prose>
+          Explore the{' '}
+          <Link href="/work" className="prose-link">
+            project portfolio
+          </Link>{' '}
+          for implementation details, systems, and technology.
+        </Prose>
+      </PageSection>
     </section>
   )
 }

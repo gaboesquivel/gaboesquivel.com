@@ -1,136 +1,59 @@
 ---
 title: Modern Next.js Web3 Architecture
 publishedAt: 2024-10-01
-summary: Building scalable Web3 apps with Next.js
+summary: URL state, collocation, React Query, wagmi, and viem in Next.js Web3 apps.
 image: /images/2024/10/nextjs-web3-architecture.webp
 category: ['Web3', 'DeFi', 'Engineering', 'Fullstack']
 tech: ['NextJS', 'ReactJS', 'Ethereum', 'TypeScript', 'Viem', 'Wagmi']
-
 ---
 
-In the rapidly evolving landscape of [Web3 development](/web3), creating efficient, scalable, and user-friendly applications is crucial. This guide outlines a modern architecture for building Web3 applications using [Next.js](/frontend), incorporating best practices and optimizations for performance and maintainability.
+I build [Web3](/web3) product surfaces in [Next.js](/tech/nextjs). The chain is the write path. Indexers and APIs are the read path. The UI should not invent a third state model.
 
+The principles I keep on those apps: put shareable state in the URL, collocate by feature, one data subscription per route, cache reads through React Query, talk to the EVM through [viem](/tech/viem) and [wagmi](/tech/wagmi), and delay abstractions until the third copy.
 
-{/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
+{/* Prevent CLS with responsive aspect ratio */}
+<div className="image-container">
 ![Next.js Web3 Architecture](/images/2024/10/nextjs-web3-architecture.webp)
 </div>
 
+## Collocation
 
-## Architectural Principles
+I organize by feature, not by file type. The dashboard's hook, types, tests, and pieces sit in the dashboard folder. I do not keep a global `hooks/` dumping ground for something only one route uses.
 
-1. URL-based state management
-2. Efficient data handling with API reads and [EVM](/tech/evm) transaction writes
-3. Efficient reactive blockchain interactions using Viem and Wagmi
-4. Optimized data fetching using [React](/tech/react) Query
-5. Feature-based code organization
-6. Pragmatic abstraction (AHA Programming)
+That is the same colocation Kent C. Dodds describes in [Colocation](https://kentcdodds.com/blog/colocation). Maintainability is the point: a feature moves or dies as a unit. Scalability is a side effect. I am not hunting four directories to change a filter.
 
-Let's dive deeper into each of these principles.
+## State in the URL
 
+Filters, tabs, chain ids, and other view state that a user might refresh or paste to a teammate go in the query string. Next.js already owns routing. Fighting it with a parallel client store means the back button lies.
 
-### Code Collocation
+Encoded in the URL, the view survives reload. A link is a deep link. Canonical URLs also keep search engines from indexing six copies of the same page with different client-only state.
 
-Code collocation is a principle in [React](/tech/react) development that emphasizes organizing code by feature or functionality rather than by file type. This approach, championed by Kent C. Dodds and others in the React community, offers several benefits:
+Local component state still exists: hover, input drafts, whether a modal is open. I do not put those in the URL.
 
-- **Improved Maintainability**: By keeping related code close together, it's easier to understand and modify features.
-- **Better Scalability**: As your application grows, collocated code remains manageable and doesn't spread across multiple directories.
-- **Faster Development**: Developers can focus on one feature at a time without jumping between different files and folders.
-- **Easier Refactoring**: When code is collocated, it's simpler to extract or move features as needed.
+## One subscription per route
 
-In practice, code collocation in React might look like this:
+Whether the backend is GraphQL subscriptions or REST polling, I want one stream shaped for the page, not five sockets that each hydrate a widget.
 
-- Instead of separate directories for components, styles, and tests, you might have a feature-based structure.
-- Related components, hooks, utilities, and tests are kept in the same directory.
+Fewer connections means less overhead and less glue. The route owns the query. Children read from cache. When the page unmounts, the subscription goes with it.
 
-For a more detailed explanation and examples, refer to Kent C. Dodds' article on the subject: [Colocation](https://kentcdodds.com/blog/colocation).
+This is the same idea as "load the page's data in the page," applied to live chain and indexer feeds.
 
-### Managing State with URLs
+## Cached reads
 
-Relying on URLs for state changes in Next.js enhances user experience by preserving application state across page reloads and enabling easy sharing. This approach is particularly useful for managing user settings, filters, and other dynamic data.
+Identical reads share a query key. React Query (TanStack Query) already does this: cache, dedupe in-flight requests, refetch on focus and reconnect, share `{ data, isLoading, error }` across components.
 
-Benefits of URL-Based State Management:
+I keep keys boring and complete: `['vault', chainId, address]`, not `'vault'` plus hidden closure state. App-wide data can be prefetched at the root. Everything else stays next to the feature.
 
-- **Persistence**: State information encoded in the URL survives page refreshes, crucial for applications where users may navigate away and return later.
-- **Shareability**: Users can share specific application states via URLs, allowing direct access to particular views or settings.
-- **SEO Advantages**: Canonical URLs help search engines understand which version of a page should be indexed, preventing duplicate content issues.
+On chain, wagmi is React Query with Ethereum types. A `useReadContract` is the same mental model as `useQuery` against an indexer. viem is the client underneath: actions, encoding, transports. I do not wrap a second cache around it.
 
+Writes still go through the wallet: user signs, we wait for the receipt, we invalidate the query keys that just went stale. Reads stay queries. Writes stay mutations. Mixing them in a custom store is how the UI desyncs from the block.
 
-### One Subscription per Route
+## AHA instead of a framework-in-the-app
 
-Implementing a single subscription for each route in a GraphQL or REST API architecture offers several advantages, particularly in terms of reducing connection overhead and simplifying data management. This approach involves consolidating multiple data streams into a single, comprehensive subscription tailored to each specific route. While GraphQL subscriptions maintain an open connection for real-time updates, this principle can also be applied to polling-based implementations in REST APIs, ensuring efficient and organized data fetching across the application.
+I copy twice before I extract. A generic `useWeb3Resource` that takes twenty options is usually worse than two hooks that look alike this week.
 
-Key Benefits:
+Kent's [AHA](https://kentcdodds.com/blog/aha-programming) list is the one I use: avoid hasty abstractions, WET until the shape is real, optimize for change, keep complexity inlined until it has a name, make the abstraction fit this product.
 
-- **Reduced Connection Overhead**: By consolidating multiple subscriptions into a single one per route, the number of active connections to the server decreases. Each connection incurs overhead in terms of resources and management, so fewer connections can lead to improved performance and lower latency.
-- **Simplified Management**: Managing multiple subscriptions can be complex, especially in applications with numerous data streams. A single subscription per route simplifies this by reducing the number of subscriptions that need to be monitored and maintained, making it easier to implement changes or troubleshoot issues.
-- **Streamlined Traffic Management**: With fewer connections, traffic management becomes more efficient. The server can handle requests and responses more effectively, optimizing resource allocation and potentially lowering costs associated with data transfer.
+Standard libraries first: Next.js, React Query, wagmi, viem. I do not add an internal SDK until three apps would actually import it.
 
-Cached Queries
-
-Singleton instances of queries are a powerful optimization technique that reduces server connections and improves data consistency across components. This approach is particularly beneficial when multiple components require the same data, allowing them to share a single query instance.
-
-Benefits of Cached Queries:
-
-- **Reduced Server Load**: By minimizing redundant API calls, singleton queries decrease the overall load on your server.
-- **Improved Performance**: Fewer network requests lead to faster page loads and a smoother user experience.
-- **Consistent Data**: All components access the same data instance, ensuring consistency throughout the application.
-- **Efficient Caching**: Centralized data management simplifies cache invalidation and updates.
-
-Implementation with React Query:
-
-React Query provides built-in support for singleton queries through its intelligent caching mechanism. The query key acts as a unique identifier:
-
-Key aspects of React Query's caching behavior:
-
-- **Caching**: Identical query keys return cached data, avoiding unnecessary API calls.
-- **Smart Refetching**: React Query automatically refetches stale data or when specific conditions are met (e.g., window focus, network reconnection).
-- **Shared State**: Components using the same query key share data and loading states.
-- **Automatic Deduplication**: Simultaneous requests for the same data are consolidated into a single API call.
-
-Best Practices:
-
-- **Consistent Query Keys**: Use a standardized format for query keys to ensure proper caching and deduplication.
-- **Granular Keys**: Include relevant parameters in the query key for precise cache management.
-- **Global Queries**: For app-wide data, consider initializing queries at the root level.
-- **Prefetching**: Utilize React Query's prefetching capabilities to load data before it's needed.
-
-By leveraging cached queries effectively, you can significantly optimize your application's data fetching strategy, leading to improved performance and a better user experience.
-ga 
-
-React Query shines here because it provides robust caching and smart refetching. For Web3 apps, libraries like wagmi, which is based on TanStack's React Query, take this further by integrating blockchain interactions seamlessly into the same query-driven model. This means that querying an Ethereum node, for example, works similarly to querying an indexer or traditional Web2 API.
-
-Wagmi's integration with React Query enables you to treat blockchain data (e.g., reading a contract state) the same way you'd handle an API call. By reusing familiar caching patterns, Web2 and Web3 merge into a unified data flow that feels natural to developers.
-
-### Pragmatic Abstraction (AHA Programming)
-
-Pragmatic Abstraction, often referred to as AHA Programming, is a development philosophy that emphasizes simplicity and practicality in software design. It encourages developers to avoid unnecessary complexity and to focus on creating solutions that are both effective and easy to understand.
-
-Key Principles:
-
-- **Avoid Premature Optimization**: Start with a simple and clear solution, and only optimize when necessary.
-- **Keep It Simple**: Use straightforward approaches that are easy to understand and maintain.
-- **Focus on the Problem**: Concentrate on solving the problem at hand rather than creating a more complex solution.
-- **Use Standard Libraries**: Leverage well-established libraries and patterns that have proven track records.
-- **Avoid Over-Engineering**: Resist the urge to create overly complex designs that may be harder to maintain.
-
-Benefits:
-
-- **Simplicity**: AHA programming leads to simpler, more understandable code.
-- **Maintainability**: Code that is easy to understand is easier to maintain.
-- **Flexibility**: Simpler designs are more flexible and can adapt to changes more easily.
-
-AHA Programming, is a concept popularized by Kent C. Dodds, emphasizing simplicity and maintainability in code. Dodds advocates for:
-
-- **Avoiding Hasty Abstractions (AHA)**: Delaying abstractions until they're necessary to avoid premature complexity.
-- **WET Code**: Writing code twice before abstracting to ensure the right solution is clear.
-- **Optimizing for Change**: Prioritizing flexibility over reuse, enabling more adaptable codebases.
-- **Inline Complexity**: Keeping complexity in one place for easier understanding and modification.
-- **Context-Specific Abstractions**: Creating abstractions tailored to the specific needs of your application, rather than generic ones.
-
-By following these principles, developers can create more maintainable and understandable code, aligning with the goals of Pragmatic Abstraction and AHA Programming. This approach leads to codebases that are easier to work with, debug, and evolve over time.
-
-
-### Conclusion
-
-Building modern [Web3](/web3) applications requires a thoughtful architecture that blends best practices from both Web2 and [Web3](/web3) development. With [Next.js](/tech/next-js) as the framework and tools like react-query, wagmi, and viem at your disposal, you can create scalable, performant, and maintainable applications. By following principles like code collocation, URL-based state management, efficient data subscriptions, and pragmatic abstraction, your Web3 app will be ready to handle both the challenges of today and the unknowns of tomorrow.
+Those rules are the architecture. Next.js renders the app. URLs hold the view. React Query and wagmi hold the reads. viem talks to the node. Features live in folders. Abstractions wait until they have earned a name.

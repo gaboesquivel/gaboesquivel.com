@@ -1,3 +1,4 @@
+import { blockSpacing, singleColGrid } from 'components/shared/spacing'
 import { getProjectBySlug } from 'gaboesquivel'
 import { cn } from 'lib/utils'
 import { ProjectCard } from './project-card'
@@ -18,10 +19,7 @@ export function ProjectEvidence({
 
   return (
     <ul
-      className={cn(
-        'my-8 grid grid-cols-1 gap-4',
-        twoColumn && 'md:grid-cols-2',
-      )}
+      className={cn(blockSpacing, singleColGrid, twoColumn && 'md:grid-cols-2')}
     >
       {evidence.map((project, index) => {
         const isLastOdd =

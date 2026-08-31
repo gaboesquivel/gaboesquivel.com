@@ -5,21 +5,21 @@ const sections = [
   {
     heading: 'AI products across mobile, web, and data',
     paragraphs: [
-      'For LegalAgent I built the Expo voice and chat assistant, RAG for case and document context, and a TanStack Start admin with Microsoft SSO, document management, and prompt controls. The mobile product and the tools to run it ship as one system.',
+      'LegalAgent is two clients against one system: an Expo assistant for lawyers and a TanStack Start admin for the team maintaining its sources. I built both, which is why its retrieval categories and prompts are editable rather than hardcoded.',
     ],
     projectSlugs: ['legal-agent'],
   },
   {
-    heading: 'Protocols, indexers, and trading interfaces',
+    heading: 'Token flows across contracts, data, and interface',
     paragraphs: [
-      'At Bitlauncher I indexed EOS EVM events and wired Gnosis auction bidding, token bridges, and wallet balances through Supabase and wagmi. At Opyn I built the Next.js trading interface on Ponder-indexed Arbitrum data so balances, bids, and positions come from the same event model.',
+      'At Bitlauncher the token bridge was the full-stack problem: swapping USDT, USDC, and BITUSD into the token used for bidding touches contracts, indexed events, wallet balances, and the bidding interface at once.',
     ],
-    projectSlugs: ['bitlauncher', 'opyn'],
+    projectSlugs: ['bitlauncher'],
   },
   {
     heading: 'Regulated products and exchange infrastructure',
     paragraphs: [
-      "At Wink I led the AWS backend, partner-bank APIs, and biometric KYC behind Costa Rica's first neobank mobile app. At Bitcash I architected the exchange UI, matching engine, WebAuthn signing, and a realtime EOS indexer so trading, chat, and signing share one service model.",
+      'At Wink the mobile app was the visible part of a serverless AWS backend I also owned, which is where account behavior, security, and partner integrations actually lived. At Bitcash I architected the React, Node.js, PostgreSQL, Hasura, and Google Cloud stack behind a peer-to-peer exchange with realtime chat.',
     ],
     projectSlugs: ['wink', 'bitcashbank'],
   },
@@ -30,8 +30,8 @@ export default function FullstackExperiencePage() {
     <CapabilityPage
       title="Full-stack product engineering"
       intro={[
-        'I ship complete products across interface, application, data, infrastructure, and integration boundaries. I use TypeScript, React, React Native, Next.js, Node.js, PostgreSQL, and cloud services when they fit the system rather than treating the stack as the product.',
-        'The strongest full-stack work is visible in the connections: a mobile assistant and its administration tools, a trading interface and its indexer, or a banking application and the services behind it.',
+        'A mobile assistant and the admin tools behind it. A trading interface and its indexer. A banking app and the partner integrations it depends on. My full-stack work tends to be the pairing rather than one layer of it.',
+        'TypeScript, React, React Native, Next.js, Node.js, PostgreSQL, and cloud services cover most of it. The interesting decisions are about boundaries: what becomes a service, what stays in the client, and what nobody downstream should have to think about twice.',
       ]}
       sections={sections}
       postSlugs={[

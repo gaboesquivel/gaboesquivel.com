@@ -1,3 +1,4 @@
+import { PageTitle, Prose, blockSpacing } from 'components/shared/page-layout'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ContactForm } from './contact-form'
@@ -5,8 +6,8 @@ import { ContactForm } from './contact-form'
 export default function ContractWorkPage() {
   return (
     <section>
-      <h1 className="mb-6 text-3xl font-bold tracking-tighter">Connect</h1>
-      <p className="prose prose-neutral dark:prose-invert">
+      <PageTitle>Connect</PageTitle>
+      <Prose>
         Open to direct hire, international hire, or{' '}
         <Link href="/blog/2025-11-1099-contracting" className="prose-link">
           contracting through Blockmatic Labs LLC
@@ -19,14 +20,17 @@ export default function ContractWorkPage() {
           Costa Rica
         </Link>
         , working US Mountain Time.
-      </p>
-      <p className="prose prose-neutral dark:prose-invert">
-        If you are building a software product and need help making a complex
-        system useful, send a note below. You can review project evidence in the{' '}
-        <Link href="/work">work portfolio</Link>.
-      </p>
+      </Prose>
+      <Prose>
+        Tell me what you're building and where it's stuck. Send a note below, or
+        read through the{' '}
+        <Link href="/work" className="prose-link">
+          work portfolio
+        </Link>{' '}
+        first.
+      </Prose>
 
-      <div className="mt-8">
+      <div className={blockSpacing}>
         <ContactForm />
       </div>
     </section>

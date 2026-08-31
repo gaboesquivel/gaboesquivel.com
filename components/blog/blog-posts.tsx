@@ -1,8 +1,6 @@
 import { BlogPostsMasonry } from 'components/blog/blog-posts-masonry'
+import { FilterNav, IndexHeading } from 'components/shared/page-layout'
 import { allBlogs } from 'contentlayer/generated'
-import { cn } from 'lib/utils'
-import Link from 'next/link'
-import Balancer from 'react-wrap-balancer'
 
 // Allowed categories for blog page display
 const ALLOWED_CATEGORIES = [
@@ -125,43 +123,20 @@ export function BlogPosts({
 
   return (
     <section>
-      {heading ? (
-        <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
-          <Balancer>{heading}</Balancer>
-        </h2>
-      ) : null}
+      {heading ? <IndexHeading>{heading}</IndexHeading> : null}
 
-      <nav
-        aria-label="Writing categories"
-        className="flex flex-wrap gap-2 md:gap-4 mb-8"
-      >
-        <Link
-          href="/blog"
-          aria-current={currentCategory === 'all' ? 'page' : undefined}
-          className={cn(
-            'rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800',
-            currentCategory === 'all' ? 'text-accent' : '',
-          )}
-        >
-          all
-        </Link>
-        {categories.map((cat) => {
-          const displayName = CATEGORY_DISPLAY_NAMES[cat] || cat
-          return (
-            <Link
-              key={cat}
-              href={`/blog/category/${cat}`}
-              aria-current={currentCategory === cat ? 'page' : undefined}
-              className={cn(
-                'rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800',
-                currentCategory === cat ? 'text-accent' : '',
-              )}
-            >
-              {displayName.toLowerCase()}
-            </Link>
-          )
-        })}
-      </nav>
+      <FilterNav
+        label="Writing categories"
+        current={currentCategory}
+        items={[
+          { id: 'all', href: '/blog', label: 'all' },
+          ...categories.map((cat) => ({
+            id: cat,
+            href: `/blog/category/${cat}`,
+            label: (CATEGORY_DISPLAY_NAMES[cat] || cat).toLowerCase(),
+          })),
+        ]}
+      />
 
       <BlogPostsMasonry posts={filteredPosts} identifier={currentCategory} />
     </section>

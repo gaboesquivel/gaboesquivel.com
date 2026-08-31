@@ -1,4 +1,5 @@
 import { Mdx } from 'components/mdx'
+import { indexTitle } from 'components/shared/page-layout'
 import { allBlogs } from 'contentlayer/generated'
 import { formatDate } from 'lib/utils'
 import type { Metadata } from 'next'
@@ -64,7 +65,7 @@ export default async function Blog({ params }) {
           __html: JSON.stringify(post.structuredData),
         }}
       />
-      <h1 className="font-bold text-2xl tracking-tighter max-w-[650px]">
+      <h1 className={indexTitle}>
         <Balancer>{post.title}</Balancer>
       </h1>
       <div className="flex justify-between items-center mt-2 mb-2 text-sm max-w-[650px]">

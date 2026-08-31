@@ -1,4 +1,5 @@
 import { BlogPostsMasonry } from 'components/blog/blog-posts-masonry'
+import { PageSection } from 'components/shared/page-layout'
 import { TechList } from 'components/tech/tech-list'
 import TechStack from 'components/tech/tech-stack'
 import { allBlogs } from 'contentlayer/generated'
@@ -9,7 +10,6 @@ import {
 } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
-import Balancer from 'react-wrap-balancer'
 
 const categories = [
   'featured',
@@ -61,12 +61,9 @@ export default function TechCategoryPage({
           heading={`${categoryNames[category]} technologies`}
         />
         {filteredPosts.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
-              <Balancer>Writing about {categoryNames[category]}</Balancer>
-            </h2>
+          <PageSection title={`Writing about ${categoryNames[category]}`}>
             <BlogPostsMasonry posts={filteredPosts} identifier={category} />
-          </section>
+          </PageSection>
         )}
       </>
     )

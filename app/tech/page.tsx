@@ -1,3 +1,10 @@
+import {
+  PageSection,
+  PageTitle,
+  Prose,
+  blockGrid,
+  sectionSpacing,
+} from 'components/shared/page-layout'
 import { TechList } from 'components/tech/tech-list'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -38,32 +45,33 @@ const categoryGroups = [
 export default function TechStackPage() {
   return (
     <section>
-      <h1 className="mb-6 text-3xl font-bold tracking-tighter">
-        Technology stack
-      </h1>
-      <p className="prose prose-neutral dark:prose-invert">
+      <PageTitle>Technology stack</PageTitle>
+      <Prose>
         Technologies I have used across shipped products, client work,
         open-source systems, and prototypes, grouped by area and linked to
         project evidence.
-      </p>
+      </Prose>
 
-      <h2 className="mb-6 mt-12 text-2xl font-semibold tracking-tight">
-        Browse by area
-      </h2>
-      <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {categoryGroups.map(({ href, name, description }) => (
-          <Link
-            key={href}
-            href={href}
-            className="rounded-lg border border-zinc-700/50 p-4"
-          >
-            <h3 className="font-semibold">{name}</h3>
-            <p className="mt-2 text-sm text-neutral-400">{description}</p>
-          </Link>
-        ))}
-      </div>
+      <PageSection title="Browse by area">
+        <div className={blockGrid}>
+          {categoryGroups.map(({ href, name, description }) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-lg border border-zinc-700/50 p-4"
+            >
+              <h3 className="font-semibold">{name}</h3>
+              <p className="mt-2 text-sm text-neutral-400">{description}</p>
+            </Link>
+          ))}
+        </div>
+      </PageSection>
 
-      <TechList heading="Featured technologies" showNavigation={false} />
+      <TechList
+        heading="Featured technologies"
+        showNavigation={false}
+        className={sectionSpacing}
+      />
     </section>
   )
 }
