@@ -1,3 +1,5 @@
+import { WritingSection } from 'components/shared/page-layout'
+import { cardLink, twoColGrid } from 'components/shared/spacing'
 import { formatDate } from 'lib/utils'
 import Link from 'next/link'
 
@@ -10,25 +12,22 @@ export function PostGrid({
 }) {
   if (posts.length === 0) return null
 
-  // const difference = formatDateDifference(posts[0].publishedAt)
-
   return (
-    <div className="mt-16 print:hidden">
-      <h2 className="mb-4 font-bold text-xl">{title}</h2>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 w-full items-stretch">
+    <WritingSection title={title}>
+      <div className={twoColGrid}>
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="block w-full h-full rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800 flex flex-col"
+            className={cardLink}
           >
             <h3 className="mb-1 font-medium">{post.title}</h3>
             {post.publishedAt && (
-              <p className="text-neutral-600 text-sm dark:text-neutral-400">{`${formatDate(post.publishedAt)}`}</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">{`${formatDate(post.publishedAt)}`}</p>
             )}
           </Link>
         ))}
       </div>
-    </div>
+    </WritingSection>
   )
 }

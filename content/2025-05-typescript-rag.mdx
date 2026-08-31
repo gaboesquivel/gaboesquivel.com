@@ -2,23 +2,13 @@
 title: RAG with TypeScript
 publishedAt: 2025-06-02
 summary: TypeScript implementations of Retrieval-Augmented Generation (RAG) systems for integrating external knowledge with language models
-image: /images/2025/05/evm-token-standards.webp
 category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 ---
 
 Retrieval-Augmented Generation (RAG) is becoming a standard architecture for building [LLM-powered applications](/ai). By combining information retrieval with text generation, RAG enables large language models to answer queries using external knowledge sources. This approach improves accuracy and allows responses to include up-to-date or proprietary data not present in the model's original training.
 
-{/* Prevent Cumulative Layout Shift (CLS) */}
-<div className="min-h-[300px]">
-  <img 
-    src="/images/2025/05/evm-token-standards.webp"
-    alt="Comparison of JavaScript runtimes: Bun, Node.js, and Deno"
-    className="w-full"
-  />
-</div>
-
-## How RAG Works
+## How RAG works
 
 RAG systems follow a two-step process:
 
@@ -45,7 +35,7 @@ RAG enables:
 
 ## [NodeJS](/tech/nodejs) in the RAG Stack
 
-[NodeJS](/tech/nodejs) is becoming an increasingly powerful option for building RAG systems, especially for teams already working within the [JavaScript](/tech/javascript)/[TypeScript](/tech/typescript) ecosystem. Thanks to robust embedding APIs and integration options, developers can:
+[NodeJS](/tech/nodejs) is becoming an increasingly useful option for building RAG systems, especially for teams already working within the [JavaScript](/tech/javascript)/[TypeScript](/tech/typescript) ecosystem. Embedding APIs and integration options are solid enough that you can:
 
 * Generate embeddings using services like OpenAI or Hugging Face Inference API.
 * Store and query data using `pgvector`, Pinecone, Weaviate, or Qdrant.
@@ -112,6 +102,4 @@ There are several ways to store and query vectors:
 
 I've applied RAG architectures in real-world projects like [Legal Agent](/project/legalagent), a legal AI assistant trained on court decisions and legal doctrine, and [Bitlauncher](/project/bitlauncher), a [decentralized launchpad](/backend) that integrates AI for project evaluation and discovery.
 
-## Final Thoughts
-
-While Python remains the ecosystem leader for AI tooling, the JavaScript/TypeScript stack is catching up fast—offering a familiar environment for [web engineers](/frontend) diving into [AI](/ai) product development.
+While Python remains the ecosystem leader for AI tooling, the JavaScript/TypeScript stack is catching up fast—offering a familiar environment for [web engineers](/frontend) who want to ship [AI](/ai) products.

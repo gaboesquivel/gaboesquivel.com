@@ -1,14 +1,13 @@
+import { proseClass } from 'components/shared/spacing'
+import { cn } from 'lib/utils'
 import Link from 'next/link'
 
 export function LetsConnect() {
   return (
-    <div className="prose prose-neutral dark:prose-invert print:hidden">
+    <div className={cn(proseClass, 'print:hidden')}>
       <p>
         Open to direct hire, international hire, or{' '}
-        <Link
-          href="/blog/2025-11-1099-contracting"
-          className="prose-link"
-        >
+        <Link href="/blog/2025-11-1099-contracting" className="prose-link">
           contracting through Blockmatic Labs LLC
         </Link>
         . Based in{' '}
@@ -21,24 +20,9 @@ export function LetsConnect() {
         , working US Mountain Time.
       </p>
       <p>
-        If you're building innovative solutions in{' '}
-        <Link href="/ai" className="prose-link">
-          AI
-        </Link>{' '}
-        or{' '}
-        <Link href="/web3" className="prose-link">
-          Web3
-        </Link>
-        ,{' '}
+        Tell me what you're building and where it's stuck.{' '}
         <Link href="/connect" className="cta-link">
-          let's connect
-        </Link>
-        .
-      </p>
-      <p>
-        You can view my work portfolio{' '}
-        <Link href="/work" className="cta-link">
-          here
+          Start a conversation
         </Link>
         .
       </p>

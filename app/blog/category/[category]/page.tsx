@@ -1,21 +1,7 @@
-import { allBlogs } from 'contentlayer/generated'
+import { BlogPosts } from 'components/blog/blog-posts'
 import { capitalizeWords } from 'lib/utils'
 import type { Metadata } from 'next'
-import { BlogPosts } from 'components/blog/blog-posts'
 
-// Map from blog post category names to allowed category slugs
-const CATEGORY_MAP: Record<string, string> = {
-  'Engineering': 'engineering',
-  'Web3': 'web3',
-  'DeFi': 'defi',
-  'Artificial Intelligence': 'ai',
-  'AI': 'ai',
-  'UX': 'ux',
-  'Finance': 'finance',
-  'Community': 'community',
-}
-
-// Allowed categories for blog page display
 const ALLOWED_CATEGORIES = [
   'engineering',
   'web3',
@@ -42,7 +28,6 @@ export default async function BlogCategoryPage({
 }
 
 export async function generateStaticParams() {
-  // Only generate static params for allowed categories
   return ALLOWED_CATEGORIES.map((category) => ({
     category,
   }))

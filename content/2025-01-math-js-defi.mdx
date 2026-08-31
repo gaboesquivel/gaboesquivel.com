@@ -7,7 +7,7 @@ category: ['Web3', 'DeFi', 'Backend', 'Fullstack']
 tech: ['JavaScript', 'TypeScript', 'Ethereum', 'Solidity']
 ---
 
-Mathematics in [JavaScript](/tech/javascript) can be tricky, especially when dealing with financial applications like [DeFi](/web3). Precision errors, floating-point quirks, and handling large numbers are all challenges developers must address. In this post, we'll cover key math issues in [JavaScript](/tech/javascript), best practices for handling numbers in DeFi, and tools like `bignumber.js`, `BigInt`, and `viem` utilities.
+Math in [JavaScript](/tech/javascript) is a real constraint in [DeFi](/web3): floating-point quirks, precision errors, and integers that don't fit in `Number`. Here's how I handle that—`bignumber.js`, `BigInt`, and `viem` utilities.
 
 
 {/* Prevent CLS by setting a minimum height */}
@@ -43,7 +43,7 @@ const formattedBalance = Number(rawBalance) / 10 ** tokenDecimals;
 console.log(formattedBalance); // 1.0
 ```
 
-While using JavaScript's `Number` type for such conversions works, it is prone to floating-point precision errors. A better approach is to use a **Big Number library** like `bignumber.js`, which ensures robustness, consistency, and improved readability when dealing with precise financial calculations.
+While using JavaScript's `Number` type for such conversions works, it is prone to floating-point precision errors. A better approach is a **big number library** like `bignumber.js`, which keeps decimal math consistent and readable when the amounts are money.
 
 ### Why `bignumber.js`?
 - **Arbitrary precision**: Prevents floating-point errors.

@@ -1,117 +1,112 @@
-import Image from 'next/image'
+import { LatestPosts } from 'components/blog/latest-posts'
+import { LetsConnect } from 'components/shared/lets-connect'
+import {
+  PageImage,
+  PageSection,
+  PageTitle,
+  Prose,
+  blockGrid,
+} from 'components/shared/page-layout'
+import { ProjectCard } from 'components/work/project-card'
+import { projects } from 'gaboesquivel'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import workshop from 'public/images/gabo-workshop.jpg'
-import { LatestPosts } from '../components/blog/latest-posts'
-import { LetsConnect } from '../components/shared/lets-connect'
+
+const selectedProjectSlugs = ['legal-agent', 'wink', 'ztx', 'bitlauncher']
+const selectedProjects = selectedProjectSlugs.flatMap((slug) =>
+  projects.filter((project) => project.slug === slug),
+)
 
 export default function HomePage() {
   return (
-    <section className="p-0 m-0">
-      <h1 className="mb-8 text-2xl font-bold tracking-tighter">
-        Gabo Esquivel ( gab-o )
-      </h1>
+    <section>
+      <PageTitle>Gabo Esquivel — Product Engineer</PageTitle>
+      <Prose>
+        I build useful and delightful software products. I move between
+        architecture and interface, deciding what belongs in the product and
+        what should recede behind it.
+      </Prose>
 
-      <p className="prose prose-neutral dark:prose-invert">
+      <Prose>
+        Fifteen years of shipping software, twelve of them leading 0→1 product
+        work: regulated finance, consumer Web3, production AI. I work from Costa
+        Rica on US Mountain Time with distributed teams.
+      </Prose>
 
-       I help organizations turn ideas into production-ready software. I work across      <Link href="/ai" className="prose-link">
-          AI
-        </Link>{' '}, <Link href="/web3" className="prose-link">Web3</Link>, and modern      <Link href="/fullstack" className="prose-link">
-          full-stack
-        </Link>{' '} systems, designing and shipping products from concept to launch with a strong focus on real-world impact.
-      
-      </p>
-        
-      <p className="prose prose-neutral dark:prose-invert">
-      I operate across engineering, product, and user experience, helping teams turn concepts into working software that delivers measurable value.
-      </p>
-      {/* <p className="prose prose-neutral dark:prose-invert">
-        I help organizations turn ideas into market-ready software products.
-        With over 15 years of experience as a{' '}
-        <Link href="/fullstack" className="prose-link">
-          full-stack
-        </Link>
-        ,{' '}
-        <Link href="/blog/2025-03-the-product-engineer" className="prose-link">
-          product engineer
-        </Link>{' '}
-        and{' '}
-        <Link href="/lead" className="prose-link">
-          tech lead
-        </Link>
-        , I bridge technical execution with user experience and business
-        strategy, ensuring that every project moves from concept to launch with
-        both technical depth and business clarity.
-      </p> */}
+      <PageImage
+        alt="Gabo Esquivel giving a workshop in 2019"
+        src={workshop}
+        priority
+        className="h-60"
+      />
 
-      <div className="gap-4 my-8 columns-1">
-        <div className="relative mb-4 h-60">
-          <Image
-            alt="Me giving a workshop in 2019"
-            src={workshop}
-            fill
-            sizes="(max-width: 768px) 213px, 33vw"
-            priority
-            className="object-cover rounded-lg"
-          />
-        </div>
-      </div>
+      <PageSection
+        title="Selected work"
+        action={
+          <Link href="/work" className="cta-link text-sm">
+            More work
+          </Link>
+        }
+      >
+        <ul className={blockGrid}>
+          {selectedProjects.map((project, index) => (
+            <li key={project.slug}>
+              <ProjectCard project={project} priority={index === 0} showRole />
+            </li>
+          ))}
+        </ul>
+      </PageSection>
 
-      {/* <p className="prose prose-neutral dark:prose-invert">
-        My focus is on emerging technologies and user-centric innovation. My
-        expertise spans{' '}
-        <Link href="/web3" className="prose-link">
-          Web3
-        </Link>
-        ,{' '}
-        <Link href="/backend" className="prose-link">
-          cloud
-        </Link>
-        , and{' '}
-        <Link href="/fullstack" className="prose-link">
-          full-stack
-        </Link>{' '}
-        web and{' '}
-        <Link href="/mobile" className="prose-link">
-          mobile
-        </Link>{' '}
-        development. I excel at both{' '}
+      <Prose>
+        I ship in{' '}
         <Link href="/startups" className="prose-link">
-          startup
+          startups
         </Link>{' '}
         and{' '}
         <Link href="/institutions" className="prose-link">
-          institutional
-        </Link>{' '}
-        engineering, complemented by ongoing explorations in{' '}
-        <Link href="/ai" className="prose-link">
-          AI
-        </Link>{' '}
-        and how it can redefine the way people interact with software.
-      </p> */}
-
-      <p className="prose prose-neutral dark:prose-invert">
-      I’ve spent over a decade working remotely with international teams, shipping production systems and bringing products from idea to launch across startups and established companies.
-       </p>
-      {/* <p className="prose prose-neutral dark:prose-invert">
-        My approach is rooted in agile methodologies and guided by my{' '}
-        <Link
-          href="/blog/2025-02-engineering-principles"
-          className="prose-link"
-        >
-          engineering principles
+          established companies
         </Link>
-        , striving for precision in technology implementation and continuous
-        improvement throughout the development process. I've been working
-        remotely with international teams for over 12 years, bringing{' '}
-        <Link href="/work" className="prose-link">
-          proven experience
+        . The current focus is{' '}
+        <Link href="/ai" className="prose-link">
+          AI product engineering
         </Link>{' '}
-        in delivering results across time zones.
-      </p> */}
+        and{' '}
+        <Link href="/web3" className="prose-link">
+          Web3 systems
+        </Link>
+        .
+      </Prose>
 
-      <LetsConnect />
+      <Prose>
+        The career story is on{' '}
+        <Link href="/bio" className="prose-link">
+          /bio
+        </Link>
+        . The employment record is on{' '}
+        <Link href="/cv" className="prose-link">
+          /cv
+        </Link>
+        .
+      </Prose>
 
-      <LatestPosts />
+      <LatestPosts title="Writing" />
+
+      <PageSection title="Work together">
+        <LetsConnect />
+      </PageSection>
     </section>
   )
+}
+
+export const metadata: Metadata = {
+  title: 'Gabo Esquivel | Product Engineer',
+  description:
+    'Product engineer across regulated finance, consumer Web3, and production AI. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
+  openGraph: {
+    title: 'Gabo Esquivel | Product Engineer',
+    description:
+      'Product engineer across regulated finance, consumer Web3, and production AI. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
+    type: 'website',
+  },
 }

@@ -13,13 +13,10 @@ export function ContactInfo({ hidden = true }) {
 
         <div className="cv-contact-lede">
           <p className="prose prose-neutral dark:prose-invert">
-            I’m open to long term or short term engagements, including direct
-            hire, international hire, or contractor setups through my US-based
-            company, Blockmatic Labs LLC. Based in Costa Rica and aligned with
-            US Mountain Time. Unable to work as W2. Available for travel when
-            needed.
+            Open to direct hire, international hire, or contracting through
+            Blockmatic Labs LLC. Based in Costa Rica and working US Mountain
+            Time.
           </p>
- 
         </div>
 
         <div className="cv-contact-grid grid grid-cols-2 gap-x-8 pt-4">
@@ -30,7 +27,6 @@ export function ContactInfo({ hidden = true }) {
             <Phone className="h-4 w-4 shrink-0" />
             <span className="prose prose-neutral dark:prose-invert hover:text-accent !m-0 !p-0">
               US: +1 (786) 229 4440
-
             </span>
           </Link>
           <Link
@@ -82,7 +78,7 @@ export function ContactInfo({ hidden = true }) {
       </div>
       <p className="hidden print:block prose prose-neutral dark:prose-invert print-keep-links cv-contact-footer">
         More details on my work can be found on my website{' '}
-        <Link href="/work/ai" className="no-underline">
+        <Link href="/" className="no-underline">
           gaboesquivel.com
         </Link>
         .

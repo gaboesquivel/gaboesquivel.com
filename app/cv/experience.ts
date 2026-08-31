@@ -2,7 +2,7 @@ export type CvExperience = {
   company: string
   title: string
   location: 'Remote' | 'Hybrid' | 'On-site'
-  type: 'Full-time' | 'Part-time' | 'Contract' 
+  type: 'Full-time' | 'Part-time' | 'Contract'
   duration: string
   description: string
   achievements: string[]
@@ -106,7 +106,6 @@ export const experience: CvExperience[] = [
       'EVM',
       'Ethereum',
     ],
-
   },
   {
     company: 'ZTX',
@@ -275,7 +274,6 @@ export const experience: CvExperience[] = [
       'Optimized experiences for curated films with 400+ interactive elements each.',
     ],
     techStack: ['JavaScript', 'Brightcove', 'Facebook API'],
- 
   },
   {
     company: 'American Express',

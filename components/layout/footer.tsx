@@ -36,7 +36,7 @@ export function Footer() {
                   href="/blog"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Articles
+                  Writing
                 </Link>
               </li>
               <li>
@@ -44,7 +44,36 @@ export function Footer() {
                   href="/work"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Projects
+                  Work
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/bio"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Bio
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ai"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  AI
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/web3"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Web3
                 </Link>
               </li>
               <li>
@@ -55,78 +84,46 @@ export function Footer() {
                   Tech Stack
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/cv"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  CV
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/explore"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Explore
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
             <ul className="space-y-2">
-              <li>
+              <li className="text-gray-300">
+                Open to direct hire, international hire, or{' '}
                 <Link
-                  href="/fullstack"
+                  href="/blog/2025-11-1099-contracting"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
-                  Fullstack
+                  contracting through Blockmatic Labs LLC
                 </Link>
+                .
+                <br />
+                <br />
               </li>
+              <li className="text-gray-300">Have something in mind?</li>
               <li>
-                <Link
-                  href="/frontend"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Frontend
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/backend"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Backend
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/lead"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Tech Lead
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/startups"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Startups
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/institutions"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Institutions
+                <Link href="/connect" className="cta-link">
+                  Let’s talk
                 </Link>
               </li>
             </ul>
-          </div>
-
-          <div>
-            <p className="text-gray-300 mb-2">
-              I work on 1099 through{' '}
-              <Link
-                href="/blog/2025-11-1099-contracting"
-                className="text-gray-300 hover:text-white transition-colors underline"
-              >
-                Blockmatic Labs LLC
-              </Link>
-              . <br />
-              <br />
-              Interested in working together? <br />
-              <Link href="/connect" className="cta-link pt-2">
-                Let's connect
-              </Link>
-            </p>
           </div>
         </div>
       </div>

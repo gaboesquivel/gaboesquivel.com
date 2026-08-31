@@ -2,30 +2,22 @@
 title: React Fractal Compoundnents
 publishedAt: 2024-11-25
 summary: Modular Design for a Compounding Effect
-image: /images/2024/10/nextjs-web3-architecture.webp
 category: ['Engineering', 'Frontend']
 tech: ['ReactJS', 'TypeScript', 'NextJS']
 ---
 
-In software development, the principles of fractals and compounding unlock opportunities for modularity, scalability, and reusability. In this post, we'll explore how fractal components in [React](/tech/react) can emulate the self-similarity found in nature, leveraging a consistent, layered design. Along the way, we'll borrow concepts from finance—how small, consistent actions compound over time—and show how applying these to your codebase can multiply software delivery efficiency.
+Fractals and compounding are useful metaphors for how I like to structure [React](/tech/react) apps: the same shape at every scale, and small pieces that get more valuable as you reuse them. The finance version is familiar—earnings on reinvested earnings. Applied to a codebase, that means a consistent, layered design so extensions don't pile on debt.
+
+## Fractals: self-similarity
+
+Fractals keep the same shape at every scale. A fern leaflet looks like the frond. In a codebase I want that too: a route folder should look like a feature folder, and a component folder should look like both.
+
+## Compounding in finance and code
+
+In finance, compounding refers to generating earnings on reinvested earnings over time. Small, regular contributions snowball into substantial growth. Applied to software, this idea means designing systems where small improvements or extensions compound value without introducing technical debt. Fractal components create reusable building blocks that share the same shape, so you can extend the system without inventing a new pattern each time.
 
 
-{/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![React Fractal compoundnents](/images/2024/10/nextjs-web3-architecture.webp)
-</div>
-
-## Fractals: The Power of Self-Similarity
-
-Fractals are recursive patterns that maintain their structure across different scales. Think of a fern leaf: its smallest parts mirror the structure of the whole. This concept of self-similarity ensures predictability and simplicity in complexity, a feature that's crucial in software systems.
-
-
-## Compounding in Finance and Code
-
-In finance, compounding refers to generating earnings on reinvested earnings over time. Small, regular contributions snowball into substantial growth. Applied to software, this idea means designing systems where small improvements or extensions compound value without introducing technical debt. Fractal components create reusable building blocks that fit together seamlessly, enabling developers to move faster with less friction.
-
-
-## React Fractal Components: A Recipe for Modularity
+## React fractal components
 
 In React, fractal design combines self-similarity with modularity. Here's how this approach applies:
 

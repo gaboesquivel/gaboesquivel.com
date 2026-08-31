@@ -1,52 +1,26 @@
-"use client";
-import { ProjectsMasonry } from "components/work/projects-masonry";
-import { allBlogs } from "contentlayer/generated";
-import type { TechStackItemWithProjects } from "gaboesquivel";
-import { LatestPosts } from "../blog/latest-posts";
-import { PostGrid } from "../blog/posts-grid";
-import Balancer from "react-wrap-balancer";
+'use client'
+import { IndexHeading, Prose, subHeading } from 'components/shared/page-layout'
+import { ProjectsMasonry } from 'components/work/projects-masonry'
+import type { TechStackItemWithProjects } from 'gaboesquivel'
+import { LatestPosts } from '../blog/latest-posts'
 
 export default function TechStack({
-	tech,
+  tech,
 }: { tech: TechStackItemWithProjects }) {
-	const techRelatedPosts = allBlogs.filter((blog) =>
-		blog.tech?.includes(tech.tag),
-	);
+  return (
+    <div>
+      <IndexHeading>{tech.name}</IndexHeading>
+      <Prose>{tech.description}</Prose>
+      {tech.intro.map((intro) => (
+        <Prose key={intro}>{intro}</Prose>
+      ))}
+      <h3 className={subHeading}>Experience:</h3>
+      {tech.experience.map((experience) => (
+        <Prose key={experience}>{experience}</Prose>
+      ))}
+      <ProjectsMasonry projects={tech.projects} identifier={tech.name} />
 
-	return (
-		<div>
-			<h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
-				<Balancer>{tech.name}</Balancer>
-			</h2>
-			<p className="prose prose-neutral dark:prose-invert">
-				{tech.description}
-			</p>
-			{tech.intro.map((intro) => (
-				<p className="prose prose-neutral dark:prose-invert" key={intro}>
-					{intro}
-				</p>
-			))}
-			<h3 className="mb-4 font-bold text-xl">Experience:</h3>
-			{tech.experience.map((experience) => (
-				<p className="prose prose-neutral dark:prose-invert" key={experience}>
-					{experience}
-				</p>
-			))}
-			<ProjectsMasonry projects={tech.projects} identifier={tech.name} />
-
-			{techRelatedPosts.length > 0 ? (
-				<PostGrid
-					key={tech.name}
-					posts={techRelatedPosts.slice(0, 6).map((blog) => ({
-						slug: blog.slug,
-						title: blog.title,
-						publishedAt: blog.publishedAt,
-					}))}
-					title={"Related Posts"}
-				/>
-			) : (
-				<LatestPosts title="Latest Posts" />
-			)}
-		</div>
-	);
+      <LatestPosts title="Related Posts" tech={tech.tag} />
+    </div>
+  )
 }

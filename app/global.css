@@ -15,11 +15,6 @@ html {
 
 .prose .anchor {
   @apply absolute invisible no-underline;
-
-  /* margin-left: -1em; */
-  /* padding-right: 0.5em; */
-  /* width: 90%; */
-  /* max-width: 700px; */
   cursor: pointer;
 }
 
@@ -186,6 +181,10 @@ a {
 
 .cta-link {
   @apply inline-block transition-colors text-accent no-underline;
+}
+
+.prose-link {
+  @apply underline decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 transition-colors;
 }
 
 /* Print styles - ensure all text is black when printing */

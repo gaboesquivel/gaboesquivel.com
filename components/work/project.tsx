@@ -1,10 +1,17 @@
+import {
+  IndexHeading,
+  Prose,
+  projectMedia,
+  subHeadingSm,
+} from 'components/shared/page-layout'
+import { blockSpacing } from 'components/shared/spacing'
 import { VimeoPlayer } from 'components/vimeo'
 import { YouTubePlayer } from 'components/youtube'
 import { type Project, type Tag, getTechStackByTag } from 'gaboesquivel'
+import { cn } from 'lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import Balancer from 'react-wrap-balancer'
 import { LatestPosts } from '../blog/latest-posts'
 import { PostGrid } from '../blog/posts-grid'
 
@@ -14,24 +21,17 @@ export function ProjectDetails({
 }: { project: Project; full?: boolean }) {
   return (
     <div className="mb-10">
-      <h2 className="mb-6 max-w-[650px] font-bold text-2xl tracking-tighter">
-        <Balancer>{project.title}</Balancer>
-      </h2>
+      <IndexHeading>{project.title}</IndexHeading>
 
-      {project.description.split('\n').map((item, descriptionId) => {
-        return (
-          <p
-            key={`${project.slug}-${descriptionId}`}
-            className="prose prose-neutral dark:prose-invert"
-          >
-            {item}
-            <br />
-          </p>
-        )
-      })}
+      {project.description.split('\n').map((item, descriptionId) => (
+        <Prose key={`${project.slug}-${descriptionId}`}>
+          {item}
+          <br />
+        </Prose>
+      ))}
 
       {full && !project.link ? (
-        <div className="relative mb-6 h-[200px] w-full md:h-[400px]">
+        <div className={projectMedia}>
           <Image
             src={project.image.replace('https://gaboesquivel.com', '')}
             alt={`${project.title} Image`}
@@ -46,7 +46,7 @@ export function ProjectDetails({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <div className="relative mb-6 h-[200px] w-full md:h-[400px]">
+          <div className={projectMedia}>
             <Image
               src={project.image.replace('https://gaboesquivel.com', '')}
               alt={`${project.title} Image`}
@@ -57,7 +57,7 @@ export function ProjectDetails({
         </Link>
       ) : (
         <Link href={`/project/${project.slug}`}>
-          <div className="relative mb-6 h-[200px] w-full md:h-[400px]">
+          <div className={projectMedia}>
             <Image
               src={project.image.replace('https://gaboesquivel.com', '')}
               alt={`${project.title} Image`}
@@ -77,7 +77,7 @@ export function ProjectDetails({
       )}
 
       {full && project.video && (
-        <div className="relative mb-6 h-[200px] w-full md:h-[400px]">
+        <div className={projectMedia}>
           {project.video.includes('youtube') ? (
             <YouTubePlayer title={project.title} url={project.video} />
           ) : project.video.includes('vimeo') ? (
@@ -88,9 +88,7 @@ export function ProjectDetails({
 
       {full && project.achievements && project.achievements.length > 0 && (
         <>
-          <h3 className="mb-4 font-bold text-base tracking-tighter">
-            Achievements
-          </h3>
+          <h3 className={subHeadingSm}>Achievements</h3>
           <ol className="mb-4 list-inside list-disc space-y-4">
             {project.achievements.map((achievement, index) => (
               <li
@@ -107,10 +105,7 @@ export function ProjectDetails({
       {full && project.images && project.images.length > 0 && (
         <div className="mb-4">
           {project.images.map((image) => (
-            <div
-              key={`${image}`}
-              className="relative mb-6 h-[200px] w-full md:h-[400px]"
-            >
+            <div key={`${image}`} className={projectMedia}>
               <Image
                 src={image.replace('https://gaboesquivel.com', '')}
                 alt={`${project.title} Image`}
@@ -123,7 +118,7 @@ export function ProjectDetails({
       )}
 
       {full && project.link && project.link !== project.repo && (
-        <p className="mt-10 text-sm">
+        <p className={cn(blockSpacing, 'text-sm')}>
           <span className="font-bold">Link:</span>{' '}
           <a href={project.link} target="_blank" rel="noopener noreferrer">
             {project.link}

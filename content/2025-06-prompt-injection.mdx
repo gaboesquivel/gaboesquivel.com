@@ -41,46 +41,44 @@ In AI agents or autonomous workflows, prompt injection can cause real-world cons
 
 ## How to Prevent It
 
-### 1. **Isolate User Input**
+### 1. Isolate user input
 
 Avoid merging user input with system prompts. Instead, use structured input and explicitly separate user data from instructions.
 
-### 2. **Sanitize External Content**
+### 2. Sanitize external content
 
 If your app ingests external data, use heuristics or filters to detect and remove suspicious patterns (e.g., "Ignore previous instructions").
 
-### 3. **Filter Tool Outputs**
+### 3. Filter tool outputs
 
 If your system integrates with external tools, ensure that their responses are validated and sanitized before being passed back to the model.
 
-### 4. **Strongly Lock Down Tool Permissions**
+### 4. Strongly lock down tool permissions
 
 Restrict what tool calls can do. Prevent tools from making sensitive changes or accessing critical systems without proper authorization layers.
 
-### 5. **Use an LLM to Detect Malicious Prompts**
+### 5. Use an LLM to detect malicious prompts
 
-Leverage an LLM to evaluate incoming content for signs of prompt injection or adversarial manipulation.
+Have an LLM evaluate incoming content for signs of prompt injection or adversarial manipulation.
 
-### 6. **Treat Model Output as Untrusted**
+### 6. Treat model output as untrusted
 
 Always handle model output (including markdown) as untrusted input. Sanitize or escape content before rendering or executing in user interfaces or downstream systems.
 
-### 7. **Use Guardrails and Output Validation**
+### 7. Use guardrails and output validation
 
 Post-process outputs using regex, classifiers, or moderation APIs to catch unexpected or harmful content before it reaches the user.
 
-### 8. **Model Fine-Tuning and Instruction Tuning**
+### 8. Model fine-tuning and instruction tuning
 
-Train or tune models to follow specific system instructions robustly, even in the presence of adversarial input.
+Train or tune models to follow specific system instructions even when the input is adversarial.
 
-### 9. **Monitor and Audit Interactions**
+### 9. Monitor and audit interactions
 
 Log prompts and responses to identify and mitigate emerging threats. Regular audits can uncover patterns of abuse or manipulation.
 
-### 10. **Limit Model Permissions**
+### 10. Limit model permissions
 
 For agents or tools that take real-world actions, enforce strict access controls and permissions, keeping the model in a read-only or advisory role where possible.
 
-## Final Thoughts
-
-Prompt injection is a growing security risk in the age of AI. As we integrate LLMs into critical systems, it's essential to design with adversarial input in mind. Like all software vulnerabilities, prevention starts with awareness and is strengthened by layered defense strategies. By isolating inputs, validating outputs, and monitoring activity, we can build safer, more resilient [AI applications](/ai).
+Prompt injection is a growing security risk as we put LLMs in real products. Design for adversarial input. Like other software bugs, prevention starts with awareness and holds up with layered defense: isolate inputs, validate outputs, monitor activity. That's how you keep [AI applications](/ai) from being steered by the prompt.

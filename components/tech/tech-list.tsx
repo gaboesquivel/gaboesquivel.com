@@ -1,8 +1,11 @@
-import Balancer from 'react-wrap-balancer'
-import { techStack, filterTechByCategory, getProjectsByTechnology } from 'gaboesquivel'
+import { FilterNav, IndexHeading } from 'components/shared/page-layout'
 import { TechMasonry } from 'components/tech/tech-masonry'
+import {
+  filterTechByCategory,
+  getProjectsByTechnology,
+  techStack,
+} from 'gaboesquivel'
 import { cn } from 'lib/utils'
-import Link from 'next/link'
 
 const categories = [
   'featured',
@@ -17,62 +20,50 @@ const categories = [
 export function TechList({
   category,
   heading,
+  showNavigation = true,
+  className,
 }: {
   category?: string
   heading?: string
+  showNavigation?: boolean
+  className?: string
 }) {
-  const currentCategory = category || 'featured'
+  const currentCategory = category ?? 'featured'
   const filteredTech = filterTechByCategory(techStack, currentCategory)
-  
-  // Sort tech items based on category
+
   const sortedTech = [...filteredTech].sort((a, b) => {
     const aProjects = getProjectsByTechnology(a.tag).length
     const bProjects = getProjectsByTechnology(b.tag).length
-    
-    // For featured category, use featuredOrder if available
+
     if (currentCategory === 'featured') {
-      const aOrder = a.featuredOrder ?? Infinity
-      const bOrder = b.featuredOrder ?? Infinity
-      
-      // First sort by featuredOrder (lower numbers first)
-      if (aOrder !== bOrder) {
-        return aOrder - bOrder
-      }
-      
-      // If featuredOrder is the same or both are Infinity, sort by project count
+      const aOrder = a.featuredOrder ?? Number.POSITIVE_INFINITY
+      const bOrder = b.featuredOrder ?? Number.POSITIVE_INFINITY
+
+      if (aOrder !== bOrder) return aOrder - bOrder
+
       return bProjects - aProjects
     }
-    
-    // For other categories, sort by project count (descending)
+
     return bProjects - aProjects
   })
 
   return (
-    <section>
-      {heading ? (
-        <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
-          <Balancer>{heading}</Balancer>
-        </h2>
+    <section className={cn(className)}>
+      {heading ? <IndexHeading>{heading}</IndexHeading> : null}
+
+      {showNavigation ? (
+        <FilterNav
+          label="Technology categories"
+          current={currentCategory}
+          items={categories.map((cat) => ({
+            id: cat,
+            href: cat === 'featured' ? '/tech' : `/tech/${cat}`,
+            label: cat,
+          }))}
+        />
       ) : null}
 
-      <nav className="flex flex-wrap gap-2 md:gap-4 mb-8">
-        {categories.map((cat) => (
-          <Link
-            key={cat}
-            href={cat === 'featured' ? '/tech' : `/tech/${cat}`}
-            className={cn(
-              'rounded-md px-2 py-1 bg-neutral-200 dark:bg-neutral-800',
-              currentCategory === cat ? 'text-accent' : '',
-            )}
-          >
-            {cat}
-          </Link>
-        ))}
-      </nav>
-
-      <ul>
-        <TechMasonry techStack={sortedTech} identifier={currentCategory} />
-      </ul>
+      <TechMasonry techStack={sortedTech} identifier={currentCategory} />
     </section>
   )
 }

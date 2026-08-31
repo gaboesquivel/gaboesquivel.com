@@ -1,9 +1,9 @@
+import { IndexHeading } from 'components/shared/page-layout'
 import { allBlogs } from 'contentlayer/generated'
 import { getTechStackBySlug } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import Balancer from 'react-wrap-balancer'
 
 export default async function BlogTechPage({
   params,
@@ -15,9 +15,7 @@ export default async function BlogTechPage({
   if (!techStack) redirect('/blog')
   return (
     <section>
-      <h2 className="font-bold text-2xl tracking-tighter max-w-[650px] mb-6">
-        <Balancer>Gabo's Blog: {techStack?.name}</Balancer>
-      </h2>
+      <IndexHeading>Gabo's Blog: {techStack?.name}</IndexHeading>
       {allBlogs
         .filter((post) => post.tech?.includes(techStack.tag))
         .sort(
