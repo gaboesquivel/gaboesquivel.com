@@ -1,10 +1,9 @@
 import './cv.css'
 import { LatestPosts } from 'components/blog/latest-posts'
-import { FilterNav } from 'components/shared/page-layout'
 import type { Metadata } from 'next'
 import { PrintButton } from '../../components/print-button'
 import { ContactInfo } from '../../components/shared/contact-info'
-import { cvFocusItems, resolveCv } from './variants'
+import { cvPdfFile, resolveCv } from './variants'
 
 type CvPageProps = {
   searchParams?: Promise<{ focus?: string | string[] }>
@@ -19,16 +18,12 @@ export default async function CVPage({ searchParams }: CvPageProps) {
       <header className="cv-header mb-8">
         <h1 className="text-2xl font-bold tracking-tighter flex justify-between items-center print:text-4xl ">
           <span>Gabo Esquivel</span>
-          <PrintButton />
+          <PrintButton file={cvPdfFile({ key })} />
         </h1>
         <p className="cv-print-professional-title">
           {variant.professionalTitle}
         </p>
       </header>
-
-      <div className="print:hidden mb-8">
-        <FilterNav label="CV focus" current={key} items={cvFocusItems} />
-      </div>
 
       <div className="cv-summary">
         <p className="prose prose-neutral dark:prose-invert  cv-content ">

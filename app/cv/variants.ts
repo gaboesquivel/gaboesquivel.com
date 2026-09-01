@@ -21,6 +21,14 @@ const fullSkills = [
     keywords: 'TypeScript, JavaScript, Python, Solidity, SQL',
   },
   {
+    label: 'AI / ML',
+    keywords: 'LLMs, AI SDK, RAG, Embeddings, Vector Search, Agent Workflows',
+  },
+  {
+    label: 'Web3',
+    keywords: 'Foundry, Hardhat, Viem, Wagmi, Ponder, Ethers',
+  },
+  {
     label: 'Frontend',
     keywords:
       'React, Next.js, Tailwind, Shadcn UI, React Native, Expo, Tanstack',
@@ -30,37 +38,57 @@ const fullSkills = [
     keywords: 'Node.js, PostgreSQL, Supabase, Prisma, Drizzle, GraphQL',
   },
   {
-    label: 'Web3',
-    keywords: 'Foundry, Hardhat, Viem, Wagmi, Ponder, Ethers',
-  },
-  {
-    label: 'AI / ML',
-    keywords: 'LLMs, AI SDK, RAG, Embeddings, Vector Search, Agent Workflows',
-  },
-  {
     label: 'Cloud & Infra',
     keywords: 'AWS, GCP, Azure, Docker, Vercel, Pulumi, Terraform, Serverless',
   },
 ]
 
 const full: CvVariant = {
-  professionalTitle: 'Senior Full Stack Engineer',
+  professionalTitle: 'Senior Product Engineer',
   summary:
-    'I design and ship end-to-end software across full-stack applications, AI, APIs, and onchain integrations. With 15+ years of experience, I help teams turn ideas into market-ready products for web, mobile, and cloud, working closely with engineering, product, and user experience teams. Fluent in English, Spanish, Portuguese, and Italian.',
+    'I build software products where the interface, the services, and the model or chain underneath have to work as one thing. Recent work is production AI assistants and the product layer around blockchain systems. 15+ years across TypeScript, React, Next.js, and cloud. Fluent in English, Spanish, Portuguese, and Italian.',
   highlights: [
-    '12+ years building 0→1 products for startups and growth-stage teams',
+    'Shipped a production AI legal assistant with voice, chat, and retrieval in React Native',
+    'Built wallets, token flows, auctions, and trading interfaces across EVM and Antelope',
     'Led engineering for Wink, Costa Rica’s first neobank, from architecture to launch',
-    'Delivered full-stack systems in fintech, AI, Web3, marketplaces, and consumer products',
-    'Deep crypto experience with smart contracts, tokenized systems, and infrastructure',
   ],
   skills: fullSkills,
+  featured: [
+    { company: 'LegalAgent' },
+    {
+      company: 'Bitlauncher',
+      achievements: [
+        'Built the launchpad on Next.js 14, Supabase, viem, and wagmi.',
+        'Built token bridge and auction flows with wallet UX and realtime balance updates.',
+        'Integrated AI SDKs and prompting for masterbots.ai.',
+      ],
+    },
+    {
+      company: 'Opyn',
+      achievements: [
+        'Built the Next.js 14 trading interface with React Server Components.',
+        'Indexed onchain data with Ponder, PostgreSQL, and Supabase.',
+        'Prototyped an LLM assistant for onboarding and support.',
+      ],
+    },
+    {
+      company: 'Bitcash',
+      achievements: [
+        'Built the React, Vite, Node.js, PostgreSQL, Hasura, and Google Cloud stack.',
+        'Built the peer-to-peer exchange, realtime chat, and matching engine.',
+        'Built WebAuthn key management for in-browser transaction signing without an external wallet.',
+      ],
+    },
+    { company: 'Wink' },
+  ],
+  also: 'From 2021 to 2023 I built marketplace and virtual-world products: an NFT indexer and marketplace at RareMint (2021–2022), and a WebGL wallet connector for ZTX (2022–2023). Earlier chain work includes EOS Costa Rica (2018–2020), where I led engineering through the EOS mainnet launch and built a private-chain MVP for Grant Thornton Labs; Emanate (2019–2020); and Knowledge (2017–2018), deploying an ERC-20 token and its marketplace. I led frontend for AMC Networks’ interactive streaming service YEAH! (2012–2014) and built card marketing products at American Express (2010–2012).',
   metadata: {
     title: 'Gabo Esquivel - Curriculum Vitae',
     description:
-      'Senior Full Stack Engineer (Web3 + AI) with 15+ years in TypeScript, React, Next.js, Node.js, PostgreSQL, EVM, viem, wagmi, LLMs, and RAG.',
+      'Product engineering across production AI assistants and the product layer around blockchain systems.',
     keywords: [
       'software engineer',
-      'senior full stack engineer',
+      'senior product engineer',
       'TypeScript',
       'React',
       'Next.js',
@@ -80,7 +108,7 @@ const full: CvVariant = {
     openGraph: {
       title: 'Gabo Esquivel - Curriculum Vitae',
       description:
-        'Senior Full Stack Engineer (Web3 + AI) with 15+ years in Web3, AI, and fintech.',
+        'Product engineering across production AI assistants and the product layer around blockchain systems.',
       type: 'profile',
     },
   },
@@ -89,7 +117,7 @@ const full: CvVariant = {
 const ai: CvVariant = {
   professionalTitle: 'Senior Full Stack Engineer, AI Products',
   summary:
-    'I build production AI products: multimodal assistants, retrieval systems, and the tooling teams need to run them after launch. With 15+ years of experience across full-stack applications, APIs, and cloud systems, I ship end-to-end for web and mobile, working closely with engineering, product, and user experience teams. Fluent in English, Spanish, Portuguese, and Italian.',
+    'I build production AI products: voice and chat assistants, retrieval, and the admin tools a team needs to run them after launch. 15+ years across TypeScript, React Native, Next.js, and cloud. Fluent in English, Spanish, Portuguese, and Italian.',
   highlights: [
     'Shipped a production AI legal assistant with voice, chat, and retrieval in React Native',
     '12+ years building 0→1 products for startups and growth-stage teams',
@@ -126,42 +154,38 @@ const ai: CvVariant = {
       description:
         'AI and crypto launchpad, with domain-specific assistants at masterbots.ai.',
       achievements: [
-        'Built specialized assistant interfaces for masterbots.ai and integrated AI SDK tooling.',
-        'Developed the bitlauncher.ai chatbot with RAG and tool calls for news and video content.',
-        'Architected full-stack platform on Next.js 14, Supabase, viem, and wagmi.',
+        'Built specialized assistant interfaces for masterbots.ai.',
+        'Built the bitlauncher.ai chatbot with RAG and tool calls for news and video.',
+        'Built the launchpad on Next.js 14, Supabase, viem, and wagmi.',
       ],
     },
     {
       company: 'Opyn',
       achievements: [
-        'Prototyped LLM-based assistant for onboarding and support.',
-        'Architected the Next.js application and built the options trading interface.',
+        'Prototyped an LLM assistant for onboarding and support.',
+        'Built the Next.js 14 trading interface with React Server Components.',
+        'Indexed onchain data with Ponder, PostgreSQL, and Supabase.',
       ],
     },
     {
       company: 'Bitcash',
       achievements: [
-        'Architected full-stack platform: React, Vite, Node.js, PostgreSQL, Hasura GraphQL, Google Cloud.',
-        'Built peer-to-peer exchange with realtime chat, a backend matching engine, and a realtime EOS indexer.',
+        'Built the React, Vite, Node.js, PostgreSQL, Hasura, and Google Cloud stack.',
+        'Built the peer-to-peer exchange, realtime chat, and matching engine.',
+        'Built WebAuthn key management for in-browser transaction signing without an external wallet.',
       ],
     },
-    {
-      company: 'Wink',
-      achievements: [
-        'Led backend architecture, integrations, and security.',
-        'Built biometric KYC with React Native native bridge and integrated partner bank APIs.',
-      ],
-    },
+    { company: 'Wink' },
   ],
-  also: 'Between those roles I led engineering at EOS Costa Rica (2018–2020), taking part in the EOS mainnet launch and building a private-chain MVP for Grant Thornton Labs, and worked on Emanate’s streaming platform (2019–2020). From 2021 to 2023 I built marketplace and virtual-world products: an NFT indexer and marketplace at RareMint (2021–2022), and a WebGL wallet connector for ZTX (2022–2023). Earlier I led frontend for AMC Networks’ interactive streaming service YEAH! (2012–2014) and built card marketing products at American Express (2010–2012).',
+  also: 'Between those roles I led engineering at EOS Costa Rica (2018–2020) through the EOS mainnet launch and a private-chain MVP for Grant Thornton Labs, and worked on Emanate’s streaming platform (2019–2020). From 2021 to 2023 I built an NFT indexer and marketplace at RareMint (2021–2022) and a WebGL wallet connector for ZTX (2022–2023). Earlier I led frontend for AMC Networks’ YEAH! (2012–2014) and built card marketing products at American Express (2010–2012).',
   metadata: {
     title: 'Gabo Esquivel - AI Product Engineering CV',
     description:
-      'Senior Full Stack Engineer building production AI products: multimodal voice and chat assistants, RAG, agent workflows, and the tooling behind them.',
+      'Production AI products: voice and chat assistants, retrieval, and the admin tools to run them after launch.',
     openGraph: {
       title: 'Gabo Esquivel - AI Product Engineering CV',
       description:
-        'Production AI product engineering: multimodal assistants, retrieval, and operational tooling.',
+        'Voice and chat assistants, retrieval, and the admin tools a team needs after launch.',
       type: 'profile',
     },
   },
@@ -170,7 +194,7 @@ const ai: CvVariant = {
 const web3: CvVariant = {
   professionalTitle: 'Senior Full Stack Engineer, Web3',
   summary:
-    'I build the product layer around blockchain systems: wallets, trading interfaces, token flows, indexers, and the services that sit between a chain and the person using it. With 15+ years of experience across full-stack applications, APIs, and cloud systems, I work across EVM networks and Antelope. Fluent in English, Spanish, Portuguese, and Italian.',
+    'I build the product layer around blockchain systems: wallets, trading interfaces, token flows, indexers, and the services that sit between a chain and the person using it. 15+ years across EVM networks and Antelope. Fluent in English, Spanish, Portuguese, and Italian.',
   highlights: [
     'Built wallets, bridges, auctions, and trading interfaces across EVM, Arbitrum, Polygon, and Antelope',
     'Developed onchain indexers with Ponder, Moralis streams, and custom WebSocket subscriptions',
@@ -200,44 +224,54 @@ const web3: CvVariant = {
     },
   ],
   featured: [
-    { company: 'Bitlauncher' },
+    {
+      company: 'Bitlauncher',
+      achievements: [
+        'Built the launchpad on Next.js 14, Supabase, viem, and wagmi.',
+        'Built token bridge flows for USDT, USDC, and BITUSD into protocol tokens.',
+        'Integrated Gnosis auction contracts with wallet UX and realtime balance updates.',
+        'Built a custom EVM indexer using WebSocket event subscriptions.',
+      ],
+    },
     {
       company: 'Opyn',
       achievements: [
-        'Architected the Next.js application and built the options trading interface.',
-        'Integrated protocol and Arbitrum testnet with viem and wagmi.',
+        'Built the Next.js 14 trading interface with React Server Components.',
+        'Integrated the protocol and Arbitrum testnet with viem and wagmi.',
         'Indexed onchain data with Ponder, PostgreSQL, and Supabase.',
       ],
     },
     {
       company: 'ZTX',
       achievements: [
-        'Implemented WebGL EVM wallet connector with Ethers.js and a custom JavaScript event system.',
-        'Owned React architecture on Next.js with Tailwind CSS and Framer Motion.',
+        'Built a WebGL EVM wallet connector with Ethers.js and a custom JavaScript event system.',
+        'Set up the Next.js app that hosted the virtual world, with Tailwind and Framer Motion.',
+        'Wired signing and NFT trading so the wallet session lived inside WebGL.',
       ],
     },
     {
       company: 'RareMint',
       achievements: [
-        'Built NFT indexer using Moralis streams, Node.js, and PostgreSQL.',
+        'Built an NFT indexer with Moralis streams, Node.js, and PostgreSQL.',
         'Improved marketplace responsiveness with Remix, Tailwind CSS, and GraphQL.',
-        'Integrated WalletConnect and supported launch of first Pokémon card auctions on Polygon.',
+        'Integrated WalletConnect and supported the first Pokémon card auctions on Polygon.',
       ],
     },
     {
       company: 'Bitcash',
       achievements: [
-        'Architected full-stack platform: React, Vite, Node.js, PostgreSQL, Hasura GraphQL, Google Cloud.',
-        'Built peer-to-peer exchange, realtime chat, and backend matching engine.',
-        'Developed a realtime EOS indexer and WebAuthn key management for in-browser signing.',
+        'Built the React, Vite, Node.js, PostgreSQL, Hasura, and Google Cloud stack.',
+        'Built the peer-to-peer exchange, realtime chat, and matching engine.',
+        'Built a realtime EOS indexer with Node.js worker threads, binary deserialization, and PostgreSQL.',
+        'Built WebAuthn key management for in-browser transaction signing without an external wallet.',
       ],
     },
   ],
-  also: 'In 2025 I built an AI legal assistant at LegalAgent with voice, chat, and retrieval. Earlier chain work includes EOS Costa Rica (2018–2020), where I led engineering through the EOS mainnet launch and built a private-chain MVP for Grant Thornton Labs; Emanate (2019–2020), integrating EOS with AWS services; and Knowledge (2017–2018), deploying an ERC-20 token for an ICO and building its marketplace and wallet dashboard. Alongside Bitcash I created ChainGraph, an open-source GraphQL toolkit for indexing Antelope chains. I came to this through financial systems at Wink (2015–2018) and American Express (2010–2012), with frontend leadership at AMC Networks (2012–2014) between them.',
+  also: 'In 2025 I built an AI legal assistant at LegalAgent with voice, chat, and retrieval. Earlier chain work includes EOS Costa Rica (2018–2020), through the EOS mainnet launch and a private-chain MVP for Grant Thornton Labs; Emanate (2019–2020), integrating EOS with AWS; and Knowledge (2017–2018), an ERC-20 token, marketplace, and wallet dashboard. Alongside Bitcash I created ChainGraph, an open-source GraphQL toolkit for indexing Antelope chains. I led engineering at Wink (2015–2018), led frontend for AMC Networks (2012–2014), and built card marketing products at American Express (2010–2012).',
   metadata: {
     title: 'Gabo Esquivel - Web3 Engineering CV',
     description:
-      'Senior Full Stack Engineer building Web3 products: wallets, token bridges, auctions, trading interfaces, and onchain indexers across EVM and Antelope.',
+      'Wallets, token bridges, auctions, trading interfaces, and onchain indexers across EVM and Antelope.',
     openGraph: {
       title: 'Gabo Esquivel - Web3 Engineering CV',
       description:
@@ -250,11 +284,11 @@ const web3: CvVariant = {
 const fullstack: CvVariant = {
   professionalTitle: 'Senior Full Stack Engineer',
   summary:
-    'I design and ship end-to-end software across full-stack applications, mobile apps, APIs, and cloud systems. With 15+ years of experience, I help teams turn ideas into market-ready products for web, mobile, and cloud, working closely with engineering, product, and user experience teams. Fluent in English, Spanish, Portuguese, and Italian.',
+    'I build the interface and the services behind it, on web and mobile. 15+ years across TypeScript, React, React Native, Next.js, Node.js, PostgreSQL, and cloud. Fluent in English, Spanish, Portuguese, and Italian.',
   highlights: [
     '12+ years building 0→1 products for startups and growth-stage teams',
     'Led engineering for Wink, Costa Rica’s first neobank, from architecture to launch',
-    'Shipped mobile, web, and admin systems together with the services and data behind them',
+    'Shipped LegalAgent as an Expo assistant and a TanStack Start admin on one retrieval system',
   ],
   skills: [
     {
@@ -285,53 +319,46 @@ const fullstack: CvVariant = {
     {
       company: 'LegalAgent',
       achievements: [
-        'Delivered multimodal AI assistant (voice and chat) in React Native (Expo).',
-        'Built admin dashboard with Microsoft SSO and document management.',
-        'Implemented RAG architecture for contextual legal support and document summarization.',
+        'Shipped a voice and chat assistant in React Native (Expo).',
+        'Built RAG for case context and document summaries.',
+        'Built the TanStack Start admin with Microsoft SSO, document management, and retrieval categories.',
       ],
     },
     {
       company: 'Bitlauncher',
       achievements: [
-        'Architected full-stack platform on Next.js 14, Supabase, viem, and wagmi.',
+        'Built the launchpad on Next.js 14, Supabase, viem, and wagmi.',
         'Built token bridge and auction flows with wallet UX and realtime balance updates.',
-        'Implemented transaction data indexing with Supabase for querying, subscriptions, and analytics.',
+        'Built transaction indexing with Supabase for queries, subscriptions, and analytics.',
       ],
     },
     {
       company: 'Bitcash',
       achievements: [
-        'Architected full-stack platform: React, Vite, Node.js, PostgreSQL, Hasura GraphQL, Google Cloud.',
-        'Built peer-to-peer exchange, realtime chat, and backend matching engine.',
-        'Implemented WebAuthn-based key management for in-browser transaction signing without external wallet apps.',
+        'Built the React, Vite, Node.js, PostgreSQL, Hasura, and Google Cloud stack.',
+        'Built the peer-to-peer exchange, realtime chat, and matching engine.',
+        'Built WebAuthn key management for in-browser transaction signing without an external wallet.',
       ],
     },
-    {
-      company: 'Wink',
-      achievements: [
-        'Led backend architecture, integrations, and security.',
-        'Built biometric KYC with React Native native bridge.',
-        'Integrated partner bank APIs and coordinated partner banks and vendors.',
-      ],
-    },
+    { company: 'Wink' },
     {
       company: 'AMC Networks',
       achievements: [
-        'Led frontend team with creative and backend partners.',
-        'Built interactive video streaming frontend for Facebook application.',
-        'Implemented back-office with Brightcove integration.',
+        'Built the interactive movie-player frontend.',
+        'Wired Brightcove for streaming, chapter playback, and back-office editing.',
+        'Built Facebook identity, sharing, and in-player extras.',
       ],
     },
   ],
-  also: 'Between 2017 and 2023 I worked mostly on blockchain products: Knowledge (2017–2018), EOS Costa Rica (2018–2020) as lead engineer, Emanate (2019–2020), an NFT marketplace and indexer at RareMint (2021–2022), and the ZTX virtual world (2022–2023). More recently I built the trading interface and onchain data layer for Opyn (2024–2025). I started out at American Express (2010–2012), working on card marketing products and the migration from Dojo to jQuery.',
+  also: 'Between 2017 and 2023 I worked on blockchain products: Knowledge (2017–2018), EOS Costa Rica (2018–2020) as lead engineer, Emanate (2019–2020), an NFT marketplace and indexer at RareMint (2021–2022), and the ZTX virtual world (2022–2023). More recently I built the trading interface and onchain data layer for Opyn (2024–2025). At American Express (2010–2012) I built card marketing products and moved a frontend from Dojo to jQuery.',
   metadata: {
     title: 'Gabo Esquivel - Full-Stack Engineering CV',
     description:
-      'Senior Full Stack Engineer with 15+ years shipping web and mobile products end to end: TypeScript, React, React Native, Next.js, Node.js, PostgreSQL, and cloud.',
+      'The interface and the services behind it, on web and mobile: TypeScript, React, React Native, Next.js, Node.js, PostgreSQL, and cloud.',
     openGraph: {
       title: 'Gabo Esquivel - Full-Stack Engineering CV',
       description:
-        'End-to-end product engineering across interfaces, application services, data, and infrastructure.',
+        'The interface and the services behind it, on web and mobile.',
       type: 'profile',
     },
   },
@@ -339,14 +366,18 @@ const fullstack: CvVariant = {
 
 const cvVariants = { full, ai, web3, fullstack }
 
-const focusKeys = ['ai', 'web3', 'fullstack'] as const
+export const cvKeys = ['full', 'ai', 'web3', 'fullstack'] as const
+export type CvKey = (typeof cvKeys)[number]
 
-export const cvFocusItems = [
-  { id: 'ai', href: '/cv?focus=ai', label: 'AI' },
-  { id: 'web3', href: '/cv?focus=web3', label: 'Web3' },
-  { id: 'fullstack', href: '/cv?focus=fullstack', label: 'Full-stack' },
-  { id: 'full', href: '/cv', label: 'Full' },
-]
+export const cvPath = ({ key }: { key: CvKey }) =>
+  key === 'full' ? '/cv' : `/cv?focus=${key}`
+
+export const cvPdfFile = ({ key }: { key: CvKey }) =>
+  key === 'full' ? 'gaboesquivel-cv.pdf' : `gaboesquivel-cv-${key}.pdf`
+
+const focusKeys = cvKeys.filter(
+  (key): key is Exclude<CvKey, 'full'> => key !== 'full',
+)
 
 // Featured roles declare companies only. Render order comes from the
 // experience array so a variant can never reorder the employment record.

@@ -39,6 +39,10 @@ next-env.d.ts
 # velite
 .velite
 
+# llms export (generated at build)
+public/llms.txt
+public/llms-full.txt
+
 # contentlayer (legacy)
 .contentlayer
 

@@ -18,12 +18,12 @@ export const experience: CvExperience[] = [
     location: 'Remote',
     duration: '2025',
     description:
-      'AI legal platform: assistant with voice and chat for case context, documents, and procedures.',
+      'AI legal platform with voice, chat, and retrieval for case context, documents, and procedures.',
     achievements: [
-      'Delivered multimodal AI assistant (voice and chat) in React Native (Expo).',
-      'Implemented RAG architecture for contextual legal support and document summarization.',
-      'Built admin dashboard with Microsoft SSO and document management.',
-      'Shipped bilingual voice support with realtime transcription and speech synthesis.',
+      'Shipped a voice and chat assistant in React Native (Expo).',
+      'Built RAG for case context and document summaries.',
+      'Built the TanStack Start admin with Microsoft SSO, document management, and retrieval categories.',
+      'Shipped bilingual voice with realtime transcription and speech synthesis.',
     ],
     techStack: [
       'TypeScript',
@@ -46,14 +46,14 @@ export const experience: CvExperience[] = [
     location: 'Remote',
     duration: 'Nov 2023 – Nov 2025',
     description:
-      'AI and crypto launchpad: early access to AI startups via token sales and auctions.',
+      'AI and crypto launchpad for token sales, auctions, wallets, and indexed market data.',
     achievements: [
-      'Architected full-stack platform on Next.js 14, Supabase, viem, and wagmi.',
+      'Built the launchpad on Next.js 14, Supabase, viem, and wagmi.',
       'Built token bridge flows for USDT, USDC, and BITUSD into protocol tokens.',
       'Integrated Gnosis auction contracts with wallet UX and realtime balance updates.',
-      'Developed custom EVM indexer using WebSocket event subscriptions.',
+      'Built a custom EVM indexer using WebSocket event subscriptions.',
       'Integrated AI SDKs and prompting for masterbots.ai.',
-      'Established AI-assisted engineering workflow with Claude, v0.dev, Cursor, and SourceryAI.',
+      'Set up an AI-assisted engineering workflow with Claude, v0.dev, Cursor, and SourceryAI.',
     ],
     techStack: [
       'Viem',
@@ -80,13 +80,13 @@ export const experience: CvExperience[] = [
     location: 'Remote',
     type: 'Contract',
     duration: 'Oct 2024 – Feb 2025',
-    description: 'Decentralized perpetual options protocol on Arbitrum.',
+    description:
+      'Options protocol on Arbitrum with a trading interface and indexed onchain data.',
     achievements: [
-      'Architected Next.js application structure and data-fetching approach.',
-      'Built trading interface and custom UI for options trading.',
-      'Integrated protocol and Arbitrum testnet with viem and wagmi.',
+      'Built the Next.js 14 trading interface with React Server Components.',
+      'Integrated the protocol and Arbitrum testnet with viem and wagmi.',
       'Indexed onchain data with Ponder, PostgreSQL, and Supabase.',
-      'Prototyped LLM-based assistant for onboarding and support.',
+      'Prototyped an LLM assistant for onboarding and support.',
     ],
     techStack: [
       'TypeScript',
@@ -114,11 +114,11 @@ export const experience: CvExperience[] = [
     location: 'Remote',
     duration: 'Aug 2022 – Aug 2023',
     description:
-      'Virtual world with cryptocurrency-backed digital asset ownership.',
+      'Virtual world with a WebGL wallet connection and a Next.js experience.',
     achievements: [
-      'Implemented WebGL EVM wallet connector with Ethers.js and a custom JavaScript event system.',
-      'Configured analytics and reporting with Google Tag Manager.',
-      'Owned React architecture on Next.js with Tailwind CSS and Framer Motion.',
+      'Built a WebGL EVM wallet connector with Ethers.js and a custom JavaScript event system.',
+      'Set up the Next.js app that hosted the virtual world, with Tailwind and Framer Motion.',
+      'Wired analytics through Google Tag Manager.',
     ],
     techStack: [
       'React',
@@ -137,12 +137,12 @@ export const experience: CvExperience[] = [
     location: 'Remote',
     duration: 'Jul 2021 – Dec 2022',
     description:
-      'NFT platform for minting, trading, and collecting digital assets.',
+      'Polygon marketplace for tokenized sports collectibles with indexed NFT data, auctions, and WalletConnect.',
     achievements: [
-      'Built NFT indexer using Moralis streams, Node.js, and PostgreSQL.',
+      'Built an NFT indexer with Moralis streams, Node.js, and PostgreSQL.',
       'Improved marketplace responsiveness with Remix, Tailwind CSS, and GraphQL.',
-      'Integrated WalletConnect for wallet connections and transactions.',
-      'Supported launch of first Pokémon card auctions on Polygon.',
+      'Integrated WalletConnect for connections and transactions.',
+      'Supported the first Pokémon card auctions on Polygon.',
     ],
     techStack: [
       'Moralis',
@@ -164,13 +164,14 @@ export const experience: CvExperience[] = [
     type: 'Part-time',
     location: 'Remote',
     duration: 'Jan 2020 – Jul 2021',
-    description: 'Fiat-to-stablecoin and crypto exchange application.',
+    description:
+      'Fiat-to-stablecoin and crypto exchange with peer-to-peer trading, chat, and browser signing.',
     achievements: [
-      'Architected full-stack platform: React, Vite, Node.js, PostgreSQL, Hasura GraphQL, Google Cloud.',
-      'Built peer-to-peer exchange, realtime chat, and backend matching engine.',
-      'Developed realtime EOS indexer: Node.js worker threads, binary deserialization, PostgreSQL on Google Cloud.',
-      'Implemented WebAuthn-based key management for in-browser transaction signing without external wallet apps.',
-      'Delivered QR-based signature requests for partner applications using Supabase subscriptions and webhooks.',
+      'Built the React, Vite, Node.js, PostgreSQL, Hasura, and Google Cloud stack.',
+      'Built the peer-to-peer exchange, realtime chat, and matching engine.',
+      'Built a realtime EOS indexer: Node.js worker threads, binary deserialization, PostgreSQL on Google Cloud.',
+      'Built WebAuthn key management for in-browser transaction signing without an external wallet.',
+      'Built QR signature requests for partner apps with Supabase subscriptions and webhooks.',
     ],
     techStack: [
       'React',
@@ -203,11 +204,12 @@ export const experience: CvExperience[] = [
     location: 'Remote',
     type: 'Contract',
     duration: 'Dec 2019 – Jul 2020',
-    description: 'Social platform for artists.',
+    description:
+      'Music-streaming platform with token payments and back-office revenue tools.',
     achievements: [
-      'Maintained and improved streaming web application.',
-      'Built back office for artist token payments.',
-      'Integrated EOS blockchain with AWS backend services.',
+      'Maintained the React streaming web app.',
+      'Built the back office for artist token payments.',
+      'Integrated EOS with AWS services for streaming and back-office workloads.',
     ],
     techStack: ['EOS', 'AWS', 'React', 'Styled Components'],
   },
@@ -218,12 +220,12 @@ export const experience: CvExperience[] = [
     location: 'Hybrid',
     duration: 'Mar 2018 – Jan 2020',
     description:
-      'Block producer: infrastructure and blockchain development services.',
+      'Block producer: EOSIO infrastructure and public and private-chain systems.',
     achievements: [
-      'Participated in EOS mainnet launch and operated EOSIO-based validators.',
-      'Configured private EOSIO chain for Grant Thornton Labs; shipped MVP for intercompany transactions and tax workflows using a stablecoin, hashing, and IPFS for immutable records.',
-      'Developed EOS Rate frontend with React and Styled Components.',
-      'Led recruiting, onboarding, workshops, and community engagement (e.g., TicoBlockchain.cr, CryptoCantina).',
+      'Helped launch EOS mainnet and operated EOSIO validators.',
+      'Built a private EOSIO chain for Grant Thornton Labs on Azure, Terraform, EOSIO, and React; shipped an MVP for intercompany transactions and tax workflows using a stablecoin, hashing, and IPFS.',
+      'Built the EOS Rate frontend with React and Styled Components.',
+      'Ran workshops and community work around TicoBlockchain.cr and CryptoCantina.',
     ],
     techStack: ['EOSIO', 'React', 'Styled Components', 'IPFS'],
   },
@@ -233,11 +235,12 @@ export const experience: CvExperience[] = [
     type: 'Contract',
     location: 'Remote',
     duration: 'Sep 2017 – May 2018',
-    description: 'Tokenized knowledge and expertise platform.',
+    description:
+      'Tokenized knowledge platform with an ERC-20 token, marketplace, and wallet.',
     achievements: [
-      'Deployed ERC-20 token for ICO on Ethereum mainnet using Truffle.',
-      'Built marketplace and wallet dashboard with React and Web3.js.',
-      'Maintained mobile trivia game for token rewards.',
+      'Deployed an ERC-20 token for an ICO on Ethereum mainnet using Truffle.',
+      'Built the marketplace and wallet dashboard with React and Web3.js.',
+      'Maintained the mobile trivia game for token rewards.',
     ],
     techStack: ['Ethereum', 'Truffle', 'React', 'Web3.js'],
   },
@@ -248,12 +251,11 @@ export const experience: CvExperience[] = [
     location: 'On-site',
     duration: 'Apr 2015 – Mar 2018',
     description:
-      'Mobile neobank: digital banking and financial services (holawink.com).',
+      "Costa Rica's first neobank: React Native app, AWS backend, partner-bank APIs, and biometrics (holawink.com).",
     achievements: [
-      'Led backend architecture, integrations, and security.',
-      'Coordinated partner banks and vendors.',
-      'Built biometric KYC with React Native native bridge.',
-      'Integrated partner bank APIs.',
+      'Built the React Native app and AWS backend.',
+      'Integrated partner-bank APIs so deposits, transfers, and account data moved through the app.',
+      'Built biometric KYC with a React Native native bridge.',
     ],
     techStack: ['React Native', 'React', 'Node.js', 'AWS'],
     pageBreak: true,
@@ -265,13 +267,13 @@ export const experience: CvExperience[] = [
     location: 'Hybrid',
     duration: 'Nov 2012 – Apr 2014',
     description:
-      'Interactive streaming movie service YEAH! (SXSW 2013 launch): classic genre films with interactive bonus content.',
+      'Interactive streaming movie service YEAH! (SXSW 2013 launch): classic genre films with chapter navigation, in-player extras, and Brightcove.',
     achievements: [
-      'Led frontend team with creative and backend partners.',
-      'Built interactive video streaming frontend for Facebook application.',
-      'Implemented back-office with Brightcove integration.',
-      'Shipped interactive trivia, interviews, and quizzes in the video player.',
-      'Optimized experiences for curated films with 400+ interactive elements each.',
+      'Built the interactive movie-player frontend.',
+      'Wired Brightcove for streaming, chapter playback, and back-office editing.',
+      'Built Facebook identity, sharing, and in-player extras.',
+      'Shipped trivia, interviews, and quizzes in the video player.',
+      'Shipped curated films with 400+ interactive elements each.',
     ],
     techStack: ['JavaScript', 'Brightcove', 'Facebook API'],
   },
@@ -281,11 +283,12 @@ export const experience: CvExperience[] = [
     type: 'Full-time',
     location: 'On-site',
     duration: 'Apr 2010 – Nov 2012',
-    description: 'Global financial services and card products.',
+    description:
+      'Cardmember and marketing web experiences: responsive UI, experimentation, and analytics.',
     achievements: [
-      'Contributed to migration from Dojo to jQuery.',
-      'Implemented responsive layouts, A/B testing, and analytics.',
-      'Developed credit card marketing components: comparison sliders and landing pages.',
+      'Moved the frontend from Dojo to jQuery.',
+      'Built credit-card marketing screens: comparison sliders and landing pages.',
+      'Wired responsive layouts, A/B testing, and analytics.',
     ],
     techStack: [
       'JavaScript',

@@ -8,7 +8,7 @@ export function ContactInfo({ hidden = true }) {
         className={`${hidden ? 'hidden' : ''} print:block mb-8 pt-14 print-keep-links cv-contact-section cv-print `}
       >
         <h2 className="text-xl font-semibold mb-4 text-[#2563EB] pt-8">
-          Let's Work Together
+          Connect
         </h2>
 
         <div className="cv-contact-lede">
@@ -77,7 +77,7 @@ export function ContactInfo({ hidden = true }) {
         </div>
       </div>
       <p className="hidden print:block prose prose-neutral dark:prose-invert print-keep-links cv-contact-footer">
-        More details on my work can be found on my website{' '}
+        The rest of the work is on{' '}
         <Link href="/" className="no-underline">
           gaboesquivel.com
         </Link>
