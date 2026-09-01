@@ -1,5 +1,5 @@
-import { allBlogs } from 'contentlayer/generated'
 import { projects } from 'gaboesquivel'
+import { allBlogs } from 'lib/blog'
 import type { MetadataRoute } from 'next'
 
 const blogCategorySlugs = [

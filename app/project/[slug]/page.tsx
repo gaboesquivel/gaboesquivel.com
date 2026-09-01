@@ -1,10 +1,19 @@
 import { ProjectDetails } from 'components/work/project'
-import { getProjectBySlug } from 'gaboesquivel'
+import { getProjectBySlug, projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = getProjectBySlug(params.slug)
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }))
+}
+
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const project = getProjectBySlug(slug)
 
   if (!project) redirect('/')
 
@@ -13,8 +22,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
 export async function generateMetadata({
   params,
-}: { params: { slug: string } }): Promise<Metadata> {
-  const project = getProjectBySlug(params.slug)
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const project = getProjectBySlug(slug)
 
   if (!project) redirect('/')
 

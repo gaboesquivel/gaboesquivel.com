@@ -82,6 +82,13 @@ export default function AIExperiencePage() {
       />
 
       <PageSection title="Build an AI product">
+        <Prose>
+          The employment record behind this work is the{' '}
+          <Link href="/cv?focus=ai" className="prose-link">
+            AI CV
+          </Link>
+          .
+        </Prose>
         <LetsConnect />
       </PageSection>
     </section>

@@ -1,16 +1,23 @@
 import { Mdx } from 'components/mdx'
 import { indexTitle } from 'components/shared/page-layout'
-import { allBlogs } from 'contentlayer/generated'
+import { allBlogs } from 'lib/blog'
+import { blogJsonLd } from 'lib/blog-json-ld'
 import { formatDate } from 'lib/utils'
 import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
-import Balancer from 'react-wrap-balancer'
 import { LatestPosts } from '../../../components/blog/latest-posts'
+
+export function generateStaticParams() {
+  return allBlogs.map((post) => ({ slug: post.slug }))
+}
 
 export async function generateMetadata({
   params,
+}: {
+  params: Promise<{ slug: string }>
 }): Promise<Metadata | undefined> {
-  const post = allBlogs.find((post) => post.slug === params.slug)
+  const { slug } = await params
+  const post = allBlogs.find((post) => post.slug === slug)
   if (!post) redirect('/blog')
 
   const {
@@ -18,7 +25,7 @@ export async function generateMetadata({
     publishedAt: publishedTime,
     summary: description,
     image,
-    slug,
+    slug: postSlug,
   } = post
   const ogImage = image
     ? `https://gaboesquivel.com${image}`
@@ -32,12 +39,8 @@ export async function generateMetadata({
       description,
       type: 'article',
       publishedTime,
-      url: `https://gaboesquivel.com/blog/${slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
+      url: `https://gaboesquivel.com/blog/${postSlug}`,
+      images: [{ url: ogImage }],
     },
     twitter: {
       card: 'summary_large_image',
@@ -48,12 +51,15 @@ export async function generateMetadata({
   }
 }
 
-export default async function Blog({ params }) {
-  const post = allBlogs.find((post) => post.slug === params.slug)
+export default async function Blog({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const post = allBlogs.find((post) => post.slug === slug)
 
-  if (!post) {
-    notFound()
-  }
+  if (!post) notFound()
 
   return (
     <section>
@@ -62,18 +68,16 @@ export default async function Blog({ params }) {
         suppressHydrationWarning
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized from generated post data.
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(post.structuredData),
+          __html: JSON.stringify(blogJsonLd(post)),
         }}
       />
-      <h1 className={indexTitle}>
-        <Balancer>{post.title}</Balancer>
-      </h1>
+      <h1 className={`${indexTitle} text-balance`}>{post.title}</h1>
       <div className="flex justify-between items-center mt-2 mb-2 text-sm max-w-[650px]">
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
           {formatDate(post.publishedAt)}
         </p>
       </div>
-      <Mdx code={post.body.code} />
+      <Mdx code={post.body} />
 
       <LatestPosts title="More Articles" excludeSlug={post.slug} />
     </section>

@@ -15,9 +15,9 @@ const ALLOWED_CATEGORIES = [
 export default async function BlogCategoryPage({
   params,
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }) {
-  const category = params.category
+  const { category } = await params
   const displayCategory = capitalizeWords(category)
   return (
     <BlogPosts
@@ -28,24 +28,22 @@ export default async function BlogCategoryPage({
 }
 
 export async function generateStaticParams() {
-  return ALLOWED_CATEGORIES.map((category) => ({
-    category,
-  }))
+  return ALLOWED_CATEGORIES.map((category) => ({ category }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }): Promise<Metadata> {
-  if (!params.category) {
+  const { category } = await params
+  if (!category)
     return {
       title: 'Blog',
       description:
         'Read my thoughts on software development, design, and more.',
     }
-  }
-  const displayCategory = capitalizeWords(params.category)
+  const displayCategory = capitalizeWords(category)
   return {
     title: `${displayCategory} Blog Posts - Gabo Esquivel`,
     description: `Read my articles and thoughts about ${displayCategory}.`,

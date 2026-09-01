@@ -1,9 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@config "../tailwind.config.mts";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 ::selection {
-  @apply bg-gray-800 text-accent
+  @apply bg-gray-800 text-accent;
 }
 
 html {
@@ -153,13 +155,13 @@ table {
   color: gray;
 }
 [data-rehype-pretty-code-fragment] .line--highlighted {
-  @apply bg-slate-500 bg-opacity-10;
+  @apply bg-slate-500/10;
 }
 [data-rehype-pretty-code-fragment] .line-highlighted span {
   @apply relative;
 }
 [data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply p-1 rounded-md bg-slate-500 bg-opacity-10;
+  @apply p-1 rounded-md bg-slate-500/10;
 }
 [data-rehype-pretty-code-title] {
   @apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];
@@ -174,7 +176,7 @@ p {
 }
 
 a {
-  @apply hover:text-accent decoration-0 !important;
+  @apply hover:text-accent !decoration-0;
 }
 
 .cta-link {
@@ -222,19 +224,10 @@ a {
   nav,
   .navbar,
   footer,
-  .no-print,
-  .print\\:hidden {
+  .no-print {
     display: none !important;
   }
 
-  .print\\:block {
-    display: block !important;
-  }
-
-  .print\\:inline {
-    display: inline !important;
-  }
-  
   .prose img,
   .prose .latest-posts {
     display: none !important;

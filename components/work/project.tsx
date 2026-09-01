@@ -7,7 +7,7 @@ import {
 import { blockSpacing } from 'components/shared/spacing'
 import { VimeoPlayer } from 'components/vimeo'
 import { YouTubePlayer } from 'components/youtube'
-import { type Project, type Tag, getTechStackByTag } from 'gaboesquivel'
+import { getTechStackByTag, type Project, type Tag } from 'gaboesquivel'
 import { cn } from 'lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,13 +18,16 @@ import { PostGrid } from '../blog/posts-grid'
 export function ProjectDetails({
   project,
   full = false,
-}: { project: Project; full?: boolean }) {
+}: {
+  project: Project
+  full?: boolean
+}) {
   return (
     <div className="mb-10">
       <IndexHeading>{project.title}</IndexHeading>
 
-      {project.description.split('\n').map((item, descriptionId) => (
-        <Prose key={`${project.slug}-${descriptionId}`}>
+      {project.description.split('\n').map((item) => (
+        <Prose key={`${project.slug}-${item}`}>
           {item}
           <br />
         </Prose>
@@ -39,13 +42,8 @@ export function ProjectDetails({
             style={{ objectFit: 'cover' }}
           />
         </div>
-      ) : full ? (
-        <Link
-          // biome-ignore lint/style/noNonNullAssertion: <explanation>
-          href={project.link!}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+      ) : full && project.link ? (
+        <Link href={project.link} target="_blank" rel="noopener noreferrer">
           <div className={projectMedia}>
             <Image
               src={project.image.replace('https://gaboesquivel.com', '')}
@@ -70,8 +68,8 @@ export function ProjectDetails({
 
       {full && project.story && project.story.length > 0 && (
         <div className="mb-4">
-          {project.story.map((achievement, index) => (
-            <p key={`${project.slug}-achievement-${index}`}>{achievement}</p>
+          {project.story.map((achievement) => (
+            <p key={`${project.slug}-story-${achievement}`}>{achievement}</p>
           ))}
         </div>
       )}
@@ -90,9 +88,9 @@ export function ProjectDetails({
         <>
           <h3 className={subHeadingSm}>Achievements</h3>
           <ol className="mb-4 list-inside list-disc space-y-4">
-            {project.achievements.map((achievement, index) => (
+            {project.achievements.map((achievement) => (
               <li
-                key={`${project.slug}-achievement-${index}`}
+                key={`${project.slug}-achievement-${achievement}`}
                 className="text-base"
               >
                 {achievement}
@@ -133,17 +131,17 @@ export function ProjectDetails({
       <p className="text-sm ">
         {' '}
         <span className="font-bold">Stack:</span>{' '}
-        {project.tech.map((tech, techIndex) => {
+        {project.tech.map((tech) => {
           const techItem = getTechStackByTag(tech as Tag)
           if (!techItem) return null
           return (
             <Link
               href={`/tech/${techItem?.slug}`}
-              key={`${project.slug}-${techIndex}`}
+              key={`${project.slug}-${techItem.slug}`}
             >
               <span>
                 {techItem.name}
-                {techIndex !== project.tech.length - 1 ? ', ' : ''}
+                {tech !== project.tech.at(-1) ? ', ' : ''}
               </span>
             </Link>
           )
@@ -172,12 +170,12 @@ export function ProjectDetails({
               .filter(Boolean) as { display: string; url: string }[]
 
             // Return the links
-            return validTypes.map((item, index) => (
-              <React.Fragment key={`${project.slug}-type-${index}`}>
+            return validTypes.map((item) => (
+              <React.Fragment key={`${project.slug}-type-${item.url}`}>
                 <Link href={item.url}>
                   <span>{item.display}</span>
                 </Link>
-                {index !== validTypes.length - 1 ? ', ' : ''}
+                {item !== validTypes.at(-1) ? ', ' : ''}
               </React.Fragment>
             ))
           })()}

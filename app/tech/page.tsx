@@ -1,8 +1,8 @@
 import {
+  blockGrid,
   PageSection,
   PageTitle,
   Prose,
-  blockGrid,
   sectionSpacing,
 } from 'components/shared/page-layout'
 import { TechList } from 'components/tech/tech-list'

@@ -2,12 +2,12 @@ import { BlogPostsMasonry } from 'components/blog/blog-posts-masonry'
 import { PageSection } from 'components/shared/page-layout'
 import { TechList } from 'components/tech/tech-list'
 import TechStack from 'components/tech/tech-stack'
-import { allBlogs } from 'contentlayer/generated'
 import {
   filterTechByCategory,
   getTechStackBySlug,
   techStack,
 } from 'gaboesquivel'
+import { allBlogs } from 'lib/blog'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -31,12 +31,12 @@ const categoryNames: Record<string, string> = {
   all: 'All',
 }
 
-export default function TechCategoryPage({
+export default async function TechCategoryPage({
   params,
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }) {
-  const category = params.category
+  const { category } = await params
 
   // If it's a known category, show filtered list with blog posts
   if (categories.includes(category)) {
@@ -78,9 +78,9 @@ export default function TechCategoryPage({
 export async function generateMetadata({
   params,
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }): Promise<Metadata> {
-  const category = params.category
+  const { category } = await params
 
   // If it's a known category, return category metadata
   if (categories.includes(category)) {

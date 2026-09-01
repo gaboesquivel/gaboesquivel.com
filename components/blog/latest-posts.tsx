@@ -1,4 +1,4 @@
-import { allBlogs } from 'contentlayer/generated'
+import { allBlogs } from 'lib/blog'
 import { PostGrid } from './posts-grid'
 
 export function LatestPosts({

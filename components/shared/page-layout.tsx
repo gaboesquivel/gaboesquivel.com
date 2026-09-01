@@ -2,7 +2,6 @@ import { cn } from 'lib/utils'
 import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import Balancer from 'react-wrap-balancer'
 import {
   blockSpacing,
   headingSpacing,
@@ -21,8 +20,8 @@ export {
   headingSpacing,
   indexTitle,
   pageTitle,
-  proseClass,
   projectMedia,
+  proseClass,
   sectionSpacing,
   sectionTitle,
   singleColGrid,
@@ -44,11 +43,7 @@ export function Prose({
 }
 
 export function IndexHeading({ children }: { children: ReactNode }) {
-  return (
-    <h1 className={indexTitle}>
-      <Balancer>{children}</Balancer>
-    </h1>
-  )
+  return <h1 className={cn(indexTitle, 'text-balance')}>{children}</h1>
 }
 
 export function PageTitle({

@@ -61,4 +61,5 @@ Use only facts already present in `LetsConnect`: direct hire, international hire
 ## `/cv` and `/tech`
 
 - `/cv`: printable employment record; do not convert it into narrative copy
+- `/cv?focus=ai|web3|fullstack`: focused variants in `app/cv/variants.ts`, five roles each plus one dated closing paragraph. AI is the primary variant. Employment facts stay in `app/cv/experience.ts`; variants select roles and override bullets only. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs

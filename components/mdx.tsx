@@ -1,24 +1,25 @@
-import { useMDXComponent } from 'next-contentlayer/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
-import * as React from 'react'
+import * as runtime from 'react/jsx-runtime'
 import { TweetComponent } from './tweet'
 import { VideoEmbed } from './video-embed'
+
+const getMDXComponent = (code: string) => {
+  const fn = new Function(code)
+  return fn({ ...runtime }).default
+}
 
 const CustomLink = (props) => {
   const href = props.href
 
-  if (href.startsWith('/')) {
+  if (href.startsWith('/'))
     return (
       <Link href={href} {...props}>
         {props.children}
       </Link>
     )
-  }
 
-  if (href.startsWith('#')) {
-    return <a {...props} />
-  }
+  if (href.startsWith('#')) return <a {...props} />
 
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
@@ -118,7 +119,7 @@ const components = {
 }
 
 export function Mdx({ code }: { code: string }) {
-  const Component = useMDXComponent(code)
+  const Component = getMDXComponent(code)
 
   return (
     <article className="prose prose-quoteless prose-neutral dark:prose-invert blog-content">

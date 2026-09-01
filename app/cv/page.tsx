@@ -1,13 +1,19 @@
 import './cv.css'
 import { LatestPosts } from 'components/blog/latest-posts'
+import { FilterNav } from 'components/shared/page-layout'
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { PrintButton } from '../../components/print-button'
 import { ContactInfo } from '../../components/shared/contact-info'
-import { experience } from './experience'
-// import { skillGroups } from './skills'
+import { cvFocusItems, resolveCv } from './variants'
 
-export default function CVPage() {
+type CvPageProps = {
+  searchParams?: Promise<{ focus?: string | string[] }>
+}
+
+export default async function CVPage({ searchParams }: CvPageProps) {
+  const resolved = await searchParams
+  const { key, variant, entries } = resolveCv({ focus: resolved?.focus })
+
   return (
     <section className="p-0 m-0 cv-content cv-print print:block print:w-full print:max-w-none">
       <header className="cv-header mb-8">
@@ -16,73 +22,52 @@ export default function CVPage() {
           <PrintButton />
         </h1>
         <p className="cv-print-professional-title">
-          Senior Full Stack Engineer
+          {variant.professionalTitle}
         </p>
       </header>
+
+      <div className="print:hidden mb-8">
+        <FilterNav label="CV focus" current={key} items={cvFocusItems} />
+      </div>
+
       <div className="cv-summary">
         <p className="prose prose-neutral dark:prose-invert  cv-content ">
-          I design and ship end-to-end software across full-stack applications,
-          AI, APIs, and onchain integrations. With 15+ years of experience, I
-          help teams turn ideas into market-ready products for web, mobile, and
-          cloud, working closely with engineering, product, and user experience
-          teams. Fluent in English, Spanish, Portuguese, and Italian.
+          {variant.summary}
         </p>
       </div>
       <h2 className="text-xl font-semibold mb-4 mt-8">Highlights</h2>
 
       <ul className="mb-8 space-y-1 list-none list-inside">
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          12+ years building 0→1 products for startups and growth-stage teams
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          Led engineering for Wink, Costa Rica’s first neobank, from
-          architecture to launch
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          Delivered full-stack systems in fintech, AI, Web3, marketplaces, and
-          consumer products
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          Deep crypto experience with smart contracts, tokenized systems, and
-          infrastructure
-        </li>
+        {variant.highlights.map((highlight) => (
+          <li
+            className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] "
+            key={highlight}
+          >
+            {highlight}
+          </li>
+        ))}
       </ul>
 
       <h2 className="text-xl font-semibold mb-4">Skills</h2>
 
       <ul className="mb-8 space-y-1  list-none  list-inside">
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          <strong>Languages:</strong> TypeScript, JavaScript, Python, Solidity,
-          SQL
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          <strong>Frontend:</strong> React, Next.js, Tailwind, Shadcn UI, React
-          Native, Expo, Tanstack
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          <strong>Backend:</strong> Node.js, PostgreSQL, Supabase, Prisma,
-          Drizzle, GraphQL
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          <strong>Web3:</strong> Foundry, Hardhat, Viem, Wagmi, Ponder, Ethers
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          <strong>AI / ML:</strong> LLMs, AI SDK, RAG, Embeddings, Vector
-          Search, Agent Workflows
-        </li>
-        <li className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] ">
-          <strong>Cloud & Infra:</strong> AWS, GCP, Azure, Docker, Vercel,
-          Pulumi, Terraform, Serverless
-        </li>
+        {variant.skills.map(({ label, keywords }) => (
+          <li
+            className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] "
+            key={label}
+          >
+            <strong>{label}:</strong> {keywords}
+          </li>
+        ))}
       </ul>
 
       <h2 className="text-xl font-semibold mb-4">Experience</h2>
 
       <div className="cv-experience-list space-y-8 list-none list-inside">
-        {experience.map((exp) => (
+        {entries.map((exp) => (
           <div
             key={exp.company}
-            className={`${exp.pageBreak ? 'page-break-before' : ''} cv-entry`}
+            className={`${exp.pageBreak ? 'page-break-before' : ''} cv-entry no-break-inside`}
           >
             <h3 className="text-xl font-semibold mb-1 print:text-lg cv-entry-title">
               {exp.title}, {exp.company}
@@ -110,6 +95,17 @@ export default function CVPage() {
         ))}
       </div>
 
+      {variant.also && (
+        <>
+          <h2 className="text-xl font-semibold mb-4 mt-8">
+            Additional experience
+          </h2>
+          <p className="prose prose-neutral dark:prose-invert cv-content cv-also">
+            {variant.also}
+          </p>
+        </>
+      )}
+
       <ContactInfo />
 
       <div className="print:hidden">
@@ -119,33 +115,11 @@ export default function CVPage() {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Gabo Esquivel - Curriculum Vitae',
-  description:
-    'Senior Full Stack Engineer (Web3 + AI) with 15+ years in TypeScript, React, Next.js, Node.js, PostgreSQL, EVM, viem, wagmi, LLMs, and RAG.',
-  keywords: [
-    'software engineer',
-    'senior full stack engineer',
-    'TypeScript',
-    'React',
-    'Next.js',
-    'Node.js',
-    'PostgreSQL',
-    'Supabase',
-    'web3',
-    'EVM',
-    'viem',
-    'wagmi',
-    'LLM',
-    'RAG',
-    'AI SDK',
-    'fintech',
-    'blockchain',
-  ],
-  openGraph: {
-    title: 'Gabo Esquivel - Curriculum Vitae',
-    description:
-      'Senior Full Stack Engineer (Web3 + AI) with 15+ years in Web3, AI, and fintech.',
-    type: 'profile',
-  },
+export async function generateMetadata({
+  searchParams,
+}: CvPageProps): Promise<Metadata> {
+  const resolved = await searchParams
+  const { variant } = resolveCv({ focus: resolved?.focus })
+
+  return { ...variant.metadata, alternates: { canonical: '/cv' } }
 }

@@ -1,6 +1,6 @@
 import { cardLink, proseClass } from 'components/shared/spacing'
-import { getProjectsByTechnologySlug } from 'gaboesquivel'
 import type { TechStackItem } from 'gaboesquivel'
+import { getProjectsByTechnologySlug } from 'gaboesquivel'
 import { cn } from 'lib/utils'
 import Link from 'next/link'
 

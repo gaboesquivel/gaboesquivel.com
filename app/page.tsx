@@ -1,11 +1,11 @@
 import { LatestPosts } from 'components/blog/latest-posts'
 import { LetsConnect } from 'components/shared/lets-connect'
 import {
+  blockGrid,
   PageImage,
   PageSection,
   PageTitle,
   Prose,
-  blockGrid,
 } from 'components/shared/page-layout'
 import { ProjectCard } from 'components/work/project-card'
 import { projects } from 'gaboesquivel'

@@ -1,8 +1,8 @@
 'use client'
 
 import { blockSpacing, twoColGrid } from 'components/shared/spacing'
-import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from 'lib/utils'
+import { AnimatePresence, motion } from 'motion/react'
 import type { ReactNode } from 'react'
 
 export function CardGrid<T>({

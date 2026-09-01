@@ -1,6 +1,6 @@
 import { IndexHeading } from 'components/shared/page-layout'
-import { allBlogs } from 'contentlayer/generated'
 import { getTechStackBySlug } from 'gaboesquivel'
+import { allBlogs } from 'lib/blog'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -8,9 +8,9 @@ import { redirect } from 'next/navigation'
 export default async function BlogTechPage({
   params,
 }: {
-  params: { tech: string }
+  params: Promise<{ tech: string }>
 }) {
-  const tech = params.tech
+  const { tech } = await params
   const techStack = getTechStackBySlug(tech)
   if (!techStack) redirect('/blog')
   return (
@@ -47,26 +47,22 @@ export default async function BlogTechPage({
 }
 
 export async function generateStaticParams() {
-  // Get unique tech tags from all blog posts
   const techTags = new Set<string>()
   for (const post of allBlogs) {
     if (post.tech) {
-      for (const tech of post.tech) {
-        techTags.add(tech)
-      }
+      for (const tech of post.tech) techTags.add(tech)
     }
   }
-  return Array.from(techTags).map((tech) => ({
-    tech,
-  }))
+  return Array.from(techTags).map((tech) => ({ tech }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { tech: string }
+  params: Promise<{ tech: string }>
 }): Promise<Metadata> {
-  const techStack = getTechStackBySlug(params.tech)
+  const { tech } = await params
+  const techStack = getTechStackBySlug(tech)
 
   if (!techStack)
     return {

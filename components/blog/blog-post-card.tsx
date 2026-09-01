@@ -1,5 +1,5 @@
 import { cardLink, proseClass } from 'components/shared/spacing'
-import type { Blog } from 'contentlayer/generated'
+import type { Blog } from 'lib/blog'
 import { cn, formatDate } from 'lib/utils'
 import Link from 'next/link'
 

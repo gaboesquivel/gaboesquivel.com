@@ -1,6 +1,6 @@
 import { BlogPostsMasonry } from 'components/blog/blog-posts-masonry'
 import { FilterNav, IndexHeading } from 'components/shared/page-layout'
-import { allBlogs } from 'contentlayer/generated'
+import { allBlogs } from 'lib/blog'
 
 // Allowed categories for blog page display
 const ALLOWED_CATEGORIES = [

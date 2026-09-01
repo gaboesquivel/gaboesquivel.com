@@ -6,7 +6,9 @@ import { LatestPosts } from '../blog/latest-posts'
 
 export default function TechStack({
   tech,
-}: { tech: TechStackItemWithProjects }) {
+}: {
+  tech: TechStackItemWithProjects
+}) {
   return (
     <div>
       <IndexHeading>{tech.name}</IndexHeading>

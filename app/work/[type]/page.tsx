@@ -3,8 +3,13 @@ import { Projects } from 'components/work/projects'
 import { projects } from 'gaboesquivel'
 import type { Metadata } from 'next'
 
-export default function WorkPage({ params }: { params: { type: string } }) {
-  const type = params.type || 'featured'
+export default async function WorkPage({
+  params,
+}: {
+  params: Promise<{ type: string }>
+}) {
+  const { type: rawType } = await params
+  const type = rawType || 'featured'
   const filteredProjects =
     type === 'all'
       ? projects

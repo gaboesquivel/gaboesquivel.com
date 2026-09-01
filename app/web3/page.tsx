@@ -8,6 +8,7 @@ import {
 } from 'components/shared/page-layout'
 import { ProjectEvidence } from 'components/work/project-evidence'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import web3Img from 'public/images/work/ticoblockchain.jpg'
 
 export default function Web3ExperiencePage() {
@@ -73,6 +74,13 @@ export default function Web3ExperiencePage() {
       <LatestPosts title="Writing about Web3 systems" category="Web3" />
 
       <PageSection title="Build a Web3 product">
+        <Prose>
+          The employment record behind this work is the{' '}
+          <Link href="/cv?focus=web3" className="prose-link">
+            Web3 CV
+          </Link>
+          .
+        </Prose>
         <LetsConnect />
       </PageSection>
     </section>

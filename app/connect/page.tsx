@@ -1,4 +1,4 @@
-import { PageTitle, Prose, blockSpacing } from 'components/shared/page-layout'
+import { blockSpacing, PageTitle, Prose } from 'components/shared/page-layout'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ContactForm } from './contact-form'

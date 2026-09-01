@@ -1,9 +1,9 @@
 import { PageCard } from 'components/shared/page-card'
 import {
+  blockGrid,
   PageSection,
   PageTitle,
   Prose,
-  blockGrid,
 } from 'components/shared/page-layout'
 import { blockSpacing } from 'components/shared/spacing'
 import { featuredLandingPages, landingPageGroups } from 'lib/landing-pages'

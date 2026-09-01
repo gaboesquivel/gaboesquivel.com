@@ -24,7 +24,7 @@
 
   .cv-print .cv-content {
     color: #111827 !important;
-  } 
+  }
 
   .cv-print .prose {
     --tw-prose-body: #111827 !important;
@@ -60,7 +60,7 @@
     font-weight: 700 !important;
     line-height: 1.15 !important;
     letter-spacing: -0.02em !important;
-    color: #2563EB !important;
+    color: #2563eb !important;
     margin: 0 0 0.4rem !important;
     padding: 0 !important;
     border: none !important;
@@ -86,8 +86,16 @@
     font-weight: 400 !important;
   }
 
+  .cv-print .cv-also {
+    color: #111827 !important;
+    font-size: 13px !important;
+    line-height: 1.68 !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+  }
+
   .cv-print .cv-section-heading {
-    color: #2563EB !important;
+    color: #2563eb !important;
     font-size: 13px !important;
     font-weight: 700 !important;
     letter-spacing: 0.01em !important;
@@ -165,7 +173,7 @@
   }
 
   .cv-print .cv-bullet::before {
-    content: '•' !important;
+    content: "•" !important;
     position: absolute !important;
     left: 0 !important;
     top: 0.02em !important;
@@ -176,7 +184,7 @@
   }
 
   .cv-print h2 {
-    color: #2563EB !important;
+    color: #2563eb !important;
   }
 
   .cv-print h3 {
@@ -189,7 +197,7 @@
   }
 
   .cv-print .cv-contact-section p {
-    color: #111827 !important;  
+    color: #111827 !important;
     font-size: 13px !important;
     font-weight: 400 !important;
     line-height: 1.68 !important;
@@ -219,11 +227,10 @@
     line-height: 1.68 !important;
     margin: 1.05rem 0 0 !important;
     font-weight: 400 !important;
-  } 
+  }
 
   .cv-print .cv-contact-footer a {
     color: #111827 !important;
     font-weight: 400 !important;
-  } 
-
+  }
 }

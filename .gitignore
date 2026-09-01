@@ -36,7 +36,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# contentlayer
+# velite
+.velite
+
+# contentlayer (legacy)
 .contentlayer
 
 .env

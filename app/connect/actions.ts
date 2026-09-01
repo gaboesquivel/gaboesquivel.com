@@ -13,7 +13,7 @@ const rateLimitMap = new Map<string, { count: number; lastReset: number }>()
 export async function submitContactForm(formData: FormData) {
   try {
     // Basic rate limiting (5 requests per hour per IP)
-    const requestHeaders = headers()
+    const requestHeaders = await headers()
     const forwardedIP = requestHeaders
       .get('x-forwarded-for')
       ?.split(',')[0]

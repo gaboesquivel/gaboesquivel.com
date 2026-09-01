@@ -1,4 +1,3 @@
-import typography from '@tailwindcss/typography'
 import type { Config } from 'tailwindcss'
 
 export default {
@@ -28,6 +27,5 @@ export default {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  plugins: [typography],
   darkMode: 'class',
 } satisfies Config

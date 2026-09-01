@@ -1,6 +1,7 @@
 import { LatestPosts } from 'components/blog/latest-posts'
 import { PageSection, PageTitle, Prose } from 'components/shared/page-layout'
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { ProjectEvidence } from './project-evidence'
 
 export function CapabilityPage({
@@ -9,6 +10,7 @@ export function CapabilityPage({
   sections,
   postSlugs,
   writingTitle,
+  children,
 }: {
   title: string
   intro: string[]
@@ -19,6 +21,7 @@ export function CapabilityPage({
   }>
   postSlugs: string[]
   writingTitle: string
+  children?: ReactNode
 }) {
   return (
     <section>
@@ -46,6 +49,7 @@ export function CapabilityPage({
           </Link>{' '}
           for implementation details, systems, and technology.
         </Prose>
+        {children}
       </PageSection>
     </section>
   )

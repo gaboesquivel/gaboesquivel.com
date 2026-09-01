@@ -1,5 +1,7 @@
+import { Prose } from 'components/shared/page-layout'
 import { CapabilityPage } from 'components/work/capability-page'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 const sections = [
   {
@@ -40,7 +42,15 @@ export default function FullstackExperiencePage() {
         '2026-02-engineering-ai-era',
       ]}
       writingTitle="Writing about product systems"
-    />
+    >
+      <Prose>
+        The employment record behind this work is the{' '}
+        <Link href="/cv?focus=fullstack" className="prose-link">
+          full-stack CV
+        </Link>
+        .
+      </Prose>
+    </CapabilityPage>
   )
 }
 
