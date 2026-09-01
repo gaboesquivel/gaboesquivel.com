@@ -375,10 +375,6 @@ export const cvPath = ({ key }: { key: CvKey }) =>
 export const cvPdfFile = ({ key }: { key: CvKey }) =>
   key === 'full' ? 'gaboesquivel-cv.pdf' : `gaboesquivel-cv-${key}.pdf`
 
-const focusKeys = cvKeys.filter(
-  (key): key is Exclude<CvKey, 'full'> => key !== 'full',
-)
-
 // Featured roles declare companies only. Render order comes from the
 // experience array so a variant can never reorder the employment record.
 const selectEntries = ({ variant }: { variant: CvVariant }): CvExperience[] => {
@@ -393,8 +389,13 @@ const selectEntries = ({ variant }: { variant: CvVariant }): CvExperience[] => {
 
 export const resolveCv = ({ focus }: { focus?: string | string[] }) => {
   const value = Array.isArray(focus) ? focus[0] : focus
-  const key = focusKeys.find((focusKey) => focusKey === value) ?? 'full'
+  const key: CvKey = isFocusKey(value) ? value : 'full'
   const variant = cvVariants[key]
 
   return { key, variant, entries: selectEntries({ variant }) }
 }
+
+const isFocusKey = (
+  value: string | undefined,
+): value is Exclude<CvKey, 'full'> =>
+  value === 'ai' || value === 'web3' || value === 'fullstack'
