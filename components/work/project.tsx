@@ -120,7 +120,12 @@ export function ProjectDetails({
       {full && project.link && project.link !== project.repo && (
         <p className={cn(blockSpacing, 'text-sm')}>
           <span className="font-bold">Link:</span>{' '}
-          <a href={project.link} target="_blank" rel="noopener noreferrer">
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="break-all"
+          >
             {project.link}
           </a>
         </p>
@@ -182,7 +187,12 @@ export function ProjectDetails({
       {full && project.repo && (
         <p className="text-sm">
           <span className="font-bold">Repo:</span>{' '}
-          <a href={project.repo} target="_blank" rel="noopener noreferrer">
+          <a
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="break-all"
+          >
             {project.repo}
           </a>
         </p>

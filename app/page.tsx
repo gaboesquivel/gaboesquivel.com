@@ -38,7 +38,6 @@ export default function HomePage() {
         alt="Gabo Esquivel giving a workshop in 2019"
         src={workshop}
         priority
-        className="h-60"
       />
 
       <PageSection

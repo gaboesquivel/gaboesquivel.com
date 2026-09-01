@@ -7,9 +7,7 @@
 }
 
 html {
-  min-width: 360px;
   width: 100%;
-  overflow-x: hidden;
   max-width: 100vw;
 }
 
@@ -22,7 +20,7 @@ html {
   @apply visible;
 }
 .prose {
-  @apply mx-0 max-w-full overflow-hidden;
+  @apply mx-0 max-w-full;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }

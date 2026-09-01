@@ -117,7 +117,13 @@ export function PageImage({
   objectClassName?: string
 }) {
   return (
-    <div className={cn('relative h-[420px]', blockSpacing, className)}>
+    <div
+      className={cn(
+        'relative aspect-[16/9] h-auto w-full max-h-[420px]',
+        blockSpacing,
+        className,
+      )}
+    >
       <Image
         alt={alt}
         src={src}

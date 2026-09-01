@@ -7,7 +7,10 @@ export const sectionSpacing = 'mt-12'
 export const titleSpacing = 'mb-6'
 export const headingSpacing = 'mb-4'
 
-export const pageTitle = cn(titleSpacing, 'text-3xl font-bold tracking-tighter')
+export const pageTitle = cn(
+  titleSpacing,
+  'text-2xl font-bold tracking-tighter sm:text-3xl',
+)
 
 export const indexTitle = cn(pageTitle, 'max-w-[650px]')
 
@@ -32,4 +35,5 @@ export const blockGrid = cn(blockSpacing, twoColGrid)
 export const cardLink =
   'flex h-full w-full flex-col rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800'
 
-export const projectMedia = 'relative mb-6 h-[200px] w-full md:h-[400px]'
+export const projectMedia =
+  'relative mb-6 aspect-[16/9] h-auto w-full max-h-[400px]'

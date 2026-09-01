@@ -53,9 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={clsx(
-        'dark text-white bg-black font-mono font-thin overflow-x-hidden',
-      )}
+      className={clsx('dark text-white bg-black font-mono font-thin')}
     >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -64,9 +62,9 @@ export default function RootLayout({
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>👩‍🚀</text></svg>"
         />
       </head>
-      <body className="relative mb-40 antialiased overflow-x-hidden max-w-full">
+      <body className="relative mb-40 antialiased max-w-full min-w-0">
         <div className="w-full h-0.5 bg-accent sticky top-0 z-50" />
-        <main className="flex flex-col flex-auto max-w-4xl min-w-0 px-6 mt-8 lg:mx-auto overflow-hidden">
+        <main className="mx-auto mt-8 flex min-w-0 max-w-4xl flex-auto flex-col px-4 sm:px-6">
           <Navbar />
           {children}
           <Footer />

@@ -24,11 +24,8 @@ export default function Navbar() {
       className="-ml-[8px] mb-10 tracking-tight navbar print:hidden"
     >
       <LayoutGroup>
-        <div
-          className="relative overflow-x-auto px-0 pb-1 scroll-pr-6"
-          id="nav"
-        >
-          <div className="flex w-max flex-row pr-6">
+        <div className="relative px-0 pb-1" id="nav">
+          <div className="flex flex-row flex-wrap">
             {navItems.map(({ path, name }) => {
               const isActive =
                 path === '/'
@@ -43,6 +40,7 @@ export default function Navbar() {
                   className={clsx(
                     'transition-all hover:text-neutral-800 dark:hover:text-accent flex align-middle',
                     isActive ? 'text-accent' : 'text-neutral-500',
+                    path === '/connect' && 'hidden md:flex',
                   )}
                 >
                   <span className="relative px-2 py-1">
