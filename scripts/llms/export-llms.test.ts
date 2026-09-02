@@ -1,12 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { experience, techStack } from 'gaboesquivel'
+import { experience, projects, techStack } from 'gaboesquivel'
 import { renderBlogMarkdown } from './blog'
 import { cvExports, renderCvMarkdown } from './cv'
 import { blogSlugFromRelatedUrl, isValidProjectLink } from './format'
 import { loadNarrativePages } from './pages'
 import {
+  featuredProjectSlugs,
   indexEvidenceSlugs,
   renderProjectMarkdown,
   renderTechMarkdown,
@@ -91,8 +92,17 @@ describe('llms export helpers', () => {
       experienceCompany: 'Wink',
     })
     expect(employment).toBeDefined()
+    expect(markdown).toContain('**Role:** Lead Engineer')
     expect(markdown).toContain(`**Employment:** ${employment?.duration}`)
     expect(markdown).not.toContain('**Primary year:**')
+  })
+
+  test('renderProjectMarkdown omits Role when the field is missing', () => {
+    const project = projects.find((item) => !item.role)
+    expect(project).toBeDefined()
+    if (!project) return
+    const markdown = renderProjectMarkdown(project)
+    expect(markdown).not.toContain('**Role:**')
   })
 
   test('renderTechMarkdown includes description before evidence', () => {
@@ -122,6 +132,10 @@ describe('llms export helpers', () => {
   })
 
   test('indexEvidenceSlugs lists six featured projects', () => {
+    const featured = projects
+      .filter((project) => project.type.includes('featured'))
+      .map((project) => project.slug)
+      .sort()
     expect(indexEvidenceSlugs).toHaveLength(6)
     expect(indexEvidenceSlugs).toEqual([
       'legal-agent',
@@ -131,6 +145,8 @@ describe('llms export helpers', () => {
       'opyn',
       'eos-costa-rica',
     ])
+    expect(indexEvidenceSlugs).toEqual(featuredProjectSlugs)
+    expect([...featuredProjectSlugs].sort()).toEqual(featured)
   })
 
   test('loadNarrativePages exports CapabilityPage related writing', () => {
@@ -151,6 +167,16 @@ describe('llms export helpers', () => {
     expect(ai?.body).not.toContain('Cannot work under W-2')
   })
 
+  test('homepage corpus includes focus and bio preview', () => {
+    const home = loadNarrativePages().find((page) => page.path === '/')
+    expect(home?.body).toContain('/startups')
+    expect(home?.body).toContain('/institutions')
+    expect(home?.body).toContain('/ai')
+    expect(home?.body).toContain('/web3')
+    expect(home?.body).toContain('/bio')
+    expect(home?.body).toContain('/cv')
+  })
+
   test('llms-full.txt omits archive blog post sections', () => {
     const full = readFileSync(join(PUBLIC_DIR, 'llms-full.txt'), 'utf8')
     expect(full).not.toContain(
@@ -159,5 +185,9 @@ describe('llms export helpers', () => {
     expect(full).not.toContain(
       'Canonical: https://gaboesquivel.com/blog/2019-03-ticoblockchain-2019-recap',
     )
+    expect(full).not.toContain('50,000')
+    expect(full).not.toContain('Series A')
+    expect(full).not.toContain('RemixRun')
+    expect(full).not.toContain('empowers lawyers')
   })
 })

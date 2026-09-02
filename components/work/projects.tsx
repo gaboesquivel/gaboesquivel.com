@@ -1,17 +1,12 @@
 import { FilterNav, IndexHeading } from 'components/shared/page-layout'
 import { ProjectsMasonry } from 'components/work/projects-masonry'
 import type { Project } from 'gaboesquivel'
-
-const options = [
-  'featured',
-  'full-time',
-  'contract',
-  'web3',
-  'ai',
-  'lead',
-  'oss',
-  'all',
-]
+import {
+  isWorkType,
+  workTypeCopy,
+  workTypeHref,
+  workTypeOptions,
+} from 'lib/work-types'
 
 export function Projects({
   projects,
@@ -25,16 +20,21 @@ export function Projects({
   return (
     <section>
       {type || heading ? (
-        <IndexHeading>{heading || `My Portfolio - ${type}`}</IndexHeading>
+        <IndexHeading>
+          {heading ||
+            (type && isWorkType(type)
+              ? workTypeCopy[type].heading
+              : `Projects: ${type}`)}
+        </IndexHeading>
       ) : null}
 
       {type ? (
         <FilterNav
           label="Work types"
           current={type}
-          items={options.map((option) => ({
+          items={workTypeOptions.map((option) => ({
             id: option,
-            href: `/work/${option !== 'featured' ? option : ''}`,
+            href: workTypeHref({ type: option }),
             label: option,
           }))}
         />

@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Exchange and protocol services',
     paragraphs: [
-      'Bitcash needed the exchange itself to be the source of truth: matching engine, Hasura GraphQL APIs, WebAuthn signing, and a realtime EOS indexer with worker threads and binary deserialization. Opyn keeps protocol state in a Ponder indexer over PostgreSQL so the trading interface reads it instead of reconstructing it in the client.',
+      'Bitcash needed the matching engine to be the system of record: Hasura GraphQL APIs, a realtime EOS indexer with worker threads and binary deserialization, and PostgreSQL behind the exchange. Opyn keeps protocol state in a Ponder indexer over PostgreSQL so the trading interface reads it instead of reconstructing it in the client.',
     ],
     projectSlugs: ['bitcashbank', 'opyn'],
   },
@@ -36,7 +36,7 @@ export default function BackendExperiencePage() {
       postSlugs={[
         '2025-05-order-books-and-amms',
         '2025-06-prompt-injection',
-        '2015-10-best-practices-for-designing-web-apis',
+        '2025-05-scaling-securing-websockets',
       ]}
       writingTitle="Writing about backend systems"
     />

@@ -65,16 +65,17 @@ export const renderProjectMarkdown = (project: ProjectWithExperience) => {
     ? experienceByCompany.get(project.experienceCompany)
     : undefined
 
-  const lines = [
-    project.description,
-    '',
-    `**Role:** ${project.role ?? 'Software Engineer'}`,
+  const lines = [project.description, '']
+
+  if (project.role) lines.push(`**Role:** ${project.role}`)
+
+  lines.push(
     employment
       ? `**Employment:** ${employment.duration} (${employment.title}, ${employment.company})`
       : `**Primary year:** ${project.year} (sort/display year, not employment dates)`,
     `**Types:** ${project.type.join(', ')}`,
     `**Technologies:** ${displayTechList(project.tech)}`,
-  ]
+  )
 
   if (isValidProjectLink(project.link)) lines.push(`**Link:** ${project.link}`)
   if (project.repo) lines.push(`**Repository:** ${project.repo}`)

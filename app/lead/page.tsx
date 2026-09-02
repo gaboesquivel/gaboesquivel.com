@@ -12,14 +12,14 @@ const sections = [
   {
     heading: 'Public infrastructure and enterprise delivery',
     paragraphs: [
-      'At EOS Costa Rica I operated validators after the mainnet launch, led Grant Thornton architecture, built a team around the development-services division, and ran workshops around TicoBlockchain and CriptoCantina.',
+      'At EOS Costa Rica I operated validators after the mainnet launch, led Grant Thornton architecture, built a team around the development-services division, and ran workshops around TicoBlockchain and CryptoCantinaCR.',
     ],
     projectSlugs: ['eos-costa-rica'],
   },
   {
-    heading: 'Architecture and engineering workflow',
+    heading: 'Architecture and a team that already shipped together',
     paragraphs: [
-      'At Bitlauncher I introduced an AI-assisted engineering workflow with Claude, v0.dev, Cursor, and SourceryAI, and owned the architecture it produced.',
+      'At Bitlauncher I owned the architecture: the Next.js and Supabase launchpad, token bridge and auction flows, and the EVM indexer. I built it with the bitcash.org team I have worked with since 2020.',
     ],
     projectSlugs: ['bitlauncher'],
   },
@@ -33,7 +33,7 @@ const sections = [
   {
     heading: 'Technical communities',
     paragraphs: [
-      "I founded Costa Rica JS and co-founded AsoBlockchain, running meetups, NodeSchool, TicoBlockchain, and CriptoCantina to move technical knowledge through the region's ecosystem rather than keep it inside one company.",
+      "I founded Costa Rica JS and co-founded AsoBlockchain, running meetups, NodeSchool, TicoBlockchain, and CryptoCantinaCR to move technical knowledge through the region's ecosystem rather than keep it inside one company.",
     ],
     projectSlugs: ['costa-rica-js', 'asoblockchain'],
   },
@@ -48,9 +48,9 @@ export default function TechLeadExperiencePage() {
       ]}
       sections={sections}
       postSlugs={[
-        '2025-03-the-product-engineer',
         '2024-07-adrs-in-software-teams',
         '2025-02-engineering-principles',
+        '2026-02-engineering-ai-era',
       ]}
       writingTitle="Writing about technical leadership"
     />

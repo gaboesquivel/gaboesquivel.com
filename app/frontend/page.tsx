@@ -5,14 +5,14 @@ const sections = [
   {
     heading: 'Trading and auction interfaces',
     paragraphs: [
-      'A balance that is already stale and an auction closing while you type both need the screen to stay honest. At Opyn the Next.js trading interface uses React Server Components over Ponder-indexed options data so Arbitrum behavior stays visible. At Bitlauncher the Gnosis auction bidding interface uses wagmi balance subscriptions and Supabase realtime updates.',
+      'At Opyn the Next.js trading interface uses React Server Components over Ponder-indexed options data so Arbitrum behavior stays visible. At Bitlauncher the Gnosis auction bidding interface uses wagmi balance subscriptions and Supabase realtime updates.',
     ],
     projectSlugs: ['opyn', 'bitlauncher'],
   },
   {
     heading: 'Immersive and interactive products',
     paragraphs: [
-      'A virtual world holding a live wallet session has the same honesty problem. At ZTX I built a WebGL EVM wallet connector with Ethers.js that puts wallet state inside the virtual-world UI. At AMC the YEAH! interactive player ran trivia, interviews, and quizzes inside the film itself. Curated titles carried more than 400 interactive elements each.',
+      'A virtual world holding a live wallet session has the same honesty problem. At ZTX the screen had to stay honest about a live wallet: signing sat inside the WebGL world so the UI showed what the session was about to commit to. At AMC the YEAH! interactive player ran trivia, interviews, and quizzes inside the film itself. Curated titles carried more than 400 interactive elements each.',
     ],
     projectSlugs: ['ztx', 'amc-yeah-tv-facebook-app'],
   },

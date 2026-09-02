@@ -77,7 +77,7 @@ export default function AIExperiencePage() {
         slugs={[
           '2025-05-typescript-rag',
           '2026-01-evolution-ai-ux',
-          '2025-09-why-expo',
+          '2025-06-prompt-injection',
         ]}
       />
 

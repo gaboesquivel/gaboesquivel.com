@@ -54,11 +54,10 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Indexing, subscriptions, and browser signing">
         <Prose>
-          Bitcash is a peer-to-peer exchange: I built the matching engine,
-          Hasura GraphQL APIs, WebAuthn browser signing, QR signature requests,
-          and a realtime EOS indexer with worker threads and binary
-          deserialization. ChainGraph started during that work as an open-source
-          GraphQL subscription toolkit for EOSIO and Antelope data.
+          Bitcash is a peer-to-peer exchange. I built WebAuthn key management
+          and QR signature requests so trades could settle in the browser
+          without an external wallet. ChainGraph started during that work as an
+          open-source GraphQL subscription toolkit for EOSIO and Antelope data.
         </Prose>
 
         <ProjectEvidence slugs={['bitcashbank', 'chaingraph']} />
@@ -68,9 +67,9 @@ export default function Web3ExperiencePage() {
         <Prose>
           RareMint needed indexed NFT events and a wallet path into Polygon
           collectible auctions: I built a Moralis-streams indexer and integrated
-          WalletConnect. At ZTX I built a WebGL EVM wallet connector with
-          Ethers.js so wallet state lived inside the virtual-world UI, on an
-          early Next.js, Tailwind, and Framer Motion architecture.
+          WalletConnect. At ZTX the wallet session lived inside WebGL: signing
+          and NFT trading without leaving the world, so the chain receded behind
+          the screen.
         </Prose>
         <Prose>
           Bitlauncher combined Gnosis batch auctions, a USDT, USDC, and BITUSD

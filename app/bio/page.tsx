@@ -92,12 +92,12 @@ export default function BioPage() {
           and the project pages.
         </Prose>
         <Prose>
-          Tokens and protocol infrastructure came first. At Knowledge in 2017 I
-          developed an ERC-20 token, supported the ICO, and built a React and
-          Web3.js marketplace with a wallet dashboard. I also co-founded
-          AsoBlockchain that year. At EOS Costa Rica, from 2018 to 2020, I
-          helped launch the EOS mainnet, operated validators, and led the
-          architecture of a private EOSIO chain for Grant Thornton Labs.
+          Tokens and protocol infrastructure came first. At Knowledge, from 2017
+          to 2018, I developed an ERC-20 token, supported the ICO on mainnet,
+          and built a React and Web3.js marketplace with a wallet dashboard. I
+          also co-founded AsoBlockchain in 2017. At EOS Costa Rica, from 2018 to
+          2020, I helped launch the EOS mainnet, operated validators, and led
+          the architecture of a private EOSIO chain for Grant Thornton Labs.
         </Prose>
         <Prose>
           Then exchanges and indexed chain data. Bitcash, from 2020 to 2021, was
@@ -122,9 +122,11 @@ export default function BioPage() {
 
       <PageSection title="Intelligent interfaces">
         <Prose>
-          The current stretch is intelligent interfaces. Specialized assistants
-          showed up inside Masterbots and Bitlauncher; in 2025 LegalAgent became
-          the main evidence. That work sits on{' '}
+          Intelligent interfaces, in this work, means voice and chat, retrieval
+          that decides what the model sees, and admin controls so a team can run
+          the assistant after launch. Specialized assistants showed up inside
+          Masterbots and Bitlauncher; in 2025 LegalAgent became the main
+          evidence. That work sits on{' '}
           <Link href="/ai" className="prose-link">
             /ai
           </Link>

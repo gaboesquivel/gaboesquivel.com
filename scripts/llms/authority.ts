@@ -15,7 +15,7 @@ Blog posts reflect views and technology at \`publishedAt\` unless an update note
 
 Blog metrics and reach are not CV metrics. Pre-2020 writing lives on \`/blog\` and is historical.
 
-For working with Gabo, \`/connect\` is authoritative for hire terms, including that Gabo cannot work under W-2. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`
+For working with Gabo, \`/connect\` is authoritative for hire terms, including that Gabo cannot work under W-2. Hire terms appear only under \`/connect\`; other pages' on-site CTAs are not exported. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`
 
 export const LLMS_PREAMBLE_INDEX = `${LLMS_PREAMBLE_FULL}
 

@@ -35,11 +35,7 @@ export default function MobileExperiencePage() {
         'The app is rarely the whole job. Mobile keeps pulling past the screen: a native bridge for biometrics, a wallet session, a realtime audio pipeline, the services underneath.',
       ]}
       sections={sections}
-      postSlugs={[
-        '2025-09-why-expo',
-        '2026-01-evolution-ai-ux',
-        '2025-05-typescript-rag',
-      ]}
+      postSlugs={['2025-09-why-expo', '2026-01-evolution-ai-ux']}
       writingTitle="Writing about mobile products"
     />
   )

@@ -1,5 +1,5 @@
 import { blockSpacing, PageTitle, Prose } from 'components/shared/page-layout'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 import Link from 'next/link'
 import { ContactForm } from './contact-form'
 
@@ -30,14 +30,8 @@ export default function ContractWorkPage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Work with Gabo Esquivel',
   description:
     'Open to direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2. Based in Costa Rica, working US Mountain Time.',
-  openGraph: {
-    title: 'Work with Gabo Esquivel',
-    description:
-      'Open to direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2.',
-    type: 'website',
-  },
-}
+})

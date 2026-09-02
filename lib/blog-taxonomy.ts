@@ -80,9 +80,9 @@ export const postMatchesBrowseCategory = ({
 export const categoryDescriptions: Record<BrowseCategory, string> = {
   engineering:
     'Notes on architecture, tooling, and shipping software — patterns, tradeoffs, and what held up in production.',
-  ai: 'Notes on RAG, agents, MCP, prompt security, and AI UX from building production assistants and tools.',
+  ai: 'Posts tagged AI: dated notes from implementation work.',
   ux: 'How AI and product interfaces are shifting — from chat to agents, streaming, and higher-agency workflows.',
-  web3: 'Writing on wallets, onchain systems, DeFi mechanics, and making blockchain infrastructure useful in products.',
+  web3: 'Posts tagged Web3: dated notes from implementation work.',
   defi: 'Posts on AMMs, liquidity, token standards, risk, and the engineering behind decentralized finance.',
   community:
     'Community building, contracting setup, and the Costa Rica software ecosystem.',

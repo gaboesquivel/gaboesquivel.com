@@ -43,9 +43,9 @@ export default function StartupsExperiencePage() {
       ]}
       sections={sections}
       postSlugs={[
-        '2025-03-the-product-engineer',
-        '2014-01-developing-software-in-costa-rica',
-        '2025-11-1099-contracting',
+        '2026-02-engineering-ai-era',
+        '2024-10-modern-nextjs-web3-architecture',
+        '2026-04-forward-deployed-engineer',
       ]}
       writingTitle="Writing about product engineering"
     />

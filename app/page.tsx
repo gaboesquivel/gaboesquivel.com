@@ -30,9 +30,9 @@ export default function HomePage() {
       </Prose>
 
       <Prose>
-        Fifteen years of shipping software, twelve of them leading 0→1 product
-        work: regulated finance, consumer Web3, production AI. I work from Costa
-        Rica on US Mountain Time with distributed teams.
+        15+ years of shipping software, 12+ of them leading 0→1 product work:
+        regulated finance, consumer Web3, production AI. I work from Costa Rica
+        on US Mountain Time with distributed teams.
       </Prose>
 
       <PageImage
@@ -58,7 +58,7 @@ export default function HomePage() {
         </ul>
       </PageSection>
 
-      {/* <Prose>
+      <Prose>
         I ship in{' '}
         <Link href="/startups" className="prose-link">
           startups
@@ -88,7 +88,7 @@ export default function HomePage() {
           /cv
         </Link>
         .
-      </Prose> */}
+      </Prose>
 
       <LatestPosts
         title="Writing"
