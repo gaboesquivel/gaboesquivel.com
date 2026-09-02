@@ -10,6 +10,17 @@ import {
 } from './blog-taxonomy'
 
 describe('blog taxonomy', () => {
+  test('browse categories keep nav order', () => {
+    expect(browseCategories).toEqual([
+      'engineering',
+      'ai',
+      'ux',
+      'web3',
+      'defi',
+      'community',
+    ])
+  })
+
   test('maps AI aliases to ai browse slug', () => {
     expect(toBrowseSlug('Artificial Intelligence')).toBe('ai')
     expect(toBrowseSlug('AI')).toBe('ai')

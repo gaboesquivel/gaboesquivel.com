@@ -1,9 +1,9 @@
 export const browseCategories = [
   'engineering',
-  'web3',
-  'defi',
   'ai',
   'ux',
+  'web3',
+  'defi',
   'community',
 ] as const
 
@@ -11,20 +11,20 @@ export type BrowseCategory = (typeof browseCategories)[number]
 
 export const categoryMap: Record<string, BrowseCategory> = {
   Engineering: 'engineering',
-  Web3: 'web3',
-  DeFi: 'defi',
   'Artificial Intelligence': 'ai',
   AI: 'ai',
   UX: 'ux',
+  Web3: 'web3',
+  DeFi: 'defi',
   Community: 'community',
 }
 
 export const categoryDisplayNames: Record<BrowseCategory, string> = {
   engineering: 'Engineering',
-  web3: 'Web3',
-  defi: 'DeFi',
   ai: 'AI',
   ux: 'UX',
+  web3: 'Web3',
+  defi: 'DeFi',
   community: 'Community',
 }
 
@@ -80,10 +80,10 @@ export const postMatchesBrowseCategory = ({
 export const categoryDescriptions: Record<BrowseCategory, string> = {
   engineering:
     'Notes on architecture, tooling, and shipping software — patterns, tradeoffs, and what held up in production.',
-  web3: 'Writing on wallets, onchain systems, DeFi mechanics, and making blockchain infrastructure useful in products.',
-  defi: 'Posts on AMMs, liquidity, token standards, risk, and the engineering behind decentralized finance.',
   ai: 'Notes on RAG, agents, MCP, prompt security, and AI UX from building production assistants and tools.',
   ux: 'How AI and product interfaces are shifting — from chat to agents, streaming, and higher-agency workflows.',
+  web3: 'Writing on wallets, onchain systems, DeFi mechanics, and making blockchain infrastructure useful in products.',
+  defi: 'Posts on AMMs, liquidity, token standards, risk, and the engineering behind decentralized finance.',
   community:
     'Community building, contracting setup, and the Costa Rica software ecosystem.',
 }
