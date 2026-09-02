@@ -74,11 +74,7 @@ export default function AIExperiencePage() {
 
       <LatestPosts
         title="Writing about AI products"
-        slugs={[
-          '2025-05-typescript-rag',
-          '2026-01-evolution-ai-ux',
-          '2025-06-prompt-injection',
-        ]}
+        category="Artificial Intelligence"
       />
 
       <PageSection title="Build an AI product">
