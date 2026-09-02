@@ -1,4 +1,5 @@
 import { allBlogs } from 'lib/blog'
+import type { ReactNode } from 'react'
 import { PostGrid } from './posts-grid'
 
 export function LatestPosts({
@@ -8,6 +9,7 @@ export function LatestPosts({
   tech,
   slugs,
   excludeSlug,
+  action,
 }: {
   limit?: number
   title?: string
@@ -15,6 +17,7 @@ export function LatestPosts({
   tech?: string
   slugs?: string[]
   excludeSlug?: string
+  action?: ReactNode
 }) {
   const latestPosts = getLatestPosts({
     limit,
@@ -26,7 +29,7 @@ export function LatestPosts({
 
   if (latestPosts.length === 0) return null
 
-  return <PostGrid posts={latestPosts} title={title} />
+  return <PostGrid posts={latestPosts} title={title} action={action} />
 }
 
 function getLatestPosts({

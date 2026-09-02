@@ -6,6 +6,7 @@ import {
   PageSection,
   PageTitle,
   Prose,
+  sectionAction,
 } from 'components/shared/page-layout'
 import { ProjectCard } from 'components/work/project-card'
 import { projects } from 'gaboesquivel'
@@ -43,7 +44,7 @@ export default function HomePage() {
       <PageSection
         title="Selected work"
         action={
-          <Link href="/work" className="cta-link text-sm">
+          <Link href="/work" className={sectionAction}>
             More work
           </Link>
         }
@@ -89,7 +90,14 @@ export default function HomePage() {
         .
       </Prose> */}
 
-      <LatestPosts title="Writing" />
+      <LatestPosts
+        title="Writing"
+        action={
+          <Link href="/blog" className={sectionAction}>
+            More writing
+          </Link>
+        }
+      />
 
       <PageSection title="Work together">
         <LetsConnect />
