@@ -58,8 +58,18 @@ Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institu
 
 Use only facts already present in `LetsConnect`: direct hire, international hire, contracting through Blockmatic Labs LLC, Costa Rica, and US Mountain Time.
 
+## `/blog`
+
+- Job: recent writing on shipping software — not a second bio or capability page
+- Visitor: founder or technical lead checking whether the writing is specific and current
+- Message: notes on AI, Web3, and engineering from real implementation work
+- Evidence: current-era posts in the masonry; archive posts stay visible and dated
+- Category pages name the writing slice only — do not target capability keywords owned by `/ai` or `/web3`
+- CTA: read a post, then `/connect` via site chrome
+
 ## `/cv` and `/tech`
 
 - `/cv`: default five-role product-engineering CV (AI + Web3); do not convert it into narrative copy
 - `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/variants.ts` adds print page breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs
+- `/tech/[slug]`: implementation evidence and named projects; not a capability thesis page

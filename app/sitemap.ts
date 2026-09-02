@@ -1,16 +1,8 @@
-import { projects } from 'gaboesquivel'
+import { techCategoryIds } from 'components/tech/categories'
+import { projects, techStack } from 'gaboesquivel'
 import { allBlogs } from 'lib/blog'
+import { browseCategories, isArchivePost } from 'lib/blog-taxonomy'
 import type { MetadataRoute } from 'next'
-
-const blogCategorySlugs = [
-  'engineering',
-  'web3',
-  'defi',
-  'ai',
-  'ux',
-  'finance',
-  'community',
-]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://gaboesquivel.com'
@@ -53,20 +45,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogs = allBlogs.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.publishedAt,
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
+    changeFrequency: isArchivePost(post.publishedAt)
+      ? ('yearly' as const)
+      : ('monthly' as const),
+    priority: isArchivePost(post.publishedAt) ? 0.3 : 0.6,
   }))
 
-  const categoryUrls = blogCategorySlugs.map((category) => ({
+  const categoryUrls = browseCategories.map((category) => ({
     url: `${baseUrl}/blog/category/${category}`,
     changeFrequency: 'weekly' as const,
-    priority: 0.7,
+    priority: 0.5,
   }))
 
   const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/project/${project.slug}`,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
+  }))
+
+  const techCategoryUrls = techCategoryIds
+    .filter((id) => id !== 'featured')
+    .map((category) => ({
+      url: `${baseUrl}/tech/${category}`,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }))
+
+  const techUrls = techStack.map((tech) => ({
+    url: `${baseUrl}/tech/${tech.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
   }))
 
   return [
@@ -76,5 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogs,
     ...categoryUrls,
     ...projectUrls,
+    ...techCategoryUrls,
+    ...techUrls,
   ]
 }

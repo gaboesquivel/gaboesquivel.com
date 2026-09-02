@@ -1,4 +1,5 @@
 import { allBlogs } from 'lib/blog'
+import { postMatchesBrowseCategory, toBrowseSlug } from 'lib/blog-taxonomy'
 import type { ReactNode } from 'react'
 import { PostGrid } from './posts-grid'
 
@@ -51,10 +52,21 @@ function getLatestPosts({
   )
 
   let pool = allSorted
-  if (category)
-    pool = pool.filter((post) =>
-      post.category?.some((c) => c.toLowerCase() === category.toLowerCase()),
-    )
+  if (category) {
+    const browseSlug = toBrowseSlug(category)
+    pool = browseSlug
+      ? pool.filter((post) =>
+          postMatchesBrowseCategory({
+            categories: post.category,
+            slug: browseSlug,
+          }),
+        )
+      : pool.filter((post) =>
+          post.category?.some(
+            (item) => item.toLowerCase() === category.toLowerCase(),
+          ),
+        )
+  }
   if (tech)
     pool = pool.filter((post) =>
       post.tech?.some((t) => t.toLowerCase() === tech.toLowerCase()),

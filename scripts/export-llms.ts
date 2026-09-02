@@ -1,7 +1,11 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { LLMS_PREAMBLE_FULL, LLMS_PREAMBLE_INDEX } from './llms/authority'
-import { isArchivePost, loadBlogPosts, renderBlogMarkdown } from './llms/blog'
+import {
+  isArchivePostFromBlog,
+  loadBlogPosts,
+  renderBlogMarkdown,
+} from './llms/blog'
 import { renderCvMarkdown } from './llms/cv'
 import {
   BASE_URL,
@@ -186,8 +190,8 @@ const buildLlmsFull = ({
 }
 
 const posts = loadBlogPosts()
-const currentPosts = posts.filter((post) => !isArchivePost(post))
-const archivePosts = posts.filter((post) => isArchivePost(post))
+const currentPosts = posts.filter((post) => !isArchivePostFromBlog(post))
+const archivePosts = posts.filter((post) => isArchivePostFromBlog(post))
 const pages = loadNarrativePages()
 const projects = sortProjects()
 const tech = sortTech()

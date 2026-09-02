@@ -26,6 +26,7 @@ Use the installed `gabo` skill for voice. Metadata must describe the page's actu
 - `/connect`: work with Gabo Esquivel
 - `/cv`: Senior Full Stack Engineer CV
 - `/tech`: technology stack
+- `/blog`: writing and engineering notes
 
 Do not make multiple narrative pages target the same career-story intent.
 

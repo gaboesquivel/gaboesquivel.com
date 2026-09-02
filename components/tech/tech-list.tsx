@@ -1,21 +1,17 @@
 import { FilterNav, IndexHeading } from 'components/shared/page-layout'
+import {
+  techCategoryHref,
+  techCategoryIds,
+  techCategoryLabels,
+} from 'components/tech/categories'
 import { TechMasonry } from 'components/tech/tech-masonry'
 import {
   filterTechByCategory,
   getProjectsByTechnology,
   techStack,
 } from 'gaboesquivel'
+import { isEmptyTech } from 'lib/tech-evidence'
 import { cn } from 'lib/utils'
-
-const categories = [
-  'featured',
-  'web3',
-  'ai',
-  'frontend',
-  'backend',
-  'cloud-devops',
-  'all',
-]
 
 export function TechList({
   category,
@@ -29,7 +25,9 @@ export function TechList({
   className?: string
 }) {
   const currentCategory = category ?? 'featured'
-  const filteredTech = filterTechByCategory(techStack, currentCategory)
+  const filteredTech = filterTechByCategory(techStack, currentCategory).filter(
+    (tech) => !isEmptyTech(tech),
+  )
 
   const sortedTech = [...filteredTech].sort((a, b) => {
     const aProjects = getProjectsByTechnology(a.tag).length
@@ -55,10 +53,10 @@ export function TechList({
         <FilterNav
           label="Technology categories"
           current={currentCategory}
-          items={categories.map((cat) => ({
-            id: cat,
-            href: cat === 'featured' ? '/tech' : `/tech/${cat}`,
-            label: cat,
+          items={techCategoryIds.map((id) => ({
+            id,
+            href: techCategoryHref(id),
+            label: techCategoryLabels[id],
           }))}
         />
       ) : null}

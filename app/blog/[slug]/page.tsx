@@ -1,11 +1,14 @@
+import { BlogPostChips } from 'components/blog/blog-post-chips'
+import { PostGrid } from 'components/blog/posts-grid'
 import { Mdx } from 'components/mdx'
 import { indexTitle } from 'components/shared/page-layout'
 import { allBlogs } from 'lib/blog'
 import { blogJsonLd } from 'lib/blog-json-ld'
+import { getRelatedPosts } from 'lib/blog-related'
+import { isArchivePost } from 'lib/blog-taxonomy'
 import { formatDate } from 'lib/utils'
 import type { Metadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
-import { LatestPosts } from '../../../components/blog/latest-posts'
+import { notFound } from 'next/navigation'
 
 export function generateStaticParams() {
   return allBlogs.map((post) => ({ slug: post.slug }))
@@ -18,7 +21,7 @@ export async function generateMetadata({
 }): Promise<Metadata | undefined> {
   const { slug } = await params
   const post = allBlogs.find((post) => post.slug === slug)
-  if (!post) redirect('/blog')
+  if (!post) notFound()
 
   const {
     title,
@@ -27,9 +30,7 @@ export async function generateMetadata({
     image,
     slug: postSlug,
   } = post
-  const ogImage = image
-    ? `https://gaboesquivel.com${image}`
-    : `https://gaboesquivel.com/og?title=${title}`
+  const ogImage = image ? `https://gaboesquivel.com${image}` : undefined
 
   return {
     title,
@@ -40,13 +41,13 @@ export async function generateMetadata({
       type: 'article',
       publishedTime,
       url: `https://gaboesquivel.com/blog/${postSlug}`,
-      images: [{ url: ogImage }],
+      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [ogImage],
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
   }
 }
@@ -60,6 +61,8 @@ export default async function Blog({
   const post = allBlogs.find((post) => post.slug === slug)
 
   if (!post) notFound()
+
+  const relatedPosts = getRelatedPosts({ post, allPosts: allBlogs })
 
   return (
     <section>
@@ -77,9 +80,16 @@ export default async function Blog({
           {formatDate(post.publishedAt)}
         </p>
       </div>
+      {isArchivePost(post.publishedAt) ? (
+        <p className="mb-4 max-w-[650px] text-sm text-neutral-500 dark:text-neutral-500">
+          Historical post — views and technology at time of publication.
+        </p>
+      ) : null}
+      <BlogPostChips categories={post.category} tech={post.tech} />
       <Mdx code={post.body} />
-
-      <LatestPosts title="More Articles" excludeSlug={post.slug} />
+      {relatedPosts.length > 0 ? (
+        <PostGrid posts={relatedPosts} title="Related writing" />
+      ) : null}
     </section>
   )
 }

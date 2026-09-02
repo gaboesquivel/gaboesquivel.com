@@ -6,15 +6,19 @@ import type { Project } from 'gaboesquivel'
 export function ProjectsMasonry({
   projects,
   identifier = 'projects',
+  preserveOrder = false,
 }: {
   projects: Project[]
   identifier?: string
+  preserveOrder?: boolean
 }) {
-  const sortedProjects = [...projects].sort(
-    (a, b) =>
-      (a.order ?? Number.POSITIVE_INFINITY) -
-      (b.order ?? Number.POSITIVE_INFINITY),
-  )
+  const sortedProjects = preserveOrder
+    ? projects
+    : [...projects].sort(
+        (a, b) =>
+          (a.order ?? Number.POSITIVE_INFINITY) -
+          (b.order ?? Number.POSITIVE_INFINITY),
+      )
 
   return (
     <CardGrid

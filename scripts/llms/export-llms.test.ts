@@ -36,14 +36,13 @@ describe('llms export helpers', () => {
       description: 'Generic definition',
       link: 'https://developer.mozilla.org',
       since: '2009',
-      intro: ['JavaScript is a versatile programming language'],
       experience: [
         'Used JavaScript in Staples and Gridium for building interactive web applications.',
       ],
     })
     expect(markdown).not.toContain('Since:')
     expect(markdown).not.toContain('versatile programming language')
-    expect(markdown).toContain('## Experience')
+    expect(markdown).toContain('## Implementation')
   })
 
   test('validateSection catches unbalanced fences', () => {

@@ -1,5 +1,11 @@
 import { BlogPostsMasonry } from 'components/blog/blog-posts-masonry'
-import { PageSection } from 'components/shared/page-layout'
+import { PageSection, Prose } from 'components/shared/page-layout'
+import {
+  isTechCategoryId,
+  techCategoryFrame,
+  techCategoryIds,
+  techCategoryLabels,
+} from 'components/tech/categories'
 import { TechList } from 'components/tech/tech-list'
 import TechStack from 'components/tech/tech-stack'
 import {
@@ -8,27 +14,17 @@ import {
   techStack,
 } from 'gaboesquivel'
 import { allBlogs } from 'lib/blog'
+import { pageMetadata } from 'lib/page-metadata'
+import { isEmptyTech, visibleTechStack } from 'lib/tech-evidence'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-const categories = [
-  'featured',
-  'web3',
-  'ai',
-  'frontend',
-  'backend',
-  'cloud-devops',
-  'all',
-]
-
-const categoryNames: Record<string, string> = {
-  featured: 'Featured',
-  web3: 'Web3',
-  ai: 'AI',
-  frontend: 'Frontend',
-  backend: 'Backend',
-  'cloud-devops': 'Cloud and DevOps',
-  all: 'All',
+const capabilityLinkLabel: Record<string, string> = {
+  frontend: 'frontend engineering',
+  ai: 'AI product engineering',
+  web3: 'Web3 engineering',
+  backend: 'backend engineering',
 }
 
 export default async function TechCategoryPage({
@@ -38,13 +34,12 @@ export default async function TechCategoryPage({
 }) {
   const { category } = await params
 
-  // If it's a known category, show filtered list with blog posts
-  if (categories.includes(category)) {
-    // Get tech tags for this category
+  if (category === 'featured') redirect('/tech')
+
+  if (isTechCategoryId(category)) {
     const categoryTech = filterTechByCategory(techStack, category)
     const categoryTagsSet = new Set(categoryTech.map((t) => String(t.tag)))
 
-    // Filter blog posts by tech tags and sort by most recent first
     const filteredPosts = allBlogs
       .filter((post) =>
         post.tech?.some((techTag) => categoryTagsSet.has(techTag)),
@@ -54,25 +49,44 @@ export default async function TechCategoryPage({
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
       )
 
+    const frame = techCategoryFrame({ category })
+
     return (
       <>
+        {frame ? (
+          <Prose>
+            {frame.line}{' '}
+            <Link href={frame.capabilityHref} className="prose-link">
+              {capabilityLinkLabel[category]}
+            </Link>{' '}
+            goes deeper on the work.
+          </Prose>
+        ) : null}
         <TechList
           category={category}
-          heading={`${categoryNames[category]} technologies`}
+          heading={`${techCategoryLabels[category]} technologies`}
         />
-        {filteredPosts.length > 0 && (
-          <PageSection title={`Writing about ${categoryNames[category]}`}>
+        {filteredPosts.length > 0 ? (
+          <PageSection title={`Writing about ${techCategoryLabels[category]}`}>
             <BlogPostsMasonry posts={filteredPosts} identifier={category} />
           </PageSection>
-        )}
+        ) : null}
       </>
     )
   }
 
-  // Otherwise, treat it as a tag and show individual tech page
   const tech = getTechStackBySlug(category)
-  if (!tech) redirect('/tech')
+  if (!tech || isEmptyTech(tech)) redirect('/tech')
   return <TechStack tech={tech} />
+}
+
+export function generateStaticParams() {
+  return [
+    ...techCategoryIds
+      .filter((category) => category !== 'featured')
+      .map((category) => ({ category })),
+    ...visibleTechStack(techStack).map((tech) => ({ category: tech.slug })),
+  ]
 }
 
 export async function generateMetadata({
@@ -82,40 +96,26 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category } = await params
 
-  // If it's a known category, return category metadata
-  if (categories.includes(category)) {
-    const categoryName = categoryNames[category]
+  if (isTechCategoryId(category)) {
+    const label = techCategoryLabels[category]
     const title =
       category === 'all'
-        ? 'Complete Technology Stack | Gabo Esquivel'
-        : `${categoryName} Technology Stack | Gabo Esquivel`
-    const description = `${categoryName} technologies used across project work, with related evidence and writing.`
+        ? 'All technologies | Gabo Esquivel'
+        : `${label} technologies | Gabo Esquivel`
+    const description = `${label} technologies used across project work, with related evidence and writing.`
 
-    return {
-      title,
-      description,
-      openGraph: {
-        title,
-        description,
-        type: 'website',
-      },
-    }
+    return pageMetadata({ title, description })
   }
 
-  // Otherwise, return individual tech metadata
   const tech = getTechStackBySlug(category)
   if (!tech)
-    return {
-      title: 'Not Found | Gabo Esquivel',
-    }
+    return pageMetadata({
+      title: 'Not found | Gabo Esquivel',
+      description: 'Technology not found.',
+    })
 
-  return {
+  return pageMetadata({
     title: `${tech.name} | Tech Stack | Gabo Esquivel`,
     description: tech.description,
-    openGraph: {
-      title: `${tech.name} | Tech Stack | Gabo Esquivel`,
-      description: tech.description,
-      type: 'website',
-    },
-  }
+  })
 }

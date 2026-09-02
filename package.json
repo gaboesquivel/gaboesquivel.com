@@ -6,7 +6,7 @@
     "content:watch": "velite --watch",
     "build": "velite && bun run export:llms && next build",
     "export:llms": "bun scripts/export-llms.ts",
-    "test:llms": "bun test scripts/llms/export-llms.test.ts",
+    "test:llms": "bun test scripts/llms/export-llms.test.ts lib/blog-taxonomy.test.ts",
     "cvs": "bun scripts/export-cv.ts",
     "start": "next start",
     "verify": "bun run content:build && bun run export:llms && bun run lint",

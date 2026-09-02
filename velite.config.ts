@@ -1,4 +1,5 @@
 import { techStack } from 'gaboesquivel'
+import { isKnownCategory, knownCategories } from 'lib/blog-taxonomy'
 import { rehypePlugins, remarkPlugins } from 'lib/velite-mdx-plugins'
 import { defineCollection, defineConfig, s } from 'velite'
 
@@ -25,6 +26,16 @@ const blogs = defineCollection({
           throw new Error(
             `Invalid tech tags in ${meta.path}: ${invalid.join(', ')}\n` +
               `Valid tags: ${[...validTags].sort().join(', ')}`,
+          )
+      }
+      if (data.category?.length) {
+        const invalid = data.category.filter(
+          (category) => !isKnownCategory(category),
+        )
+        if (invalid.length)
+          throw new Error(
+            `Invalid categories in ${meta.path}: ${invalid.join(', ')}\n` +
+              `Valid categories: ${[...knownCategories].sort().join(', ')}`,
           )
       }
       return data

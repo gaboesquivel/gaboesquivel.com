@@ -1,11 +1,12 @@
 import { BlogPosts } from 'components/blog/blog-posts'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 
-export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Read my thoughts on software development, design, and more.',
-}
+export const metadata = pageMetadata({
+  title: 'Writing | Gabo Esquivel',
+  description:
+    'Notes on shipping software — AI, Web3, and engineering. Recent writing on agents, DeFi, architecture, and what held up in production.',
+})
 
 export default async function BlogPage() {
-  return <BlogPosts category="all" heading="Gabo's Blog" />
+  return <BlogPosts category="all" heading="Writing" />
 }
