@@ -1,8 +1,9 @@
 import { mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { type Subprocess, spawn } from 'bun'
+import { cvKeys } from 'gaboesquivel'
 import { chromium } from 'playwright-core'
-import { cvKeys, cvPath, cvPdfFile } from '../app/cv/variants'
+import { cvPath, cvPdfFile } from '../app/cv/variants'
 
 const ORIGIN = process.env.CV_ORIGIN ?? 'http://localhost:3099'
 const PUBLIC_DIR = join(import.meta.dir, '../public')

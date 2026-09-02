@@ -1,4 +1,4 @@
-import { resolveCv } from '../../app/cv/variants'
+import { resolveCv } from 'gaboesquivel'
 
 export const renderCvMarkdown = () => {
   const { variant, entries } = resolveCv({})

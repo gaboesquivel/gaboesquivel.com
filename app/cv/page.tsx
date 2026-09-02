@@ -116,5 +116,14 @@ export async function generateMetadata({
   const resolved = await searchParams
   const { variant } = resolveCv({ focus: resolved?.focus })
 
-  return { ...variant.metadata, alternates: { canonical: '/cv' } }
+  return {
+    title: variant.metadata.title,
+    description: variant.metadata.description,
+    keywords: variant.metadata.keywords,
+    openGraph: {
+      ...variant.metadata.openGraph,
+      type: 'profile',
+    },
+    alternates: { canonical: '/cv' },
+  }
 }

@@ -17,7 +17,7 @@
       "source": "gaboesquivel/gaboesquivel-skills",
       "sourceType": "github",
       "skillPath": "skills/gabo/SKILL.md",
-      "computedHash": "faf63411424630c0f42bcd769d1b4beb0dffcfd5b48953ea89dfbe6848beb1c7"
+      "computedHash": "8ec0e7e3b1480d045593e681b977a9af56be3819f67cf6f8c500bbfe35412c3b"
     },
     "motion-v13": {
       "source": "blockmatic/basilic-skills",
@@ -29,7 +29,7 @@
       "source": "blockmatic/basilic-skills",
       "sourceType": "github",
       "skillPath": "skills/next-v16/SKILL.md",
-      "computedHash": "70d2d953a9d41fb7b5d7e71c23692952a5bb589bf76bfdfe3b2a5f00ace81925"
+      "computedHash": "230365194e69a6949797349b54aeaaca3b6db4c91c5351d278a0293cdbad85c5"
     },
     "tailwind-design-system-v4": {
       "source": "blockmatic/basilic-skills",

@@ -61,5 +61,5 @@ Use only facts already present in `LetsConnect`: direct hire, international hire
 ## `/cv` and `/tech`
 
 - `/cv`: default five-role product-engineering CV (AI + Web3); do not convert it into narrative copy
-- `/cv?focus=ai|web3|fullstack`: specialized variants in `app/cv/variants.ts`, five roles each plus one dated closing paragraph. Employment facts stay in `app/cv/experience.ts`; variants select roles and override bullets only. Canonical stays `/cv`
+- `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/variants.ts` adds print page breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs

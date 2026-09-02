@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Content Strategy
 
-- Package owns structured project data. This site owns narrative, routes, and presentation. Do not mix repositories in one commit or edit generated package output.
+- Package owns structured project, tech, experience, and CV variant data. This site owns narrative, routes, presentation, and print layout (page breaks, PDF export). Do not mix repositories in one commit or edit generated package output.
 - Package copy/types change: edit package → `bun run generate` and `bun run build` → `bun link` in the package → `bun link gaboesquivel` here → then edit site pages.
 - Use package descriptions for project cards. Do not write separate project essays on site pages.
 - Do not restyle or upgrade Next.js in a content pass. `/cv` stays the printable CV. `/work` and project-page templates are off-limits unless the task is explicitly about them.
