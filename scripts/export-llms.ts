@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { featuredLandingPages, landingPageGroups } from '../lib/landing-pages'
+import { LLMS_PREAMBLE_FULL, LLMS_PREAMBLE_INDEX } from './llms/authority'
 import { isArchivePost, loadBlogPosts, renderBlogMarkdown } from './llms/blog'
 import { renderCvMarkdown } from './llms/cv'
 import {
@@ -12,158 +12,69 @@ import {
 } from './llms/format'
 import { loadNarrativePages } from './llms/pages'
 import {
-  featuredProjectSlugs,
+  indexEvidenceSlugs,
   renderProjectMarkdown,
   renderTechMarkdown,
   sortProjects,
   sortTech,
 } from './llms/projects'
+import { buildRouteManifest, rewriteInternalPaths } from './llms/routes'
+import { validateCorpus } from './llms/validate'
 
 const PUBLIC_DIR = join(import.meta.dir, '../public')
+const INDEX_TOKEN_BUDGET = 8000
 
-const blogCategorySlugs = [
-  'engineering',
-  'web3',
-  'defi',
-  'ai',
-  'ux',
-  'finance',
-  'community',
-]
-
-const workTypeSlugs = [
-  'featured',
-  'ai',
-  'web3',
-  'mobile',
-  'fullstack',
-  'startup',
-  'institution',
-  'all',
-]
-
-const techCategorySlugs = [
-  'web3',
-  'ai',
-  'frontend',
-  'backend',
-  'cloud-devops',
-  'all',
+const canonicalRoutes = [
+  { path: '/', label: 'Home' },
+  { path: '/bio', label: 'Career story' },
+  { path: '/ai', label: 'AI product engineering' },
+  { path: '/web3', label: 'Web3 product engineering' },
+  { path: '/fullstack', label: 'Full-stack product engineering' },
+  { path: '/frontend', label: 'Frontend engineering' },
+  { path: '/backend', label: 'Backend engineering' },
+  { path: '/mobile', label: 'Mobile engineering' },
+  { path: '/startups', label: 'Startup product engineering' },
+  { path: '/institutions', label: 'Institutional software engineering' },
+  { path: '/lead', label: 'Technical leadership' },
+  { path: '/cv', label: 'Curriculum vitae' },
+  { path: '/connect', label: 'Connect' },
+  { path: '/work', label: 'Work portfolio' },
 ]
 
 const buildLlmsIndex = ({
   projects,
   currentPosts,
-  archivePosts,
 }: {
   projects: ReturnType<typeof sortProjects>
   currentPosts: ReturnType<typeof loadBlogPosts>
-  archivePosts: ReturnType<typeof loadBlogPosts>
 }) => {
-  const landingPages = [
-    ...featuredLandingPages,
-    ...landingPageGroups.flatMap((group) => group.pages),
-  ]
+  const evidenceLines = indexEvidenceSlugs.flatMap((slug) => {
+    const project = projects.find((item) => item.slug === slug)
+    return project
+      ? [
+          llmsListItem({
+            name: project.title,
+            url: `${BASE_URL}/project/${project.slug}`,
+            note: project.description.split('\n')[0],
+          }),
+        ]
+      : []
+  })
 
-  const uniquePages = [
-    ...new Map(landingPages.map((page) => [page.href, page])).values(),
-  ]
-
-  const pageLines = uniquePages.map((page) =>
+  const routeLines = canonicalRoutes.map((route) =>
     llmsListItem({
-      name: page.title,
-      url: `${BASE_URL}${page.href === '/' ? '' : page.href}`,
-      note: page.description,
+      name: route.label,
+      url: `${BASE_URL}${route.path}`,
     }),
   )
 
-  const featured = projects.filter((project) =>
-    featuredProjectSlugs.includes(project.slug),
-  )
-  const rest = projects.filter(
-    (project) => !featuredProjectSlugs.includes(project.slug),
-  )
-
-  const workLines = [
-    ...featured.map((project) =>
-      llmsListItem({
-        name: project.title,
-        url: `${BASE_URL}/project/${project.slug}`,
-        note: project.description.split('\n')[0],
-      }),
-    ),
-    ...rest.map((project) =>
-      llmsListItem({
-        name: project.title,
-        url: `${BASE_URL}/project/${project.slug}`,
-        note: project.description.split('\n')[0],
-      }),
-    ),
-  ]
-
-  const writingLines = currentPosts.map((post) =>
+  const writingLines = currentPosts.slice(0, 12).map((post) =>
     llmsListItem({
       name: post.title,
       url: `${BASE_URL}/blog/${post.slug}`,
       note: post.summary,
     }),
   )
-
-  const optionalLines = [
-    llmsListItem({
-      name: 'Full site markdown',
-      url: `${BASE_URL}/llms-full.txt`,
-      note: 'Entire site content in one markdown file for LLM ingestion.',
-    }),
-    ...archivePosts.map((post) =>
-      llmsListItem({
-        name: post.title,
-        url: `${BASE_URL}/blog/${post.slug}`,
-        note: post.summary,
-      }),
-    ),
-    ...blogCategorySlugs.map((category) =>
-      llmsListItem({
-        name: `Blog: ${category}`,
-        url: `${BASE_URL}/blog/category/${category}`,
-        note: 'Category index of blog posts.',
-      }),
-    ),
-    ...workTypeSlugs.map((type) =>
-      llmsListItem({
-        name: `Work: ${type}`,
-        url: `${BASE_URL}/work/${type}`,
-        note: 'Filtered project index.',
-      }),
-    ),
-    ...techCategorySlugs.map((category) =>
-      llmsListItem({
-        name: `Tech: ${category}`,
-        url: `${BASE_URL}/tech/${category}`,
-        note: 'Technology index by area.',
-      }),
-    ),
-    llmsListItem({
-      name: 'CV (AI focus)',
-      url: `${BASE_URL}/cv?focus=ai`,
-      note: 'Focused CV variant highlighting AI product work.',
-    }),
-    llmsListItem({
-      name: 'CV (Web3 focus)',
-      url: `${BASE_URL}/cv?focus=web3`,
-      note: 'Focused CV variant highlighting Web3 and blockchain work.',
-    }),
-    llmsListItem({
-      name: 'CV (Full-stack focus)',
-      url: `${BASE_URL}/cv?focus=fullstack`,
-      note: 'Focused CV variant highlighting full-stack product work.',
-    }),
-    llmsListItem({
-      name: 'Explore',
-      url: `${BASE_URL}/explore`,
-      note: 'Site map grouped by domain, capability, and career context.',
-    }),
-  ]
 
   return [
     '# Gabo Esquivel',
@@ -172,19 +83,18 @@ const buildLlmsIndex = ({
     '',
     'Open to direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W2. Fluent in English, Spanish, Portuguese, and Italian.',
     '',
-    `For the complete site in one file, use [llms-full.txt](${BASE_URL}/llms-full.txt).`,
+    LLMS_PREAMBLE_INDEX,
     '',
-    '## Pages',
-    ...pageLines,
+    `Full corpus: [llms-full.txt](${BASE_URL}/llms-full.txt)`,
     '',
-    '## Work',
-    ...workLines,
+    '## Canonical routes',
+    ...routeLines,
     '',
-    '## Writing',
+    '## Strongest evidence',
+    ...evidenceLines,
+    '',
+    '## Recent writing',
     ...writingLines,
-    '',
-    '## Optional',
-    ...optionalLines,
     '',
   ].join('\n')
 }
@@ -195,12 +105,14 @@ const buildLlmsFull = ({
   tech,
   currentPosts,
   archivePosts,
+  manifest,
 }: {
   pages: ReturnType<typeof loadNarrativePages>
   projects: ReturnType<typeof sortProjects>
   tech: ReturnType<typeof sortTech>
   currentPosts: ReturnType<typeof loadBlogPosts>
   archivePosts: ReturnType<typeof loadBlogPosts>
+  manifest: Set<string>
 }) => {
   const header = [
     '# Gabo Esquivel',
@@ -209,19 +121,25 @@ const buildLlmsFull = ({
     '',
     `Canonical index: ${BASE_URL}/llms.txt`,
     '',
-    'This file contains the full gaboesquivel.com content in markdown for LLM ingestion.',
+    LLMS_PREAMBLE_FULL,
     '',
   ].join('\n')
 
+  const rewrite = (body: string) => rewriteInternalPaths(body, manifest)
+
   const pageSections = pages.map((page) =>
-    wrapSection({ title: page.title, path: page.path, body: page.body }),
+    wrapSection({
+      title: page.title,
+      path: page.path,
+      body: rewrite(page.body),
+    }),
   )
 
   pageSections.push(
     wrapSection({
       title: 'Curriculum Vitae',
       path: '/cv',
-      body: renderCvMarkdown(),
+      body: rewrite(renderCvMarkdown()),
     }),
   )
 
@@ -229,7 +147,7 @@ const buildLlmsFull = ({
     wrapSection({
       title: project.title,
       path: `/project/${project.slug}`,
-      body: renderProjectMarkdown(project),
+      body: rewrite(renderProjectMarkdown(project)),
     }),
   )
 
@@ -237,7 +155,7 @@ const buildLlmsFull = ({
     wrapSection({
       title: item.name,
       path: `/tech/${item.slug}`,
-      body: renderTechMarkdown(item),
+      body: rewrite(renderTechMarkdown(item)),
     }),
   )
 
@@ -245,7 +163,7 @@ const buildLlmsFull = ({
     wrapSection({
       title: post.title,
       path: `/blog/${post.slug}`,
-      body: renderBlogMarkdown(post),
+      body: rewrite(renderBlogMarkdown(post)),
     }),
   )
 
@@ -253,7 +171,7 @@ const buildLlmsFull = ({
     wrapSection({
       title: post.title,
       path: `/blog/${post.slug}`,
-      body: renderBlogMarkdown(post),
+      body: rewrite(renderBlogMarkdown(post)),
     }),
   )
 
@@ -273,15 +191,37 @@ const archivePosts = posts.filter((post) => isArchivePost(post))
 const pages = loadNarrativePages()
 const projects = sortProjects()
 const tech = sortTech()
+const manifest = buildRouteManifest()
 
-const llmsIndex = buildLlmsIndex({ projects, currentPosts, archivePosts })
+const llmsIndex = buildLlmsIndex({ projects, currentPosts })
 const llmsFull = buildLlmsFull({
   pages,
   projects,
   tech,
   currentPosts,
   archivePosts,
+  manifest,
 })
+
+const sectionsForValidation = [
+  { title: 'Index', body: llmsIndex },
+  ...pages.map((page) => ({ title: page.title, body: page.body })),
+  { title: 'Curriculum Vitae', body: renderCvMarkdown() },
+  ...projects.map((project) => ({
+    title: project.title,
+    body: renderProjectMarkdown(project),
+  })),
+  ...tech.map((item) => ({
+    title: item.name,
+    body: renderTechMarkdown(item),
+  })),
+  ...posts.map((post) => ({
+    title: post.title,
+    body: renderBlogMarkdown(post),
+  })),
+]
+
+validateCorpus(sectionsForValidation)
 
 mkdirSync(PUBLIC_DIR, { recursive: true })
 
@@ -291,11 +231,18 @@ const fullPath = join(PUBLIC_DIR, 'llms-full.txt')
 writeFileSync(indexPath, llmsIndex, 'utf8')
 writeFileSync(fullPath, llmsFull, 'utf8')
 
+const indexTokens = estimateTokens(llmsIndex)
+
 console.log(`Wrote ${indexPath} (${llmsIndex.length} bytes)`)
 console.log(`Wrote ${fullPath} (${llmsFull.length} bytes)`)
 console.log(
-  `Estimated tokens — index: ~${estimateTokens(llmsIndex)}, full: ~${estimateTokens(llmsFull)}`,
+  `Estimated tokens — index: ~${indexTokens}, full: ~${estimateTokens(llmsFull)}`,
 )
 console.log(
   `Sections — pages: ${pages.length + 1}, projects: ${projects.length}, tech: ${tech.length}, blog: ${posts.length}`,
 )
+
+if (indexTokens > INDEX_TOKEN_BUDGET)
+  console.warn(
+    `Warning: llms.txt exceeds token budget (~${INDEX_TOKEN_BUDGET}): ~${indexTokens}`,
+  )

@@ -84,6 +84,8 @@ ERC-6909 offers a simpler, developer-friendly way to manage fungible assets at s
 
 ## ERC-7281: Cross-chain token identity
 
+> **Update (2026):** At publication I described ERC-7281 as a `chainId()` identity extension. The EIP is actually **Sovereign Bridged Tokens (xERC20)**: issuer-controlled mint/burn with per-bridge rate limits and an optional Lockbox wrapper. The section below reflects my original write-up, not the authoritative standard.
+
 [ERC-7281](https://eips.ethereum.org/EIPS/eip-7281) introduces a standardized interface for identifying tokens across chains by embedding the `chainId` into the token's interface.
 
 As multichain ecosystems grow, ambiguity in token identity becomes a major problem. For example, `USDC` on Ethereum L1 and `USDC` on Arbitrum may be totally different tokens. ERC-7281 helps prevent confusion, spoofing, and misrepresentation in dApps, bridges, and explorers.

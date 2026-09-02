@@ -1,8 +1,38 @@
 import type { Project, TechStackItem } from 'gaboesquivel'
-import { projects, techStack } from 'gaboesquivel'
-import { absoluteUrl } from './format'
+import {
+  experience,
+  getTechStackBySlug,
+  projects,
+  techStack,
+} from 'gaboesquivel'
+import {
+  absoluteUrl,
+  blogSlugFromRelatedUrl,
+  isValidProjectLink,
+} from './format'
+import { displayTagName, displayTechList } from './names'
 
 const featuredProjectSlugs = ['legal-agent', 'wink', 'ztx', 'bitlauncher']
+
+const indexEvidenceSlugs = [
+  'legal-agent',
+  'wink',
+  'ztx',
+  'bitlauncher',
+  'bitcashbank',
+  'opyn',
+  'masterbots',
+  'eos-costa-rica',
+]
+
+type ProjectWithExperience = Project & { experienceCompany?: string }
+
+const experienceByCompany = new Map(
+  experience.map((entry) => [entry.company, entry]),
+)
+
+const genericExperiencePattern =
+  /aligning with the principle of user experience first|user experience first/i
 
 export const sortProjects = () => {
   const featured = featuredProjectSlugs.flatMap((slug) =>
@@ -27,17 +57,23 @@ export const sortTech = () =>
     return a.name.localeCompare(b.name)
   })
 
-export const renderProjectMarkdown = (project: Project) => {
+export const renderProjectMarkdown = (project: ProjectWithExperience) => {
+  const employment = project.experienceCompany
+    ? experienceByCompany.get(project.experienceCompany)
+    : undefined
+
   const lines = [
     project.description,
     '',
     `**Role:** ${project.role ?? 'Software Engineer'}`,
-    `**Year:** ${project.year}`,
+    employment
+      ? `**Employment:** ${employment.duration} (${employment.title}, ${employment.company})`
+      : `**Primary year:** ${project.year} (sort/display year, not employment dates)`,
     `**Types:** ${project.type.join(', ')}`,
-    `**Technologies:** ${project.tech.join(', ')}`,
+    `**Technologies:** ${displayTechList(project.tech)}`,
   ]
 
-  if (project.link) lines.push(`**Link:** ${project.link}`)
+  if (isValidProjectLink(project.link)) lines.push(`**Link:** ${project.link}`)
   if (project.repo) lines.push(`**Repository:** ${project.repo}`)
 
   if (project.story.length) {
@@ -52,34 +88,41 @@ export const renderProjectMarkdown = (project: Project) => {
   if (project.related?.length) {
     lines.push('', '## Related writing', '')
     lines.push(
-      ...project.related.map(
-        (item) =>
-          `- [${item.title}](${absoluteUrl(`/blog/${item.url}`)}) (${item.publishedAt})`,
-      ),
+      ...project.related.map((item) => {
+        const slug = blogSlugFromRelatedUrl(item.url)
+        return `- [${item.title}](${absoluteUrl(`/blog/${slug}`)}) (${item.publishedAt})`
+      }),
     )
   }
 
   return lines.join('\n').trim()
 }
 
-export const renderTechMarkdown = (tech: TechStackItem) => {
-  const lines = [
-    tech.description,
-    '',
-    `**Since:** ${tech.since}`,
-    `**Link:** ${tech.link}`,
-  ]
+const evidenceBullets = (tech: TechStackItem) =>
+  tech.experience.filter((item) => !genericExperiencePattern.test(item))
 
-  if (tech.intro.length) {
-    lines.push('', '## Overview', '', ...tech.intro)
+export const renderTechMarkdown = (tech: TechStackItem) => {
+  const withProjects = getTechStackBySlug(tech.slug)
+  const bullets = evidenceBullets(tech)
+  const lines = [`**Technology:** ${displayTagName(tech.tag)}`, '']
+
+  if (withProjects?.projects.length) {
+    lines.push('## Project evidence', '')
+    lines.push(
+      ...withProjects.projects.map(
+        (project) =>
+          `- [${project.title}](${absoluteUrl(`/project/${project.slug}`)}) (${project.year})`,
+      ),
+    )
+    lines.push('')
   }
 
-  if (tech.experience.length) {
-    lines.push('', '## Project experience', '')
-    lines.push(...tech.experience.map((item) => `- ${item}`))
+  if (bullets.length) {
+    lines.push('## Experience', '')
+    lines.push(...bullets.map((item) => `- ${item}`))
   }
 
   return lines.join('\n').trim()
 }
 
-export { featuredProjectSlugs, projects, techStack }
+export { featuredProjectSlugs, indexEvidenceSlugs, projects, techStack }

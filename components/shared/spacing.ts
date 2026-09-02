@@ -16,8 +16,6 @@ export const indexTitle = cn(pageTitle, 'max-w-[650px]')
 
 export const sectionTitle = 'text-2xl font-semibold tracking-tight'
 
-export const writingTitle = cn(headingSpacing, sectionTitle)
-
 export const subHeading = cn(headingSpacing, blockSpacing, 'font-bold text-xl')
 
 export const subHeadingSm = cn(

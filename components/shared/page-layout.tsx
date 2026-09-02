@@ -10,7 +10,6 @@ import {
   proseClass,
   sectionSpacing,
   sectionTitle,
-  writingTitle,
 } from './spacing'
 
 export {
@@ -29,7 +28,6 @@ export {
   subHeadingSm,
   titleSpacing,
   twoColGrid,
-  writingTitle,
 } from './spacing'
 
 export function Prose({
@@ -60,13 +58,15 @@ export function PageSection({
   title,
   action,
   children,
+  className,
 }: {
   title: ReactNode
   action?: ReactNode
   children: ReactNode
+  className?: string
 }) {
   return (
-    <section className={sectionSpacing}>
+    <section className={cn(sectionSpacing, className)}>
       <div
         className={cn(
           headingSpacing,
@@ -91,10 +91,9 @@ export function WritingSection({
   className?: string
 }) {
   return (
-    <section className={cn(sectionSpacing, 'print:hidden', className)}>
-      <h2 className={writingTitle}>{title}</h2>
+    <PageSection title={title} className={cn('print:hidden', className)}>
       {children}
-    </section>
+    </PageSection>
   )
 }
 

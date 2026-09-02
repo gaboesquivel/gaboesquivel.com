@@ -6,9 +6,10 @@
     "content:watch": "velite --watch",
     "build": "velite && bun run export:llms && next build",
     "export:llms": "bun scripts/export-llms.ts",
+    "test:llms": "bun test scripts/llms/export-llms.test.ts",
     "cvs": "bun scripts/export-cv.ts",
     "start": "next start",
-    "verify": "bun run content:build && bun run lint",
+    "verify": "bun run content:build && bun run export:llms && bun run lint",
     "verify:routes": "sh scripts/verify-routes.sh",
     "lint": "biome check .",
     "lint:fix": "biome check . --write",
@@ -26,7 +27,7 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/edge-config": "^1.5.1",
     "clsx": "^2.0.0",
-    "gaboesquivel": "^5.2.0",
+    "gaboesquivel": "^6.0.0",
     "lucide-react": "0.476.0",
     "motion": "^13.1.1",
     "next": "^16.3.4",
@@ -52,11 +53,13 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "concurrently": "^9.0.0",
-    "postcss": "^8.4.29",
     "playwright-core": "^1.55.0",
+    "postcss": "^8.4.29",
+    "remark-parse": "^11.0.0",
     "simple-git-hooks": "2.11.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "unified": "^11.0.5"
   },
   "simple-git-hooks": {
     "pre-commit": "bun run hooks:pre-commit"

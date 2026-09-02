@@ -1,5 +1,10 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import {
+  getProjectBySlug,
+  getProjectsByTechnology,
+  techStack,
+} from 'gaboesquivel'
 import ts from 'typescript'
 import { absoluteUrl, rewriteLinks } from './format'
 
@@ -8,16 +13,17 @@ const APP_DIR = join(import.meta.dir, '../../app')
 const SKIP_COMPONENTS = new Set([
   'PageImage',
   'LatestPosts',
-  'LetsConnect',
-  'ProjectEvidence',
   'ContactForm',
   'PrintButton',
-  'TechList',
-  'ProjectCard',
   'FilterNav',
   'ContactInfo',
   'CapabilityPage',
+  'ProjectCard',
 ])
+
+const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl('/blog/2025-11-1099-contracting')}). Based in [Costa Rica](${absoluteUrl('/blog/2014-01-developing-software-in-costa-rica')}), working US Mountain Time.
+
+Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl('/connect')}).`
 
 export type PageExport = {
   path: string
@@ -121,6 +127,31 @@ const collectVariables = (sourceFile: ts.SourceFile) => {
   return variables
 }
 
+const renderProjectLinks = (slugs: string[]) =>
+  slugs
+    .flatMap((slug) => {
+      const project = getProjectBySlug(slug)
+      return project
+        ? [`- [${project.title}](${absoluteUrl(`/project/${slug}`)})`]
+        : []
+    })
+    .join('\n')
+
+const renderFeaturedTechLinks = () => {
+  const featured = [...techStack]
+    .filter((tech) => tech.featuredOrder !== undefined)
+    .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0))
+
+  return featured
+    .map(
+      (tech) =>
+        `- [${tech.name}](${absoluteUrl(`/tech/${tech.slug}`)}) (${getProjectsByTechnology(tech.tag).length} projects)`,
+    )
+    .join('\n')
+}
+
+let sourceFile: ts.SourceFile
+
 const jsxChildrenToText = (
   children: ts.JsxChild[],
   variables: Map<string, unknown>,
@@ -166,20 +197,20 @@ const jsxChildrenToText = (
     .trim()
 }
 
-let sourceFile: ts.SourceFile
-
 const jsxNodesToMarkdown = (
   nodes: ts.NodeArray<ts.JsxChild> | ts.Node[],
   variables: Map<string, unknown>,
   lines: string[],
+  pagePath = '',
 ) => {
-  for (const node of nodes) jsxNodeToMarkdown(node, variables, lines)
+  for (const node of nodes) jsxNodeToMarkdown(node, variables, lines, pagePath)
 }
 
 const jsxNodeToMarkdown = (
   node: ts.Node,
   variables: Map<string, unknown>,
   lines: string[],
+  pagePath = '',
 ) => {
   if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
     const tagName = ts.isJsxElement(node)
@@ -192,6 +223,29 @@ const jsxNodeToMarkdown = (
       ? node.openingElement.attributes
       : node.attributes
 
+    if (tagName === 'LetsConnect') {
+      lines.push(LETS_CONNECT_MARKDOWN, '')
+      return
+    }
+
+    if (tagName === 'ProjectEvidence') {
+      const slugs = (getJsxAttributeValue(attributes, 'slugs', variables) ??
+        []) as string[]
+      const links = renderProjectLinks(slugs)
+      if (links) lines.push(links, '')
+      return
+    }
+
+    if (tagName === 'TechList') {
+      const heading = String(
+        getJsxAttributeValue(attributes, 'heading', variables) ?? '',
+      )
+      if (heading) lines.push(`## ${heading}`, '')
+      const links = renderFeaturedTechLinks()
+      if (links) lines.push(links, '')
+      return
+    }
+
     if (tagName === 'PageTitle' && ts.isJsxElement(node)) {
       lines.push(`# ${jsxChildrenToText(node.children, variables)}`, '')
       return
@@ -201,8 +255,21 @@ const jsxNodeToMarkdown = (
       const title = String(
         getJsxAttributeValue(attributes, 'title', variables) ?? '',
       )
+      if (title === 'Browse by area' && pagePath === '/tech') return
+
       if (title) lines.push(`## ${title}`, '')
-      jsxNodesToMarkdown(node.children, variables, lines)
+      jsxNodesToMarkdown(node.children, variables, lines, pagePath)
+
+      if (title === 'Selected work') {
+        const slugs = variables.get('selectedProjectSlugs') as
+          | string[]
+          | undefined
+        if (slugs?.length) {
+          const links = renderProjectLinks(slugs)
+          if (links) lines.push(links, '')
+        }
+      }
+
       return
     }
 
@@ -213,7 +280,8 @@ const jsxNodeToMarkdown = (
     }
 
     if (tagName === 'h3' && ts.isJsxElement(node)) {
-      lines.push(`### ${jsxChildrenToText(node.children, variables)}`, '')
+      const text = jsxChildrenToText(node.children, variables)
+      if (text) lines.push(`### ${text}`, '')
       return
     }
 
@@ -224,12 +292,14 @@ const jsxNodeToMarkdown = (
     }
 
     if (ts.isJsxElement(node)) {
-      jsxNodesToMarkdown(node.children, variables, lines)
+      jsxNodesToMarkdown(node.children, variables, lines, pagePath)
       return
     }
   }
 
-  ts.forEachChild(node, (child) => jsxNodeToMarkdown(child, variables, lines))
+  ts.forEachChild(node, (child) =>
+    jsxNodeToMarkdown(child, variables, lines, pagePath),
+  )
 }
 
 type CapabilitySection = {
@@ -256,10 +326,13 @@ const renderCapabilityPage = ({
   for (const section of sections) {
     lines.push(`## ${section.heading}`, '')
     lines.push(...section.paragraphs.flatMap((paragraph) => [paragraph, '']))
+    if (section.projectSlugs?.length) {
+      lines.push(renderProjectLinks(section.projectSlugs), '')
+    }
   }
 
   lines.push(
-    'Explore the [project portfolio](https://gaboesquivel.com/work) for implementation details, systems, and technology.',
+    `Explore the [project portfolio](${absoluteUrl('/work')}) for implementation details, systems, and technology.`,
     '',
   )
 
@@ -331,7 +404,7 @@ const parsePageFile = ({ file, path }: { file: string; path: string }) => {
     }
 
   const lines: string[] = []
-  jsxNodeToMarkdown(sourceFile, variables, lines)
+  jsxNodeToMarkdown(sourceFile, variables, lines, path)
 
   if (path === '/tech') {
     const categoryGroups = variables.get('categoryGroups') as

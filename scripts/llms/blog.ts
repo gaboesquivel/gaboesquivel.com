@@ -1,8 +1,11 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { absoluteUrl, rewriteLinks } from './format'
+import { absoluteUrl } from './format'
+import { canonicalizePath } from './routes'
 
 const CONTENT_DIR = join(import.meta.dir, '../../content')
+
+const CONTRACTING_SLUG = '2025-11-1099-contracting'
 
 export type BlogPost = {
   slug: string
@@ -63,6 +66,13 @@ const normalizeMdxBody = (body: string) =>
     .replace(/\n{3,}/g, '\n\n')
     .trim()
 
+const rewriteBlogLinks = (text: string) =>
+  text.replace(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_match, label, path) => {
+    const canonical = canonicalizePath(path)
+    if (!canonical) return label
+    return `[${label}](${absoluteUrl(canonical)})`
+  })
+
 export const loadBlogPosts = () => {
   const files = readdirSync(CONTENT_DIR)
     .filter((file) => file.endsWith('.mdx'))
@@ -96,8 +106,15 @@ export const isArchivePost = (post: BlogPost) => {
 }
 
 export const renderBlogMarkdown = (post: BlogPost) => {
+  const historical = isArchivePost(post)
   const meta = [
     `**Published:** ${post.publishedAt}`,
+    historical
+      ? '**Status:** historical (views and technology at time of publication)'
+      : '',
+    post.slug === CONTRACTING_SLUG
+      ? '**Content type:** personal contracting setup (not legal or tax guidance; see /connect for engagement)'
+      : '',
     post.summary ? `**Summary:** ${post.summary}` : '',
     post.category?.length ? `**Categories:** ${post.category.join(', ')}` : '',
     post.tech?.length ? `**Technologies:** ${post.tech.join(', ')}` : '',
@@ -105,5 +122,5 @@ export const renderBlogMarkdown = (post: BlogPost) => {
     .filter(Boolean)
     .join('\n')
 
-  return rewriteLinks(`${meta}\n\n${post.body}`.trim())
+  return rewriteBlogLinks(`${meta}\n\n${post.body}`.trim())
 }

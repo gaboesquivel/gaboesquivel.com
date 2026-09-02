@@ -57,7 +57,7 @@ export default function HomePage() {
         </ul>
       </PageSection>
 
-      <Prose>
+      {/* <Prose>
         I ship in{' '}
         <Link href="/startups" className="prose-link">
           startups
@@ -87,7 +87,7 @@ export default function HomePage() {
           /cv
         </Link>
         .
-      </Prose>
+      </Prose> */}
 
       <LatestPosts title="Writing" />
 

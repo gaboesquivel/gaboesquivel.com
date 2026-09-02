@@ -97,6 +97,6 @@ While largely unnecessary, `useMemo` and `useCallback` still have valid use case
    - Start without `useMemo` and `useCallback`. Add them when you see lag, stuttering animations, or delays in rendering complex components.
    - Instead of preemptively optimizing, profile the app and add these hooks when a real bottleneck shows up.
 
-In modern [React](/tech/react) apps, default to not using `useMemo` and `useCallback` unless you truly need them. Overusing them adds complexity, extra memory, and sometimes worse performance.
+In modern [React](/tech/reactjs) apps, default to not using `useMemo` and `useCallback` unless you truly need them. Overusing them adds complexity, extra memory, and sometimes worse performance.
 
 Trust React's rendering optimizations and use these hooks only when profiling reveals a bottleneck. Manually memoizing everything is fading—React itself is getting good enough to handle performance for us. That's useful context for [technical leadership](/lead) on React projects.

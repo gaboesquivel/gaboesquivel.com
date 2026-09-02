@@ -31,14 +31,21 @@ export const wrapSection = ({
   path: string
   body: string
 }) =>
-  [
-    `# ${title}`,
-    '',
-    `Canonical: ${absoluteUrl(path)}`,
-    '',
-    rewriteLinks(body.trim()),
-  ].join('\n')
+  [`# ${title}`, '', `Canonical: ${absoluteUrl(path)}`, '', body.trim()].join(
+    '\n',
+  )
 
 export const joinSections = (sections: string[]) => sections.join('\n\n---\n\n')
 
 export const estimateTokens = (text: string) => Math.ceil(text.length / 4)
+
+export const isValidProjectLink = (link?: string) =>
+  Boolean(link && link !== '#' && link !== '' && !link.includes('example.com'))
+
+export const blogSlugFromRelatedUrl = (url: string) => {
+  if (url.startsWith('http')) {
+    const match = url.match(/\/blog\/([^/?#]+)/)
+    return match?.[1] ?? url
+  }
+  return url.replace(/^\/blog\//, '').replace(/\.mdx$/, '')
+}
