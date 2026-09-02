@@ -1,16 +1,26 @@
 import { describe, expect, test } from 'bun:test'
-import { experience } from 'gaboesquivel'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { experience, techStack } from 'gaboesquivel'
 import { renderBlogMarkdown } from './blog'
+import { cvExports, renderCvMarkdown } from './cv'
 import { blogSlugFromRelatedUrl, isValidProjectLink } from './format'
-import { renderProjectMarkdown, renderTechMarkdown } from './projects'
+import { loadNarrativePages } from './pages'
+import {
+  indexEvidenceSlugs,
+  renderProjectMarkdown,
+  renderTechMarkdown,
+} from './projects'
 import { canonicalizePath } from './routes'
 import { validateSection } from './validate'
+
+const PUBLIC_DIR = join(import.meta.dir, '../../public')
 
 describe('llms export helpers', () => {
   test('canonicalizePath resolves aliases', () => {
     expect(canonicalizePath('/project/legalagent')).toBe('/project/legal-agent')
     expect(canonicalizePath('/tech/next-js')).toBe('/tech/nextjs')
-    expect(canonicalizePath('/tech/evm')).toBeNull()
+    expect(canonicalizePath('/tech/evm')).toBe('/tech/evm')
   })
 
   test('isValidProjectLink rejects placeholders', () => {
@@ -83,5 +93,71 @@ describe('llms export helpers', () => {
     expect(employment).toBeDefined()
     expect(markdown).toContain(`**Employment:** ${employment?.duration}`)
     expect(markdown).not.toContain('**Primary year:**')
+  })
+
+  test('renderTechMarkdown includes description before evidence', () => {
+    const ponder = techStack.find((item) => item.slug === 'ponder')
+    expect(ponder?.description).toBeTruthy()
+    if (!ponder?.description) return
+    const markdown = renderTechMarkdown(ponder)
+    expect(markdown).toContain(ponder.description)
+    expect(markdown.indexOf(ponder.description)).toBeLessThan(
+      markdown.indexOf('## Project evidence'),
+    )
+  })
+
+  test('renderCvMarkdown omits unsupported Python from default CV', () => {
+    const markdown = renderCvMarkdown()
+    expect(markdown).not.toMatch(/\bPython\b/)
+  })
+
+  test('cvExports renders four CV sections', () => {
+    expect(cvExports()).toHaveLength(4)
+    expect(cvExports().map((item) => item.path)).toEqual([
+      '/cv',
+      '/cv?focus=ai',
+      '/cv?focus=web3',
+      '/cv?focus=fullstack',
+    ])
+  })
+
+  test('indexEvidenceSlugs lists six featured projects', () => {
+    expect(indexEvidenceSlugs).toHaveLength(6)
+    expect(indexEvidenceSlugs).toEqual([
+      'legal-agent',
+      'wink',
+      'ztx',
+      'bitlauncher',
+      'opyn',
+      'eos-costa-rica',
+    ])
+  })
+
+  test('loadNarrativePages exports CapabilityPage related writing', () => {
+    const fullstack = loadNarrativePages().find(
+      (page) => page.path === '/fullstack',
+    )
+    expect(fullstack?.body).toContain('## Writing about product systems')
+    expect(fullstack?.body).toContain('/blog/2024-07-viem-wagmi-ethers')
+    expect(fullstack?.body).toContain('/cv?focus=fullstack')
+  })
+
+  test('loadNarrativePages emits W-2 hire copy only on /connect', () => {
+    const connect = loadNarrativePages().find(
+      (page) => page.path === '/connect',
+    )
+    const ai = loadNarrativePages().find((page) => page.path === '/ai')
+    expect(connect?.body).toContain('Cannot work under W-2')
+    expect(ai?.body).not.toContain('Cannot work under W-2')
+  })
+
+  test('llms-full.txt omits archive blog post sections', () => {
+    const full = readFileSync(join(PUBLIC_DIR, 'llms-full.txt'), 'utf8')
+    expect(full).not.toContain(
+      'Canonical: https://gaboesquivel.com/blog/2014-01-developing-software-in-costa-rica',
+    )
+    expect(full).not.toContain(
+      'Canonical: https://gaboesquivel.com/blog/2019-03-ticoblockchain-2019-recap',
+    )
   })
 })

@@ -1,7 +1,21 @@
-import { resolveCv } from 'gaboesquivel'
+import { cvKeys, resolveCv } from 'gaboesquivel'
 
-export const renderCvMarkdown = () => {
-  const { variant, entries } = resolveCv({})
+const cvSectionTitles: Record<(typeof cvKeys)[number], string> = {
+  full: 'Curriculum Vitae',
+  ai: 'AI Product Engineering CV',
+  web3: 'Web3 Product Engineering CV',
+  fullstack: 'Full-Stack Engineering CV',
+}
+
+export const cvExports = () =>
+  cvKeys.map((key) => ({
+    path: key === 'full' ? '/cv' : `/cv?focus=${key}`,
+    title: cvSectionTitles[key],
+    focus: key === 'full' ? undefined : key,
+  }))
+
+export const renderCvMarkdown = ({ focus }: { focus?: string } = {}) => {
+  const { variant, entries } = resolveCv({ focus })
   const lines = [
     variant.professionalTitle,
     '',

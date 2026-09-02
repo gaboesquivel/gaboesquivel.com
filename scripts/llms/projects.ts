@@ -17,18 +17,16 @@ import {
 } from './format'
 import { displayTagName, displayTechList } from './names'
 
-const featuredProjectSlugs = ['legal-agent', 'wink', 'ztx', 'bitlauncher']
-
-const indexEvidenceSlugs = [
+const featuredProjectSlugs = [
   'legal-agent',
   'wink',
   'ztx',
   'bitlauncher',
-  'bitcashbank',
   'opyn',
-  'masterbots',
   'eos-costa-rica',
 ]
+
+const indexEvidenceSlugs = [...featuredProjectSlugs]
 
 type ProjectWithExperience = Project & { experienceCompany?: string }
 
@@ -113,10 +111,13 @@ export const renderTechMarkdown = (tech: TechStackItem) => {
   const bullets = evidenceBullets(tech)
   const lines = [`**Technology:** ${displayTagName(tech.tag)}`, '']
 
+  if (tech.description) lines.push(tech.description, '')
+
   const rankedProjects = withProjects?.projects.length
     ? sortProjectsForTech({
         projects: withProjects.projects,
         experience: tech.experience,
+        namedOnly: true,
       })
     : []
 

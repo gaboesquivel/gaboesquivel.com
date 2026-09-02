@@ -13,13 +13,6 @@ const ROUTE_ALIASES: Record<string, string> = {
   '/tech/react': '/tech/reactjs',
 }
 
-const UNRESOLVED_PATHS = new Set([
-  '/tech/evm',
-  '/tech/eos',
-  '/tech/polygon',
-  '/tech/walletconnect',
-])
-
 export const buildRouteManifest = () => {
   const paths = new Set<string>([
     '/',
@@ -35,6 +28,9 @@ export const buildRouteManifest = () => {
     '/lead',
     '/connect',
     '/cv',
+    '/cv?focus=ai',
+    '/cv?focus=web3',
+    '/cv?focus=fullstack',
     '/work',
     '/tech',
     '/blog',
@@ -56,7 +52,6 @@ export const buildRouteManifest = () => {
 
 export const canonicalizePath = (path: string) => {
   const normalized = path.split('?')[0]
-  if (UNRESOLVED_PATHS.has(normalized)) return null
   return ROUTE_ALIASES[normalized] ?? normalized
 }
 

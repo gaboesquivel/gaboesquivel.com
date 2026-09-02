@@ -13,10 +13,12 @@ Portfolio work from 2008–2009 is early freelance, not the start of the CV narr
 
 Blog posts reflect views and technology at \`publishedAt\` unless an update note says otherwise.
 
-For working with Gabo, \`/connect\` is authoritative. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`
+Blog metrics and reach are not CV metrics. Pre-2020 writing lives on \`/blog\` and is historical.
+
+For working with Gabo, \`/connect\` is authoritative for hire terms, including that Gabo cannot work under W-2. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`
 
 export const LLMS_PREAMBLE_INDEX = `${LLMS_PREAMBLE_FULL}
 
-Strongest project evidence: LegalAgent, Wink, ZTX, Bitlauncher, Bitcash, Opyn, Masterbots, EOS Costa Rica.
+Strongest project evidence: LegalAgent, Wink, ZTX, Bitlauncher, Opyn, EOS Costa Rica.
 
 Full corpus: see llms-full.txt linked below.`

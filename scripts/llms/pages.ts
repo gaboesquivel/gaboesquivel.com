@@ -1,12 +1,13 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import {
-  getProjectBySlug,
-  getProjectsByTechnology,
-  techStack,
-} from 'gaboesquivel'
+import { getProjectBySlug, techStack } from 'gaboesquivel'
 import ts from 'typescript'
 import { techBrowseCategories } from '../../components/tech/categories'
+import {
+  postMatchesBrowseCategory,
+  toBrowseSlug,
+} from '../../lib/blog-taxonomy'
+import { isArchivePostFromBlog, loadBlogPosts } from './blog'
 import { absoluteUrl, rewriteLinks } from './format'
 
 const APP_DIR = join(import.meta.dir, '../../app')
@@ -22,7 +23,7 @@ const SKIP_COMPONENTS = new Set([
   'ProjectCard',
 ])
 
-const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl('/blog/2025-11-1099-contracting')}). Based in [Costa Rica](${absoluteUrl('/blog/2014-01-developing-software-in-costa-rica')}), working US Mountain Time.
+const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl('/blog/2025-11-1099-contracting')}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time.
 
 Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl('/connect')}).`
 
@@ -128,6 +129,43 @@ const collectVariables = (sourceFile: ts.SourceFile) => {
   return variables
 }
 
+const renderPostLinks = ({
+  slugs,
+  category,
+  limit = 8,
+}: {
+  slugs?: string[]
+  category?: string
+  limit?: number
+}) => {
+  const posts = loadBlogPosts().filter((post) => !isArchivePostFromBlog(post))
+
+  const resolved = slugs?.length
+    ? slugs.flatMap((slug) => posts.filter((post) => post.slug === slug))
+    : category
+      ? (() => {
+          const browseSlug = toBrowseSlug(category)
+          return browseSlug
+            ? posts.filter((post) =>
+                postMatchesBrowseCategory({
+                  categories: post.category,
+                  slug: browseSlug,
+                }),
+              )
+            : posts.filter((post) =>
+                post.category?.some(
+                  (item) => item.toLowerCase() === category.toLowerCase(),
+                ),
+              )
+        })()
+      : posts
+
+  return resolved
+    .slice(0, limit)
+    .map((post) => `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)})`)
+    .join('\n')
+}
+
 const renderProjectLinks = (slugs: string[]) =>
   slugs
     .flatMap((slug) => {
@@ -144,10 +182,7 @@ const renderFeaturedTechLinks = () => {
     .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0))
 
   return featured
-    .map(
-      (tech) =>
-        `- [${tech.name}](${absoluteUrl(`/tech/${tech.slug}`)}) (${getProjectsByTechnology(tech.tag).length} projects)`,
-    )
+    .map((tech) => `- [${tech.name}](${absoluteUrl(`/tech/${tech.slug}`)})`)
     .join('\n')
 }
 
@@ -225,7 +260,32 @@ const jsxNodeToMarkdown = (
       : node.attributes
 
     if (tagName === 'LetsConnect') {
-      lines.push(LETS_CONNECT_MARKDOWN, '')
+      if (pagePath === '/connect') lines.push(LETS_CONNECT_MARKDOWN, '')
+      return
+    }
+
+    if (tagName === 'LatestPosts') {
+      const slugs = getJsxAttributeValue(attributes, 'slugs', variables) as
+        | string[]
+        | undefined
+      const category = String(
+        getJsxAttributeValue(attributes, 'category', variables) ?? '',
+      )
+      const title = String(
+        getJsxAttributeValue(attributes, 'title', variables) ??
+          'Latest Articles',
+      )
+      const limit = Number(
+        getJsxAttributeValue(attributes, 'limit', variables) ?? 8,
+      )
+      const links = renderPostLinks({
+        slugs,
+        category: category || undefined,
+        limit,
+      })
+      if (links) {
+        lines.push(`## ${title}`, '', links, '')
+      }
       return
     }
 
@@ -313,10 +373,16 @@ const renderCapabilityPage = ({
   title,
   intro,
   sections,
+  postSlugs,
+  writingTitle,
+  childrenMarkdown,
 }: {
   title: string
   intro: string[]
   sections: CapabilitySection[]
+  postSlugs?: string[]
+  writingTitle?: string
+  childrenMarkdown?: string
 }) => {
   const lines = [
     `# ${title}`,
@@ -332,10 +398,19 @@ const renderCapabilityPage = ({
     }
   }
 
+  if (postSlugs?.length) {
+    const links = renderPostLinks({ slugs: postSlugs })
+    if (links) {
+      lines.push(`## ${writingTitle ?? 'Related writing'}`, '', links, '')
+    }
+  }
+
   lines.push(
     `Explore the [project portfolio](${absoluteUrl('/work')}) for implementation details, systems, and technology.`,
     '',
   )
+
+  if (childrenMarkdown) lines.push(childrenMarkdown, '')
 
   return lines.join('\n').trim()
 }
@@ -359,20 +434,35 @@ const parseCapabilityPage = (
   let title = ''
   let intro: string[] = []
   let sections: CapabilitySection[] = []
+  let postSlugs: string[] | undefined
+  let writingTitle: string | undefined
+  let childrenMarkdown = ''
 
   const visit = (node: ts.Node) => {
-    if (ts.isJsxSelfClosingElement(node) || ts.isJsxOpeningElement(node)) {
-      const tagName = node.tagName.getText(source)
-      if (tagName !== 'CapabilityPage') return
+    if (ts.isJsxElement(node)) {
+      const tagName = node.openingElement.tagName.getText(source)
+      if (tagName !== 'CapabilityPage') {
+        ts.forEachChild(node, visit)
+        return
+      }
 
-      title = String(getJsxAttributeValue(node.attributes, 'title', variables))
-      intro = (getJsxAttributeValue(node.attributes, 'intro', variables) ??
+      const attributes = node.openingElement.attributes
+      title = String(getJsxAttributeValue(attributes, 'title', variables))
+      intro = (getJsxAttributeValue(attributes, 'intro', variables) ??
         []) as string[]
-      sections = (getJsxAttributeValue(
-        node.attributes,
-        'sections',
-        variables,
-      ) ?? []) as CapabilitySection[]
+      sections = (getJsxAttributeValue(attributes, 'sections', variables) ??
+        []) as CapabilitySection[]
+      postSlugs = getJsxAttributeValue(attributes, 'postSlugs', variables) as
+        | string[]
+        | undefined
+      writingTitle = String(
+        getJsxAttributeValue(attributes, 'writingTitle', variables) ?? '',
+      )
+
+      const childLines: string[] = []
+      jsxNodesToMarkdown(node.children, variables, childLines)
+      childrenMarkdown = childLines.join('\n').trim()
+      return
     }
 
     ts.forEachChild(node, visit)
@@ -381,7 +471,14 @@ const parseCapabilityPage = (
   visit(source)
 
   if (!title) return null
-  return renderCapabilityPage({ title, intro, sections })
+  return renderCapabilityPage({
+    title,
+    intro,
+    sections,
+    postSlugs,
+    writingTitle: writingTitle || undefined,
+    childrenMarkdown: childrenMarkdown || undefined,
+  })
 }
 
 const parsePageFile = ({ file, path }: { file: string; path: string }) => {

@@ -18,8 +18,12 @@ export default function WorkPage() {
 
 export const metadata: Metadata = {
   title: 'Work & Projects | Gabo Esquivel',
+  description:
+    'Selected projects across AI, Web3, fintech, and full-stack product engineering.',
   openGraph: {
     title: 'Work & Projects | Gabo Esquivel',
+    description:
+      'Selected projects across AI, Web3, fintech, and full-stack product engineering.',
     type: 'website',
   },
 }

@@ -6,7 +6,7 @@ import {
   loadBlogPosts,
   renderBlogMarkdown,
 } from './llms/blog'
-import { renderCvMarkdown } from './llms/cv'
+import { cvExports, renderCvMarkdown } from './llms/cv'
 import {
   BASE_URL,
   estimateTokens,
@@ -43,6 +43,8 @@ const canonicalRoutes = [
   { path: '/cv', label: 'Curriculum vitae' },
   { path: '/connect', label: 'Connect' },
   { path: '/work', label: 'Work portfolio' },
+  { path: '/tech', label: 'Technology stack' },
+  { path: '/blog', label: 'Writing' },
 ]
 
 const buildLlmsIndex = ({
@@ -85,7 +87,7 @@ const buildLlmsIndex = ({
     '',
     '> I build useful and delightful software products. Product engineer based in Costa Rica, working US Mountain Time.',
     '',
-    'Open to direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W2. Fluent in English, Spanish, Portuguese, and Italian.',
+    'Open to direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2. Fluent in English, Spanish, Portuguese, and Italian.',
     '',
     LLMS_PREAMBLE_INDEX,
     '',
@@ -108,14 +110,12 @@ const buildLlmsFull = ({
   projects,
   tech,
   currentPosts,
-  archivePosts,
   manifest,
 }: {
   pages: ReturnType<typeof loadNarrativePages>
   projects: ReturnType<typeof sortProjects>
   tech: ReturnType<typeof sortTech>
   currentPosts: ReturnType<typeof loadBlogPosts>
-  archivePosts: ReturnType<typeof loadBlogPosts>
   manifest: Set<string>
 }) => {
   const header = [
@@ -140,11 +140,13 @@ const buildLlmsFull = ({
   )
 
   pageSections.push(
-    wrapSection({
-      title: 'Curriculum Vitae',
-      path: '/cv',
-      body: rewrite(renderCvMarkdown()),
-    }),
+    ...cvExports().map((cv) =>
+      wrapSection({
+        title: cv.title,
+        path: cv.path,
+        body: rewrite(renderCvMarkdown({ focus: cv.focus })),
+      }),
+    ),
   )
 
   const projectSections = projects.map((project) =>
@@ -171,27 +173,17 @@ const buildLlmsFull = ({
     }),
   )
 
-  const archiveBlogSections = archivePosts.map((post) =>
-    wrapSection({
-      title: post.title,
-      path: `/blog/${post.slug}`,
-      body: rewrite(renderBlogMarkdown(post)),
-    }),
-  )
-
   return joinSections([
     header,
     ...pageSections,
     ...projectSections,
     ...techSections,
     ...currentBlogSections,
-    ...archiveBlogSections,
   ])
 }
 
 const posts = loadBlogPosts()
 const currentPosts = posts.filter((post) => !isArchivePostFromBlog(post))
-const archivePosts = posts.filter((post) => isArchivePostFromBlog(post))
 const pages = loadNarrativePages()
 const projects = sortProjects()
 const tech = sortTech()
@@ -203,14 +195,16 @@ const llmsFull = buildLlmsFull({
   projects,
   tech,
   currentPosts,
-  archivePosts,
   manifest,
 })
 
 const sectionsForValidation = [
   { title: 'Index', body: llmsIndex },
   ...pages.map((page) => ({ title: page.title, body: page.body })),
-  { title: 'Curriculum Vitae', body: renderCvMarkdown() },
+  ...cvExports().map((cv) => ({
+    title: cv.title,
+    body: renderCvMarkdown({ focus: cv.focus }),
+  })),
   ...projects.map((project) => ({
     title: project.title,
     body: renderProjectMarkdown(project),
@@ -219,7 +213,7 @@ const sectionsForValidation = [
     title: item.name,
     body: renderTechMarkdown(item),
   })),
-  ...posts.map((post) => ({
+  ...currentPosts.map((post) => ({
     title: post.title,
     body: renderBlogMarkdown(post),
   })),
@@ -243,7 +237,7 @@ console.log(
   `Estimated tokens — index: ~${indexTokens}, full: ~${estimateTokens(llmsFull)}`,
 )
 console.log(
-  `Sections — pages: ${pages.length + 1}, projects: ${projects.length}, tech: ${tech.length}, blog: ${posts.length}`,
+  `Sections — pages: ${pages.length + cvExports().length}, projects: ${projects.length}, tech: ${tech.length}, blog: ${currentPosts.length}`,
 )
 
 if (indexTokens > INDEX_TOKEN_BUDGET)

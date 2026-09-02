@@ -14,10 +14,12 @@ export const sortProjectsForTech = ({
   projects,
   experience,
   cap = 6,
+  namedOnly = false,
 }: {
   projects: Project[]
   experience: string[]
   cap?: number
+  namedOnly?: boolean
 }) => {
   const named: Project[] = []
   const seen = new Set<string>()
@@ -36,6 +38,8 @@ export const sortProjectsForTech = ({
     named.push(match)
     seen.add(match.slug)
   }
+
+  if (namedOnly) return named
 
   const remaining = projects
     .filter((project) => !seen.has(project.slug))

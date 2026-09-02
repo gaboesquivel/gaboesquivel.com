@@ -6,7 +6,7 @@ image: /images/2025/05/defi-risk-management.webp
 category: ['Web3', 'DeFi', 'Tech Lead', 'Backend']
 tech: ['Ethereum', 'Solidity']
 ---
-Decentralized Finance ([DeFi](/web3)) has unlocked powerful financial primitives like AMMs, liquidity pools, and yield farming across multiple blockchain ecosystems including [EVM](/tech/evm) chains, Solana, and Cosmos. However, these innovations introduce unique risks across four main categories: technical risks (smart contracts/programs, [frontend](/frontend)), economic risks (impermanent loss, liquidations), systemic risks (bridges, oracles), and operational risks (governance, regulation). This article breaks down these risks, explains their mechanisms, and references real-world incidents to demonstrate critical awareness.
+Decentralized Finance ([DeFi](/web3)) has unlocked powerful financial primitives like AMMs, liquidity pools, and yield farming across multiple blockchain ecosystems including [EVM](/tech/ethereum) chains, Solana, and Cosmos. However, these innovations introduce unique risks across four main categories: technical risks (smart contracts/programs, [frontend](/frontend)), economic risks (impermanent loss, liquidations), systemic risks (bridges, oracles), and operational risks (governance, regulation). This article breaks down these risks, explains their mechanisms, and references real-world incidents to demonstrate critical awareness.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
@@ -16,7 +16,7 @@ Decentralized Finance ([DeFi](/web3)) has unlocked powerful financial primitives
 ## Technical Risks
 
 ### Smart Contract Exploits
-DeFi protocols are built on immutable smart contracts and programs across different chains. Vulnerabilities like reentrancy ([EVM](/tech/evm)), program logic errors (Solana), or module bugs (Cosmos) can lead to catastrophic losses. The 2016 DAO hack, Curve's \$70M Vyper bug exploit (2023), and Mango Markets' \$117M Solana program exploit underscore how even audited code can fail. Developers must prioritize audits, bug bounties, and conservative design.
+DeFi protocols are built on immutable smart contracts and programs across different chains. Vulnerabilities like reentrancy ([EVM](/tech/ethereum)), program logic errors (Solana), or module bugs (Cosmos) can lead to catastrophic losses. The 2016 DAO hack, Curve's \$70M Vyper bug exploit (2023), and Mango Markets' \$117M Solana program exploit underscore how even audited code can fail. Developers must prioritize audits, bug bounties, and conservative design.
 
 ### Frontend Attacks
 Protocol frontends represent a critical vulnerability point across all chains. DNS hijacking and malicious UI modifications can lead to significant losses, as seen in the BadgerDAO frontend attack (\$120M). Mitigations include ENS integration, IPFS hosting, and proper security headers to protect users.
