@@ -6,6 +6,12 @@ export const blockSpacing = 'mt-8'
 export const sectionSpacing = 'mt-12'
 export const titleSpacing = 'mb-6'
 export const headingSpacing = 'mb-4'
+export const sectionHeadingSpacing = 'mb-8'
+export const sectionHeadingRow = cn(
+  sectionHeadingSpacing,
+  'flex items-baseline justify-between gap-4',
+)
+export const sectionAction = 'cta-link text-sm'
 
 export const pageTitle = cn(
   titleSpacing,

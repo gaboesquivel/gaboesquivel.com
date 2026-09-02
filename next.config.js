@@ -1,6 +1,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
 const { get } = require('@vercel/edge-config')
+const { techStack } = require('gaboesquivel')
 
 const isGaboesquivelLinked = (() => {
   try {
@@ -11,6 +12,19 @@ const isGaboesquivelLinked = (() => {
     return false
   }
 })()
+
+const blogTechRedirects = techStack.flatMap((tech) => [
+  {
+    source: `/blog/tech/${encodeURIComponent(tech.slug)}`,
+    destination: `/tech/${tech.slug}`,
+    permanent: true,
+  },
+  {
+    source: `/blog/tech/${encodeURIComponent(tech.tag)}`,
+    destination: `/tech/${tech.slug}`,
+    permanent: true,
+  },
+])
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -26,9 +40,9 @@ const nextConfig = {
     }
     try {
       const edgeRedirects = await get('redirects')
-      return [calRedirect, ...(edgeRedirects ?? [])]
+      return [calRedirect, ...blogTechRedirects, ...(edgeRedirects ?? [])]
     } catch {
-      return [calRedirect]
+      return [calRedirect, ...blogTechRedirects]
     }
   },
   headers() {

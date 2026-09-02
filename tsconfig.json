@@ -33,5 +33,5 @@
     ".velite/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "scripts"]
+  "exclude": ["node_modules", "scripts", "**/*.test.ts"]
 }

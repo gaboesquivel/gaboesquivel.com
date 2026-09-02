@@ -1,6 +1,8 @@
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { projects, techStack } from 'gaboesquivel'
+import { browseCategories } from '../../lib/blog-taxonomy'
+import { visibleTechStack } from '../../lib/tech-evidence'
 
 const CONTENT_DIR = join(import.meta.dir, '../../content')
 
@@ -40,10 +42,14 @@ export const buildRouteManifest = () => {
   ])
 
   for (const project of projects) paths.add(`/project/${project.slug}`)
-  for (const tech of techStack) paths.add(`/tech/${tech.slug}`)
+  for (const tech of visibleTechStack(techStack))
+    paths.add(`/tech/${tech.slug}`)
 
   for (const file of readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.mdx')))
     paths.add(`/blog/${file.replace(/\.mdx$/, '')}`)
+
+  for (const category of browseCategories)
+    paths.add(`/blog/category/${category}`)
 
   return paths
 }

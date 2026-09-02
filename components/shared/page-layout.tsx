@@ -4,10 +4,10 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import {
   blockSpacing,
-  headingSpacing,
   indexTitle,
   pageTitle,
   proseClass,
+  sectionHeadingRow,
   sectionSpacing,
   sectionTitle,
 } from './spacing'
@@ -21,6 +21,9 @@ export {
   pageTitle,
   projectMedia,
   proseClass,
+  sectionAction,
+  sectionHeadingRow,
+  sectionHeadingSpacing,
   sectionSpacing,
   sectionTitle,
   singleColGrid,
@@ -67,33 +70,12 @@ export function PageSection({
 }) {
   return (
     <section className={cn(sectionSpacing, className)}>
-      <div
-        className={cn(
-          headingSpacing,
-          'flex items-baseline justify-between gap-4',
-        )}
-      >
+      <div className={sectionHeadingRow}>
         <h2 className={sectionTitle}>{title}</h2>
         {action}
       </div>
       {children}
     </section>
-  )
-}
-
-export function WritingSection({
-  title,
-  children,
-  className,
-}: {
-  title: ReactNode
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <PageSection title={title} className={cn('print:hidden', className)}>
-      {children}
-    </PageSection>
   )
 }
 

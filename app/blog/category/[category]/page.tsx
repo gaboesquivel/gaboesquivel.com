@@ -1,16 +1,15 @@
 import { BlogPosts } from 'components/blog/blog-posts'
-import { capitalizeWords } from 'lib/utils'
+import {
+  browseCategories,
+  categoryDescriptions,
+  categoryDisplayNames,
+  isBrowseCategory,
+} from 'lib/blog-taxonomy'
+import { pageMetadata } from 'lib/page-metadata'
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
-const ALLOWED_CATEGORIES = [
-  'engineering',
-  'web3',
-  'defi',
-  'ai',
-  'ux',
-  'finance',
-  'community',
-] as const
+export const dynamicParams = false
 
 export default async function BlogCategoryPage({
   params,
@@ -18,17 +17,18 @@ export default async function BlogCategoryPage({
   params: Promise<{ category: string }>
 }) {
   const { category } = await params
-  const displayCategory = capitalizeWords(category)
+  if (!isBrowseCategory(category)) notFound()
+
   return (
     <BlogPosts
       category={category}
-      heading={`Gabo's Blog: ${displayCategory}`}
+      heading={`Writing: ${categoryDisplayNames[category]}`}
     />
   )
 }
 
-export async function generateStaticParams() {
-  return ALLOWED_CATEGORIES.map((category) => ({ category }))
+export function generateStaticParams() {
+  return browseCategories.map((category) => ({ category }))
 }
 
 export async function generateMetadata({
@@ -37,15 +37,12 @@ export async function generateMetadata({
   params: Promise<{ category: string }>
 }): Promise<Metadata> {
   const { category } = await params
-  if (!category)
-    return {
-      title: 'Blog',
-      description:
-        'Read my thoughts on software development, design, and more.',
-    }
-  const displayCategory = capitalizeWords(category)
-  return {
-    title: `${displayCategory} Blog Posts - Gabo Esquivel`,
-    description: `Read my articles and thoughts about ${displayCategory}.`,
-  }
+  if (!isBrowseCategory(category)) notFound()
+
+  const displayName = categoryDisplayNames[category]
+
+  return pageMetadata({
+    title: `Writing: ${displayName} | Gabo Esquivel`,
+    description: categoryDescriptions[category],
+  })
 }

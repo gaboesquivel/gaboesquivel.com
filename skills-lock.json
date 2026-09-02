@@ -36,6 +36,12 @@
       "sourceType": "github",
       "skillPath": "skills/tailwind-design-system-v4/SKILL.md",
       "computedHash": "9336f38958f2a6cb46553eb4e08e70e8f2979898dbfa4fd086e2b983aad0fc66"
+    },
+    "workflow": {
+      "source": "blockmatic/basilic-skills",
+      "sourceType": "github",
+      "skillPath": "skills/workflow/SKILL.md",
+      "computedHash": "634035249f98ddaa65542d282a0a3d2ab87dd7ae8113c3a45dda7fd94aa5414b"
     }
   }
 }

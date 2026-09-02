@@ -4,7 +4,11 @@ type BlogPost = {
   summary: string
   image?: string
   slug: string
+  category?: string[]
+  tech?: string[]
 }
+
+const siteUrl = 'https://gaboesquivel.com'
 
 export const blogJsonLd = (post: BlogPost) => ({
   '@context': 'https://schema.org',
@@ -13,12 +17,17 @@ export const blogJsonLd = (post: BlogPost) => ({
   datePublished: post.publishedAt,
   dateModified: post.publishedAt,
   description: post.summary,
-  image: post.image
-    ? `https://gaboesquivel.com${post.image}`
-    : `https://gaboesquivel.com/og?title=${post.title}`,
-  url: `https://gaboesquivel.com/blog/${post.slug}`,
+  ...(post.image ? { image: `${siteUrl}${post.image}` } : {}),
+  url: `${siteUrl}/blog/${post.slug}`,
   author: {
     '@type': 'Person',
     name: 'Gabo Esquivel',
+    url: siteUrl,
   },
+  publisher: {
+    '@type': 'Person',
+    name: 'Gabo Esquivel',
+    url: siteUrl,
+  },
+  keywords: [...(post.category ?? []), ...(post.tech ?? [])].join(', '),
 })

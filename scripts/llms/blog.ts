@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { isArchivePost } from '../../lib/blog-taxonomy'
 import { absoluteUrl } from './format'
 import { canonicalizePath } from './routes'
 
@@ -100,13 +101,11 @@ export const loadBlogPosts = () => {
   })
 }
 
-export const isArchivePost = (post: BlogPost) => {
-  const year = Number.parseInt(post.publishedAt.slice(0, 4), 10)
-  return year < 2020
-}
+export const isArchivePostFromBlog = (post: BlogPost) =>
+  isArchivePost(post.publishedAt)
 
 export const renderBlogMarkdown = (post: BlogPost) => {
-  const historical = isArchivePost(post)
+  const historical = isArchivePostFromBlog(post)
   const meta = [
     `**Published:** ${post.publishedAt}`,
     historical

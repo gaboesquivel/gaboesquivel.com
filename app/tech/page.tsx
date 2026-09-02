@@ -5,56 +5,24 @@ import {
   Prose,
   sectionSpacing,
 } from 'components/shared/page-layout'
+import { techBrowseCategories } from 'components/tech/categories'
 import { TechList } from 'components/tech/tech-list'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 import Link from 'next/link'
-
-const categoryGroups = [
-  {
-    href: '/tech/web3',
-    name: 'Web3',
-    description: 'Protocols, contracts, wallets, and indexing',
-  },
-  {
-    href: '/tech/ai',
-    name: 'AI',
-    description: 'Models, retrieval, voice, and agent tooling',
-  },
-  {
-    href: '/tech/frontend',
-    name: 'Frontend',
-    description: 'Interfaces, application state, and design systems',
-  },
-  {
-    href: '/tech/backend',
-    name: 'Backend',
-    description: 'APIs, databases, queues, and realtime data',
-  },
-  {
-    href: '/tech/cloud-devops',
-    name: 'Cloud & DevOps',
-    description: 'Cloud platforms, containers, and infrastructure',
-  },
-  {
-    href: '/tech/all',
-    name: 'All technologies',
-    description: 'Complete project technology index',
-  },
-]
 
 export default function TechStackPage() {
   return (
     <section>
       <PageTitle>Technology stack</PageTitle>
       <Prose>
-        Technologies I have used across shipped products, client work,
-        open-source systems, and prototypes, grouped by area and linked to
-        project evidence.
+        I group the stack by area so you can scan what shows up in shipped
+        products, then follow each technology to projects and writing that back
+        it up.
       </Prose>
 
       <PageSection title="Browse by area">
         <div className={blockGrid}>
-          {categoryGroups.map(({ href, name, description }) => (
+          {techBrowseCategories.map(({ href, name, description }) => (
             <Link
               key={href}
               href={href}
@@ -76,14 +44,8 @@ export default function TechStackPage() {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Technology Stack | Gabo Esquivel',
+export const metadata = pageMetadata({
+  title: 'Technology stack | Gabo Esquivel',
   description:
     'Technologies used across AI, Web3, frontend, backend, and cloud project work, grouped by area and linked to evidence.',
-  openGraph: {
-    title: 'Technology Stack | Gabo Esquivel',
-    description:
-      'Technologies used across AI, Web3, frontend, backend, and cloud project work.',
-    type: 'website',
-  },
-}
+})

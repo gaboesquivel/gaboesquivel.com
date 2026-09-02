@@ -1,11 +1,11 @@
 import { cardLink, proseClass } from 'components/shared/spacing'
 import type { TechStackItem } from 'gaboesquivel'
-import { getProjectsByTechnologySlug } from 'gaboesquivel'
+import { getProjectsByTechnology } from 'gaboesquivel'
 import { cn } from 'lib/utils'
 import Link from 'next/link'
 
 export function TechCard({ tech }: TechCardProps) {
-  const projects = getProjectsByTechnologySlug(tech.slug)
+  const projects = getProjectsByTechnology(tech.tag)
   const projectCount = projects.length
 
   return (

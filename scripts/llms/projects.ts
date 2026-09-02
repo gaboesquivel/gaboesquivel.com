@@ -6,6 +6,11 @@ import {
   techStack,
 } from 'gaboesquivel'
 import {
+  isEmptyTech,
+  sortProjectsForTech,
+  visibleTechStack,
+} from '../../lib/tech-evidence'
+import {
   absoluteUrl,
   blogSlugFromRelatedUrl,
   isValidProjectLink,
@@ -46,7 +51,7 @@ export const sortProjects = () => {
 }
 
 export const sortTech = () =>
-  [...techStack].sort((a, b) => {
+  visibleTechStack([...techStack]).sort((a, b) => {
     const aOrder = (a as TechStackItem & { featuredOrder?: number })
       .featuredOrder
     const bOrder = (b as TechStackItem & { featuredOrder?: number })
@@ -102,14 +107,23 @@ const evidenceBullets = (tech: TechStackItem) =>
   tech.experience.filter((item) => !genericExperiencePattern.test(item))
 
 export const renderTechMarkdown = (tech: TechStackItem) => {
+  if (isEmptyTech(tech)) return ''
+
   const withProjects = getTechStackBySlug(tech.slug)
   const bullets = evidenceBullets(tech)
   const lines = [`**Technology:** ${displayTagName(tech.tag)}`, '']
 
-  if (withProjects?.projects.length) {
+  const rankedProjects = withProjects?.projects.length
+    ? sortProjectsForTech({
+        projects: withProjects.projects,
+        experience: tech.experience,
+      })
+    : []
+
+  if (rankedProjects.length) {
     lines.push('## Project evidence', '')
     lines.push(
-      ...withProjects.projects.map(
+      ...rankedProjects.map(
         (project) =>
           `- [${project.title}](${absoluteUrl(`/project/${project.slug}`)}) (${project.year})`,
       ),
@@ -118,7 +132,7 @@ export const renderTechMarkdown = (tech: TechStackItem) => {
   }
 
   if (bullets.length) {
-    lines.push('## Experience', '')
+    lines.push('## Implementation', '')
     lines.push(...bullets.map((item) => `- ${item}`))
   }
 

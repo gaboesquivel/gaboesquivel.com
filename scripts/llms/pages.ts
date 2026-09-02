@@ -6,6 +6,7 @@ import {
   techStack,
 } from 'gaboesquivel'
 import ts from 'typescript'
+import { techBrowseCategories } from '../../components/tech/categories'
 import { absoluteUrl, rewriteLinks } from './format'
 
 const APP_DIR = join(import.meta.dir, '../../app')
@@ -406,12 +407,16 @@ const parsePageFile = ({ file, path }: { file: string; path: string }) => {
   const lines: string[] = []
   jsxNodeToMarkdown(sourceFile, variables, lines, path)
 
-  if (path === '/tech') {
-    const categoryGroups = variables.get('categoryGroups') as
-      | Array<{ href: string; name: string; description: string }>
-      | undefined
-    if (categoryGroups?.length) lines.push(renderCategoryGroups(categoryGroups))
-  }
+  if (path === '/tech' && techBrowseCategories.length)
+    lines.push(
+      renderCategoryGroups(
+        techBrowseCategories.map(({ href, name, description }) => ({
+          href,
+          name,
+          description,
+        })),
+      ),
+    )
 
   const fullText = lines.join('\n').trim()
   const titleMatch = fullText.match(/^# (.+)/m)
