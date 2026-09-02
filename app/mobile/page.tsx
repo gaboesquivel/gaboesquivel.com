@@ -1,5 +1,5 @@
 import { CapabilityPage } from 'components/work/capability-page'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 
 const sections = [
   {
@@ -19,7 +19,9 @@ const sections = [
   {
     heading: 'Blockchain messaging, games, and retail AR',
     paragraphs: [
-      "On Sense.chat I optimized the React Native messaging app and integrated EOS mainnet wallet and transaction flows. I built Fantasy Top Shots in React Native and Expo for Flow and NBA Top Shot NFT gameplay. On Tractor Supply I built the ViroAR feature that previews products in the customer's own space.",
+      'Sense.chat needed an EOS wallet inside a messenger: I optimized the React Native app and integrated mainnet wallet and transaction flows.',
+      'Fantasy Top Shots needed NBA Top Shot collections to work as a roster: I built the React Native and Expo game on Flow for the 2022 hackathon.',
+      'Tractor Supply needed product previews inside an existing retail app: I built the ViroAR feature for those previews.',
     ],
     projectSlugs: ['make-sense-labs', 'fantasy-top-shots', 'tractor-supply'],
   },
@@ -30,8 +32,7 @@ export default function MobileExperiencePage() {
     <CapabilityPage
       title="Mobile engineering"
       intro={[
-        'I build cross-platform mobile products with React Native and Expo. That has covered a regulated bank, a blockchain messenger, a retail AR feature, an NBA Top Shot game, and a voice assistant for lawyers.',
-        'Mobile keeps pulling me past the app itself: a native bridge for biometrics, a wallet session, a realtime audio pipeline, the services underneath. The app is rarely the whole job.',
+        'The app is rarely the whole job. Mobile keeps pulling past the screen: a native bridge for biometrics, a wallet session, a realtime audio pipeline, the services underneath.',
       ]}
       sections={sections}
       postSlugs={[
@@ -44,14 +45,8 @@ export default function MobileExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Mobile Engineering | Gabo Esquivel',
   description:
     'Mobile engineering with React Native and Expo across neobank apps, biometric authentication, blockchain messaging, retail AR, and AI assistants.',
-  openGraph: {
-    title: 'Mobile Engineering | Gabo Esquivel',
-    description:
-      'React Native and Expo products across regulated finance, blockchain, retail, games, and multimodal AI.',
-    type: 'website',
-  },
-}
+})

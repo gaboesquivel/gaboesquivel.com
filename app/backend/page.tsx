@@ -1,5 +1,5 @@
 import { CapabilityPage } from 'components/work/capability-page'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 
 const sections = [
   {
@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Exchange and protocol services',
     paragraphs: [
-      'At Bitcash I built the matching engine, Hasura GraphQL APIs, WebAuthn signing path, and a realtime EOS indexer with worker threads and binary deserialization. At Opyn the trading interface reads protocol state from a Ponder indexer over PostgreSQL rather than reconstructing it in the client.',
+      'Bitcash needed the exchange itself to be the source of truth: matching engine, Hasura GraphQL APIs, WebAuthn signing, and a realtime EOS indexer with worker threads and binary deserialization. Opyn keeps protocol state in a Ponder indexer over PostgreSQL so the trading interface reads it instead of reconstructing it in the client.',
     ],
     projectSlugs: ['bitcashbank', 'opyn'],
   },
@@ -30,8 +30,7 @@ export default function BackendExperiencePage() {
     <CapabilityPage
       title="Backend engineering"
       intro={[
-        'APIs, indexers, realtime data, and application services are the layers where a mistake becomes lost money, leaked data, or a product nobody can operate.',
-        'Mine have been a GraphQL layer over blockchain events, a matching engine with browser-based signing, and a retrieval system behind a voice assistant. Different domains, same question each time: what is the source of truth, and who is allowed to move it?',
+        'The backend job is the source of truth, and who is allowed to move it. Mine have been a GraphQL layer over blockchain events, a matching engine with browser-based signing, and a retrieval system behind a voice assistant.',
       ]}
       sections={sections}
       postSlugs={[
@@ -44,14 +43,8 @@ export default function BackendExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Backend Engineering | Gabo Esquivel',
   description:
     'Backend engineering for GraphQL APIs, blockchain indexers, realtime data, exchange infrastructure, and RAG application services.',
-  openGraph: {
-    title: 'Backend Engineering | Gabo Esquivel',
-    description:
-      'GraphQL APIs, blockchain indexers, realtime data, exchange infrastructure, and retrieval services.',
-    type: 'website',
-  },
-}
+})

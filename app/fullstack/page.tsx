@@ -1,6 +1,6 @@
 import { Prose } from 'components/shared/page-layout'
 import { CapabilityPage } from 'components/work/capability-page'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 import Link from 'next/link'
 
 const sections = [
@@ -21,7 +21,7 @@ const sections = [
   {
     heading: 'Regulated products and exchange infrastructure',
     paragraphs: [
-      'At Wink the mobile app was the visible part of a serverless AWS backend I also owned, which is where account behavior, security, and partner integrations actually lived. At Bitcash I architected the React, Node.js, PostgreSQL, Hasura, and Google Cloud stack behind a peer-to-peer exchange with realtime chat.',
+      'The pairing is the same in both cases: a visible client, and the system that makes it real. At Wink the React Native app sat on a serverless AWS backend I also owned, where account behavior, security, and partner-bank APIs actually lived. At Bitcash the exchange UI sat on a React, Node.js, PostgreSQL, Hasura, and Google Cloud stack I architected, including the matching engine and realtime chat.',
     ],
     projectSlugs: ['wink', 'bitcashbank'],
   },
@@ -33,7 +33,7 @@ export default function FullstackExperiencePage() {
       title="Full-stack product engineering"
       intro={[
         'A mobile assistant and the admin tools behind it. A trading interface and its indexer. A banking app and the partner integrations it depends on. My full-stack work tends to be the pairing rather than one layer of it.',
-        'TypeScript, React, React Native, Next.js, Node.js, PostgreSQL, and cloud services cover most of it. The interesting decisions are about boundaries: what becomes a service, what stays in the client, and what nobody downstream should have to think about twice.',
+        'The interesting decisions are about boundaries: what becomes a service, what stays in the client, and what nobody downstream should have to think about twice.',
       ]}
       sections={sections}
       postSlugs={[
@@ -54,14 +54,8 @@ export default function FullstackExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Full-Stack Product Engineering | Gabo Esquivel',
   description:
     'End-to-end product engineering across AI assistants, token launchpads, trading interfaces, neobank infrastructure, and exchange systems.',
-  openGraph: {
-    title: 'Full-Stack Product Engineering | Gabo Esquivel',
-    description:
-      'End-to-end product engineering across interfaces, application services, data, infrastructure, and integrations.',
-    type: 'website',
-  },
-}
+})

@@ -7,7 +7,7 @@ import {
   Prose,
 } from 'components/shared/page-layout'
 import { ProjectEvidence } from 'components/work/project-evidence'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 import Link from 'next/link'
 import web3Img from 'public/images/work/ticoblockchain.jpg'
 
@@ -41,10 +41,12 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Tokens, protocol state, and infrastructure">
         <Prose>
-          Token and protocol state becomes a product when signing, contract
-          behavior, application data, and interface feedback agree. That work
-          covers ERC-20 product flows and both EOSIO mainnet and private-chain
-          infrastructure.
+          At Knowledge I led the ERC-20 token architecture and the AWS services
+          around the 2018 mainnet ICO, and built a React and Web3.js marketplace
+          with a wallet dashboard. At EOS Costa Rica I helped launch the EOS
+          mainnet, operated validators, and led the architecture of Grant
+          Thornton&apos;s private EOSIO chain: a stablecoin, hashing, and IPFS,
+          with a React client on Azure and Terraform.
         </Prose>
 
         <ProjectEvidence slugs={['knowledge-io', 'eos-costa-rica']} />
@@ -52,9 +54,11 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Indexing, subscriptions, and browser signing">
         <Prose>
-          Nodes are not application APIs. I build indexers, GraphQL layers,
-          subscriptions, and signing flows that turn chain events into explicit
-          data and transaction boundaries for products.
+          Bitcash is a peer-to-peer exchange: I built the matching engine,
+          Hasura GraphQL APIs, WebAuthn browser signing, QR signature requests,
+          and a realtime EOS indexer with worker threads and binary
+          deserialization. ChainGraph started during that work as an open-source
+          GraphQL subscription toolkit for EOSIO and Antelope data.
         </Prose>
 
         <ProjectEvidence slugs={['bitcashbank', 'chaingraph']} />
@@ -62,10 +66,18 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Wallets, marketplaces, auctions, and trading">
         <Prose>
-          Market products combine wallet connections, asset state, indexed
-          events, transaction feedback, and interfaces shaped by the underlying
-          protocol. I have applied that model to collectibles, virtual worlds,
-          batch auctions, token bridges, and perpetual options.
+          RareMint needed indexed NFT events and a wallet path into Polygon
+          collectible auctions: I built a Moralis-streams indexer and integrated
+          WalletConnect. At ZTX I built a WebGL EVM wallet connector with
+          Ethers.js so wallet state lived inside the virtual-world UI, on an
+          early Next.js, Tailwind, and Framer Motion architecture.
+        </Prose>
+        <Prose>
+          Bitlauncher combined Gnosis batch auctions, a USDT, USDC, and BITUSD
+          bridge, viem and wagmi wallet flows, an EOS EVM indexer on viem event
+          subscriptions, and a dFuse stream for EOS. Opyn is a Next.js React
+          Server Components trading interface over Ponder, PostgreSQL, and
+          Supabase on Arbitrum.
         </Prose>
 
         <ProjectEvidence slugs={['raremint', 'ztx', 'bitlauncher', 'opyn']} />
@@ -87,14 +99,8 @@ export default function Web3ExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Web3 Product Engineering | Gabo Esquivel',
   description:
     'Web3 product engineering across wallets, trading interfaces, token flows, blockchain indexers, auctions, and DeFi systems.',
-  openGraph: {
-    title: 'Web3 Product Engineering | Gabo Esquivel',
-    description:
-      'Wallets, trading interfaces, token flows, blockchain indexers, auctions, and DeFi systems across EVM and Antelope networks.',
-    type: 'website',
-  },
-}
+})

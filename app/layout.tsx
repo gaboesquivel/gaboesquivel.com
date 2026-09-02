@@ -34,9 +34,6 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Gabo Esquivel | Product Engineer',
-    description:
-      'I build useful and delightful software products across AI, Web3, and full-stack applications.',
     card: 'summary_large_image',
   },
   verification: {

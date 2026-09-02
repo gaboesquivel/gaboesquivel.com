@@ -7,7 +7,7 @@ import {
   Prose,
 } from 'components/shared/page-layout'
 import { ProjectEvidence } from 'components/work/project-evidence'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 import Link from 'next/link'
 import aiImg from 'public/images/ai/ai.webp'
 
@@ -95,14 +95,8 @@ export default function AIExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'AI Product Engineering | Gabo Esquivel',
   description:
     'Production AI product engineering across multimodal assistants, voice and chat, RAG, specialized agents, and operational tooling.',
-  openGraph: {
-    title: 'AI Product Engineering | Gabo Esquivel',
-    description:
-      'Production AI products with multimodal interfaces, retrieval, specialized agents, authentication, and operational tooling.',
-    type: 'website',
-  },
-}
+})

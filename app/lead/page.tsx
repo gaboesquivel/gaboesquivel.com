@@ -1,5 +1,5 @@
 import { CapabilityPage } from 'components/work/capability-page'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 
 const sections = [
   {
@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Public infrastructure and enterprise delivery',
     paragraphs: [
-      'At EOS Costa Rica I operated validators after the mainnet launch, led Grant Thornton delivery, and ran the recruiting, onboarding, and workshops that spread infrastructure and client work across a team.',
+      'At EOS Costa Rica I operated validators after the mainnet launch, led Grant Thornton architecture, built a team around the development-services division, and ran workshops around TicoBlockchain and CriptoCantina.',
     ],
     projectSlugs: ['eos-costa-rica'],
   },
@@ -26,7 +26,7 @@ const sections = [
   {
     heading: 'Frontend and exchange ownership',
     paragraphs: [
-      'At AMC I led the frontend team alongside creative and backend partners. At Bitcash I led the exchange as one engagement covering interface, services, and blockchain data rather than a single layer.',
+      'At AMC I owned the frontend architecture between the creative and backend teams. At Bitcash I led the exchange across interface, services, and chain data rather than a single layer.',
     ],
     projectSlugs: ['amc-yeah-tv-facebook-app', 'bitcashbank'],
   },
@@ -44,8 +44,7 @@ export default function TechLeadExperiencePage() {
     <CapabilityPage
       title="Technical leadership"
       intro={[
-        'I lead while building. The titles have been Lead UI Engineer and Lead Engineer, but the job has been consistent: own the technical direction and stay close enough to the code to be accountable for it.',
-        'That has run from a banking product and the team assembled to ship it, through validator operations and enterprise delivery, to an exchange, an AI-assisted engineering workflow, and two technical communities.',
+        'I lead while building. The job is to set direction, make the decisions a team or system has to live with, and stay close enough to the code to be accountable for the result.',
       ]}
       sections={sections}
       postSlugs={[
@@ -58,14 +57,8 @@ export default function TechLeadExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Technical Leadership | Gabo Esquivel',
   description:
     'Technical leadership across team formation, regulated fintech, enterprise blockchain, exchange infrastructure, and engineering workflows.',
-  openGraph: {
-    title: 'Technical Leadership | Gabo Esquivel',
-    description:
-      'Architecture, team formation, delivery, and product-facing engineering ownership.',
-    type: 'website',
-  },
-}
+})

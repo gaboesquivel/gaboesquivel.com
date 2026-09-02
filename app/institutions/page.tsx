@@ -1,11 +1,11 @@
 import { CapabilityPage } from 'components/work/capability-page'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 
 const sections = [
   {
     heading: 'Financial interfaces at American Express',
     paragraphs: [
-      'At American Express I shipped credit-card marketing components, comparison sliders, and landing pages while contributing to the Dojo-to-jQuery migration and running A/B tests inside the analytics stack.',
+      'American Express already had a frontend and a marketing machine. I shipped credit-card marketing components, comparison sliders, and landing pages while contributing to the Dojo-to-jQuery migration and running A/B tests inside the analytics stack.',
     ],
     projectSlugs: ['american-express'],
   },
@@ -26,7 +26,7 @@ const sections = [
   {
     heading: 'Regulated banking and retail mobile',
     paragraphs: [
-      'At Wink the product depended on partner banks, so I coordinated their API integrations and vendors alongside the security work a regulated financial product requires. On Tractor Supply I worked inside an existing React Native retail app, improving performance and code quality and introducing TypeScript.',
+      'Wink depended on partner banks: I coordinated their API integrations and vendors alongside the security work a regulated financial product requires. Tractor Supply was an existing React Native retail app: I introduced TypeScript, improved performance, and built a ViroAR feature for product previews without replacing the app around it.',
     ],
     projectSlugs: ['wink', 'tractor-supply'],
   },
@@ -51,14 +51,8 @@ export default function InstitutionsExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Institutional Software Engineering | Gabo Esquivel',
   description:
     'Institutional software engineering for financial services, media, professional services, and retail organizations.',
-  openGraph: {
-    title: 'Institutional Software Engineering | Gabo Esquivel',
-    description:
-      'UI at scale, regulated banking, enterprise blockchain, and mobile systems inside established organizations.',
-    type: 'website',
-  },
-}
+})

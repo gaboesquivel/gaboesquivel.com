@@ -1,11 +1,11 @@
 import { CapabilityPage } from 'components/work/capability-page'
-import type { Metadata } from 'next'
+import { pageMetadata } from 'lib/page-metadata'
 
 const sections = [
   {
     heading: 'Building a neobank from its first version',
     paragraphs: [
-      'At Wink, launch scope included the things that are easy to defer: partner-bank integration, biometric authentication, and a team that did not exist yet. A neobank has no useful version without them.',
+      "I built Wink's first React Native app and AWS backend, integrated the partner-bank APIs, and implemented biometric authentication. Launch also meant choosing the stack and recruiting the team that would operate it.",
     ],
     projectSlugs: ['wink'],
   },
@@ -19,7 +19,8 @@ const sections = [
   {
     heading: 'New product surfaces for digital assets',
     paragraphs: [
-      'At ZTX I set up the early Next.js, Tailwind, and Framer Motion architecture for the virtual world, plus the analytics the team needed to see how it was used. At RareMint I indexed NFT data with Moralis streams and wired WalletConnect into the Polygon marketplace for collectible auctions.',
+      'ZTX needed an architecture before the virtual world had a product around it. I set up the early Next.js, Tailwind, and Framer Motion stack, plus the analytics the team needed to see how it was used.',
+      'RareMint needed indexed NFT data and a wallet path into auctions. I built a Moralis-streams indexer and wired WalletConnect into the Polygon marketplace.',
     ],
     projectSlugs: ['ztx', 'raremint'],
   },
@@ -37,8 +38,8 @@ export default function StartupsExperiencePage() {
     <CapabilityPage
       title="Startup product engineering"
       intro={[
-        'Early-stage work is mostly deciding what not to build yet. I help founding teams get from an idea to a system that ships, without an architecture that assumes a scale nobody has reached.',
-        'That has meant a neobank, a token launchpad, a virtual world, a collectibles marketplace, and a platform for specialized AI assistants.',
+        'Early-stage work is mostly deciding what not to build yet. At Wink the first version still had to include partner-bank APIs, biometric authentication, and a team that did not exist yet.',
+        'The same constraint showed up in a token launchpad, a virtual world, a collectibles marketplace, and specialized AI assistants.',
       ]}
       sections={sections}
       postSlugs={[
@@ -51,14 +52,8 @@ export default function StartupsExperiencePage() {
   )
 }
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Startup Product Engineering | Gabo Esquivel',
   description:
     'Startup product engineering across neobank applications, Web3 launchpads, digital-asset marketplaces, virtual worlds, and AI platforms.',
-  openGraph: {
-    title: 'Startup Product Engineering | Gabo Esquivel',
-    description:
-      'Early-stage product architecture and delivery across fintech, Web3, and AI.',
-    type: 'website',
-  },
-}
+})
