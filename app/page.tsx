@@ -66,9 +66,10 @@ export default function HomePage() {
       </Prose>
 
       <Prose>
-        15+ years of shipping software, 12+ of them leading 0→1 product work:
-        regulated finance, consumer Web3, production AI. I work from Costa Rica
-        on US Mountain Time with distributed teams.
+        15+ years of shipping software, 12+ of them building 0→1 products for
+        startups and growth-stage teams: regulated finance, consumer Web3,
+        production AI. I work from Costa Rica on US Mountain Time with
+        distributed teams.
       </Prose>
 
       <PageImage
