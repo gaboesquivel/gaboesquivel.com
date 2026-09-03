@@ -24,7 +24,7 @@ Use the installed `gabo` skill for voice. Metadata must describe the page's actu
 - `/work`: selected software projects
 - `/project/[slug]`: the named project
 - `/connect`: work with Gabo Esquivel
-- `/cv`: Senior Full Stack Engineer CV
+- `/cv`: Senior Product Engineer CV
 - `/tech`: technology stack
 - `/blog`: writing and engineering notes
 

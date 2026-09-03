@@ -4,7 +4,7 @@ const cvSectionTitles: Record<(typeof cvKeys)[number], string> = {
   full: 'Curriculum Vitae',
   ai: 'AI Product Engineering CV',
   web3: 'Web3 Product Engineering CV',
-  fullstack: 'Full-Stack Engineering CV',
+  fullstack: 'Full-Stack Product Engineering CV',
 }
 
 export const cvExports = () =>
