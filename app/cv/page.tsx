@@ -22,7 +22,8 @@ type CvPageProps = {
 const bulletItemClass =
   "cv-content cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•']"
 
-const bulletListClass = cn(proseClass, 'mb-8 list-none pl-0')
+const cvHeadingRow = 'mb-4'
+const bulletListClass = cn(proseClass, 'mb-0 list-none pl-0')
 
 export default async function CVPage({ searchParams }: CvPageProps) {
   const resolved = await searchParams
@@ -44,7 +45,11 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         <div className="cv-summary">
           <Prose className="cv-content">{variant.summary}</Prose>
         </div>
-        <PageSection className="print:mt-0" title="Highlights">
+        <PageSection
+          className="print:mt-0"
+          headingRowClassName={cvHeadingRow}
+          title="Highlights"
+        >
           <ul className={bulletListClass}>
             {variant.highlights.map((highlight) => (
               <li className={bulletItemClass} key={highlight}>
@@ -55,7 +60,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         </PageSection>
       </div>
 
-      <div className="cv-experience-list space-y-12 list-none list-inside print:space-y-0">
+      <div className="cv-experience-list space-y-8 list-none list-inside print:space-y-0">
         {entries.map((exp, index) => (
           <div
             key={exp.company}
@@ -63,7 +68,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
             className={`${exp.pageBreak ? 'page-break-before ' : ''}cv-entry-group no-break-inside${index === 0 ? ` ${sectionSpacing} print:mt-0` : ''}`}
           >
             {index === 0 ? (
-              <div className={sectionHeadingRow}>
+              <div className={cn(sectionHeadingRow, cvHeadingRow)}>
                 <h2 className={sectionTitle}>Experience</h2>
               </div>
             ) : null}
@@ -107,7 +112,11 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           data-cv-block="also"
           className={`${cvSectionBreak({ key, id: 'also' })}no-break-inside`}
         >
-          <PageSection className="print:mt-0" title="Additional experience">
+          <PageSection
+            className="print:mt-0"
+            headingRowClassName={cvHeadingRow}
+            title="Additional experience"
+          >
             <Prose className="cv-content cv-also">{variant.also}</Prose>
           </PageSection>
         </div>
@@ -117,7 +126,11 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         data-cv-block="skills"
         className={`${cvSectionBreak({ key, id: 'skills' })}no-break-inside`}
       >
-        <PageSection className="print:mt-0" title="Skills">
+        <PageSection
+          className="print:mt-0"
+          headingRowClassName={cvHeadingRow}
+          title="Skills"
+        >
           <ul className={bulletListClass}>
             {variant.skills.map(({ label, keywords }) => (
               <li className={bulletItemClass} key={label}>

@@ -62,15 +62,17 @@ export function PageSection({
   action,
   children,
   className,
+  headingRowClassName,
 }: {
   title: ReactNode
   action?: ReactNode
   children: ReactNode
   className?: string
+  headingRowClassName?: string
 }) {
   return (
     <section className={cn(sectionSpacing, className)}>
-      <div className={sectionHeadingRow}>
+      <div className={cn(sectionHeadingRow, headingRowClassName)}>
         <h2 className={sectionTitle}>{title}</h2>
         {action}
       </div>

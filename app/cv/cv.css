@@ -1,3 +1,24 @@
+@media screen {
+  .cv-print ul.prose > :first-child,
+  .cv-print ul.prose > li,
+  .cv-print .cv-bullet {
+    margin-top: 0 !important;
+    margin-bottom: 0.35em !important;
+    line-height: 1.5 !important;
+  }
+
+  .cv-print ul.prose > li:last-child,
+  .cv-print .cv-bullet:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  .cv-print .cv-summary p,
+  .cv-print .cv-entry-description,
+  .cv-print .cv-also {
+    line-height: 1.75;
+  }
+}
+
 @media print {
   .cv-print {
     background: #ffffff !important;
@@ -174,7 +195,7 @@
     list-style: none !important;
   }
 
-  .cv-print .cv-entry-achievements li,
+  .cv-print ul.prose > li,
   .cv-print .cv-bullet {
     color: #111827 !important;
     font-size: 13px !important;
