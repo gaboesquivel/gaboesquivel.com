@@ -8,7 +8,7 @@
         "@vercel/analytics": "^2.0.1",
         "@vercel/edge-config": "^1.5.1",
         "clsx": "^2.0.0",
-        "gaboesquivel": "^6.3.2",
+        "gaboesquivel": "^6.4.0",
         "lucide-react": "0.476.0",
         "motion": "^13.1.1",
         "next": "^16.3.4",
@@ -413,7 +413,7 @@
 
     "framer-motion": ["framer-motion@13.1.1", "", { "dependencies": { "motion-dom": "^13.1.1", "motion-utils": "^13.0.0", "tslib": "^2.4.0" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["react", "react-dom"] }, "sha512-B/xn2TPS4f61cEBLFjiYlQFnBZUW1YVj/LM+C+N4OP8Rs95VLEI2ot/RlfBg111la/EiyECFaJJi/A3FWA8MUA=="],
 
-    "gaboesquivel": ["gaboesquivel@6.3.2", "", { "dependencies": { "chalk": "^4.1.2", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-+A+qSfIvaFCcIyRC/kritQMjsdblRufgY5a1OtTTCz/HXXcZLHHCpPPKWdeJU2+bJkePs+3d8/mUvPnhzqbLLQ=="],
+    "gaboesquivel": ["gaboesquivel@6.4.0", "", { "dependencies": { "chalk": "^4.1.2", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-h/zrl+JALQV4o3sb9RTYKiCnL4ojPReWQG/2TxmvIdn6bntlyK6lY5lLGrZQYDY4N6tsPzXF3OHXy8z+bhaNHA=="],
 
     "get-caller-file": ["get-caller-file@2.0.5", "", {}, "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg=="],
 

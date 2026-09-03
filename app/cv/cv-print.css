@@ -1,0 +1,309 @@
+.cv-print {
+  background: #ffffff !important;
+  color: #111827 !important;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    Noto Sans,
+    sans-serif !important;
+  line-height: 1.55 !important;
+  font-size: 13px !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.cv-print .cv-content {
+  color: #111827 !important;
+}
+
+.cv-print .prose {
+  --tw-prose-body: #111827 !important;
+  --tw-prose-headings: #111827 !important;
+  --tw-prose-bold: #111827 !important;
+  color: #111827 !important;
+}
+
+.cv-print .prose p {
+  color: #111827 !important;
+}
+
+.cv-print .prose strong {
+  color: #111827 !important;
+  font-weight: 600 !important;
+}
+
+.cv-print .cv-print-header-inner {
+  margin: 0 0 0.15rem !important;
+}
+
+/* Isolate screen flex gap; pair gap lives on h1 margin only */
+.cv-print .cv-header {
+  gap: 0 !important;
+}
+
+.cv-print h1 {
+  font-size: 36px !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.05em !important;
+  margin: 0 0 0.4rem !important;
+  padding: 0 !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+.cv-print .cv-print-name {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.02em !important;
+  color: #2563eb !important;
+  margin: 0 0 0.4rem !important;
+  padding: 0 !important;
+  border: none !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+.cv-print .cv-print-professional-title {
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  color: #111827 !important;
+  margin: 0 0 2rem !important;
+  padding: 0 !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+.cv-print .cv-summary p {
+  color: #111827 !important;
+  font-size: 13px !important;
+  line-height: 1.68 !important;
+  font-weight: 400 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.cv-print .cv-also {
+  color: #111827 !important;
+  font-size: 13px !important;
+  line-height: 1.52 !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* One spacer above every section h2 (both pages) */
+.cv-print .cv-summary + section,
+.cv-print .cv-experience-list,
+.cv-print [data-cv-block="also"],
+.cv-print [data-cv-block="skills"],
+.cv-print [data-cv-block="contact"] {
+  margin-top: 1rem !important;
+}
+
+.cv-print .cv-section-heading {
+  color: #2563eb !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  margin: 1.35rem 0 0.95rem !important;
+  padding: 0 0 0.4rem !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+.cv-print .cv-section-heading:first-of-type {
+  margin-top: 0.85rem !important;
+}
+
+.cv-print .cv-experience-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.55rem !important;
+}
+
+.cv-print .cv-experience-list > * {
+  margin-top: 0 !important;
+}
+
+.cv-print [data-cv-block] {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.cv-print [data-cv-block="also"],
+.cv-print [data-cv-block="skills"],
+.cv-print [data-cv-block="contact"] {
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+.cv-print .cv-entry {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cv-print .cv-entry-title {
+  color: #111827 !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  margin: 0 0 0.25rem !important;
+  line-height: 1.35 !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+.cv-print .cv-entry-meta,
+.cv-print .exp-duration {
+  color: #4b5563 !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  margin: 0 0 0.4rem !important;
+  line-height: 1.45 !important;
+}
+
+.cv-print .cv-entry-description,
+.cv-print .exp-description {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.52 !important;
+  margin: 0 0 0.75rem !important;
+}
+
+.cv-print .cv-entry-achievements {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.cv-print ul.prose > li,
+.cv-print .cv-bullet {
+  color: #111827 !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  margin: 0 0 0.22rem !important;
+  line-height: 1.52 !important;
+  padding-left: 0.95rem !important;
+}
+
+.cv-print .cv-bullet {
+  position: relative !important;
+}
+
+.cv-print .cv-bullet::before {
+  content: "•" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0.02em !important;
+  font-size: 0.95em !important;
+  line-height: inherit !important;
+}
+
+.cv-print h2 {
+  color: #2563eb !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+/* Heading-row only — do not match .cv-contact-section */
+.cv-print [data-cv-block] section > div:has(> h2),
+.cv-print .cv-entry-group > div:has(> h2) {
+  margin-bottom: 0 !important;
+}
+
+.cv-print h3 {
+  color: #111827 !important;
+}
+
+.cv-print svg {
+  color: #111827 !important;
+  stroke: #111827 !important;
+}
+
+.cv-print .cv-contact-section {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.cv-print .cv-contact-section h2 {
+  padding-top: 0 !important;
+  margin: 0 0 0.4rem !important;
+}
+
+.cv-print .cv-contact-section p {
+  color: #111827 !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.68 !important;
+  margin: 0 0 0.55rem !important;
+}
+
+.cv-print .cv-contact-section .cv-contact-lede p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.cv-print .cv-contact-grid {
+  display: grid !important;
+  font-weight: 400 !important;
+  grid-template-columns: 1fr 1fr !important;
+  column-gap: 1rem !important;
+  row-gap: 0.35rem !important;
+  margin-top: 0.55rem !important;
+  padding-top: 0 !important;
+}
+
+.cv-print .cv-contact-grid a {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  max-height: 22px !important;
+  height: 22px !important;
+  line-height: 1.3 !important;
+  font-size: 12.5px !important;
+  white-space: nowrap !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  gap: 0.4rem !important;
+}
+
+.cv-print .cv-contact-grid a span {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: inherit !important;
+  font-size: inherit !important;
+}
+
+.cv-print .cv-contact-grid svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.cv-print .cv-contact-footer {
+  color: #111827 !important;
+  font-size: 13px !important;
+  line-height: 1.68 !important;
+  margin: 0.75rem 0 0 !important;
+  font-weight: 400 !important;
+}
+
+.cv-print .cv-contact-footer a {
+  color: #111827 !important;
+  font-weight: 400 !important;
+}

@@ -1,0 +1,16 @@
+---
+description: Load DESIGN.md before UI/UX work; reuse primitives; no invented identity
+glob: "app/**/*.{tsx,css},components/**/*.{tsx,css},tailwind.config.mts"
+alwaysApply: false
+---
+
+# Design
+
+Before visual or UX changes, read repo-root `DESIGN.md`.
+
+- Reuse `components/shared/spacing.ts` and `page-layout.tsx` primitives. Do not invent palette, type, or a signature element.
+- Allowed: hierarchy, spacing on the existing scale, focus/contrast/`motion-safe`, empty/error states, extend primitives, tighten drift in files already open.
+- Not allowed unless explicitly tasked: new identity, restyle of `/work`, `/project/[slug]`, `/cv`, or restyle during a content pass.
+- `frontend-design-v1` is a critic inside `DESIGN.md` — anti-slop and restraint only. Do not invent tokens from that skill.
+- `tailwind-design-system-v4` is CSS-architecture only, not a page restyle.
+- Motion: existing budget in `DESIGN.md` only; `emilkowal-animations-v1` for easing inside that budget.

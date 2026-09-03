@@ -82,8 +82,8 @@ describe('choosePageBreaks', () => {
     ).toThrow(/taller than the 400px printable page/)
   })
 
-  test('usable height matches A4 minus 0.75in margins', () => {
-    expect(Math.round(USABLE_PAGE_HEIGHT_PX)).toBe(979)
+  test('usable height matches A4 minus 0.75in margins and pack safety', () => {
+    expect(Math.round(USABLE_PAGE_HEIGHT_PX)).toBe(967)
   })
 
   test('serializeCvPageBreaks writes every variant key', () => {

@@ -8,7 +8,10 @@ export const A4_HEIGHT_PX = (297 / 25.4) * 96
 export const PAGE_MARGIN_X_PX = 0.5 * 96
 export const PAGE_MARGIN_Y_PX = 0.75 * 96
 export const A4_CONTENT_WIDTH_PX = A4_WIDTH_PX - PAGE_MARGIN_X_PX * 2
-export const USABLE_PAGE_HEIGHT_PX = A4_HEIGHT_PX - PAGE_MARGIN_Y_PX * 2
+/** Chromium PDF usable height is slightly tighter than CSS @page math at the edge */
+export const PRINT_PACK_SAFETY_PX = 12
+export const USABLE_PAGE_HEIGHT_PX =
+  A4_HEIGHT_PX - PAGE_MARGIN_Y_PX * 2 - PRINT_PACK_SAFETY_PX
 
 export type PrintBlock = {
   id: string

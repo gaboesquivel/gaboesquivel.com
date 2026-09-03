@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <nav
       aria-label="Primary navigation"
-      className="-ml-[8px] mb-10 tracking-tight navbar print:hidden"
+      className="-ml-[8px] mb-10 tracking-tight navbar print:hidden preview-print:hidden"
     >
       <LayoutGroup>
         <div className="relative px-0 pb-1" id="nav">

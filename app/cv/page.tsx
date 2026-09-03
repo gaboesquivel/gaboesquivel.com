@@ -16,7 +16,10 @@ import { ContactInfo } from '../../components/shared/contact-info'
 import { cvPdfFile, cvSectionBreak, resolveCv } from './variants'
 
 type CvPageProps = {
-  searchParams?: Promise<{ focus?: string | string[] }>
+  searchParams?: Promise<{
+    focus?: string | string[]
+    preview?: string | string[]
+  }>
 }
 
 const bulletItemClass =
@@ -25,19 +28,33 @@ const bulletItemClass =
 const cvHeadingRow = 'mb-4'
 const bulletListClass = cn(proseClass, 'mb-0 list-none pl-0')
 
+const previewParam = ({ preview }: { preview?: string | string[] }) =>
+  Array.isArray(preview) ? preview[0] : preview
+
 export default async function CVPage({ searchParams }: CvPageProps) {
   const resolved = await searchParams
   const { key, variant, entries } = resolveCv({ focus: resolved?.focus })
+  const isPreviewPrint =
+    previewParam({ preview: resolved?.preview }) === 'print'
 
   return (
-    <section className="p-0 m-0 cv-content cv-print print:block print:w-full print:max-w-none">
+    <section
+      className="p-0 m-0 cv-content cv-print print:block print:w-full print:max-w-none"
+      {...(isPreviewPrint ? { 'data-cv-preview': 'print' } : {})}
+    >
+      {/* Bundlers ignore `@import … print`; load print tokens via real media attr */}
+      <link
+        rel="stylesheet"
+        href="/cv-print.css"
+        media={isPreviewPrint ? 'all' : 'print'}
+      />
       <div className="no-break-inside" data-cv-block="intro">
-        <header className="cv-header">
-          <PageTitle className="flex items-center justify-between">
+        <header className="cv-header flex flex-col">
+          <PageTitle className="mb-0 flex items-baseline justify-between leading-none">
             <span>Gabo Esquivel</span>
             <PrintButton file={cvPdfFile({ key })} />
           </PageTitle>
-          <p className="cv-print-professional-title font-medium tracking-tight text-neutral-400">
+          <p className="cv-print-professional-title mt-0 font-medium tracking-tight text-neutral-400">
             {variant.professionalTitle}
           </p>
         </header>
@@ -148,7 +165,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         <ContactInfo />
       </div>
 
-      <div className="print:hidden">
+      <div className="print:hidden preview-print:hidden">
         <LatestPosts />
       </div>
     </section>
@@ -160,6 +177,8 @@ export async function generateMetadata({
 }: CvPageProps): Promise<Metadata> {
   const resolved = await searchParams
   const { variant } = resolveCv({ focus: resolved?.focus })
+  const isPreviewPrint =
+    previewParam({ preview: resolved?.preview }) === 'print'
 
   return {
     title: variant.metadata.title,
@@ -170,5 +189,6 @@ export async function generateMetadata({
       type: 'profile',
     },
     alternates: { canonical: '/cv' },
+    ...(isPreviewPrint ? { robots: { index: false, follow: false } } : {}),
   }
 }

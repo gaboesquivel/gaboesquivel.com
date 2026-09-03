@@ -16,7 +16,11 @@ export function PostGrid({
   if (posts.length === 0) return null
 
   return (
-    <PageSection title={title} action={action} className="print:hidden">
+    <PageSection
+      title={title}
+      action={action}
+      className="print:hidden preview-print:hidden"
+    >
       <ul className={twoColGrid}>
         {posts.map((post) => (
           <li key={post.slug}>

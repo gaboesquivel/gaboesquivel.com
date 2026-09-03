@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function Footer() {
   return (
-    <footer className="mt-28 print:hidden">
+    <footer className="mt-28 print:hidden preview-print:hidden">
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
         <div>
           <ul className="space-y-2">

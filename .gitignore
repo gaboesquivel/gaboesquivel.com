@@ -51,3 +51,6 @@ public/llms-full.txt
 __dev
 .agents
 .claude
+
+# accidental nested build output
+/gaboesquivel.com/

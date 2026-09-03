@@ -11,3 +11,4 @@ alwaysApply: true
 - Do not restyle or upgrade Next.js in a content pass. `/cv` stays the printable CV. `/work` and project-page templates are off-limits unless the task is explicitly about them.
 - Blog MDX may be edited for voice alignment with landing pages. Do not rewrite 2012–2019 posts unless asked; they are a period archive.
 - Writing copy: use the installed `gabo` skill. Per-route jobs: landing-pages rule.
+- UI/UX work: read `DESIGN.md` and follow `.cursor/rules/design.mdc`. Still no restyle during a content pass.

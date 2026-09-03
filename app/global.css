@@ -3,6 +3,17 @@
 @config "../tailwind.config.mts";
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant preview-print (html:has([data-cv-preview="print"]) &);
+
+html:has([data-cv-preview="print"]),
+html:has([data-cv-preview="print"]) body {
+  color: #111827 !important;
+  background: #ffffff !important;
+}
+
+html:has([data-cv-preview="print"]) body {
+  margin-bottom: 0 !important;
+}
 
 ::selection {
   @apply bg-gray-800 text-accent;
@@ -220,16 +231,17 @@ a {
     padding: 0 !important;
   }
 
-  .prose,
-  .prose p,
-  .prose li,
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6,
-  .prose a {
+  /* Do not restyle the printable CV — .cv-print owns its type tokens */
+  body:not(:has(.cv-print)) .prose,
+  body:not(:has(.cv-print)) .prose p,
+  body:not(:has(.cv-print)) .prose li,
+  body:not(:has(.cv-print)) .prose h1,
+  body:not(:has(.cv-print)) .prose h2,
+  body:not(:has(.cv-print)) .prose h3,
+  body:not(:has(.cv-print)) .prose h4,
+  body:not(:has(.cv-print)) .prose h5,
+  body:not(:has(.cv-print)) .prose h6,
+  body:not(:has(.cv-print)) .prose a {
     color: #666666 !important;
     font-size: 12px !important;
   }
@@ -294,9 +306,9 @@ a {
     page-break-inside: avoid;
   }
 
-  /* Prevent breaking list items and paragraphs */
-  li,
-  p {
+  /* Keep avoid on non-CV pages; CV blocks own their break rules */
+  body:not(:has(.cv-print)) li,
+  body:not(:has(.cv-print)) p {
     break-inside: avoid;
     page-break-inside: avoid;
   }

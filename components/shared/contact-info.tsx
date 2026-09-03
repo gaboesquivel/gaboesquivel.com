@@ -5,7 +5,7 @@ export function ContactInfo({ hidden = true }) {
   return (
     <>
       <div
-        className={`${hidden ? 'hidden' : ''} print:block mb-8 pt-14 print-keep-links cv-contact-section cv-print `}
+        className={`${hidden ? 'hidden' : ''} print:block preview-print:block mb-8 pt-14 print-keep-links cv-contact-section cv-print `}
       >
         <h2 className="text-xl font-semibold mb-4 text-[#2563EB] pt-8">
           Connect
@@ -76,7 +76,7 @@ export function ContactInfo({ hidden = true }) {
           </Link>
         </div>
       </div>
-      <p className="hidden print:block prose prose-neutral dark:prose-invert print-keep-links cv-contact-footer">
+      <p className="hidden print:block preview-print:block prose prose-neutral dark:prose-invert print-keep-links cv-contact-footer">
         The rest of the work is on{' '}
         <Link href="/" className="no-underline">
           gaboesquivel.com

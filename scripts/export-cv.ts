@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { type Subprocess, spawn } from 'bun'
 import { type CvKey, cvKeys } from 'gaboesquivel'
@@ -19,6 +19,12 @@ const PUBLIC_DIR = join(import.meta.dir, '../public')
 const PREVIEW_DIR = join(import.meta.dir, '../__dev/cv-print')
 const POLL_MS = 500
 const TIMEOUT_MS = 90_000
+
+const syncPrintCss = () => {
+  const src = join(import.meta.dir, '../app/cv/cv-print.css')
+  const dest = join(PUBLIC_DIR, 'cv-print.css')
+  writeFileSync(dest, readFileSync(src))
+}
 
 const probeServer = async () => {
   try {
@@ -138,10 +144,13 @@ const rasterizePdf = async ({
 
 const exportVariant = async ({ page, key }: { page: Page; key: CvKey }) => {
   const path = cvPath({ key })
+  if (path.includes('preview='))
+    throw new Error(`CV export must not use preview URLs (got ${path})`)
   const file = cvPdfFile({ key })
   const output = join(PUBLIC_DIR, file)
 
   await page.setViewportSize(VIEWPORT)
+  // Measure and print with Chromium print media — never ?preview=print
   await page.goto(`${ORIGIN}${path}`, { waitUntil: 'networkidle' })
   await page.emulateMedia({ media: 'print', colorScheme: 'light' })
   await page.evaluate(() => document.fonts.ready)
@@ -221,6 +230,8 @@ const exportPdfs = async () => {
 }
 
 const main = async () => {
+  syncPrintCss()
+
   const alreadyUp = await probeServer()
   let server: Subprocess | undefined
 
