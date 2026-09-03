@@ -43,19 +43,6 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         ))}
       </ul>
 
-      <h2 className="text-xl font-semibold mb-4">Skills</h2>
-
-      <ul className="mb-8 space-y-1  list-none  list-inside">
-        {variant.skills.map(({ label, keywords }) => (
-          <li
-            className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] "
-            key={label}
-          >
-            <strong>{label}:</strong> {keywords}
-          </li>
-        ))}
-      </ul>
-
       <h2 className="text-xl font-semibold mb-4">Experience</h2>
 
       <div className="cv-experience-list space-y-8 list-none list-inside">
@@ -100,6 +87,19 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           </p>
         </>
       )}
+
+      <h2 className="text-xl font-semibold mb-4 mt-8">Skills</h2>
+
+      <ul className="mb-8 space-y-1 list-none list-inside">
+        {variant.skills.map(({ label, keywords }) => (
+          <li
+            className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] "
+            key={label}
+          >
+            <strong>{label}:</strong> {keywords}
+          </li>
+        ))}
+      </ul>
 
       <ContactInfo />
 

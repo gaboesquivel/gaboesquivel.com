@@ -25,12 +25,6 @@ export const renderCvMarkdown = ({ focus }: { focus?: string } = {}) => {
     '',
     ...variant.highlights.map((item) => `- ${item}`),
     '',
-    '## Skills',
-    '',
-    ...variant.skills.map(
-      ({ label, keywords }) => `- **${label}:** ${keywords}`,
-    ),
-    '',
     '## Experience',
     '',
   ]
@@ -53,6 +47,15 @@ export const renderCvMarkdown = ({ focus }: { focus?: string } = {}) => {
   if (variant.also) {
     lines.push('## Additional experience', '', variant.also, '')
   }
+
+  lines.push(
+    '## Skills',
+    '',
+    ...variant.skills.map(
+      ({ label, keywords }) => `- **${label}:** ${keywords}`,
+    ),
+    '',
+  )
 
   return lines.join('\n').trim()
 }
