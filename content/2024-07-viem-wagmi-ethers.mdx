@@ -7,7 +7,7 @@ category: ['Web3', 'Frontend', 'Backend', 'Fullstack', 'Tech Lead']
 tech: ['TypeScript', 'Viem', 'Wagmi', 'Ethers', 'Ethereum']
 ---
 
-Picking an [Ethereum](/tech/ethereum) client library is a real constraint: bundle size, TypeScript types, and how you talk to the chain from React. Ethers.[js](/tech/javascript) and Viem (with Wagmi) are the two I keep comparing. Here's how they differ, and how we use Viem at [BitLauncher](/project/bitlauncher).
+Picking an [Ethereum](/tech/ethereum) client library is a real constraint: bundle size, TypeScript types, and how you talk to the chain from React. Ethers.[js](/tech/javascript) and Viem (with Wagmi) are the two I keep comparing. Here's how they differ, and how we use Viem at [Bitlauncher](/project/bitlauncher).
 
 
 {/* Prevent CLS by setting a minimum height */}
@@ -48,4 +48,4 @@ Despite these advancements, Ethers.js is still used in the smart contracts Hardh
 
 Both Ethers.js and Viem/Wagmi have a place. The choice depends on the project: Viem is smaller, more modular, and pairs cleanly with React; Ethers.js is older, well documented, and still the default in some Hardhat/smart-contract toolchains. That's a [technical leadership](/lead) call in Web3, not a fashion one.
 
-At [bitLauncher.ai](https://bitlauncher.ai) we picked Viem and Wagmi where they actually help—indexer, faucet, wallet, auctions—and kept Ethers.js where the Gnosis auction fork already depended on it. The goal is maintainable apps, not a stack for its own sake.
+At [bitlauncher.ai](https://bitlauncher.ai) we picked Viem and Wagmi where they actually help—indexer, faucet, wallet, auctions—and kept Ethers.js where the Gnosis auction fork already depended on it. The goal is maintainable apps, not a stack for its own sake.

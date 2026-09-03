@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { getProjectBySlug, techStack } from 'gaboesquivel'
 import ts from 'typescript'
 import { techBrowseCategories } from '../../components/tech/categories'
@@ -10,7 +11,7 @@ import {
 import { isArchivePostFromBlog, loadBlogPosts } from './blog'
 import { absoluteUrl, rewriteLinks } from './format'
 
-const APP_DIR = join(import.meta.dir, '../../app')
+const APP_DIR = join(dirname(fileURLToPath(import.meta.url)), '../../app')
 
 const SKIP_COMPONENTS = new Set([
   'PageImage',
@@ -189,7 +190,7 @@ const renderFeaturedTechLinks = () => {
 let sourceFile: ts.SourceFile
 
 const jsxChildrenToText = (
-  children: ts.JsxChild[],
+  children: ReadonlyArray<ts.JsxChild>,
   variables: Map<string, unknown>,
 ): string => {
   const parts: string[] = []
@@ -286,6 +287,21 @@ const jsxNodeToMarkdown = (
       if (links) {
         lines.push(`## ${title}`, '', links, '')
       }
+      return
+    }
+
+    if (tagName === 'PathLink') {
+      const href = getJsxAttributeValue(attributes, 'href', variables)
+      const title = getJsxAttributeValue(attributes, 'title', variables)
+      const note = getJsxAttributeValue(attributes, 'note', variables)
+
+      if (!href || !title) return
+
+      const description = typeof note === 'string' && note ? `: ${note}` : ''
+
+      lines.push(
+        `- [${String(title)}](${absoluteUrl(String(href))})${description}`,
+      )
       return
     }
 
@@ -438,31 +454,57 @@ const parseCapabilityPage = (
   let writingTitle: string | undefined
   let childrenMarkdown = ''
 
+  const readCapabilityPage = ({
+    tagName,
+    attributes,
+    children = [],
+  }: {
+    tagName: string
+    attributes: ts.JsxAttributes
+    children?: ts.JsxChild[]
+  }) => {
+    if (tagName !== 'CapabilityPage') return false
+
+    title = String(getJsxAttributeValue(attributes, 'title', variables))
+    intro = (getJsxAttributeValue(attributes, 'intro', variables) ??
+      []) as string[]
+    sections = (getJsxAttributeValue(attributes, 'sections', variables) ??
+      []) as CapabilitySection[]
+    postSlugs = getJsxAttributeValue(attributes, 'postSlugs', variables) as
+      | string[]
+      | undefined
+    writingTitle = String(
+      getJsxAttributeValue(attributes, 'writingTitle', variables) ?? '',
+    )
+
+    const childLines: string[] = []
+    jsxNodesToMarkdown(children, variables, childLines)
+    childrenMarkdown = childLines.join('\n').trim()
+    return true
+  }
+
   const visit = (node: ts.Node) => {
     if (ts.isJsxElement(node)) {
       const tagName = node.openingElement.tagName.getText(source)
-      if (tagName !== 'CapabilityPage') {
-        ts.forEachChild(node, visit)
-        return
-      }
-
-      const attributes = node.openingElement.attributes
-      title = String(getJsxAttributeValue(attributes, 'title', variables))
-      intro = (getJsxAttributeValue(attributes, 'intro', variables) ??
-        []) as string[]
-      sections = (getJsxAttributeValue(attributes, 'sections', variables) ??
-        []) as CapabilitySection[]
-      postSlugs = getJsxAttributeValue(attributes, 'postSlugs', variables) as
-        | string[]
-        | undefined
-      writingTitle = String(
-        getJsxAttributeValue(attributes, 'writingTitle', variables) ?? '',
+      if (
+        readCapabilityPage({
+          tagName,
+          attributes: node.openingElement.attributes,
+          children: [...node.children],
+        })
       )
+        return
+    }
 
-      const childLines: string[] = []
-      jsxNodesToMarkdown(node.children, variables, childLines)
-      childrenMarkdown = childLines.join('\n').trim()
-      return
+    if (ts.isJsxSelfClosingElement(node)) {
+      const tagName = node.tagName.getText(source)
+      if (
+        readCapabilityPage({
+          tagName,
+          attributes: node.attributes,
+        })
+      )
+        return
     }
 
     ts.forEachChild(node, visit)

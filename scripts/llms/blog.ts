@@ -1,10 +1,14 @@
 import { readdirSync, readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { isArchivePost } from '../../lib/blog-taxonomy'
 import { absoluteUrl } from './format'
 import { canonicalizePath } from './routes'
 
-const CONTENT_DIR = join(import.meta.dir, '../../content')
+const CONTENT_DIR = join(
+  dirname(fileURLToPath(import.meta.url)),
+  '../../content',
+)
 
 const CONTRACTING_SLUG = '2025-11-1099-contracting'
 

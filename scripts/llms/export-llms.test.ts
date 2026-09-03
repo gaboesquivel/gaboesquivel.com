@@ -1,8 +1,7 @@
 import { describe, expect, test } from 'bun:test'
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 import { experience, projects, techStack } from 'gaboesquivel'
 import { renderBlogMarkdown } from './blog'
+import { getLlmsFull } from './corpus'
 import { cvExports, renderCvMarkdown } from './cv'
 import { blogSlugFromRelatedUrl, isValidProjectLink } from './format'
 import { loadNarrativePages } from './pages'
@@ -14,8 +13,6 @@ import {
 } from './projects'
 import { canonicalizePath } from './routes'
 import { validateSection } from './validate'
-
-const PUBLIC_DIR = join(import.meta.dir, '../../public')
 
 describe('llms export helpers', () => {
   test('canonicalizePath resolves aliases', () => {
@@ -158,6 +155,21 @@ describe('llms export helpers', () => {
     expect(fullstack?.body).toContain('/cv?focus=fullstack')
   })
 
+  test('loadNarrativePages exports non-empty CapabilityPage bodies', () => {
+    for (const path of [
+      '/frontend',
+      '/backend',
+      '/mobile',
+      '/startups',
+      '/institutions',
+      '/lead',
+    ]) {
+      const page = loadNarrativePages().find((item) => item.path === path)
+      expect(page?.body.length).toBeGreaterThan(0)
+      expect(page?.title).not.toBe(path)
+    }
+  })
+
   test('loadNarrativePages emits W-2 hire copy only on /connect', () => {
     const connect = loadNarrativePages().find(
       (page) => page.path === '/connect',
@@ -178,7 +190,7 @@ describe('llms export helpers', () => {
   })
 
   test('llms-full.txt omits archive blog post sections', () => {
-    const full = readFileSync(join(PUBLIC_DIR, 'llms-full.txt'), 'utf8')
+    const full = getLlmsFull()
     expect(full).not.toContain(
       'Canonical: https://gaboesquivel.com/blog/2014-01-developing-software-in-costa-rica',
     )

@@ -42,6 +42,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
+  const llmsRoutes = [
+    '/llms.txt',
+    '/llms-full.txt',
+    '/.well-known/llms.txt',
+    '/.well-known/llms-full.txt',
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.4,
+  }))
+
   const blogs = allBlogs.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.publishedAt,
@@ -81,6 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...primaryRoutes,
     ...secondaryRoutes,
     ...tertiaryRoutes,
+    ...llmsRoutes,
     ...blogs,
     ...categoryUrls,
     ...projectUrls,

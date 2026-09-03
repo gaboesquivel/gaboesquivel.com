@@ -1,10 +1,14 @@
 import { readdirSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { projects, techStack } from 'gaboesquivel'
 import { browseCategories } from '../../lib/blog-taxonomy'
 import { visibleTechStack } from '../../lib/tech-evidence'
 
-const CONTENT_DIR = join(import.meta.dir, '../../content')
+const CONTENT_DIR = join(
+  dirname(fileURLToPath(import.meta.url)),
+  '../../content',
+)
 
 const ROUTE_ALIASES: Record<string, string> = {
   '/project/legalagent': '/project/legal-agent',

@@ -19,7 +19,7 @@ const sections = [
   {
     heading: 'Architecture and a team that already shipped together',
     paragraphs: [
-      'At Bitlauncher I owned the architecture: the Next.js and Supabase launchpad, token bridge and auction flows, and the EVM indexer. I built it with the bitcash.org team I have worked with since 2020.',
+      'At Bitlauncher I owned product and technical direction, coordinated delivery across a small engineering team, and introduced an AI-assisted workflow using Claude, v0.dev, Cursor, and SourceryAI. I remained responsible for the architecture and the work shipped through it.',
     ],
     projectSlugs: ['bitlauncher'],
   },
