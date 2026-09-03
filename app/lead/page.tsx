@@ -3,37 +3,37 @@ import { pageMetadata } from 'lib/page-metadata'
 
 const sections = [
   {
-    heading: 'Team formation around a banking product',
+    heading: 'Forming a team around a product that did not exist yet',
     paragraphs: [
-      'As Lead Engineer at Wink I chose the AWS and React Native stack, planned the project, and recruited the team that shipped it. The architecture decision and the hiring decision were the same decision.',
+      "As Lead Engineer at Wink I chose the AWS and React Native stack, planned the work, and recruited the team that shipped Costa Rica's first neobank. The product and the team had to be built together.",
     ],
     projectSlugs: ['wink'],
   },
   {
-    heading: 'Public infrastructure and enterprise delivery',
+    heading: 'Owning product and technical direction while staying in the code',
     paragraphs: [
-      'At EOS Costa Rica I operated validators after the mainnet launch, led Grant Thornton architecture, built a team around the development-services division, and ran workshops around TicoBlockchain and CryptoCantinaCR.',
-    ],
-    projectSlugs: ['eos-costa-rica'],
-  },
-  {
-    heading: 'Architecture and a team that already shipped together',
-    paragraphs: [
-      'At Bitlauncher I owned product and technical direction, coordinated delivery across a small engineering team, and introduced an AI-assisted workflow using Claude, v0.dev, Cursor, and SourceryAI. I remained responsible for the architecture and the work shipped through it.',
+      'At Bitlauncher I owned product and technical direction and coordinated delivery across a small engineering team, remaining responsible for the architecture and the work shipped through it.',
     ],
     projectSlugs: ['bitlauncher'],
   },
   {
-    heading: 'Frontend and exchange ownership',
+    heading: 'Holding architecture across client, services, and chain data',
     paragraphs: [
-      'At AMC I owned the frontend architecture between the creative and backend teams. At Bitcash I led the exchange across interface, services, and chain data.',
+      'At AMC I owned the frontend architecture between the creative and backend teams. At Bitcash I led the exchange across interface, services, and chain data so matching, signing, and indexed state stayed one system.',
     ],
     projectSlugs: ['amc-yeah-tv-facebook-app', 'bitcashbank'],
   },
   {
+    heading: 'Delivery inside an existing institution',
+    paragraphs: [
+      "At EOS Costa Rica I operated validators after the mainnet launch, built Grant Thornton's private EOSIO chain, and formed a team around the development-services division that had to deliver under institutional constraints.",
+    ],
+    projectSlugs: ['eos-costa-rica'],
+  },
+  {
     heading: 'Technical communities',
     paragraphs: [
-      "I founded Costa Rica JS and co-founded AsoBlockchain, running meetups, NodeSchool, TicoBlockchain, and CryptoCantinaCR to move technical knowledge through the region's ecosystem rather than keep it inside one company.",
+      "I founded Costa Rica JS and co-founded AsoBlockchain to move technical knowledge through the region's ecosystem rather than keep it inside one company.",
     ],
     projectSlugs: ['costa-rica-js', 'asoblockchain'],
   },
@@ -60,5 +60,5 @@ export default function TechLeadExperiencePage() {
 export const metadata = pageMetadata({
   title: 'Technical Leadership | Gabo Esquivel',
   description:
-    'Technical leadership across team formation, regulated fintech, enterprise blockchain, exchange infrastructure, and engineering workflows.',
+    'Technical leadership across team formation, product direction, system architecture, and institutional delivery.',
 })

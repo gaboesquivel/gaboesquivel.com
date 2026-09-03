@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Immersive and interactive products',
     paragraphs: [
-      'A virtual world holding a live wallet session has the same honesty problem. At ZTX the screen had to stay honest about a live wallet: signing sat inside the WebGL world so the UI showed what the session was about to commit to. At AMC the YEAH! interactive player ran trivia, interviews, and quizzes inside the film itself. Curated titles carried more than 400 interactive elements each.',
+      'At ZTX signing sat inside the WebGL world so the UI showed what the session was about to commit to. At AMC the YEAH! interactive player ran trivia, interviews, and quizzes inside the film itself. Curated titles carried more than 400 interactive elements each.',
     ],
     projectSlugs: ['ztx', 'amc-yeah-tv-facebook-app'],
   },
@@ -30,7 +30,7 @@ export default function FrontendExperiencePage() {
     <CapabilityPage
       title="Frontend engineering"
       intro={[
-        'Interfaces get hard when the state behind them is hard. A balance that is already stale, an auction closing while you type, a virtual world holding a live wallet session: the screen has to be honest about all of it.',
+        'Interfaces get hard when the state behind them is hard. A balance that is already stale, an auction closing while you type, a live wallet session inside a virtual world: the screen has to be honest about all of it.',
         'React, Next.js, TypeScript, TanStack Query, and Tailwind are how it gets built. Deciding what the interface must tell the truth about, and when, is the part that takes judgment.',
       ]}
       sections={sections}

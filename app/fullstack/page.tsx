@@ -7,7 +7,7 @@ const sections = [
   {
     heading: 'AI products across mobile, web, and data',
     paragraphs: [
-      'LegalAgent is two clients against one system: an Expo assistant for lawyers and a TanStack Start admin for the team maintaining its sources. I built both, which is why its retrieval categories and prompts are editable rather than hardcoded.',
+      'LegalAgent is two clients against one system: an Expo assistant for lawyers and a TanStack Start admin for the team maintaining its sources. I built both.',
     ],
     projectSlugs: ['legal-agent'],
   },

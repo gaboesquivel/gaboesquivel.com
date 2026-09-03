@@ -19,7 +19,7 @@ const sections = [
   {
     heading: 'A private chain for Grant Thornton',
     paragraphs: [
-      'At EOS Costa Rica I designed a private EOSIO chain for Grant Thornton around intercompany transactions and tax workflows, with a stablecoin, hashing, IPFS records, and a React client on Azure and Terraform.',
+      'At EOS Costa Rica I built a private EOSIO chain for Grant Thornton around intercompany transactions and tax workflows, with a stablecoin, hashing, and IPFS records behind a React client.',
     ],
     projectSlugs: ['eos-costa-rica'],
   },
@@ -38,7 +38,7 @@ export default function InstitutionsExperiencePage() {
       title="Institutional software engineering"
       intro={[
         'Inside a large organization the constraint is rarely the technology. It is the systems already running, the people who depend on them, and the rules the company answers to.',
-        'I have shipped under those conditions at American Express, AMC Networks, and Wink, at EOS Costa Rica for Grant Thornton Labs, and on a Tractor Supply contract: adding a real capability without disturbing what the organization already relies on.',
+        'The work is adding a real capability without disturbing what the organization already relies on.',
       ]}
       sections={sections}
       postSlugs={[

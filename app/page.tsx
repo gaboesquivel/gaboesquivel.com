@@ -99,8 +99,7 @@ export default function HomePage() {
           Right now I build AI products and Web3 products. Both are domains
           where the interesting work is the product around the technology:
           assistants people can talk to and teams can operate, wallets and
-          markets people can follow, systems where the model or the chain
-          recedes behind something useful.
+          markets people can follow.
         </Prose>
         <ul className={blockGrid}>
           <li className="flex h-full">

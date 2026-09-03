@@ -22,9 +22,8 @@ export default function AIExperiencePage() {
         part I build.
       </Prose>
       <Prose>
-        Model behavior is probabilistic. Product behavior cannot be. Most of the
-        work sits on that line, deciding what the model gets to decide and what
-        stays ordinary application logic.
+        Most of the work sits on the line between what the model gets to decide
+        and what stays ordinary application logic.
       </Prose>
 
       <PageImage alt="AI product engineering" src={aiImg} priority />
@@ -34,14 +33,13 @@ export default function AIExperiencePage() {
           For LegalAgent, I built a React Native and Expo assistant with voice,
           chat, bilingual realtime transcription and synthesis, and RAG for case
           context and document summaries. I sat with attorneys at the firm to
-          see how they used the assistant. That feedback drove persona and
-          latency changes, and tighter tool calling in the React Native client.
+          see how they used the assistant. That feedback drove persona changes
+          and tighter tool calling in the React Native client.
         </Prose>
         <Prose>
           I also built the TanStack Start administration system for Microsoft
-          SSO, document management, prompt controls, and retrieval categories.
-          Access, source material, and the instructions behind the assistant
-          stay editable there rather than hardcoded in the client.
+          SSO, document management, prompt controls, and retrieval categories so
+          the team could change access, sources, and instructions after launch.
         </Prose>
 
         <ProjectEvidence slugs={['legal-agent']} columns={1} />
@@ -49,10 +47,9 @@ export default function AIExperiencePage() {
 
       <PageSection title="Specialized assistants inside larger products">
         <Prose>
-          For Masterbots, I worked on the Next.js architecture and built
-          separate interfaces for domain-specific assistants. I integrated AI
-          SDK tooling and internationalization automation, then trained the team
-          on the implementation.
+          For Masterbots, I built separate interfaces for domain-specific
+          assistants and integrated AI SDK tooling so each assistant stayed
+          scoped to its domain.
         </Prose>
         <Prose>
           For Bitlauncher, I built a RAG chatbot with tools for current news and
@@ -79,7 +76,7 @@ export default function AIExperiencePage() {
         category="Artificial Intelligence"
       />
 
-      <PageSection title="Build an AI product">
+      <PageSection title="AI employment record">
         <Prose>
           The employment record behind this work is the{' '}
           <Link href="/cv?focus=ai" className="prose-link">

@@ -93,11 +93,11 @@ export default function BioPage() {
         </Prose>
         <Prose>
           Tokens and protocol infrastructure came first. At Knowledge, from 2017
-          to 2018, I developed an ERC-20 token, supported the ICO on mainnet,
-          and built a React and Web3.js marketplace with a wallet dashboard. I
-          also co-founded AsoBlockchain in 2017. At EOS Costa Rica, from 2018 to
-          2020, I helped launch the EOS mainnet, operated validators, and led
-          the architecture of a private EOSIO chain for Grant Thornton Labs.
+          to 2018, I deployed an ERC-20 token for a mainnet ICO and built the
+          marketplace and wallet around it. I also co-founded AsoBlockchain in
+          2017. At EOS Costa Rica, from 2018 to 2020, I helped launch the EOS
+          mainnet, operated validators, and built a private EOSIO chain for
+          Grant Thornton Labs.
         </Prose>
         <Prose>
           Then exchanges and indexed chain data. Bitcash, from 2020 to 2021, was

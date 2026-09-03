@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Regulated mobile banking',
     paragraphs: [
-      'At Wink I built the first version of the React Native app, including a native bridge for biometric authentication, for a bank whose customers never visit a branch.',
+      'At Wink the biometric work was a React Native native bridge. KYC and login had to work for a bank whose customers never visit a branch.',
     ],
     projectSlugs: ['wink'],
   },

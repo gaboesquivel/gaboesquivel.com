@@ -41,12 +41,11 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Tokens, protocol state, and infrastructure">
         <Prose>
-          At Knowledge I led the ERC-20 token architecture and the AWS services
-          around the 2018 mainnet ICO, and built a React and Web3.js marketplace
-          with a wallet dashboard. At EOS Costa Rica I helped launch the EOS
-          mainnet, operated validators, and led the architecture of Grant
-          Thornton&apos;s private EOSIO chain: a stablecoin, hashing, and IPFS,
-          with a React client on Azure and Terraform.
+          At Knowledge I built the ERC-20 token contracts and the serverless AWS
+          services around the 2018 mainnet ICO, plus a React and Web3.js
+          marketplace with a wallet dashboard. At EOS Costa Rica I helped launch
+          the EOS mainnet, operated validators, and built Grant Thornton&apos;s
+          private EOSIO chain for intercompany transactions and tax workflows.
         </Prose>
 
         <ProjectEvidence slugs={['knowledge-io', 'eos-costa-rica']} />
@@ -56,8 +55,8 @@ export default function Web3ExperiencePage() {
         <Prose>
           Bitcash is a peer-to-peer exchange. I built WebAuthn key management
           and QR signature requests so trades could settle in the browser
-          without an external wallet. ChainGraph started during that work as an
-          open-source GraphQL subscription toolkit for EOSIO and Antelope data.
+          without an external wallet. ChainGraph grew from that work as an
+          open-source GraphQL path over EOSIO and Antelope data.
         </Prose>
 
         <ProjectEvidence slugs={['bitcashbank', 'chaingraph']} />
@@ -65,17 +64,17 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Wallets, marketplaces, auctions, and trading">
         <Prose>
-          RareMint needed indexed NFT events and a wallet path into Polygon
-          collectible auctions: I built a Moralis-streams indexer and integrated
-          WalletConnect. At ZTX, signing and NFT trading stayed inside the WebGL
-          session so users never left the world to use a wallet.
+          RareMint needed a wallet path into Polygon collectible auctions. I
+          integrated WalletConnect so bidding stayed inside the marketplace
+          instead of bouncing out to a separate wallet flow.
         </Prose>
         <Prose>
-          Bitlauncher combined Gnosis batch auctions, a USDT, USDC, and BITUSD
-          bridge, viem and wagmi wallet flows, an EOS EVM indexer on viem event
-          subscriptions, and a dFuse stream for EOS. Opyn is a Next.js React
-          Server Components trading interface over Ponder, PostgreSQL, and
-          Supabase on Arbitrum.
+          At ZTX, signing and NFT trading stayed inside the WebGL session so
+          users never left the world to use a wallet. Bitlauncher combined
+          Gnosis batch auctions, a USDT, USDC, and BITUSD bridge, and viem and
+          wagmi wallet flows so bids and balances moved across EOS EVM and EOS.
+          Opyn is a Next.js React Server Components trading interface over
+          Ponder, PostgreSQL, and Supabase on Arbitrum.
         </Prose>
 
         <ProjectEvidence slugs={['raremint', 'ztx', 'bitlauncher', 'opyn']} />
@@ -83,7 +82,7 @@ export default function Web3ExperiencePage() {
 
       <LatestPosts title="Writing about Web3 systems" category="Web3" />
 
-      <PageSection title="Build a Web3 product">
+      <PageSection title="Web3 employment record">
         <Prose>
           The employment record behind this work is the{' '}
           <Link href="/cv?focus=web3" className="prose-link">
