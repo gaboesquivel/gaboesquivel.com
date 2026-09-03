@@ -67,9 +67,8 @@ export default function Web3ExperiencePage() {
         <Prose>
           RareMint needed indexed NFT events and a wallet path into Polygon
           collectible auctions: I built a Moralis-streams indexer and integrated
-          WalletConnect. At ZTX the wallet session lived inside WebGL: signing
-          and NFT trading without leaving the world, so the chain receded behind
-          the screen.
+          WalletConnect. At ZTX, signing and NFT trading stayed inside the WebGL
+          session so users never left the world to use a wallet.
         </Prose>
         <Prose>
           Bitlauncher combined Gnosis batch auctions, a USDT, USDC, and BITUSD

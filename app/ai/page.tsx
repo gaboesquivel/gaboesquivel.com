@@ -34,14 +34,14 @@ export default function AIExperiencePage() {
           For LegalAgent, I built a React Native and Expo assistant with voice,
           chat, bilingual realtime transcription and synthesis, and RAG for case
           context and document summaries. I sat with attorneys at the firm to
-          see how they used it. Feedback was tone, gender, speed, and persona. I
-          tuned those, and tightened tool calling in the React Native client.
+          see how they used the assistant. That feedback drove persona and
+          latency changes, and tighter tool calling in the React Native client.
         </Prose>
         <Prose>
           I also built the TanStack Start administration system for Microsoft
           SSO, document management, prompt controls, and retrieval categories.
-          Those tools let the team control access, maintain source material, and
-          manage the instructions behind the assistant.
+          Access, source material, and the instructions behind the assistant
+          stay editable there rather than hardcoded in the client.
         </Prose>
 
         <ProjectEvidence slugs={['legal-agent']} columns={1} />

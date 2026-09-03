@@ -26,7 +26,7 @@ const sections = [
   {
     heading: 'Frontend and exchange ownership',
     paragraphs: [
-      'At AMC I owned the frontend architecture between the creative and backend teams. At Bitcash I led the exchange across interface, services, and chain data rather than a single layer.',
+      'At AMC I owned the frontend architecture between the creative and backend teams. At Bitcash I led the exchange across interface, services, and chain data.',
     ],
     projectSlugs: ['amc-yeah-tv-facebook-app', 'bitcashbank'],
   },
