@@ -55,6 +55,17 @@
     margin: 0 0 0.15rem !important;
   }
 
+  .cv-print h1 {
+    font-size: 36px !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.05em !important;
+    margin: 0 0 0.4rem !important;
+    padding: 0 !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
   .cv-print .cv-print-name {
     font-size: 24px !important;
     font-weight: 700 !important;
@@ -117,6 +128,11 @@
 
   .cv-print .cv-experience-list > * {
     margin-top: 0 !important;
+  }
+
+  .cv-print [data-cv-block] {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .cv-print .cv-entry {
@@ -185,6 +201,15 @@
 
   .cv-print h2 {
     color: #2563eb !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .cv-print div:has(> h2) {
+    margin-bottom: 0 !important;
   }
 
   .cv-print h3 {
@@ -194,6 +219,15 @@
   .cv-print svg {
     color: #111827 !important;
     stroke: #111827 !important;
+  }
+
+  .cv-print .cv-contact-section {
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .cv-print .cv-contact-section h2 {
+    padding-top: 0 !important;
   }
 
   .cv-print .cv-contact-section p {

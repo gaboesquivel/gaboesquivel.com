@@ -1,13 +1,28 @@
 import './cv.css'
 import { LatestPosts } from 'components/blog/latest-posts'
+import {
+  PageSection,
+  PageTitle,
+  Prose,
+  proseClass,
+  sectionHeadingRow,
+  sectionSpacing,
+  sectionTitle,
+} from 'components/shared/page-layout'
+import { cn } from 'lib/utils'
 import type { Metadata } from 'next'
 import { PrintButton } from '../../components/print-button'
 import { ContactInfo } from '../../components/shared/contact-info'
-import { cvPdfFile, resolveCv } from './variants'
+import { cvPdfFile, cvSectionBreak, resolveCv } from './variants'
 
 type CvPageProps = {
   searchParams?: Promise<{ focus?: string | string[] }>
 }
+
+const bulletItemClass =
+  "cv-content cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•']"
+
+const bulletListClass = cn(proseClass, 'mb-8 list-none pl-0')
 
 export default async function CVPage({ searchParams }: CvPageProps) {
   const resolved = await searchParams
@@ -15,93 +30,110 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
   return (
     <section className="p-0 m-0 cv-content cv-print print:block print:w-full print:max-w-none">
-      <header className="cv-header mb-8">
-        <h1 className="text-2xl font-bold tracking-tighter flex justify-between items-center print:text-4xl ">
-          <span>Gabo Esquivel</span>
-          <PrintButton file={cvPdfFile({ key })} />
-        </h1>
-        <p className="cv-print-professional-title">
-          {variant.professionalTitle}
-        </p>
-      </header>
+      <div className="no-break-inside" data-cv-block="intro">
+        <header className="cv-header">
+          <PageTitle className="flex items-center justify-between">
+            <span>Gabo Esquivel</span>
+            <PrintButton file={cvPdfFile({ key })} />
+          </PageTitle>
+          <p className="cv-print-professional-title font-medium tracking-tight text-neutral-400">
+            {variant.professionalTitle}
+          </p>
+        </header>
 
-      <div className="cv-summary">
-        <p className="prose prose-neutral dark:prose-invert  cv-content ">
-          {variant.summary}
-        </p>
+        <div className="cv-summary">
+          <Prose className="cv-content">{variant.summary}</Prose>
+        </div>
+        <PageSection className="print:mt-0" title="Highlights">
+          <ul className={bulletListClass}>
+            {variant.highlights.map((highlight) => (
+              <li className={bulletItemClass} key={highlight}>
+                {highlight}
+              </li>
+            ))}
+          </ul>
+        </PageSection>
       </div>
-      <h2 className="text-xl font-semibold mb-4 mt-8">Highlights</h2>
 
-      <ul className="mb-8 space-y-1 list-none list-inside">
-        {variant.highlights.map((highlight) => (
-          <li
-            className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] "
-            key={highlight}
-          >
-            {highlight}
-          </li>
-        ))}
-      </ul>
-
-      <h2 className="text-xl font-semibold mb-4">Experience</h2>
-
-      <div className="cv-experience-list space-y-8 list-none list-inside">
-        {entries.map((exp) => (
+      <div className="cv-experience-list space-y-12 list-none list-inside print:space-y-0">
+        {entries.map((exp, index) => (
           <div
             key={exp.company}
-            className={`${exp.pageBreak ? 'page-break-before' : ''} cv-entry no-break-inside`}
+            data-cv-block={exp.company}
+            className={`${exp.pageBreak ? 'page-break-before ' : ''}cv-entry-group no-break-inside${index === 0 ? ` ${sectionSpacing} print:mt-0` : ''}`}
           >
-            <h3 className="text-xl font-semibold mb-1 print:text-lg cv-entry-title">
-              {exp.title}, {exp.company}
-            </h3>
-            {exp.title && (
-              <p className="exp-duration cv-entry-meta text-sm font-medium text-gray-400 mb-4">
-                {exp.location} • {exp.type} • {exp.duration}
-              </p>
-            )}
+            {index === 0 ? (
+              <div className={sectionHeadingRow}>
+                <h2 className={sectionTitle}>Experience</h2>
+              </div>
+            ) : null}
+            <div className="cv-entry">
+              <h3 className="mb-1 font-bold text-xl cv-entry-title">
+                {exp.title}, {exp.company}
+              </h3>
+              {exp.title ? (
+                <p className="exp-duration cv-entry-meta mb-4 text-sm text-neutral-400">
+                  {exp.location} • {exp.type} • {exp.duration}
+                </p>
+              ) : null}
 
-            <p className="mb-4 exp-description prose prose-neutral dark:prose-invert cv-content cv-entry-description">
-              {exp.description}
-            </p>
-            <ul className="mb-4 space-y-1 list-none pl-0 cv-content cv-entry-achievements">
-              {exp.achievements.map((achievement) => (
-                <li
-                  className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] "
-                  key={achievement}
-                >
-                  {achievement}
-                </li>
-              ))}
-            </ul>
+              <p
+                className={cn(
+                  proseClass,
+                  'mb-4 exp-description cv-content cv-entry-description',
+                )}
+              >
+                {exp.description}
+              </p>
+              <ul
+                className={cn(
+                  proseClass,
+                  'mb-4 list-none pl-0 cv-content cv-entry-achievements',
+                )}
+              >
+                {exp.achievements.map((achievement) => (
+                  <li className={bulletItemClass} key={achievement}>
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ))}
       </div>
 
-      {variant.also && (
-        <>
-          <h2 className="text-xl font-semibold mb-4 mt-8">
-            Additional experience
-          </h2>
-          <p className="prose prose-neutral dark:prose-invert cv-content cv-also">
-            {variant.also}
-          </p>
-        </>
-      )}
+      {variant.also ? (
+        <div
+          data-cv-block="also"
+          className={`${cvSectionBreak({ key, id: 'also' })}no-break-inside`}
+        >
+          <PageSection className="print:mt-0" title="Additional experience">
+            <Prose className="cv-content cv-also">{variant.also}</Prose>
+          </PageSection>
+        </div>
+      ) : null}
 
-      <h2 className="text-xl font-semibold mb-4 mt-8">Skills</h2>
+      <div
+        data-cv-block="skills"
+        className={`${cvSectionBreak({ key, id: 'skills' })}no-break-inside`}
+      >
+        <PageSection className="print:mt-0" title="Skills">
+          <ul className={bulletListClass}>
+            {variant.skills.map(({ label, keywords }) => (
+              <li className={bulletItemClass} key={label}>
+                <strong>{label}:</strong> {keywords}
+              </li>
+            ))}
+          </ul>
+        </PageSection>
+      </div>
 
-      <ul className="mb-8 space-y-1 list-none list-inside">
-        {variant.skills.map(({ label, keywords }) => (
-          <li
-            className="cv-content prose prose-neutral dark:prose-invert cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•'] "
-            key={label}
-          >
-            <strong>{label}:</strong> {keywords}
-          </li>
-        ))}
-      </ul>
-
-      <ContactInfo />
+      <div
+        data-cv-block="contact"
+        className={`${cvSectionBreak({ key, id: 'contact' })}no-break-inside`}
+      >
+        <ContactInfo />
+      </div>
 
       <div className="print:hidden">
         <LatestPosts />

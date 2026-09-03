@@ -4,10 +4,9 @@ import {
   cvKeys,
   resolveCv as resolveCvBase,
 } from 'gaboesquivel'
+import { cvPageBreaks } from './page-breaks'
 
 export type CvEntry = CvExperience & { pageBreak?: boolean }
-
-const pageBreakCompanies = new Set(['Bitlauncher', 'Bitcash', 'Wink'])
 
 const withPageBreaks = ({
   key,
@@ -15,15 +14,18 @@ const withPageBreaks = ({
 }: {
   key: CvKey
   entries: CvExperience[]
-}): CvEntry[] =>
-  key === 'full'
-    ? entries.map((entry) => ({
-        ...entry,
-        pageBreak: pageBreakCompanies.has(entry.company),
-      }))
-    : entries
+}): CvEntry[] => {
+  const breaks = new Set(cvPageBreaks[key])
+  return entries.map((entry) => ({
+    ...entry,
+    pageBreak: breaks.has(entry.company),
+  }))
+}
 
 export { type CvKey, cvKeys }
+
+export const cvSectionBreak = ({ key, id }: { key: CvKey; id: string }) =>
+  cvPageBreaks[key].includes(id) ? 'page-break-before ' : ''
 
 export const resolveCv = ({ focus }: { focus?: string | string[] }) => {
   const resolved = resolveCvBase({ focus })

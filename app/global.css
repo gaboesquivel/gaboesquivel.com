@@ -201,9 +201,23 @@ a {
     text-shadow: none !important;
   }
 
+  html,
   body {
     color: #000000 !important;
     background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body {
+    margin-bottom: 0 !important;
+  }
+
+  main {
+    max-width: none !important;
+    margin: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
   }
 
   .prose,
