@@ -12,7 +12,7 @@
     Arial,
     Noto Sans,
     sans-serif !important;
-  line-height: 1.55 !important;
+  line-height: 1.68 !important;
   font-size: 13px !important;
   max-width: 100% !important;
   padding: 0 !important;
@@ -79,7 +79,7 @@
   font-weight: 600 !important;
   line-height: 1.35 !important;
   color: #111827 !important;
-  margin: 0 0 2rem !important;
+  margin: 0 0 1.25rem !important;
   padding: 0 !important;
   break-after: avoid !important;
   page-break-after: avoid !important;
@@ -97,20 +97,20 @@
 .cv-print .cv-also {
   color: #111827 !important;
   font-size: 13px !important;
-  line-height: 1.52 !important;
+  line-height: 1.68 !important;
   font-weight: 400 !important;
   margin: 0 !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 
-/* One spacer above every section h2 (both pages) */
+/* Section h2 air — larger than job-to-job gap, same on every section */
 .cv-print .cv-summary + section,
 .cv-print .cv-experience-list,
 .cv-print [data-cv-block="also"],
 .cv-print [data-cv-block="skills"],
 .cv-print [data-cv-block="contact"] {
-  margin-top: 1rem !important;
+  margin-top: 1.55rem !important;
 }
 
 .cv-print .cv-section-heading {
@@ -131,11 +131,12 @@
 .cv-print .cv-experience-list {
   display: flex !important;
   flex-direction: column !important;
-  gap: 1.55rem !important;
+  gap: 0.85rem !important;
 }
 
 .cv-print .cv-experience-list > * {
   margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .cv-print [data-cv-block] {
@@ -178,7 +179,7 @@
 .cv-print .exp-description {
   font-size: 13px !important;
   font-weight: 400 !important;
-  line-height: 1.52 !important;
+  line-height: 1.68 !important;
   margin: 0 0 0.75rem !important;
 }
 
@@ -188,13 +189,17 @@
   list-style: none !important;
 }
 
+.cv-print .cv-entry-achievements .cv-bullet:last-child {
+  margin-bottom: 0 !important;
+}
+
 .cv-print ul.prose > li,
 .cv-print .cv-bullet {
   color: #111827 !important;
   font-size: 13px !important;
   font-weight: 400 !important;
   margin: 0 0 0.22rem !important;
-  line-height: 1.52 !important;
+  line-height: 1.68 !important;
   padding-left: 0.95rem !important;
 }
 
@@ -220,10 +225,10 @@
   page-break-after: avoid !important;
 }
 
-/* Heading-row only — do not match .cv-contact-section */
+/* Same heading → content air under every section h2 */
 .cv-print [data-cv-block] section > div:has(> h2),
 .cv-print .cv-entry-group > div:has(> h2) {
-  margin-bottom: 0 !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .cv-print h3 {
@@ -244,7 +249,7 @@
 
 .cv-print .cv-contact-section h2 {
   padding-top: 0 !important;
-  margin: 0 0 0.4rem !important;
+  margin: 0 0 0.5rem !important;
 }
 
 .cv-print .cv-contact-section p {

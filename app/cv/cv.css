@@ -11,24 +11,13 @@
 
   .cv-header .cv-print-professional-title {
     margin-top: 0;
-  }
-
-  .cv-print ul.prose > :first-child,
-  .cv-print ul.prose > li,
-  .cv-print .cv-bullet {
-    margin-top: 0 !important;
-    margin-bottom: 0.35em !important;
-    line-height: 1.5 !important;
-  }
-
-  .cv-print ul.prose > li:last-child,
-  .cv-print .cv-bullet:last-child {
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
   }
 
   .cv-print .cv-summary p,
   .cv-print .cv-entry-description,
-  .cv-print .cv-also {
+  .cv-print .cv-also,
+  .cv-print .cv-bullet {
     line-height: 1.75;
   }
 }
