@@ -16,8 +16,19 @@
 
   .cv-print .cv-summary p,
   .cv-print .cv-entry-description,
-  .cv-print .cv-also,
-  .cv-print .cv-bullet {
+  .cv-print .cv-also {
+    line-height: 1.75;
+  }
+
+  html:not(:has([data-cv-preview="print"])) .cv-print .cv-entry {
+    padding-bottom: 2px;
+  }
+
+  /* Match homepage `p` leading; drop prose li / first-child item gaps */
+  html:not(:has([data-cv-preview="print"])) .cv-print ul.prose > li,
+  html:not(:has([data-cv-preview="print"])) .cv-print .cv-bullet {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     line-height: 1.75;
   }
 }

@@ -131,7 +131,7 @@
 .cv-print .cv-experience-list {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.85rem !important;
+  gap: calc(0.85rem + 2px) !important;
 }
 
 .cv-print .cv-experience-list > * {
@@ -153,7 +153,7 @@
 
 .cv-print .cv-entry {
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0 0 2px !important;
 }
 
 .cv-print .cv-entry-title {
@@ -187,6 +187,13 @@
   margin: 0 !important;
   padding: 0 !important;
   list-style: none !important;
+  font-size: 13px !important;
+  line-height: 1.68 !important;
+}
+
+.cv-print ul.prose {
+  font-size: 13px !important;
+  line-height: 1.68 !important;
 }
 
 .cv-print .cv-entry-achievements .cv-bullet:last-child {
@@ -198,7 +205,7 @@
   color: #111827 !important;
   font-size: 13px !important;
   font-weight: 400 !important;
-  margin: 0 0 0.22rem !important;
+  margin: 0 !important;
   line-height: 1.68 !important;
   padding-left: 0.95rem !important;
 }
@@ -228,7 +235,7 @@
 /* Same heading → content air under every section h2 */
 .cv-print [data-cv-block] section > div:has(> h2),
 .cv-print .cv-entry-group > div:has(> h2) {
-  margin-bottom: 0.5rem !important;
+  margin-bottom: calc(0.5rem + 2px) !important;
 }
 
 .cv-print h3 {
@@ -249,7 +256,7 @@
 
 .cv-print .cv-contact-section h2 {
   padding-top: 0 !important;
-  margin: 0 0 0.5rem !important;
+  margin: 0 0 calc(0.5rem + 2px) !important;
 }
 
 .cv-print .cv-contact-section p {
