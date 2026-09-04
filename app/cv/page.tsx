@@ -8,6 +8,7 @@ import {
   sectionHeadingRow,
   sectionSpacing,
   sectionTitle,
+  titleSpacing,
 } from 'components/shared/page-layout'
 import { cn } from 'lib/utils'
 import type { Metadata } from 'next'
@@ -25,7 +26,6 @@ type CvPageProps = {
 const bulletItemClass =
   "cv-content cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•']"
 
-const cvHeadingRow = 'mb-4'
 const bulletListClass = cn(proseClass, 'mb-0 list-none pl-0')
 
 const previewParam = ({ preview }: { preview?: string | string[] }) =>
@@ -49,12 +49,18 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         media={isPreviewPrint ? 'all' : 'print'}
       />
       <div className="no-break-inside" data-cv-block="intro">
-        <header className="cv-header flex flex-col">
+        <header
+          className={cn(
+            'cv-header flex flex-col',
+            titleSpacing,
+            'print:mb-0 preview-print:mb-0',
+          )}
+        >
           <PageTitle className="mb-0 flex items-baseline justify-between leading-none">
             <span>Gabo Esquivel</span>
             <PrintButton file={cvPdfFile({ key })} />
           </PageTitle>
-          <p className="cv-print-professional-title mt-0 font-medium tracking-tight text-neutral-400">
+          <p className="cv-print-professional-title mt-0 mb-0 font-medium tracking-tight text-neutral-400">
             {variant.professionalTitle}
           </p>
         </header>
@@ -63,8 +69,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           <Prose className="cv-content">{variant.summary}</Prose>
         </div>
         <PageSection
-          className="print:mt-0"
-          headingRowClassName={cvHeadingRow}
+          className="print:mt-0 preview-print:mt-0"
           title="Highlights"
         >
           <ul className={bulletListClass}>
@@ -77,15 +82,15 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         </PageSection>
       </div>
 
-      <div className="cv-experience-list space-y-8 list-none list-inside print:space-y-0">
+      <div className="cv-experience-list space-y-8 list-none list-inside print:space-y-0 preview-print:space-y-0">
         {entries.map((exp, index) => (
           <div
             key={exp.company}
             data-cv-block={exp.company}
-            className={`${exp.pageBreak ? 'page-break-before ' : ''}cv-entry-group no-break-inside${index === 0 ? ` ${sectionSpacing} print:mt-0` : ''}`}
+            className={`${exp.pageBreak ? 'page-break-before ' : ''}cv-entry-group no-break-inside${index === 0 ? ` ${sectionSpacing} print:mt-0 preview-print:mt-0` : ''}`}
           >
             {index === 0 ? (
-              <div className={cn(sectionHeadingRow, cvHeadingRow)}>
+              <div className={sectionHeadingRow}>
                 <h2 className={sectionTitle}>Experience</h2>
               </div>
             ) : null}
@@ -130,8 +135,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           className={`${cvSectionBreak({ key, id: 'also' })}no-break-inside`}
         >
           <PageSection
-            className="print:mt-0"
-            headingRowClassName={cvHeadingRow}
+            className="print:mt-0 preview-print:mt-0"
             title="Additional experience"
           >
             <Prose className="cv-content cv-also">{variant.also}</Prose>
@@ -143,11 +147,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         data-cv-block="skills"
         className={`${cvSectionBreak({ key, id: 'skills' })}no-break-inside`}
       >
-        <PageSection
-          className="print:mt-0"
-          headingRowClassName={cvHeadingRow}
-          title="Skills"
-        >
+        <PageSection className="print:mt-0 preview-print:mt-0" title="Skills">
           <ul className={bulletListClass}>
             {variant.skills.map(({ label, keywords }) => (
               <li className={bulletItemClass} key={label}>
