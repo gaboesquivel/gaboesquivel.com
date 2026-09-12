@@ -11,7 +11,7 @@
       "source": "blockmatic/basilic-skills",
       "sourceType": "github",
       "skillPath": "skills/frontend-design-v1/SKILL.md",
-      "computedHash": "b88872a00592c6962be2e87aacf19c8fcaba04d24dc16adbdce40bd981d23ad3"
+      "computedHash": "1f81af612869800f1297a65000198e5db22ca510c634116d97cb4a633370619e"
     },
     "gabo": {
       "source": "gaboesquivel/gaboesquivel-skills",
@@ -29,7 +29,7 @@
       "source": "blockmatic/basilic-skills",
       "sourceType": "github",
       "skillPath": "skills/next-v16/SKILL.md",
-      "computedHash": "230365194e69a6949797349b54aeaaca3b6db4c91c5351d278a0293cdbad85c5"
+      "computedHash": "0d29fb83302c3e148073a5ccef18c027e5b0c1714ec227522623018a37eacd72"
     },
     "tailwind-design-system-v4": {
       "source": "blockmatic/basilic-skills",
@@ -41,7 +41,7 @@
       "source": "blockmatic/basilic-skills",
       "sourceType": "github",
       "skillPath": "skills/workflow/SKILL.md",
-      "computedHash": "634035249f98ddaa65542d282a0a3d2ab87dd7ae8113c3a45dda7fd94aa5414b"
+      "computedHash": "9e5cf7317ad42e839e5d9695a461de90a9ffa76bef776f904363b2d3dbfd84e4"
     }
   }
 }
