@@ -37,7 +37,7 @@ export const singleColGrid = 'grid grid-cols-1 gap-4'
 export const blockGrid = cn(blockSpacing, twoColGrid)
 
 export const cardLink =
-  'flex h-full w-full flex-col rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800'
+  'flex h-full w-full flex-col rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-100 hover:text-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-neutral-800 dark:hover:bg-neutral-800 dark:hover:text-white'
 
 export const projectMedia =
   'relative mb-6 aspect-[16/9] h-auto w-full max-h-[400px]'

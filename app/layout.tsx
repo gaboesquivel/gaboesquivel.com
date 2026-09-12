@@ -59,7 +59,7 @@ export default function RootLayout({
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>👩‍🚀</text></svg>"
         />
       </head>
-      <body className="relative mb-40 antialiased max-w-full min-w-0">
+      <body className="relative mb-12 antialiased max-w-full min-w-0 sm:mb-40">
         <div className="w-full h-0.5 bg-accent sticky top-0 z-50 print:hidden preview-print:hidden" />
         <main className="mx-auto mt-8 flex min-w-0 max-w-4xl flex-auto flex-col px-4 sm:px-6 print:mt-0 print:max-w-none print:px-0 preview-print:mt-0 preview-print:max-w-none preview-print:px-0">
           <Navbar />
