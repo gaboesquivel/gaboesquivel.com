@@ -64,7 +64,7 @@ Use only facts already present in `LetsConnect`: direct hire, international hire
 - Visitor: founder or technical lead checking whether the writing is specific and current
 - Message: notes on AI, Web3, and engineering from real implementation work
 - Evidence: current-era posts in the masonry; archive posts stay visible and dated
-- Category pages name the writing slice only — do not target capability keywords owned by `/ai` or `/web3`
+- Category pages name the writing slice only — do not target capability keywords owned by `/`, `/ai`, or `/web3`. `/blog/category/product` is writing about product work, not the “product engineer” capability claim owned by `/`
 - CTA: read a post, then `/connect` via site chrome
 
 ## `/cv` and `/tech`

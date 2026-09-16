@@ -1,4 +1,5 @@
 export const browseCategories = [
+  'product',
   'engineering',
   'ai',
   'ux',
@@ -10,6 +11,7 @@ export const browseCategories = [
 export type BrowseCategory = (typeof browseCategories)[number]
 
 export const categoryMap: Record<string, BrowseCategory> = {
+  Product: 'product',
   Engineering: 'engineering',
   'Artificial Intelligence': 'ai',
   AI: 'ai',
@@ -20,6 +22,7 @@ export const categoryMap: Record<string, BrowseCategory> = {
 }
 
 export const categoryDisplayNames: Record<BrowseCategory, string> = {
+  product: 'Product',
   engineering: 'Engineering',
   ai: 'AI',
   ux: 'UX',
@@ -78,6 +81,8 @@ export const postMatchesBrowseCategory = ({
 }) => categories?.some((category) => categoryMap[category] === slug) ?? false
 
 export const categoryDescriptions: Record<BrowseCategory, string> = {
+  product:
+    'Notes on owning the path from user experience to shipped systems — product, interface, and the work around the model.',
   engineering:
     'Notes on architecture, tooling, and shipping software — patterns, tradeoffs, and what held up in production.',
   ai: 'Posts tagged AI: dated notes from implementation work.',

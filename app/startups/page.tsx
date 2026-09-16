@@ -43,6 +43,7 @@ export default function StartupsExperiencePage() {
       ]}
       sections={sections}
       postSlugs={[
+        '2026-09-product-engineering',
         '2026-02-engineering-ai-era',
         '2024-10-modern-nextjs-web3-architecture',
         '2026-04-forward-deployed-engineer',

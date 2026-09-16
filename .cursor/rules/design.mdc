@@ -12,5 +12,7 @@ Before visual or UX changes, read repo-root `DESIGN.md`.
 - Allowed: hierarchy, spacing on the existing scale, focus/contrast/`motion-safe`, empty/error states, extend primitives, tighten drift in files already open.
 - Not allowed unless explicitly tasked: new identity, restyle of `/work`, `/project/[slug]`, `/cv`, or restyle during a content pass.
 - `frontend-design-v1` is a critic inside `DESIGN.md` — anti-slop and restraint only. Do not invent tokens from that skill.
+- `better-ui` is a polish critic inside `DESIGN.md` — concentric radius, optical alignment, named transitions. No shadows, glows, grain, or image-outline depth.
 - `tailwind-design-system-v4` is CSS-architecture only, not a page restyle.
-- Motion: existing budget in `DESIGN.md` only; `emilkowal-animations-v1` for easing inside that budget.
+- Motion: existing budget in `DESIGN.md` only; `emil-design-eng` for easing and press scale (`0.97`) inside that budget.
+- `review-animations` and `find-animation-opportunities` are user-invoked. Do not hunt or expand motion unless asked.

@@ -6,7 +6,7 @@ import { allBlogs } from 'lib/blog'
 import { blogJsonLd } from 'lib/blog-json-ld'
 import { getRelatedPosts } from 'lib/blog-related'
 import { isArchivePost } from 'lib/blog-taxonomy'
-import { formatDate } from 'lib/utils'
+import { cn, formatDate } from 'lib/utils'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -63,6 +63,7 @@ export default async function Blog({
   if (!post) notFound()
 
   const relatedPosts = getRelatedPosts({ post, allPosts: allBlogs })
+  const archived = isArchivePost(post.publishedAt)
 
   return (
     <section>
@@ -74,19 +75,22 @@ export default async function Blog({
           __html: JSON.stringify(blogJsonLd(post)),
         }}
       />
-      <h1 className={`${indexTitle} text-balance`}>{post.title}</h1>
-      <div className="flex justify-between items-center mt-2 mb-2 text-sm max-w-[650px]">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.publishedAt)}
-        </p>
-      </div>
-      {isArchivePost(post.publishedAt) ? (
-        <p className="mb-4 max-w-[650px] text-sm text-neutral-500 dark:text-neutral-500">
+      <h1 className={cn(indexTitle, 'mb-2 text-balance')}>{post.title}</h1>
+      <p
+        className={cn(
+          'max-w-[650px] text-sm text-neutral-600 dark:text-neutral-400',
+          archived ? 'mb-2' : 'mb-6',
+        )}
+      >
+        <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+      </p>
+      {archived ? (
+        <p className="mb-6 max-w-[650px] text-sm text-neutral-500 dark:text-neutral-500">
           Historical post — views and technology at time of publication.
         </p>
       ) : null}
-      <BlogPostChips categories={post.category} tech={post.tech} />
       <Mdx code={post.body} />
+      <BlogPostChips categories={post.category} />
       {relatedPosts.length > 0 ? (
         <PostGrid posts={relatedPosts} title="Related writing" />
       ) : null}

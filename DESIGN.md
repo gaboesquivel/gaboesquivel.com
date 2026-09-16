@@ -111,7 +111,7 @@ Homepage `PathLink` is a borderless variant of the card pattern; leave both unti
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, nav `layoutId` spring, masonry opacity, project-card image scale, `→` nudge with `motion-safe:`. Use `emilkowal-animations-v1` for easing inside this budget only — no page-load sequences or scroll hijack.
+Motion budget: color/underline transitions, nav `layoutId` spring, masonry opacity, project-card image scale, `→` nudge with `motion-safe:`. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## Do's and Don'ts
 
@@ -133,6 +133,9 @@ Motion budget: color/underline transitions, nav `layoutId` spring, masonry opaci
 **Skills**
 
 - `frontend-design-v1` is a critic inside this brief (anti-slop, restraint). It must not invent palette, type, or a signature — this file wins.
+- `better-ui` is a polish critic (concentric radius, optical alignment, named `transition` properties, icon stroke). Veto shadows, glows, grain, and new image outlines. Hover stays fill or a 1px border shift.
+- `emil-design-eng` is the motion-value source inside the budget above. `motion-v13` is for Motion APIs already in use. `emilkowal-animations-v1` stays installed for Tailwind v4 mappings; do not cite it as authority.
+- `review-animations` and `find-animation-opportunities` are user-invoked. Do not auto-expand motion; this file's budget is the gate.
 - `tailwind-design-system-v4` is for CSS/token architecture, not a page restyle.
 
 ## Drift

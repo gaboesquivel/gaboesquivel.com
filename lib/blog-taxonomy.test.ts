@@ -12,6 +12,7 @@ import {
 describe('blog taxonomy', () => {
   test('browse categories keep nav order', () => {
     expect(browseCategories).toEqual([
+      'product',
       'engineering',
       'ai',
       'ux',
@@ -19,6 +20,12 @@ describe('blog taxonomy', () => {
       'defi',
       'community',
     ])
+  })
+
+  test('maps Product to product browse slug', () => {
+    expect(toBrowseSlug('Product')).toBe('product')
+    expect(toBrowseSlug('product')).toBe('product')
+    expect(isKnownCategory('Product')).toBe(true)
   })
 
   test('maps AI aliases to ai browse slug', () => {

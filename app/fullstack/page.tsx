@@ -37,6 +37,7 @@ export default function FullstackExperiencePage() {
       ]}
       sections={sections}
       postSlugs={[
+        '2026-09-product-engineering',
         '2024-07-viem-wagmi-ethers',
         '2024-10-modern-nextjs-web3-architecture',
         '2026-02-engineering-ai-era',

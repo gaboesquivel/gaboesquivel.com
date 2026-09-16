@@ -1,0 +1,63 @@
+---
+title: Product Engineering
+publishedAt: 2026-09-16
+summary: 'Why the role matters more now that implementation is cheap, and how to run the work with agents — not a layer title and not a PM with a coding tool.'
+image: /images/2026/09/product-engineering.webp
+category: ['Product', 'Engineering', 'Artificial Intelligence', 'Startups']
+tech: []
+---
+
+Coding agents made a first draft cheap. That did not make product engineering optional. It made it the useful name for the work that was already poorly described by frontend and backend hiring buckets: apply the stack to ship the product, working backwards from the experience.
+
+[Lee Robinson's Product Engineers](https://leerob.com/product-engineers) is still the cleanest public description. In 2026 it is more true, not less. [AI](/ai) flattened a lot of the syntax. It did not flatten taste, the paths through a product, or what done means.
+
+I wrote about the [skillset](/blog/2025-03-the-product-engineer) in 2025. This is the update: why the role is more relevant now, and how to use agents inside that work.
+
+{/* Prevent CLS with responsive aspect ratio */}
+<div className="image-container">
+![Product Engineering](/images/2026/09/product-engineering.webp)
+</div>
+
+## Layers vs outcomes
+
+Software engineer, as most teams use it, still means a layer or a ticket: frontend, backend, infra, a slice of a backlog. That work is real. It is not the same job as owning whether the product works.
+
+A product manager owns the problem, the sequence, and a lot of the why. They do not own the last mile of making it real: the empty states, the error when the API fails, the session that dies on a bad connection, the control a team needs after launch.
+
+A [forward deployed engineer](/blog/2026-04-forward-deployed-engineer) owns adoption in one customer's environment. That overlaps. The difference is the unit of accountability. FDE work is the account. Product engineering is the product.
+
+Product engineers sit in the gap Lee describes: not deep in every subsystem, but deep in applying the stack to the experience. Interface, application, data, and now the model and tools around it. [Engineering in the AI Era](/blog/2026-02-engineering-ai-era) is the how of that engineering shift: less time translating ideas into syntax, more time deciding what should exist. This post is the product-owned loop.
+
+## Why the title is not junior
+
+Coding agents write a first draft. They do not know what done means in a product. They do not notice that a slow or missing network turns a feature into a brick, or that an error state dumps the user out of a flow they cannot reconstruct.
+
+Lee's questions are still the spec: what happens offline, what happens when the API errors, how this feels on a phone, which latency is acceptable. Taste, constraints, and those paths do not commoditize because a model can emit React.
+
+That is why this is not an entry-level title. You can hire people early in their careers to ship tickets. You cannot hire "product engineer" as a first job and expect the same ownership. The scarce skills are judgment and contact with the user, not world-class algorithm work. Coding still matters. When agents produce the first pass, the differentiator is whether you can tell if the pass is the product.
+
+Empathy is an engineering input. Sitting with people who use the thing, watching where they stall, changing what the product is allowed to do — that is how the system actually changes. Agents do not do that on their own.
+
+## Using AI in the work
+
+The useful loop is still: experience → constraints → something in users' hands → whether it holds. Agents sit in the middle. They do not replace the ends.
+
+**Specify the experience, not the ticket.** User paths, empty and error states, offline and mobile, latency, permissions, and what the model is allowed to do are the constraints agents will not invent. Write those down as the spec. A backlog item that only names a component is not enough. Those constraints are also the intake for an [AI coding factory](/blog/2026-09-ai-code-factories). The factory runs the loop. Product engineering decides what goes in.
+
+**Prototype to feel the product.** Use coding tools to try the interaction, not to generate more tickets. Speed is for learning whether the experience holds. If you cannot click through it, you do not know yet.
+
+**Done is a path through the product.** Green CI is necessary and not sufficient. Acceptance is Lee's questions, including the failure states. If the happy path works and a timeout dumps the user, it is not done.
+
+**Review generated UI and behavior as product decisions.** Copy, empty states, permissions, latency, and tool or model boundaries are the review, not only architecture. The agent will happily ship a screen that compiles and still is the wrong product.
+
+**Spend the extra capacity on alternatives.** Cheap implementation means more approaches in the same week. Taste still chooses.
+
+Coding tools also lower the syntax floor for people who already know what to build. That includes PMs who can now prototype. The valuable combo in 2026 is not a PM who learned Copilot. It is product sense plus the ability to ship, review architecture, and hold those paths while agents do more of the typing.
+
+## What companies are actually asking for
+
+Startups still post fullstack or frontend when they need someone who can take a product from a vague constraint to something in users' hands. Lean AI product teams need the same person: the model is available; the product around it is not.
+
+I would not keep a list of who is hiring this month. The pattern is stable. Companies that sell software to end users, running small teams, with AI in the loop. Separate from that, vendors staff forward deployed programs to close demo-to-production in one account. If you are hiring for the product itself, you want a product engineer. If you are hiring for one customer's adoption of a platform, you want an FDE.
+
+If you are hiring for this, look at shipped products and the decisions in them, not at who can produce the most code in a take-home. If you are doing the work, own the path from the experience back to the system. Keep the layer titles if they help you staff. Do not confuse them with the job.

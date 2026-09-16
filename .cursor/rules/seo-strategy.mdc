@@ -28,7 +28,7 @@ Use the installed `gabo` skill for voice. Metadata must describe the page's actu
 - `/tech`: technology stack
 - `/blog`: writing and engineering notes
 
-Do not make multiple narrative pages target the same career-story intent.
+Do not make multiple narrative pages target the same career-story intent. Blog category pages (`/blog/category/[slug]`) name a writing slice only. `/blog/category/product` must not target the “product engineer” keyword owned by `/`.
 
 ## Metadata
 

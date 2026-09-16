@@ -1,14 +1,10 @@
-import { techStack } from 'gaboesquivel'
+import { blockSpacing } from 'components/shared/page-layout'
 import { categoryDisplayNames, toBrowseSlug } from 'lib/blog-taxonomy'
+import { cn } from 'lib/utils'
 import Link from 'next/link'
+import { Fragment } from 'react'
 
-export function BlogPostChips({
-  categories,
-  tech,
-}: {
-  categories?: string[]
-  tech?: string[]
-}) {
+export function BlogPostChips({ categories }: { categories?: string[] }) {
   const browseSlugs = [
     ...new Set(
       categories?.flatMap((category) => {
@@ -18,34 +14,31 @@ export function BlogPostChips({
     ),
   ]
 
-  const techItems =
-    tech?.flatMap((tag) => {
-      const item = techStack.find((entry) => entry.tag === tag)
-      return item ? [{ tag, slug: item.slug, name: item.name }] : []
-    }) ?? []
-
-  if (browseSlugs.length === 0 && techItems.length === 0) return null
+  if (browseSlugs.length === 0) return null
 
   return (
-    <div className="flex flex-wrap gap-2 mb-6 max-w-[650px]">
-      {browseSlugs.map((slug) => (
-        <Link
-          key={slug}
-          href={`/blog/category/${slug}`}
-          className="rounded-full border border-neutral-200 px-2.5 py-0.5 text-xs text-neutral-600 transition-colors hover:border-accent hover:text-accent dark:border-neutral-700 dark:text-neutral-400"
-        >
-          {categoryDisplayNames[slug]}
-        </Link>
+    <nav
+      aria-label="Writing categories"
+      className={cn(
+        blockSpacing,
+        'max-w-[650px] text-sm text-neutral-600 print:hidden preview-print:hidden dark:text-neutral-400',
+      )}
+    >
+      {browseSlugs.map((slug, index) => (
+        <Fragment key={slug}>
+          {index > 0 ? (
+            <span aria-hidden="true" className="mx-2">
+              ·
+            </span>
+          ) : null}
+          <Link
+            href={`/blog/category/${slug}`}
+            className="transition-colors hover:text-accent"
+          >
+            {categoryDisplayNames[slug]}
+          </Link>
+        </Fragment>
       ))}
-      {techItems.map((item) => (
-        <Link
-          key={item.tag}
-          href={`/tech/${item.slug}`}
-          className="rounded-full border border-neutral-200 px-2.5 py-0.5 text-xs text-neutral-600 transition-colors hover:border-accent hover:text-accent dark:border-neutral-700 dark:text-neutral-400"
-        >
-          {item.name}
-        </Link>
-      ))}
-    </div>
+    </nav>
   )
 }
