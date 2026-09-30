@@ -1,133 +1,78 @@
 ---
 title: EVM Token Standards Overview
 publishedAt: 2025-05-15
-summary: Ethereum token standards. ERC-20, ERC-1155, ERC-6909, and ERC-7281
+summary: What ERC-20, ERC-1155, ERC-6909, and ERC-7281 each define, where each one fits, and how they compare on batching, approvals, and gas.
 image: /images/2025/05/evm-token-standards.webp
 category: ['Web3', 'DeFi', 'Backend']
 tech: ['Ethereum', 'Solidity']
 ---
 
-[Ethereum](/tech/ethereum)'s innovation has been fueled not just by smart contracts but also by token standards—defined interfaces that let developers build interoperable assets. These standards govern how tokens behave, transfer, and interact with wallets and dApps.
-
-Four that matter in practice: ERC-20, ERC-1155, ERC-6909, and ERC-7281. If you build, invest, or just read contracts, this is how a lot of the Web3 economy actually moves.
+Every wallet, DEX, and dApp on [Ethereum](/tech/ethereum) can handle a token it has never seen because token standards define the interface: how a token behaves, transfers, and interacts with the software around it. Four standards cover most of what I read and build against in practice, ERC-20, ERC-1155, ERC-6909, and ERC-7281, and between them they describe how a large share of the Web3 economy moves.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![EVM Token Standards](/images/2025/05/evm-token-standards.webp)
 </div>
 
-## ERC-20: The fungible token blueprint
+## ERC-20: the fungible token blueprint
 
-Launched in 2015, [ERC-20](https://eips.ethereum.org/EIPS/eip-20) is the original token standard for Ethereum. It defines a set of functions for fungible tokens—tokens that are identical and interchangeable, like currency.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20), launched in 2015, is Ethereum's original token standard. It defines the functions for fungible tokens, which are identical and interchangeable like currency.
 
-Key features:
+Its interface is small:
 
-* Each token contract represents one asset type
-* Functions: `transfer`, `approve`, `transferFrom`, `balanceOf`, `totalSupply`
-* Widespread adoption in DeFi, DAOs, and ICOs
+* Each token contract represents one asset type.
+* The core functions are `transfer`, `approve`, `transferFrom`, `balanceOf`, and `totalSupply`.
+* Adoption is universal across DeFi, DAOs, and token sales.
 
-Use cases:
+ERC-20 is the format for stablecoins such as USDC and DAI, governance tokens such as UNI and AAVE, and wrapped assets such as WBTC, which makes it the base layer of [DeFi protocols](/project/opyn) and most decentralized applications.
 
-* Stablecoins (e.g., USDC, DAI)
-* Governance tokens (e.g., UNI, AAVE)
-* Wrapped assets (e.g., WBTC)
+Its limits come from the one-asset-per-contract design, so it has no batch operations and does not fit NFTs or multi-token systems.
 
-These tokens form the foundation of modern [DeFi protocols](/project/opyn) and decentralized applications.
+## ERC-1155: multiple assets in one contract
 
-Limitations:
+[ERC-1155](https://eips.ethereum.org/EIPS/eip-1155), introduced by Enjin in 2018, is a multi-token standard in which one contract represents many token types, both fungible and non-fungible. It supports batch operations and mints and transfers several assets in one call.
 
-* No batch operations
-* One contract = one asset
-* Not suitable for NFTs or multi-token systems
+That shape suits games, where weapons, armor, and currency can live in one contract, as well as digital collectibles and metaverse economies. The trade-off is implementation complexity, since safe interactions require `safeTransferFrom` and the `onERC1155Received` callback.
 
+## ERC-6909: the lean multi-token standard
 
-## ERC-1155: Multi-asset, multi-use
+[ERC-6909](https://eips.ethereum.org/EIPS/eip-6909) is a newer, lighter alternative to ERC-1155 for DeFi protocols that need many fungible asset types in one contract. It keeps a minimal interface for managing token types, drops the mandatory callbacks, adds per-token allowances where ERC-1155 only has global operator approvals, and costs less gas than both ERC-20 and ERC-1155.
 
-Introduced by Enjin in 2018, [ERC-1155](https://eips.ethereum.org/EIPS/eip-1155) is a multi-token standard that allows a single contract to represent multiple token types—both fungible and non-fungible.
+It fits vault shares, LP positions such as those in the Uniswap v4 PoolManager, and tokenized funds with several share classes, all without the operational overhead of ERC-1155.
 
-Key features:
-
-* Supports batch operations
-* Combines NFTs and fungibles in one contract
-* Efficient minting and transferring of multiple assets
-
-Use cases:
-
-* Gaming (e.g., weapons, armor, currency in one contract)
-* Digital collectibles
-* Metaverse economies
-
-Trade-offs:
-
-* More complex to implement
-* Requires `safeTransferFrom` and `onERC1155Received` callbacks for safe interactions
-
-
-## ERC-6909: The lean multi-token standard
-
-[ERC-6909](https://eips.ethereum.org/EIPS/eip-6909) is a newer, lightweight alternative to ERC-1155, ideal for DeFi protocols that need to represent multiple fungible asset types efficiently.
-
-Key features:
-
-* Minimal interface for managing multiple token types
-* No mandatory callbacks
-* Built-in per-token allowances (vs. global approvals only in 1155)
-* More gas-efficient than both ERC-20 and ERC-1155
-
-Use cases:
-
-* Vault shares
-* LP tokens (e.g., used in Uniswap v4 PoolManager)
-* Tokenized funds with multiple classes
-
-ERC-6909 offers a simpler, developer-friendly way to manage fungible assets at scale—without the operational overhead of ERC-1155.
-
-## ERC-7281: Cross-chain token identity
+## ERC-7281: cross-chain token identity
 
 > **Update (2026):** At publication I described ERC-7281 as a `chainId()` identity extension. The EIP is actually **Sovereign Bridged Tokens (xERC20)**: issuer-controlled mint/burn with per-bridge rate limits and an optional Lockbox wrapper. The section below reflects my original write-up, not the authoritative standard.
 
-[ERC-7281](https://eips.ethereum.org/EIPS/eip-7281) introduces a standardized interface for identifying tokens across chains by embedding the `chainId` into the token's interface.
+[ERC-7281](https://eips.ethereum.org/EIPS/eip-7281) introduces a standard interface for identifying tokens across chains by embedding the `chainId` in the token's interface.
 
-As multichain ecosystems grow, ambiguity in token identity becomes a major problem. For example, `USDC` on Ethereum L1 and `USDC` on Arbitrum may be totally different tokens. ERC-7281 helps prevent confusion, spoofing, and misrepresentation in dApps, bridges, and explorers.
+As multichain ecosystems grow, token identity gets ambiguous, since `USDC` on Ethereum L1 and `USDC` on Arbitrum may be entirely different tokens, and ERC-7281 aims to prevent the resulting confusion, spoofing, and misrepresentation in dApps, bridges, and explorers. It does that in four ways:
 
-Key features:
+* It adds a `chainId()` function to token interfaces.
+* It extends `symbol()`, `name()`, and `decimals()` with optional `chainId`-aware context.
+* It lets wallets and protocols tell tokens apart across L1s, L2s, and sidechains.
+* It supports bridge security and cross-chain composability.
 
-* Adds `chainId()` function to token interfaces
-* Extends `symbol()`, `name()`, and `decimals()` with optional `chainId`-aware context
-* Helps wallets and protocols differentiate tokens across L1s, L2s, and sidechains
-* Aids in bridge security and cross-chain composability
+That makes it useful for cross-chain token registries, safer bridging and routing, and dApps that show accurate token information across chains. ERC-7281 complements ERC-20, ERC-1155, and ERC-6909 by giving their tokens global uniqueness, and it does not replace any of them.
 
-Use cases:
-
-* Cross-chain token registries
-* Safe bridging and token routing
-* dApps displaying accurate token info across chains
-
-Compatibility:
-
-ERC-7281 is complementary to ERC-20, ERC-1155, and even ERC-6909. It doesn't replace them—it enhances them by giving tokens global uniqueness.
-
-## Comparison
+## How the four standards compare
 
 | Feature               | ERC-20      | ERC-1155               | ERC-6909        | ERC-7281          |
 | --------------------- | ----------- | ---------------------- | --------------- | ----------------- |
 | Token Types           | 1 Fungible  | Many (Fungible + NFTs) | Many (Fungible) | Any (extension)   |
-| Batch Operations      | ❌           | ✅                      | ❌               | N/A               |
-| Transfer Callbacks    | ❌           | ✅                      | ❌               | N/A               |
-| NFT Support           | ❌           | ✅                      | ❌               | ❌ (enhancement)   |
+| Batch Operations      | No          | Yes                    | No              | N/A               |
+| Transfer Callbacks    | No          | Yes                    | No              | N/A               |
+| NFT Support           | No          | Yes                    | No              | No (enhancement)  |
 | Approval Model        | Per-address | Global operator        | Global + Per-ID | N/A               |
-| Cross-Chain Awareness | ❌           | ❌                      | ❌               | ✅ via `chainId()` |
+| Cross-Chain Awareness | No          | No                     | No              | Yes via `chainId()` |
 | Gas Efficiency        | Medium      | High                   | Highest         | Depends on base   |
 | Usage                 | Tokens      | Games, NFTs            | DeFi vaults     | Wallets, bridges  |
 
+Each standard has its own job:
 
-Each Ethereum token standard serves a specific purpose:
-
-* ERC-20 is the default for simple fungible assets.
-* ERC-1155 shines in multi-asset and NFT-rich environments like games.
-* ERC-6909 is a leaner pattern for multi-token DeFi applications.
+* ERC-20 is the default for plain fungible assets.
+* ERC-1155 fits multi-asset and NFT-heavy environments like games.
+* ERC-6909 is the leaner pattern for multi-token DeFi applications.
 * ERC-7281 gives tokens a cross-chain identity so they aren't confused across the ecosystem.
 
-The standards keep getting leaner because builders need faster, cheaper, more composable financial plumbing.
-
-If you're building dApps, wallets, or protocols, choosing the right token standard isn't just a technical decision—it's a product design choice. Pick wisely.
+The newer standards are leaner because protocols need cheaper, more composable financial plumbing, and when I build a dApp, wallet, or protocol I choose the standard as part of the product design, based on how many asset types it holds, how approvals should work, and which chains it has to reach.

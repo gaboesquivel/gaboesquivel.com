@@ -62,7 +62,7 @@ export const landingPageGroups = [
         href: '/institutions',
         title: 'Institutional Software Engineering',
         description:
-          'Regulated finance, media, professional services, and retail at scale.',
+          'Regulated finance, media, professional services, and retail, built inside systems already running.',
       },
       {
         href: '/lead',

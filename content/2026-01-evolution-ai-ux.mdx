@@ -1,77 +1,55 @@
 ---
 title: Evolution of AI UX
 publishedAt: 2026-01-11
-summary: AI UX is shifting from chat to high‑agency agents, where intelligence, workflows, and interfaces turn AI from a feature into foundation.
+summary: AI interfaces are moving from prompts and answers to agents that hold intent, run workflows, and deliver outcomes, which makes visibility and control the core of the UX.
 image: /images/2026/01/evolution-ai-ux.webp
 category: ['Product', 'Artificial Intelligence', 'UX', 'Frontend', 'Fullstack']
 tech: ['OpenAI', 'AI SDK']
 ---
 
-Over the last few years, foundation models gave us a new way to interact with software: you typed a prompt, the model replied, and then you still had to do the real work—choosing what to keep, where to paste it, how to act on it. We had intelligence, but no way to use it effectively.
-
-That's changing. Intelligence itself is becoming part of the user experience.
+For the last few years, foundation models gave software a new interaction: you typed a prompt, the model replied, and you still did the real work of choosing what to keep, where to paste it, and how to act on it. The intelligence was there, and the interface left most of the effort with the user, which is the part now changing as intelligence becomes part of the user experience itself.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![Illustration of AI user experience evolving from chatbots to high-agency agents](/images/2026/01/evolution-ai-ux.webp)
 </div>
 
-We're not waiting for smarter models. We already have models that are good enough for a vast range of real problems. The bottleneck has shifted: the constraint is no longer what the model knows, but what the system lets you do with that knowledge. As I wrote in [Why I'm Bullish on 2026](/blog/2025-11-bullish-2026), we're entering a phase where AI is becoming foundational infrastructure, not just a feature.
+Models are already good enough for a wide range of real problems, so the constraint has moved from what the model knows to what the system lets you do with that knowledge. In [Why I'm Bullish on 2026](/blog/2025-11-bullish-2026) I described AI becoming foundational infrastructure, and the interface is where that shows up first.
 
-AI is moving up the ladder, from reactive generators of text to systems that can hold context, plan, decide, and execute. This mirrors how humans solve problems. The lowest form of help points out that something is wrong. The highest form notices the problem, understands it, and fixes it while keeping everyone in the loop.
+AI is moving from reactive text generation toward systems that hold context, plan, decide, and execute, much like the range of help people give each other, where the lowest form points out that something is wrong and the highest notices the problem, understands it, and fixes it while keeping everyone informed.
 
-In human psychology, **agency** is the highest level of competence—not just the ability to act, but the ability to initiate, choose, and shape outcomes rather than simply react to them. That's exactly where AI interfaces are heading. The era of AI as a collaborator with agency is emerging, reshaping what interfaces look like.
+In psychology, **agency** is the ability to initiate, choose, and shape outcomes instead of reacting to them, and AI interfaces are heading toward that kind of collaborator, which is changing what those interfaces look like.
 
 ## From prompts to intent
 
-The first wave of AI products was built around prompts. You asked, the model answered. Then came tools and actions—the system could call APIs, search, or write code. That helped, but the initiative still lived with the human.
+The first wave of AI products was built around prompts, where you asked and the model answered. Tools and actions came next, letting the system call APIs, search, or write code, and the initiative still stayed with the human.
 
-Prompting was a temporary interface. It was the easiest way to expose a powerful model, but it puts all the cognitive load on the user. You had to know what to ask, how to phrase it, and how to break your problem into steps.
+Prompting was a temporary interface, the fastest way to expose a powerful model, and it put the whole cognitive load on the user, who had to know what to ask, how to phrase it, and how to break the problem into steps.
 
-The next generation is built around **intent** instead of prompts. You don't explain every step. You express a goal. The system figures out the plan, tracks state, and executes.
+The next generation is built around **intent**. You express a goal instead of every step, and the system works out the plan, tracks state, and executes. Once a system can maintain state, observe context, and run multi-step workflows, it can anticipate instead of waiting for instructions, and software starts to feel like an assistant instead of a form.
 
-When systems can maintain state, observe context, and run multi-step workflows, they stop waiting for instructions. They begin to anticipate. This is how software starts to feel like an assistant instead of a form.
+A marketing agent could monitor campaigns, identify underperforming ads, pause them, and reallocate budget without being asked, and a coding agent could watch a codebase, notice failing tests, investigate the cause, and propose a fix before you see the error. Both work from intent and act on it, where a chatbot waits for a prompt.
 
-Consider a marketing agent that monitors your campaigns, identifies underperforming ads, pauses them, and reallocates budget—all without you asking. Or a coding agent that watches your codebase, notices when tests start failing, investigates the cause, and proposes fixes before you even see the error. These aren't chatbots responding to prompts. They're operators that understand intent and act on it.
+Voice accelerates the shift, turning the car, the phone, and the home into surfaces for intelligence where you speak a need instead of typing a command, and sometimes the system infers intent from patterns and environment without either.
 
-Voice is accelerating this shift. Your car, your phone, your home become surfaces for intelligence. You don't type a command. You speak a need. Sometimes you don't even need to speak—the system infers intent from patterns and environment.
+Power users will go further and train their agents with preferences, goals, principles, and constraints so the system can decide on their behalf. Over time those agents become personalized operators that know how you trade off speed against quality, risk against reward, and privacy against convenience, which means you delegate judgment along with tasks and the distance between a problem and its result shrinks.
 
-Power users will go further. They'll train their agents with preferences, goals, principles, and constraints, so the system can make decisions on their behalf. Over time, these agents become personalized operators that know how you trade off speed versus quality, risk versus reward, privacy versus convenience. You're not just delegating tasks—you're delegating judgment. It's about compressing the distance between a problem and a result.
-
-This is why agents matter. Not because they're smarter, but because they're allowed to remember, to plan, and to act. They turn intelligence into a usable surface.
+Agents matter because they are allowed to remember, plan, and act, which turns intelligence into something you can use.
 
 ## From answers to outcomes
 
-Chatbots give you answers. Agents give you outcomes. That sounds like a small distinction, but it's everything. An answer still requires a human to turn it into action. An outcome is already inside a workflow.
+A chatbot gives you an answer that a person still has to turn into action, while an agent gives you an outcome that already sits inside a workflow. When an AI system can read your data, apply rules, call APIs, make decisions, and update state, it becomes infrastructure, and the productivity gain comes from a tighter loop between thinking and doing rather than from better text.
 
-When an AI system can read your data, apply rules, call APIs, make decisions, and update state, it stops being a novelty and starts being infrastructure.
+## Interfaces as the bottleneck
 
-Productivity comes from tighter loops between thinking and doing, not from better text.
-
-## Interfaces become the bottleneck
-
-Once models are good enough, the limiting factor is no longer intelligence. It's how that intelligence is exposed.
-
-We're already seeing this in practice. The best AI tools aren't the ones with the biggest models. They're the ones with the best flows: where context persists, tasks are visible, progress is tracked, and humans and machines share the same workspace.
-
-The user experience becomes the product. This is the shift that matters most in 2026.
+Once models are good enough, the limit is how their intelligence is exposed. The best AI tools today are the ones with the best flows rather than the largest models, where context persists, tasks are visible, progress is tracked, and humans and machines share one workspace, so in 2026 the user experience is the product.
 
 ## Designing high-agency AI
 
-Good AI UX is about trust, visibility, and control. You need to know what the agent is doing, why it's doing it, and when you can override it. Without that, proactivity feels like loss of control instead of help.
+Good AI UX comes down to trust, visibility, and control: you need to know what the agent is doing, why, and when you can override it, or proactive behavior feels like a loss of control instead of help.
 
-The biggest mistake people make about agents is thinking of them as autonomous beings. In reality, they're closer to very powerful macros. They chain steps. They maintain memory. They call tools. They react to changes.
+The biggest mistake people make about agents is picturing them as autonomous beings, when they are closer to powerful macros that chain steps, maintain memory, call tools, and react to changes. That is software architecture catching up to model capability, and seeing agents that way makes the design work clearer, because what a product needs is a well-designed system that moves through work the way a human assistant would, and no general superintelligence is required for it.
 
-This isn't mystical. It's just software architecture catching up to intelligence.
+## What changes for teams building AI products
 
-Once you think of agents this way, a lot becomes clear. You don't need a general super-intelligence. You need well-designed systems that can move through work the way a human assistant would.
-
-## Why 2026 feels different
-
-This feels like a real inflection point because three things are finally aligning: models are good enough, tooling is becoming composable, and interfaces are being rebuilt around workflows instead of chat.
-
-That combination turns AI from a feature into a foundation.
-
-We're not entering the era of smarter machines. We're entering the era of usable intelligence.
-
-And that's a much bigger deal. For founders and designers, this means the competitive advantage isn't in having the best model—it's in building the best workflows. For users, it means AI stops feeling like a tool you use and starts feeling like a collaborator you work with. The infrastructure is ready. The question is what we build with it.
+Models are good enough, tooling is becoming composable, and interfaces are being rebuilt around workflows instead of chat, and together those conditions turn AI from a feature into a foundation. For founders and designers the advantage moves from having the best model to building the best workflows, and for users AI starts to feel like a collaborator instead of a tool. When I design an AI feature now, I start from the workflow it completes and the controls the user needs over it, and pick the model last.

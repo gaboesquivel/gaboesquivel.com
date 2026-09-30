@@ -1,105 +1,101 @@
 ---
 title: RAG with TypeScript
 publishedAt: 2025-06-02
-summary: TypeScript implementations of Retrieval-Augmented Generation (RAG) systems for integrating external knowledge with language models
+summary: How retrieval-augmented generation works, and the TypeScript SDKs and vector stores I would use to build it in a Node.js stack.
 category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 ---
 
-Retrieval-Augmented Generation (RAG) is becoming a standard architecture for building [LLM-powered applications](/ai). By combining information retrieval with text generation, RAG enables large language models to answer queries using external knowledge sources. This approach improves accuracy and allows responses to include up-to-date or proprietary data not present in the model's original training.
+A language model can only answer from what it saw in training, so an assistant that has to cite a firm's documents or this week's data needs those sources in the prompt. Retrieval-augmented generation (RAG) is the standard architecture for [LLM-powered applications](/ai) that do this: it fetches relevant text from an external knowledge base and hands it to the model at query time, which improves accuracy and lets answers include current or proprietary data.
 
 ## How RAG works
 
-RAG systems follow a two-step process:
+A RAG system runs in two steps:
 
-1. **Retrieval**: Relevant information is fetched from a knowledge base. This starts by chunking documents and converting them into vector embeddings using models like [OpenAI](/tech/openai)'s `text-embedding-3-small` or open-source options like `sentence-transformers`. These embeddings are stored in a vector database.
-2. **Generation**: When a query comes in, it's also embedded into vector space. The system performs a similarity search to retrieve the most relevant chunks, which are then fed as context into a language model like [GPT-4](/tech/openai) to generate a coherent and informed response.
+1. **Retrieval** fetches relevant information from a knowledge base. Documents are chunked and converted into vector embeddings with a model like [OpenAI](/tech/openai)'s `text-embedding-3-small` or an open-source option like `sentence-transformers`, and the embeddings are stored in a vector database.
+2. **Generation** embeds the incoming query into the same vector space, runs a similarity search for the closest chunks, and passes them as context to a language model like GPT-4, which writes the answer.
 
-This architecture decouples the model from the data, making it flexible for dynamic, domain-specific applications.
+Because the model and the data are decoupled, you can change the knowledge base without retraining anything, which suits domain-specific applications whose sources change often.
 
-## Similarity Search
+## Similarity search
 
-At the heart of RAG is the concept of semantic search. Instead of matching exact words, embeddings map text into high-dimensional vector space where proximity reflects meaning. For example, "attorney" and "lawyer" would be close in vector space even if the exact term doesn’t appear.
+Semantic search is the core of retrieval. Instead of matching exact words, embeddings place text in a high-dimensional space where proximity reflects meaning, so "attorney" and "lawyer" land close together even when a document uses only one of them.
 
-Similarity is calculated using distance metrics such as cosine similarity. To make this efficient, vector databases use approximate nearest neighbor (ANN) algorithms to quickly find the most relevant chunks.
+Similarity is measured with a distance metric such as cosine similarity, and vector databases use approximate nearest neighbor (ANN) algorithms to find the closest chunks without comparing every vector. The result is retrieval that matches a query to documents by concept rather than by syntax.
 
-This approach enables the system to understand queries and documents at a conceptual level, retrieving information that aligns semantically rather than syntactically.
+## Where RAG fits
 
-## Why Use RAG
+RAG is the right architecture for:
 
-RAG enables:
+* Domain-specific assistants that answer from a custom knowledge base.
+* Chatbots that have to stay accurate as their sources change.
+* Document Q&A across PDFs, websites, or internal wikis.
 
-* Domain-specific assistants that reference custom knowledge bases.
-* Chatbots that provide accurate, up-to-date responses.
-* Document Q\&A systems across PDFs, websites, or internal wikis.
+## Node.js in the RAG stack
 
-## [NodeJS](/tech/nodejs) in the RAG Stack
+[Node.js](/tech/nodejs) is a practical choice for RAG when a team already works in [JavaScript](/tech/javascript) and [TypeScript](/tech/typescript), because the embedding APIs and integrations are mature enough to cover the whole pipeline:
 
-[NodeJS](/tech/nodejs) is becoming an increasingly useful option for building RAG systems, especially for teams already working within the [JavaScript](/tech/javascript)/[TypeScript](/tech/typescript) ecosystem. Embedding APIs and integration options are solid enough that you can:
+* Generate embeddings with OpenAI or the Hugging Face Inference API.
+* Store and query vectors in `pgvector`, Pinecone, Weaviate, or Qdrant.
+* Run [end-to-end workflows](/fullstack) in Next.js server functions, Vercel edge functions, or Node.js servers.
 
-* Generate embeddings using services like OpenAI or Hugging Face Inference API.
-* Store and query data using `pgvector`, Pinecone, Weaviate, or Qdrant.
-* Implement [end-to-end workflows](/fullstack) using Next.js server functions, Vercel edge functions, or NodeJS servers.
+A growing set of open-source SDKs built for LLM apps covers the rest, with patterns for streaming responses, function calling, and vector search.
 
-The JavaScript ecosystem also benefits from a growing number of open source SDKs purpose-built for LLM apps. These toolkits simplify RAG implementation and provide patterns for streaming responses, function calling, vector search, and more.
-
-## Open Source TypeScript AI SDKs
+## Open-source TypeScript AI SDKs
 
 ### Vercel AI SDK
 
-TypeScript-first toolkit from Vercel for building AI apps. Supports streaming responses, tool usage, and works across React, Next.js, Node.js, etc.
+Vercel's TypeScript-first toolkit for AI apps, with streaming and tool use across React, Next.js, and Node.js:
 
-* Unified API for OpenAI, Anthropic, etc.
-* Streaming UI and edge-runtime compatibility
-* Tool/function-calling with typed context
+* A unified API for OpenAI, Anthropic, and other providers.
+* Streaming UI and edge-runtime compatibility.
+* Tool calling with typed context.
 * [https://github.com/vercel/ai](https://github.com/vercel/ai)
 
 ### LangChain.js
 
-JavaScript/TypeScript version of the popular LangChain framework for building LLM-powered chains, agents, and RAG pipelines.
+The JavaScript and TypeScript version of LangChain, for LLM chains, agents, and RAG pipelines:
 
-* Chains, tools, agents, retrievers, memory
-* Integrations with vector stores like Pinecone, Supabase, Weaviate
-* Structured output parsing, evals, and streaming support
+* Chains, tools, agents, retrievers, and memory.
+* Integrations with vector stores like Pinecone, Supabase, and Weaviate.
+* Structured output parsing, evals, and streaming.
 * [https://github.com/langchain-ai/langchainjs](https://github.com/langchain-ai/langchainjs)
 
 ### LlamaIndex.TS
 
-TypeScript-native version of LlamaIndex for ingesting, indexing, and querying data for LLMs in RAG systems.
+The TypeScript version of LlamaIndex, for ingesting, indexing, and querying data in RAG systems:
 
-* Indexing tools for documents, metadata
-* LLM-powered query planning
-* Retriever composition and routing
+* Indexing for documents and metadata.
+* LLM-driven query planning.
+* Retriever composition and routing.
 * [https://github.com/jerryjliu/llamaindex-ts](https://github.com/jerryjliu/llamaindex-ts)
 
 ### Mastra
 
-TypeScript agent framework with persistent memory, threads, and embedded knowledge graphs.
+A TypeScript agent framework with persistent memory, threads, and embedded knowledge graphs:
 
-* Agents with tool use and long-term memory
-* JSON knowledge graphs and fact-based reasoning
-* Context-aware multi-step workflows
+* Agents with tool use and long-term memory.
+* JSON knowledge graphs and fact-based reasoning.
+* Context-aware multi-step workflows.
 * [https://github.com/mastra-ai/mastra](https://github.com/mastra-ai/mastra)
 
 ### Agentic.so
 
-Standard library of TypeScript AI tools for building agentic apps. Designed for clean AI function exposure to LLMs.
+A standard library of TypeScript AI tools that exposes functions to LLMs cleanly:
 
-* Typed agent workflows
-* AI-accessible function definitions
-* Clean SDK for tool abstraction
+* Typed agent workflows.
+* AI-accessible function definitions.
+* An SDK for tool abstraction.
 * [https://github.com/agentic-dev/agentic](https://github.com/agentic-dev/agentic)
 
-## Vector Storage Options
+## Vector storage options
 
-There are several ways to store and query vectors:
+Where the vectors live depends on the stack you already run:
 
-* `pgvector`: a PostgreSQL extension that supports vector similarity search. It's perfect for full-stack apps that already use Postgres.
-* Specialized vector databases like Pinecone, Weaviate, and Qdrant provide scalable, fast nearest-neighbor search and metadata filtering.
-* OpenAI's built-in vector store (released in 2024) offers a managed solution tightly integrated with their embeddings and models, ideal for small-to-medium scale use cases with minimal ops overhead.
+* `pgvector` is a PostgreSQL extension for vector similarity search, and it fits full-stack apps that already use Postgres.
+* Dedicated vector databases like Pinecone, Weaviate, and Qdrant add scalable nearest-neighbor search and metadata filtering.
+* OpenAI's managed vector store, released in 2024, is integrated with their embeddings and models and suits small-to-medium workloads where you want little operational overhead.
 
-## Real-World Projects
+## RAG in projects I've shipped
 
-I've applied RAG architectures in real-world projects like [Legal Agent](/project/legal-agent), a legal AI assistant trained on court decisions and legal doctrine, and [Bitlauncher](/project/bitlauncher), a [decentralized launchpad](/backend) that integrates AI for project evaluation and discovery.
-
-While Python remains the ecosystem leader for AI tooling, the JavaScript/TypeScript stack is catching up fast—offering a familiar environment for [web engineers](/frontend) who want to ship [AI](/ai) products.
+On [LegalAgent](/project/legal-agent), RAG supplies case context, document summaries, and procedural guidance to a legal assistant, and on [Bitlauncher](/project/bitlauncher), an AI and crypto launchpad, the chatbot uses RAG for longer answers about projects. Python still leads the AI tooling ecosystem, but the TypeScript stack has been enough for both, and it lets web engineers ship AI features without switching languages.

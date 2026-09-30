@@ -1,51 +1,49 @@
 ---
 title: Comparing Ethers.js and Viem/Wagmi
 publishedAt: 2024-07-20
-summary: A comparative analysis of Ethers.js and Viem/Wagmi in Ethereum development
+summary: How Ethers.js and Viem with Wagmi differ on bundle size, modularity, types, and React integration, and where each one runs at Bitlauncher.
 image: /images/2024/07/viem-ethers.webp
 category: ['Web3', 'Frontend', 'Backend', 'Fullstack', 'Tech Lead']
 tech: ['TypeScript', 'Viem', 'Wagmi', 'Ethers', 'Ethereum']
 ---
 
-Picking an [Ethereum](/tech/ethereum) client library is a real constraint: bundle size, TypeScript types, and how you talk to the chain from React. Ethers.[js](/tech/javascript) and Viem (with Wagmi) are the two I keep comparing. Here's how they differ, and how we use Viem at [Bitlauncher](/project/bitlauncher).
-
+Picking an [Ethereum](/tech/ethereum) client library sets real constraints on bundle size, TypeScript types, and how you talk to the chain from React. Ethers.[js](/tech/javascript) and Viem with Wagmi are the two I keep comparing, and this post covers how they differ and how we use Viem at [Bitlauncher](/project/bitlauncher).
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![AI Web3](/images/2024/07/viem-ethers.webp)
 </div>
 
-## Using Viem at Bitlauncher
+## Where Viem runs at Bitlauncher
 
-At [bitlauncher.ai](https://bitlauncher.ai), we use Viem for performance and modularity in a few places:
-- **[EVM](/tech/ethereum) Data Indexer**: Viem is used with [Node.js](/tech/nodejs) to efficiently index data from the [Ethereum](/tech/ethereum) Virtual Machine (EVM) in backend systems.
-- **Development Faucet and Wallet Interfaces**: Wagmi, integrated with Viem, powers the development faucet and main wallet for talking to Ethereum.
-- **Auction Interfaces**: Wagmi's React hooks simplify the management of auction interfaces, ensuring a smooth user experience.
+At [bitlauncher.ai](https://bitlauncher.ai) we use Viem in three places where performance and modularity matter:
 
-Despite these advancements, Ethers.js is still used in the smart contracts Hardhat project, primarily because it is a fork of the Gnosis auction system, which predates Viem/Wagmi.
+- **EVM data indexer:** Viem runs with [Node.js](/tech/nodejs) in the backend to index EVM data.
+- **Development faucet and wallet interfaces:** Wagmi, on top of Viem, powers the development faucet and the main wallet.
+- **Auction interfaces:** Wagmi's React hooks manage the state behind the auction screens.
 
-## Viem vs. Ethers.js
+Ethers.js is still in the smart contracts Hardhat project, because that project is a fork of the Gnosis auction system, which predates Viem and Wagmi.
 
-### Performance and Bundle Size
+## How Viem and Ethers.js differ
 
-- **Viem**: With a bundle size of around 27 KB, Viem is significantly lighter than Ethers.js, which is approximately 130 KB. This smaller size translates to faster load times and improved performance in web applications, making Viem an excellent choice for performance-sensitive projects.
-- **Ethers.js**: While larger in size, Ethers.js offers a comprehensive suite of features, which still matters for more complex applications.
+### Bundle size
 
-### Modularity and Developer Experience
+Viem is around 27 KB against roughly 130 KB for Ethers.js, which means faster load times in a web app and makes Viem the better fit for performance-sensitive frontends. Ethers.js pays for its size with a broader built-in feature set, which still matters in some complex applications.
 
-- **Viem**: Viem's modular architecture allows developers to import only the necessary parts, optimizing application performance and reducing overhead. The concept of "actions" in Viem promotes clarity and efficiency, helping developers manage tasks on the Ethereum network more effectively. Additionally, Viem provides automatic type safety, which is particularly beneficial for TypeScript developers.
-- **Ethers.js**: Ethers.js is known for its extensive documentation and community support. It offers a wide range of utilities for interacting with Ethereum, making it a versatile tool for various use cases.
+### Modularity and developer experience
 
-### Integration with React Applications
+Viem is modular, so you import only the parts you use, and its "actions" give each chain operation a clear, single-purpose function. It also infers types automatically from ABIs, which saves a lot of manual typing in TypeScript projects. Ethers.js is known for extensive documentation and community support, and its wide range of utilities covers most Ethereum use cases.
 
-- **Wagmi**: Designed specifically for React applications, Wagmi is built around Viem. It provides hooks to simplify the process of connecting to providers and managing state in React apps.
-- **Ethers.js**: Although not specifically designed for React, Ethers.js can still be integrated into React projects, but it may require more boilerplate code compared to Wagmi.
+### React integration
 
-### Stability and Reliability
+Wagmi is built around Viem specifically for React, with hooks for connecting to providers and managing chain state. Ethers.js works in React too, but it usually needs more boilerplate to reach the same result.
 
-- **Viem**: The Viem team emphasizes stability by ensuring comprehensive test coverage against a forked Ethereum node. This approach aims to provide a reliable foundation for developers, which is crucial in production environments.
-- **Ethers.js**: As a mature library, Ethers.js has a proven track record of stability and reliability, supported by a large and active community.
+### Stability
 
-Both Ethers.js and Viem/Wagmi have a place. The choice depends on the project: Viem is smaller, more modular, and pairs cleanly with React; Ethers.js is older, well documented, and still the default in some Hardhat/smart-contract toolchains. That's a [technical leadership](/lead) call in Web3, not a fashion one.
+The Viem team tests against a forked Ethereum node with broad coverage, which gives it a reliable base for production. Ethers.js has the longer track record, backed by a large and active community.
 
-At [bitlauncher.ai](https://bitlauncher.ai) we picked Viem and Wagmi where they actually help—indexer, faucet, wallet, auctions—and kept Ethers.js where the Gnosis auction fork already depended on it. The goal is maintainable apps, not a stack for its own sake.
+## Choosing between them
+
+The choice depends on the project. Viem is smaller, more modular, and pairs cleanly with React, while Ethers.js is older, well documented, and still the default in some Hardhat and smart contract toolchains, so the decision belongs to whoever owns the [technical direction](/lead) of the Web3 stack.
+
+At Bitlauncher we picked Viem and Wagmi where they helped, in the indexer, faucet, wallet, and auctions, and kept Ethers.js where the Gnosis auction fork already depended on it, which kept the contracts project stable while the apps moved to the lighter stack.

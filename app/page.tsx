@@ -26,16 +26,16 @@ export default function HomePage() {
     <section>
       <PageTitle>Gabo Esquivel — Product Engineer</PageTitle>
       <Prose>
-        I build useful and delightful software products. I move between
-        architecture and interface, deciding what belongs in the product and
-        what should recede behind it.
+        I build useful and delightful software products, lately where the
+        technology is hard to trust: AI agents and onchain finance. I work
+        across architecture and interface, deciding what belongs in the product
+        and what should recede behind it.
       </Prose>
 
       <Prose>
         15+ years of shipping software, 12+ of them building 0→1 products for
-        startups and growth-stage teams: regulated finance, consumer Web3,
-        production AI. I work from Costa Rica on US Mountain Time with
-        distributed teams.
+        startups and growth-stage teams in regulated finance, consumer Web3, and
+        production AI.
       </Prose>
 
       <PageImage
@@ -63,24 +63,23 @@ export default function HomePage() {
 
       <PageSection title="Focus">
         <Prose>
-          Right now I build AI products and Web3 products. Both are domains
-          where the interesting work is the product around the technology:
-          assistants people can talk to and teams can operate, wallets and
-          markets people can follow.
+          Right now I work on agentic AI and onchain finance. In both, the model
+          or the chain does the hard part, and the product decides whether
+          people can trust it with real work and real money.
         </Prose>
         <ul className={blockGrid}>
           <li className="h-full">
             <PathLink
               href="/ai"
-              title="AI product engineering"
-              note="Voice and retrieval in the product, tools the assistant can call, and controls a team can change."
+              title="Agentic AI products"
+              note="Agents that call tools and render generative UI, with clear limits on what the model decides and controls your team can change after launch."
             />
           </li>
           <li className="h-full">
             <PathLink
               href="/web3"
-              title="Web3 product engineering"
-              note="Signing, indexed state, and interfaces around the chain."
+              title="Stablecoins and trading"
+              note="Stablecoin flows, wallets, and trading interfaces that show people what they're about to sign, with WebAuthn key management and indexed balances behind them."
             />
           </li>
         </ul>
@@ -103,7 +102,7 @@ export default function HomePage() {
             <PathLink
               href="/bio"
               title="Career story"
-              note="The career told in sequence."
+              note="From Costa Rica's JavaScript community to a neobank, Web3, and production AI."
             />
           </li>
           <li className="h-full">
@@ -135,11 +134,11 @@ export default function HomePage() {
 export const metadata: Metadata = {
   title: 'Gabo Esquivel | Product Engineer',
   description:
-    'Product engineer across regulated finance, consumer Web3, and production AI. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
+    'Product engineer for agentic AI, generative UI, stablecoins, and trading interfaces. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
   openGraph: {
     title: 'Gabo Esquivel | Product Engineer',
     description:
-      'Product engineer across regulated finance, consumer Web3, and production AI. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
+      'Product engineer for agentic AI, generative UI, stablecoins, and trading interfaces. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
     type: 'website',
   },
 }

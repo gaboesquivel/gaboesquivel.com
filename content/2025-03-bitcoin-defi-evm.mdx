@@ -1,48 +1,45 @@
 ---
 title: EVM on Bitcoin - The Future of DeFi
 publishedAt: 2025-03-17
-summary: Bitcoin DeFi evolves with EVM, unlocking new financial possibilities.
+summary: The Layer 2s, sidechains, and token standards bringing programmability to Bitcoin, and what EVM compatibility through projects like SovaEVM adds for Solidity developers.
 category: ['Web3', 'DeFi', 'Backend', 'Fullstack']
 tech: ['Ethereum', 'Solidity', 'TypeScript']
 ---
 
-Bitcoin is the most secure and decentralized form of money, but its programmability limitations have historically kept it outside [DeFi](/web3). While [Ethereum](/tech/ethereum) and other smart contract platforms pioneered decentralized lending, borrowing, and trading, Bitcoin lacked the necessary infrastructure—until now.
+Bitcoin has the deepest security and decentralization of any chain, and its limited programmability kept it outside most of [DeFi](/web3) while [Ethereum](/tech/ethereum) and other smart contract platforms built lending, borrowing, and trading. Layer 2s, sidechains, and new token standards are now closing that gap, and EVM compatibility is the part that matters most to me as a Solidity developer.
 
 ## Bitcoin DeFi
 
-Bitcoin's security, liquidity, and decentralization make it ideal for DeFi, but its rigid UTXO-based architecture has presented challenges. Recent advancements in Layer 2 solutions, sidechains, and token standards are transforming how BTC can be used in decentralized finance.
+Bitcoin's security, liquidity, and decentralization make it a strong base for DeFi, and its UTXO-based architecture is what made building on it hard. Recent Layer 2s, sidechains, and token standards change how BTC can be used in decentralized finance.
 
-### Layer 2s and Smart Contracts
+### Layer 2s and smart contracts
 
-Several approaches now bring programmability to Bitcoin:
+Several projects bring programmability to Bitcoin, each with a different security model:
 
-- **Rootstock (RSK)** – An EVM-compatible sidechain with federation-based bridge security. Sovryn operates here, providing lending, trading, and stablecoins.
-- **Stacks (STX)** – Settles transactions on Bitcoin using Proof of Transfer (PoX) consensus. ALEX, an AMM and lending protocol, uses Bitcoin for settlement.
-- **Botanix** – A Layer 2 enabling EVM-compatible smart contracts using Spiderchain, a staking-based multi-signature mechanism.
-- **SovaEVM** – Integrates directly with Bitcoin Core for decentralized smart contract execution without intermediaries.
+- **Rootstock (RSK)** is an EVM-compatible sidechain with federation-based bridge security, and Sovryn runs lending, trading, and stablecoins on it.
+- **Stacks (STX)** settles transactions on Bitcoin through Proof of Transfer (PoX) consensus, and ALEX, an AMM and lending protocol, uses it for Bitcoin settlement.
+- **Botanix** is a Layer 2 for EVM-compatible smart contracts secured by Spiderchain, a staking-based multisig mechanism.
+- **SovaEVM** integrates directly with Bitcoin Core to run smart contracts without intermediaries.
 
-### Emerging Token Standards
+### Token standards on Bitcoin
 
-New token standards enhance Bitcoin-based asset issuance:
+Three standards cover most Bitcoin-based asset issuance:
 
-- **BRC-20** – Introduced fungible tokens via ordinal inscriptions, though with scalability limitations.
-- **Bitcoin Runes** (2024) – A more efficient, UTXO-friendly token model designed to reduce network congestion.
-- **RGB Protocol** – A smart contract system using client-side validation for complex asset issuance.
+- **BRC-20** introduced fungible tokens through ordinal inscriptions, with real scalability limits.
+- **Bitcoin Runes**, launched in 2024, is a more efficient, UTXO-friendly token model designed to reduce network congestion.
+- **RGB Protocol** is a smart contract system that uses client-side validation for more complex asset issuance.
 
-## EVM on Bitcoin
+## What EVM compatibility adds
 
-EVM compatibility allows developers to build Bitcoin-based DeFi using familiar [Solidity](/tech/solidity) frameworks. Among competing solutions, SovaEVM stands out with:
+EVM compatibility lets developers build Bitcoin DeFi with familiar [Solidity](/tech/solidity) frameworks. Among the competing approaches, SovaEVM's design has four properties I look for:
 
-- **Direct Bitcoin Integration** – Smart contracts can interact with Bitcoin's network natively without intermediaries.
-- **Unified Security Model** – Validators run both SovaEVM and Bitcoin Core, ensuring synchronized state.
-- **Cross-Chain Verification** – Enables atomic execution between Bitcoin and smart contracts.
-- **Trustless Architecture** – Eliminates the need for federated bridges or custodial intermediaries, improving security.
+- **Direct Bitcoin integration:** smart contracts interact with the Bitcoin network natively, without intermediaries.
+- **A shared security model:** validators run both SovaEVM and Bitcoin Core, which keeps state synchronized.
+- **Cross-chain verification:** execution can be atomic across Bitcoin and the smart contracts.
+- **No federated bridge:** there is no custodial intermediary holding BTC, which removes the usual bridge attack surface.
 
-## The Future of Bitcoin DeFi
+## Where Bitcoin DeFi is heading
 
-Bitcoin DeFi is moving fast, using Bitcoin's security, decentralization, and liquidity. As the technology matures, we'll see a shift from wrapped BTC solutions toward native implementations where smart contracts interact directly with Bitcoin.
+Bitcoin DeFi is moving quickly on top of Bitcoin's security, decentralization, and liquidity, and as the technology matures I expect a shift from wrapped BTC toward native implementations where smart contracts interact directly with Bitcoin. Programmatic control of Bitcoin transactions from smart contracts would combine Ethereum's programmability with Bitcoin's security and liquidity.
 
-The ability to programmatically control Bitcoin transactions from smart contracts will reshape DeFi applications, combining Ethereum's programmability with Bitcoin's security and liquidity.
-
-Bitcoin is no longer just a store of value—it's becoming a foundation for [decentralized finance](/web3). The next challenge is building applications that use Bitcoin's strengths without giving up its decentralization. For the first time, Bitcoin is leading DeFi's evolution rather than following it.
-
+The open engineering problem is building applications that use those strengths without giving up Bitcoin's decentralization, which is why I would evaluate each of these platforms first by where custody of the BTC sits and who can move it.

@@ -7,78 +7,77 @@ category: ['Engineering', 'Tech Lead']
 tech: ['JavaScript', 'TypeScript']
 ---
 
-Architecture decisions get lost. Someone leaves, Slack scrolls away, and six months later the team re-litigates a choice that already had a good reason. Architecture Decision Records (ADRs) write that reason down: context, options, decision, consequences. They're especially useful when requirements keep moving.
+Architecture decisions get lost when someone leaves or a Slack thread scrolls away, and six months later the team re-litigates a choice that already had a good reason. Architecture Decision Records (ADRs) write that reason down as context, options, decision, and consequences, which matters most when requirements keep moving.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![Architecture Decision Records](/images/2024/07/adr.webp)
 </div>
 
+## What an ADR contains
 
-## What is an architecture decision record?
+An ADR is a short document that captures one significant architectural decision with its context and consequences: the reasoning, the alternatives considered, and why the final choice won. The collection of ADRs for a project is its Architecture Decision Log (ADL), which is part of what the literature calls Architecture Knowledge Management (AKM).
 
-An Architecture Decision Record (ADR) is a document that captures an important architectural decision made along with its context and consequences. It serves as a tangible record of the thought process, alternatives considered, and the rationale behind the final choice. The collection of all ADRs for a project is known as an Architecture Decision Log (ADL), which is a key component of Architecture Knowledge Management (AKM).
+## What ADRs change on a team
 
-## Why ADRs matter
+### Knowledge that survives turnover
 
-### Documentation and knowledge
+The reasoning behind a decision stays with the codebase when the people who made it move on. New developers read the log instead of reconstructing history from commit messages, which shortens onboarding and keeps the team from repeating a mistake it already paid for.
 
-ADRs ensure that the reasoning behind architectural decisions is well-documented. This preservation of knowledge is crucial for team continuity, especially as team members come and go. New developers can quickly get up to speed, reducing onboarding time and mitigating the risk of repeating past mistakes.
+### Decisions everyone can read
 
-### Communication and transparency
+A written decision is visible to every engineer and stakeholder, including the implications they might not have been in the room for. For [technical leaders](/lead), that visibility is how a direction stays aligned without a meeting per question.
 
-Documenting decisions with ADRs enhances transparency among team members and stakeholders. Clear documentation ensures everyone understands the architectural choices and their implications, fostering a collaborative environment and aligning efforts with project goals. This is especially valuable for [technical leaders](/lead).
+### A record that keeps up with change
 
-### Agile teams
+Agile teams change direction often, and an ADR is small enough to write at the moment a decision changes. A new ADR supersedes the old one instead of editing it, so the log shows both what the team decided and when it changed its mind.
 
-In agile environments, where changes are frequent, ADRs provide a flexible framework for documenting decisions. They allow teams to adapt to new requirements while maintaining a clear record of past decisions, ensuring that documentation remains relevant and up-to-date.
+### Ownership of each decision
 
-### Decision-making and accountability
+Each ADR states who made the decision and under what constraints. Knowing a decision will be written down and signed tends to produce a more careful discussion before it is made.
 
-ADRs promote accountability by clearly stating who made each decision and the context behind it. This accountability encourages thorough and thoughtful discussions, leading to better-informed decisions and a culture of responsibility within the team.
+### Less time re-arguing
 
-### Development efficiency
+When a past decision is one link away, an architectural discussion can start from the recorded tradeoffs instead of from zero, and the time goes back into implementation.
 
-With a well-maintained set of ADRs, teams can quickly refer to past decisions, reducing the time spent on architectural discussions. This efficiency enables developers to focus more on implementation, speeding up the development process and boosting productivity.
+### A way to learn how the team decides
 
-### Educational resource
-
-ADRs are valuable educational tools, providing insights into the decision-making processes of the team. They help both new and existing members learn from past experiences, contributing to the team's overall growth and maturity.
-
+For new and existing members alike, the log shows how the team weighs options, which is harder to learn from the code alone.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
   ![AI Web3](/images/2024/07/adr.webp)
 </div>
 
+## ADRs and stakeholder communication
 
-## Communication among stakeholders
+ADRs also change how a team communicates with stakeholders outside engineering:
 
-ADRs significantly enhance communication among stakeholders by:
-- **Providing a Shared Understanding:** Documenting architectural decisions, their context, and implications helps align stakeholders on the project's technical direction.
-- **Enabling Transparent Communication:** Recording decisions and their rationale promotes transparency, fostering trust and ensuring stakeholder input is valued.
-- **Facilitating Asynchronous Communication:** Stakeholders can reference documented decisions asynchronously, reducing the need for repeated discussions.
-- **Improving Stakeholder Engagement:** Creating and reviewing ADRs engages stakeholders in the decision-making process, increasing buy-in and acceptance.
-- **Reducing Communication Overhead:** A single source of truth for architectural decisions reduces the communication overhead associated with discussing and explaining past choices.
+- **Shared understanding:** the decision, its context, and its implications are in one place, so stakeholders align on technical direction from the same text.
+- **Visible rationale:** recording why a choice was made shows stakeholders that their input was weighed.
+- **Asynchronous reference:** people read the decision on their own time instead of asking for the same explanation again.
+- **Engagement:** inviting stakeholders to review an ADR brings them into the decision and makes buy-in more likely.
+- **Lower overhead:** one source of truth replaces repeated conversations about past choices.
 
 ## Templates and tools
 
-### My favorite ADR template
-I recommend using the MADR (Markdown Architectural Decision Records) template for capturing decisions in a structured way. MADR is a lean template that originated from documenting architectural decisions but has evolved to accommodate any significant decision.
+### The template I use
 
-- **MADR Template:** [https://adr.github.io/madr](https://adr.github.io/madr)
-- **Comprehensive ADR Templates:** [https://github.com/joelparkerhenderson/architecture-decision-record](https://github.com/joelparkerhenderson/architecture-decision-record)
+I recommend the MADR (Markdown Architectural Decision Records) template for capturing decisions in a consistent structure. MADR is lean, and although it started with architectural decisions, it now fits any significant decision.
+
+- **MADR template:** [https://adr.github.io/madr](https://adr.github.io/madr)
+- **More ADR templates:** [https://github.com/joelparkerhenderson/architecture-decision-record](https://github.com/joelparkerhenderson/architecture-decision-record)
 
 ### Tooling
-Several tools can help manage ADRs effectively. For instance, Log4Brains is an excellent CLI tool for creating and managing ADRs, providing a static site preview for easy reference.
+
+Log4Brains is a CLI for creating and managing ADRs, and it generates a static site so the log is browsable.
 
 - **Log4Brains:** [Log4Brains GitHub Repository](https://github.com/thomvaill/log4brains)
 
-## More resources
-For more insights and resources on ADRs, you can explore the following:
+## Further reading
+
+These are the sources I point teams to when they start an ADR log:
 
 - **ThoughtWorks Technology Radar:** [Adopt Lightweight ADRs](https://www.thoughtworks.com/en-us/radar/techniques/lightweight-architecture-decision-records)
 - **Documenting Architecture Decisions by Michael Nygard:** [Nygard's Blog Post](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
 - **The GitHub ADR Organization:** [ADR GitHub Organization](https://github.com/adr/adr.github.io)
-
-Write the decisions down. You'll spend less time rehashing old arguments, onboard faster, and have a record when the next constraint shows up.

@@ -7,85 +7,69 @@ category: ['Product', 'Engineering', 'Tech Lead', 'Startups', 'Institutions']
 tech: ['JavaScript', 'TypeScript', 'Ethereum']
 ---
 
-These are the principles I actually use when I build [web applications](/frontend) and [blockchain systems](/web3)—for [startups](/startups) and for [institutions](/institutions). They're not tied to a stack. They keep quality and reliability in the same conversation as shipping.
-
+These are the principles I use when I build [web applications](/frontend) and [blockchain systems](/web3), for [startups](/startups) and for [institutions](/institutions). They are independent of the stack, and they keep quality and reliability in the same conversation as shipping.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![Engineering Principles](/images/2025/02/engineering-principles.webp)
 </div>
 
-## User Experience First
+## User experience first
 
-The best technology in the world means nothing if users hate using it. Always prioritize clarity, usability, and performance. A clear, fast product beats clever internals.
+Technology is worth little if people dislike using it, so I prioritize clarity, usability, and performance, and I would ship a clear, fast product with ordinary internals over a clever one that is hard to use.
 
-## Keep It Simple
+## Less code over more
 
-The best code is no code. Avoid unnecessary abstractions and complexity. If a problem can be solved without writing more code, that's often the better choice. Simplicity scales, complexity does not.
+The best code is often no code. I avoid unnecessary abstractions and complexity, and if a problem can be solved without writing more code, that is usually the better choice, because a small system is easier to scale than a complicated one.
 
-## Automate and Secure Everything
+## Automate and secure everything
 
-Security is non-negotiable. Automate processes to reduce human error and ensure predictable, repeatable deployments. Continuous testing and security-first development practices prevent disasters before they happen.
+Security is non-negotiable. Automated processes reduce human error and make deployments predictable and repeatable, and continuous testing with security-first practices catches problems before they reach users.
 
-## AI-Driven Workflows
+## AI in the workflow
 
-Use [AI to enhance productivity](/ai). Automate tedious tasks, streamline workflows, and integrate smart tooling. This is not about replacing engineers; it's about giving them time for the work that actually needs judgment.
+I use [AI to take on the tedious work](/ai), automating repetitive tasks and adding tooling that shortens the path from idea to change, so engineers spend their time on the decisions that need judgment.
 
-## Open Source and Portability
+## Open source and portability
 
-Build systems that can be deployed anywhere. Open-source technologies foster collaboration, reduce vendor lock-in, and keep you portable when platforms shift.
+I build systems that can be deployed anywhere, because open-source technology supports collaboration, reduces vendor lock-in, and keeps a product portable when platforms shift.
 
-## Ship Fast, Learn Faster
+## Ship early and learn from it
 
-Frequent releases mean continuous learning. Get user feedback early and iterate quickly. Software is never "done"—it ages like milk, not wine. The longer you wait to ship, the higher the cost of mistakes. This is especially true when [leading development teams](/lead).
+Frequent releases mean continuous learning. I get user feedback early and iterate on it, since the longer a release waits, the more a wrong assumption costs, and that cost grows when you are [leading a team](/lead) building on the same assumptions.
 
-## Functional > Unit Testing
+## Functional tests over unit tests
 
-Unit tests are useful, but functional tests ensure real-world reliability. Test how the system behaves as a whole rather than getting lost in isolated components.
+Unit tests are useful, and functional tests are what prove real-world reliability, so I test how the system behaves as a whole before I test isolated components.
 
-## Optimize Later
+## Optimize after measuring
 
-Premature optimization is the root of all evil. First, make it work. Then, measure. Then, optimize only when necessary. This avoids overengineering and wasted effort.
+Premature optimization wastes effort. I make it work first, then measure, and optimize only where the measurements show a need, which keeps the design from being overengineered.
 
-## Software Ages Like Milk, Not Wine
+## Software ages like milk
 
-Software doesn't improve over time—it degrades. APIs change, dependencies become outdated, and technical debt accumulates. Constant maintenance and refactoring are necessary to keep systems relevant and functional.
+Software degrades over time as APIs change, dependencies go stale, and technical debt accumulates, so maintenance and refactoring are part of the work from the first release.
 
-## The Unix Philosophy
+## The Unix philosophy
 
-The Unix philosophy is timeless and remains a gold standard for building software:
+The Unix philosophy still sets the standard I measure software against:
 
-Modularity: Write simple parts connected by clean interfaces.
-- **Clarity:** Clarity is better than cleverness.
+- **Modularity:** write simple parts connected by clean interfaces.
+- **Clarity:** clarity is better than cleverness.
+- **Composition:** design programs to be connected to other programs.
+- **Separation:** separate policy from mechanism, and interfaces from engines.
+- **Simplicity:** design for simplicity, and add complexity only where necessary.
+- **Parsimony:** write a big program only when nothing else will do.
+- **Transparency:** make systems easy to inspect and debug.
+- **Robustness:** robustness comes from simplicity and transparency.
+- **Representation:** encode knowledge in data so the logic stays small.
+- **Least surprise:** interfaces should do the least surprising thing.
+- **Silence:** if a program has nothing important to say, it should say nothing.
+- **Repair:** when failing, fail noisily and as soon as possible.
+- **Economy:** programmer time is more valuable than machine time.
+- **Generation:** write programs that write programs when possible.
+- **Optimization:** prototype before polishing, and get it working before optimizing it.
+- **Diversity:** distrust all claims of a "one true way."
+- **Extensibility:** design for the future, which arrives sooner than expected.
 
-- **Composition:** Design programs to be connected to other programs.
-
-- **Separation:** Separate policy from mechanism; separate interfaces from engines.
-
-- **Simplicity:** Design for simplicity; add complexity only where necessary.
-
-- **Parsimony:** Write a big program only when nothing else will do.
-
-- **Transparency:** Make systems easy to inspect and debug.
-
-- **Robustness:** Comes from simplicity and transparency.
-
-- **Representation:** Encode knowledge into data, so the logic stays simpler.
-
-- **Least Surprise:** Interfaces should do the least surprising thing.
-
-- **Silence:** If a program has nothing important to say, it should say nothing.
-
-- **Repair:** When failing, fail noisily and as soon as possible.
-
-- **Economy:** Programmer time is more valuable than machine time.
-
-- **Generation:** Write programs to write programs when possible.
-
-- **Optimization:** Prototype before polishing. Get it working before optimizing.
-
-- **Diversity:** Distrust all claims of a "one true way."
-
-- **Extensibility:** Design for the future—it will be here sooner than you think.
-
-Engineering is not just about writing code—it's about crafting systems that stand the test of time. These principles guide decision-making, ensuring that software remains maintainable, scalable, and valuable to users.
+I apply the same list whatever the stack or the client, and it is where I start when a design decision needs settling.

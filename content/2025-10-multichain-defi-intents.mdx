@@ -7,9 +7,9 @@ category: ['Web3', 'DeFi', 'Solana', 'Cosmos', 'Fullstack', 'Backend']
 tech: ['Ethereum']
 ---
 
-I have been building across EVM, Solana, and Cosmos long enough to remember the old path: bridge, wait, swap, hope you still have gas on the far side. Intent-based architecture is the replacement I actually ship against now. The user signs a desired outcome plus constraints. Solver networks compete to fulfill it.
+I have been building across EVM, Solana, and Cosmos since 2021, when cross-chain meant bridge, wait, swap, and hope you still had gas and pool depth on the far side. Intent-based architecture is the replacement I ship against now: the user signs a desired outcome plus constraints, and solver networks compete to fulfill it.
 
-This is not a whitepaper. CoW Protocol has posted $10B+ in monthly volume multiple times this year. UniswapX is processing billions in gasless, MEV-protected swaps on Ethereum and L2s. Across Protocol fills thousands of cross-chain orders a day with sub-minute latency. Jupiter on Solana routes $2B+ per day through competing market makers. Same shape in every ecosystem: outcomes, not a checklist of transactions.
+The volume is already in production. CoW Protocol has posted $10B+ in monthly volume multiple times this year, UniswapX processes billions in gasless, MEV-protected swaps on Ethereum and L2s, Across fills thousands of cross-chain orders a day with sub-minute latency, and Jupiter on Solana routes $2B+ per day through competing market makers. Every ecosystem has converged on the same shape, where the user states an outcome instead of executing a checklist of transactions.
 
 {/* Prevent CLS with responsive aspect ratio */}
 <div className="image-container">
@@ -18,71 +18,67 @@ This is not a whitepaper. CoW Protocol has posted $10B+ in monthly volume multip
 
 ## The coordination problem
 
-A user holds 1 ETH on Arbitrum and wants yield-bearing USDC on Base. The instruction-shaped path is three transactions: bridge (wait, pay gas), swap (slippage, sandwich risk), deposit (gas again). Miss gas on Base and they are stuck. Liquidity moves between steps and the quote they saw is gone.
+A user holds 1 ETH on Arbitrum and wants yield-bearing USDC on Base. The instruction-shaped path is three transactions: a bridge (wait, pay gas), a swap (slippage, sandwich risk), and a deposit (gas again). If they are missing gas on Base they are stuck, and if liquidity moves between steps, the quote they saw is gone.
 
-An intent collapses that into one signed message: I have 1 ETH on Arbitrum; I want yield-bearing USDC on Base. Solvers route, front capital, sponsor gas, settle onchain. The user signs once.
+An intent collapses that into one signed message, "I have 1 ETH on Arbitrum and want yield-bearing USDC on Base," and solvers route it, front capital, sponsor gas, and settle onchain while the user signs once.
 
 ## What an intent is
 
-An intent is a signed, declarative statement of outcome plus constraints. Example: swap 1 ETH on Arbitrum for at least 3,000 USDC on Base, filled within 60 seconds. It does not name the DEX or the bridge.
+An intent is a signed, declarative statement of outcome plus constraints, such as swapping 1 ETH on Arbitrum for at least 3,000 USDC on Base within 60 seconds, and it does not name the DEX or the bridge.
 
-Solvers (market makers, relayers) compete on that statement. They search AMMs, RFQ venues, CEX APIs, and private inventory. They front capital so the user does not sit in a canonical bridge. They sponsor destination gas. They keep the user's signed message out of a public mempool until a fill is committed.
+Solvers, meaning market makers and relayers, compete on that statement. They search AMMs, RFQ venues, CEX APIs, and private inventory, front capital so the user does not sit in a canonical bridge, sponsor destination gas, and keep the signed message out of a public mempool until a fill is committed.
 
-Same-chain fills can be atomic against a settlement contract. Cross-chain fills need a proof: message-passing (Wormhole, Axelar, LayerZero), optimistic fulfillment (solver fronts, waits for proof), or compact-style reusable commitments (ERC-6909). Across, Wormhole Composable Intents, and deBridge DLN are the production-hardened versions of that, often with sub-minute finality and no "open the bridge UI" step.
+Same-chain fills can be atomic against a settlement contract, while cross-chain fills need a proof: message passing (Wormhole, Axelar, LayerZero), optimistic fulfillment where the solver fronts funds and waits for proof, or reusable compact-style commitments (ERC-6909). Across, Wormhole Composable Intents, and deBridge DLN are the production-hardened versions, often with sub-minute finality and no bridge UI in the flow.
 
-The inversion is the architecture: computation offchain, verification onchain. Users used to broadcast executable calldata. Solvers now do the search privately. Only the winning path hits the chain.
+The architecture moves computation offchain and keeps verification onchain. Users used to broadcast executable calldata, and now solvers do the search privately and only the winning path reaches the chain.
 
 ## Production protocols
 
-On EVM, same-chain, I look at three.
+On EVM, for same-chain swaps, I look at three.
 
-UniswapX runs a Dutch auction. Users sign an intent. Fillers compete on a descending price curve. Gasless for the user, MEV-protected, liquidity from Uniswap plus RFQ plus private inventory. Live on Mainnet, Arbitrum, Polygon, Base.
+UniswapX runs a Dutch auction in which users sign an intent and fillers compete on a descending price curve. It is gasless for the user and MEV-protected, draws liquidity from Uniswap, RFQ, and private inventory, and runs on Mainnet, Arbitrum, Polygon, and Base.
 
-CoW Protocol batches intents. Solvers search a settlement that maximizes surplus across the batch. That is why it shows up on large trades and toxic flow. The $10B+ monthly prints are the volume number they have posted more than once this year.
+CoW Protocol batches intents, and solvers search for the settlement that maximizes surplus across the batch, which is why it shows up on large trades and toxic flow and why it has posted $10B+ months more than once this year.
 
-1inch Fusion+ is resolver-based: gasless swaps, partial fills, cross-chain routing, 1inch aggregation plus private sources.
+1inch Fusion+ is resolver-based, with gasless swaps, partial fills, and cross-chain routing over 1inch aggregation plus private sources.
 
-Cross-chain on EVM, Across is the spoke-pool design I trust for L2-to-L2: relayers front destination liquidity, get reimbursed via canonical bridges, tight spreads, sub-minute fills. Wormhole Era 3 composable intents are the any-to-any message: one signature, settlement across EVM, Solana, Cosmos, and the rest of their connected set. Socket and LI.FI sit above that as orchestration: one API, many solvers and bridges.
+For cross-chain on EVM, Across is the spoke-pool design I trust for L2-to-L2 transfers: relayers front destination liquidity and are reimbursed through canonical bridges, which keeps spreads tight and fills under a minute. Wormhole's Era 3 composable intents handle any-to-any messages with one signature and settlement across EVM, Solana, Cosmos, and the rest of their connected set, and Socket and LI.FI sit above that as orchestration, with one API over many solvers and bridges.
 
-Solana's global state and ~400ms slots make the same idea easier: no public mempool sniping of the EVM kind. Jupiter is the aggregator: competing routers and MMs, AMMs plus RFQ plus private inventory, $2B+ daily. Mayan Swift fills Solana ↔ EVM with auction matching and Wormhole settlement: USDC on Arbitrum, SOL on Solana, sub-minute.
+Solana's global state and ~400ms slots make the same idea easier, since there is no public mempool to snipe from the way there is on EVM. Jupiter is the aggregator there, with competing routers and market makers over AMMs, RFQ, and private inventory at $2B+ a day, and Mayan Swift fills Solana ↔ EVM orders through auction matching and Wormhole settlement, for example USDC on Arbitrum to SOL on Solana in under a minute.
 
-Cosmos IBC already moves packets. Users still had to understand channels and hops. Skip Protocol turns that into one signed message and a solver path, including gas. Axelar plus Squid is the EVM ↔ Cosmos liquidity version: solvers front, Axelar proves, Squid is the intent layer.
+Cosmos IBC already moved packets, but users still had to understand channels and hops. Skip Protocol turns that into one signed message and a solver path that includes gas, and Axelar plus Squid is the EVM ↔ Cosmos liquidity version, where solvers front funds, Axelar proves the transfer, and Squid is the intent layer.
 
-deBridge DLN is RFQ with no pooled TVL. Solvers use their own capital, compete on price, reimburse via canonical bridges.
+deBridge DLN is RFQ without pooled TVL: solvers use their own capital, compete on price, and are reimbursed through canonical bridges.
 
-If I am choosing today: UniswapX or CoW for EVM same-chain swaps; Across for EVM L2-to-L2; Jupiter for Solana-only; Wormhole plus Mayan Swift for Solana ↔ EVM; Skip for Cosmos-first; Axelar plus Squid for EVM ↔ Cosmos; Wormhole composable intents when the set is mixed; deBridge DLN when I do not want pool risk.
+If I am choosing today, I would use UniswapX or CoW for EVM same-chain swaps, Across for EVM L2-to-L2, Jupiter for Solana-only flows, Wormhole plus Mayan Swift for Solana ↔ EVM, Skip for Cosmos-first products, Axelar plus Squid for EVM ↔ Cosmos, Wormhole composable intents when the chain set is mixed, and deBridge DLN when I do not want pool risk.
 
 ## ERC-7683, OIF, and compacts
 
-ERC-7683 is the 2025 attempt at a shared cross-chain intent: a format (goal and constraints), a fulfillment interface (how a solver proves the fill), a settlement flow (when funds release). The Open Intents Framework builds shared contracts, SDK pieces, and solver infra on top of it. Arbitrum, Optimism, Base, Coinbase Wallet, and Rabby adopting OIF conventions is the interoperability bet: portable intents, solvers that can fill from any compliant source, apps that do not write a new adapter per chain.
+ERC-7683 is the 2025 attempt at a shared cross-chain intent, with a format for goals and constraints, a fulfillment interface for how a solver proves the fill, and a settlement flow for when funds release. The Open Intents Framework builds shared contracts, SDK pieces, and solver infrastructure on top of it, and Arbitrum, Optimism, Base, Coinbase Wallet, and Rabby adopting OIF conventions is the interoperability bet: portable intents, solvers that fill from any compliant source, and apps that do not write a new adapter per chain.
 
-That is the ERC-20 analogy people use, and I will only use it once. Without a shared format, every protocol's mempool is a silo.
+People compare this to ERC-20, and the comparison holds for one reason, which is that without a shared format every protocol's mempool is a silo.
 
-ERC-6909 compacts are the capital-efficiency follow-on. A solver locks collateral once in a compact contract, reuses it across intents and chains, fulfills on the destination, releases on verification. Compared with per-chain bridge pools, that is less locked inventory and faster settlement. Socket and LI.FI are where I am seeing this land. Whether it scales to billions a day is still an open 2026 question.
+ERC-6909 compacts are the capital-efficiency follow-on. A solver locks collateral once in a compact contract, reuses it across intents and chains, fulfills on the destination, and releases it on verification, which means less locked inventory and faster settlement than per-chain bridge pools. Socket and LI.FI are where I see this landing, and whether it scales to billions a day is still an open question for 2026.
 
 ## MEV
 
-A public mempool swap is an invitation to front-run, sandwich, and back-run. An intent is not executable calldata. Nothing to sandwich until a solver commits, and that competition happens offchain in an auction or a batch. Toxic MEV shrinks. Solver spread remains. That trade is the one I want.
+A swap in the public mempool invites front-running, sandwiching, and back-running. An intent is not executable calldata, so there is nothing to sandwich until a solver commits, and that competition happens offchain in an auction or a batch. Toxic MEV shrinks while the solver's spread remains, and that is the trade I want.
 
-For large flow I also look at encrypted mempools and TEEs. SUAVE (Flashbots) is decentralized block-building with encryption until execution. Anoma is an L1 aimed at private intent coordination with ZK hiding details from solvers until settlement. High-value trading, liquidations, and arb should assume the public mempool is hostile.
+For large flow I also look at encrypted mempools and TEEs. SUAVE from Flashbots is decentralized block building with encryption until execution, and Anoma is an L1 for private intent coordination that uses ZK to hide details from solvers until settlement. High-value trading, liquidations, and arbitrage should assume the public mempool is hostile.
 
 ## What changes in the product
 
-The UI can stop teaching chains. "Deposit $1,000 into the vault" is an intent. "Swap for ETH" is an intent. "Send $500 to Alice" is an intent. The solver picks the route.
+The UI can stop teaching chains, because "deposit $1,000 into the vault," "swap for ETH," and "send $500 to Alice" are all intents and the solver picks the route.
 
-Gas sponsorship is part of the bid. Users do not pre-fund five gas tokens. Consumer DeFi that still starts with "buy ETH for gas" is behind the protocols above.
+Gas sponsorship becomes part of the bid, so users do not pre-fund five gas tokens, and consumer DeFi that still starts with "buy ETH for gas" is behind the protocols above.
 
-Liquidity aggregation is the solver's job. I do not integrate ten DEX aggregators if I am already on an intent protocol.
+Liquidity aggregation becomes the solver's job, so I do not integrate ten DEX aggregators when I am already on an intent protocol. MEV protection comes from CoW batches, UniswapX auctions, and Across relayers, and the app's only job there is to never broadcast the raw swap.
 
-MEV protection is inherited from CoW batches, UniswapX auctions, Across relayers. The app's job is to never broadcast the raw swap.
+Intents are also the execution model [agentic finance](/blog/2025-09-agentic-finance) needs, with a goal, a fence, and a cryptographic settlement. Olas, Autonolas, and similar agent frameworks already treat intents as the coordination layer, and an agent that writes raw calldata is one I do not want signing.
 
-Intents are also the execution model [agentic finance](/blog/2025-09-agentic-finance) needs: a goal, a fence, a cryptographic settle. Olas, Autonolas, and similar agent frameworks already treat that as the coordination layer. An agent that writes raw calldata is an agent I do not want signing.
+The open questions I am tracking are whether ERC-7683 is the format L2s and wallets keep, whether compacts carry real volume, whether solver networks consolidate or specialize, how fast agent products move onto intents, and whether encrypted intent pools become normal for size.
 
-When I wire this into an app I standardize on ERC-7683 and EIP-712, pick an execution model (Dutch, batch, resolver, relayer), use ERC-6909 if the fill is cross-chain and capital-tight, route sensitive flow through SUAVE or Anoma, and support ERC-4337 / ERC-7702 wallets so gasless is not a special case. OIF SDKs exist. I do not start from a custom settlement contract.
-
-What I am watching: whether ERC-7683 is the format L2s and wallets actually keep; whether compacts carry real volume; whether solver networks consolidate or specialize; how fast agent products sit on intents; whether encrypted intent pools become normal for size.
-
-I have been doing multichain work since 2021, when "cross-chain" meant a manual bridge and a prayer that the pool on the other side still had depth. Solver networks are the layer I design for now. The user thinks in outcomes. The protocol thinks in fills. The chain thinks in verification.
+When I wire this into an app, I standardize on ERC-7683 and EIP-712, pick an execution model (Dutch auction, batch, resolver, or relayer), use ERC-6909 when the fill is cross-chain and capital-tight, route sensitive flow through SUAVE or Anoma, and support ERC-4337 and ERC-7702 wallets so gasless is not a special case. OIF SDKs exist, so I do not start from a custom settlement contract.
 
 ## Videos and docs
 

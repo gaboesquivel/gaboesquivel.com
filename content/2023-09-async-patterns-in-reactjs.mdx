@@ -1,28 +1,26 @@
 ---
 title: Async Patterns in React (PolkadotJS)
 publishedAt: 2023-09-05
-summary: Async Patterns for maintaining a clear separation between core logic and presentation.
+summary: Keep async core logic in vanilla TypeScript services and consume it from React with TanStack Query or react-use hooks, using PolkadotJS as the example.
 category: ['Engineering', 'Frontend']
 tech: ['ReactJS', 'TypeScript', 'NextJS', 'TanStack Query']
 ---
 
 Updated in May 2024
 
-On [bitlauncher.ai](https://bitlauncher.ai) I started using Wagmi, and I like its design. That shift means I reach for `useQuery` more often than the `useAsync` helpers in the PolkadotJS examples below.
+On [bitlauncher.ai](https://bitlauncher.ai) I started using Wagmi, and I like its design enough that I now reach for `useQuery` more often than the `useAsync` helpers in the PolkadotJS examples below.
 
 ### TanStack for async operations
 
-In [React](/tech/reactjs), I use TanStack Query (formerly React Query) for asynchronous operations and server state. Caching, request deduplication, and persistence are the reasons.
+In [React](/tech/reactjs), I use TanStack Query (formerly React Query) for asynchronous operations and server state, because it handles caching, request deduplication, and persistence.
 
-Wagmi is built on TanStack Query for those same primitives. It ships over 20 hooks for wallets, ENS, contracts, transactions, signing, and more, plus connectors for injected providers, [WalletConnect](/tech/wagmi), MetaMask, and Coinbase Wallet. Coinbase, [Stripe](/tech/stripe), Shopify, Uniswap, Optimism, ENS, and Sushi use it in production.
+[Wagmi](/tech/wagmi) is built on TanStack Query for those same primitives. It ships over 20 hooks for wallets, ENS, contracts, transactions, signing, and more, plus connectors for injected providers, WalletConnect, MetaMask, and Coinbase Wallet. Coinbase, [Stripe](/tech/stripe), Shopify, Uniswap, Optimism, ENS, and Sushi use it in production.
 
 The [Parity Capi Multisig App](https://github.com/paritytech/capi-multisig-app) also uses TanStack internally.
 
 The rest of this post is the older PolkadotJS pattern: keep core logic in vanilla [TypeScript](/tech/typescript) and use `useAsync` / `useAsyncFn` at the React edge.
 
-Within a services directory, you'll store plain JavaScript functions that handle interactions with external APIs and storage systems. These functions are designed to manage HTTP requests, WebSocket communications, web storage, and API queries effectively. This approach is essential for backend integration.
-
-In the examples that follow, I'll show how to consume the PolkadotJS vanilla service from React components using this approach.
+A services directory holds plain functions that talk to external APIs and storage: HTTP requests, WebSocket connections, web storage, and API queries. The examples that follow consume a vanilla PolkadotJS service from React components.
 
 ```tsx
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -70,9 +68,9 @@ export async function someVanillaConditional(){
 }
 ```
 
-If you'd like to avoid reconnecting to the WebSocket with each service call, you have the option to utilize the global window scope to maintain a reference to your connected API client. For instance, you can use `window.myappscope.api`.
+To avoid reconnecting to the WebSocket on every service call, you can keep a reference to the connected API client in the global window scope, for instance `window.myappscope.api`.
 
-## Async Calls on Component Mounted
+## Async calls when a component mounts
 
 ```tsx
 import { useAsync } from "~/hooks/use-async-fn";
@@ -98,7 +96,7 @@ export function AsyncOnComponentMounted(){
 }
 ```
 
-## Async Calls on Browser Events
+## Async calls on browser events
 
 ```tsx
 import { useAsyncFn } from "~/hooks/use-async-fn";
@@ -127,6 +125,4 @@ export function AsyncOnEvent(){
 }
 ```
 
-I've incorporated the `useAsync` and `useAsyncFn` functions from a fantastic library called [react-use](https://github.com/streamich/react-use). These functions are designed to handle errors internally, simplifying your code. Each call state variable encompasses `{ error, loading, data }` from your asynchronous operation. As a result, you can eliminate the need for cumbersome try/catch statements and manual loading variable updates. This approach is particularly valuable for technical teams working with complex state management.
-
-For more examples and code snippets, check out the [GitHub repository](https://github.com/gaboesquivel/react-async).
+The `useAsync` and `useAsyncFn` hooks come from [react-use](https://github.com/streamich/react-use), and they handle errors internally, so each call state carries `{ error, loading, data }` from the async operation and the component needs no try/catch blocks or manual loading flags. More examples are in the [GitHub repository](https://github.com/gaboesquivel/react-async).

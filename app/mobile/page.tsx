@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Regulated mobile banking',
     paragraphs: [
-      'At Wink the biometric work was a React Native native bridge. KYC and login had to work for a bank whose customers never visit a branch.',
+      'At Wink I built biometric authentication through a React Native native bridge so KYC and login did not need a branch visit.',
     ],
     projectSlugs: ['wink'],
   },
@@ -32,7 +32,7 @@ export default function MobileExperiencePage() {
     <CapabilityPage
       title="Mobile engineering"
       intro={[
-        'The app is rarely the whole job. Mobile keeps pulling past the screen: a native bridge for biometrics, a wallet session, a realtime audio pipeline, the services underneath.',
+        'Mobile work keeps pulling past the screen into a native bridge for biometrics, a wallet session inside a messenger, or a realtime audio pipeline, and I build those layers along with the app.',
       ]}
       sections={sections}
       postSlugs={['2025-09-why-expo', '2026-01-evolution-ai-ux']}

@@ -82,7 +82,7 @@ export const postMatchesBrowseCategory = ({
 
 export const categoryDescriptions: Record<BrowseCategory, string> = {
   product:
-    'Notes on owning the path from user experience to shipped systems — product, interface, and the work around the model.',
+    'Posts tagged Product: dated notes on product decisions, scope, and interface work.',
   engineering:
     'Notes on architecture, tooling, and shipping software — patterns, tradeoffs, and what held up in production.',
   ai: 'Posts tagged AI: dated notes from implementation work.',

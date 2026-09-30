@@ -6,38 +6,36 @@ category: ['Engineering', 'Frontend']
 tech: ['ReactJS', 'TypeScript', 'NextJS']
 ---
 
-Fractals and compounding are useful metaphors for how I like to structure [React](/tech/reactjs) apps: the same shape at every scale, and small pieces that get more valuable as you reuse them. The finance version is familiar—earnings on reinvested earnings. Applied to a codebase, that means a consistent, layered design so extensions don't pile on debt.
+I structure [React](/tech/reactjs) apps so the same shape repeats at every scale, and so small pieces get more valuable the more they are reused. Fractals and compounding are the two metaphors I use for that, and applied to a codebase they mean a consistent, layered design where extensions don't pile on debt.
 
 ## Fractals: self-similarity
 
-Fractals keep the same shape at every scale. A fern leaflet looks like the frond. In a codebase I want that too: a route folder should look like a feature folder, and a component folder should look like both.
+A fractal keeps the same shape at every scale, the way a fern leaflet looks like the whole frond. I want that in a codebase too, where a route folder looks like a feature folder and a component folder looks like both.
 
 ## Compounding in finance and code
 
-In finance, compounding refers to generating earnings on reinvested earnings over time. Small, regular contributions snowball into substantial growth. Applied to software, this idea means designing systems where small improvements or extensions compound value without introducing technical debt. Fractal components create reusable building blocks that share the same shape, so you can extend the system without inventing a new pattern each time.
-
+In finance, compounding means earning returns on reinvested returns, so small, regular contributions grow into large balances over time. In software, the equivalent is a system where each small improvement or extension adds value without adding debt. Fractal components are reusable building blocks that share one shape, so you can extend the system without inventing a new pattern each time.
 
 ## React fractal components
 
-In React, fractal design combines self-similarity with modularity. Here's how this approach applies:
+In React, fractal design combines self-similarity with modularity through four practices:
 
-1. **Uniform Folder Structures:** Each folder mirrors the same structure—organized by routes, features, or components. 
-   
-2. **Consistent Tech Stack:** All components follow the same standards:
-   - **tanstack/react-query**: Standardized data fetching and caching, following a predictable query model.
-   - **viem**: Low-level [Ethereum](/tech/ethereum) interactions with a modern [TypeScript](/tech/typescript) API.
-   - **wagmi**: [React](/tech/reactjs) hooks for [Ethereum](/tech/ethereum), built on top of react-query and viem for consistent data fetching patterns.
-   - **nuqs**: URL-based state management decouples components from internal logic.
-   - **Supabase**: A [backend](/backend) with API logic abstracted into dedicated folders, making backend and frontend portable and reusable.
+1. **Uniform folder structures:** every folder, whether it holds a route, a feature, or a component, mirrors the same layout.
 
-3. **Scalable Design Systems:** Shadcn/UI and [Tailwind CSS](/tech/tailwind) ensure a consistent and portable UI, adaptable even for generative design workflows (GenerativeUI). This approach is essential for [modern UI development](/frontend).
+2. **One stack everywhere:** every component follows the same standards:
+   - **tanstack/react-query** for data fetching and caching with a predictable query model.
+   - **viem** for low-level [Ethereum](/tech/ethereum) interactions with a modern [TypeScript](/tech/typescript) API.
+   - **wagmi** for React hooks over Ethereum, built on react-query and viem so chain reads follow the same data-fetching pattern.
+   - **nuqs** for URL-based state, which decouples components from each other's internal logic.
+   - **Supabase** as the [backend](/backend), with API logic in dedicated folders so backend and frontend code stay portable.
 
-4. **Collocation with AHA Workflow:** Components are refactored only when they naturally reveal the need for reusability (Avoid Hasty Abstractions).
+3. **A shared design system:** shadcn/ui and [Tailwind CSS](/tech/tailwind) keep the UI consistent and portable, including for generative UI workflows.
 
+4. **Collocation with AHA:** components are extracted only when reuse becomes obvious, following Avoid Hasty Abstractions.
 
-## Folder Structure
+## Folder structure
 
-The project uses a consistent, self-similar folder hierarchy, promoting predictability and reusability:
+Each package repeats the same hierarchy, so a developer who knows one folder can predict the next:
 
 ```bash
 repo/
@@ -80,12 +78,9 @@ repo/
         - types.ts    
 ```
 
+## Data fetching with React Query
 
-## Concrete Implementation
-
-### 1. Data Fetching with React Query
-
-Here's how data fetching logic is standardized and portable, ensuring reuse on the frontend and backend:
+Data fetching follows one pattern: the query function lives in the Supabase package and takes its client as an argument, so the same function runs from a hook on the frontend or from server code, and the hook only adds caching:
 
 ```ts
 // repo/hooks/useMarkets.ts

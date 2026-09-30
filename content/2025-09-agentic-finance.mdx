@@ -1,13 +1,13 @@
 ---
 title: Agentic Finance
 publishedAt: 2025-09-30
-summary: A deep dive into how AI agents are becoming autonomous financial actors with the ability to transact, execute, and move capital
+summary: AP2, x402, and OpenAI's agentic commerce work let AI agents hold mandates and settle in stablecoins, which moves them from giving financial advice to executing it.
 image: /images/2025/09/agentic-finance.webp
 category: ['Web3', 'Artificial Intelligence', 'DeFi', 'Stablecoins', 'Fullstack', 'Institutions']
 tech: ['JavaScript', 'TypeScript', 'OpenAI', 'Ethereum', 'AI SDK']
 ---
 
-Artificial intelligence is shifting from advice and automation into a deeper layer: agentic finance. Autonomous [AI agents](/ai) don't just suggest—they transact, execute, and move capital on behalf of users. They become full participants in economic systems.
+Google's AP2 and the x402 work Coinbase announced with Google give [AI agents](/ai) a way to pay, which moves them from suggesting financial actions to executing them: an agent with a mandate can transact, execute a strategy, and move capital on a user's behalf as a participant in the economic system rather than an assistant beside it.
 
 > **Protocol note (2026):** This post is a snapshot from September 2025. AP2 is an authorization layer, not a stablecoin-payment spec by itself. x402 is a settlement primitive, not an implementation of AP2. OpenAI's commerce work is usually discussed as **ACP** (Agentic Commerce Protocol), separate from Google's **UCP** (Universal Commerce Protocol).
 
@@ -16,27 +16,27 @@ Artificial intelligence is shifting from advice and automation into a deeper lay
 ![Agentic Finance](/images/2025/09/agentic-finance.webp)
 </div>
 
-## What Agentic Finance Means
+## What agentic finance requires
 
-Agentic finance is the on-chain economy where AI agents execute financial actions with real assets, real liquidity, and verifiable outcomes. It unites three pillars:
+Agentic finance is the onchain economy where AI agents execute financial actions with real assets, real liquidity, and verifiable outcomes. It depends on three capabilities:
 
-1. Autonomous reasoning: agents strategize, adapt, and make decisions without direct human micromanagement.
-2. Secure non‑custodial execution: agents act under verifiable constraints so user intent becomes action without sacrificing safety or transparency.
-3. Unified liquidity access: agents must operate across fragmented DeFi ecosystems and chains without losing composability or efficiency.
+1. Autonomous reasoning: agents plan, adapt, and decide without a human approving every step.
+2. Non-custodial execution under constraints: user intent becomes action without giving up safety or transparency.
+3. Unified liquidity access: agents operate across fragmented DeFi ecosystems and chains without losing composability.
 
-## Emerging Standards
+## Protocols that define agent payments
 
-Several pioneering protocols are establishing the foundation for agentic finance:
+Three launches set the early standards:
 
-* [Google AP2](https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol): A protocol that enables AI agents to transact using stablecoins with built-in safety controls and cryptographic verification.
+* [Google AP2](https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol): a protocol for AI agents to transact using stablecoins with safety controls and cryptographic verification.
 
-* [x402 (Google + Coinbase)](https://www.coinbase.com/developer-platform/discover/launches/google_x402): An implementation of AP2 that combines Coinbase's stablecoin rails with Google's AI infrastructure, connecting web2 and web3 for agent payments.
+* [x402 (Google + Coinbase)](https://www.coinbase.com/developer-platform/discover/launches/google_x402): Coinbase's stablecoin rails combined with Google's AI infrastructure, connecting web2 and web3 for agent payments.
 
-* [Agentic Commerce (OpenAI)](https://openai.com/research/agentic-commerce): A framework for [AI](/ai)-driven commerce with agent-to-agent transactions, negotiation, and settlement using standardized payment protocols.
+* [Agentic Commerce (OpenAI)](https://openai.com/research/agentic-commerce): a framework for agent-driven commerce with agent-to-agent transactions, negotiation, and settlement over standardized payment protocols.
 
-These protocols define the foundational standards for secure multi-party computation (MPC) in finance - establishing how agents securely delegate intent, verify execution, and maintain cryptographic guarantees without compromising user sovereignty.
+Together they describe how an agent receives delegated intent, how its execution is verified, and how the user keeps cryptographic control over what it may spend.
 
-Below are two illustrative videos that help bring the agentic payments and finance vision to life:
+These two videos show agentic payments working end to end, with mandates, agent negotiation, settlement, and feedback loops that are easier to follow in motion than in a diagram:
 
 <YouTube id="vtB9YyC73yc" title="Agentic Finance Video 1" />
 
@@ -44,25 +44,23 @@ Below are two illustrative videos that help bring the agentic payments and finan
 
 <YouTube id="C6qcZdtIv54" title="Agentic Finance Video 2" />
 
-Watching agentic flows in action grounds the abstraction. You see mandates, agent negotiation, settlement, and feedback loops — not just theoretical diagrams.
+## Why stablecoins are the settlement layer
 
-## Web3 & Stablecoins
+Stablecoins combine the programmability of crypto with the price stability commerce needs, so an automated system can move value and still know what it moved. A volatile asset would make every agent decision a market bet as well.
 
-Stablecoins have emerged as the perfect foundation for agentic finance because they combine the programmability of crypto with the price stability needed for reliable commerce. Unlike volatile cryptocurrencies, stablecoins allow agents to operate with predictable value transfer, making them ideal for automated systems that need deterministic outcomes.
+[Web3 infrastructure](/web3) supplies the rest of what these protocols need:
 
-[Web3 technology](/web3) provides the essential infrastructure for these AI protocols to operate with true sovereignty. The combination creates:
+1. **Trust-minimized execution**: agents act with cryptographic guarantees rather than opaque permissions.
+2. **Composable primitives**: standards like AP2 can integrate with any blockchain that supports the required verification methods.
+3. **Permissionless deployment**: new agent capabilities ship without a central gatekeeper approving them.
+4. **Programmable constraints**: smart contracts enforce the boundaries an agent can operate within.
 
-1. **Trust-minimized execution**: AI agents can act with cryptographic guarantees rather than opaque permissions
-2. **Composable primitives**: Standards like AP2 can integrate with any blockchain supporting the necessary verification methods
-3. **Permissionless innovation**: New agent capabilities can be deployed without centralized gatekeepers
-4. **Programmable constraints**: Smart contracts enforce the boundaries within which agents can operate
+Payments come first, and agent-led trading comes after them, as mandates and session keys evolve into trade instructions that let an agent execute swaps, manage risk, and settle positions inside boundaries you define. That is where I want to take the specialized agent interfaces I built on [Masterbots](/project/masterbots), from commerce toward capital operations.
 
-Payments are the foundation. From here, the next leap is agent-led trading. Mandates and session keys evolve into trade instructions — agents authorized to execute swaps, manage risk, and settle positions, all within boundaries you define. That's the space I'm exploring under [Agentic Stablecoin Payments](/project/masterbots), evolving from commerce into capital operations.
+## From payments to trading
 
-## Looking Forward
+This post builds on [my earlier article on AI and Web3](/blog/2024-07-ai-and-web3), where I looked at how agents and decentralized infrastructure could merge into new product experiences.
 
-This post builds on ideas I shared in [a previous article on AI and Web3](/blog/2024-07-ai-and-web3), where I explored how [intelligent agents](/ai) and [decentralized infrastructure](/web3) can merge into new product experiences.
+The standards are new, stablecoins are the most practical rails available, and teams are already shipping on them. The open engineering work is mandate design, cross-chain liquidity routing, auditability, and guardrails.
 
-We're in the early innings. Standards are emerging, stablecoins are the most practical rails today, and people are already building. The real work is in execution: mandate design, cross-chain liquidity routing, auditability, guardrail systems.
-
-My thesis: we start with safe, delegated agentic payments built on open standards like AP2. Then we add trading, portfolio management, and capital movements — all under agent control but confined by rigorous constraints established by AI finance protocols. The implementation layer (blockchains, networks, marketplaces) will evolve rapidly, but the core AI primitives and standards for finance will create the foundation that enables everything. In a few years, we'll look back and see that granting our agents wallet-level trust was a key turning point in how we interact with money.
+I would start with delegated agent payments on open standards like AP2, then add trading, portfolio management, and capital movement under the same mandate model, with each new capability confined by explicit constraints. The chains, networks, and marketplaces underneath will keep changing, so the part worth designing carefully now is the mandate: what a user grants an agent wallet-level authority to do, and how that grant is revoked.

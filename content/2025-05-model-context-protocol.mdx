@@ -1,16 +1,13 @@
 ---
 title: AI Model Context Protocol (MCP)
 publishedAt: 2025-06-08
-summary: Exploring the Model Context Protocol (MCP) for standardizing AI model interactions using TypeScript
+summary: What the Model Context Protocol standardizes about connecting models to tools and data, and how I structure MCP-style tools, composition, and memory in TypeScript.
 image: /images/ai/ai.webp
 category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 ---
 
-
-As [AI systems](/ai) grow more capable, Model Context Protocol (MCP)—proposed by Anthropic in 2024—has emerged as a foundational standard for connecting models to external data, tools, and services. MCP defines how AI models interface with external tools and data, offering a consistent, modular structure for building real-world intelligent systems.
-
-In this post, we'll unpack what MCP means in practice and how to implement it using [TypeScript](/tech/typescript) and modern AI tooling.
+Anthropic proposed the Model Context Protocol (MCP) in 2024 as a standard for connecting [AI models](/ai) to external data, tools, and services, and it has become the interface most agent tooling now targets. MCP defines how a model reaches tools and data through a consistent, modular structure, and this post covers what that means in practice and how I implement it with [TypeScript](/tech/typescript) and current AI tooling.
 
 {/* Prevent Cumulative Layout Shift (CLS) */}
 <div className="min-h-[300px]">
@@ -21,33 +18,23 @@ In this post, we'll unpack what MCP means in practice and how to implement it us
   />
 </div>
 
-## What Is MCP?
+## What MCP standardizes
 
-MCP is a specification that standardizes how AI models interact with external APIs, databases, and tools. By clearly defining context, tools, and workflows, MCP simplifies the development of [agentic systems](/ai) that go beyond simple prompting.
+MCP is a specification for how AI models interact with external APIs, databases, and tools. Because it defines context, tools, and workflows explicitly, it gives agentic systems a structure beyond prompting, and it lets developers:
 
-It allows developers to:
+* Declare the tools and capabilities a model can use.
+* Share memory and execution logs across calls.
+* Keep model logic separate from business logic.
 
-* Declare available tools and capabilities
-* Share memory and execution logs across calls
-* Maintain clean separation between model logic and business logic
+## Why a protocol is needed now
 
-## Why MCP Matters Now
-
-The AI ecosystem has evolved rapidly:
-
-* We're building multi-step reasoning systems, not one-shot prompts.
-* LLMs now support function calling, streaming, and memory integration.
-* Tooling like LangChain.js, Mastra, and Vercel AI SDK enables MCP architecture with TypeScript.
-
-MCP offers a standardized interface to manage this complexity and improve reusability, observability, and control.
+Applications moved from one-shot prompts to multi-step reasoning systems, and LLMs gained function calling, streaming, and memory integration along the way. Tooling like LangChain.js, Mastra, and the Vercel AI SDK now supports MCP-style architecture in TypeScript, and MCP gives that complexity a standard interface that improves reuse, observability, and control.
 
 ## Implementing MCP in TypeScript
 
-TypeScript's static typing, modular architecture, and growing ecosystem of AI libraries make it an ideal language for building [AI systems](/ai) that follow the MCP specification.
+TypeScript's static types, module system, and growing set of AI libraries make it a good fit for systems that follow the MCP specification. The examples below cover three properties I want in that code: modular tools, composition at runtime, and persistent state.
 
-We'll walk through how each pillar of MCP is implemented using TS-native frameworks.
-
-### Modular: Isolated Units of Capability
+### Modular tools as isolated units of capability
 
 ```tsx
 // tools/search.ts
@@ -62,7 +49,7 @@ export const storeEmbedding = async (embedding: number[]) => {
 };
 ```
 
-### Composable: Wiring Modules Dynamically
+### Composing modules into an agent
 
 ```tsx
 import { Agent } from 'mastra';
@@ -73,7 +60,7 @@ const agent = new Agent({ tools: [search], memory: { store: storeEmbedding } });
 await agent.run("Find latest AI news and store key terms");
 ```
 
-### Persistent: Retaining State Across Sessions
+### Persisting state across sessions
 
 ```tsx
 const memory = new VectorMemory({ db: pgvector });
@@ -82,22 +69,24 @@ await memory.save({ userId: '123', embedding: await getEmbedding("AI regulation"
 const context = await memory.query({ userId: '123' });
 ```
 
-This persistence allows agents to evolve contextually, supporting long-term planning and behavior in AI applications.
+Persistent memory lets an agent carry context from one session to the next, which is what long-running plans and consistent behavior depend on.
 
-## Use Cases
+## Where this structure pays off
 
-* Agents that remember user preferences
-* Workflow automation with persistent state
-* Multi-agent systems coordinating via shared memory
-* AI-powered dashboards with modular, updatable logic
+The same pattern supports several kinds of product:
 
-## Key Challenges
+* Agents that remember user preferences.
+* Workflow automation with persistent state.
+* Multi-agent systems coordinating through shared memory.
+* AI-powered dashboards whose logic can be updated module by module.
+
+## Open design questions
 
 | Challenge     | Considerations                                   |
 | ------------- | ------------------------------------------------ |
 | Interop       | Standardizing interfaces between modules         |
 | State storage | Choosing the right DB for persistence            |
 | Composability | Ensuring modules can be reused cleanly           |
-| Type safety   | Using [TypeScript](/tech/typescript) to enforce contracts between components |
+| Type safety   | Using TypeScript to enforce contracts between components |
 
-MCP is a way to keep model I/O behind a contract: modules stay replaceable, types stay honest, and the rest of the app does not have to know which model is on the other side. For TypeScript work that is the useful part, not the brand.
+I use MCP to keep model input and output behind a contract, so modules stay replaceable, types stay honest, and the rest of the app never needs to know which model is on the other side.

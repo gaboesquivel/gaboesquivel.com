@@ -1,98 +1,114 @@
 ---
 title: Managing Risks in DeFi
 publishedAt: 2025-05-14
-summary: DeFi risks including impermanent loss, smart contract exploits, rug pulls, and real-world examples
+summary: The technical, economic, systemic, and operational risks in DeFi, the incidents that exposed each one, and the checks and tools I use before trusting a protocol.
 image: /images/2025/05/defi-risk-management.webp
 category: ['Web3', 'DeFi', 'Tech Lead', 'Backend']
 tech: ['Ethereum', 'Solidity']
 ---
-Decentralized Finance ([DeFi](/web3)) has unlocked powerful financial primitives like AMMs, liquidity pools, and yield farming across multiple blockchain ecosystems including [EVM](/tech/ethereum) chains, Solana, and Cosmos. However, these innovations introduce unique risks across four main categories: technical risks (smart contracts/programs, [frontend](/frontend)), economic risks (impermanent loss, liquidations), systemic risks (bridges, oracles), and operational risks (governance, regulation). This article breaks down these risks, explains their mechanisms, and references real-world incidents to demonstrate critical awareness.
+AMMs, liquidity pools, and yield farming on [EVM](/tech/ethereum) chains, Solana, and Cosmos each come with a matching set of ways to lose money, and the incidents of the last few years sort into four groups: technical risks in contracts, programs, and [frontends](/frontend), economic risks like impermanent loss and liquidations, systemic risks in bridges and oracles, and operational risks in governance and regulation. This post covers how each risk works, the real incidents behind it, and how I assess a protocol before using or building on it.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![Managing Risks in DeFi](/images/2025/05/defi-risk-management.webp)
 </div>
 
-## Technical Risks
+## Technical risks
 
-### Smart Contract Exploits
-DeFi protocols are built on immutable smart contracts and programs across different chains. Vulnerabilities like reentrancy ([EVM](/tech/ethereum)), program logic errors (Solana), or module bugs (Cosmos) can lead to catastrophic losses. The 2016 DAO hack, Curve's \$70M Vyper bug exploit (2023), and Mango Markets' \$117M Solana program exploit underscore how even audited code can fail. Developers must prioritize audits, bug bounties, and conservative design.
+### Smart contract exploits
 
-### Frontend Attacks
-Protocol frontends represent a critical vulnerability point across all chains. DNS hijacking and malicious UI modifications can lead to significant losses, as seen in the BadgerDAO frontend attack (\$120M). Mitigations include ENS integration, IPFS hosting, and proper security headers to protect users.
+DeFi protocols run on immutable smart contracts and programs, and a reentrancy bug on EVM, a program logic error on Solana, or a module bug on Cosmos can lead to catastrophic losses. The 2016 DAO hack, Curve's \$70M Vyper bug exploit in 2023, and the \$117M Mango Markets exploit on Solana show that even audited code can fail, which is why audits, bug bounties, and conservative design all belong in the process.
 
-### Token Standard Vulnerabilities
-Token standards like ERC-20 (EVM), SPL (Solana), and CW20 (Cosmos) can introduce security risks. Unlimited token approvals have led to numerous exploits, while NFT contracts face reentrancy vulnerabilities. The OpenSea Wyvern protocol exploit highlighted these risks. Mitigations include limited approvals, security checks, and thorough standard audits.
+### Frontend attacks
 
-### Gas Optimization Risks
-Transaction costs and optimization vary across chains. EVM chains face gas price volatility and MEV extraction, while Solana's fee model and Cosmos' gas parameters present different challenges. During high network congestion, users face failed transactions or excessive fees. Solutions include EIP-1559 (EVM), priority fees (Solana), and proper gas estimation tools integrated into backend systems.
+Protocol frontends are a vulnerability on every chain, since DNS hijacking and malicious UI changes can redirect users' funds, as in the \$120M BadgerDAO frontend attack. ENS integration, IPFS hosting, and strict security headers reduce that exposure.
 
-## Economic Risks
+### Token standard vulnerabilities
 
-### Impermanent Loss
-AMMs like Uniswap (EVM), Raydium (Solana), and Osmosis (Cosmos) rebalance token ratios, exposing LPs to impermanent loss (IL) when asset prices diverge. This loss becomes permanent upon withdrawal. For example, LPs often lose value during volatile markets unless offset by fees. In Uniswap v3, \~50% of LPs lost money due to IL exceeding fees. Bancor's failed IL protection during a 2022 market crash highlighted the challenge of mitigating this risk.
+Token standards like ERC-20 on EVM, SPL on Solana, and CW20 on Cosmos carry their own risks. Unlimited token approvals have enabled many exploits, NFT contracts have faced reentrancy bugs, and the OpenSea Wyvern exploit showed both. Limited approvals, security checks, and audits of how a contract implements the standard are the mitigations.
 
-### Liquidation Spirals
-Over-leveraged positions in volatile markets can lead to cascading liquidations across all chains. MakerDAO's "Black Thursday" (2020) saw \$8M in ETH sold for zero due to auction failures. Protocols must use conservative collateral ratios and robust liquidation mechanisms.
+### Transaction fee risks
 
-### Economic Design Flaws
-Token emission schedules and incentive structures can create unsustainable protocols. Olympus DAO's high APY model demonstrated how economic design flaws can lead to protocol collapse. Sustainable tokenomics, gradual emissions, and proper incentive alignment are crucial for long-term protocol health.
+Fees and their optimization differ by chain, with gas price volatility and MEV extraction on EVM and different fee models on Solana and Cosmos. During congestion, users see failed transactions or excessive fees, and EIP-1559 on EVM, priority fees on Solana, and accurate gas estimation in the backend help keep transactions landing.
 
-### Liquidity Fragmentation
-DeFi's multiple DEXs and liquidity pools create price discrepancies and arbitrage opportunities across chains. This fragmentation can lead to inefficient price discovery and increased slippage. DEX aggregators and cross-pool liquidity solutions help mitigate these issues, but users must remain aware of price differences across platforms.
+## Economic risks
 
-## Systemic Risks
+### Impermanent loss
 
-### Bridge Vulnerabilities
-Cross-chain bridges face unique security challenges, with over \$2B lost to bridge hacks. Notable incidents include Wormhole (\$325M), Ronin Bridge (\$625M), and Nomad (\$190M). These attacks often exploit validator vulnerabilities or smart contract bugs. Robust security requires multiple validators, thorough audits, and gradual withdrawal mechanisms.
+AMMs like Uniswap on EVM, Raydium on Solana, and Osmosis on Cosmos rebalance token ratios, which exposes LPs to impermanent loss (IL) when asset prices diverge, and the loss becomes permanent at withdrawal. LPs often lose value in volatile markets unless fees offset it, and in Uniswap v3 about half of LPs lost money because IL exceeded their fees. Bancor's IL protection failing during the 2022 crash showed how hard this risk is to insure away.
 
-### Oracle Manipulation
-Protocols relying on on-chain DEX prices can be exploited via manipulated trades. Mango Markets (2022) was drained of \$117M by inflating MNGO token prices and borrowing against the inflated value. Secure, time-weighted oracles (e.g., Chainlink, Pyth, Band Protocol) are essential.
+### Liquidation spirals
+
+Over-leveraged positions in volatile markets can set off cascading liquidations on any chain. On MakerDAO's "Black Thursday" in 2020, \$8M in ETH was sold for zero because liquidation auctions failed, and conservative collateral ratios and liquidation mechanisms that hold up under congestion are the defense.
+
+### Economic design flaws
+
+Token emission schedules and incentive structures can make a protocol unsustainable, as Olympus DAO's high-APY model showed when it collapsed. Gradual emissions and incentives aligned with real usage are what keep tokenomics healthy over time.
+
+### Liquidity fragmentation
+
+Many DEXs and pools across chains create price discrepancies and arbitrage opportunities, which leads to inefficient price discovery and more slippage. DEX aggregators and cross-pool liquidity reduce the problem, and users still need to watch for price differences between venues.
+
+## Systemic risks
+
+### Bridge vulnerabilities
+
+Cross-chain bridges have lost over \$2B to hacks, including Wormhole (\$325M), Ronin Bridge (\$625M), and Nomad (\$190M), usually through validator compromise or smart contract bugs. Multiple independent validators, thorough audits, and rate-limited withdrawals are the baseline for a bridge I would trust.
+
+### Oracle manipulation
+
+Protocols that read prices from onchain DEXs can be exploited with manipulated trades. In 2022, Mango Markets was drained of \$117M by inflating the MNGO price and borrowing against it, which is why protocols need secure, time-weighted oracles such as Chainlink, Pyth, or Band Protocol.
 
 ### Rehypothecation
-DeFi enables recursive use of collateral (e.g., stETH, stSOL, stATOM), creating opaque chains of risk. One token can underpin multiple layers of borrowing or liquidity provision. This hidden leverage can destabilize the system during stress, as seen with Terra and stETH depegging.
 
-### Systemic Risk from Composability
-DeFi's composability enables innovation but introduces cascading failure risks. Protocols like Iron Finance and Terra's UST collapse (2021-2022) show how dependencies across protocols (e.g., shared collateral) can amplify shocks. One failure can trigger a chain reaction across multiple dApps.
+DeFi allows recursive use of collateral such as stETH, stSOL, and stATOM, so one token can back several layers of borrowing or liquidity provision. That hidden leverage can destabilize the system under stress, as the Terra collapse and the stETH depeg showed.
 
-## Operational Risks
+### Composability risk
 
-### Governance Attacks
-DeFi governance is vulnerable when attackers borrow tokens to pass malicious proposals. Beanstalk lost \$182M in a flash loan-enabled attack. Mitigations include timelocks, quorum requirements, and snapshot-based voting across all chains. This is a critical consideration for [technical leaders](/lead).
+Composability lets protocols build on each other and also lets failures cascade between them. Iron Finance and the collapse of Terra's UST in 2021–2022 showed how shared collateral and cross-protocol dependencies amplify a shock, so one failure can trigger a chain reaction across many dApps.
 
-### Centralization Risks
-Despite DeFi's decentralized nature, many protocols retain centralization risks through admin keys and upgradeable contracts. The Multichain bridge hack (\$130M, 2023) demonstrated how admin key compromise can lead to catastrophic losses. Centralized oracles and price feeds also create single points of failure. Mitigations include timelocks, multi-sig governance, and decentralized oracle networks.
+## Operational risks
 
-### Regulatory Risks
-DeFi protocols face changing regulation across jurisdictions. SEC actions against DeFi protocols demonstrate the challenges of compliance in a decentralized environment. Projects must balance decentralization with regulatory requirements, often implementing KYC/AML solutions while maintaining protocol security.
+### Governance attacks
 
-### Sandwich Attacks
-Sandwich attacks occur when MEV (Maximal Extractable Value) bots front-run and back-run user transactions in DEXs. While most common on EVM chains, similar attacks can occur on Solana and Cosmos. The attacker places a buy order before the victim's trade (front-run) and a sell order after (back-run), profiting from the price impact. This can cost users 0.5-2% per trade. Notable examples include the \$1.2M sandwich attack on a single Uniswap trade in 2021. Mitigations include using DEX aggregators, private transactions, or protocols with anti-MEV features like CowSwap's batch auctions.
+Governance is vulnerable when attackers can borrow enough tokens to pass a malicious proposal, and Beanstalk lost \$182M to a flash loan-enabled governance attack. Timelocks, quorum requirements, and snapshot-based voting are the mitigations, and they are decisions [technical leaders](/lead) should make before launch.
 
-## Assessing Risk 
+### Centralization risks
 
-### Risk Assessment Frameworks
+Many protocols keep admin keys and upgradeable contracts, and the \$130M Multichain bridge hack in 2023 showed what an admin key compromise costs. Centralized oracles and price feeds are single points of failure too, and timelocks, multisig governance, and decentralized oracle networks reduce both.
 
-When evaluating DeFi protocols, consider these key frameworks:
+### Regulatory risks
 
-1. **Technical Security Framework**
-   - Smart contract/program audit reports and coverage
+Regulation keeps changing across jurisdictions, and SEC actions against DeFi protocols show how hard compliance is in a decentralized system. Projects have to balance decentralization with regulatory requirements, often adding KYC/AML while keeping the protocol secure.
+
+### Sandwich attacks
+
+MEV (Maximal Extractable Value) bots sandwich DEX trades by buying before the victim's transaction and selling after it, profiting from the price impact. The attack is most common on EVM chains and possible on Solana and Cosmos, it can cost users 0.5–2% per trade, and one 2021 Uniswap trade lost \$1.2M to it. DEX aggregators, private transactions, and anti-MEV designs like CowSwap's batch auctions protect against it.
+
+## How I assess a protocol
+
+### Risk assessment frameworks
+
+I evaluate a DeFi protocol across three areas:
+
+1. **Technical security**
+   - Audit reports for contracts or programs, and their coverage
    - Program verification status (Solana)
    - Module security (Cosmos SDK)
-   - Bug bounty program scope and rewards
+   - Bug bounty scope and rewards
    - Code review process and frequency
    - Incident response plan
    - Chain-specific security features
 
-2. **Economic Security Framework**
+2. **Economic security**
    - Token distribution and vesting schedules
    - Liquidity depth and concentration
    - Revenue model sustainability
    - Emergency pause mechanisms
    - Chain-specific economic parameters
-   - Cross-chain liquidity considerations
+   - Cross-chain liquidity
 
-3. **Operational Security Framework**
+3. **Operational security**
    - Team transparency and track record
    - Governance structure and decentralization
    - Regulatory compliance status
@@ -100,60 +116,60 @@ When evaluating DeFi protocols, consider these key frameworks:
    - Chain-specific operational requirements
    - Cross-chain interoperability risks
 
-### Risk Evaluation Checklist
+### Risk evaluation checklist
 
-Before interacting with any DeFi protocol, verify:
+Before interacting with a DeFi protocol, I verify:
 
-- Smart contracts/programs audited by reputable firms
-- No critical or high-severity vulnerabilities
-- Active bug bounty program
-- Transparent team with proven track record
+- Contracts or programs audited by reputable firms
+- No open critical or high-severity vulnerabilities
+- An active bug bounty program
+- A transparent team with a track record
 - Clear tokenomics and emission schedule
 - Sufficient liquidity depth
-- Decentralized governance structure
+- Decentralized governance
 - Emergency pause functionality
-- Insurance coverage available
+- Available insurance coverage
 - Regular security updates
 - Clear documentation
-- Active community and development
+- An active community and ongoing development
 - Chain-specific security measures
-- Cross-chain bridge security (if applicable)
+- Bridge security, if the protocol is cross-chain
 - Validator security
-- Program upgrade mechanisms
+- The program upgrade mechanism
 
-### Risk Monitoring Tools
+### Risk monitoring tools
 
-Stay informed with these essential tools:
+These are the tools I use to keep up with each area:
 
-1. **Security Monitoring**
-   - [DeFiSafety](https://defisafety.com) - Protocol security scores
-   - [Rekt.News](https://rekt.news) - Incident tracking
-   - [Immunefi](https://immunefi.com) - Bug bounty platform
-   - [Chainalysis](https://chainalysis.com) - Risk monitoring
-   - [SolanaFM](https://solana.fm) - Solana program monitoring
-   - [Mintscan](https://mintscan.io) - Cosmos chain explorer
+1. **Security monitoring**
+   - [DeFiSafety](https://defisafety.com) for protocol security scores
+   - [Rekt.News](https://rekt.news) for incident tracking
+   - [Immunefi](https://immunefi.com) for bug bounties
+   - [Chainalysis](https://chainalysis.com) for risk monitoring
+   - [SolanaFM](https://solana.fm) for Solana program monitoring
+   - [Mintscan](https://mintscan.io) as a Cosmos chain explorer
 
-2. **Economic Monitoring**
-   - [DefiLlama](https://defillama.com) - Cross-chain TVL and metrics
-   - [Dune Analytics](https://dune.com) - Custom analytics
-   - [Nansen](https://nansen.ai) - Wallet and protocol analysis
-   - [Arkham](https://arkhamintelligence.com) - On-chain intelligence
-   - [SolanaFM](https://solana.fm) - Solana analytics
-   - [Cosmoscan](https://cosmoscan.io) - Cosmos analytics
+2. **Economic monitoring**
+   - [DefiLlama](https://defillama.com) for cross-chain TVL and metrics
+   - [Dune Analytics](https://dune.com) for custom analytics
+   - [Nansen](https://nansen.ai) for wallet and protocol analysis
+   - [Arkham](https://arkhamintelligence.com) for onchain intelligence
+   - [SolanaFM](https://solana.fm) for Solana analytics
+   - [Cosmoscan](https://cosmoscan.io) for Cosmos analytics
 
-3. **Governance Monitoring**
-   - [Tally](https://tally.xyz) - EVM governance tracking
-   - [Snapshot](https://snapshot.org) - Cross-chain proposal monitoring
-   - [Boardroom](https://boardroom.io) - DAO governance
-   - [Realms](https://realms.today) - Solana DAO governance
-   - [Keplr](https://keplr.app) - Cosmos governance
+3. **Governance monitoring**
+   - [Tally](https://tally.xyz) for EVM governance
+   - [Snapshot](https://snapshot.org) for cross-chain proposals
+   - [Boardroom](https://boardroom.io) for DAO governance
+   - [Realms](https://realms.today) for Solana DAO governance
+   - [Keplr](https://keplr.app) for Cosmos governance
 
-4. **Alert Systems**
-   - [DeBank](https://debank.com) - Cross-chain portfolio tracking
-   - [Zapper](https://zapper.fi) - Position monitoring
-   - [Etherscan](https://etherscan.io) - EVM transaction alerts
-   - [Solscan](https://solscan.io) - Solana transaction alerts
-   - [Mintscan](https://mintscan.io) - Cosmos transaction alerts
-   - [Twitter Lists](https://twitter.com) - Protocol updates
+4. **Alerts**
+   - [DeBank](https://debank.com) for cross-chain portfolio tracking
+   - [Zapper](https://zapper.fi) for position monitoring
+   - [Etherscan](https://etherscan.io) for EVM transaction alerts
+   - [Solscan](https://solscan.io) for Solana transaction alerts
+   - [Mintscan](https://mintscan.io) for Cosmos transaction alerts
+   - [Twitter Lists](https://twitter.com) for protocol updates
 
-DeFi presents exciting opportunities and real threats. Technical savvy and risk-conscious design are essential. Hiring managers should seek developers who understand these risks and build defensively. Smart DeFi participation requires vigilance, skepticism, and above all—verification over trust.
+When I build on DeFi, I design defensively against every category above, and when I use a protocol, I verify the checklist myself instead of trusting its reputation.

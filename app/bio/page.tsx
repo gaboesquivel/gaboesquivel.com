@@ -47,12 +47,10 @@ export default function BioPage() {
           arrived in the region.
         </Prose>
         <Prose>
-          AMC&apos;s YEAH! interactive streaming experience had to launch at
-          SXSW 2013 with extras inside the film. As Lead UI Engineer from 2012
-          to 2014 I owned the frontend: the Facebook application, Brightcove
-          streaming, and the back-office editing path. Alongside full-time roles
-          I shipped a fantasy-tennis strategy game and a realtime
-          flight-information display for ARINC.
+          At AMC Networks, as Lead UI Engineer from 2012 to 2014, I owned the
+          frontend for YEAH!, an interactive streaming movie service that
+          launched at SXSW 2013. In 2013 I also shipped a fantasy-tennis
+          strategy game and a realtime flight-information display for ARINC.
         </Prose>
 
         <ProjectEvidence slugs={['costa-rica-js']} columns={1} />
@@ -67,15 +65,15 @@ export default function BioPage() {
           authentication through a native bridge.
         </Prose>
         <Prose>
-          Technology selection, project planning, partner and vendor
-          coordination, security, recruiting, and team formation sat inside that
-          product. A bank on a phone is only as good as the integrations,
-          identity checks, and operations behind the screen.
+          Technology selection, project planning, and partner and vendor
+          coordination sat inside that product, and launch required forming a
+          development team that did not exist yet.
         </Prose>
         <Prose>
           Wink is also where I settled on something I still hold: technology
-          should expand access rather than create new gatekeepers. Here that was
-          literal. Opening a bank account stopped requiring a trip to a branch.
+          should expand access rather than create new gatekeepers, and at Wink
+          that meant opening a bank account no longer required a trip to a
+          branch.
         </Prose>
 
         <ProjectEvidence slugs={['wink']} columns={1} />
@@ -84,26 +82,21 @@ export default function BioPage() {
       <PageSection title="Complex financial and blockchain systems">
         <Prose>
           The next stretch was the system-to-interface problem: token state,
-          private chains, exchanges, and wallets that people actually use. The
-          implementations are on{' '}
+          private chains, exchanges, and wallets people use, with the
+          implementation detail on{' '}
           <Link href="/web3" className="prose-link">
             /web3
           </Link>{' '}
           and the project pages.
         </Prose>
         <Prose>
-          Tokens and protocol infrastructure came first. At Knowledge, from 2017
-          to 2018, I deployed an ERC-20 token for a mainnet ICO and built the
-          marketplace and wallet around it. I also co-founded AsoBlockchain in
-          2017. At EOS Costa Rica, from 2018 to 2020, I helped launch the EOS
-          mainnet, operated validators, and built a private EOSIO chain for
-          Grant Thornton Labs.
-        </Prose>
-        <Prose>
-          Then exchanges and indexed chain data. Bitcash, from 2020 to 2021, was
-          a peer-to-peer exchange whose product depended on a matching engine,
-          browser signing, and a realtime EOS indexer. ChainGraph grew from that
-          work into an open-source GraphQL toolkit for EOSIO and Antelope data.
+          Tokens and protocol infrastructure came first: Knowledge&apos;s ERC-20
+          token and marketplace from 2017 to 2018, AsoBlockchain, which I
+          co-founded in 2017, and EOS Costa Rica from 2018 to 2020, around the
+          EOS mainnet launch and a private chain for Grant Thornton Labs.
+          Exchanges and indexed chain data followed with Bitcash from 2020 to
+          2021, and ChainGraph grew out of that work as an open-source GraphQL
+          toolkit for EOSIO and Antelope data.
         </Prose>
         <Prose>
           RareMint, ZTX, Bitlauncher, and Opyn pushed the same problem into
@@ -122,11 +115,10 @@ export default function BioPage() {
 
       <PageSection title="Intelligent interfaces">
         <Prose>
-          Intelligent interfaces, in this work, means voice and chat, retrieval
-          that decides what the model sees, and admin controls so a team can run
-          the assistant after launch. Specialized assistants showed up inside
-          Masterbots and Bitlauncher; in 2025 LegalAgent became the main
-          evidence. That work sits on{' '}
+          The latest turn is toward intelligent interfaces. Specialized
+          assistants showed up in Masterbots in 2024 and in Bitlauncher&apos;s
+          RAG chatbot, and in 2025 LegalAgent&apos;s voice and chat assistant
+          became the main evidence for that work, which sits on{' '}
           <Link href="/ai" className="prose-link">
             /ai
           </Link>

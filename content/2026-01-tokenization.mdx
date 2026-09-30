@@ -1,93 +1,79 @@
 ---
 title: Tokenization
 publishedAt: 2026-01-20
-summary: Tokenization is moving from experiment to production infrastructure. Traditional financial institutions are launching parallel digital venues with 24/7 operations, instant settlement, and stablecoin rails—not retrofitting existing systems, but building new ones from the ground up.
+summary: Exchanges like the NYSE are launching tokenized venues that run 24/7, settle instantly, and fund with stablecoins, next to the markets they already operate.
 image: /images/2026/01/nyse-tokenization.webp
 category: ['Web3', 'Finance', 'Stablecoins', 'Tokenization', 'Institutions']
 tech: ['Blockchain']
 ---
 
-Financial institutions are launching tokenized trading venues that operate fundamentally differently from traditional markets. Instead of adding blockchain to back-office systems or retrofitting existing infrastructure, they're building entirely new venues that run 24/7, settle instantly, and use stablecoin funding. This isn't speculation anymore—it's institutional capital markets choosing to rebuild on different rails.
+The NYSE and other financial institutions are launching tokenized trading venues that run 24/7, settle instantly, and take stablecoin funding, and they are building them as new venues rather than adding blockchain to back-office systems or retrofitting the markets they already run.
 
-I've been tracking [Web3 infrastructure](/web3) for years, and we're at the moment when tokenization stopped being a "what if" and became a "when." These aren't experiments. Production venues are launching with regulatory approvals for tokens natively issued as digital securities and tokenized shares that are fungible with traditionally issued securities. That fungibility is critical—it creates a bridge between legacy systems and new infrastructure, so the same capital can sit on either rail.
-
+These venues launch with regulatory approval for tokens issued natively as digital securities and for tokenized shares that are fungible with traditionally issued ones. I've followed [Web3 infrastructure](/web3) for years, and that fungibility is the detail that matters most to me, because it lets the same capital sit on either rail while the two systems coexist.
 
 {/* Prevent CLS with responsive aspect ratio */}
 <div className="image-container">
 ![Tokenization](/images/2026/01/tokenization.webp)
 </div>
 
-## Parallel infrastructure, not replacement
+## Parallel venues next to legacy markets
 
-The transition strategy is clear: run both systems in parallel. Traditional markets: limited hours, T+1 settlement, bank wire funding. Digital venues: 24/7 operations, instant settlement, stablecoin rails. This is how infrastructure transitions happen—not by shutting down what works, but by building the alternative and letting capital choose which rails to use.
+The transition strategy is to run both systems in parallel: traditional markets with limited hours, T+1 settlement, and bank wire funding, next to digital venues with continuous operation, instant settlement, and stablecoin rails. Infrastructure transitions tend to work this way, with the alternative built alongside what already works and capital left to choose its rails.
 
-Major exchanges like NYSE are launching these parallel venues, positioning themselves differently than infrastructure providers who are tokenizing existing assets. Building both the venue and the issuance layer means native digital securities from the start, not just representations of off-chain assets. The question isn't whether this transition happens—it's how fast capital migrates from legacy rails to programmable infrastructure.
+Exchanges like the NYSE are positioning themselves differently from infrastructure providers that tokenize existing assets. When the same operator builds both the venue and the issuance layer, the securities are digital from issuance instead of representations of off-chain assets, and the open question becomes how fast capital migrates to the programmable side.
 
+## What instant settlement changes
 
+T+1 sounds fast until you notice it is still measured in days. Instant settlement means the trade and the ownership transfer happen at the same moment, with finality, so there is no settlement window, no counterparty exposure during it, and no wait for cash to clear across banking rails.
 
+Stablecoin funding is what makes that possible, because settlement no longer has to wait for banks to open and can run onchain around the clock. Shorter settlement lowers risk, frees capital that would otherwise sit waiting, and admits participants who could not operate on T+1 rails.
 
-## Settlement changes everything
+Once assets and payments settle together, you can build products that settlement delays used to rule out, including automated market making, programmatic collateral management, and cross-market arbitrage.
 
-T+1 settlement sounds fast until you realize it's still measured in days. Instant settlement means the trade and the ownership transfer happen simultaneously, with finality. No settlement risk. No counterparty exposure. No waiting for cash to clear across legacy banking rails. You trade, you own, immediately.
+## Custody in wallets
 
-This is what [stablecoin infrastructure](/web3) enables. When funding moves from bank wires to stablecoins, settlement doesn't have to wait for banks to open. It happens on-chain, programmatically, 24/7. That's not a marginal improvement—it's a structural change in how capital markets operate. Faster settlement reduces risk, increases capital efficiency, and opens access to participants who couldn't operate on T+1 rails.
+If settlement happens onchain, custody follows it. Tokenized venues assume digital securities live in wallets rather than with central custodians, which removes the clearing house from the middle and opens a layer of custody primitives: self-custody, multisig wallets, institutional custody providers, and smart contract escrow.
 
-Programmable ownership plus instant settlement creates composability. When assets and payments settle instantly, you can build financial products that weren't possible before—automated market making, programmatic collateral management, cross-market arbitrage without settlement delays. The velocity of capital increases, and the composability of finance becomes real.
+Onchain custody means programmable access control, onchain verification, delegation, and recovery, on top of key storage. I've built parts of that layer: WebAuthn key management for in-browser signing and EOS contract multisig on Bitcash, and wallet and bridge flows across EVM and EOS on Bitlauncher. The same questions about how assets are held, who may sign, and how actions stay auditable apply to tokenized equities.
 
-## Custody moves on-chain
+That change reaches clearing, margin rules, and broker economics, well beyond the interface an investor sees.
 
-If settlement happens on-chain, custody needs to follow. Tokenized venues assume that digital securities live in wallets, not with central custodians. That's a fundamental change in market structure. When custody moves from centralized clearing houses to wallets, the clearing monopoly breaks, and a new layer of custody primitives emerges—self-custody, multi-sig wallets, institutional custody providers, smart contract-based escrow.
+## Programmable compliance
 
-This is where the technical stack gets interesting. Custody on-chain isn't just "store the keys"—it's programmable access control, on-chain verification, delegation models, and recovery mechanisms. The [Web3 infrastructure](/web3) I've been building with projects like Bitlauncher and Opyn deals with exactly these primitives: how to custody assets securely, how to delegate trading authority, how to maintain auditability. Those same patterns apply to tokenized equities.
+Compliance has been one of the largest blockers for tokenized securities, and securities regulation still applies once an asset moves onchain. What changes is enforcement: transfer restrictions can live in the smart contract, KYC can be attached to wallet credentials, and accreditation can be checked before a transaction executes.
 
-This isn't a UX upgrade. It's a restructuring of market infrastructure that changes clearing, margin rules, and broker economics. The implications cascade through the entire financial stack.
+Those compliant markets need onchain identity, transfer restrictions, and regulatory hooks, and exchanges launching with regulatory approval show the path exists. What remains open is which compliance layers get built on those primitives and how well they adapt to different asset types and jurisdictions.
 
-## Compliance becomes programmable
+Markets that run 24/7 need compliance monitoring that runs 24/7, which raises the bar on who can operate a venue while also allowing automation that manual compliance workflows could not support.
 
-One of the biggest blockers to tokenized securities has been compliance. Securities regulation doesn't disappear just because the asset moves on-chain. But on-chain compliance is different—it's programmable. Transfer restrictions can be enforced at the smart contract level. KYC verification can be embedded in wallet credentials. Accreditation status can be checked programmatically before allowing a transaction.
+## Global access without correspondent banking
 
-Compliant on-chain markets are possible if the right primitives exist: on-chain identity, transfer restrictions, regulatory hooks. Major exchanges launching tokenized venues with regulatory approvals proves that the path exists. The question now is what compliance layers get built on top of these primitives, and how flexible they are for different asset types and jurisdictions.
+T+1 settlement assumes correspondent banking, and stablecoin settlement does not, so participants can reach tokenized markets without a traditional bank account, international wires, or forex spreads and delays.
 
-24/7 markets require 24/7 compliance monitoring, and that's not trivial. The systems that win here won't just be faster—they'll be operationally resilient and compliant at scale. This quietly raises the bar on who can participate, but it also enables automation that wasn't possible with legacy compliance workflows.
+The regulations stay the same, and the infrastructure requirement is what changes. If you can custody assets in a wallet and settle in stablecoins, you no longer need the banking relationships legacy markets require, which opens those markets to retail investors, international institutions, and participants in emerging markets who were previously shut out. Securities law remains the limit on who may participate.
 
-## Global access without legacy friction
+## Tokenized securities as DeFi primitives
 
-T+1 settlement assumes correspondent banking. Stablecoin settlement doesn't. That means participants from anywhere can access tokenized markets without needing traditional bank accounts, without waiting for international wires, without dealing with forex spreads and settlement delays. The barriers to entry drop significantly.
+When securities settle instantly and custody is programmable, you can compose them: tokenized equities as collateral in DeFi protocols, shares fractionalized programmatically, automated market makers providing liquidity for securities, and bridges moving tokenized assets between ecosystems.
 
-Tokenization makes capital markets accessible to a global participant base. Not because the regulations change, but because the infrastructure changes. If you can custody assets in a wallet and settle in stablecoins, you don't need the same banking relationships that legacy markets require. That opens the door for retail investors, international institutions, and emerging market participants who were previously locked out.
+The DeFi patterns for market making, liquidity pools, and yield optimization carry over once financial assets are programmable primitives, and that design space is the part of tokenization I most want to build in. With traditional institutions launching venues, how fast that composability arrives depends on when the infrastructure goes live.
 
-The limitation here is still regulatory—securities laws apply regardless of the rails. But the infrastructure barrier is gone, and that's a meaningful shift.
+## Onboarding decides adoption
 
-## Composable finance becomes real
+With compliance possible and custody primitives maturing, onboarding is the bottleneck. Traditional investors need a way into tokenized markets, retail users need wallets that don't feel like a new operating system, and institutions need tokenized assets inside their existing portfolio and risk systems.
 
-When securities settle instantly and custody is programmable, you can compose them. Tokenized equities can be used as collateral in DeFi protocols. Shares can be fractionalized programmatically. Automated market makers can provide liquidity for securities. Cross-chain bridges can move tokenized assets between ecosystems.
+I would build the interface to look like a brokerage account, with better settlement, lower fees, and 24/7 access, and keep wallets, keys, and onchain transactions out of the user's way. The stack underneath can be completely different as long as the workflow feels familiar, because institutions adopt what fits the way they already work, and a venue that demands new workflows first will be adopted slowly.
 
-This is the part that gets me excited. Composability isn't just a Web3 buzzword—it's what happens when financial assets become programmable primitives. The same patterns we use in DeFi for automated market making, liquidity pools, and yield optimization can apply to tokenized securities. That creates an entirely new design space for financial products.
+## Trust mechanisms
 
-Tokenization isn't about speculation—it's about making ownership programmable, settlement instant, and markets composable. Traditional institutions launching tokenized venues proves this is being taken seriously. The question is how fast composability emerges once the infrastructure is live.
+Once real money moves onchain, the product is trust, delivered through custody guarantees, settlement finality, regulatory compliance, operational resilience, and clear recourse when something goes wrong.
 
-## Onboarding will define adoption
+In my post on agentic commerce I argued that high-agency systems work only when users keep visibility and control. Tokenized markets are high-agency by design, since assets move programmatically and settle instantly, and they fail if users don't trust the custody model, can't follow the compliance layer, or can't verify that settlement happened.
 
-Infrastructure is ready. Compliance is possible. Custody primitives are maturing. The bottleneck now is onboarding. How do traditional investors access tokenized markets? How do retail users get wallets without feeling like they're learning a new operating system? How do institutions integrate tokenized assets into their existing portfolios and risk systems?
+Traditional institutions bring brand recognition, regulatory relationships, and operating history that crypto-native platforms lack, and they still need the mechanisms: transparent onchain settlement, auditable custody, programmatic compliance, and a fast human override.
 
-This is where abstraction matters. The winning interfaces won't be "crypto-native"—they'll look like existing brokerage accounts, but with better settlement, lower fees, and 24/7 access. The complexity of wallets, keys, and on-chain transactions needs to be invisible to end users. The technical stack can be radically different, but the UX needs to feel familiar.
+## Why this is happening now
 
-This isn't disruption by replacement—it's disruption by parallel-market discovery. History suggests the winning model will be the one institutions adopt without being asked to change behavior first. If tokenized markets require entirely new workflows, adoption will be slow. If they feel like existing workflows but with better performance, adoption accelerates.
+Stablecoin infrastructure has matured, regulatory paths are clearer, and exchanges are launching tokenized venues with approvals and institutional backing, which puts tokenization on a near-term timeline that is moving faster than most people expected.
 
-## Trust is the product
-
-As soon as real money moves on-chain, trust becomes the entire product. Not vibes. Mechanisms. Custody guarantees, settlement finality, regulatory compliance, operational resilience, and clear recourse when things go wrong. The systems that win won't just be faster—they'll be safer, more transparent, and easier to trust.
-
-This is the same principle I wrote about in agentic commerce: high-agency systems only work if users retain visibility and control. Tokenized markets are high-agency by design—assets move programmatically, settlement is instant, composability is enabled. But if users don't trust the custody model, don't understand the compliance layer, or can't verify that settlement happened correctly, the system fails.
-
-Traditional institutions entering this space bring brand recognition, regulatory relationships, and operational history that pure crypto-native platforms don't have. But trust still requires building the right mechanisms: transparent on-chain settlement, auditable custody, programmatic compliance, and fast human override when needed.
-
-## Why this matters now
-
-We're at the inflection point where three things align: stablecoin infrastructure is mature, regulatory paths are becoming clear, and traditional institutions are choosing to build on tokenized rails. Major exchanges launching parallel tokenized venues isn't a pilot phase—it's production infrastructure with real regulatory approvals and real institutional backing.
-
-Tokenization is moving from long-term narrative to near-term reality. The infrastructure is ready for institutional adoption, regulatory frameworks are emerging, and the first production venues are launching. This is playing out faster than most expected.
-
-The question isn't whether tokenization will happen—it's how fast it scales, and what gets built on top of it. Faster settlement enables composable finance. Global access enables broader participation. Programmable compliance enables new asset types. Custody primitives enable self-sovereign ownership. The stack is ready. The venues are launching. The capital will follow.
-
-This is the moment when tokenization stops being an experiment and becomes infrastructure. And infrastructure is where the most interesting engineering problems live.
+Each layer feeds the next one: faster settlement allows composable products, stablecoin rails widen participation, programmable compliance supports new asset types, and wallet custody makes self-sovereign ownership practical. The engineering I expect to do is at those joins, in custody flows, compliance hooks, and onboarding that hides the wallet.

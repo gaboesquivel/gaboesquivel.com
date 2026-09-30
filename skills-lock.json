@@ -13,11 +13,11 @@
       "skillPath": "skills/emil-design-eng/SKILL.md",
       "computedHash": "51f2537e04d15911b41d78e2de24c36a0e26d41beae15e82a954fe5496a5eda9"
     },
-    "emilkowal-animations-v1": {
-      "source": "blockmatic/basilic-skills",
+    "emilkowal-animations": {
+      "source": "pproenca/dot-skills",
       "sourceType": "github",
-      "skillPath": "skills/emilkowal-animations-v1/SKILL.md",
-      "computedHash": "2aa501c3407899c54a036a828ea2f3efc2b58671e1329f53299a84f138a99b15"
+      "skillPath": "skills/.experimental/emilkowal-animations/SKILL.md",
+      "computedHash": "f9d5fc89ddc9b7b1ce1b323c7152881c3a01d8088ccec5ddfd4c7aebc0c9c936"
     },
     "find-animation-opportunities": {
       "source": "emilkowalski/skills",
@@ -25,11 +25,11 @@
       "skillPath": "skills/find-animation-opportunities/SKILL.md",
       "computedHash": "465d087c41768e4f14ed640dd049036009f613feb55baaa5831b68b33178f9d2"
     },
-    "frontend-design-v1": {
-      "source": "blockmatic/basilic-skills",
+    "frontend-design": {
+      "source": "anthropics/skills",
       "sourceType": "github",
-      "skillPath": "skills/frontend-design-v1/SKILL.md",
-      "computedHash": "1f81af612869800f1297a65000198e5db22ca510c634116d97cb4a633370619e"
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "89496d5dd00f4810205f351759594fc2742bf8eea85a2f2b2d1de59f4bd91576"
     },
     "gabo": {
       "source": "gaboesquivel/gaboesquivel-skills",
@@ -37,17 +37,11 @@
       "skillPath": "skills/gabo/SKILL.md",
       "computedHash": "b6235a829428244c013ff9950a5c55c9763918c5654747c5478e5730a635747e"
     },
-    "motion-v13": {
-      "source": "blockmatic/basilic-skills",
+    "nextjs": {
+      "source": "pproenca/dot-skills",
       "sourceType": "github",
-      "skillPath": "skills/motion-v13/SKILL.md",
-      "computedHash": "942ca557b6f8f382c1c1aff454018c20548f07e9ae36146d08c2d406a64bf4f8"
-    },
-    "next-v16": {
-      "source": "blockmatic/basilic-skills",
-      "sourceType": "github",
-      "skillPath": "skills/next-v16/SKILL.md",
-      "computedHash": "0d29fb83302c3e148073a5ccef18c027e5b0c1714ec227522623018a37eacd72"
+      "skillPath": "skills/.curated/nextjs/SKILL.md",
+      "computedHash": "870064c2c1098e06a812b63663c7404c533618d2f33896fe5f028f6a4cbc4cfb"
     },
     "review-animations": {
       "source": "emilkowalski/skills",
@@ -55,17 +49,17 @@
       "skillPath": "skills/review-animations/SKILL.md",
       "computedHash": "b4e5f0f4fe3e2743c85bf7354108f48a0b9d502cb20ef5c4a9c195da91f93736"
     },
-    "tailwind-design-system-v4": {
-      "source": "blockmatic/basilic-skills",
+    "tailwind-design-system": {
+      "source": "wshobson/agents",
       "sourceType": "github",
-      "skillPath": "skills/tailwind-design-system-v4/SKILL.md",
-      "computedHash": "9336f38958f2a6cb46553eb4e08e70e8f2979898dbfa4fd086e2b983aad0fc66"
+      "skillPath": "plugins/frontend-mobile-development/skills/tailwind-design-system/SKILL.md",
+      "computedHash": "4e5bfe5af9b5da504752432dc45ed605af350cf1489a58419afad4123a514f89"
     },
     "workflow": {
       "source": "blockmatic/basilic-skills",
       "sourceType": "github",
       "skillPath": "skills/workflow/SKILL.md",
-      "computedHash": "9e5cf7317ad42e839e5d9695a461de90a9ffa76bef776f904363b2d3dbfd84e4"
+      "computedHash": "77dd31492a6c18f2dde367d8372d761383b31dd53e5db38ff7c3abe53d651688"
     }
   }
 }

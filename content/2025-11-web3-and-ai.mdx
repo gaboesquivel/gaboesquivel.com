@@ -9,7 +9,7 @@ tech: ['JavaScript', 'TypeScript', 'OpenAI', 'Ethereum', 'AI SDK']
 
 In July 2024 I wrote a [snapshot of AI and Web3](/blog/2024-07-ai-and-web3) while those pieces were still mostly thesis. This is the update from the work since then: agents that transact, marketplaces for models and data, and payment rails that can sit inside a regulated frame.
 
-I still ship at this intersection. The useful change is not a new slogan. It is that a few primitives now compose: programmable stablecoins, intent-based execution, non-custodial agent wallets, and off-chain inference with on-chain verification.
+I still ship at this intersection, and what changed in the year is that a few primitives now compose: programmable stablecoins, intent-based execution, non-custodial agent wallets, and off-chain inference with on-chain verification.
 
 {/* Prevent CLS with responsive aspect ratio */}
 <div className="image-container">
@@ -18,80 +18,72 @@ I still ship at this intersection. The useful change is not a new slogan. It is 
 
 ## Stablecoins after the GENIUS Act
 
-In July 2025 the United States enacted the GENIUS Act (Guiding and Establishing National Innovation for U.S. Stablecoins Act). The statute is about stablecoins, not AI. It still changes how I design agent payments.
+In July 2025 the United States enacted the GENIUS Act (Guiding and Establishing National Innovation for U.S. Stablecoins Act). The statute covers stablecoins and says nothing about AI, and it still changes how I design agent payments.
 
-Reserve rules are explicit: one dollar of reserves per dollar of stablecoins issued, plus AML/KYC and issuer licensing. That does not make every AI × chain product legal. It does give a settlement asset that institutions can hold without treating it as an unlicensed experiment.
+Its reserve rules are explicit, with one dollar of reserves per dollar of stablecoins issued, plus AML/KYC and issuer licensing. That does not make every AI and blockchain product legal, but it gives institutions a settlement asset they can hold without treating it as an unlicensed experiment.
 
-For agents, that matters because they need a unit of account that does not thrash while a tool loop is still running. In [Agentic Finance](/blog/2025-09-agentic-finance) I argued that agents need rails they can transact on under cryptographic constraints. Google's AP2 protocol and Coinbase's x402 implementation are the payment standards I keep coming back to: intent, verification, and boundaries the user actually signed.
+Agents need that because they need a unit of account that does not swing while a tool loop is still running. In [Agentic Finance](/blog/2025-09-agentic-finance) I argued that agents need rails they can transact on under cryptographic constraints, and Google's AP2 and Coinbase's x402 are the payment standards I keep coming back to, since both carry intent, verification, and boundaries the user actually signed.
 
-Stablecoins are the settlement layer those protocols sit on. I wrote more about that stack in [Stablecoin Summer](/blog/2025-10-stablecoin-summer). Here the point is narrower: once the dollar-on-chain is licensed infrastructure, an agent wallet is a product problem instead of a policy argument.
+Stablecoins are the settlement layer under those protocols, and I covered that stack in [Stablecoin Summer](/blog/2025-10-stablecoin-summer). The narrower point here is that once the onchain dollar is licensed infrastructure, an agent wallet becomes a product problem instead of a policy argument.
 
 ## Agents as economic actors
 
-Agentic finance, as I use it, is not a chatbot that recommends a swap. It is an agent that can move capital inside limits you set: spending caps, approved contracts, time windows, and a wallet the user still owns.
+Agentic finance, as I use the term, means an agent that can move capital inside limits you set, such as spending caps, approved contracts, time windows, and a wallet the user still owns, which is a different product from a chatbot that recommends a swap.
 
-Three pieces are now real enough to build against.
+Three pieces are now real enough to build against:
 
-Payment standards. AP2 and x402 give a shared shape for multi-party computation in finance: delegate intent, verify execution, keep the cryptographic trail.
+**Payment standards.** AP2 and x402 give finance a shared shape for delegating intent, verifying execution, and keeping the cryptographic trail.
 
-Non-custodial agent wallets. Platforms such as Crossmint's Agentic Finance issue wallets with programmable guardrails. The agent transacts. The user defines the fence.
+**Non-custodial agent wallets.** Platforms such as Crossmint's Agentic Finance issue wallets with programmable guardrails, so the agent transacts inside a fence the user defines.
 
-Cross-chain coordination. [Intent-based DeFi](/blog/2025-10-multichain-defi-intents) lets an agent say "swap 1 ETH for at least 3,000 USDC on the cheapest chain" and leave routing to a solver network. That is the same constraint model agents need everywhere: declare the outcome, not the calldata.
+**Cross-chain coordination.** [Intent-based DeFi](/blog/2025-10-multichain-defi-intents) lets an agent say "swap 1 ETH for at least 3,000 USDC on the cheapest chain" and leave routing to a solver network, which is the constraint model agents need everywhere: declare the outcome and let someone else produce the calldata.
 
-Adoption is uneven. A 2025 Wolters Kluwer survey put current agentic-AI use among finance leaders at 6%, with another 38% planning to adopt within a year. Gartner has also predicted that over 40% of agentic AI projects may be discontinued by 2027 on cost and unclear value. I read both numbers the same way: the rails exist, the ROI still has to be designed. Intents and guardrails are how I keep the agent from becoming an unbounded spender.
+Adoption is uneven. A 2025 Wolters Kluwer survey put current agentic-AI use among finance leaders at 6%, with another 38% planning to adopt within a year, and Gartner has predicted that over 40% of agentic AI projects may be discontinued by 2027 on cost and unclear value. I read both numbers the same way, as rails that exist around an ROI that still has to be designed, and intents plus guardrails are how I keep an agent from becoming an unbounded spender.
 
 ## Marketplaces for models, data, and compute
 
-Centralized APIs are still how most products call a model. The other stack that matured this year is a set of networks that price models, datasets, and spare compute without a single vendor in the middle.
+Most products still call a model through a centralized API. The other stack that matured this year is a set of networks that price models, datasets, and spare compute without a single vendor in the middle. I don't treat every token ticker as production-ready, but a few architectures are distinct enough to name.
 
-I do not treat every token ticker as production-ready. A few architectures are distinct enough to name.
+Bittensor runs specialized subnets where models compete on a task, such as text, images, retrieval, or prediction, and get paid in TAO when the network judges their output useful, so quality is validated economically instead of by a curated model card.
 
-Bittensor runs specialized subnets where models compete on a task and get paid in TAO if the network judges them useful. Text, images, retrieval, prediction: the mechanism is economic validation, not a curated model card.
+Fetch.ai has deployed tens of thousands of autonomous economic agents (their published figure is over 23,000) for coordination problems like routing, energy, and DeFi automation, and the interesting part is agents negotiating inside an economic frame.
 
-Fetch.ai has deployed tens of thousands of autonomous economic agents (the figure they published is over 23,000) for coordination problems: routing, energy, DeFi automation. The interesting part is agents that negotiate inside an economic frame, not a single LLM wrapper.
+SingularityNET is the older marketplace shape: list an algorithm, let others consume it through a common API, and keep reputation and governance onchain.
 
-SingularityNET is an older marketplace shape: list an algorithm, consume it through a common API, reputation and governance on-chain.
+Ocean Protocol is the data version, where providers keep the dataset and buyers run compute against it (compute-to-data) instead of downloading a copy. Medical, financial, and IoT data are the use cases it targets.
 
-Ocean Protocol is the data version. Providers keep the dataset. Buyers run compute against it (compute-to-data) instead of downloading a CSV and losing the plot. Medical, financial, and IoT data are the use cases they optimize for.
+[Morpheus](https://mor.org/about) is still the open-source personal-AI network I pointed at in 2024, with MOR rewarding people who build, host, and use a peer-to-peer agent network so inference stays owned by its users.
 
-[Morpheus](https://mor.org/about) is still the open-source personal-AI network I pointed at in 2024. MOR rewards people who build, host, and use a peer-to-peer agent network. The claim is user-owned inference, not another hosted assistant.
+Around those sit compute and storage networks already running: NodeGoAI for unused capacity, OORT for a decentralized data cloud, and Akash, Render, Gensyn, and io.net on the GPU side. The pattern across all of them is that inference and training are expensive, idle hardware is everywhere, and a token is how the network meters both.
 
-Around those sit compute and storage networks already in the wild: NodeGoAI for unused capacity, OORT for a decentralized data cloud, plus Akash, Render, Gensyn, and io.net on the GPU side. I will not catalog every 2025 launch. The pattern is the same: inference and training are expensive, idle hardware is everywhere, and a token is how the network meters both.
-
-Data economics follow from that. Contribute examples, bind them to a wallet, gate access with a contract, get paid when someone trains on them. Federated learning, homomorphic encryption, and zero-knowledge proofs are how you train without handing over the raw file. That is the design I want when a product collects user data: a vault the user controls, not a scrape.
+Data economics follow from that. A contributor binds examples to a wallet, a contract gates access, and the contributor gets paid when someone trains on them, while federated learning, homomorphic encryption, and zero-knowledge proofs let a model train without anyone handing over the raw file. When a product collects user data, that is the design I want, with the data in a vault the user controls.
 
 ## How the primitives compose
 
-The posts I have been writing this year are not separate hobbies. They are layers of one stack.
+The posts I have written this year describe layers of one stack: stablecoins as payment rails, intent-based execution so an agent does not have to know which bridge is healthy today, agentic finance for wallets and mandates, decentralized marketplaces for models, data, and GPUs, and Model Context Protocol for tools, memory, and logs that are not glued to one vendor SDK.
 
-Stablecoins as payment rails. Intent-based execution so an agent does not have to know which bridge is healthy today. Agentic finance for wallets and mandates. Decentralized marketplaces for models, data, and GPUs. Model Context Protocol for tools, memory, and logs that are not glued to one vendor SDK.
+One flow I keep seeing in designs reads market data from a decentralized feed, expresses a cross-chain intent, lets UniswapX or Across compete to fill it, settles in a GENIUS-compliant stablecoin, and writes the receipt into MCP-shaped memory. None of those steps needs a custom bridge UI, and every one of them needs constraints the agent cannot silently widen.
 
-A concrete flow I keep seeing in designs: read market data from a decentralized feed, express a cross-chain intent, let UniswapX or Across compete to fill it, settle in a GENIUS-compliant stablecoin, write the receipt into MCP-shaped memory. None of those steps requires a custom bridge UI. All of them require constraints the agent cannot silently widen.
+That is how I approached product work at [Bitlauncher](/project/bitlauncher) too, where the AI tools and the token sale were parts of one piece of open infrastructure for AI startups.
 
-That is also how I think about product work at [Bitlauncher](/project/bitlauncher): open infrastructure for AI startups, not a chatbot taped onto a token sale.
+## What I change in the codebase
 
-## What I actually change in the codebase
+Agent-first UX means APIs that accept goals and constraints alongside button handlers, smart contracts that carry the fence, and signatures that carry the audit trail.
 
-Agent-first UX means APIs that accept goals and constraints, not only button handlers. Smart contracts carry the fence. Signatures carry the audit trail.
+I still use hosted models when latency and quality win, and I don't hard-code a single vendor as the only inference path when a marketplace or self-hosted option is a real fallback.
 
-I still use hosted models when latency and quality win. I do not hard-code a single vendor as the only inference path if a marketplace or self-hosted option is a real fallback.
+If the product stores user data, I want revocation and, where it is honest, compensation, backed by deletion that actually happens.
 
-If the product stores user data, I want revoke and (when it is honest) compensation, not a privacy policy that pretends deletion is a vibe.
-
-MCP stays the split I want between model logic and business tools.
-
-For money movement I default to stablecoin settlement, an intent protocol (CoW, UniswapX, Across), and a message layer (Wormhole, Axelar) instead of a one-off bridge.
+MCP stays the boundary I want between model logic and business tools, and for money movement I default to stablecoin settlement, an intent protocol (CoW, UniswapX, Across), and a message layer (Wormhole, Axelar) instead of a one-off bridge.
 
 ## What is still hard
 
-On-chain inference is still slow and expensive. Hybrid is the honest architecture: compute off-chain, verify on-chain. Verifiable inference without re-running the model is an open problem. Zero-knowledge proofs are the research bet, not my production default.
+Onchain inference is still slow and expensive, so the honest architecture is hybrid, with compute off-chain and verification onchain. Verifying inference without re-running the model is an open problem, and zero-knowledge proofs are the research bet there rather than my production default.
 
-Marketplaces without curators attract junk and malice. Staking, slashing, and public benchmarks (Bittensor's validation loop is the clearest example) are the current answers. They are not a substitute for knowing which subnet you called.
+Marketplaces without curators attract junk and malice. Staking, slashing, and public benchmarks are the current answers, with Bittensor's validation loop as the clearest example, and none of them replaces knowing which subnet you called.
 
-The GENIUS Act is narrow. Data privacy, model liability, and cross-border agent payments are still gray. I build with privacy-preserving defaults and AML/KYC hooks I can turn on, not with the assumption that "decentralized" is a legal strategy.
+The GENIUS Act is narrow, and data privacy, model liability, and cross-border agent payments are still gray, so I build with privacy-preserving defaults and AML/KYC hooks I can turn on instead of assuming "decentralized" is a legal strategy.
 
-Standards are proliferating: AP2, x402, ERC-7683, a pile of intent formats. Interoperability will come from the few that wallets and L2s actually implement, not from another whitepaper.
+Standards are proliferating, with AP2, x402, ERC-7683, and a pile of intent formats, and interoperability will come from the few that wallets and L2s actually implement.
 
-Decentralized inference still costs more than a well-priced OpenAI call. Protocol subsidies and hybrid (centralized inference, decentralized training or verification) are how teams ship anyway.
-
-I am not waiting for those problems to vanish. I am shipping inside them: named rails, named constraints, and no claim that the catalog of networks is the product.
+Decentralized inference still costs more than a well-priced OpenAI call, and teams ship anyway with protocol subsidies and hybrid setups that keep inference centralized while training or verification is decentralized. I build inside those limits with named rails and named constraints, and I pick from the network catalog above only when one of them beats the hosted default for that product.

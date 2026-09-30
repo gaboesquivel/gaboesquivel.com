@@ -1,60 +1,55 @@
 ---
 title: Introducing BasilicEVM
 publishedAt: 2024-08-15
-summary: BasilicEVM is the EVM starter I use for wallets, types, and chain integration—built on Foundry, viem, wagmi, and shared TypeScript.
+summary: BasilicEVM is the EVM starter I use for wallets, types, and chain integration, built on Foundry, viem, wagmi, and shared TypeScript.
 image: /images/2024/08/basilica-evm.webp
 category: ['Web3', 'Engineering', 'Fullstack']
 tech: ['TypeScript', 'Ethereum', 'Solidity', 'Foundry', 'Viem', 'Wagmi', 'TanStack Query', 'Tailwind']
 ---
 
-_**Note:** Since inception, we have evolved the scope of BasilicEVM to be a more flexible and broader [EVM](/tech/ethereum) development starter.
-While 0x API and Codex.io integrations are still highly recommended for production applications, they are no longer included 
-by default in the starter template. For the latest features and integrations, please visit the [BasilicEVM GitHub repository](https://github.com/blockmatic/basilic-evm)._
+_**Note:** Since this post, BasilicEVM has grown into a broader and more flexible EVM development starter. I still recommend the 0x API and Codex.io integrations for production applications, but the template no longer includes them by default. For the current features and integrations, see the [BasilicEVM GitHub repository](https://github.com/blockmatic/basilic-evm)._
 
-The starter you pick for an [EVM](/tech/ethereum) app sets a lot of defaults: types, wallets, UI, how you talk to the chain. BasilicEVM is the stack I use to get that baseline in place—DeFi, NFTs, or a plain dApp—without assembling the same pieces from scratch every time.
-
+The starter you pick for an [EVM](/tech/ethereum) app sets a lot of defaults: types, wallets, UI, and how you talk to the chain. BasilicEVM is the stack I use to put that baseline in place for DeFi, NFTs, or a plain dApp, so I don't assemble the same pieces from scratch on every project.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![BasilicEVM](/images/2024/08/basilica-evm.webp)
 </div>
 
+## What the starter includes
 
-## A Closer Look at BasilicEVM
+### Gasless swaps through 0x
 
-### Gasless swaps
+BasilicEVM supports gasless swaps with the 0x API v2 and the Tx Relay API, which removes gas fees from the user's side of a DEX trade. Gas is one of the most common reasons a swap fails or a user drops off, and relaying it changes a few things for the trader:
 
-One of the standout features of BasilicEVM is its support for gasless swaps, powered by the 0x API v2 and the Tx Relay API. This integration eliminates the friction and complexities associated with gas fees, which are often a significant barrier for users in decentralized exchanges (DEXs). By removing gas-related hurdles, BasilicEVM:
+- Fewer failed trades, because the user no longer needs a native-token balance to cover gas.
+- Protection from MEV extraction on the relayed transaction.
+- A shorter trading flow without a separate gas-top-up step.
 
-- Reduces failed trades by up to 85% compared to traditional DEXes.
-- Confirms transactions on-chain an average of one block earlier, enhancing the trading experience.
-- Protects trades from Miner Extractable Value (MEV) attacks, safeguarding users' assets.
-- Simplifies the trading process, reducing drop-offs due to insufficient gas.
-  
-For developers, this means fewer user complaints about failed transactions and a more streamlined trading experience, which can directly translate to higher user retention and satisfaction. The implementation is similar to Matcha Auto's, ensuring that your dApp benefits from battle-tested technology.
+For a dApp team, that means fewer support threads about failed transactions. The implementation follows the same approach as Matcha Auto, so it builds on a relay path that already runs in production.
 
-### Comprehensive Blockchain Data Insights
+### Market data from Codex
 
-BasilicEVM integrates Codex.io, a powerful tool for managing and analyzing blockchain data, used by industry leaders like TradingView, Matcha.xyz, and Sudoswap. Codex provides:
+BasilicEVM integrates Codex.io, the blockchain data API behind products like TradingView, Matcha.xyz, and Sudoswap. Codex covers what a trading interface usually needs:
 
-- Real-time access to pricing, volume, liquidity, and wallet data across 60+ networks, including [Ethereum](/tech/ethereum), Solana, and Arbitrum.
-- Coverage of over 6 million tokens and 1 billion NFTs, giving you access to a vast dataset without the need for custom indexers.
-- Instant insights with real-time and historical charts, helping you make informed decisions based on the latest market trends.
+- Real-time pricing, volume, liquidity, and wallet data across networks including Ethereum, Solana, and Arbitrum.
+- Token and NFT coverage broad enough that you don't need a custom indexer to start.
+- Real-time and historical chart data.
 
-This integration simplifies the development of data-rich applications by eliminating the overhead of infrastructure management. You can build applications that provide deep insights into market behaviors and user activities, enabling your users to make smarter decisions. For developers, this means more time focused on innovation and less time wrestling with data pipelines.
+With that data behind an API, you can build market views and wallet activity screens without running your own indexing infrastructure, and spend that time on the product instead of on data pipelines.
 
-### Modern Architecture for High-Performance Applications
+### The application stack
 
-BasilicEVM is built on a modern stack that ensures your applications are not only scalable but also performant and secure. Here's what's under the hood:
+The rest of the starter is the stack I reach for on EVM products:
 
-- **Turbo Monorepo and Bun**: Efficient management of large-scale codebases and ultra-fast build processes.
-- **Biome and [Next.js](/tech/nextjs) 14**: Tooling for web projects: fast iteration, server-side rendering, and SEO.
-- **Tailwind CSS & shadcn/ui**: Flexible, utility-first CSS and accessible components for rapid UI development.
-- **EVM Integration**: Type-safe chain calls and React hooks through viem and wagmi.
-- **RainbowKit**: Out-of-the-box wallet connection library, offering a polished and customizable [UI](/frontend) for connecting to various wallets.
+- **Turborepo and Bun** keep a multi-package codebase fast to install and build.
+- **Biome and [Next.js](/tech/nextjs) 14** handle linting, formatting, server-side rendering, and SEO.
+- **Tailwind CSS and shadcn/ui** supply utility styles and accessible components.
+- **viem and wagmi** give type-safe chain calls and React hooks.
+- **RainbowKit** handles wallet connection with a customizable [UI](/frontend).
 
-This stack is designed for speed and scalability, supporting everything from rapid prototyping to high-concurrency operations. With clear conventions and [AI](/ai)-assisted development tools like cursor.so and v0.dev, BasilicEVM ensures that your team can maintain high code quality while moving fast. This approach supports modern full-stack development practices.
+Clear conventions plus [AI](/ai)-assisted tools like Cursor and v0.dev let a team move quickly on this base without losing code quality.
 
-### Contribute
+### How to contribute
 
-BasilicEVM is on its early stages with a minimal set of features. I invite you to explore the [BasilicEVM GitHub repository](https://github.com/blockmatic/basilica-evm) and contribute to its growth. Whether you're adding new features, improving documentation, or simply experimenting, your contributions are invaluable. This is a great project for developers looking to improve their technical skills.
+BasilicEVM is early and deliberately minimal. If you're adding features, improving documentation, or experimenting with the template, open an issue or a pull request in the repository linked above.

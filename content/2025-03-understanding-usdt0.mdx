@@ -1,44 +1,42 @@
 ---
 title: How USDT0 Improves Stablecoin Bridging
 publishedAt: 2025-03-20
-summary: How USDT0 and LayerZero's OFT standard move USDT across chains without wrapping, with unified liquidity and a smaller bridge attack surface
+summary: How USDT0 and LayerZero's OFT standard move USDT across chains without wrapping, with unified liquidity and a smaller bridge attack surface.
 image: /images/2025/03/usdt0.webp
 category: ['Web3', 'DeFi', 'Backend']
 tech: ['Ethereum']
 ---
 
-Stablecoins like USDT (Tether) have become essential in [DeFi](/web3) for moving value across blockchains. Cross-chain movement is still the hard part. Traditional bridges introduce security risks, fragmented liquidity, and a poor user experience.  
+USDT is one of the main ways value moves through [DeFi](/web3), and moving it between chains is still the weak point, because traditional bridges add security risk, fragment liquidity, and make users pick routes by hand.
 
-Many existing solutions rely on wrapped assets like wUSDT or USDT.e, which can lose peg or suffer from liquidity shortages. Others use centralized multi-signature custodians, which have been prime targets for hacks, such as the $600M Ronin Bridge attack and the $320M Wormhole exploit.  
-
-A more secure and efficient solution is needed. USDT0, powered by LayerZero's Omnichain Fungible Token (OFT) standard, addresses these issues and provides a more streamlined way to move USDT across blockchains.  
+Many bridges rely on wrapped assets like wUSDT or USDT.e, which can lose their peg or run short of liquidity, and others depend on centralized multisig custodians, which have been prime targets for hacks such as the $600M Ronin Bridge attack and the $320M Wormhole exploit. USDT0, built on LayerZero's Omnichain Fungible Token (OFT) standard, addresses those problems with a more direct way to move USDT across blockchains.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![USDT Bridge](/images/2025/03/usdt0.webp)
 </div>
 
-## What is USDT0?  
+## How USDT0 moves between chains
 
-USDT0 is a bridged version of USDT that moves across chains without wrapping or fragmenting liquidity. Instead of relying on external liquidity providers, it uses a lock-and-mint mechanism:  
+USDT0 is a bridged version of USDT that moves across chains without wrapping or fragmenting liquidity. Instead of relying on external liquidity providers, it uses lock-and-mint:
 
-1. USDT is locked on [Ethereum](/tech/ethereum)  
-2. USDT0 is minted 1:1 on the destination chain  
-3. When USDT0 is sent back, it is burned, unlocking USDT  
+1. USDT is locked on [Ethereum](/tech/ethereum).
+2. USDT0 is minted 1:1 on the destination chain.
+3. When USDT0 is sent back, it is burned and the USDT is unlocked.
 
-This process utilizes backend systems that ensure secure transactions across chains.
+Unlike versions Tether issues directly, such as native USDT on Solana or Tron, USDT0 is managed by Everdawn Labs and moves through LayerZero's OFT standard.
 
-Unlike other USDT versions issued directly by Tether, such as native USDT on Solana or Tron, USDT0 is managed by Everdawn Labs and operates through LayerZero's OFT standard, ensuring it moves securely across chains.  
+## What changes for users and protocols
 
-## Benefits of USDT0  
+Compared with wrapped USDT and pool-based bridges, USDT0 changes five things:
 
-- Cross-chain transfers without wrapping or liquidity fragmentation  
-- Improved security through decentralized validation mechanisms  
-- No risk of depegging since USDT0 is always backed 1:1 by locked USDT  
-- Unified liquidity instead of fragmented pools on different blockchains  
-- A better user experience with no need for manual bridge route selection
+- Transfers cross chains without wrapping or splitting liquidity.
+- Validation runs through decentralized mechanisms instead of a single custodian.
+- The token stays at peg because every USDT0 is backed 1:1 by locked USDT.
+- Liquidity is unified instead of split into pools on each chain.
+- Users no longer pick a bridge route by hand.
 
-## USDT0 vs. Traditional Bridges  
+## USDT0 compared with traditional bridges
 
 | Feature | USDT0 (LayerZero OFT) | Traditional Bridges |
 |---------|-----------------|-------------------|
@@ -50,14 +48,10 @@ Unlike other USDT versions issued directly by Tether, such as native USDT on Sol
 | Liquidity | Unified across chains | Fragmented across chains |
 | Tradability | Needs conversion tool | Often tradable but may depeg |
 
-## Why USDT0 is More Secure  
+## Where the security gain comes from
 
-Security has been the biggest issue with traditional bridges. Hacks exploiting centralized custodians have resulted in billions in losses.  
+Security has been the largest problem with traditional bridges, and hacks against centralized custodians have cost billions.
 
-USDT0 removes the need for liquidity pools, eliminating risks of drained pools and depegging. It relies on LayerZero's decentralized oracles and relayers, preventing a single point of failure. Without multi-signature wallets or external custodians, the attack surface is significantly reduced.  
+USDT0 has no liquidity pools to drain, so pool exploits and pool-driven depegs are off the table. It relies on LayerZero's decentralized oracles and relayers instead of a single point of failure, and without multisig wallets or external custodians in the path, the attack surface is much smaller while USDT keeps its stability on every chain it reaches.
 
-By eliminating the weakest links in stablecoin bridging, USDT0 drastically reduces security risks while maintaining USDT's stability across multiple chains.  
-
-USDT0 improves stablecoin bridging by dropping wrapped-token risk, tightening the security model, and keeping liquidity unified across chains. It uses LayerZero's OFT standard so USDT can move between blockchains without the usual bridge machinery.
-
-Personally, I'm looking forward to seeing USDT0's adoption grow as the industry moves toward safer cross-chain paths. Stablecoins that move across chains without the usual bridge failure modes would be a real step for [DeFi](/web3), and it will still take work from the teams that operate those systems.
+The remaining risk sits with LayerZero's verification and with the teams operating USDT0, and I expect adoption to grow as more of DeFi moves away from wrapped stablecoins toward paths like this one.

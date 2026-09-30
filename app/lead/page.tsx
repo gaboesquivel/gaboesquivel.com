@@ -5,7 +5,7 @@ const sections = [
   {
     heading: 'Forming a team around a product that did not exist yet',
     paragraphs: [
-      "As Lead Engineer at Wink I chose the AWS and React Native stack, planned the work, and recruited the team that shipped Costa Rica's first neobank. The product and the team had to be built together.",
+      "Launching Wink, Costa Rica's first neobank, required a development team that did not exist yet. As Lead Engineer I formed that team around the React Native app and AWS backend I was building for it.",
     ],
     projectSlugs: ['wink'],
   },
@@ -24,9 +24,9 @@ const sections = [
     projectSlugs: ['amc-yeah-tv-facebook-app', 'bitcashbank'],
   },
   {
-    heading: 'Delivery inside an existing institution',
+    heading: 'Validators, a private chain, and onboarding engineers',
     paragraphs: [
-      "At EOS Costa Rica I operated validators after the mainnet launch, built Grant Thornton's private EOSIO chain, and formed a team around the development-services division that had to deliver under institutional constraints.",
+      "At EOS Costa Rica I helped launch the EOS mainnet and operated validators, built Grant Thornton's private EOSIO chain, and onboarded engineers through workshops around TicoBlockchain.cr and CryptoCantinaCR.",
     ],
     projectSlugs: ['eos-costa-rica'],
   },
@@ -44,7 +44,7 @@ export default function TechLeadExperiencePage() {
     <CapabilityPage
       title="Technical leadership"
       intro={[
-        'I lead while building. The job is to set direction, make the decisions a team or system has to live with, and stay close enough to the code to be accountable for the result.',
+        'I lead from inside the code: setting direction, making the architecture decisions a team has to live with, and staying close enough to the implementation to answer for what ships.',
       ]}
       sections={sections}
       postSlugs={[

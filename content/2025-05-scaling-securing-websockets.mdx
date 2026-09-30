@@ -1,83 +1,72 @@
 ---
 title: Scaling and Securing WebSocket Connections
 publishedAt: 2025-05-16
-summary: Strategies for building WebSocket backends with session affinity, TLS encryption, proper authentication, and inter-node communication for high-availability environments
+summary: Session affinity, TLS, handshake authentication, and Redis pub/sub for WebSocket backends that have to stay up across multiple nodes.
 category: ['Engineering', 'Backend']
 tech: ['NodeJS']
 ---
 
-WebSockets are essential for real-time applications—from trading engines to AI assistants. But when you move from prototype to production, things get tricky. Especially when uptime, load balancing, and secure communication matter.
+WebSockets carry the real-time part of products from trading engines to AI assistants, and the prototype that works on one server gets harder in production once uptime, load balancing, and secure communication matter. This is how I approach scaling WebSocket backends in high-availability environments without giving up security or developer experience.
 
-Here's how I approach scaling WebSocket backends in high-availability environments without compromising security or developer experience.
+## Persistent connections behind a load balancer
 
-## Persistent connections and distributed systems
+A WebSocket holds a long-lived TCP connection, which breaks stateless load balancing, so the load balancer needs session affinity, also called sticky sessions.
 
-WebSockets maintain a long-lived TCP connection, which breaks traditional stateless load balancing. That’s where session affinity (sticky sessions) come in.
+**NGINX**, **HAProxy**, and most managed load balancers, including [AWS](/tech/aws) ALB, support sticky sessions based on cookies or IP hashing, which keeps each client routed to the same backend node for the life of its connection.
 
-**NGINX**, **HAProxy**, and most managed load balancers like [AWS](/tech/aws) ALB support sticky sessions based on cookies or IP hashing. This ensures clients consistently route to the same backend node, keeping their connection alive.
+## TLS with wss:// only
 
+Production WebSockets should never run over `ws://`, only over TLS-encrypted `wss://`.
 
-## Secure It: wss\:// or Bust
+You can terminate TLS at the load balancer, such as Cloudflare or NGINX, and forward traffic to internal nodes over plain TCP, as long as you take care of three things:
 
-You should *never* run production WebSockets over `ws://`. Always use `wss://` (TLS-encrypted).
+* Use valid certificates, from Let's Encrypt or a managed provider.
+* Redirect every insecure connection.
+* Set CORS policies if the frontend is hosted separately.
 
-You can terminate TLS at the load balancer (e.g., Cloudflare or NGINX) and forward traffic to internal nodes over plain TCP. Just make sure to:
+## Authentication at the handshake
 
-* Use valid certificates (Let's Encrypt or managed)
-* Redirect all insecure connections
-* Set proper CORS policies if the frontend is hosted separately
+WebSocket connections don't carry HTTP headers after the handshake, so authentication has to happen at connection time. My usual setup has three parts:
 
+* JWT-based auth when the connection opens.
+* Validation through the query string or an initial message payload.
+* Periodic token revalidation for long sessions.
 
-## Auth Is Not Optional
+I pair that with **[Redis](/tech/redis)** or **Kafka** to coordinate presence, rate limits, and bans across nodes.
 
-WebSocket connections don’t support traditional HTTP headers after the handshake. So you need to authenticate early and smartly.
+## Redis pub/sub for multi-node messaging
 
-I usually go with:
+In a multi-instance setup, the WebSocket servers need to talk to each other, because a user connected to node A and a friend connected to node B can only chat if the message crosses nodes. Publishing to a central broker solves that, and I default to **Redis Pub/Sub** for its speed and small operational footprint, moving to Kafka when the messages need durability or streaming.
 
-* JWT-based auth on connection
-* Validated via query string or an initial message payload
-* Optionally, revalidate tokens periodically in long sessions
+## Bun WebSocket as a performance baseline
 
-Pair that with **[Redis](/tech/redis)** or **Kafka** for coordinating presence, rate-limiting, or propagating bans across nodes.
+If you build with [Bun](https://bun.sh/), you get its native WebSocket implementation, which handles thousands of concurrent connections with low memory overhead. With it you can:
 
+* Launch a standalone server with Bun's `serve()` and native `upgrade` handling.
+* Integrate Redis Pub/Sub or a shared memory queue.
+* Run it close to users on edge infrastructure.
 
-## Redis Pub/Sub: The Backbone of Multi-Node Messaging
+That makes it a good fit for edge-native, low-latency real-time apps.
 
-In multi-instance setups, your WebSocket servers need to communicate. If one user connects to Node A, and their friend connects to Node B, how do they chat?
+## Rate limiting, monitoring, and DDoS protection
 
-Simple: publish to a central broker. I usually default to **Redis Pub/Sub** for simplicity and speed. If you need durability or streaming, go Kafka.
+A WebSocket server should never face the open internet without protection in front of it:
 
+* **Cloudflare** or another WAF.
+* IP-based rate limiting at the load balancer.
+* Application-level limits on messages per second per user.
+* Logging and metrics through Prometheus, Datadog, or Sentry.
 
-## Bun WebSocket: A New Performance Baseline
+## Production checklist
 
-If you're building with [Bun](https://bun.sh/), you get access to its fast native WebSocket implementation.
+Before a WebSocket backend goes live, I check each of these:
 
-Bun WebSocket is extremely lightweight and handles thousands of concurrent connections with low memory overhead. You can:
+* Sticky sessions at the load balancer, by cookie or IP hash.
+* TLS with `wss://` only.
+* Token-based auth at the handshake.
+* Redis for pub/sub or shared state.
+* Bun WebSocket where low-latency edge performance matters.
+* Rate limiting and monitoring.
+* Health checks and auto-scaling.
 
-* Launch a standalone server using Bun's `serve()` with native `upgrade` handling
-* Integrate with Redis Pub/Sub or a shared memory queue
-* Use Bun's edge-focused performance to run it close to users
-
-It’s a solid choice for edge-native, low-latency real-time apps.
-
-
-## Rate-Limiting, Monitoring, and DDoS Protection
-
-Never expose a WebSocket server directly to the open internet without protection. Use:
-
-* **Cloudflare** or a WAF in front
-* Basic IP-based rate limiting at the load balancer
-* Application-level limits for messages per second/user
-* Logging and metrics via Prometheus, Datadog, or Sentry
-
-## TL;DR Checklist
-
-* Sticky sessions via load balancer (cookie or IP hash)
-* TLS with `wss://` only
-* Token-based auth handshake
-* Redis for pub/sub or shared state
-* Bun WebSocket for low-latency edge-native performance
-* Rate limiting + monitoring
-* Health checks and auto-scaling
-
-Whether it's [Web3](/web3) trading apps, multiplayer UIs, or streaming [AI](/ai) results. WebSockets are powerful, but they demand a clear architecture to scale securely.
+The same architecture holds for [Web3](/web3) trading apps, multiplayer interfaces, and streamed [AI](/ai) results, with the load balancer, the broker, and the auth handshake as the three pieces I settle before writing any message handlers.

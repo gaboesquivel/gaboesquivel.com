@@ -1,69 +1,74 @@
 ---
 title: Trading Engines - Order Books & AMMs
 publishedAt: 2025-05-10
-summary: Analysis of order books and AMMs, exploring their fundamental mechanics, real-world implementations, and innovative hybrid solutions reshaping decentralized trading
+summary: How order books and AMMs match trades, which projects run each model and hybrids of both, and when I would pick one over the other.
 image: /images/2025/05/order-books-amms.webp
 category: ['Web3', 'DeFi', 'Backend', 'Tech Lead']
 tech: ['Ethereum']
 ---
 
-In [crypto markets](/web3), liquidity is the constraint that makes a venue usable. Whether it's Bitcoin on a centralized exchange or a governance token on a decentralized one, the mechanism used to match buyers and sellers matters. The two dominant models are order books and automated market makers (AMMs). Understanding their differences is key for traders, builders, and protocol designers alike.
+In [crypto markets](/web3), liquidity is what makes a venue usable, and whether the asset is Bitcoin on a centralized exchange or a governance token on a decentralized one, the mechanism that matches buyers and sellers shapes every trade. Order books and automated market makers (AMMs) are the two dominant models, and traders, builders, and protocol designers all need to know how they differ.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![Crypto Trading: Order Books and AMMs](/images/2025/05/order-books-amms.webp)
 </div>
 
-## Core Concepts
+## Market terms used below
 
-Liquidity represents the ease with which an asset can be bought or sold without affecting its price. Slippage is the difference between the expected price and the executed price of a trade. Price discovery is how markets determine the value of assets. Market participants are generally categorized as makers (who provide liquidity) and takers (who consume it).
+Four terms come up throughout the comparison:
 
-## Centralized vs. Decentralized Exchanges
+- **Liquidity** is how easily an asset can be bought or sold without moving its price.
+- **Slippage** is the difference between the expected price of a trade and the executed price.
+- **Price discovery** is how a market arrives at an asset's value.
+- **Makers and takers** are the two kinds of participant, with makers providing liquidity and takers consuming it.
 
-Centralized exchanges (CEXs) like Binance and Coinbase custody user funds, operate order books, and provide high-speed trade execution. Decentralized exchanges (DEXs) like Uniswap and dYdX allow users to trade directly from their wallets without intermediaries. CEXs offer performance and deep liquidity, while DEXs provide transparency, permissionlessness, and self-custody.
+## Centralized and decentralized exchanges
 
-## Order Book Model
+Centralized exchanges (CEXs) like Binance and Coinbase custody user funds, run order books, and execute trades at high speed, while decentralized exchanges (DEXs) like Uniswap and dYdX let users trade directly from their wallets without an intermediary. CEXs offer performance and deep liquidity, and DEXs offer transparency, permissionless access, and self-custody.
 
-Order books list all buy (bid) and sell (ask) orders. Trades happen when these orders match. Users can place market orders (executed immediately at best available price) or limit orders (executed at a specified price or better). Order books enable complex strategies and tighter spreads but require active management and are sensitive to latency.
+## The order book model
+
+An order book lists every buy (bid) and sell (ask) order and executes a trade when two of them match. Users place market orders, which fill immediately at the best available price, or limit orders, which fill only at a specified price or better. Order books support complex strategies and tighter spreads, and they need active market making and are sensitive to latency.
 
 ## AMMs and Uniswap V3
 
-AMMs, introduced by Uniswap, use smart contracts to pool liquidity and set prices algorithmically. The original model (x\*y=k) was simple but inefficient. Uniswap V3 introduced concentrated liquidity, allowing LPs to allocate funds within specific price ranges, improving capital efficiency. AMMs ensure liquidity is always available, but suffer from impermanent loss and price impact on large trades. This approach has been widely adopted in [decentralized finance](/web3).
+AMMs, introduced by Uniswap, pool liquidity in smart contracts and set prices algorithmically. The original constant product model (x\*y=k) was capital-inefficient, and Uniswap V3 added concentrated liquidity, which lets LPs allocate funds within specific price ranges. AMMs always have liquidity available, and LPs pay for that with impermanent loss while large trades pay with price impact.
 
-## Popular Projects
+## Projects by model
 
-**Order Book-based:**
+**Order book-based:**
 
-* dYdX (perpetuals, high-performance order book on Cosmos)
-* Injective (derivatives, prediction markets, zero gas fees)
-* Vertex (hybrid design with high-frequency trading support)
-* Phoenix (high-performance order book on Solana)
-* OpenBook (community-led successor to Serum on Solana)
-* Sei Network (built-in matching engine, sub-second finality)
+* dYdX: perpetuals on a high-performance order book on Cosmos.
+* Injective: derivatives and prediction markets with zero gas fees.
+* Vertex: a hybrid design that supports high-frequency trading.
+* Phoenix: a high-performance order book on Solana.
+* OpenBook: the community-led successor to Serum on Solana.
+* Sei Network: a chain with a built-in matching engine and sub-second finality.
 
 **AMM-based:**
 
-* Uniswap (V3 with concentrated liquidity)
-* Curve (optimized for stable swaps)
-* Balancer (customizable pool weights)
-* Trader Joe (AMM with liquidity book model)
-* Raydium (Solana AMM with yield farming and launchpad)
-* Orca (user-friendly, concentrated liquidity on Solana)
-* Osmosis (customizable liquidity pools, Cosmos-based)
-* Saber (stablecoin-focused AMM on Solana)
-* Lifinity (oracle-based AMM with reduced impermanent loss)
+* Uniswap: V3 with concentrated liquidity.
+* Curve: optimized for stable swaps.
+* Balancer: customizable pool weights.
+* Trader Joe: an AMM with a liquidity book model.
+* Raydium: a Solana AMM with yield farming and a launchpad.
+* Orca: concentrated liquidity on Solana with a consumer-friendly interface.
+* Osmosis: customizable liquidity pools on Cosmos.
+* Saber: a stablecoin-focused AMM on Solana.
+* Lifinity: an oracle-based AMM designed to reduce impermanent loss.
 
 **Hybrids:**
 
-* GMX (aggregates spot and perp trading with oracle pricing)
-* Maverick (dynamic liquidity provision)
-* nftperp (Fusion AMM combining DLOB and CLAMM for NFT perpetuals)
-* Drift Protocol (Solana-based, hybrid with JIT order book)
-* Kujira (Cosmos-based, hybrid with DeFi tools and liquidation marketplace)
-* Jupiter (Solana aggregator combining AMM and order book routing)
+* GMX: spot and perpetual trading with oracle pricing.
+* Maverick: dynamic liquidity provision.
+* nftperp: a Fusion AMM that combines DLOB and CLAMM for NFT perpetuals.
+* Drift Protocol: a Solana hybrid with a JIT order book.
+* Kujira: a Cosmos hybrid with DeFi tools and a liquidation marketplace.
+* Jupiter: a Solana aggregator that routes across AMMs and order books.
 
-## When to Use What
+## When I would pick each model
 
-Choose an order book if you need precision, limit orders, or trade large volumes. Use AMMs for simple swaps, smaller trades, or assets with fragmented liquidity. Layer 2 solutions like Arbitrum and Optimism, high-performance chains like Solana, and appchains in the Cosmos ecosystem all reduce costs and improve performance for both models. The choice depends on your specific frontend and backend requirements.
+I would pick an order book when a product needs precise pricing, limit orders, or large trade sizes, and an AMM for plain swaps, smaller trades, or assets whose liquidity is fragmented. Layer 2s like Arbitrum and Optimism, high-performance chains like Solana, and Cosmos appchains lower costs and improve performance for both models, so the final choice comes down to the product's frontend and backend requirements.
 
-The future of market design is hybrid models and intent-based systems that hide complexity while keeping the useful parts of both designs. Whether you're trading or building, knowing how order books and AMMs actually work is how you pick a venue—and how you design one. These concepts matter for [technical leaders](/lead) in DeFi.
+Hybrids and intent-based systems are where market design is heading, since they hide the complexity from users and keep the useful parts of both models. For [technical leaders](/lead) building in DeFi, understanding how order books and AMMs actually work is what lets you pick a venue, or design one, based on the trades your users will make.

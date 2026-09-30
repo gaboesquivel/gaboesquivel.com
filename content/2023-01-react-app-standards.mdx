@@ -6,15 +6,15 @@ category: ['Engineering', 'Frontend']
 tech: ['ReactJS', 'TypeScript', 'NextJS', 'TanStack Query', 'Zustand', 'Zod']
 ---
 
-These are conventions I use in [React](/tech/reactjs) apps so a folder looks like the last one I opened. They are not a style guide for the internet. For JavaScript hygiene I still point people at [Clean Code JavaScript](https://github.com/ryanmcdermott/clean-code-javascript).
+These are conventions I use in [React](/tech/reactjs) apps so a folder looks like the last one I opened, and they are scoped to my own codebases rather than meant as a general style guide. For JavaScript hygiene I still point people at [Clean Code JavaScript](https://github.com/ryanmcdermott/clean-code-javascript).
 
 ## JavaScript
 
-I write functional, declarative TypeScript. Named functions, small modules, types inferred at the edges.
+I write functional, declarative TypeScript with named functions, small modules, and types inferred at the edges.
 
-Names should say what they are. Booleans get a verb: `isDisabled`, `isLoading`, `hasError`, `shouldRetry`.
+Names should say what they are, and booleans get a verb: `isDisabled`, `isLoading`, `hasError`, `shouldRetry`.
 
-I split large components into smaller ones with few props. Composition over a 400-line file with a grab-bag of flags.
+I split large components into smaller ones with few props, because composition is easier to change than a 400-line file with a grab-bag of flags.
 
 Related files live next to the component that owns them. `pages/dashboard` keeps dashboard-only hooks, types, and pieces. Something becomes `shared` when a second route needs it, not when I imagine it might.
 
@@ -45,7 +45,7 @@ Example import: `import { NftItem } from './nft-item'`
 
 I do not abstract on the first copy. Duplicate once, extract when the third use makes the shape obvious. Kent C. Dodds wrote this up as [AHA](https://kentcdodds.com/blog/aha-programming).
 
-Named exports only. Default exports hide the name from the IDE and from grep.
+I use named exports only, since default exports hide the name from the IDE and from grep.
 
 I let TypeScript infer return types unless the public surface of a package needs an explicit contract.
 
@@ -74,7 +74,7 @@ export interface GetAccountsParams extends ServiceParams {
 
 I declare components with `function`. Hook lint rules are less fussy than with `const Component = () =>`. Inner helpers inside the file are `const` so they do not look like components.
 
-Order inside a file: the exported component, then inner components, then types, then copy. Early returns for loading and error. Ternaries in JSX, not `&&`, so a `0` does not render.
+Inside a file, the exported component comes first, then inner components, then types, then copy. Loading and error states return early, and JSX uses ternaries instead of `&&` so a `0` does not render.
 
 ```tsx
 // imports
@@ -217,15 +217,14 @@ export function getErrorMessage(error: unknown) {
 └── vite.config.ts
 ```
 
-`lib` is pure functions. No storage, no HTTP, no incidental writes. Input in, value out.
+Each top-level folder has one job:
 
-`services` talks to the world: HTTP, WebSockets, web storage, third-party APIs. Plain functions, not React.
+- `lib` holds pure functions with no storage, HTTP, or incidental writes, so input goes in and a value comes out.
+- `services` talks to the world through HTTP, WebSockets, web storage, and third-party APIs, as plain functions rather than React code.
+- `pages` holds route-owned UI and hooks.
+- `shared` holds code used by more than one page, which in a monorepo often becomes a package.
 
-`pages` is route-owned UI and hooks.
-
-`shared` is used by more than one page. In a monorepo that often becomes a package.
-
-Layouts are containers. The page passes slots, not a soup of conditionals inside the shell:
+Layouts are containers, and the page passes them slots instead of pushing a soup of conditionals into the shell:
 
 ```tsx
 import { RootLayout } from 'layouts/root'
@@ -249,8 +248,8 @@ export function Homepage() {
 
 ## State
 
-Async flags come from `useAsync`, `useAsyncFn`, or SWR / [TanStack Query](/tech/tanstack-query): `{ data, isLoading, error }`. The fetch lives in `services` as vanilla functions. The component only wraps them. Example: `useAsyncFn(api.loadData)`.
+Async flags come from `useAsync`, `useAsyncFn`, or SWR / [TanStack Query](/tech/tanstack-query): `{ data, isLoading, error }`. The fetch lives in `services` as vanilla functions, and the component only wraps them, as in `useAsyncFn(api.loadData)`.
 
-If two fields always update together, they are one object. If I can derive a value from props or existing state while rendering, it is not state. I do not copy the same fact into two variables. Nested blobs are harder to update than a flat shape. Persistable state stays JSON-serializable: no class instances, no functions, no Map as the source of truth. Collections in UI state are arrays unless I have a measured reason for a Map.
+If two fields always update together, they are one object, and if I can derive a value from props or existing state while rendering, it is not state. I don't copy the same fact into two variables, and I keep shapes flat because nested blobs are harder to update. Persistable state stays JSON-serializable, with no class instances, functions, or Map as the source of truth, and collections in UI state are arrays unless I have a measured reason for a Map.
 
 Zustand and Zod show up when the app needs a small client store or a parser at the boundary. They do not replace these rules.

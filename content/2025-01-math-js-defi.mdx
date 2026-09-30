@@ -7,34 +7,31 @@ category: ['Web3', 'DeFi', 'Backend', 'Fullstack']
 tech: ['JavaScript', 'TypeScript', 'Ethereum', 'Solidity']
 ---
 
-Math in [JavaScript](/tech/javascript) is a real constraint in [DeFi](/web3): floating-point quirks, precision errors, and integers that don't fit in `Number`. Here's how I handle that—`bignumber.js`, `BigInt`, and `viem` utilities.
-
+Math in [JavaScript](/tech/javascript) becomes a real constraint in [DeFi](/web3), where floating-point quirks, precision errors, and integers that don't fit in `Number` all show up in token balances. I handle it with `bignumber.js`, native `BigInt`, and `viem` utilities, depending on the kind of number.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![Math in JavaScript and DeFi](/images/2025/01/math-in-javascript-defi.webp)
 </div>
 
+## Floating-point math in JavaScript
 
-## The Basics: Floating-Point Math in JavaScript
-
-JavaScript uses **IEEE 754 floating-point arithmetic**, which introduces quirks when performing arithmetic operations. This can lead to unexpected results:
+JavaScript uses **IEEE 754 floating-point arithmetic**, which produces surprising results for ordinary decimal operations:
 
 ```js
 console.log(0.1 + 0.2); // 0.30000000000000004
 console.log(0.3 - 0.1); // 0.19999999999999998
 ```
 
-### Why Is This a Problem in DeFi?
+### Why rounding errors matter in DeFi
 
-DeFi applications require **precise calculations**, especially when dealing with token balances, staking rewards, and interest rates. Small precision errors can lead to significant discrepancies in financial transactions. This is a critical concern in system development.
+DeFi applications need **precise calculations** for token balances, staking rewards, and interest rates, and a small rounding error repeated across many transactions becomes a discrepancy someone can see in their balance or exploit.
 
+## Fixed decimals in token amounts
 
-## Handling Precision: Decimals in DeFi
+Most ERC-20 tokens and DeFi protocols use **fixed decimal places** instead of floating-point numbers. Balances are stored in their smallest unit, such as wei for ETH or satoshis for BTC, and formatted for people only at display time.
 
-Most ERC-20 tokens and DeFi protocols use **fixed decimal places** instead of floating-point numbers. Token balances are usually represented in their smallest unit (e.g., wei for ETH, satoshis for BTC) and later formatted for human readability.
-
-### Example: Converting Token Amounts
+### Converting token amounts
 
 ```js
 const tokenDecimals = 18;
@@ -43,22 +40,26 @@ const formattedBalance = Number(rawBalance) / 10 ** tokenDecimals;
 console.log(formattedBalance); // 1.0
 ```
 
-While using JavaScript's `Number` type for such conversions works, it is prone to floating-point precision errors. A better approach is a **big number library** like `bignumber.js`, which keeps decimal math consistent and readable when the amounts are money.
+Converting through `Number` works for this value, but it reintroduces floating-point error as soon as the amounts get large or fractional. A **big number library** like `bignumber.js` keeps decimal math consistent and readable when the amounts are money.
 
-### Why `bignumber.js`?
-- **Arbitrary precision**: Prevents floating-point errors.
-- **Performance optimized**: Faster than alternatives like `decimal.js`.
-- **Compact**: Smaller than other libraries.
-- **Well-maintained**: Reliable and actively supported.
+### Why I use `bignumber.js`
 
-These features make it an essential technology for DeFi development.
+It covers what decimal money math needs:
 
-### When to Consider Alternatives:
-- If only basic decimal math is needed, `big.js` is smaller and faster.
-- For advanced math functions, `decimal.js` offers more capabilities.
-- If working with large integers only, **native `BigInt`** is a viable alternative.
+- **Arbitrary precision** avoids floating-point errors.
+- **Performance** is better than alternatives like `decimal.js`.
+- **Size** is smaller than the other full-featured libraries.
+- **Maintenance** is active and the library is widely used.
 
-### Example: Safe Arithmetic with `bignumber.js`
+### When an alternative fits better
+
+Other libraries win in narrower cases:
+
+- `big.js` is smaller and faster when you only need basic decimal math.
+- `decimal.js` has more capabilities when you need advanced math functions.
+- Native **`BigInt`** is enough when you only work with large integers.
+
+### Safe arithmetic with `bignumber.js`
 
 ```js
 import BigNumber from "bignumber.js";
@@ -70,9 +71,15 @@ const sum = a.plus(b);
 console.log(sum.toString()); // "0.3"
 ```
 
-Using `bignumber.js` ensures predictable behavior and avoids floating-point inaccuracies.
+The result is exact because `bignumber.js` works in decimal strings instead of binary floating point.
 
+## EVM amounts with viem utilities
 
-## Math on EVM: Using Viem's Utilities
+For [Ethereum](/tech/ethereum) transactions I keep amounts as `bigint` end to end and use viem's `parseUnits` and `formatUnits` at the edges, so conversion between human input and the token's smallest unit happens once, without passing through `Number`:
 
-When working with [Ethereum](/tech/ethereum) Virtual Machine transactions, **Viem** provides utilities for handling numeric conversions. This is particularly important for full-stack development across blockchain systems.
+```ts
+import { formatUnits, parseUnits } from "viem";
+
+const amount = parseUnits("1.5", 18); // 1500000000000000000n
+const display = formatUnits(amount, 18); // "1.5"
+```

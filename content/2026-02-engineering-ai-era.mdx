@@ -1,127 +1,97 @@
 ---
 title: Engineering in the AI Era
 publishedAt: 2026-02-10
-summary: How AI is transforming software engineering from implementation to orchestration.
+summary: As coding agents take over more implementation, an engineer's time moves to constraints, review, and deciding what should exist.
 image: /images/2026/02/engineering-ai-era.webp
 category: ['Product', 'Engineering', 'Artificial Intelligence', 'Fullstack', 'Institutions']
 tech: []
 ---
 
-Software engineering shifted from craftsperson to architect. AI went from "help me write this line" to "help me build this system": reading codebases, proposing changes, iterating toward outcomes. The job moved up the stack. Less time translating ideas into syntax, more time deciding what should exist and which tradeoffs matter. If you're building with [AI](/ai) in the loop, you already know that shift.
+AI assistance went from "help me write this line" to "help me build this system," reading codebases, proposing changes, and iterating toward outcomes, and that moved the engineer's job up the stack from craftsperson toward architect. If you build with [AI](/ai) in the loop, you already spend less time translating ideas into syntax and more time deciding what should exist and which tradeoffs matter.
 
-AI generates code faster than you do, but it still needs guidelines and boundaries. Your work is to choose the right tools, anchor the work to reality, and critically review both the plan and the result. The sections below unpack what that looks like in practice.
-
+AI generates code faster than you do, and it still needs guidelines and boundaries, so the work becomes choosing the right tools, anchoring the task to reality, and critically reviewing both the plan and the result. The sections below cover what that looks like in practice.
 
 {/* Prevent CLS with responsive aspect ratio */}
 <div className="image-container">
 ![Engineering in the AI era](/images/2026/02/engineering-ai-era.webp)
 </div>
 
+## Where an engineer's time goes now
 
-## The Responsibility Shift
+For decades, engineers spent most of their time on implementation: translating requirements into working code, debugging syntax errors, managing dependencies, and writing boilerplate, while system design and architectural decisions got a much smaller slice of the calendar.
 
-For decades, engineers spent most of their time on implementation: translating requirements into working code, debugging syntax errors, managing dependencies, writing boilerplate. System design and architectural decisions often sat in a much smaller slice of the calendar.
+That ratio is inverting. When AI handles more of the implementation surface, your time goes to defining constraints and success criteria, reviewing architectural decisions and tradeoffs, catching conceptual errors before they propagate, holding quality standards across generated code, and making product and system-level decisions. The work is no easier, and it consists of fewer syntax puzzles and more judgment calls.
 
-That ratio is inverting.
+## What changed in the models
 
-When AI handles more of the implementation surface, your time shifts to defining clear constraints and success criteria, reviewing architectural decisions and tradeoffs, catching conceptual errors before they propagate, maintaining quality standards across generated code, and making product and system-level decisions.
+Over the past two years the models crossed a practical threshold that changes daily work, which is that they stay coherent across larger contexts and can iterate without losing the thread.
 
-The work is not easier. It is different. You solve fewer syntax puzzles and make more judgment calls.
+When I say "agents," I mean an LLM operating in a loop with tools such as a code editor, test runner, browser, terminal, linter, or deploy pipeline, and the loop works because of feedback from those tools. Frontier models can hold context across large codebases, recognize architectural patterns, debug subtle conceptual errors, and keep working toward a goal without getting tired or distracted.
 
-## What Actually Changed
+The failure modes moved with them. You see fewer raw syntax mistakes and more of what a rushed junior might ship: wrong assumptions, overcomplicated abstractions, bloated APIs, inconsistencies nobody surfaced, and tradeoffs glossed over.
 
-Over the past two years, the models crossed a practical threshold. Not AGI or consciousness, but something that changes daily work: they stay coherent across larger contexts and can iterate without losing the thread.
+What stands out in practice is persistence. An agent can wrestle with a hard problem for half an hour, try several approaches, and often converge, and because that persistence used to be expensive and is getting cheaper, the bottleneck moves somewhere else.
 
-When I say "agents," I mean an LLM operating in a loop with tools: a code editor, test runner, browser, terminal, linter, deploy pipeline. It is not magic. It is feedback.
+## Tools, judgment, and taste
 
-Frontier models can maintain context across large codebases, recognize architectural patterns, and debug subtle conceptual errors. They can also keep working toward a goal without getting tired, demoralized, or distracted.
+My workflow now centers on three capabilities, choosing the right tools, holding quality through rigorous review, and applying taste inside a much larger space of possibilities, and each of them matters more than it did before.
 
-The failure modes moved. You see fewer raw syntax mistakes and more of what a rushed junior might ship: wrong assumptions, overcomplicated abstractions, bloated APIs, inconsistencies that never get surfaced, tradeoffs glossed over.
+### Tool selection and architecture
 
-What stands out in practice is persistence. Watch an agent wrestle with a hard problem for half an hour, try several approaches, and often converge. That persistence used to be expensive. It is getting cheaper, which changes where the bottleneck sits.
+AI can generate and debug code, and someone still has to choose the right tool for the job, set architectural constraints, define success criteria instead of implementation steps, and establish guardrails and patterns. The engineer becomes the systems thinker, which shows most clearly in [fullstack](/fullstack) work, where decisions run from the database to the UI.
 
-## The New Stack: Tools, Judgment, Taste
+### Process and quality control
 
-Your workflow centers on three capabilities: choosing the right tools, holding quality through rigorous review, and applying taste inside a larger possibility space. Each matters more than before, not less.
+The models remain fallible: they run with wrong assumptions, don't manage their own confusion, and can be too eager to please. That makes review the foundation of the process, where you watch the agents closely, catch subtle conceptual errors, question inefficient constructions, keep code simple, clean up abstractions, and verify with tests, measurable acceptance criteria, and small diffs.
 
-### 1. Tool Selection & Architecture
+Review the plan as well as the diff, because if the plan is wrong, perfect execution only gets you to the wrong place faster. Judgment shows up in review more than in the first draft, whether you are shipping [early-stage startup](/startups) MVPs or [institutional systems](/institutions) with compliance requirements.
 
-AI can generate and debug code, but someone still has to choose the right tool for the job, set architectural constraints, define success criteria rather than implementation steps, and establish guardrails and patterns.
+### Taste and product intuition
 
-You become the systems thinker, not the syntax writer. The shift shows up clearly in [fullstack](/fullstack) work, where decisions run from database to UI.
+A three-person startup can now explore four products where one used to be the ceiling, and an enterprise team can try seven approaches in the time it once took to try one. Someone still has to decide which products are worth building, which approaches solve the problem, what users need, which designs will scale, and where the extra capacity goes.
 
-### 2. Process & Quality Control
+Taste does not become a commodity when syntax does, because it sits upstream of implementation, and as building gets cheaper, choosing what to build gets more expensive.
 
-The models remain fallible. They run with wrong assumptions. They do not manage their own confusion. They can be too eager to please.
+## Declarative work over imperative instructions
 
-That makes review foundational, not optional. You watch the agents closely, catch subtle conceptual errors, question inefficient constructions, keep code simple, clean up abstractions, and verify with tests, measurable acceptance criteria, and small diffs.
+The strongest pattern I have seen is to stop dictating step-by-step instructions and instead give success criteria and let the system loop. In practice that means writing tests first and having the agent make them pass, putting the agent in a loop with browser automation for frontend work, writing a naive correct version and asking for an optimization that preserves correctness, and defining outcomes and constraints instead of implementation steps.
 
-You review the plan, not only the diff. If the plan is wrong, perfect execution only gets you to the wrong place faster.
+That move from imperative to declarative work changes the rhythm of the day, with less time typing code and more time defining what done means and checking that the result matches it.
 
-Judgment shows up in review more than in the first draft, whether you are shipping [early-stage startup](/startups) MVPs or [institutional systems](/institutions) with compliance requirements.
+## More enjoyable work and skill atrophy
 
-### 3. Taste & Product Intuition
+Programming is more enjoyable when the fill-in-the-blanks drudgery thins out, and what is left is closer to strategy, architecture, and problem-solving. You get stuck less often, experiments feel less risky, and problems outside your usual domain feel more reachable.
 
-A three-person startup can explore four products where one used to be the ceiling. An enterprise team can try seven approaches in the time it once took to try one.
+Skills also atrophy. Manual coding fluency can fade, because generating code and discriminating between good and bad code are different skills, and you can keep reviewing well even as writing from scratch gets harder. The field has been through this before, and nobody treats the loss of assembly-language fluency as a crisis.
 
-Someone still has to decide which products are worth building, which approaches actually solve the problem, what users need, which designs will scale, and where to spend the extra capacity.
+## Skills models don't replace
 
-Taste does not get commoditized when syntax does, because it sits upstream from implementation. When building gets cheaper, choosing gets more expensive.
+The capabilities that still matter are the ones models do not supply on their own:
 
-## The Workflow Pattern: Declarative Over Imperative
+- Knowing what to build.
+- Understanding system tradeoffs.
+- Maintaining quality under pressure.
+- Seeing the elegant option among many working ones.
+- Caring about craft when it would be easier not to.
 
-The strongest pattern I have seen is to stop dictating step-by-step instructions. Give success criteria and let the system loop.
+AI makes each of those more valuable, because it multiplies whatever direction they set.
 
-In practice that looks like writing tests first and having AI make them pass, putting AI in the loop with browser automation for frontend work, writing a naive correct version and asking for optimization while preserving correctness, and defining outcomes and constraints instead of implementation steps.
+## The flood of generated code
 
-That move from imperative to declarative work changes the rhythm of the day. You spend less time typing code and more time defining what done means and checking that the result matches it.
+2026 will be messy, with a flood of AI-generated code on GitHub, AI-generated content across the open web, and plenty of productivity theater next to real gains, which makes quality control and the ability to tell good work from mediocre work more valuable.
 
-## More Fun, More Atrophy
+## Questions I'm still asking
 
-Programming feels more fun when the fill-in-the-blanks drudgery thins out. What is left is closer to strategy, architecture, and problem-solving.
+A few questions stay open as the field absorbs this capability.
 
-You get stuck less often. Experimentation feels less risky. Problems that used to sit outside your domain feel more reachable.
+The gap between average and exceptional productivity might widen, with people who use AI well pulling further ahead, which would change what a "10X engineer" means.
 
-There is also atrophy. Manual coding fluency can fade. Generation and discrimination are different skills. You can still review well even when writing from scratch feels harder.
+Generalists may start to outperform specialists, since models are strong at local fill-in-the-blank work and weaker at grand strategy, and broad knowledge plus AI assistance might beat narrow depth alone.
 
-That is not new in the history of the field. We do not treat the loss of assembly-language fluency as a crisis.
+In ten years, software engineering could feel closer to conducting an orchestra, playing a strategy game, or designing systems in a simulation, and I don't know which.
 
-## What Doesn't Commoditize
+If much of the economy was bottlenecked on digital knowledge work, loosening that constraint could make a lot more possible than faster software alone.
 
-The capabilities that still matter are the ones models do not replace on their own:
+## How I'm working in 2026
 
-- Knowing what to build
-- Understanding system tradeoffs
-- Maintaining quality under pressure
-- Seeing the elegant option in a sea of working ones
-- Caring about craft when it would be easier not to
-
-Those skills do not get replaced. They get amplified.
-
-## The Slop Is Coming
-
-2026 will be messy. Expect a flood of AI-generated code on GitHub, AI-generated content across the open web, and plenty of productivity theater next to real gains.
-
-Quality control and the ability to tell good from mediocre become more valuable, not less.
-
-## The Questions Ahead
-
-As we absorb this capability, a few questions stay open.
-
-What happens to the "10X engineer"? The gap between average and exceptional productivity might widen. People who use AI well could pull further ahead.
-
-Do generalists outperform specialists? Models are strong at local fill-in-the-blank work and weaker at grand strategy. Broad knowledge plus AI assistance might beat narrow depth alone.
-
-What does this feel like in ten years? Is software engineering closer to conducting an orchestra, playing a strategy game, or designing systems in a simulation?
-
-How much of the economy was bottlenecked on digital knowledge work? If that constraint loosens, what becomes possible?
-
-## The Path Forward
-
-Model capability is ahead of integrations, workflows, and organizational habits for now. The industry will spend much of 2026 closing that gap.
-
-Do not compete with AI on typing speed. Ask better questions: less "how do I implement this?" and more "what should I build with this newly unlocked capacity?"
-
-The useful picture is humans with AI, where you supply judgment, taste, and architectural vision so cheap implementation turns into real value.
-
-What can you build now that was impractical before? That question will define the next era of software engineering.
+Model capability is ahead of integrations, workflows, and organizational habits, and much of 2026 will go into closing that gap. I don't try to compete with AI on typing speed, and the question I ask on each project has moved from how to implement something to what the newly available capacity should build, with my part being the judgment, taste, and architectural direction that turn cheap implementation into a product people use.

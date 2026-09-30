@@ -132,11 +132,11 @@ Motion budget: color/underline transitions, nav `layoutId` spring, masonry opaci
 
 **Skills**
 
-- `frontend-design-v1` is a critic inside this brief (anti-slop, restraint). It must not invent palette, type, or a signature — this file wins.
+- `frontend-design` is a critic inside this brief (anti-slop, restraint). It must not invent palette, type, or a signature — this file wins.
 - `better-ui` is a polish critic (concentric radius, optical alignment, named `transition` properties, icon stroke). Veto shadows, glows, grain, and new image outlines. Hover stays fill or a 1px border shift.
-- `emil-design-eng` is the motion-value source inside the budget above. `motion-v13` is for Motion APIs already in use. `emilkowal-animations-v1` stays installed for Tailwind v4 mappings; do not cite it as authority.
+- `emil-design-eng` is the motion-value source inside the budget above. `emilkowal-animations` stays installed for Tailwind v4 mappings; do not cite it as authority.
 - `review-animations` and `find-animation-opportunities` are user-invoked. Do not auto-expand motion; this file's budget is the gate.
-- `tailwind-design-system-v4` is for CSS/token architecture, not a page restyle.
+- `tailwind-design-system` is for CSS/token architecture, not a page restyle.
 
 ## Drift
 

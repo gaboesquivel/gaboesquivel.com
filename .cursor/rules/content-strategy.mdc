@@ -11,5 +11,5 @@ alwaysApply: true
 - Do not restyle or upgrade Next.js in a content pass. `/cv` stays the printable CV. `/work` and project-page templates are off-limits unless the task is explicitly about them.
 - Blog MDX may be edited for voice alignment with landing pages. Do not rewrite 2012–2019 posts unless asked; they are a period archive.
 - Writing copy: use the installed `gabo` skill. Per-route jobs: landing-pages rule.
-- Skills on this site come from `skills-lock.json` via `bun run skills:install` or `bun run skills:update`. Never author, copy, or commit `SKILL.md` here. Change voice in the `gaboesquivel-skills` catalog, then update the lock. Use each skill's name as it appears in the lock; do not invent a `-vN` folder.
+- Skills on this site come from `skills-lock.json` via `bun run skills:install` or `bun run skills:update`. Never author, copy, or commit `SKILL.md` here. Change voice in the `gaboesquivel-skills` catalog, then update the lock. Use each skill's name as it appears in the lock; do not invent a `-vN` folder. From `blockmatic/basilic-skills`, install only `workflow` (Basilic `/w-*` playbooks); tech and craft skills live in other catalogs per the lock.
 - UI/UX work: read `DESIGN.md` and follow `.cursor/rules/design.mdc`. Still no restyle during a content pass.

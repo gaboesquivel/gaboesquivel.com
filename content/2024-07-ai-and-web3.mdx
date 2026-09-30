@@ -12,38 +12,36 @@ tech: ['JavaScript', 'TypeScript', 'OpenAI', 'Ethereum', 'AI SDK']
 ![AI Web3](/images/2024/07/ai-robot.webp)
 </div>
 
-I have been building with [Web3](/web3) and, more recently, with [AI](/ai) in the same products. This note is what that overlap looked like in July 2024: not a forecast, a snapshot of the joints I was actually using.
+I have been building with [Web3](/web3) and, more recently, with [AI](/ai) in the same products, and this note records the joints between them I was actually using in July 2024.
 
-Web3 gives you shared state, signatures, and settlement that does not sit inside one company's database. Models give you judgment over messy inputs. The combination is interesting when the model needs a payment rail, an identity check, or a compute market that is not a single cloud invoice.
+Web3 gives you shared state, signatures, and settlement that do not sit inside one company's database, while models give you judgment over messy inputs. The combination is interesting when the model needs a payment rail, an identity check, or a compute market that is not a single cloud invoice.
 
 ![AI Robot](/images/2024/07/ai-robot-web3.webp)
 
 ## Shared compute
 
-Training and inference concentrate GPUs in a handful of providers. Peer-to-peer networks on chain try to meter spare capacity instead. I do not treat that as a finished cloud replacement. I treat it as a way to buy cycles without assuming AWS is the only meter. If AI is going to run closer to users and communities, the hardware map cannot be only three regions and two vendors.
+Training and inference concentrate GPUs in a handful of providers. Peer-to-peer networks on chain try to meter spare capacity instead, and I treat them as a way to buy cycles without assuming AWS is the only meter, well short of a finished cloud replacement. If AI is going to run closer to users and communities, the hardware map cannot be only three regions and two vendors.
 
 ## Identity when the other party might be a model
 
-Once text and images are cheap to fake, "is this a person" becomes an infrastructure problem. The chain world has been iterating on that in public. Worldcoin's iris-scan proof of personhood is the loudest example. I am not endorsing a biometric product. I am noting the constraint: sybil resistance for airdrops, votes, and rate limits gets harder when the attacker is a language model.
+Once text and images are cheap to fake, "is this a person" becomes an infrastructure problem. The chain world has been iterating on that in public, with Worldcoin's iris-scan proof of personhood as the loudest example. The constraint interests me more than any biometric product: sybil resistance for airdrops, votes, and rate limits gets harder when the attacker is a language model.
 
 ## Models looking at chain data
 
-The useful AI work on chain, for me, is boring and specific. Audit smart contract code for known classes of bugs. Scan the firehose of blocks and logs for fraud patterns, flow, and anomalies. Summarize that for a human who still signs the transaction. None of that requires a "decentralized ChatGPT." It requires tools that read hex and return something a reviewer can distrust productively.
+The useful AI work on chain, for me, is unglamorous and specific: auditing smart contract code for known classes of bugs, scanning the firehose of blocks and logs for fraud patterns, flows, and anomalies, and summarizing that for a human who still signs the transaction. None of it requires a "decentralized ChatGPT," only tools that read hex and return something a reviewer can distrust productively.
 
 ## Live data into models
 
-Prediction and automation get less theatrical when the model is fed a real-time stream instead of a CSV from last quarter. Platforms such as Synternet sit in that gap: take Web3 data, shape it, feed an agent or a dashboard. I care about the interface (stable schemas, latency, who can lie) more than the brand.
+Prediction and automation get less theatrical when the model is fed a real-time stream instead of a CSV from last quarter. Platforms such as Synternet sit in that gap, taking Web3 data, shaping it, and feeding it to an agent or a dashboard, and I care about the interface (stable schemas, latency, who can lie) more than the brand.
 
 Those four joints (compute, identity, contract review, live data) are the whole thesis I was willing to stand on in mid-2024. Broader claims about healthcare, supply chain, and entertainment can wait until someone ships them.
 
 ## Two projects I was close to
 
-[Morpheus](https://mor.org/about) is the open-source attempt I keep watching: a peer-to-peer network of personal general-purpose agents, with the MOR token paying people who build, host, and use the infrastructure. User-owned inference, not another hosted assistant with a Discord.
+[Morpheus](https://mor.org/about) is the open-source attempt I keep watching: a peer-to-peer network of personal general-purpose agents, with the MOR token paying people who build, host, and use the infrastructure, so inference is owned by its users instead of by a hosted assistant with a Discord.
 
 [![Morpheus AI](/images/2024/07/morpheus.png)](https://mor.org)
 
-As Product Engineer at [Bitlauncher](/project/bitlauncher), I helped build a launchpad where AI startups raise through batch auctions on chain — AI for project context and discovery, Web3 for settlement and price discovery. The mechanism is a batch auction: a fixed bidding window, one clearing price, tokens allocated at that price.
+As Product Engineer at [Bitlauncher](/project/bitlauncher), I helped build a launchpad where AI startups raise through batch auctions on chain — with AI for project context and discovery and Web3 for settlement and price discovery. Each auction has a fixed bidding window and one clearing price, and every winning bid receives tokens at that price.
 
 [![Bitlauncher](/images/work/bitlauncher.png)](https://bitlauncher.ai)
-
-I will keep shipping at this intersection. The next year will either make these joints ordinary or show which ones were only whitepapers. I am more interested in the ordinary outcome.

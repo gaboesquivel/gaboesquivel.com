@@ -1,15 +1,13 @@
 ---
 title: Web3 Composability
 publishedAt: 2025-09-08
-summary: Why composability is the point of a decade of Web3 standards—and how I think about building on shared protocols instead of from scratch.
+summary: The token, launch, liquidity, governance, and DeFi standards a new Web3 project can build on, and the systemic risk that comes with sharing them.
 image: /images/2025/09/web3-composability.webp
 category: ['Engineering', 'Web3', 'DeFi', 'Tech Lead', 'Fullstack']
 tech: ['Ethereum', 'Blockchain']
 ---
 
-If there's one concept that defines [Web3](/web3), it's composability—the ability to connect decentralized protocols like Lego blocks to create entirely new financial and digital applications. This isn't just a developer convenience. It's what makes the entire Web3 ecosystem move faster, innovate faster, and coordinate at global scale.
-
-When you start a new project today, you’re not starting from scratch. You’re standing on the shoulders of a decade of shared standards, open protocols, and financial primitives that have been battle-tested in the wild.
+A new [Web3](/web3) project starts on top of a decade of shared standards, open protocols, and financial primitives that have been tested with real money, and composability is what lets you connect those protocols like Lego blocks into a new financial or digital application. That is also why the ecosystem moves quickly, since each team builds on what the last one shipped instead of rebuilding it.
 
 {/* Prevent Cumulative Layout Shift (CLS) */}
 <div className="min-h-[300px]">
@@ -20,95 +18,90 @@ When you start a new project today, you’re not starting from scratch. You’re
   />
 </div>
 
+## The core building blocks
 
-## The Core Building Blocks
+### Token standards
 
-### Token Standards
+ERC-20, ERC-721, ERC-1155, and their extensions are the language of value transfer onchain. They let a token move across wallets, DEXs, lending protocols, and DAOs, and every other layer below assumes that baseline.
 
-ERC-20, ERC-721, ERC-1155, and their extensions form the language of value transfer on-chain. They make sure your token can move across wallets, DEXs, lending protocols, and DAOs. Without this baseline, nothing else would fit together.
+### Launch mechanisms
 
-### Launch Mechanisms
+Token distribution has several established patterns:
 
-For token distribution, multiple patterns now exist:
-- Initial DEX Offerings (IDOs): Uniswap, SushiSwap, and other AMMs.
-- Liquidity Bootstrapping Pools (LBPs): Balancer’s mechanism for dynamic price discovery.
-- Auction Protocols: Gnosis Auction, MISO, and similar frameworks offering batch and Dutch auctions to reduce MEV.
+- **Initial DEX Offerings (IDOs)** on Uniswap, SushiSwap, and other AMMs.
+- **Liquidity Bootstrapping Pools (LBPs)**, Balancer's mechanism for dynamic price discovery.
+- **Auction protocols** such as Gnosis Auction and MISO, which run batch and Dutch auctions that reduce MEV.
 
-These are proven launch rails—no need to invent your own token sale mechanics.
+Those rails are proven, so a new project rarely needs its own token sale mechanics.
 
-### Liquidity Infrastructure
+### Liquidity infrastructure
 
-Protocols like Uniswap, Curve, and Balancer standardized automated liquidity provision. Aggregators like 1inch and Paraswap route across pools. Bridges extend liquidity across chains. This liquidity layer is critical for market access and stability.
+Uniswap, Curve, and Balancer standardized automated liquidity provision, aggregators like 1inch and Paraswap route across their pools, and bridges extend that liquidity across chains, which together give a new token market access and price stability.
 
 ### Governance
 
-DAO infrastructure has matured into its own stack:
-- On-chain governance: Compound, Aragon.
-- Off-chain signaling: Snapshot.
-- Treasury management: Safe (Gnosis Safe).
-- DAO frameworks: DAOstack, Tally.
+DAO infrastructure has become its own modular stack:
 
-Governance today is modular—plug and play, rather than bespoke.
+- **Onchain governance:** Compound, Aragon.
+- **Off-chain signaling:** Snapshot.
+- **Treasury management:** Safe (formerly Gnosis Safe).
+- **DAO frameworks:** DAOstack, Tally.
 
-### DeFi Primitives
+A team can assemble governance from those parts instead of writing its own.
 
-The backbone of composability:
-- Lending/Borrowing: Aave, Compound, MakerDAO.
-- Derivatives/Synthetics: Synthetix, Perpetual Protocol, dYdX.
-- Yield strategies: Yearn, Enzyme, Idle.
-- Stablecoins: DAI, USDC, FRAX as units of account and settlement.
+### DeFi primitives
 
-These [DeFi primitives](/project/opyn) form the foundation of modern financial applications on the blockchain.
+The primitives that most applications compose with fall into four groups:
 
-These modules are not silos—they’re APIs in the form of smart contracts. Yearn builds on Curve, Curve integrates MakerDAO stablecoins, and DAOs govern them all.
+- **Lending and borrowing:** Aave, Compound, MakerDAO.
+- **Derivatives and synthetics:** Synthetix, Perpetual Protocol, dYdX.
+- **Yield strategies:** Yearn, Enzyme, Idle.
+- **Stablecoins:** DAI, USDC, and FRAX as units of account and settlement.
 
-### The Expansion: L2s and Cross-Chain Standards
+These [DeFi primitives](/project/opyn) are APIs in the form of smart contracts, and they depend on each other: Yearn builds on Curve, Curve integrates MakerDAO stablecoins, and DAOs govern all of them.
 
-Originally, composability meant “[Ethereum](/tech/ethereum) composability.” Gas costs limited use cases. Layer 2s (Optimism, Arbitrum, zkSync, Starknet) changed that, enabling cheaper execution while keeping [Ethereum](/tech/ethereum) security. Today, the same primitives exist across L2s—often connected via canonical bridges and shared governance models.
+### L2s and cross-chain standards
 
-Meanwhile, cross-chain composability is taking shape:
-- ERC-20 cross-chain extensions (e.g. LayerZero’s OFT standard).
+Composability originally meant [Ethereum](/tech/ethereum) composability, and gas costs limited what it could do. Layer 2s such as Optimism, Arbitrum, zkSync, and Starknet made execution cheaper while keeping Ethereum's security, and the same primitives now exist across L2s, often connected through canonical bridges and shared governance.
+
+Cross-chain composability is taking shape through three kinds of standard:
+
+- ERC-20 cross-chain extensions, such as LayerZero's OFT standard.
 - Cosmos IBC for token and message passing.
 - Generalized messaging protocols like Axelar, Wormhole, and Hyperlane.
 
-This is the next phase: not just a composable stack on [Ethereum](/tech/ethereum), but a composable network of chains and execution layers. A token can be issued on [Ethereum](/tech/ethereum), gain liquidity on an L2, and flow into a Cosmos appchain—without losing its identity or governance hooks.
+The result is a composable network of chains and execution layers, where a token can be issued on Ethereum, gain liquidity on an L2, and flow into a Cosmos appchain without losing its identity or governance hooks.
 
-### GRC-20: The Knowledge Standard
+### GRC-20: a standard for knowledge
 
-While token standards like ERC-20 created composability for value, [GRC-20](https://thegraph.com/blog/grc20-knowledge-graph/) introduces composability for knowledge itself. Just as ERC-20 standardized how tokens are structured and transferred, GRC-20 creates a common language for organizing and sharing information across decentralized applications.
+Token standards like ERC-20 made value composable, and [GRC-20](https://thegraph.com/blog/grc20-knowledge-graph/) applies the same idea to knowledge, with a common structure for organizing and sharing information across decentralized applications.
 
-GRC-20 organizes knowledge using interconnected **Spaces**, **Entities**, and **Relations**:
-- **Spaces**: Communities, projects, or individuals can create their own knowledge domains
-- **Entities**: People, places, things, or concepts with unique IDs and structured facts
-- **Relations**: Connections between entities that create meaning and context
+GRC-20 organizes knowledge into three parts:
 
-This enables applications to build on shared knowledge graphs rather than isolated data silos. A news application can link to verified claims, a health app can reference research studies, and an educational platform can connect lessons to real-world skills—all using the same underlying knowledge structure.
+- **Spaces** are knowledge domains that communities, projects, or individuals create.
+- **Entities** are people, places, things, or concepts with unique IDs and structured facts.
+- **Relations** connect entities and give them meaning and context.
 
-The implications are profound: instead of each application maintaining its own database of facts, they can compose with a global, verifiable knowledge base. This creates network effects for information similar to how DeFi protocols benefit from shared liquidity pools.
+Applications can then build on shared knowledge graphs instead of isolated databases, so a news app can link to verified claims, a health app can reference research studies, and an educational platform can connect lessons to real-world skills on the same structure. If that works, information gets the network effects that shared liquidity pools gave DeFi.
 
-Together, these building blocks—from token standards to knowledge graphs—create a foundation where applications can focus on innovation rather than infrastructure. But this interconnectedness comes with both opportunities and risks.
+With token standards at one end and knowledge graphs at the other, a new application can put its effort into the product instead of the infrastructure, and it inherits the risks of everything it connects to.
 
-## The Risk of Interdependence
+## The risk of interdependence
 
-Of course, with shared infrastructure comes systemic risk. Protocol dependencies create exposure: a bug in a stablecoin can ripple through lending markets, liquidity pools, and DAO treasuries. Terra/Luna showed how interconnected systems amplify shocks. The multi-chain era makes this even more complex.
+Shared infrastructure brings systemic risk. A bug in a stablecoin can ripple through lending markets, liquidity pools, and DAO treasuries, Terra/Luna showed how interconnected systems amplify a shock, and the multichain era makes those dependency chains longer.
 
-Mitigation strategies—audits, circuit breakers, risk frameworks—are essential. But the answer is not to reject composability. It’s to use it responsibly.
+Audits, circuit breakers, and risk frameworks are how teams contain that exposure while still composing, and I would map every protocol a product depends on before deciding how much of it to trust.
 
-## Why Composability Matters for Founders
+## What composability changes for founders
 
-For [founders and technical leaders](/lead), composability changes the economics of building:
-- Speed to market: You don't build your own exchange or lending pool. You integrate Uniswap or Aave.
-- Focus on differentiation: Your innovation layer is the product experience or unique mechanism—not the plumbing.
-- Network effects: By using standards, your token or DAO is instantly compatible with existing wallets, DEXs, and treasuries.
+For [founders and technical leaders](/lead), composability changes the economics of building in three ways:
 
-Think of it like building on the internet: you don’t reimplement TCP/IP, HTTP, or SSL. You build products that sit on top of them.
+- **Speed to market:** you integrate Uniswap or Aave instead of building your own exchange or lending pool.
+- **Focus:** your effort goes into the product experience or the unique mechanism, and the shared plumbing comes from existing protocols.
+- **Network effects:** a token or DAO built on standards works with existing wallets, DEXs, and treasuries from day one.
 
-## Don’t Reinvent the Wheel
+Building on the internet works the same way, since nobody reimplements TCP/IP, HTTP, or TLS to ship a web product.
 
-When starting a new [Web3](/web3) project:
-- Use existing standards (ERC-20, ERC-721, DAO frameworks).
-- Use battle-tested primitives (Uniswap, Maker, Safe, Snapshot).
-- Compose across chains and L2s where it makes sense.
+## Starting a new Web3 project
 
-The last decade gave us a financial internet of open, permissionless APIs. Reinventing them is wasted effort. Composing with them is how you build something new.
-
+When I start a Web3 project, I use existing standards like ERC-20, ERC-721, and established DAO frameworks, build on proven primitives like Uniswap, Maker, Safe, and Snapshot, and compose across chains and L2s only where the product needs it. The part I write from scratch is the mechanism or experience those protocols don't already cover.

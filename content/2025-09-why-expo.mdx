@@ -1,45 +1,50 @@
 ---
-title: Why I still use Expo
+title: Why I Still Use Expo
 publishedAt: 2025-10-01
 summary: OTA updates, EAS cloud builds, and shared TypeScript from production React Native work.
 category: ['Engineering', 'Frontend', 'Startups', 'Institutions']
 tech: ['Expo', 'React Native', 'TypeScript', 'JavaScript', 'ReactJS']
 ---
 
-I build [mobile](/mobile) products in TypeScript. The constraint is always the same: one team, two stores, a web surface that should not be a third rewrite, and a release process that does not stall on a laptop's Xcode install.
+I build [mobile](/mobile) products in TypeScript, and the constraint is always the same: one team, two stores, a web surface that should not be a third rewrite, and a release process that does not stall on a laptop's Xcode install.
 
-[Expo](https://expo.dev) is still the default I reach for. Not because it is fashionable. Because OTA, cloud builds, and a shared React Native codebase are the parts of mobile I do not want to own by hand.
+[Expo](https://expo.dev) is still the default I reach for, because OTA updates, cloud builds, and a shared React Native codebase are the parts of mobile I do not want to own by hand.
 
 ## What I have actually shipped
 
-[LegalAgent](/project/legal-agent) is the current Expo production case: voice and chat in React Native, RAG over case material, an admin surface for prompts and documents. Expo is how that client ships to phones without a native team in the loop for every JS change.
+[LegalAgent](/project/legal-agent) is the current Expo production case: voice and chat in React Native, RAG over case material, and an admin surface for prompts and documents. Expo is how that client ships to phones without a native team in the loop for every JS change.
 
-Before that I spent real time in React Native without treating Expo as the whole story. [Make Sense Labs](/project/make-sense-labs) was Sense.chat: messaging, an EOS wallet, privacy features. [Tractor Supply](/project/tractor-supply) was a retail app with browsing, accounts, and AR product previews on ViroAR. Those codebases taught me the native edge cases (AR, store review, performance) that Expo does not erase. They also taught me why I do not want to rebuild certificates and build graphs for the next product if EAS will hold them.
+Before that I spent real time in React Native without treating Expo as the whole story. [Make Sense Labs](/project/make-sense-labs) was Sense.chat, with messaging, an EOS wallet, and privacy features, and [Tractor Supply](/project/tractor-supply) was a retail app with browsing, accounts, and AR product previews on ViroAR. Those codebases taught me the native edge cases that Expo does not erase, such as AR, store review, and performance, and they also taught me why I do not want to rebuild certificates and build graphs for the next product when EAS will hold them.
 
 ## What Expo is for
 
-Expo sits on React Native. React Native is the bridge from React to iOS and Android. Expo is the toolchain around that bridge: a module set, a build service, and a publish path that is not "open Xcode."
+React Native is the bridge from React to iOS and Android, and Expo is the toolchain around that bridge: a module set, a build service, and a publish path that does not start with opening Xcode. The parts I rely on:
 
-Over-the-air updates. JS and assets go out without waiting on App Store or Play review. Store review still exists for native binary changes. For copy, flags, and a large class of bugfixes, OTA is the difference between a same-day patch and a week of sitting in review. I use that on products where the JS layer is the product.
+**Over-the-air updates.** JS and assets go out without waiting on App Store or Play review. Store review still applies to native binary changes, but for copy, flags, and a large class of bugfixes, OTA turns a week in review into a same-day patch, which matters on products where the JS layer is the product.
 
-Cloud builds. [EAS](https://expo.dev/eas) compiles on their machines. I do not maintain a blessed macOS image so Android and iOS both build. Certificates and profiles are part of that service, not a wiki page.
+**Cloud builds.** [EAS](https://expo.dev/eas) compiles on Expo's machines, so I do not maintain a blessed macOS image to keep Android and iOS building, and certificates and profiles live in that service instead of on a wiki page.
 
-Native APIs through modules. Camera, notifications, biometrics, media: I reach for the Expo module first. Custom native code is the exception, and Expo's bare / continuous native path is there when the exception is real.
+**Native APIs through modules.** For camera, notifications, biometrics, and media I reach for the Expo module first. Custom native code is the exception, and Expo's bare and continuous native paths are there when the exception is real.
 
-React Native Web and NativeWind. Shared TypeScript types, shared business logic, styling that is not a second design system. Authentication that is one flow, not three. Same domain model on a phone and a browser, not a third rewrite.
+**React Native Web and NativeWind.** Shared TypeScript types, shared business logic, and one styling approach mean a single authentication flow and the same domain model on a phone and in a browser, without a second design system.
 
 <YouTube id="o-peODF6E2o" title="Golden Workflow: Deploy your app to production with an automated workflow" />
 
 ## React Native in the wild
 
-I do not need a logo wall to justify the engine. Coinbase published their [move to React Native](https://www.coinbase.com/blog/announcing-coinbases-successful-transition-to-react-native) and called out OTA as part of how they ship. Meta built the framework. Discord, Shopify, and a long list of wallets (MetaMask Mobile, Rainbow, Ledger Live) run on it. That is enough evidence that RN is not a prototype stack. Expo is how I operationalize it on a small team.
+I do not need a logo wall to justify the engine. Coinbase published their [move to React Native](https://www.coinbase.com/blog/announcing-coinbases-successful-transition-to-react-native) and called out OTA as part of how they ship, Meta built the framework, and Discord, Shopify, and wallets like MetaMask Mobile, Rainbow, and Ledger Live run on it. That is enough evidence that RN is a production stack, and Expo is how I operationalize it on a small team.
 
 ## When I do not use it
 
-Heavy 3D, custom AR/VR, or a graphics pipeline that Expo's modules do not cover: Tractor Supply's ViroAR work is the reminder. Very specific native modules with no Expo equivalent. Work that is only a thin shell over a large existing native app. Millisecond-sensitive loops (HFT-style clients, competitive realtime games).
+Some products need more than Expo's modules cover:
 
-Then I look at a development build or a fully native app. Those cases are real. They are not most of the product work I am hired for: chat, accounts, media, AI surfaces, commerce.
+- Heavy 3D, custom AR/VR, or a graphics pipeline outside the module set, which Tractor Supply's ViroAR work reminds me of.
+- Narrow native modules with no Expo equivalent.
+- A thin shell over a large existing native app.
+- Millisecond-sensitive loops, such as HFT-style clients or competitive realtime games.
 
-## The default
+For those I look at a development build or a fully native app. The cases are real, and they are also a small share of the product work I am hired for, which is mostly chat, accounts, media, AI surfaces, and commerce.
 
-If the team already writes TypeScript and React, Expo is the cheapest honest path onto phones. One codebase, EAS for binaries, OTA for the JS layer, native modules until they are not enough. LegalAgent is why I still pick it. Sense.chat and Tractor Supply are why I know where it stops.
+## Where Expo stays my default
+
+If the team already writes TypeScript and React, Expo is the cheapest honest path onto phones: one codebase, EAS for binaries, OTA for the JS layer, and native modules until they stop being enough. LegalAgent is why I still pick it, and Sense.chat and Tractor Supply are why I know where it stops.

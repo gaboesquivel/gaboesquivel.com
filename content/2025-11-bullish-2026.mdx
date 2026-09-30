@@ -1,79 +1,63 @@
 ---
 title: Why I'm Bullish on 2026
 publishedAt: 2025-11-15
-summary: We're entering a new phase of adoption where AI, stablecoins, tokenization, wallet infrastructure, and DeFi are no longer fringe—they're foundational.
+summary: AI agents, stablecoins, tokenized venues, wallet signing, and DeFi primitives each reached production in 2025, and 2026 is when I expect them to meet in the same products.
 image: /images/2025/11/bullish-2026.webp
 category: ['Web3', 'Artificial Intelligence', 'Stablecoins', 'Tokenization', 'DeFi', 'Fullstack', 'Institutions']
 tech: ['Ethereum', 'Blockchain', 'OpenAI', 'AI SDK']
 ---
 
-I've spent the last year building at the intersection of AI and Web3, and something shifted. The tools I'm using daily—from Cursor writing code alongside me to AI agents managing wallet interactions—aren't experimental anymore. They're production-ready. And the financial infrastructure that seemed perpetually "almost there" is finally arriving.
+This year I spent most of my time building at the intersection of AI and Web3, with Cursor writing code alongside me and assistants shipping inside client products, and the financial infrastructure that seemed perpetually "almost there" started arriving at the same time the AI tooling became dependable enough for production work.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
 ![Why I'm Bullish on 2026](/images/2025/11/bullish-2026.webp)
 </div>
 
-## AI: Building with Agents, Not Just Prompts
+## Agents inside shipped products
 
-Three months ago, I built a voice-enabled legal assistant that could query case law, draft contracts, and interact with document databases. The stack was straightforward: Next.js for the interface, pgvector for semantic search, OpenAI's API for the LLM layer, and WebSockets for real-time voice streaming. What took me three weeks would have taken three months a year ago, and six months before that.
+At LegalAgent this year I added a voice and chat assistant to their React Native Expo app. Chat runs on the Vercel AI SDK, voice runs on OpenAI's Realtime API, and RAG supplies case context, document summaries, and procedural guidance in Spanish and English, while an internal admin built with TanStack Start keeps system prompts and document categories editable without a client release.
 
-The shift isn't just about faster development. It's about what's possible now. I'm working on projects where AI agents execute financial transactions, manage batch auctions, and navigate complex DeFi protocols autonomously. These aren't demos—they're handling real value in production.
+What changed for me is how much of that work is now integration and design rather than model plumbing. Cursor and similar AI-powered IDEs have changed how I write code, and RAG pipelines on Supabase and vector databases put domain knowledge within reach of an ordinary application team, so the hard part moves to deciding what the assistant is allowed to do and how the product recovers when it is wrong.
 
-The tooling has reached a threshold where solo developers can build what previously required entire teams. Cursor and similar AI-powered IDEs are changing how we write code. RAG pipelines with Supabase and vector databases make domain-specific knowledge accessible to any application. The barriers aren't technical anymore—they're about design and orchestration.
+### Conversational interfaces for financial actions
 
-### AI in Finance: From Static Interfaces to Autonomous Actions
+On Bitlauncher, the batch auctions ran on Gnosis auction contracts deployed to EOS EVM, and the chatbot at bitlauncher.ai used tool calls for current news and YouTube content and RAG for longer answers about projects. That pairing is where financial interfaces are heading: a user describes an intent such as "swap 1000 USDC for ETH at best price over the next hour," and an agent turns it into an execution strategy, gas decisions, and batched transactions that the user approves.
 
-The batch auction platform I built last quarter includes an AI agent that monitors liquidity pools, suggests optimal execution windows, and can submit transactions with user approval. The interface isn't a dashboard—it's a conversation. Users describe what they want to achieve, and the agent translates that into smart contract calls.
+The pieces for that are in place: vector databases for semantic search, function calling for deterministic actions, and wallet integration for transaction signing. I laid out the architecture in [Agentic Finance](https://gaboesquivel.com/blog/2025-09-agentic-finance), and the constraint that still matters most is where the agent's authority ends.
 
-This pattern is emerging everywhere I look. Static forms and complex menus are being replaced by natural language interfaces that handle the complexity layer. The user says "swap 1000 USDC for ETH at best price over the next hour," and the agent manages the execution strategy, gas optimization, and transaction batching.
+## Stablecoins as payment infrastructure
 
-The technical foundation is solid. Vector databases for semantic search, function calling in LLMs for deterministic actions, and wallet integration for transaction signing. What I wrote about in [Agentic Finance](https://gaboesquivel.com/blog/2025-09-agentic-finance) is now deployed in production systems handling real transactions.
+After [Stablecoin Summer](https://gaboesquivel.com/blog/2025-10-stablecoin-summer), the regulatory environment is clarifying, and U.S. policy is shifting from skepticism to support that treats dollar-backed stablecoins as an extension of American financial infrastructure rather than a threat to it.
 
-## Stablecoins: Infrastructure, Not Speculation
+Living in Costa Rica, I see this from the receiving end. An international bank transfer takes days and costs me 3–5% in fees, while a USDC transfer arrives in seconds for a few cents, and that gap changes how I move money.
 
-After [Stablecoin Summer](https://gaboesquivel.com/blog/2025-10-stablecoin-summer), the regulatory environment is finally clarifying. U.S. policy is shifting from skepticism to strategic support, treating dollar-backed stablecoins as an extension of American financial infrastructure rather than a threat to it.
+Latin America doesn't need to rebuild correspondent banking networks or payment processing to get there, because it can adopt stablecoins directly. El Salvador tried the direct route with Bitcoin, and the next phase is stablecoin-native services for payroll, remittances, savings, and lending on transparent, programmable rails.
 
-Living in Costa Rica, I see this differently than most North American observers. When I transfer money internationally, I wait days and lose 3-5% to fees. When I use USDC, it arrives in seconds and costs a few cents. The difference isn't marginal—it changes how I move money.
+## Tokenized venues running in parallel
 
-Latin America doesn't need to rebuild correspondent banking networks or payment processing infrastructure. We can adopt stablecoins directly. El Salvador demonstrated this with Bitcoin. The next phase will be stablecoin-native financial services: payroll, remittances, savings accounts, and lending—all built on transparent, programmable rails.
+Traditional financial institutions are launching tokenized trading venues as production infrastructure with regulatory approval rather than as pilots. The NYSE is building parallel digital venues that run 24/7, settle instantly, and use stablecoin rails, and those venues are new markets built on different assumptions rather than retrofits of the existing ones.
 
-## Tokenization: Parallel Markets, Not Experiments
+The transition strategy is to run both systems side by side, legacy markets with T+1 settlement and limited hours next to digital venues with instant settlement and continuous operation, and let capital choose its rails. What makes the digital side work is programmable ownership combined with settlement that happens at the same moment as the trade, so there is no counterparty window and no wait for banks to clear wires.
 
-Traditional financial institutions are launching tokenized trading venues. Not as pilots or proof-of-concepts—as production infrastructure with regulatory approval. The NYSE is building parallel digital venues that run 24/7, settle instantly, and use stablecoin rails. These aren't retrofits of existing systems. They're new markets built from the ground up on different assumptions.
+Custody moves too, from central clearing houses toward wallets. On Bitcash I built WebAuthn key management for in-browser signing and added EOS contract multisig, and on Bitlauncher the wallet showed EVM and EOS balances together across a token bridge; those same primitives apply to tokenized equities, where custody becomes something developers build on instead of a service that requires institutional relationships.
 
-The transition strategy is revealing: run both systems in parallel. Legacy markets with T+1 settlement and limited hours. Digital venues with instant settlement and continuous operation. Let capital choose which rails to use. This is how infrastructure transitions happen in practice.
+Compliance follows the same path, with transfer restrictions enforced in the smart contract, KYC attached to wallet credentials, and accreditation checked before a transaction executes. The regulations stay, and enforcement becomes code instead of manual process. Once assets sit in a wallet and settle in stablecoins, participants no longer need correspondent banking relationships, although securities law still applies to them.
 
-What makes this work technically is the combination of programmable ownership and instant settlement. When a trade executes on-chain, settlement happens simultaneously with finality. No counterparty risk. No waiting for banks to clear wires. The trade completes, ownership transfers, done. This isn't a marginal improvement—it changes the operational model of capital markets.
+That opens composability between tokenized securities and DeFi: securities as collateral in lending protocols, automated market makers for equity liquidity, and cross-chain bridges for portability, all built from primitives that already work for crypto assets.
 
-The custody model shifts too. Instead of central clearing houses, custody moves to wallets. The same patterns I've been building with Bitlauncher and Opyn—multi-sig wallets, programmable access control, on-chain verification—apply to tokenized equities. Custody becomes a primitive that developers can build on, not a service that requires institutional relationships.
+## Wallet signing without seed phrases
 
-Compliance becomes programmable as well. Transfer restrictions enforced at the smart contract level. KYC verification embedded in wallet credentials. Accreditation checks that happen programmatically before transactions execute. The regulations don't disappear, but enforcement becomes code rather than manual process.
+Bitcash had the constraint that users had to sign transactions in the browser without an external wallet, so I built WebAuthn key management for it, and QR signature requests over Supabase subscriptions later let bitlauncher.ai and other partner apps authenticate and sign through the Bitcash session instead of asking for a browser extension.
 
-The global access implications are significant. Stablecoin settlement means participants don't need correspondent banking relationships. If you can custody assets in a wallet and settle in stablecoins, the infrastructure barriers drop dramatically. Securities regulation still applies, but the banking friction is gone.
+That is the direction for wallets generally: smart contract wallets with session keys, account abstraction for gas sponsorship, and agents that translate intent into transaction sequences. ERC-4337, passkeys, Safe multisig contracts, and JSON-RPC interfaces already exist, and the remaining work is integration, because every wallet has its own signing methods, contract interfaces, and error handling, which is why standards, tooling, and developer documentation matter more now than new primitives.
 
-This creates composability. Tokenized securities as collateral in DeFi protocols. Automated market makers for equity liquidity. Cross-chain bridges for asset portability. The same primitives that work for DeFi work for tokenized securities. That design space is just opening up.
+## DeFi as backend infrastructure
 
-## Wallet Infrastructure: Closing the UX Gap
+DeFi is becoming programmable financial infrastructure: composable primitives for lending, swapping, derivatives, and yield behind standardized smart contract interfaces. Institutional interest follows from resilience, since the protocols that survived the 2022 collapse have been through several stress tests, and the ones gaining traction now have sustainable economics and clearer regulatory paths.
 
-The wallet I shipped last month uses WebAuthn for transaction signing—no seed phrases, no browser extensions, just biometric authentication through the device. Users scan a QR code to delegate signing authority, and the wallet handles token swaps and auction participation without requiring them to understand gas fees or transaction construction.
+I treat DeFi as the backend layer for the rest of this stack, because AI agents need programmatic access to financial services, stablecoin applications need yield and liquidity, and wallets need protocols to interact with.
 
-This is what closing the UX gap looks like. Not simpler explanations of complex concepts, but abstractions that hide the complexity entirely. Smart contract wallets with session keys, account abstraction for gas sponsorship, and AI agents that translate user intent into transaction sequences.
+## What I'm building toward in 2026
 
-The technical pieces exist: ERC-4337 for account abstraction, Passkeys for authentication, safe multisig contracts for custody, and JSON-RPC interfaces for protocol integration. The challenge is integration. Every wallet has different signing methods, different contract interfaces, different ways of handling errors. We need standardization, better tooling, and more developer-focused documentation.
-
-## DeFi: Backend Infrastructure, Not Speculation
-
-DeFi is becoming what it was always supposed to be: programmable financial infrastructure. The speculation phase is over. What remains is a set of composable primitives for lending, swapping, derivatives, and yield—all accessible through standardized smart contract interfaces.
-
-The institutional interest is real now. Not because of hype, but because the infrastructure proved resilient through multiple stress tests. Protocols that survived the 2022 collapse are battle-tested. The ones getting traction now have sustainable economics and clear regulatory pathways.
-
-I see DeFi as the backend layer that everything else builds on. AI agents need programmatic access to financial services. Stablecoin applications need yield generation and liquidity. Wallet infrastructure needs protocols to interact with. The pieces are aligning.
-
-## The stack is ready
-
-I'm bullish on 2026 because the fundamental layers are in place. Not as experimental technology, but as production infrastructure.
-
-AI has matured from chatbots to autonomous agents that can navigate complex workflows and execute transactions. Stablecoins have regulatory clarity and are being adopted as payment infrastructure. Tokenization is moving from experiments to production venues with institutional backing. Wallet technology is finally delivering on the promise of self-custody without sacrificing usability. DeFi protocols are stable, audited, and integrated into broader financial systems.
-
-What comes next isn't speculation. It's deployment at scale.
+Each of those layers reached production on its own in 2025: agents that run multi-step workflows, stablecoins with regulatory clarity, tokenized venues with institutional backing, wallets that keep self-custody usable, and audited DeFi protocols. In 2026 I expect to spend most of my time on the boundaries between them, meaning who signs, which rails settle, and what an agent is allowed to execute on a user's behalf.

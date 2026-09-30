@@ -1,0 +1,76 @@
+---
+title: Context Engineering
+publishedAt: 2026-09-30
+summary: 'Skills and memory files decide what an agent keeps between sessions, and an eval decides what the next run is allowed to see.'
+image: /images/2026/09/context-engineering.webp
+category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
+tech: ['TypeScript', 'AI SDK']
+---
+
+A single model call has a prompt you can open in the editor, while an agent's fourteenth call is the payload thirteen earlier steps have already assembled. Harrison Chase's point on [Sequoia's Training Data](https://www.youtube.com/watch?v=vtugjs2chdA) is that the code will not show you that payload, because those steps are what filled it.
+
+Prompt engineering is how you phrase one instruction, but an agent's later calls are assembled from everything the previous steps pulled in: files, tool results, memory, sometimes another agent's summary. Context engineering is deciding which of those tokens the next step is allowed to see, and which of them should still be there tomorrow.
+
+{/* Prevent CLS with responsive aspect ratio */}
+<div className="image-container">
+![Context Engineering](/images/2026/09/context-engineering.webp)
+</div>
+
+## Decisions on each step
+
+Once a harness is in place, the decisions that stay with you are about files:
+
+- Every turn rebuilds the payload: instructions, tools, history, results, retrieved text, and whatever memory the provider recalled.
+- Extra tokens compete for the same attention, so a larger window still needs a smaller working set.
+- A skill is a procedure that stays out of the window until the task matches, and the file is what you change when the procedure was wrong.
+- Memory is curated state across runs. The provider may write it after the turn, and the next session will read it back.
+- A failed eval names which of those files to edit. The [trace](https://www.langchain.com/blog/in-software-the-code-documents-the-app-in-ai-the-traces-do) shows what actually entered the window.
+
+## What fills the window
+
+[Anthropic](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) treats context as the full set of tokens at inference, including system instructions, tool definitions, retrieved data, and the message history, and [Vercel](https://vercel.com/i/context-engineering) splits that same payload into instructions, tools, history, tool results, and documents pulled in for the step. Google and Kaggle's [sessions and memory whitepaper](https://www.kaggle.com/whitepaper-context-engineering-sessions-and-memory) adds the split that matters once the agent outlives a single chat: a session is this run's working state, and memory is curated state meant to survive it. The model is stateless, so you assemble a payload on every turn, and Anthropic's 2025 guide still names the target the current harnesses use, which is the smallest set of high-signal tokens that produces the behavior you want.
+
+[NoLiMa](https://arxiv.org/abs/2502.05167) is why that target is a file decision and not a window decision. At 32,000 tokens, 11 of 13 models fell below half their short-context baseline, and GPT-4o went from 99.3% to 69.7%, because every token attends to every other token. Newer models have moved the cliff, and irrelevant tokens still spend the budget, which is the reason a procedure lives in a skill instead of in the standing prompt.
+
+| Pattern | What it keeps stable |
+| --- | --- |
+| Skills | The procedure stays out of the window until the task matches, and the file is what you change |
+| Memory | Decisions survive the session, and only the curated ones come back |
+| Evals | A failed probe names the skill or memory file to edit |
+| Tools | The interface stays small until it is used |
+
+## Skills are files you can revise
+
+[Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) keep a procedure out of the standing prompt: the window holds a name and a description, the body loads when the task matches, and extra files load only if the skill asks for them. [Eve](https://eve.dev/docs/skills) uses that same convention under `agent/skills/`. It advertises each description beside a `load_skill` tool, and the model pulls the markdown into the turn that needs it, so a skill written to the open standard drops in without becoming part of `instructions.md`.
+
+On [LegalAgent](/project/legal-agent), attorney sessions were what showed that the persona and the tool calls had to change after launch, and the admin kept the system prompt and the retrieval categories where the team could edit them without touching the client or the model. A skill file is that same boundary for a procedure, small enough to review as a diff and loaded on the next session only when the task matches.
+
+I keep standing instructions small and put procedures that change into skills. Typed tool schemas stay in code, because a skill adds instructions and does not add an execution surface, which is also how Eve separates `load_skill` from the tools that remain visible whether or not the skill was loaded.
+
+A [source study of eleven coding harnesses](https://arxiv.org/abs/2609.00006), pinned to July 2026, found skills in 9 of them and MCP in 8, and across the quarter they re-measured, behavioral policy was moving out of the standing prompt and into configuration, which is the loading Eve and those harnesses now do for you.
+
+## Memory writes back
+
+Eve drives memory from a file you declare under `agent/memory/`. Before each turn it asks the provider to recall relevant context, and after the turn it lets the provider capture what happened. The built-in file provider does not extract facts on its own, so the model calls `save_memory` or `remove_memory` into a document scoped to the caller, while other providers capture more on their own, including Supermemory after each turn and Upstash on user messages. The provider you pick is the rule for what gets written without you.
+
+Recalled text comes back as user messages attributed to the slot, so the instructions still have to say that those lines are caller-supplied facts and not new orders.
+
+Chase's warning sits on that write path. A note read back on a later turn is treated as ground truth, contradictions included, so a file that survived the session can be wrong in every run after it. [Guillermo Rauch's split](https://x.com/rauchg/status/2102820148629614685) is the current way to place that file: the brain is the model and the harness, the hands are the tools, the computer, and the browser, and the files are memories, skills, and repos. A consolidation pass can read and write those files without booting the computer the agent acts with, which is the same nightly job Chase described for traces that update instruction files.
+
+Eve's bundled self-modification will perform that edit while you are developing. You ask it to change a skill or an instruction, a subagent writes the files under `agent/`, and you review the diff the way you would any other source change. That extension ships with `eve dev` and is not part of the production build, so a deployed agent keeps what the memory provider captured, and it keeps a skill only after the file has been accepted.
+
+A probe is what makes that file safe to accept. [Louis Bouchard's tutor runs](https://www.louisbouchard.ai/context-engineering-2026/) show why the question has to ask for the fact: a reply can still look like a good answer on the turn where a planted fact is already gone. I would read the trace for the failing step, edit the skill or the memory file, and merge the change only after that probe passes.
+
+## Brain, hands, and files
+
+The hands are the smaller problem once the tools are few and their returns are short. Names, descriptions, and parameter schemas sit in the window on every call that loads them, and if you cannot say which tool applies, the agent cannot either. [GitHub's MCP server](https://github.blog/changelog/2025-12-10-the-github-mcp-server-adds-support-for-tool-specific-configuration-and-more/) measured one version of that cost in December 2025: loading 3–10 tools instead of the default toolsets cut context use by about 60–90%. A subagent is the same budget in another window. It should come back with a short result, on the order of the 1,000–2,000 tokens Anthropic's research agents aim to return, because Chase's failure mode is a child that did the work and then said "look at my work above," when only the final message reaches the parent.
+
+Session compaction belongs to the harness that owns the brain. Eve persists the session and decides when recall, capture, and compaction run, and coding harnesses fold history when the window fills, so that mechanism can stay on the default. What you still decide is which constraint a summary is allowed to drop, and whether the behavior that must survive belongs in a skill or a memory file instead.
+
+For the typed tools in a [TypeScript](/tech/typescript) app I reach for the [AI SDK](/tech/ai-sdk), one schema the model reads and the runtime validates. For the agent itself I would start from Eve: instructions, skills, and memory as files, a sandbox for anything that has to run, and the session durable underneath. Where that loop runs, and what it is allowed to touch, is the [agent infrastructure](/blog/2026-05-ai-agents) around this payload. On an [AI](/ai) product, the part I expect to keep editing after launch is the file layer.
+
+## How I would build the next one
+
+I would start from a framework that already loads skills and recalls memory, keep the standing instructions small, and put each procedure in a skill whose description says when it should load. The memory slot would be scoped to the caller, with an explicit rule for what may be saved, and tool results would come back small or as a path. Compaction can stay on the harness default.
+
+When a step fails, I would open the trace, see which skill body or memory note was in the window, and change that file only after a probe for the procedure still passes, so the next session loads the revision.

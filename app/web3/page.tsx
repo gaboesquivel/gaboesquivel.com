@@ -22,15 +22,15 @@ export default function Web3ExperiencePage() {
       </Prose>
       <Prose>
         That has meant Ethereum and EVM networks, EOSIO and Antelope, Polygon,
-        Arbitrum, and Flow. The contract is the smallest part of it. Indexed
-        data, transaction state, signing, and interfaces that show people what
-        they are about to commit to are the rest.
+        Arbitrum, and Flow, and on each of them the contract was a small part of
+        the work next to indexed data, transaction state, signing, and
+        interfaces that show people what they are about to commit to.
       </Prose>
       <Prose>
         I arrived here through financial systems rather than through crypto.
         Card products at American Express and a mobile bank at Wink set the
-        constraints I still work against: identity, security, partner
-        integrations, and money movement a person can follow.
+        constraints I still work against: identity, partner integrations, and
+        money movement a person can follow.
       </Prose>
 
       <PageImage
@@ -69,12 +69,14 @@ export default function Web3ExperiencePage() {
           instead of bouncing out to a separate wallet flow.
         </Prose>
         <Prose>
-          At ZTX, signing and NFT trading stayed inside the WebGL session so
-          users never left the world to use a wallet. Bitlauncher combined
-          Gnosis batch auctions, a USDT, USDC, and BITUSD bridge, and viem and
-          wagmi wallet flows so bids and balances moved across EOS EVM and EOS.
-          Opyn is a Next.js React Server Components trading interface over
-          Ponder, PostgreSQL, and Supabase on Arbitrum.
+          At ZTX I built a WebGL EVM wallet connector on MetaMask, Ethers.js,
+          and a custom JavaScript event system, so signing and NFT trading
+          happened without leaving the world. For Bitlauncher I deployed Gnosis
+          auction contracts to EOS EVM, and the wallet interface showed EVM
+          balances through wagmi subscriptions next to EOS balances polled over
+          RPC. Opyn is a decentralized options protocol on Arbitrum, and I
+          integrated the protocol and its Arbitrum testnet into the trading
+          interface with viem and wagmi.
         </Prose>
 
         <ProjectEvidence slugs={['raremint', 'ztx', 'bitlauncher', 'opyn']} />

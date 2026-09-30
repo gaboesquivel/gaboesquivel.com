@@ -7,7 +7,7 @@ const sections = [
   {
     heading: 'AI products across mobile, web, and data',
     paragraphs: [
-      'LegalAgent is two clients against one system: an Expo assistant for lawyers and a TanStack Start admin for the team maintaining its sources. I built both.',
+      'LegalAgent runs two clients against one system: an Expo assistant for attorneys and a TanStack Start admin where the team manages Microsoft SSO access, system prompts, and the document categories retrieval draws from. I built both sides of that boundary.',
     ],
     projectSlugs: ['legal-agent'],
   },
@@ -21,7 +21,7 @@ const sections = [
   {
     heading: 'Regulated products and exchange infrastructure',
     paragraphs: [
-      'The pairing is the same in both cases: a visible client, and the system that makes it real. At Wink the React Native app sat on a serverless AWS backend I also owned, where account behavior, security, and partner-bank APIs actually lived. At Bitcash the exchange UI sat on a React, Node.js, PostgreSQL, Hasura, and Google Cloud stack I architected, including the matching engine and realtime chat.',
+      'At Wink the React Native app sat on a serverless AWS backend I also built, where partner-bank APIs moved deposits, transfers, and account data. At Bitcash the exchange UI sat on a React, Node.js, PostgreSQL, Hasura, and Google Cloud stack I architected, including the matching engine and realtime chat.',
     ],
     projectSlugs: ['wink', 'bitcashbank'],
   },
@@ -32,8 +32,8 @@ export default function FullstackExperiencePage() {
     <CapabilityPage
       title="Full-stack product engineering"
       intro={[
-        'A mobile assistant and the admin tools behind it. A trading interface and its indexer. A banking app and the partner integrations it depends on. My full-stack work tends to be the pairing rather than one layer of it.',
-        'The interesting decisions are about boundaries: what becomes a service, what stays in the client, and what nobody downstream should have to think about twice.',
+        'My full-stack work tends to pair a visible client with the system that makes it real: a mobile assistant and the admin behind it, an exchange and its matching engine, a banking app and the partner integrations it depends on.',
+        'The decisions that matter sit on the boundaries between them, where I choose what becomes a service, what stays in the client, and what nobody downstream should have to think about twice.',
       ]}
       sections={sections}
       postSlugs={[
@@ -58,5 +58,5 @@ export default function FullstackExperiencePage() {
 export const metadata = pageMetadata({
   title: 'Full-Stack Product Engineering | Gabo Esquivel',
   description:
-    'End-to-end product engineering across AI assistants, token launchpads, trading interfaces, neobank infrastructure, and exchange systems.',
+    'Full-stack product engineering that pairs clients with the systems behind them: an AI assistant and its admin, a token bridge, a neobank backend, and an exchange.',
 })

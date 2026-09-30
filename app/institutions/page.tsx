@@ -12,7 +12,7 @@ const sections = [
   {
     heading: 'Interactive media at AMC Networks',
     paragraphs: [
-      'At AMC the YEAH! launch meant shipping against SXSW 2013 with Brightcove, Facebook, and an internal back-office all in scope.',
+      "AMC's YEAH! launched at SXSW 2013, and the frontend had to work with Brightcove for streaming, chapter playback, and back-office editing, and with Facebook for identity and sharing.",
     ],
     projectSlugs: ['amc-yeah-tv-facebook-app'],
   },
@@ -26,7 +26,7 @@ const sections = [
   {
     heading: 'Regulated banking and retail mobile',
     paragraphs: [
-      'Wink depended on partner banks: I coordinated their API integrations and vendors alongside the security work a regulated financial product requires. Tractor Supply was an existing React Native retail app: I introduced TypeScript, improved performance, and built a ViroAR feature for product previews without replacing the app around it.',
+      'Wink depended on partner banks, so I coordinated with their teams and vendors on the API integrations that moved deposits, transfers, and account data through the app. Tractor Supply was an existing React Native retail app: I introduced TypeScript, improved performance, and built a ViroAR feature for product previews without replacing the app around it.',
     ],
     projectSlugs: ['wink', 'tractor-supply'],
   },
@@ -37,8 +37,7 @@ export default function InstitutionsExperiencePage() {
     <CapabilityPage
       title="Institutional software engineering"
       intro={[
-        'Inside a large organization the constraint is rarely the technology. It is the systems already running, the people who depend on them, and the rules the company answers to.',
-        'The work is adding a real capability without disturbing what the organization already relies on.',
+        'Inside a large organization the constraints come from the systems already running, the people who depend on them, and the rules the company answers to, so the work is adding a capability without disturbing what the organization already relies on.',
       ]}
       sections={sections}
       postSlugs={[

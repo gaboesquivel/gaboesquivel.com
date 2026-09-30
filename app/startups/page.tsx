@@ -5,14 +5,14 @@ const sections = [
   {
     heading: 'Building a neobank from its first version',
     paragraphs: [
-      'At Wink the first version still had to ship, but the stack and the team did not exist yet. I chose React Native and AWS, planned the work, and recruited the people who would operate it.',
+      "Wink's first version needed a mobile app, a backend, and partner-bank integrations before there was a stack to build them on. I chose React Native and AWS, planned the work, and built the first version of the app and the AWS backend it depended on.",
     ],
     projectSlugs: ['wink'],
   },
   {
     heading: 'A launchpad that had to connect before it could expand',
     paragraphs: [
-      "Bitlauncher's first version had to connect auctions, wallets, and indexed data without boiling the ocean. The constraint was which boundaries to wire first so bids, balances, and settlement could move together.",
+      "Bitlauncher's first version had to connect auctions, wallets, and indexed data before the launchpad could grow, so the early scope decision was which boundaries to wire first for bids, balances, and settlement to move together.",
     ],
     projectSlugs: ['bitlauncher'],
   },
@@ -20,14 +20,14 @@ const sections = [
     heading: 'New product surfaces for digital assets',
     paragraphs: [
       'ZTX needed an architecture before the virtual world had a product around it. I set up the early Next.js, Tailwind, and Framer Motion stack, plus the analytics the team needed to see how it was used.',
-      "RareMint's auctions could not run on raw chain reads. The indexer had to exist first so the marketplace had NFT events to act on.",
+      "For RareMint's first Pokémon card auctions on Polygon, I built a Moralis-streams indexer on Node.js and PostgreSQL, then moved the marketplace to Next.js SSR for the listing and auction flows.",
     ],
     projectSlugs: ['ztx', 'raremint'],
   },
   {
     heading: 'Specialized AI assistants',
     paragraphs: [
-      'For Masterbots the 0→1 problem was leaving a team that could maintain the assistants. I trained them on the AI SDK workflow they would keep running after the interfaces shipped.',
+      'For Masterbots I set up the Next.js application structure, trained the team on it, and built the specialized assistant interfaces on top of that structure.',
     ],
     projectSlugs: ['masterbots'],
   },
@@ -38,8 +38,7 @@ export default function StartupsExperiencePage() {
     <CapabilityPage
       title="Startup product engineering"
       intro={[
-        'Early-stage work is mostly deciding what not to build yet. The first version still has to hold: enough product to learn from, without pretending the full system already exists.',
-        'That constraint showed up in a neobank, a token launchpad, a virtual world, a collectibles marketplace, and specialized AI assistants.',
+        'Early-stage work is mostly deciding what not to build yet, because the first version still has to hold: enough product to learn from, without pretending the full system already exists. That constraint showed up in a neobank, a token launchpad, a virtual world, a collectibles marketplace, and specialized AI assistants.',
       ]}
       sections={sections}
       postSlugs={[

@@ -16,30 +16,28 @@ export default function AIExperiencePage() {
     <section>
       <PageTitle>AI product engineering</PageTitle>
       <Prose>
-        A production AI product is mostly not the model. It is the voice and
-        chat around it, the retrieval that decides what the model even sees, and
-        the controls a team needs to run the thing after launch. That is the
-        part I build.
-      </Prose>
-      <Prose>
-        Most of the work sits on the line between what the model gets to decide
-        and what stays ordinary application logic.
+        I build the parts of an AI product that surround the model: the voice
+        and chat people use, the retrieval that decides what the model sees, and
+        the controls a team needs to run the assistant after launch. Most of
+        that work sits on the line between what the model gets to decide and
+        what stays ordinary application logic.
       </Prose>
 
       <PageImage alt="AI product engineering" src={aiImg} priority />
 
       <PageSection title="LegalAgent: voice, chat, and retrieval">
         <Prose>
-          For LegalAgent, I built a React Native and Expo assistant with voice,
-          chat, bilingual realtime transcription and synthesis, and RAG for case
-          context and document summaries. I sat with attorneys at the firm to
-          see how they used the assistant. That feedback drove persona changes
-          and tighter tool calling in the React Native client.
+          LegalAgent&apos;s assistant answers from case context, document
+          summaries, and procedural guidance in Spanish and English. I built RAG
+          over those sources for both voice and chat, used OpenAI&apos;s
+          Realtime API for bilingual transcription and synthesis, and adjusted
+          the assistant&apos;s persona and AI SDK tool calling after attorney
+          sessions showed how they used it.
         </Prose>
         <Prose>
-          I also built the TanStack Start administration system for Microsoft
-          SSO, document management, prompt controls, and retrieval categories so
-          the team could change access, sources, and instructions after launch.
+          The team runs the assistant from a TanStack Start admin with Microsoft
+          SSO, where they manage documents, system prompts, and the categories
+          that decide what retrieval can reach.
         </Prose>
 
         <ProjectEvidence slugs={['legal-agent']} columns={1} />
@@ -64,8 +62,8 @@ export default function AIExperiencePage() {
           <Link href="/project/wizard-world" className="prose-link">
             Wizard World
           </Link>{' '}
-          was a 2022 Flow Hackathon PWA that wired DALL-E generation into a
-          Next.js flow and minted the results through Niftory.
+          was a 2022 Flow Hackathon PWA that wired OpenAI image generation into
+          a Next.js flow and minted the results as NFTs on Flow through Niftory.
         </Prose>
 
         <ProjectEvidence slugs={['masterbots', 'bitlauncher']} />
