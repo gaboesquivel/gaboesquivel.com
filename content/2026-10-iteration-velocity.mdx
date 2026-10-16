@@ -1,0 +1,63 @@
+---
+title: Iteration Velocity
+publishedAt: 2026-10-02
+summary: 'Iteration velocity is speed with a direction: previews, measured rollouts, and incremental migrations that show whether the last change worked before the next one ships.'
+image: /images/2026/10/iteration-velocity.webp
+category: ['Product', 'Engineering', 'Artificial Intelligence', 'Frontend', 'Institutions']
+tech: []
+---
+
+Iteration velocity is speed with a direction: how fast you can try a change, see whether it worked, and decide who else should get it before the next one ships. The direction is the preview of the running product, the rollout you can widen or narrow, and the migration you ship one measurable slice at a time.
+
+{/* Prevent CLS with responsive aspect ratio */}
+<div className="image-container">
+![Iteration Velocity](/images/2026/10/iteration-velocity.webp)
+</div>
+
+## Speed and direction
+
+A build pipeline that is ten percent faster, or TLS termination moved closer to the visitor, raises how quickly a change can reach a browser. It stays speed if nobody knows whether the homepage experiment helped. What turns speed into velocity is how much friction sits between the next idea and a measured answer: does a homepage test cost weeks, or can you stage it and read a metric while the rest of the site stays put?
+
+Guillermo Rauch names that loop iteration velocity. In an [Acquired minisode](https://www.youtube.com/watch?v=p03mo040vAk) from Vercel's Significance Summit he describes an enterprise customer that shipped a couple of times a quarter and froze code over Black Friday, so production changes landed in only three quarters of the year, and he contrasts that cadence with teams on Vercel that ship dozens or hundreds of times a day. At [Figma Config 2023](https://www.linkedin.com/posts/rauchg_iteration-velocity-is-the-right-metric-to-activity-7087498430226313216-BVIP) he defined it as speed with a direction, where the direction comes from deploy-preview comments, analytics, Speed Insights, and flag-based rollouts. On [Screaming in the Cloud](https://sitc.transistor.fm/episodes/how-vercel-is-improving-the-developer-experience-on-the-front-end-with-guillermo-rauch/transcript) he separates the two terms the same way, and the recipe he gives in the minisode is to give teams tools to iterate and roll changes out progressively, which is a different ask from pressuring them to ship.
+
+[DORA's software delivery metrics](https://dora.dev/guides/dora-metrics) make the same split explicit. Throughput covers change lead time, deployment frequency, and failed-deployment recovery time; instability covers change fail rate and deployment rework rate. Google's [2025 DORA report](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report) notes that AI adoption can raise throughput while instability still lags unless feedback loops keep up, which is why "move fast with stable infrastructure" needs a number on both sides of the ledger, not a slogan.
+
+The speed half of the loop is older. In [On Continuous Delivery](/blog/2015-07-continuous-delivery) I wrote about a main branch that stays deployable, automation that runs on every commit, and feature toggles that let incomplete work ship dark. That infrastructure raises how often you can push; it does not tell you which push was worth making. Rauch's agency example in the minisode is the failure on the other side of the same split: a rebuilt dot-com that ships because the hours were already spent, whether conversion moves or not.
+
+<YouTube id="p03mo040vAk" title="Acquired Minisodes: A conversation with Guillermo Rauch" />
+
+## Previews put the product in the review
+
+A preview turns every change into a URL to the running application, so review happens on the same surface production uses. The argument is then about behavior in the browser, which is where someone who is not reading the pull request can walk the path.
+
+Rauch compares Vercel's preview links to what Google Docs did for documents: the artifact is something you open, not a PDF attachment or a static mock. In the minisode he mentions a retail CEO who realized he could follow product work from those links without waiting for a quarterly demo. Physical products get handled on the line before they ship; a web team used to argue from screenshots while the build customers would touch stayed on someone else's laptop.
+
+That shift matters for how you define done. [Product engineering](/blog/2026-09-product-engineering) is partly the discipline of specifying paths, error states, and latency before an agent or a contractor writes the first component, and previews are where those constraints meet a stakeholder outside the pull request.
+
+## Rollouts you can dial back
+
+Once a change is worth keeping, the control is a knob: ramp a homepage variant that is converting, and dial it back when orders fall, with integrations that can automate the turn. Rauch describes that surface in the minisode. [Vercel Rolling Releases](https://vercel.com/docs/rolling-releases) implements it at the deployment layer. A new production candidate receives a configurable fraction of traffic while the prior deployment serves the rest; the Observability tab compares Speed Insights and traffic mix between canary and current; you advance stages or abort, including Instant Rollback to the base deployment. Skew Protection routes backend calls to the deployment that served the page, and the docs recommend enabling it so a user on the canary does not hit APIs from the previous release. If your conversion metric lives outside Vercel, you propagate the deployment ID into that system so the experiment can tell which build earned the signal.
+
+For individual features inside Next.js or SvelteKit, the [Flags SDK](https://flags-sdk.dev) keeps the same idea at code level: flags as versioned configuration you can precompute and wire to providers. Rolling releases and feature flags overlap in purpose and differ in granularity; checkout might warrant a staged deployment while a headline test lives behind a flag.
+
+Before the first stage goes live, I write down the metric and the threshold that triggers a rollback. Without that decision recorded ahead of time, a dip in the graph becomes a meeting instead of an automatic dial-back.
+
+## Incremental migrations
+
+A migration can ship as one cutover, or it can treat each slice as an experiment: start with a page or a route group, split traffic between the old and new implementations, and read conversion before the rest of the storefront moves. Rauch's line in the minisode is that there are two kinds of migrations, incremental ones and failed ones. One customer he describes began with checkout and treated conversion lift as the experiment instead of assuming the rewrite would win.
+
+Martin Fowler's [2024 Strangler Fig](https://martinfowler.com/bliki/StranglerFigApplication.html) update makes the same case for legacy modernization: wholesale replacement plans "go down in flames most of the time," while gradual replacement accepts transitional architecture that disappears once the new path owns the behavior. The transitional code is not waste if it buys measured slices and earlier value.
+
+At [American Express](/project/american-express) I helped move a large frontend from Dojo to jQuery while keeping experimentation and measurement in place on live financial surfaces, with A/B testing on Adobe mBox and analytics on Omniture. That work sits in the same family as the checkout slice: you keep the experiment harness running while the stack underneath changes, which is how [institutions](/institutions) modernize without turning off the signals that tell you whether a cardmember flow still converts.
+
+## Feedback loops for AI products
+
+When the product generates its own output, the direction comes from what people do with that output, which is why shipping early can collect a data flywheel that a year of interviews will not. In the minisode's v0 section, Rauch lists acceptance-style signals: whether generated code is copied, whether it reaches production, whether people return to prior conversations, whether use becomes daily. A thumbs-down without a follow-up question does not tell the team what to fix, so the product asks why and categorizes intent, and Vercel used AI to process that feedback at scale.
+
+Coding agents and [AI coding factories](/blog/2026-09-ai-code-factories) raise the speed side of the same loop: more drafts, more pull requests, more deploy candidates. Rauch closes the minisode by imagining agents deploying on your behalf millions of times a day. Velocity still requires direction at that volume, which means acceptance metrics, production signals, and rollback paths have to be as automatic as the generator that proposed the change.
+
+## Running the loop on one product
+
+On the next product I would run, the person who asked for a change opens the preview URL and walks the path before merge, and key flows ship behind a flag or a rolling-release stage with the abort threshold written down first. A platform migration would start with one measurable slice while existing experiments keep running, the way Fowler's strangler keeps seams explicit instead of betting the company on a big-bang cutover.
+
+For an AI surface in that same product, I would ship with one acceptance signal the team reviews weekly and a thumbs-down path that always asks why, so the factory's output connects to a metric someone will actually roll back on.
