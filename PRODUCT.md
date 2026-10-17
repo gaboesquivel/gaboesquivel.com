@@ -1,31 +1,28 @@
-# gaboesquivel.com — product
+# gaboesquivel.com product
 
 ## Purpose
 
-Personal site for founders and technical or product leaders evaluating Gabo Esquivel for direct hire, international hire, or contracting through Blockmatic Labs LLC. It combines narrative landing pages, project and stack evidence, writing, a printable CV, and contact — without duplicating the `gaboesquivel` package as the fact source.
+Gabo Esquivel's personal site. It shows founders and technical or product leaders what Gabo has shipped, so they can decide whether to hire him directly, hire him internationally, or contract through Blockmatic Labs LLC. Project, technology, employment, and CV facts come from the `gaboesquivel` package; the site owns narrative, routes, presentation, and print layout.
 
 ## Audience
 
-Primary: founders and technical or product leads checking whether the work is real and relevant. Recruiters: concise paths to `/cv` and `/connect`. The site is not an alternate resume on every route; only `/bio` carries the full career arc.
+- **Founders and technical or product leads** check whether the work is real and relevant. Landing pages answer with named, verified projects.
+- **Recruiters** need dates, titles, and a PDF: `/cv`, then `/connect`.
+- **AI agents and LLM tools** read `/llms.txt` and `/llms-full.txt` (also served under `/.well-known/`), a plain-text corpus built from the same pages, projects, technologies, CVs, and current posts.
 
-## Information architecture (implemented)
+Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
-**Primary nav** (`components/layout/navbar.tsx`): `/`, `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “writing”), `/connect`.
+## Implemented surfaces
 
-**Also shipped**
-
-- `/explore` — sitemap-style directory of pages (`noindex`, footer link). Job: help visitors find the right page; not a narrative page. Featured row uses a 3-column grid (exception documented in `DESIGN.md`).
-- `/project/[slug]`, `/work/[type]`, `/tech`, `/tech/[category]`, `/tech/[slug]` (per category routing), `/blog/[slug]`, `/blog/category/[category]`, `/cv`, `/cv?focus=ai|web3|fullstack`
-
-**Standing boundaries**
-
-- Do not restructure `/work` or `/project/[slug]` templates unless the task is explicitly about those surfaces.
-- Blog posts from 2012–2019 are a period archive; do not rewrite them unless asked.
-- `/cv` stays the printable CV; do not turn it into narrative copy.
-
-## Worldview (single home)
-
-On `/bio` only, grounded in Wink: technology should expand access rather than create new gatekeepers. Do not deliberately restate or paraphrase this on capability or project pages.
+- Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “writing”), `/connect`
+- Capability and context pages: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institutions`, `/lead`
+- Projects: `/work`, `/work/[type]`, `/project/[slug]`
+- Technologies: `/tech` and `/tech/[category]`, which serves both category pages and single-technology pages (`/tech/[slug]`). A technology with no project evidence redirects to `/tech`.
+- Writing: `/blog`, `/blog/[slug]`, `/blog/category/[category]` (categories in `lib/blog-taxonomy.ts`). Posts before 2020 are the archive.
+- CV: `/cv` and `/cv?focus=ai|web3|fullstack`, each with a PDF in `public/`
+- `/explore`: directory of pages, linked from the footer
+- llms corpus: `/llms.txt`, `/llms-full.txt`, and their `/.well-known/` copies, built by `scripts/llms/`
+- Redirects (`next.config.js`): `/cal` to Calendly, `/blog/tech/*` to `/tech/[slug]`, plus the Edge Config `redirects` list
 
 ## Page jobs
 
@@ -35,7 +32,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 
 - Visitor: founder or product or technical lead
 - Question: who is Gabo, and is the work real?
-- Message: I build software products that make complex technology useful.
+- Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
 - Order: positioning, proof, projects, focus, bio preview, writing, `/connect`
 
@@ -44,7 +41,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Job: the only complete career narrative
 - Spine: interfaces → products → complex systems → intelligent interfaces
 - Chapter evidence: `costa-rica-js`, `wink`, Web3 projects, `legal-agent`
-- State the access worldview once, grounded in Wink
+- Worldview, stated once and grounded in Wink: technology should expand access rather than create new gatekeepers. Capability and project pages do not restate or paraphrase it.
 - End in the present and link to `/connect`
 
 ### `/ai`
@@ -65,7 +62,8 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 
 ### `/work` and `/project/[slug]`
 
-Template and structure changes only when the task targets those routes.
+- `/work`: featured projects (package `type` includes `featured`), a type filter (`/work/[type]`; `all` lists every project), then recent writing
+- `/project/[slug]`: complete implementation evidence for one project; title and description come from the package
 
 ### Capability pages
 
@@ -92,16 +90,22 @@ Use only facts already present in `LetsConnect`: direct hire, international hire
 
 ### `/cv` and `/tech`
 
-- `/cv`: default five-role product-engineering CV (AI + Web3)
-- `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/variants.ts` adds print page breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Canonical stays `/cv`
+- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy.
+- `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/variants.ts` adds print page breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Each variant's page title and description come from its package `metadata`. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs
 - `/tech/[slug]`: implementation evidence and named projects; not a capability thesis page
 
 ### `/explore`
 
-- Job: grouped links to every major page (capabilities, context, about)
+- Job: every major page in one place: a featured row, then capabilities, context, and about (`lib/landing-pages.ts`)
 - Not indexed for search; follow links allowed
 - Copy is utilitarian; no capability thesis
+
+### llms corpus
+
+- Job: an authoritative plain-text view of the site for AI tools
+- `scripts/llms/authority.ts` sets the authority order and the strongest project evidence. Hire terms appear only under `/connect`.
+- `/llms-full.txt` leaves out pre-2020 posts
 
 ## Repetition across pages
 
@@ -169,10 +173,9 @@ Link to the most useful next step: domain capability (`/ai`, `/web3`, `/fullstac
 
 ## Non-goals
 
-- Owning structured project/tech/CV facts (the `gaboesquivel` package).
-- Replacing package project descriptions with separate essays on site pages.
-- Visual identity or component invention (see `DESIGN.md`).
+- Owning project, technology, employment, or CV facts. They come from the package, and project cards use package descriptions instead of separate essays.
+- A second career narrative outside `/bio`.
 
-## When to update this file
+## Open questions
 
-Update `PRODUCT.md` when a page's job, evidence set, audience, keyword owner, or site-wide narrative rule changes. Update `DESIGN.md` for visual or interaction conventions. Update `AGENTS.md` for repo workflow, skills install, and agent process.
+- `/cv` keyword owner is “Senior Product Engineer CV”, but the live title comes from the package's `content/cv/full.md` metadata: “Gabo Esquivel - Curriculum Vitae”. Decide which is intended; the fix lives in the package.

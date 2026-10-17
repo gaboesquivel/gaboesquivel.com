@@ -12,14 +12,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Narrative site. Voice and identity: installed `gabo` skill. Optional second pass: `human-writing`; `gabo` wins conflicts.
 
-## Documentation
+## Docs
 
-| Doc | Read when |
-| --- | --- |
-| [PRODUCT.md](PRODUCT.md) | Routes, narrative, metadata, SEO, blog linking, page jobs and evidence |
-| [DESIGN.md](DESIGN.md) | Visual layout, components, motion, accessibility inside the existing system |
-
-Update `PRODUCT.md` when page jobs, evidence, or keyword owners change. Update `DESIGN.md` when tokens, primitives, motion budget, or responsive/accessibility conventions change.
+- [PRODUCT.md](PRODUCT.md): read before changing page copy, routes, metadata, or blog links. Page jobs, evidence, keyword owners, and linking rules live there.
+- [DESIGN.md](DESIGN.md): read before visual or interaction changes. Tokens, primitives, layout, motion, and accessibility rules live there.
+- [README.md](README.md): setup for people.
 
 ## Skills
 
@@ -31,28 +28,35 @@ Use each skill's name as it appears in the lock; do not invent a `-vN` folder. F
 
 The `gaboesquivel` package owns structured project, tech, experience, and CV variant data. This site owns narrative, routes, presentation, and print layout. Do not mix repositories in one commit or edit generated package output.
 
-Package copy or types change: edit package → `bun run generate` and `bun run build` → `bun link` in the package → `bun link gaboesquivel` here → then edit site pages.
+Package copy or types change: edit the package → `bun run build` there (it runs `generate` first) → `bun link` in the package → `bun link gaboesquivel` here → then edit site pages. Production installs the published npm version, so linked changes go live only after the package is published and the dependency here is updated.
 
 Use package descriptions for project cards. Do not write separate project essays on site pages.
 
-Do not restyle or upgrade Next.js in a content pass. `/cv` stays the printable CV. `/work` and project-page templates are off-limits unless the task is explicitly about them.
+## Task scope
 
-Blog MDX may be edited for voice alignment with landing pages. Do not rewrite 2012–2019 posts unless asked; they are a period archive. NEVER rewrite existing blog MDX in a landing-page pass.
+- Do not restyle or upgrade Next.js in a content pass.
+- `/cv` stays the printable CV. `/work` and project-page templates are off-limits unless the task is explicitly about them.
+- Blog MDX may be edited for voice alignment with landing pages. Do not rewrite 2012–2019 posts unless asked; they are a period archive. NEVER rewrite existing blog MDX in a landing-page pass.
 
 When researching, spawn read-only agents in parallel for lookups that do not invent copy. One agent writes. Do not spawn to write, rewrite, outline, or find a better voice.
 
-## Commands
+## When things change
 
-- `bun run dev` — Velite watch + Next.js on port **3099**
-- `bun run verify` — content build + lint
-- `bun run verify:routes` — route sanity script
+Page lists, identity facts, and the featured set are repeated in code. Update every copy in the same change:
 
-Other scripts: `package.json`.
+- Page added, renamed, or re-scoped: `PRODUCT.md`, `components/layout/navbar.tsx` (primary nav only), `lib/landing-pages.ts` (`/explore`), `app/sitemap.ts`, `scripts/llms/routes.ts`, `scripts/llms/corpus.ts`, `scripts/llms/pages.ts`, and `scripts/llms/authority.ts` if its place in the authority order changes.
+- Hire terms or identity facts (location, time zone, languages): the `gabo` skill's Identity first, then `PRODUCT.md` (`/connect`), `components/shared/lets-connect.tsx`, `scripts/llms/pages.ts`, `scripts/llms/corpus.ts`, and `scripts/llms/authority.ts`.
+- Featured projects: the package's `featured` allowlist first, then `scripts/llms/projects.ts` and `scripts/llms/authority.ts`.
+- Tokens, primitives, layout, motion budget, or accessibility conventions: `DESIGN.md`.
+
+## Checks
+
+- `bun run dev`: Velite watch and Next.js at `http://localhost:3099`.
+- `bun run verify`: Velite content build and Biome.
+- `bun run test:llms`: the llms export, blog, and CV page-break tests. Run it after page, blog, or CV changes.
+- `bun run verify:routes [base-url]`: curls `/`, the `/cv` variants, `/connect`, sample posts, and the `/cal` redirect. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).
+- Pre-commit (simple-git-hooks) runs Biome on staged files. When `app/cv/`, `app/global.css`, or `components/shared/contact-info.tsx` is staged, it also runs `bun run cvs`: the CV PDFs are printed with local Google Chrome (it starts `next dev` on port 3099 if nothing is running), then the PDFs and `app/cv/page-breaks.ts` are staged.
 
 ## Git
 
-Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): subject` (for example `docs: add PRODUCT.md`, `content(ai): align page copy`). Common types: `docs`, `content`, `feat`, `fix`, `chore`. One logical change per commit. Do not mix gaboesquivel package changes in the same commit.
-
-## Design (summary)
-
-Before visual or UX changes, read [DESIGN.md](DESIGN.md). Reuse `components/shared/spacing.ts` and `page-layout.tsx`. No new palette, type pairing, or signature element unless the task explicitly allows it. No restyle of `/work`, `/project/[slug]`, or `/cv` during a content pass.
+Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): subject` (for example `docs: add PRODUCT.md`, `content(ai): align page copy`). Common types: `docs`, `content`, `feat`, `fix`, `chore`.

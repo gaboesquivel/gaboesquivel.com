@@ -54,21 +54,25 @@ Voice and identity facts live in the installed `gabo` skill. UI microcopy: sente
 
 One accent only. Prefer `neutral-*` over `zinc-*`, `gray-*`, or `slate-*` for new classes.
 
+`<html>` always has the `dark` class (`app/layout.tsx`), and `dark:` is class-based (`app/global.css`), so on screen the `dark:` value of a light/dark pair is the one that renders: borders and hover fill are `neutral-800`. `/cv` print has its own black-on-white styles.
+
 ## Typography
 
 Live face is system mono: `html` uses `font-mono font-thin` in `app/layout.tsx`. That is the shipped type.
 
 `tailwind.config.mts` maps `font-sans` to `var(--font-graphik)`, but Graphik is **not loaded** in source. Do not “restore” Graphik, pair a display serif, or invent a second typeface unless the task explicitly loads a font.
 
-Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`pageTitle`, `sectionTitle`, `proseClass`, `blockSpacing`, `sectionSpacing`, grids). Accent color: `accent` in [`tailwind.config.mts`](tailwind.config.mts) (`#54e8b3`). Nav: lowercase mono, `tracking-tight`.
+Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`pageTitle`, `sectionTitle`, `proseClass`, `blockSpacing`, `sectionSpacing`, grids). Accent color: `accent` in [`tailwind.config.mts`](tailwind.config.mts) (`#54e8b3`). Nav: lowercase mono, `tracking-tight`; no all-caps or display face.
 
-## Layout
+## Layout and responsive behavior
 
 Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](components/shared/spacing.ts).
 
-- Column: `max-w-4xl`, horizontal padding on main, sticky `h-0.5 bg-accent` top bar
-- Default card grids: `twoColGrid` / `blockGrid` (`md:grid-cols-2`) — not bento
-- **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up elsewhere without an explicit task
+- Column: `max-w-4xl` with `px-4 sm:px-6` gutters, sticky `h-0.5 bg-accent` top bar
+- Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
+- **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
+- Page titles step up one size at `sm` (`pageTitle`)
+- The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle
 - Images: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`
 
 ## Elevation & Depth
@@ -85,20 +89,20 @@ None. No shadows, glows, glass, or grain. Hover is background fill or a 1px bord
 
 Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/shared/page-layout.tsx) and `spacing.ts`. If a pattern is missing, add it there first — do not invent a parallel title, card, or section on a page.
 
-| Job | Primitive |
-| --- | --- |
-| Page h1 | `PageTitle` / `IndexHeading` |
-| Section | `PageSection` |
-| Body paragraph | `Prose` |
-| Photo | `PageImage` |
-| Text / route card | `PageCard` / `cardLink` |
-| Project with image | `ProjectCard` |
-| Capability route shell | `CapabilityPage` |
-| Filter | `FilterNav` |
-| Section CTA | `.cta-link` / `sectionAction` |
-| In-prose link | `.prose-link` |
-| Card grids | `CardGrid` or `blockGrid` |
-| Forms | Match `/connect`: transparent fields, `border`, `focus:ring-accent` |
+| Job | Primitive | Source |
+| --- | --- | --- |
+| Page h1 | `PageTitle` / `IndexHeading` | `components/shared/page-layout.tsx` |
+| Section | `PageSection` | `components/shared/page-layout.tsx` |
+| Body paragraph | `Prose` | `components/shared/page-layout.tsx` |
+| Photo | `PageImage` (requires `alt`) | `components/shared/page-layout.tsx` |
+| Filter | `FilterNav` | `components/shared/page-layout.tsx` |
+| Text / route card | `PageCard` / `cardLink` | `components/shared/page-card.tsx`, `spacing.ts` |
+| Project with image | `ProjectCard` | `components/work/project-card.tsx` |
+| Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
+| Section CTA | `.cta-link` / `sectionAction` | `app/global.css`, `spacing.ts` |
+| In-prose link | `.prose-link` | `app/global.css` |
+| Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
+| Forms | Match `/connect`: transparent fields, `border`, `focus:ring-accent` | `app/connect/contact-form.tsx` |
 
 Homepage `PathLink` is a borderless variant of the card pattern; leave both until an explicit converge task.
 
@@ -106,7 +110,18 @@ Icons: Lucide only where already used (contact, print). Do not add icon-led feat
 
 Motion budget: color/underline transitions, nav `layoutId` spring, masonry opacity, project-card image scale, `→` nudge with `motion-safe:`. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
+## Accessibility
+
+- Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under; it colors inactive nav items and meta text in `navbar.tsx`, `page-card.tsx`, `path-link.tsx`, `project-card.tsx`, `tech-stack.tsx`, and `app/blog/[slug]/page.tsx`. See Open questions.
+- Focus: `cardLink` cards and `/connect` fields draw an accent ring; other links (nav, `PathLink`, `ProjectCard`) keep the browser's default outline. Do not remove an outline without adding the accent ring.
+- Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
+- Images: `PageImage` requires `alt`; describe what the photo shows.
+- Reduced motion: only the `PathLink` arrow nudge is behind `motion-safe:`. The nav spring and the `ProjectCard` image zoom run regardless.
+- Print: the top bar, nav, and footer are `print:hidden`.
+
 ## Do's and Don'ts
+
+Which routes may be restyled, and in which passes, is in `AGENTS.md` (Task scope).
 
 **Do (UX inside the system)**
 
@@ -120,8 +135,6 @@ Motion budget: color/underline transitions, nav `layoutId` spring, masonry opaci
 - Invent a new palette, type pairing, or “signature” element
 - Gradient blobs, numbered 01/02/03 markers, eyebrow labels, icon feature rows, stat strips, second accent
 - Display serif, cream/terracotta defaults, broadsheet chrome, or acid-green redesigns of the mint bar
-- Restyle `/work`, `/project/[slug]`, or `/cv` unless that is the task
-- Restyle during a content/copy pass (see `AGENTS.md`)
 
 **Skills**
 
@@ -134,3 +147,8 @@ Motion budget: color/underline transitions, nav `layoutId` spring, masonry opaci
 ## Drift
 
 Intended color family is `neutral-*`. Existing exceptions: `zinc` on `components/work/project-card.tsx`, `gray` on `components/layout/footer.tsx`, and some code-block `slate`/`#333` in `app/global.css`. Do not spread those. Do not bulk-rewrite them in a design-docs pass.
+
+## Open questions
+
+- `muted` text (`neutral-500`) is just under AA on black. Move it to `neutral-400`, or keep `neutral-500` for non-essential labels only?
+- The `ProjectCard` image zoom (`group-hover:scale-110`) is the one image motion, but it is not behind `motion-safe:`. Gate it, or leave it as is?
