@@ -35,7 +35,7 @@
       "source": "gaboesquivel/gaboesquivel-skills",
       "sourceType": "github",
       "skillPath": "skills/gabo/SKILL.md",
-      "computedHash": "e51b3a5d4cc40867393b527ad0b3fa979469d9b9790742fc7191f0deb92d64d1"
+      "computedHash": "2e685c1fb75c5db43033e654c881603638939ec0611809fea7e8c70824d05e15"
     },
     "human-writing": {
       "source": "factory-ai/factory-plugins",
@@ -60,6 +60,12 @@
       "sourceType": "github",
       "skillPath": "plugins/frontend-mobile-development/skills/tailwind-design-system/SKILL.md",
       "computedHash": "4e5bfe5af9b5da504752432dc45ed605af350cf1489a58419afad4123a514f89"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "a6a44d5498f7e8f68289902f3dedfc6f38ae0cee1e96527c80724cf27f727c2a"
     },
     "workflow": {
       "source": "blockmatic/basilic-skills",
