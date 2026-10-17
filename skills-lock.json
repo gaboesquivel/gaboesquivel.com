@@ -5,7 +5,7 @@
       "source": "jakubkrehel/skills",
       "sourceType": "github",
       "skillPath": "skills/better-ui/SKILL.md",
-      "computedHash": "d05cf568f197e47b15e71e21b19be1897eba2bf187ef7b0a341bc5ffaf3ffd4d"
+      "computedHash": "6f69968c0d1ed034753d64aa22f2bf4332f1471164f110db720d05faf76c3551"
     },
     "emil-design-eng": {
       "source": "emilkowalski/skills",
@@ -35,7 +35,13 @@
       "source": "gaboesquivel/gaboesquivel-skills",
       "sourceType": "github",
       "skillPath": "skills/gabo/SKILL.md",
-      "computedHash": "b6235a829428244c013ff9950a5c55c9763918c5654747c5478e5730a635747e"
+      "computedHash": "e51b3a5d4cc40867393b527ad0b3fa979469d9b9790742fc7191f0deb92d64d1"
+    },
+    "human-writing": {
+      "source": "factory-ai/factory-plugins",
+      "sourceType": "github",
+      "skillPath": "plugins/droid-evolved/skills/human-writing/SKILL.md",
+      "computedHash": "a5c8f7e609a3cd321437e0f745778b23cacd2a0dfb48aa46ab07cdde22ad146e"
     },
     "nextjs": {
       "source": "pproenca/dot-skills",
@@ -59,7 +65,7 @@
       "source": "blockmatic/basilic-skills",
       "sourceType": "github",
       "skillPath": "skills/workflow/SKILL.md",
-      "computedHash": "77dd31492a6c18f2dde367d8372d761383b31dd53e5db38ff7c3abe53d651688"
+      "computedHash": "23ecb3f2de113552b41a943c7f8f94ae34c920ac3270ccb6471f1e68f1dcdece"
     }
   }
 }
