@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # gaboesquivel.com
 
-Narrative site. Voice and identity: installed `gabo` skill. Optional second pass: `human-writing`; `gabo` wins conflicts.
+Narrative site. Voice, identity, and claims: installed `gabo` skill, which outranks any other writing skill on those three.
 
 ## Docs
 
@@ -21,6 +21,8 @@ Narrative site. Voice and identity: installed `gabo` skill. Optional second pass
 ## Skills
 
 Skills come from `skills-lock.json` (`bun run skills:install` or `bun run skills:update`). Never author, copy, or commit `SKILL.md` here. Change voice in `gaboesquivel-skills`, then update the lock.
+
+Add, update, and remove skills with the skills CLI so `.agents/skills/` matches the lock.
 
 Use each skill's name as it appears in the lock; do not invent a `-vN` folder. From `blockmatic/basilic-skills`, install only `workflow` (Basilic `/w-*` playbooks); tech and craft skills live in other catalogs per the lock.
 
