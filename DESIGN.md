@@ -60,22 +60,15 @@ Live face is system mono: `html` uses `font-mono font-thin` in `app/layout.tsx`.
 
 `tailwind.config.mts` maps `font-sans` to `var(--font-graphik)`, but Graphik is **not loaded** in source. Do not “restore” Graphik, pair a display serif, or invent a second typeface unless the task explicitly loads a font.
 
-Scale (from `components/shared/spacing.ts`):
-
-- Page title: `text-2xl font-bold tracking-tighter sm:text-3xl`
-- Section title: `text-2xl font-semibold tracking-tight`
-- Body: `prose prose-neutral dark:prose-invert` (line-height ~1.75)
-- Meta / href chips: `font-mono text-xs text-neutral-500`
-- Nav: lowercase, `tracking-tight` — no all-caps, no display face
+Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`pageTitle`, `sectionTitle`, `proseClass`, `blockSpacing`, `sectionSpacing`, grids). Accent color: `accent` in [`tailwind.config.mts`](tailwind.config.mts) (`#54e8b3`). Nav: lowercase mono, `tracking-tight`.
 
 ## Layout
 
-Source: `app/layout.tsx` and `components/shared/spacing.ts`.
+Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](components/shared/spacing.ts).
 
-- Column: `max-w-4xl`, `px-4 sm:px-6`, `mt-8` on main
-- Sticky accent bar: `h-0.5 bg-accent` at top of body
-- Vertical rhythm: block `mt-8`, section `mt-12`, title `mb-6`, heading row `mb-8`
-- Grids: `grid-cols-1 md:grid-cols-2 gap-4` (`twoColGrid` / `blockGrid`) — not 3-up, not bento
+- Column: `max-w-4xl`, horizontal padding on main, sticky `h-0.5 bg-accent` top bar
+- Default card grids: `twoColGrid` / `blockGrid` (`md:grid-cols-2`) — not bento
+- **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up elsewhere without an explicit task
 - Images: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`
 
 ## Elevation & Depth
@@ -90,7 +83,7 @@ None. No shadows, glows, glass, or grain. Hover is background fill or a 1px bord
 
 ## Components
 
-Reuse or extend these primitives. If a pattern is missing, add it to `spacing.ts` / `page-layout.tsx` first — do not invent a parallel title, card, or section on a page.
+Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/shared/page-layout.tsx) and `spacing.ts`. If a pattern is missing, add it there first — do not invent a parallel title, card, or section on a page.
 
 | Job | Primitive |
 | --- | --- |
@@ -128,7 +121,7 @@ Motion budget: color/underline transitions, nav `layoutId` spring, masonry opaci
 - Gradient blobs, numbered 01/02/03 markers, eyebrow labels, icon feature rows, stat strips, second accent
 - Display serif, cream/terracotta defaults, broadsheet chrome, or acid-green redesigns of the mint bar
 - Restyle `/work`, `/project/[slug]`, or `/cv` unless that is the task
-- Restyle during a content/copy pass (see `.cursor/rules/content-strategy.mdc`)
+- Restyle during a content/copy pass (see `AGENTS.md`)
 
 **Skills**
 
