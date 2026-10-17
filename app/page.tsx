@@ -24,7 +24,7 @@ const selectedProjects = selectedProjectSlugs.flatMap((slug) =>
 export default function HomePage() {
   return (
     <section>
-      <PageTitle>Gabo Esquivel — Product Engineer</PageTitle>
+      <PageTitle>Gabo Esquivel — Agentic Product Engineer</PageTitle>
       <Prose>
         I build useful and delightful software products, lately where the
         technology is hard to trust: AI agents and onchain finance. I work
@@ -132,13 +132,13 @@ export default function HomePage() {
 }
 
 export const metadata: Metadata = {
-  title: 'Gabo Esquivel | Product Engineer',
+  title: 'Gabo Esquivel | Agentic Product Engineer',
   description:
-    'Product engineer for agentic AI, generative UI, stablecoins, and trading interfaces. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
+    'I build useful and delightful software products across AI, Web3, and full-stack applications.',
   openGraph: {
-    title: 'Gabo Esquivel | Product Engineer',
+    title: 'Gabo Esquivel | Agentic Product Engineer',
     description:
-      'Product engineer for agentic AI, generative UI, stablecoins, and trading interfaces. Selected work includes LegalAgent, Wink, ZTX, and Bitlauncher.',
+      'I build useful and delightful software products across AI, Web3, and full-stack applications.',
     type: 'website',
   },
 }

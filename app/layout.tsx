@@ -8,13 +8,13 @@ import Navbar from '../components/layout/navbar'
 export const metadata: Metadata = {
   metadataBase: new URL('https://gaboesquivel.com'),
   title: {
-    default: 'Gabo Esquivel | Product Engineer',
+    default: 'Gabo Esquivel | Agentic Product Engineer',
     template: '%s',
   },
   description:
     'I build useful and delightful software products across AI, Web3, and full-stack applications.',
   openGraph: {
-    title: 'Gabo Esquivel | Product Engineer',
+    title: 'Gabo Esquivel | Agentic Product Engineer',
     description:
       'I build useful and delightful software products across AI, Web3, and full-stack applications.',
     url: 'https://gaboesquivel.com',
