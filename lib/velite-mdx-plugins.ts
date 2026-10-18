@@ -1,10 +1,11 @@
 import { rehypeBlogImages } from 'lib/rehype-blog-images'
+import { remarkBlogImages } from 'lib/remark-blog-images'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 
-export const remarkPlugins = [remarkGfm]
+export const remarkPlugins = [remarkGfm, remarkBlogImages]
 
 export const rehypePlugins = [
   rehypeSlug,

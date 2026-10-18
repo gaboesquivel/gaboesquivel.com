@@ -24,25 +24,31 @@ const CustomLink = (props) => {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function RoundedImage(props: {
-  alt?: string
+function BlogImage({
+  src,
+  alt,
+  priority,
+}: {
   src: string
-  width?: number
-  height?: number
+  alt?: string
+  priority?: boolean
 }) {
-  const width = props.width ?? 1200
-  const height = props.height ?? 675
-
   return (
     <Image
-      alt={props.alt ?? ''}
-      src={props.src}
-      width={width}
-      height={height}
+      alt={alt ?? ''}
+      src={src}
+      width={1200}
+      height={675}
       sizes="(max-width: 768px) 100vw, min(100vw, 650px)"
+      preload={priority}
+      fetchPriority={priority ? 'high' : undefined}
       className="rounded-lg"
     />
   )
+}
+
+function RoundedImage(props: { alt?: string; src: string }) {
+  return <BlogImage alt={props.alt} src={props.src} />
 }
 
 function Callout(props) {
@@ -124,6 +130,7 @@ function VimeoEmbed({ id, title }: { id: string; title?: string }) {
 }
 
 const components = {
+  BlogImage,
   Image: RoundedImage,
   a: CustomLink,
   Callout,
