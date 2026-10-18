@@ -20,7 +20,7 @@ Narrative site. Voice, identity, and claims: installed `gabo` skill, which outra
 
 ## Skills
 
-Skills come from `skills-lock.json` (`bun run skills:install` or `bun run skills:update`). Never author, copy, or commit `SKILL.md` here. Change voice in `gaboesquivel-skills`, then update the lock.
+Skills come from `skills-lock.json` (`bun run skills:install` or `bun run skills:update`). Never author, copy, or commit `SKILL.md` here. Change voice in `gaboesquivel-skills`, then run `bunx skills@latest update gabo -p -y` and commit the lock.
 
 Add, update, and remove skills with the skills CLI so `.agents/skills/` matches the lock.
 
