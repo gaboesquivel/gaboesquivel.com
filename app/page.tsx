@@ -50,11 +50,7 @@ export default function HomePage() {
         production AI.
       </Prose>
 
-      <PageImage
-        alt="Gabo Esquivel giving a workshop in 2019"
-        src={workshop}
-        priority
-      />
+      <PageImage alt="Gabo Esquivel giving a workshop in 2019" src={workshop} />
 
       <PageSection
         title="Selected work"
