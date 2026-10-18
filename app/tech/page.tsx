@@ -26,7 +26,7 @@ export default function TechStackPage() {
             <Link
               key={href}
               href={href}
-              className="rounded-lg border border-zinc-700/50 p-4"
+              className="rounded-lg border border-neutral-200 p-4 dark:border-hairline"
             >
               <h3 className="font-semibold">{name}</h3>
               <p className="mt-2 text-sm text-neutral-400">{description}</p>

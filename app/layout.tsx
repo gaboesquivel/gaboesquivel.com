@@ -1,5 +1,4 @@
 import './global.css'
-import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { DeferredAnalytics } from '../components/layout/deferred-analytics'
 import { Footer } from '../components/layout/footer'
@@ -48,10 +47,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en"
-      className={clsx('dark text-white bg-black font-mono font-thin')}
-    >
+    <html lang="en" className="dark bg-black font-mono font-normal text-white">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="is-agentic-site-type" content="content" />

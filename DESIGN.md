@@ -6,13 +6,13 @@ colors:
   secondary: "#ffffff"
   tertiary: "#54e8b3"
   muted: "#737373"
-  border: "#262626"
+  border: "rgba(255, 255, 255, 0.14)"
   hover-fill: "#262626"
 typography:
   body:
     fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1rem
-    fontWeight: 100
+    fontWeight: 400
   page-title:
     fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1.5rem
@@ -49,20 +49,20 @@ Voice and identity facts live in the installed `gabo` skill. UI microcopy: sente
 | Text / secondary | `#ffffff` (`text-white`) | Body and headings |
 | Accent / tertiary | `#54e8b3` (`accent`, `text-accent`, `bg-accent`) | Top bar, active nav, `.cta-link`, focus rings |
 | Muted | Tailwind `neutral-400` / `neutral-500` | Meta, URLs, secondary labels |
-| Border | `neutral-200` / `neutral-800` | Cards and chips |
-| Hover fill | `neutral-100` / `neutral-800` | Card and path-link hover |
+| Hairline / border | `rgba(255, 255, 255, 0.14)` (`hairline`, `border-hairline`) | Cards, form fields, code blocks |
+| Hover fill | `neutral-100` / `neutral-800` (`#262626`) | Card and path-link hover |
 
-One accent only. Prefer `neutral-*` over `zinc-*`, `gray-*`, or `slate-*` for new classes.
+One accent only. Hairline is the surface border. Prefer `neutral-*` over `zinc-*`, `gray-*`, or `slate-*` for new classes.
 
-`<html>` always has the `dark` class (`app/layout.tsx`), and `dark:` is class-based (`app/global.css`), so on screen the `dark:` value of a light/dark pair is the one that renders: borders and hover fill are `neutral-800`. `/cv` print has its own black-on-white styles.
+`<html>` always has the `dark` class (`app/layout.tsx`), and `dark:` is class-based (`app/global.css`), so on screen the `dark:` value of a light/dark pair is the one that renders: borders are `border-hairline`, hover fill is `neutral-800`. A light half, when a pair still has one, is `border-neutral-200`. `/cv` print has its own black-on-white styles. The active nav item stays `text-accent`, along with the top bar and `.cta-link`.
 
 ## Typography
 
-Live face is system mono: `html` uses `font-mono font-thin` in `app/layout.tsx`. That is the shipped type.
+Live face is system mono at normal weight: `html` uses `font-mono font-normal` in `app/layout.tsx` and `app/global-error.tsx`. Body is 400. Page titles stay `font-bold` (700). Section titles stay `font-semibold` (600).
 
 `tailwind.config.mts` maps `font-sans` to `var(--font-graphik)`, but Graphik is **not loaded** in source. Do not “restore” Graphik, pair a display serif, or invent a second typeface unless the task explicitly loads a font.
 
-Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`pageTitle`, `sectionTitle`, `proseClass`, `blockSpacing`, `sectionSpacing`, grids). Accent color: `accent` in [`tailwind.config.mts`](tailwind.config.mts) (`#54e8b3`). Nav: lowercase mono, `tracking-tight`; no all-caps or display face.
+Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`pageTitle`, `sectionTitle`, `proseClass`, `blockSpacing`, `sectionSpacing`, grids). Theme colors live in [`tailwind.config.mts`](tailwind.config.mts): `accent` is `#54e8b3`, `hairline` is `rgba(255, 255, 255, 0.14)`. Nav: lowercase mono, `tracking-tight`; no all-caps or display face.
 
 ## Layout and responsive behavior
 
@@ -103,13 +103,13 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Section CTA | `.cta-link` / `sectionAction` | `app/global.css`, `spacing.ts` |
 | In-prose link | `.prose-link` | `app/global.css` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
-| Forms | Match `/connect`: transparent fields, `border`, `focus:ring-accent` | `app/connect/contact-form.tsx` |
+| Forms | Match `/connect`: transparent fields, `border-hairline`, `focus:ring-accent` | `app/connect/contact-form.tsx` |
 
-Homepage `PathLink` is a borderless variant of the card pattern; leave both until an explicit converge task.
+`PathLink` uses `cardLink`, so it takes the same hairline border.
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status banner entrance (`starting:` fade + scale), connect send `:active` scale, and `cardLink` `:active` scale. Active nav underline is CSS only (no `layoutId` spring). Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status banner entrance (`starting:` fade + scale), connect send `:active` scale, and `cardLink` `:active` scale. The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## Accessibility
 
@@ -147,7 +147,7 @@ Which routes may be restyled, and in which passes, is in `AGENTS.md` (Task scope
 
 ## Drift
 
-Intended color family is `neutral-*`. Existing exceptions: `zinc` on `components/work/project-card.tsx`, `gray` on `components/layout/footer.tsx`, and some code-block `slate`/`#333` in `app/global.css`. Do not spread those. Do not bulk-rewrite them in a design-docs pass.
+Intended surface border is `border-hairline`. Intended color family otherwise is `neutral-*`. Existing exceptions: `gray` on `components/layout/footer.tsx`, and some code-block `slate`/`#333` in `app/global.css`. Do not spread those. Do not bulk-rewrite them in a design-docs pass.
 
 ## Open questions
 

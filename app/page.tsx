@@ -38,16 +38,16 @@ export default function HomePage() {
         Agentic Product Engineer
       </PageTitle>
       <Prose>
-        I build useful and delightful software products, lately where the
-        technology is hard to trust: AI agents and onchain finance. I work
-        across architecture and interface, deciding what belongs in the product
-        and what should recede behind it.
+        I build useful and delightful software products, designed for humans and
+        agents alike. I work across product, design, and architecture to create
+        intuitive human experiences, agent-friendly interfaces, and efficient
+        operational workflows.
       </Prose>
 
       <Prose>
-        15+ years of shipping software, 12+ of them building 0→1 products for
-        startups and growth-stage teams in regulated finance, consumer Web3, and
-        production AI.
+        15+ years of shipping software, including 12+ years building 0→1
+        products for startups and growth-stage teams across FinTech, Web3, and
+        AI.
       </Prose>
 
       <PageImage alt="Gabo Esquivel giving a workshop in 2019" src={workshop} />

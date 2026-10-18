@@ -20,7 +20,7 @@ export function ProjectCard({
   return (
     <Link
       href={`/project/${project.slug}`}
-      className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-zinc-200/50 transition-all duration-300 dark:border-zinc-700/50"
+      className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-neutral-200 transition-all duration-300 dark:border-hairline"
     >
       {src ? (
         wide ? (

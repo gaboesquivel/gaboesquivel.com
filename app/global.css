@@ -58,12 +58,12 @@ html {
 }
 
 .prose pre {
-  @apply border border-neutral-800 bg-neutral-900;
+  @apply border border-hairline bg-neutral-900;
   padding: 0 !important;
 }
 
 .prose code {
-  @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-100 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-neutral-900;
+  @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-100 dark:border-hairline rounded-lg bg-neutral-100 dark:bg-neutral-900;
   white-space: pre-wrap;
   word-break: break-word;
 }

@@ -9,7 +9,7 @@ export const LazyContactForm = dynamic(
     loading: () => (
       <div
         aria-busy="true"
-        className="min-h-[28rem] w-full rounded-lg border border-neutral-800 bg-neutral-950/50"
+        className="min-h-[28rem] w-full rounded-lg border border-hairline bg-neutral-950/50"
         role="status"
       >
         <span className="sr-only">Loading contact form</span>

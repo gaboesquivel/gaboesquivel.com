@@ -13,6 +13,7 @@ export default {
       },
       colors: {
         accent: '#54e8b3',
+        hairline: 'rgba(255, 255, 255, 0.14)',
       },
       typography: {
         quoteless: {

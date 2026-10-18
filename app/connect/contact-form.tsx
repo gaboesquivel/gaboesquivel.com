@@ -114,7 +114,7 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Your full name"
-                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
                 disabled={isPending}
               />
               {field.state.meta.errors.length > 0 && (
@@ -143,7 +143,7 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
                 disabled={isPending}
               />
               {field.state.meta.errors.length > 0 && (
@@ -171,7 +171,7 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Email subject line"
-                className="w-full px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
                 disabled={isPending}
               />
               {field.state.meta.errors.length > 0 && (
@@ -199,7 +199,7 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Describe the product, team, and what you need help with..."
-                className="w-full h-60 sm:h-80 px-4 py-3 border bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-colors"
+                className="w-full h-60 sm:h-80 px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-colors"
                 disabled={isPending}
               />
               <div className="flex justify-between items-center mt-2">

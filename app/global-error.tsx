@@ -19,7 +19,7 @@ export default function GlobalError({
   }, [error])
 
   return (
-    <html lang="en" className="dark bg-black font-mono font-thin text-white">
+    <html lang="en" className="dark bg-black font-mono font-normal text-white">
       <head>
         <title>This page didn't load | Gabo Esquivel</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

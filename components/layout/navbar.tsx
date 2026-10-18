@@ -40,15 +40,7 @@ export default function Navbar() {
                   isActive ? 'text-accent' : 'text-neutral-400',
                 )}
               >
-                <span className="relative px-2 py-2">
-                  {name}
-                  {isActive ? (
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-2 bottom-0 z-[-1] h-px bg-neutral-200 dark:bg-neutral-800 dark:bg-gradient-to-r dark:from-transparent dark:to-neutral-900"
-                    />
-                  ) : null}
-                </span>
+                <span className="px-2 py-2">{name}</span>
               </Link>
             )
           })}
