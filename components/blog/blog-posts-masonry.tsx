@@ -1,4 +1,3 @@
-'use client'
 import { BlogPostCard } from 'components/blog/blog-post-card'
 import { CardGrid } from 'components/shared/card-grid'
 import type { Blog } from 'lib/blog'

@@ -30,7 +30,8 @@ export function ProjectCard({
               alt={project.title}
               width={1600}
               height={1067}
-              priority={priority}
+              preload={priority}
+              fetchPriority={priority ? 'high' : undefined}
               sizes="(max-width: 768px) 100vw, 896px"
               className="h-auto w-full transition-transform duration-500 group-hover:scale-110"
               style={{ width: '100%', height: 'auto' }}
@@ -42,7 +43,8 @@ export function ProjectCard({
               src={src}
               alt={project.title}
               fill
-              priority={priority}
+              preload={priority}
+              fetchPriority={priority ? 'high' : undefined}
               sizes="(max-width: 768px) 100vw, 448px"
               className="object-cover transition-transform duration-500 group-hover:scale-110"
             />

@@ -1,7 +1,7 @@
 import './global.css'
-import { Analytics } from '@vercel/analytics/react'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
+import { DeferredAnalytics } from '../components/layout/deferred-analytics'
 import { Footer } from '../components/layout/footer'
 import Navbar from '../components/layout/navbar'
 
@@ -66,7 +66,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          <Analytics />
+          <DeferredAnalytics />
         </main>
       </body>
     </html>

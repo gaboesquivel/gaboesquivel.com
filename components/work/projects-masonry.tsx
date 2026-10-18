@@ -1,4 +1,3 @@
-'use client'
 import { CardGrid } from 'components/shared/card-grid'
 import { ProjectCard } from 'components/work/project-card'
 import type { Project } from 'gaboesquivel'

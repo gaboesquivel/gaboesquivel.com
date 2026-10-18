@@ -107,7 +107,8 @@ export function PageImage({
         src={src}
         fill
         sizes="(max-width: 768px) 100vw, 896px"
-        priority={priority}
+        preload={priority}
+        fetchPriority={priority ? 'high' : undefined}
         className={cn('rounded-lg object-cover', objectClassName)}
       />
     </div>
@@ -132,7 +133,9 @@ export function FilterNav({
           aria-current={current === item.id ? 'page' : undefined}
           className={cn(
             'rounded-md bg-neutral-200 px-2 py-2 dark:bg-neutral-800',
-            current === item.id ? 'text-accent' : '',
+            current === item.id
+              ? 'text-accent'
+              : 'text-neutral-200 dark:text-neutral-200',
           )}
         >
           {item.label}
