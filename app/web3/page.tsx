@@ -16,15 +16,13 @@ export default function Web3ExperiencePage() {
     <section>
       <PageTitle>Web3 product engineering</PageTitle>
       <Prose>
-        Building Wink, Costa Rica&apos;s first neobank, led me into crypto in
-        2017 at the height of the ICO boom, and Knowledge ICO became my first
-        Web3 project.
+        I build wallets, trading interfaces, token flows, indexers, and the
+        services that sit between a chain and a screen.
       </Prose>
       <Prose>
-        Knowledge showed me where the work sits. Most of what a Web3 product
-        asks of a person happens between a chain and a screen, and that&apos;s
-        the layer I build: wallets, trading interfaces, token flows, indexers,
-        and the services that connect them.
+        Building Wink, Costa Rica's first neobank, led me into crypto in 2017 at
+        the height of the ICO boom, and Knowledge ICO became my first Web3
+        project.
       </Prose>
       <Prose>
         I&apos;ve since worked on Ethereum and EVM networks, EOSIO and Antelope,
