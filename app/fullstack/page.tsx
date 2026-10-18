@@ -7,21 +7,21 @@ const sections = [
   {
     heading: 'AI products across mobile, web, and data',
     paragraphs: [
-      'LegalAgent runs two clients against one system: an Expo assistant for attorneys and a TanStack Start admin where the team manages Microsoft SSO access, system prompts, and the document categories retrieval draws from. I built both sides of that boundary.',
+      'LegalAgent runs two clients against one system: an Expo assistant for attorneys, and a TanStack Start admin where the team manages Microsoft SSO access, system prompts, and the document categories retrieval draws from. I built both sides of that boundary.',
     ],
     projectSlugs: ['legal-agent'],
   },
   {
     heading: 'Token flows across contracts, data, and interface',
     paragraphs: [
-      'At Bitlauncher the token bridge was the full-stack problem: swapping USDT, USDC, and BITUSD into the token used for bidding touches contracts, indexed events, wallet balances, and the bidding interface at once.',
+      "A bid at Bitlauncher could only settle in the protocol's token, so the token bridge became the full-stack problem. Swapping USDT, USDC, or BITUSD into USDCred touches contracts, indexed events, wallet balances, and the bidding interface all at once.",
     ],
     projectSlugs: ['bitlauncher'],
   },
   {
     heading: 'Regulated products and exchange infrastructure',
     paragraphs: [
-      'At Wink the React Native app sat on a serverless AWS backend I also built, where partner-bank APIs moved deposits, transfers, and account data. At Bitcash the exchange UI sat on a React, Node.js, PostgreSQL, Hasura, and Google Cloud stack I architected, including the matching engine and realtime chat.',
+      'At Wink the React Native app sat on a serverless AWS backend I also built, and partner-bank APIs moved deposits, transfers, and account data through it. At Bitcash the exchange UI ran on a React, Node.js, PostgreSQL, Hasura, and Google Cloud stack I architected, matching engine and realtime chat included.',
     ],
     projectSlugs: ['wink', 'bitcashbank'],
   },
@@ -32,8 +32,8 @@ export default function FullstackExperiencePage() {
     <CapabilityPage
       title="Full-stack product engineering"
       intro={[
-        'My full-stack work tends to pair a visible client with the system that makes it real: a mobile assistant and the admin behind it, an exchange and its matching engine, a banking app and the partner integrations it depends on.',
-        'The decisions that matter sit on the boundaries between them, where I choose what becomes a service, what stays in the client, and what nobody downstream should have to think about twice.',
+        'My full-stack work usually pairs a client people see with the system that makes it real: a mobile assistant and the admin behind it, an exchange and its matching engine, a banking app and the partner integrations it leans on.',
+        "The decisions that matter sit on the boundaries between them. That's where I choose what becomes a service, what stays in the client, and what nobody downstream should have to think about twice.",
       ]}
       sections={sections}
       postSlugs={[
@@ -45,7 +45,7 @@ export default function FullstackExperiencePage() {
       writingTitle="Writing about product systems"
     >
       <Prose>
-        The employment record behind this work is the{' '}
+        The roles and dates behind this work are on the{' '}
         <Link href="/cv?focus=fullstack" className="prose-link">
           full-stack CV
         </Link>

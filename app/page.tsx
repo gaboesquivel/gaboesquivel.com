@@ -112,6 +112,20 @@ export default function HomePage() {
               note="Titles, dates, and a printable PDF."
             />
           </li>
+          <li className="h-full">
+            <PathLink
+              href="/lead"
+              title="Technical leadership"
+              note="Forming teams and owning architecture while staying close enough to the code to answer for what ships."
+            />
+          </li>
+          <li className="h-full">
+            <PathLink
+              href="/startups"
+              title="Startup product engineering"
+              note="0→1 products built before there was a stack to build them on: a neobank, a launchpad, a virtual world."
+            />
+          </li>
         </ul>
       </PageSection>
 

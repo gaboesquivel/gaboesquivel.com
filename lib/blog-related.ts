@@ -1,4 +1,5 @@
 import type { Blog } from 'lib/blog'
+import { comparePublishedAtDesc } from 'lib/blog-order'
 import { toBrowseSlug } from 'lib/blog-taxonomy'
 
 export const getRelatedPosts = ({
@@ -34,10 +35,7 @@ export const getRelatedPosts = ({
     .filter(({ score }) => score > 0)
     .sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score
-      return (
-        new Date(b.candidate.publishedAt).getTime() -
-        new Date(a.candidate.publishedAt).getTime()
-      )
+      return comparePublishedAtDesc(a.candidate, b.candidate)
     })
     .slice(0, limit)
     .map(({ candidate }) => candidate)

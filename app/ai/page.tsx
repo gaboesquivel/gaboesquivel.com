@@ -16,28 +16,29 @@ export default function AIExperiencePage() {
     <section>
       <PageTitle>AI product engineering</PageTitle>
       <Prose>
-        I build the parts of an AI product that surround the model: the voice
-        and chat people use, the retrieval that decides what the model sees, and
-        the controls a team needs to run the assistant after launch. Most of
-        that work sits on the line between what the model gets to decide and
-        what stays ordinary application logic.
+        I build the parts of an AI product around the model: the voice and chat
+        people use, the retrieval that decides what the model gets to see, and
+        the controls a team needs once the assistant is live. Most of the work
+        is drawing the line between what the model decides and what stays
+        ordinary application logic.
       </Prose>
 
       <PageImage alt="AI product engineering" src={aiImg} priority />
 
       <PageSection title="LegalAgent: voice, chat, and retrieval">
         <Prose>
-          LegalAgent&apos;s assistant answers from case context, document
-          summaries, and procedural guidance in Spanish and English. I built RAG
-          over those sources for both voice and chat, used OpenAI&apos;s
-          Realtime API for bilingual transcription and synthesis, and adjusted
-          the assistant&apos;s persona and AI SDK tool calling after attorney
-          sessions showed how they used it.
+          LegalAgent already had a React Native app, and attorneys needed to get
+          at case context, documents, and procedures from it by voice or chat,
+          in Spanish or English. I put OpenAI&apos;s Realtime API behind
+          bilingual voice, used the AI SDK for chat, and built RAG over case
+          context, document summaries, and procedural guidance. Once attorneys
+          were using it, I adjusted the assistant&apos;s persona and tool
+          calling in the Expo client based on what they did with it.
         </Prose>
         <Prose>
-          The team runs the assistant from a TanStack Start admin with Microsoft
-          SSO, where they manage documents, system prompts, and the categories
-          that decide what retrieval can reach.
+          Running the assistant was a separate problem. I built a TanStack Start
+          admin with Microsoft SSO where the team manages documents and system
+          prompts, and sets the categories that decide what retrieval can reach.
         </Prose>
 
         <ProjectEvidence slugs={['legal-agent']} columns={1} />
@@ -45,16 +46,17 @@ export default function AIExperiencePage() {
 
       <PageSection title="Specialized assistants inside larger products">
         <Prose>
-          For Masterbots, I built separate interfaces for domain-specific
-          assistants and integrated AI SDK tooling so each assistant stayed
-          scoped to its domain.
+          Masterbots is a platform of domain-specific assistants. I gave each
+          one its own interface and used AI SDK tooling to keep it inside its
+          domain.
         </Prose>
         <Prose>
-          For Bitlauncher, I built a RAG chatbot with tools for current news and
-          video content and added AI-assisted internationalization. The
-          assistant could retrieve and explain information while balances, bids,
-          contracts, and transactions remained grounded in deterministic
-          application data.
+          At Bitlauncher the assistant sat next to auctions and balances, so I
+          kept balances, bids, contracts, and transactions on deterministic
+          application data. The assistant is a RAG chatbot with tools for
+          current news and video content, and I added AI-assisted
+          internationalization on top. It retrieves and explains, and the
+          numbers come from the system.
         </Prose>
 
         <Prose>
@@ -62,8 +64,10 @@ export default function AIExperiencePage() {
           <Link href="/project/wizard-world" className="prose-link">
             Wizard World
           </Link>{' '}
-          was a 2022 Flow Hackathon PWA that wired OpenAI image generation into
-          a Next.js flow and minted the results as NFTs on Flow through Niftory.
+          was a progressive web app we built with collaborators at bitcashorg
+          for the February 2023 Flow Hackathon. You generated an image with
+          OpenAI&apos;s models and minted it as an NFT on Flow through Niftory,
+          and I worked on both the generation and the minting flow.
         </Prose>
 
         <ProjectEvidence slugs={['masterbots', 'bitlauncher']} />
@@ -74,9 +78,9 @@ export default function AIExperiencePage() {
         category="Artificial Intelligence"
       />
 
-      <PageSection title="AI employment record">
+      <PageSection title="Work together">
         <Prose>
-          The employment record behind this work is the{' '}
+          The roles and dates behind this work are on the{' '}
           <Link href="/cv?focus=ai" className="prose-link">
             AI CV
           </Link>

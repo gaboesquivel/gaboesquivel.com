@@ -1,6 +1,7 @@
 import { BlogPostsMasonry } from 'components/blog/blog-posts-masonry'
 import { FilterNav, IndexHeading } from 'components/shared/page-layout'
 import { allBlogs } from 'lib/blog'
+import { comparePublishedAtDesc } from 'lib/blog-order'
 import {
   type BrowseCategory,
   browseCategories,
@@ -51,10 +52,7 @@ const getFilteredPosts = (category?: string) => {
     })
   }
 
-  return filtered.sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  )
+  return filtered.sort(comparePublishedAtDesc)
 }
 
 export function BlogPosts({

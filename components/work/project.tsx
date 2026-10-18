@@ -8,6 +8,7 @@ import { blockSpacing } from 'components/shared/spacing'
 import { VimeoPlayer } from 'components/vimeo'
 import { YouTubePlayer } from 'components/youtube'
 import { getTechStackByTag, type Project, type Tag } from 'gaboesquivel'
+import { comparePublishedAtDesc } from 'lib/blog-order'
 import { cn } from 'lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -199,11 +200,13 @@ export function ProjectDetails({
       {full &&
         (project.related && project.related.length > 0 ? (
           <PostGrid
-            posts={project.related.map((post) => ({
-              slug: post.url,
-              title: post.title,
-              publishedAt: post.publishedAt,
-            }))}
+            posts={[...project.related]
+              .sort(comparePublishedAtDesc)
+              .map((post) => ({
+                slug: post.url,
+                title: post.title,
+                publishedAt: post.publishedAt,
+              }))}
             title="Related Posts"
           />
         ) : (

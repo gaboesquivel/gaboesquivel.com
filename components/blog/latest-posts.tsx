@@ -1,4 +1,5 @@
 import { allBlogs } from 'lib/blog'
+import { newestPosts } from 'lib/blog-order'
 import { postMatchesBrowseCategory, toBrowseSlug } from 'lib/blog-taxonomy'
 import type { ReactNode } from 'react'
 import { PostGrid } from './posts-grid'
@@ -46,12 +47,7 @@ function getLatestPosts({
   slugs?: string[]
   excludeSlug?: string
 }) {
-  const allSorted = [...allBlogs].sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  )
-
-  let pool = allSorted
+  let pool = [...allBlogs]
   if (category) {
     const browseSlug = toBrowseSlug(category)
     pool = browseSlug
@@ -73,10 +69,5 @@ function getLatestPosts({
     )
   if (excludeSlug) pool = pool.filter((post) => post.slug !== excludeSlug)
 
-  if (slugs)
-    return slugs
-      .flatMap((slug) => pool.filter((post) => post.slug === slug))
-      .slice(0, limit)
-
-  return pool.slice(0, limit)
+  return newestPosts({ posts: pool, slugs, limit })
 }

@@ -17,37 +17,40 @@ export default function BioPage() {
       <PageTitle>Career story</PageTitle>
 
       <Prose>
-        My work has moved from web interfaces to complete products, then into
-        financial and blockchain systems, and now into intelligent interfaces.
+        I started with web interfaces. The work grew into complete products,
+        then into financial and blockchain systems, and lately into intelligent
+        interfaces.
       </Prose>
       <Prose>
-        That has covered consumer products, financial institutions, startups,
-        open-source infrastructure, and technical communities since 2010. The{' '}
+        That started in 2010, and the years since have covered consumer
+        products, financial institutions, startups, open-source infrastructure,
+        and technical communities. The{' '}
         <Link href="/work" className="prose-link">
           work library
         </Link>{' '}
-        and individual project pages carry the implementation details.
+        and the project pages go deeper on the implementation. This page follows
+        how one step led to the next.
       </Prose>
 
       <PageSection title="Interfaces and a JavaScript community">
         <Prose>
-          American Express needed credit-card marketing screens that could be
-          tested and measured inside an established financial organization. As
-          UI Engineer from 2010 to 2012 I built comparison sliders and landing
-          pages, wired responsive layouts, A/B testing, and analytics, and
-          helped move a large frontend from Dojo to jQuery.
+          American Express needed credit-card marketing screens it could test
+          and measure inside an established financial company. As UI Engineer
+          from 2010 to 2012 I built comparison sliders and landing pages, wired
+          up responsive layouts, A/B testing, and analytics, and helped move a
+          large frontend from Dojo to jQuery.
         </Prose>
         <Prose>
           I also founded{' '}
           <Link href="/project/costa-rica-js" className="prose-link">
             Costa Rica JS
           </Link>{' '}
-          in 2010. It grew past 2,000 developers through meetups, workshops,
-          NodeSchool, and JSConf Costa Rica as Node.js and modern web frameworks
-          arrived in the region.
+          in 2010. It grew past 2,000 developers through regular meetups,
+          NodeSchool, and Front End Day, just as Node.js and modern web
+          frameworks were arriving in the region.
         </Prose>
         <Prose>
-          At AMC Networks, as Lead UI Engineer from 2012 to 2014, I owned the
+          At AMC Networks I was Lead UI Engineer from 2012 to 2014 and owned the
           frontend for YEAH!, an interactive streaming movie service that
           launched at SXSW 2013. In 2013 I also shipped a fantasy-tennis
           strategy game and a realtime flight-information display for ARINC.
@@ -58,22 +61,21 @@ export default function BioPage() {
 
       <PageSection title="From interfaces to a banking product">
         <Prose>
-          Wink was Costa Rica&apos;s first neobank: banking on a phone, without
-          a branch visit. I joined as Lead Engineer in 2015 and stayed through
-          2018. I built the first version of the React Native application and
-          AWS backend, integrated partner-bank APIs, and implemented biometric
+          Wink was Costa Rica&apos;s first neobank: banking on a phone, with no
+          branch visit. I joined as Lead Engineer in 2015 and stayed through
+          2018, building the first version of the React Native app and the AWS
+          backend, integrating partner-bank APIs, and implementing biometric
           authentication through a native bridge.
         </Prose>
         <Prose>
           Technology selection, project planning, and partner and vendor
-          coordination sat inside that product, and launch required forming a
-          development team that did not exist yet.
+          coordination all came with the product, and to launch it I had to form
+          a development team that didn&apos;t exist yet.
         </Prose>
         <Prose>
-          Wink is also where I settled on something I still hold: technology
-          should expand access rather than create new gatekeepers, and at Wink
-          that meant opening a bank account no longer required a trip to a
-          branch.
+          Wink is also where I landed on something I still hold to: technology
+          should expand access rather than create new gatekeepers. At Wink that
+          meant you could open a bank account without a trip to a branch.
         </Prose>
 
         <ProjectEvidence slugs={['wink']} columns={1} />
@@ -81,25 +83,25 @@ export default function BioPage() {
 
       <PageSection title="Complex financial and blockchain systems">
         <Prose>
-          The next stretch was the system-to-interface problem: token state,
-          private chains, exchanges, and wallets people use, with the
-          implementation detail on{' '}
+          What came next was the problem of getting from a system to an
+          interface: token state, private chains, exchanges, and the wallets
+          people use. The implementation detail lives on{' '}
           <Link href="/web3" className="prose-link">
             /web3
           </Link>{' '}
           and the project pages.
         </Prose>
         <Prose>
-          Tokens and protocol infrastructure came first: Knowledge&apos;s ERC-20
-          token and marketplace from 2017 to 2018, AsoBlockchain, which I
+          It started with tokens and protocol infrastructure: Knowledge&apos;s
+          ERC-20 token and marketplace from 2017 to 2018, AsoBlockchain, which I
           co-founded in 2017, and EOS Costa Rica from 2018 to 2020, around the
           EOS mainnet launch and a private chain for Grant Thornton Labs.
-          Exchanges and indexed chain data followed with Bitcash from 2020 to
-          2021, and ChainGraph grew out of that work as an open-source GraphQL
-          toolkit for EOSIO and Antelope data.
+          Bitcash, from 2020 to 2021, brought exchanges and indexed chain data,
+          and ChainGraph grew out of that work as an open-source GraphQL toolkit
+          for EOSIO and Antelope data.
         </Prose>
         <Prose>
-          RareMint, ZTX, Bitlauncher, and Opyn pushed the same problem into
+          RareMint, ZTX, Bitlauncher, and Opyn took the same problem into
           collectible auctions, a virtual-world wallet, a token launchpad, and
           an options trading interface.
         </Prose>
@@ -115,10 +117,10 @@ export default function BioPage() {
 
       <PageSection title="Intelligent interfaces">
         <Prose>
-          The latest turn is toward intelligent interfaces. Specialized
-          assistants showed up in Masterbots in 2024 and in Bitlauncher&apos;s
-          RAG chatbot, and in 2025 LegalAgent&apos;s voice and chat assistant
-          became the main evidence for that work, which sits on{' '}
+          The assistant work began with specialized assistants in Masterbots in
+          2024 and Bitlauncher&apos;s RAG chatbot. In 2025 LegalAgent&apos;s
+          voice and chat assistant became the largest part of it, and it lives
+          on{' '}
           <Link href="/ai" className="prose-link">
             /ai
           </Link>
@@ -133,8 +135,8 @@ export default function BioPage() {
       <PageSection title="The work now">
         <Prose>
           I work as a product engineer across AI, full-stack applications,
-          financial systems, and Web3. I work in English, Spanish, Portuguese,
-          and Italian.
+          financial systems, and Web3, in English, Spanish, Portuguese, and
+          Italian.
         </Prose>
 
         <LetsConnect />

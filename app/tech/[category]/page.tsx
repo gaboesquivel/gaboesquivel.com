@@ -14,6 +14,7 @@ import {
   techStack,
 } from 'gaboesquivel'
 import { allBlogs } from 'lib/blog'
+import { comparePublishedAtDesc } from 'lib/blog-order'
 import { pageMetadata } from 'lib/page-metadata'
 import { isEmptyTech, visibleTechStack } from 'lib/tech-evidence'
 import type { Metadata } from 'next'
@@ -44,10 +45,7 @@ export default async function TechCategoryPage({
       .filter((post) =>
         post.tech?.some((techTag) => categoryTagsSet.has(techTag)),
       )
-      .sort(
-        (a, b) =>
-          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-      )
+      .sort(comparePublishedAtDesc)
 
     const frame = techCategoryFrame({ category })
 

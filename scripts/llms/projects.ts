@@ -5,6 +5,7 @@ import {
   projects,
   techStack,
 } from 'gaboesquivel'
+import { comparePublishedAtDesc } from '../../lib/blog-order'
 import {
   isEmptyTech,
   sortProjectsForTech,
@@ -92,7 +93,7 @@ export const renderProjectMarkdown = (project: ProjectWithExperience) => {
   if (project.related?.length) {
     lines.push('', '## Related writing', '')
     lines.push(
-      ...project.related.map((item) => {
+      ...[...project.related].sort(comparePublishedAtDesc).map((item) => {
         const slug = blogSlugFromRelatedUrl(item.url)
         return `- [${item.title}](${absoluteUrl(`/blog/${slug}`)}) (${item.publishedAt})`
       }),

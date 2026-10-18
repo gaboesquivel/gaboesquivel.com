@@ -43,11 +43,12 @@ export function CapabilityPage({
 
       <PageSection title="See the work">
         <Prose>
-          Explore the{' '}
+          The{' '}
           <Link href="/work" className="prose-link">
-            project portfolio
+            work library
           </Link>{' '}
-          for implementation details, systems, and technology.
+          has a page for each project, with the stack and the implementation
+          details.
         </Prose>
         {children}
       </PageSection>

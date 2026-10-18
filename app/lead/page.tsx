@@ -5,21 +5,21 @@ const sections = [
   {
     heading: 'Forming a team around a product that did not exist yet',
     paragraphs: [
-      "Launching Wink, Costa Rica's first neobank, required a development team that did not exist yet. As Lead Engineer I formed that team around the React Native app and AWS backend I was building for it.",
+      "Launching Wink, Costa Rica's first neobank, meant forming a development team that didn't exist yet. As Lead Engineer I put that team together while I built the React Native app and AWS backend it would work on.",
     ],
     projectSlugs: ['wink'],
   },
   {
     heading: 'Owning product and technical direction while staying in the code',
     paragraphs: [
-      'At Bitlauncher I owned product and technical direction and coordinated delivery across a small engineering team, remaining responsible for the architecture and the work shipped through it.',
+      'At Bitlauncher I owned product and technical direction for a team of two full-time developers and up to five part-time contributors working on specific tickets. I coordinated delivery and stayed hands-on across the stack, responsible for both the architecture and the work shipped through it.',
     ],
     projectSlugs: ['bitlauncher'],
   },
   {
     heading: 'Holding architecture across client, services, and chain data',
     paragraphs: [
-      'At AMC I owned the frontend architecture between the creative and backend teams. At Bitcash I led the exchange across interface, services, and chain data so matching, signing, and indexed state stayed one system.',
+      'At AMC I owned the frontend architecture between the creative and backend teams. At Bitcash I led the exchange across interface, services, and chain data, so matching, signing, and indexed state stayed one system.',
     ],
     projectSlugs: ['amc-yeah-tv-facebook-app', 'bitcashbank'],
   },
@@ -33,7 +33,7 @@ const sections = [
   {
     heading: 'Technical communities',
     paragraphs: [
-      "I founded Costa Rica JS and co-founded AsoBlockchain to move technical knowledge through the region's ecosystem rather than keep it inside one company.",
+      "Outside the companies I worked for, I founded Costa Rica JS and co-founded AsoBlockchain so technical knowledge could move through the region's ecosystem instead of staying inside one employer.",
     ],
     projectSlugs: ['costa-rica-js', 'asoblockchain'],
   },
@@ -44,7 +44,7 @@ export default function TechLeadExperiencePage() {
     <CapabilityPage
       title="Technical leadership"
       intro={[
-        'I lead from inside the code: setting direction, making the architecture decisions a team has to live with, and staying close enough to the implementation to answer for what ships.',
+        'I lead from inside the code. That means setting direction, making the architecture decisions a team has to live with, and staying close enough to the implementation to answer for what ships.',
       ]}
       sections={sections}
       postSlugs={[

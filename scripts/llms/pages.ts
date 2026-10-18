@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { getProjectBySlug, techStack } from 'gaboesquivel'
 import ts from 'typescript'
 import { techBrowseCategories } from '../../components/tech/categories'
+import { newestPosts } from '../../lib/blog-order'
 import {
   postMatchesBrowseCategory,
   toBrowseSlug,
@@ -139,30 +140,25 @@ const renderPostLinks = ({
   category?: string
   limit?: number
 }) => {
-  const posts = loadBlogPosts().filter((post) => !isArchivePostFromBlog(post))
+  let posts = loadBlogPosts().filter((post) => !isArchivePostFromBlog(post))
 
-  const resolved = slugs?.length
-    ? slugs.flatMap((slug) => posts.filter((post) => post.slug === slug))
-    : category
-      ? (() => {
-          const browseSlug = toBrowseSlug(category)
-          return browseSlug
-            ? posts.filter((post) =>
-                postMatchesBrowseCategory({
-                  categories: post.category,
-                  slug: browseSlug,
-                }),
-              )
-            : posts.filter((post) =>
-                post.category?.some(
-                  (item) => item.toLowerCase() === category.toLowerCase(),
-                ),
-              )
-        })()
-      : posts
+  if (category) {
+    const browseSlug = toBrowseSlug(category)
+    posts = browseSlug
+      ? posts.filter((post) =>
+          postMatchesBrowseCategory({
+            categories: post.category,
+            slug: browseSlug,
+          }),
+        )
+      : posts.filter((post) =>
+          post.category?.some(
+            (item) => item.toLowerCase() === category.toLowerCase(),
+          ),
+        )
+  }
 
-  return resolved
-    .slice(0, limit)
+  return newestPosts({ posts, slugs, limit })
     .map((post) => `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)})`)
     .join('\n')
 }
@@ -422,7 +418,7 @@ const renderCapabilityPage = ({
   }
 
   lines.push(
-    `Explore the [project portfolio](${absoluteUrl('/work')}) for implementation details, systems, and technology.`,
+    `The [work library](${absoluteUrl('/work')}) has a page for each project, with the stack and the implementation details.`,
     '',
   )
 

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { comparePublishedAtDesc } from '../../lib/blog-order'
 import { isArchivePost } from '../../lib/blog-taxonomy'
 import { absoluteUrl } from './format'
 import { canonicalizePath } from './routes'
@@ -79,30 +80,32 @@ const rewriteBlogLinks = (text: string) =>
   })
 
 export const loadBlogPosts = () => {
-  const files = readdirSync(CONTENT_DIR)
-    .filter((file) => file.endsWith('.mdx'))
-    .sort((a, b) => b.localeCompare(a))
+  const files = readdirSync(CONTENT_DIR).filter((file) => file.endsWith('.mdx'))
 
-  return files.flatMap((file) => {
-    const raw = readFileSync(join(CONTENT_DIR, file), 'utf8')
-    const parsed = parseFrontmatter(raw)
-    if (!parsed) return []
+  return files
+    .flatMap((file) => {
+      const raw = readFileSync(join(CONTENT_DIR, file), 'utf8')
+      const parsed = parseFrontmatter(raw)
+      if (!parsed) return []
 
-    const slug = file.replace(/\.mdx$/, '')
-    const { fields, body } = parsed
+      const slug = file.replace(/\.mdx$/, '')
+      const { fields, body } = parsed
 
-    return [
-      {
-        slug,
-        title: String(fields.title ?? slug),
-        publishedAt: String(fields.publishedAt ?? ''),
-        summary: String(fields.summary ?? ''),
-        category: Array.isArray(fields.category) ? fields.category : undefined,
-        tech: Array.isArray(fields.tech) ? fields.tech : undefined,
-        body: normalizeMdxBody(body),
-      },
-    ]
-  })
+      return [
+        {
+          slug,
+          title: String(fields.title ?? slug),
+          publishedAt: String(fields.publishedAt ?? ''),
+          summary: String(fields.summary ?? ''),
+          category: Array.isArray(fields.category)
+            ? fields.category
+            : undefined,
+          tech: Array.isArray(fields.tech) ? fields.tech : undefined,
+          body: normalizeMdxBody(body),
+        },
+      ]
+    })
+    .sort(comparePublishedAtDesc)
 }
 
 export const isArchivePostFromBlog = (post: BlogPost) =>

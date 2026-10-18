@@ -146,6 +146,20 @@ describe('llms export helpers', () => {
     expect([...featuredProjectSlugs].sort()).toEqual(featured)
   })
 
+  test('capability writing lists are newest first', () => {
+    const lead = loadNarrativePages().find((page) => page.path === '/lead')
+    const writing =
+      lead?.body.split('## Writing about technical leadership')[1] ?? ''
+    const slugs = [...writing.matchAll(/\/blog\/([^)]+)/g)].map(
+      (match) => match[1],
+    )
+    expect(slugs).toEqual([
+      '2026-02-engineering-ai-era',
+      '2025-02-engineering-principles',
+      '2024-07-adrs-in-software-teams',
+    ])
+  })
+
   test('loadNarrativePages exports CapabilityPage related writing', () => {
     const fullstack = loadNarrativePages().find(
       (page) => page.path === '/fullstack',
@@ -187,6 +201,7 @@ describe('llms export helpers', () => {
     expect(home?.body).toContain('/web3')
     expect(home?.body).toContain('/bio')
     expect(home?.body).toContain('/cv')
+    expect(home?.body).toContain('/lead')
   })
 
   test('llms-full.txt omits archive blog post sections', () => {

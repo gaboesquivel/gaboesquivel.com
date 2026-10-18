@@ -16,21 +16,22 @@ export default function Web3ExperiencePage() {
     <section>
       <PageTitle>Web3 product engineering</PageTitle>
       <Prose>
-        I build the product layer around blockchain systems: wallets, trading
-        interfaces, token flows, indexers, and the services that sit between a
-        chain and the person using it.
+        Building Wink, Costa Rica&apos;s first neobank, led me into crypto in
+        2017 at the height of the ICO boom, and Knowledge ICO became my first
+        Web3 project.
       </Prose>
       <Prose>
-        That has meant Ethereum and EVM networks, EOSIO and Antelope, Polygon,
-        Arbitrum, and Flow, and on each of them the contract was a small part of
-        the work next to indexed data, transaction state, signing, and
-        interfaces that show people what they are about to commit to.
+        Knowledge showed me where the work sits. Most of what a Web3 product
+        asks of a person happens between a chain and a screen, and that&apos;s
+        the layer I build: wallets, trading interfaces, token flows, indexers,
+        and the services that connect them.
       </Prose>
       <Prose>
-        I arrived here through financial systems rather than through crypto.
-        Card products at American Express and a mobile bank at Wink set the
-        constraints I still work against: identity, partner integrations, and
-        money movement a person can follow.
+        I&apos;ve since worked on Ethereum and EVM networks, EOSIO and Antelope,
+        Polygon, Arbitrum, and Flow. On every one of them the contract was the
+        small part. The bigger work was indexed data, transaction state,
+        signing, and an interface that shows people what they&apos;re about to
+        commit to.
       </Prose>
 
       <PageImage
@@ -41,11 +42,12 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Tokens, protocol state, and infrastructure">
         <Prose>
-          At Knowledge I built the ERC-20 token contracts and the serverless AWS
-          services around the 2018 mainnet ICO, plus a React and Web3.js
-          marketplace with a wallet dashboard. At EOS Costa Rica I helped launch
-          the EOS mainnet, operated validators, and built Grant Thornton&apos;s
-          private EOSIO chain for intercompany transactions and tax workflows.
+          At Knowledge I built the ERC-20 token contracts, the serverless AWS
+          services around them, and a React and Web3.js marketplace with a
+          wallet dashboard. At EOS Costa Rica the work moved from a token to the
+          network itself: I helped launch the EOS mainnet and operated
+          validators, then built Grant Thornton&apos;s private EOSIO chain for
+          intercompany transactions and tax workflows.
         </Prose>
 
         <ProjectEvidence slugs={['knowledge-io', 'eos-costa-rica']} />
@@ -53,10 +55,13 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Indexing, subscriptions, and browser signing">
         <Prose>
-          Bitcash is a peer-to-peer exchange. I built WebAuthn key management
-          and QR signature requests so trades could settle in the browser
-          without an external wallet. ChainGraph grew from that work as an
-          open-source GraphQL path over EOSIO and Antelope data.
+          Bitcash was a peer-to-peer exchange with one hard constraint: trades
+          had to settle in the browser without an external wallet. I built
+          WebAuthn key management and QR signature requests to make that work,
+          and bitlauncher.ai and other partner apps later used those requests to
+          authenticate and sign through the Bitcash session. While I was there I
+          also started ChainGraph as a side project, an open-source GraphQL path
+          over EOSIO and Antelope data with realtime subscriptions.
         </Prose>
 
         <ProjectEvidence slugs={['bitcashbank', 'chaingraph']} />
@@ -64,19 +69,22 @@ export default function Web3ExperiencePage() {
 
       <PageSection title="Wallets, marketplaces, auctions, and trading">
         <Prose>
-          RareMint needed a wallet path into Polygon collectible auctions. I
-          integrated WalletConnect so bidding stayed inside the marketplace
-          instead of bouncing out to a separate wallet flow.
+          For RareMint&apos;s Polygon collectible auctions I integrated
+          WalletConnect, so bidding stayed inside the marketplace instead of
+          sending people off to a separate wallet flow.
         </Prose>
         <Prose>
-          At ZTX I built a WebGL EVM wallet connector on MetaMask, Ethers.js,
-          and a custom JavaScript event system, so signing and NFT trading
-          happened without leaving the world. For Bitlauncher I deployed Gnosis
-          auction contracts to EOS EVM, and the wallet interface showed EVM
-          balances through wagmi subscriptions next to EOS balances polled over
-          RPC. Opyn is a decentralized options protocol on Arbitrum, and I
-          integrated the protocol and its Arbitrum testnet into the trading
-          interface with viem and wagmi.
+          ZTX had the same constraint inside a virtual world: signing and NFT
+          trading had to happen without leaving it. I built a WebGL EVM wallet
+          connector on MetaMask, Ethers.js, and a custom JavaScript event system
+          to make that possible.
+        </Prose>
+        <Prose>
+          At Bitlauncher I deployed Gnosis auction contracts to EOS EVM, and the
+          wallet interface showed EVM balances through wagmi subscriptions next
+          to EOS balances polled over RPC. At Opyn, which was shipping a
+          perpetuals protocol on Arbitrum, I integrated the protocol and its
+          Arbitrum testnet into the trading interface with viem and wagmi.
         </Prose>
 
         <ProjectEvidence slugs={['raremint', 'ztx', 'bitlauncher', 'opyn']} />
@@ -84,9 +92,9 @@ export default function Web3ExperiencePage() {
 
       <LatestPosts title="Writing about Web3 systems" category="Web3" />
 
-      <PageSection title="Web3 employment record">
+      <PageSection title="Work together">
         <Prose>
-          The employment record behind this work is the{' '}
+          The roles and dates behind this work are on the{' '}
           <Link href="/cv?focus=web3" className="prose-link">
             Web3 CV
           </Link>

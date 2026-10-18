@@ -5,21 +5,21 @@ const sections = [
   {
     heading: 'Blockchain data and realtime APIs',
     paragraphs: [
-      'I built ChainGraph as a GraphQL subscription toolkit for indexing and streaming EOSIO and Antelope data. At Bitlauncher I built the EOS EVM indexer on viem event subscriptions and a dFuse stream, with Supabase for queries, aggregation, and realtime subscriptions.',
+      'ChainGraph started as a side project while I was at Bitcash: a GraphQL subscription toolkit for indexing and streaming EOSIO and Antelope data. Bitlauncher later needed an indexer of its own for EOS EVM, so I built one on viem event subscriptions and a dFuse stream, with Supabase handling queries, aggregation, and realtime subscriptions.',
     ],
     projectSlugs: ['chaingraph', 'bitlauncher'],
   },
   {
     heading: 'Exchange and protocol services',
     paragraphs: [
-      'Bitcash needed the matching engine to be the system of record: Hasura GraphQL APIs, a realtime EOS indexer with worker threads and binary deserialization, and PostgreSQL behind the exchange. Opyn keeps protocol state in a Ponder indexer over PostgreSQL so the trading interface reads it instead of reconstructing it in the client.',
+      "At Bitcash the matching engine had to be the system of record. The exchange runs on Hasura GraphQL APIs, a realtime EOS indexer with worker threads and binary deserialization, and PostgreSQL behind all of it. At Opyn the question was where protocol state should live. I put it in a Ponder indexer over PostgreSQL, so the trading interface reads indexed state and doesn't rebuild positions from raw RPC reads.",
     ],
     projectSlugs: ['bitcashbank', 'opyn'],
   },
   {
     heading: 'Retrieval and application services',
     paragraphs: [
-      'For LegalAgent the retrieval layer is an application service rather than a prompt. Document categorization decides what is eligible for retrieval, and system prompts are managed as data in the admin instead of shipped in code.',
+      'For LegalAgent I built retrieval as an application service, not as a prompt. Document categorization decides what retrieval can reach, and the system prompts live as data in the admin instead of in code.',
     ],
     projectSlugs: ['legal-agent'],
   },
@@ -30,7 +30,7 @@ export default function BackendExperiencePage() {
     <CapabilityPage
       title="Backend engineering"
       intro={[
-        'The backend job is the source of truth, and who is allowed to move it. Mine have been a GraphQL layer over blockchain events, a matching engine with browser-based signing, and a retrieval system behind a voice assistant.',
+        "A backend's job is to be the source of truth and to decide who's allowed to change it. Mine have been a GraphQL layer over blockchain events, a matching engine with browser-based signing, and a retrieval system behind a voice assistant.",
       ]}
       sections={sections}
       postSlugs={[

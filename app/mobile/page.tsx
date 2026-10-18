@@ -5,25 +5,24 @@ const sections = [
   {
     heading: 'Multimodal AI on mobile',
     paragraphs: [
-      "For LegalAgent I shipped the Expo client: OpenAI's Realtime API for voice, the Vercel AI SDK for chat, and bilingual transcription and synthesis in Spanish and English.",
+      "LegalAgent's mobile client had to handle voice and chat in two languages. I shipped it in Expo around OpenAI's Realtime API for voice and the Vercel AI SDK for chat, with bilingual transcription and synthesis in Spanish and English.",
     ],
     projectSlugs: ['legal-agent'],
   },
   {
     heading: 'Regulated mobile banking',
     paragraphs: [
-      'At Wink I built biometric authentication through a React Native native bridge so KYC and login did not need a branch visit.',
+      "Wink was banking without a branch visit, so identity checks couldn't depend on one either. I built biometric authentication through a React Native native bridge, which let KYC and login happen on the phone.",
     ],
     projectSlugs: ['wink'],
   },
   {
-    heading: 'Blockchain messaging, games, and retail AR',
+    heading: 'Blockchain messaging and retail AR',
     paragraphs: [
-      'Sense.chat needed an EOS wallet inside a messenger: I optimized the React Native app and integrated mainnet wallet and transaction flows.',
-      'Fantasy Top Shots needed NBA Top Shot collections to work as a roster: I built the React Native and Expo game on Flow for the 2022 hackathon.',
-      'Tractor Supply needed product previews inside an existing retail app: I built the ViroAR feature for those previews.',
+      'Sense.chat is a secure chat app built around data privacy, and it needed an EOS wallet inside the messenger. I optimized the React Native app and integrated mainnet wallet and transaction flows.',
+      'Tractor Supply already had a retail app and wanted product previews, so as a consultant I built the ViroAR feature for them.',
     ],
-    projectSlugs: ['make-sense-labs', 'fantasy-top-shots', 'tractor-supply'],
+    projectSlugs: ['make-sense-labs', 'tractor-supply'],
   },
 ]
 
@@ -32,7 +31,7 @@ export default function MobileExperiencePage() {
     <CapabilityPage
       title="Mobile engineering"
       intro={[
-        'Mobile work keeps pulling past the screen into a native bridge for biometrics, a wallet session inside a messenger, or a realtime audio pipeline, and I build those layers along with the app.',
+        'Mobile work keeps pulling me past the screen: a native bridge for biometrics, a wallet session inside a messenger, a realtime audio pipeline. I build those layers along with the app.',
       ]}
       sections={sections}
       postSlugs={['2025-09-why-expo', '2026-01-evolution-ai-ux']}
