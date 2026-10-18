@@ -11,7 +11,7 @@ export function CardGrid<T>({
   items: T[]
   identifier: string
   getKey: (item: T) => string
-  renderItem: (item: T) => ReactNode
+  renderItem: (item: T, index: number) => ReactNode
 }) {
   return (
     <ul
@@ -22,9 +22,16 @@ export function CardGrid<T>({
         twoColGrid,
       )}
     >
-      {items.map((item) => (
-        <li key={getKey(item)} className="flex h-full w-full">
-          {renderItem(item)}
+      {items.map((item, index) => (
+        <li
+          key={getKey(item)}
+          className={cn(
+            'flex h-full w-full',
+            index >= 3 &&
+              'max-md:[contain-intrinsic-size:auto_10rem] max-md:[content-visibility:auto]',
+          )}
+        >
+          {renderItem(item, index)}
         </li>
       ))}
     </ul>
