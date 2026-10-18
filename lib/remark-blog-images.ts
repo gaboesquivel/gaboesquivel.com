@@ -5,12 +5,19 @@ export const remarkBlogImages = () => {
   let firstImage = true
 
   return (tree: Root) => {
-    visit(tree, 'image', (node: Image, index, parent: Parent | undefined) => {
-      if (index === undefined || !parent) return
+    // unist-util-visit pulls a second @types/unist copy; mdast Root is fine at runtime.
+    visit(tree as never, 'image', (node, index, parent) => {
+      const image = node as Image
+      const container = parent as Parent | undefined
+      if (index === undefined || !container) return
 
-      const attributes = [
-        { type: 'mdxJsxAttribute', name: 'src', value: node.url },
-        { type: 'mdxJsxAttribute', name: 'alt', value: node.alt ?? '' },
+      const attributes: Array<{
+        type: 'mdxJsxAttribute'
+        name: string
+        value: string | null
+      }> = [
+        { type: 'mdxJsxAttribute', name: 'src', value: image.url },
+        { type: 'mdxJsxAttribute', name: 'alt', value: image.alt ?? '' },
       ]
 
       if (firstImage) {
@@ -22,7 +29,7 @@ export const remarkBlogImages = () => {
         })
       }
 
-      parent.children[index] = {
+      container.children[index] = {
         type: 'mdxJsxFlowElement',
         name: 'BlogImage',
         attributes,
