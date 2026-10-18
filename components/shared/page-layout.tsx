@@ -131,7 +131,7 @@ export function FilterNav({
           href={item.href}
           aria-current={current === item.id ? 'page' : undefined}
           className={cn(
-            'rounded-md bg-neutral-200 px-2 py-1 dark:bg-neutral-800',
+            'rounded-md bg-neutral-200 px-2 py-2 dark:bg-neutral-800',
             current === item.id ? 'text-accent' : '',
           )}
         >

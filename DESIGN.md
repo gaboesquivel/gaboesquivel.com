@@ -71,8 +71,9 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - Column: `max-w-4xl` with `px-4 sm:px-6` gutters, sticky `h-0.5 bg-accent` top bar
 - Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
-- Page titles step up one size at `sm` (`pageTitle`)
-- The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle
+- Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name below `md` (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up it is one line with an em dash
+- The primary nav wraps onto more lines on narrow screens (`flex-wrap`), including `connect`; there is no menu toggle
+- Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
 - Images: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`
 
 ## Elevation & Depth
@@ -108,7 +109,7 @@ Homepage `PathLink` is a borderless variant of the card pattern; leave both unti
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, nav `layoutId` spring, masonry opacity, project-card image scale, `→` nudge with `motion-safe:`, connect status banner entrance (`starting:` fade + scale), connect send `:active` scale, and `cardLink` `:active` scale. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, masonry opacity, project-card image scale, `→` nudge with `motion-safe:`, connect status banner entrance (`starting:` fade + scale), connect send `:active` scale, and `cardLink` `:active` scale. Active nav underline is CSS only (no `layoutId` spring). Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## Accessibility
 
@@ -116,7 +117,7 @@ Motion budget: color/underline transitions, nav `layoutId` spring, masonry opaci
 - Focus: `cardLink` cards and `/connect` fields draw an accent ring; other links (nav, `PathLink`, `ProjectCard`) keep the browser's default outline. Do not remove an outline without adding the accent ring.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
 - Images: `PageImage` requires `alt`; describe what the photo shows.
-- Reduced motion: the `PathLink` arrow nudge, connect status banner, send button press, and `cardLink` press use `motion-safe:` / `motion-reduce:` (gentler scale or opacity-only, not off). The nav spring and the `ProjectCard` image zoom run regardless.
+- Reduced motion: the `PathLink` arrow nudge, connect status banner, send button press, and `cardLink` press use `motion-safe:` / `motion-reduce:` (gentler scale or opacity-only, not off). The `ProjectCard` image zoom runs regardless.
 - Print: the top bar, nav, and footer are `print:hidden`.
 
 ## Do's and Don'ts

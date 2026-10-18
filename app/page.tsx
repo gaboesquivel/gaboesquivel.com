@@ -31,7 +31,12 @@ export default function HomePage() {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized from static homepage identity.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
-      <PageTitle>Gabo Esquivel — Agentic Product Engineer</PageTitle>
+      <PageTitle className="leading-tight">
+        Gabo Esquivel
+        <span className="max-md:hidden"> — </span>
+        <br className="md:hidden" />
+        Agentic Product Engineer
+      </PageTitle>
       <Prose>
         I build useful and delightful software products, lately where the
         technology is hard to trust: AI agents and onchain finance. I work
@@ -60,9 +65,9 @@ export default function HomePage() {
         }
       >
         <ul className={blockGrid}>
-          {selectedProjects.map((project, index) => (
+          {selectedProjects.map((project) => (
             <li key={project.slug}>
-              <ProjectCard project={project} priority={index === 0} showRole />
+              <ProjectCard project={project} showRole />
             </li>
           ))}
         </ul>
