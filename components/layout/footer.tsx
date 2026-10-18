@@ -107,6 +107,38 @@ export function Footer() {
                 Explore
               </Link>
             </li>
+            <li>
+              <Link
+                href="/llms.txt"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                llms.txt
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/privacy"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                Privacy
+              </Link>
+            </li>
           </ul>
         </div>
 

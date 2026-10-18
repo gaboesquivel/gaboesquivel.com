@@ -27,6 +27,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   const tertiaryRoutes = [
+    '/about',
+    '/contact',
+    '/privacy',
     '/cv',
     '/bio',
     '/frontend',

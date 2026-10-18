@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { experience, projects, techStack } from 'gaboesquivel'
 import { renderBlogMarkdown } from './blog'
-import { getLlmsFull } from './corpus'
+import { getLlmsFull, getLlmsIndex } from './corpus'
 import { cvExports, renderCvMarkdown } from './cv'
 import { blogSlugFromRelatedUrl, isValidProjectLink } from './format'
 import { loadNarrativePages } from './pages'
@@ -191,6 +191,16 @@ describe('llms export helpers', () => {
     const ai = loadNarrativePages().find((page) => page.path === '/ai')
     expect(connect?.body).toContain('Cannot work under W-2')
     expect(ai?.body).not.toContain('Cannot work under W-2')
+  })
+
+  test('llms index includes when-to-use guidance', () => {
+    const index = getLlmsIndex()
+    expect(index).toContain('## When to use this corpus')
+    expect(index).toContain('/connect')
+    expect(index).toContain('/project/[slug]')
+    expect(index).toContain('/cv')
+    expect(index).toContain('/tech/[slug]')
+    expect(index).toContain('Cannot work under W-2')
   })
 
   test('homepage corpus includes focus and bio preview', () => {

@@ -39,6 +39,9 @@ export const buildRouteManifest = () => {
     '/tech',
     '/blog',
     '/explore',
+    '/about',
+    '/contact',
+    '/privacy',
   ])
 
   for (const project of projects) paths.add(`/project/${project.slug}`)

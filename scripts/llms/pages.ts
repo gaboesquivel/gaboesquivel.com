@@ -29,6 +29,10 @@ const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [cont
 
 Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl('/connect')}).`
 
+const CONNECT_PAGE_EXPORT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl('/blog/2025-11-1099-contracting')}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time. Fluent in English, Spanish, Portuguese, and Italian.
+
+I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send a note on this page, book time at [gaboesquivel.com/cal](${absoluteUrl('/cal')}), or read the [work portfolio](${absoluteUrl('/work')}) first.`
+
 export type PageExport = {
   path: string
   title: string
@@ -41,6 +45,9 @@ const narrativePages: Array<{ file: string; path: string }> = [
   { file: 'ai/page.tsx', path: '/ai' },
   { file: 'web3/page.tsx', path: '/web3' },
   { file: 'connect/page.tsx', path: '/connect' },
+  { file: 'about/page.tsx', path: '/about' },
+  { file: 'contact/page.tsx', path: '/contact' },
+  { file: 'privacy/page.tsx', path: '/privacy' },
   { file: 'tech/page.tsx', path: '/tech' },
   { file: 'fullstack/page.tsx', path: '/fullstack' },
   { file: 'frontend/page.tsx', path: '/frontend' },
@@ -258,6 +265,12 @@ const jsxNodeToMarkdown = (
 
     if (tagName === 'LetsConnect') {
       if (pagePath === '/connect') lines.push(LETS_CONNECT_MARKDOWN, '')
+      return
+    }
+
+    if (tagName === 'ConnectPageContent') {
+      if (pagePath === '/connect' || pagePath === '/contact')
+        lines.push(CONNECT_PAGE_EXPORT_MARKDOWN, '')
       return
     }
 

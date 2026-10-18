@@ -12,6 +12,7 @@ import {
 import { PathLink } from 'components/shared/path-link'
 import { ProjectCard } from 'components/work/project-card'
 import { projects } from 'gaboesquivel'
+import { homeJsonLd } from 'lib/home-json-ld'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import workshop from 'public/images/gabo-workshop.jpg'
@@ -24,6 +25,12 @@ const selectedProjects = selectedProjectSlugs.flatMap((slug) =>
 export default function HomePage() {
   return (
     <section>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized from static homepage identity.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
+      />
       <PageTitle>Gabo Esquivel — Agentic Product Engineer</PageTitle>
       <Prose>
         I build useful and delightful software products, lately where the
@@ -149,6 +156,9 @@ export const metadata: Metadata = {
   title: 'Gabo Esquivel | Agentic Product Engineer',
   description:
     'I build useful and delightful software products across AI, Web3, and full-stack applications.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Gabo Esquivel | Agentic Product Engineer',
     description:

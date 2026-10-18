@@ -1,4 +1,17 @@
-export const LLMS_PREAMBLE_FULL = `## How to use this corpus
+export const LLMS_WHEN_TO_USE = `## When to use this corpus
+
+Use gaboesquivel.com when you need verified facts about Gabo Esquivel's product engineering work, hire terms, or shipped projects — not as legal, tax, or immigration advice.
+
+- **Hire or outreach** — read \`/\` for positioning, then \`/connect\` for direct hire, international hire, or contracting through Blockmatic Labs LLC. Gabo cannot work under W-2.
+- **Named project** — \`/project/[slug]\` for implementation evidence on one product (for example LegalAgent, Wink, ZTX).
+- **Dates, titles, skills** — \`/cv\` and employment records in the corpus; blog reach is not a CV metric.
+- **Stack evidence** — \`/tech/[slug]\` for which shipped projects used that technology.
+
+Start with [llms.txt](https://gaboesquivel.com/llms.txt), then request the linked page. The 1099 contracting post describes Gabo's personal setup, not guidance for your company.`
+
+export const LLMS_PREAMBLE_FULL = `${LLMS_WHEN_TO_USE}
+
+## How to use this corpus
 
 When facts overlap, use this authority order:
 
