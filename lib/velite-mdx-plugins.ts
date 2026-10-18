@@ -1,3 +1,4 @@
+import { rehypeBlogImages } from 'lib/rehype-blog-images'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
@@ -32,4 +33,5 @@ export const rehypePlugins = [
     },
   ],
   [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
+  rehypeBlogImages,
 ]

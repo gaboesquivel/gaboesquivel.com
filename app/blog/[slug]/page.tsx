@@ -92,7 +92,9 @@ export default async function Blog({
       <Mdx code={post.body} />
       <BlogPostChips categories={post.category} />
       {relatedPosts.length > 0 ? (
-        <PostGrid posts={relatedPosts} title="Related writing" />
+        <div className="[contain-intrinsic-size:auto_24rem] [content-visibility:auto]">
+          <PostGrid posts={relatedPosts} title="Related writing" />
+        </div>
       ) : null}
     </section>
   )
