@@ -108,7 +108,7 @@ Homepage `PathLink` is a borderless variant of the card pattern; leave both unti
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, nav `layoutId` spring, masonry opacity, project-card image scale, `→` nudge with `motion-safe:`. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, nav `layoutId` spring, masonry opacity, project-card image scale, `→` nudge with `motion-safe:`, connect status banner entrance (`starting:` fade + scale), connect send `:active` scale, and `cardLink` `:active` scale. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## Accessibility
 
@@ -116,7 +116,7 @@ Motion budget: color/underline transitions, nav `layoutId` spring, masonry opaci
 - Focus: `cardLink` cards and `/connect` fields draw an accent ring; other links (nav, `PathLink`, `ProjectCard`) keep the browser's default outline. Do not remove an outline without adding the accent ring.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
 - Images: `PageImage` requires `alt`; describe what the photo shows.
-- Reduced motion: only the `PathLink` arrow nudge is behind `motion-safe:`. The nav spring and the `ProjectCard` image zoom run regardless.
+- Reduced motion: the `PathLink` arrow nudge, connect status banner, send button press, and `cardLink` press use `motion-safe:` / `motion-reduce:` (gentler scale or opacity-only, not off). The nav spring and the `ProjectCard` image zoom run regardless.
 - Print: the top bar, nav, and footer are `print:hidden`.
 
 ## Do's and Don'ts

@@ -77,9 +77,10 @@ export function ContactForm() {
     <div className="space-y-6">
       {formState && (
         <div
+          key={formState.success ? 'success' : 'error'}
           role={formState.success ? 'status' : 'alert'}
           aria-live="polite"
-          className={`rounded-lg p-4 ${
+          className={`rounded-lg p-4 motion-safe:starting:opacity-0 motion-safe:starting:scale-[0.97] motion-safe:transition-[opacity,transform] motion-safe:duration-200 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:starting:opacity-0 motion-reduce:transition-opacity motion-reduce:duration-[120ms] ${
             formState.success
               ? 'border border-accent text-accent'
               : 'border border-red-800 text-red-800'
@@ -229,7 +230,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={isPending}
-            className="px-6 py-2 w-full border-accent border text-accent font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset disabled:opacity-50"
+            className="px-6 py-2 w-full border-accent border text-accent font-medium rounded-lg transition-[color,background-color,border-color,transform] ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset disabled:opacity-50"
           >
             {isPending ? 'Sending...' : 'Send Message'}
           </button>
