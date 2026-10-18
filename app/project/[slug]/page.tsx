@@ -1,5 +1,6 @@
 import { ProjectDetails } from 'components/work/project'
 import { getProjectBySlug, projects } from 'gaboesquivel'
+import { metadataWithMarkdownAlternate } from 'lib/page-metadata'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -30,13 +31,16 @@ export async function generateMetadata({
 
   if (!project) redirect('/')
 
-  return {
-    title: project.title,
-    description: project.description.split('\n')[0],
-    openGraph: {
+  return metadataWithMarkdownAlternate({
+    path: `/project/${slug}`,
+    metadata: {
       title: project.title,
       description: project.description.split('\n')[0],
-      images: [project.image],
+      openGraph: {
+        title: project.title,
+        description: project.description.split('\n')[0],
+        images: [project.image],
+      },
     },
-  }
+  })
 }

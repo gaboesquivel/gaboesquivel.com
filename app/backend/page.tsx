@@ -47,4 +47,5 @@ export const metadata = pageMetadata({
   title: 'Backend Engineering | Gabo Esquivel',
   description:
     'Backend engineering for GraphQL APIs, blockchain indexers, realtime data, exchange infrastructure, and RAG application services.',
+  path: '/backend',
 })

@@ -6,6 +6,7 @@ import { allBlogs } from 'lib/blog'
 import { blogJsonLd } from 'lib/blog-json-ld'
 import { getRelatedPosts } from 'lib/blog-related'
 import { isArchivePost } from 'lib/blog-taxonomy'
+import { metadataWithMarkdownAlternate } from 'lib/page-metadata'
 import { cn, formatDate } from 'lib/utils'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -32,24 +33,27 @@ export async function generateMetadata({
   } = post
   const ogImage = image ? `https://gaboesquivel.com${image}` : undefined
 
-  return {
-    title,
-    description,
-    openGraph: {
+  return metadataWithMarkdownAlternate({
+    path: `/blog/${postSlug}`,
+    metadata: {
       title,
       description,
-      type: 'article',
-      publishedTime,
-      url: `https://gaboesquivel.com/blog/${postSlug}`,
-      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+      openGraph: {
+        title,
+        description,
+        type: 'article',
+        publishedTime,
+        url: `https://gaboesquivel.com/blog/${postSlug}`,
+        ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        ...(ogImage ? { images: [ogImage] } : {}),
+      },
     },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      ...(ogImage ? { images: [ogImage] } : {}),
-    },
-  }
+  })
 }
 
 export default async function Blog({

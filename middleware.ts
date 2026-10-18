@@ -1,22 +1,21 @@
-import { appendVaryAccept, preferredContentType } from 'lib/accept-markdown'
+import {
+  appendVaryAccept,
+  markdownAlternateLinkHeader,
+  preferredContentType,
+} from 'lib/accept-markdown'
+import {
+  markdownApiRewritePath,
+  skipMarkdownNegotiation,
+} from 'lib/markdown-api-path'
 import { type NextRequest, NextResponse } from 'next/server'
-
-const skipNegotiation = (pathname: string) =>
-  pathname.startsWith('/api') ||
-  pathname.startsWith('/_next') ||
-  pathname.startsWith('/_vercel') ||
-  pathname === '/llms.txt' ||
-  pathname === '/llms-full.txt' ||
-  pathname.startsWith('/.well-known') ||
-  /\.[^/]+$/.test(pathname)
 
 export const middleware = (req: NextRequest) => {
   const { pathname } = req.nextUrl
-  if (skipNegotiation(pathname)) return NextResponse.next()
+  if (skipMarkdownNegotiation(pathname)) return NextResponse.next()
 
   if (pathname.endsWith('.md')) {
     const url = req.nextUrl.clone()
-    url.pathname = `/api/markdown${pathname.slice(0, -3)}`
+    url.pathname = markdownApiRewritePath(pathname)
     const rewritten = NextResponse.rewrite(url)
     appendVaryAccept(rewritten.headers)
     return rewritten
@@ -27,8 +26,7 @@ export const middleware = (req: NextRequest) => {
 
   if (chosen === 'text/markdown') {
     const url = req.nextUrl.clone()
-    url.pathname =
-      pathname === '/' ? '/api/markdown' : `/api/markdown${pathname}`
+    url.pathname = markdownApiRewritePath(pathname)
     const rewritten = NextResponse.rewrite(url)
     appendVaryAccept(rewritten.headers)
     return rewritten
@@ -42,12 +40,14 @@ export const middleware = (req: NextRequest) => {
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',
           Vary: 'Accept',
+          'Cache-Control': 'no-store',
         },
       },
     )
 
   const res = NextResponse.next()
   appendVaryAccept(res.headers)
+  markdownAlternateLinkHeader(res.headers, pathname)
   return res
 }
 

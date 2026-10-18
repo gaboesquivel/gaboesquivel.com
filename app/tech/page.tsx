@@ -48,4 +48,5 @@ export const metadata = pageMetadata({
   title: 'Technology stack | Gabo Esquivel',
   description:
     'Technologies used across AI, Web3, frontend, backend, and cloud project work, grouped by area and linked to evidence.',
+  path: '/tech',
 })

@@ -97,4 +97,5 @@ export const metadata = pageMetadata({
   title: 'AI Product Engineering | Gabo Esquivel',
   description:
     "AI product engineering for LegalAgent's voice and chat, retrieval over case context and documents, and an admin for prompts and retrieval categories.",
+  path: '/ai',
 })

@@ -47,5 +47,6 @@ export async function generateMetadata({
   return pageMetadata({
     title: `${copy.heading} | Gabo Esquivel`,
     description: copy.description,
+    path: type === 'featured' ? '/work' : `/work/${type}`,
   })
 }

@@ -59,4 +59,5 @@ export const metadata = pageMetadata({
   title: 'Full-Stack Product Engineering | Gabo Esquivel',
   description:
     'Full-stack product engineering that pairs clients with the systems behind them: an AI assistant and its admin, a token bridge, a neobank backend, and an exchange.',
+  path: '/fullstack',
 })

@@ -48,4 +48,5 @@ export const metadata = pageMetadata({
   title: 'Frontend Engineering | Gabo Esquivel',
   description:
     'Frontend engineering for trading interfaces, wallet flows, interactive video, virtual worlds, and data-dense Web3 products.',
+  path: '/frontend',
 })

@@ -1,6 +1,23 @@
+import { filterTechByCategory, projects, techStack } from 'gaboesquivel'
+import {
+  isTechCategoryId,
+  techCategoryLabels,
+} from '../../components/tech/categories'
+import {
+  browseCategories,
+  categoryDescriptions,
+  categoryDisplayNames,
+  postMatchesBrowseCategory,
+} from '../../lib/blog-taxonomy'
+import {
+  featuredLandingPages,
+  landingPageGroups,
+} from '../../lib/landing-pages'
+import { isEmptyTech } from '../../lib/tech-evidence'
+import { isWorkType, workTypeCopy, workTypeHref } from '../../lib/work-types'
 import { loadBlogPosts, renderBlogMarkdown } from './blog'
 import { cvExports, renderCvMarkdown } from './cv'
-import { BASE_URL, wrapSection } from './format'
+import { absoluteUrl, wrapSection } from './format'
 import { loadNarrativePages } from './pages'
 import {
   renderProjectMarkdown,
@@ -14,15 +31,132 @@ import {
   rewriteInternalPaths,
 } from './routes'
 
-export const markdownNotFoundBody = `# Page not found
+export { markdownNotFoundBody } from '../../lib/markdown-not-found'
 
-This address isn't a page on the site. Home is the overview, and explore is the directory of every page.
+const projectDescriptionLine = (description: string) =>
+  description.split('\n')[0].trim()
 
-- [Home](${BASE_URL}/)
-- [Explore](${BASE_URL}/explore)
-- [llms.txt](${BASE_URL}/llms.txt)
-- [Sitemap](${BASE_URL}/sitemap.xml)
-`
+const projectsForWorkType = (type: string) => {
+  if (type === 'all') return projects
+  if (type === 'featured')
+    return projects.filter((project) => project.type.includes('featured'))
+  return projects.filter((project) => project.type.includes(type))
+}
+
+const renderWorkMarkdown = (type: string) => {
+  const resolved = isWorkType(type) ? type : 'featured'
+  const copy = isWorkType(type)
+    ? workTypeCopy[type]
+    : {
+        heading: `${type} projects`,
+        description: `Projects tagged ${type} in the work library.`,
+      }
+  const filtered = projectsForWorkType(resolved)
+  const lines = [
+    copy.description,
+    '',
+    ...filtered.map(
+      (project) =>
+        `- [${project.title}](${absoluteUrl(`/project/${project.slug}`)}): ${projectDescriptionLine(project.description)}`,
+    ),
+  ]
+  const path = workTypeHref({ type: resolved })
+  return wrapSection({
+    title: copy.heading,
+    path,
+    body: lines.join('\n'),
+  })
+}
+
+const renderBlogIndexMarkdown = () => {
+  const posts = loadBlogPosts()
+  const lines = [
+    'Notes on shipping software — AI, Web3, and engineering.',
+    '',
+    ...posts.map(
+      (post) =>
+        `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)}): ${post.summary}`,
+    ),
+  ]
+  return wrapSection({
+    title: 'Writing',
+    path: '/blog',
+    body: lines.join('\n'),
+  })
+}
+
+const renderBlogCategoryMarkdown = (category: string) => {
+  if (!browseCategories.includes(category as (typeof browseCategories)[number]))
+    return null
+  const slug = category as (typeof browseCategories)[number]
+  const posts = loadBlogPosts().filter((post) =>
+    postMatchesBrowseCategory({
+      categories: post.category,
+      slug,
+    }),
+  )
+  const displayName = categoryDisplayNames[slug]
+  const lines = [
+    categoryDescriptions[slug],
+    '',
+    ...posts.map(
+      (post) =>
+        `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)}): ${post.summary}`,
+    ),
+  ]
+  return wrapSection({
+    title: `Writing: ${displayName}`,
+    path: `/blog/category/${slug}`,
+    body: lines.join('\n'),
+  })
+}
+
+const renderExploreMarkdown = () => {
+  const lines = [
+    'Every page on the site, grouped by domain, engineering capability, and career context. Pick whichever one matches what you came here to find out.',
+    '',
+    '## Start here',
+    ...featuredLandingPages.map(
+      (page) =>
+        `- [${page.title}](${absoluteUrl(page.href)}): ${page.description}`,
+    ),
+    '',
+    ...landingPageGroups.flatMap((group) => [
+      `## ${group.title}`,
+      ...group.pages.map(
+        (page) =>
+          `- [${page.title}](${absoluteUrl(page.href)}): ${page.description}`,
+      ),
+      '',
+    ]),
+  ]
+  return wrapSection({
+    title: 'Explore',
+    path: '/explore',
+    body: lines.join('\n').trim(),
+  })
+}
+
+const renderTechCategoryMarkdown = (category: string) => {
+  if (!isTechCategoryId(category) || category === 'featured') return null
+  const label = techCategoryLabels[category]
+  const filteredTech = filterTechByCategory(techStack, category).filter(
+    (tech) => !isEmptyTech(tech),
+  )
+  const lines = [
+    `Technologies in the ${label} area, each linked to project evidence on the site.`,
+    '',
+    ...filteredTech.map(
+      (tech) =>
+        `- [${tech.name}](${absoluteUrl(`/tech/${tech.slug}`)}): ${tech.description}`,
+    ),
+  ]
+  return wrapSection({
+    title: `${label} technologies`,
+    path: `/tech/${category}`,
+    body: lines.join('\n'),
+  })
+}
 
 const resolveCvMarkdown = (search: string) => {
   const focus = new URLSearchParams(search).get('focus')
@@ -54,6 +188,22 @@ export const getMarkdownForPath = ({
 
   if (!manifest.has(path) && !manifest.has(routeKey)) return null
 
+  if (path === '/work') return renderWorkMarkdown('featured')
+
+  if (path.startsWith('/work/')) {
+    const type = path.slice('/work/'.length)
+    return renderWorkMarkdown(type)
+  }
+
+  if (path === '/blog') return renderBlogIndexMarkdown()
+
+  if (path.startsWith('/blog/category/')) {
+    const category = path.slice('/blog/category/'.length)
+    return renderBlogCategoryMarkdown(category)
+  }
+
+  if (path === '/explore') return renderExploreMarkdown()
+
   if (path.startsWith('/project/')) {
     const slug = path.slice('/project/'.length)
     const project = sortProjects().find((item) => item.slug === slug)
@@ -68,6 +218,8 @@ export const getMarkdownForPath = ({
 
   if (path.startsWith('/tech/')) {
     const slug = path.slice('/tech/'.length)
+    const categoryMarkdown = renderTechCategoryMarkdown(slug)
+    if (categoryMarkdown) return categoryMarkdown
     const tech = sortTech().find((item) => item.slug === slug)
     if (!tech) return null
     const body = rewriteInternalPaths(renderTechMarkdown(tech), manifest)

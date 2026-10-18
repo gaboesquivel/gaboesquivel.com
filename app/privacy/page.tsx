@@ -48,4 +48,5 @@ export const metadata = pageMetadata({
   title: 'Privacy | Gabo Esquivel',
   description:
     'How gaboesquivel.com handles the connect form, email delivery, and Vercel Web Analytics.',
+  path: '/privacy',
 })

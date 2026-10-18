@@ -107,4 +107,5 @@ export const metadata = pageMetadata({
   title: 'Web3 Product Engineering | Gabo Esquivel',
   description:
     'Web3 product engineering across wallets, trading interfaces, token flows, blockchain indexers, auctions, and DeFi systems.',
+  path: '/web3',
 })

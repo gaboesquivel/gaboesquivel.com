@@ -157,4 +157,5 @@ export const metadata = pageMetadata({
       alt: 'Gabo Esquivel coding',
     },
   ],
+  path: '/bio',
 })

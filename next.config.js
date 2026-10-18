@@ -49,9 +49,20 @@ const nextConfig = {
     return [
       {
         source: '/(.*)',
-        headers: securityHeaders,
+        headers: [
+          ...securityHeaders,
+          {
+            key: 'Vary',
+            value:
+              'rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept',
+          },
+        ],
       },
     ]
+  },
+  outputFileTracingIncludes: {
+    '/api/markdown': ['./generated/markdown-routes.json'],
+    '/api/markdown/[[...slug]]': ['./generated/markdown-routes.json'],
   },
   experimental: {
     optimizePackageImports: ['lucide-react', '@tanstack/react-form'],

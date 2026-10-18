@@ -102,7 +102,7 @@ export async function generateMetadata({
         : `${label} technologies | Gabo Esquivel`
     const description = `${label} technologies used across project work, with related evidence and writing.`
 
-    return pageMetadata({ title, description })
+    return pageMetadata({ title, description, path: `/tech/${category}` })
   }
 
   const tech = getTechStackBySlug(category)
@@ -110,10 +110,12 @@ export async function generateMetadata({
     return pageMetadata({
       title: 'Not found | Gabo Esquivel',
       description: 'Technology not found.',
+      path: `/tech/${category}`,
     })
 
   return pageMetadata({
     title: `${tech.name} | Tech Stack | Gabo Esquivel`,
     description: tech.description,
+    path: `/tech/${category}`,
   })
 }

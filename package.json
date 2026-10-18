@@ -1,12 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "sh -c 'ulimit -n 10240 2>/dev/null; exec bunx concurrently -k \"velite --watch\" \"next dev -p 3099\"'",
+    "dev": "sh -c 'ulimit -n 10240 2>/dev/null; bun scripts/export-llms.ts; exec bunx concurrently -k \"velite --watch\" \"next dev -p 3099\"'",
     "content:build": "velite",
     "content:watch": "velite --watch",
-    "build": "velite && next build",
+    "build": "velite && bun scripts/export-llms.ts && next build",
     "export:llms": "bun scripts/export-llms.ts",
-    "test:llms": "bun test scripts/llms/export-llms.test.ts lib/blog-taxonomy.test.ts lib/blog-order.test.ts scripts/cv-page-breaks.test.ts",
+    "test:llms": "bun test scripts/llms/export-llms.test.ts scripts/llms/markdown-corpus.test.ts lib/accept-markdown.test.ts lib/markdown-api-path.test.ts lib/blog-taxonomy.test.ts lib/blog-order.test.ts scripts/cv-page-breaks.test.ts",
     "cvs": "bun scripts/export-cv.ts",
     "start": "next start",
     "verify": "bun run content:build && bun run lint",

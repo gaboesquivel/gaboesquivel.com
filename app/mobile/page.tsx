@@ -44,4 +44,5 @@ export const metadata = pageMetadata({
   title: 'Mobile Engineering | Gabo Esquivel',
   description:
     'Mobile engineering with React Native and Expo across neobank apps, biometric authentication, blockchain messaging, retail AR, and AI assistants.',
+  path: '/mobile',
 })

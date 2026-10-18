@@ -61,4 +61,5 @@ export const metadata = pageMetadata({
   title: 'Technical Leadership | Gabo Esquivel',
   description:
     'Technical leadership across team formation, product direction, system architecture, and institutional delivery.',
+  path: '/lead',
 })

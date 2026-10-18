@@ -188,7 +188,10 @@ export async function generateMetadata({
       ...variant.metadata.openGraph,
       type: 'profile',
     },
-    alternates: { canonical: '/cv' },
+    alternates: {
+      canonical: '/cv',
+      types: { 'text/markdown': '/cv.md' },
+    },
     ...(isPreviewPrint ? { robots: { index: false, follow: false } } : {}),
   }
 }

@@ -72,4 +72,5 @@ export const metadata = pageMetadata({
   title: 'About Gabo Esquivel',
   description:
     'Agentic product engineer in Costa Rica (US Mountain Time). Open to direct hire, international hire, or contracting through Blockmatic Labs LLC.',
+  path: '/about',
 })

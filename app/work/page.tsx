@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: 'Work & Projects | Gabo Esquivel',
   description:
     'Selected projects across AI, Web3, fintech, and full-stack product engineering.',
+  alternates: {
+    types: { 'text/markdown': '/work.md' },
+  },
   openGraph: {
     title: 'Work & Projects | Gabo Esquivel',
     description:

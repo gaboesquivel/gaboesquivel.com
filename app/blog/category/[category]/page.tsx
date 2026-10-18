@@ -44,5 +44,6 @@ export async function generateMetadata({
   return pageMetadata({
     title: `Writing: ${displayName} | Gabo Esquivel`,
     description: categoryDescriptions[category],
+    path: `/blog/category/${category}`,
   })
 }

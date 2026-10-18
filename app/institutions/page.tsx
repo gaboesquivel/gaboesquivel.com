@@ -55,4 +55,5 @@ export const metadata = pageMetadata({
   title: 'Institutional Software Engineering | Gabo Esquivel',
   description:
     'Institutional software engineering for financial services, media, professional services, and retail organizations.',
+  path: '/institutions',
 })

@@ -2,20 +2,18 @@ import { readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { projects, techStack } from 'gaboesquivel'
+import { techCategoryIds } from '../../components/tech/categories'
 import { browseCategories } from '../../lib/blog-taxonomy'
+import { canonicalizePath } from '../../lib/canonical-path'
 import { visibleTechStack } from '../../lib/tech-evidence'
+import { workTypeOptions } from '../../lib/work-types'
+
+export { canonicalizePath }
 
 const CONTENT_DIR = join(
   dirname(fileURLToPath(import.meta.url)),
   '../../content',
 )
-
-const ROUTE_ALIASES: Record<string, string> = {
-  '/project/legalagent': '/project/legal-agent',
-  '/tech/next-js': '/tech/nextjs',
-  '/tech/node-js': '/tech/nodejs',
-  '/tech/react': '/tech/reactjs',
-}
 
 export const buildRouteManifest = () => {
   const paths = new Set<string>([
@@ -54,12 +52,13 @@ export const buildRouteManifest = () => {
   for (const category of browseCategories)
     paths.add(`/blog/category/${category}`)
 
-  return paths
-}
+  for (const type of workTypeOptions)
+    paths.add(type === 'featured' ? '/work' : `/work/${type}`)
 
-export const canonicalizePath = (path: string) => {
-  const normalized = path.split('?')[0]
-  return ROUTE_ALIASES[normalized] ?? normalized
+  for (const id of techCategoryIds)
+    if (id !== 'featured') paths.add(`/tech/${id}`)
+
+  return paths
 }
 
 export const rewriteInternalPaths = (text: string, manifest: Set<string>) =>

@@ -56,4 +56,5 @@ export const metadata = pageMetadata({
   title: 'Startup Product Engineering | Gabo Esquivel',
   description:
     'Startup product engineering across neobank applications, Web3 launchpads, digital-asset marketplaces, virtual worlds, and AI platforms.',
+  path: '/startups',
 })

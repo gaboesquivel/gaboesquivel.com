@@ -61,6 +61,9 @@ export const metadata: Metadata = {
   title: 'Explore | Gabo Esquivel',
   description:
     'Every page on the site, grouped by domain, engineering capability, and career context.',
+  alternates: {
+    types: { 'text/markdown': '/explore.md' },
+  },
   robots: {
     index: false,
     follow: true,

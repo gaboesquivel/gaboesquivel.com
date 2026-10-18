@@ -159,6 +159,7 @@ export const metadata: Metadata = {
     'I build useful and delightful software products across AI, Web3, and full-stack applications.',
   alternates: {
     canonical: '/',
+    types: { 'text/markdown': '/index.md' },
   },
   openGraph: {
     title: 'Gabo Esquivel | Agentic Product Engineer',

@@ -1,3 +1,5 @@
+import { markdownSiblingPath } from './markdown-sibling'
+
 const PRODUCES = ['text/html', 'text/markdown'] as const
 
 type AcceptEntry = { type: string; q: number; specificity: number }
@@ -83,3 +85,13 @@ export const markdownResponseHeaders = () => ({
   Vary: 'Accept',
   'Cache-Control': 's-maxage=60, stale-while-revalidate=86400',
 })
+
+export const markdownAlternateLinkHeader = (
+  headers: Headers,
+  pathname: string,
+) => {
+  const href = markdownSiblingPath(pathname)
+  const linkValue = `<${href}>; rel="alternate"; type="text/markdown"`
+  const existing = headers.get('Link')
+  headers.set('Link', existing ? `${existing}, ${linkValue}` : linkValue)
+}

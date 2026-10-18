@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     'Open to direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2. Based in Costa Rica, working US Mountain Time.',
   alternates: {
     canonical: '/connect',
+    types: { 'text/markdown': '/contact.md' },
   },
   openGraph: {
     title: 'Work with Gabo Esquivel',

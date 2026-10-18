@@ -5,6 +5,7 @@ export const metadata = pageMetadata({
   title: 'Writing | Gabo Esquivel',
   description:
     'Notes on shipping software — AI, Web3, and engineering. Recent writing on agents, DeFi, architecture, and what held up in production.',
+  path: '/blog',
 })
 
 export default async function BlogPage() {
