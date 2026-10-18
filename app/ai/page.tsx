@@ -29,7 +29,7 @@ export default function AIExperiencePage() {
         maintain AI products with confidence.
       </Prose>
 
-      <PageImage alt="AI product engineering" src={aiImg} priority />
+      <PageImage alt="AI product engineering" src={aiImg} />
 
       <PageSection title="LegalAgent: voice, chat, and retrieval">
         <Prose>

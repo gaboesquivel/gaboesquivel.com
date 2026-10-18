@@ -35,7 +35,6 @@ export default function Web3ExperiencePage() {
       <PageImage
         alt="Blockchain engineering workshop in Costa Rica"
         src={web3Img}
-        priority
       />
 
       <PageSection title="Tokens, protocol state, and infrastructure">

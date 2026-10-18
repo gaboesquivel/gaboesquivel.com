@@ -27,7 +27,7 @@ export function CardGrid<T>({
           key={getKey(item)}
           className={cn(
             'flex h-full w-full',
-            index >= 3 &&
+            index >= 2 &&
               'max-md:[contain-intrinsic-size:auto_10rem] max-md:[content-visibility:auto]',
           )}
         >

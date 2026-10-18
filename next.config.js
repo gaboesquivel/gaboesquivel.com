@@ -54,7 +54,7 @@ const nextConfig = {
     ]
   },
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: ['lucide-react', '@tanstack/react-form'],
   },
 }
 

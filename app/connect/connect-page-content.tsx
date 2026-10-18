@@ -1,6 +1,6 @@
 import { blockSpacing, PageTitle, Prose } from 'components/shared/page-layout'
 import Link from 'next/link'
-import { ContactForm } from './contact-form'
+import { LazyContactForm } from './lazy-contact-form'
 
 export function ConnectPageContent() {
   return (
@@ -32,7 +32,7 @@ export function ConnectPageContent() {
       </Prose>
 
       <div className={blockSpacing}>
-        <ContactForm />
+        <LazyContactForm />
       </div>
     </section>
   )

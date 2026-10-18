@@ -24,9 +24,7 @@ export function ProjectsMasonry({
       items={sortedProjects}
       identifier={identifier}
       getKey={(project) => project.slug}
-      renderItem={(project, index) => (
-        <ProjectCard project={project} priority={index === 0} />
-      )}
+      renderItem={(project) => <ProjectCard project={project} />}
     />
   )
 }
