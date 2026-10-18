@@ -1,9 +1,8 @@
 import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 
+import ts from "@typescript/typescript6";
 import { getProjectBySlug, techStack } from "gaboesquivel";
-import ts from "typescript";
 
 import { techBrowseCategories } from "../../components/tech/categories";
 import { newestPosts } from "../../lib/blog-order";
@@ -14,7 +13,7 @@ import {
 import { isArchivePostFromBlog, loadBlogPosts } from "./blog";
 import { absoluteUrl, rewriteLinks } from "./format";
 
-const APP_DIR = join(import.meta.dirname, "../../app");
+const APP_DIR = join(process.cwd(), "app");
 
 const SKIP_COMPONENTS = new Set([
   "PageImage",

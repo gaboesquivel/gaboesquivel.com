@@ -1,6 +1,5 @@
 import { readdirSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 
 import { projects, techStack } from "gaboesquivel";
 
@@ -12,7 +11,7 @@ import { workTypeOptions } from "../../lib/work-types";
 
 export { canonicalizePath };
 
-const CONTENT_DIR = join(import.meta.dirname, "../../content");
+const CONTENT_DIR = join(process.cwd(), "content");
 
 export const buildRouteManifest = () => {
   const paths = new Set<string>([

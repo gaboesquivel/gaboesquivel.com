@@ -1,13 +1,12 @@
 import { readdirSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 
 import { comparePublishedAtDesc } from "../../lib/blog-order";
 import { isArchivePost } from "../../lib/blog-taxonomy";
 import { absoluteUrl } from "./format";
 import { canonicalizePath } from "./routes";
 
-const CONTENT_DIR = join(import.meta.dirname, "../../content");
+const CONTENT_DIR = join(process.cwd(), "content");
 
 const CONTRACTING_SLUG = "2025-11-1099-contracting";
 
