@@ -1,7 +1,7 @@
-import { cardLink, proseClass } from 'components/shared/spacing'
-import type { Blog } from 'lib/blog'
-import { cn, formatDate } from 'lib/utils'
-import Link from 'next/link'
+import { cardLink, proseClass } from "components/shared/spacing";
+import type { Blog } from "lib/blog";
+import { cn, formatDate } from "lib/utils";
+import Link from "next/link";
 
 export function BlogPostCard({ post }: { post: Blog }) {
   return (
@@ -13,10 +13,10 @@ export function BlogPostCard({ post }: { post: Blog }) {
         </p>
       )}
       {post.summary && (
-        <p className={cn(proseClass, 'line-clamp-2 flex-grow text-sm')}>
+        <p className={cn(proseClass, "line-clamp-2 flex-grow text-sm")}>
           {post.summary}
         </p>
       )}
     </Link>
-  )
+  );
 }

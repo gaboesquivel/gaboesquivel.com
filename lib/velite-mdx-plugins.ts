@@ -1,38 +1,38 @@
-import { rehypeBlogImages } from 'lib/rehype-blog-images'
-import { remarkBlogImages } from 'lib/remark-blog-images'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypePrettyCode from 'rehype-pretty-code'
-import rehypeSlug from 'rehype-slug'
-import remarkGfm from 'remark-gfm'
+import { rehypeBlogImages } from "lib/rehype-blog-images";
+import { remarkBlogImages } from "lib/remark-blog-images";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
-export const remarkPlugins = [remarkGfm, remarkBlogImages]
+export const remarkPlugins = [remarkGfm, remarkBlogImages];
 
 export const rehypePlugins = [
   rehypeSlug,
   [
     rehypePrettyCode,
     {
-      theme: 'one-dark-pro',
-      onVisitLine(node: { children: { type: string; value: string }[] }) {
-        if (node.children.length === 0)
-          node.children = [{ type: 'text', value: ' ' }]
-      },
       onVisitHighlightedLine(node: {
-        properties: { className?: string | string[] }
+        properties: { className?: string | string[] };
       }) {
-        const cls = node.properties.className
+        const cls = node.properties.className;
         node.properties.className = [
           ...(Array.isArray(cls) ? cls : cls ? [cls] : []),
-          'line--highlighted',
-        ]
+          "line--highlighted",
+        ];
       },
       onVisitHighlightedWord(node: {
-        properties: { className?: string | string[] }
+        properties: { className?: string | string[] };
       }) {
-        node.properties.className = ['word--highlighted']
+        node.properties.className = ["word--highlighted"];
       },
+      onVisitLine(node: { children: { type: string; value: string }[] }) {
+        if (node.children.length === 0)
+          node.children = [{ type: "text", value: " " }];
+      },
+      theme: "one-dark-pro",
     },
   ],
-  [rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
+  [rehypeAutolinkHeadings, { properties: { className: ["anchor"] } }],
   rehypeBlogImages,
-]
+];

@@ -1,74 +1,74 @@
-const fs = require('node:fs')
-const path = require('node:path')
-const { get } = require('@vercel/edge-config')
-const { techStack } = require('gaboesquivel')
+const fs = require("node:fs");
+const path = require("node:path");
+const { get } = require("@vercel/edge-config");
+const { techStack } = require("gaboesquivel");
 
 const isGaboesquivelLinked = (() => {
   try {
     return fs
-      .lstatSync(path.join(__dirname, 'node_modules/gaboesquivel'))
-      .isSymbolicLink()
+      .lstatSync(path.join(__dirname, "node_modules/gaboesquivel"))
+      .isSymbolicLink();
   } catch {
-    return false
+    return false;
   }
-})()
+})();
 
 const blogTechRedirects = techStack.flatMap((tech) => [
   {
-    source: `/blog/tech/${encodeURIComponent(tech.slug)}`,
     destination: `/tech/${tech.slug}`,
     permanent: true,
+    source: `/blog/tech/${encodeURIComponent(tech.slug)}`,
   },
   {
-    source: `/blog/tech/${encodeURIComponent(tech.tag)}`,
     destination: `/tech/${tech.slug}`,
     permanent: true,
+    source: `/blog/tech/${encodeURIComponent(tech.tag)}`,
   },
-])
+]);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: ['gaboesquivel.localhost', '*.gaboesquivel.localhost'],
+  allowedDevOrigins: ["gaboesquivel.localhost", "*.gaboesquivel.localhost"],
   ...(isGaboesquivelLinked && {
-    transpilePackages: ['gaboesquivel'],
-    outputFileTracingRoot: path.join(__dirname, '..'),
+    outputFileTracingRoot: path.join(__dirname, ".."),
+    transpilePackages: ["gaboesquivel"],
   }),
   async redirects() {
     const calRedirect = {
-      source: '/cal',
-      destination: 'https://calendly.com/gaboesquivel/30min',
+      destination: "https://calendly.com/gaboesquivel/30min",
       permanent: true,
-    }
+      source: "/cal",
+    };
     try {
-      const edgeRedirects = await get('redirects')
-      return [calRedirect, ...blogTechRedirects, ...(edgeRedirects ?? [])]
+      const edgeRedirects = await get("redirects");
+      return [calRedirect, ...blogTechRedirects, ...(edgeRedirects ?? [])];
     } catch {
-      return [calRedirect, ...blogTechRedirects]
+      return [calRedirect, ...blogTechRedirects];
     }
   },
   headers() {
     return [
       {
-        source: '/(.*)',
         headers: [
           ...securityHeaders,
           {
-            key: 'Vary',
+            key: "Vary",
             value:
-              'rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept',
+              "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept",
           },
         ],
+        source: "/(.*)",
       },
-    ]
+    ];
   },
   outputFileTracingIncludes: {
-    '/api/markdown': ['./generated/markdown-routes.json'],
-    '/api/markdown/[[...slug]]': ['./generated/markdown-routes.json'],
+    "/api/markdown": ["./generated/markdown-routes.json"],
+    "/api/markdown/[[...slug]]": ["./generated/markdown-routes.json"],
   },
   experimental: {
-    optimizePackageImports: ['lucide-react', '@tanstack/react-form'],
+    optimizePackageImports: ["lucide-react", "@tanstack/react-form"],
   },
-}
+};
 
 const ContentSecurityPolicy = `
     default-src 'self' vercel.live;
@@ -79,33 +79,33 @@ const ContentSecurityPolicy = `
     media-src 'none';
     connect-src *;
     font-src 'self' data:;
-`
+`;
 
 const securityHeaders = [
   {
-    key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\n/g, ''),
+    key: "Content-Security-Policy",
+    value: ContentSecurityPolicy.replaceAll("\n", ""),
   },
   {
-    key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin',
+    key: "Referrer-Policy",
+    value: "origin-when-cross-origin",
   },
   {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff',
+    key: "X-Content-Type-Options",
+    value: "nosniff",
   },
   {
-    key: 'X-DNS-Prefetch-Control',
-    value: 'on',
+    key: "X-DNS-Prefetch-Control",
+    value: "on",
   },
   {
-    key: 'Strict-Transport-Security',
-    value: 'max-age=31536000; includeSubDomains; preload',
+    key: "Strict-Transport-Security",
+    value: "max-age=31536000; includeSubDomains; preload",
   },
   {
-    key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=()',
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=()",
   },
-]
+];
 
-module.exports = nextConfig
+module.exports = nextConfig;

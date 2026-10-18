@@ -25,7 +25,7 @@ html {
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
+  @apply invisible absolute no-underline;
   cursor: pointer;
 }
 
@@ -39,11 +39,11 @@ html {
 }
 
 .prose li {
-  @apply leading-[1.75] mb-4;
+  @apply mb-4 leading-[1.75];
 }
 
 .prose a {
-  @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  @apply decoration-neutral-400 decoration-[0.1em] underline-offset-2 transition-all dark:decoration-neutral-600;
 }
 
 .prose .anchor:before {
@@ -63,7 +63,7 @@ html {
 }
 
 .prose code {
-  @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-100 dark:border-hairline rounded-lg bg-neutral-100 dark:bg-neutral-900;
+  @apply rounded-lg border border-neutral-100 bg-neutral-100 px-1 py-0.5 text-neutral-800 dark:border-hairline dark:bg-neutral-900 dark:text-neutral-200;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -149,7 +149,7 @@ table {
 }
 
 [data-rehype-pretty-code-fragment] code {
-  @apply grid min-w-full p-0 text-sm text-black break-words bg-transparent border-0 rounded-none;
+  @apply grid min-w-full rounded-none border-0 bg-transparent p-0 text-sm break-words text-black;
   counter-reset: line;
   box-decoration-break: clone;
 }
@@ -172,13 +172,13 @@ table {
   @apply relative;
 }
 [data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply p-1 rounded-md bg-slate-500/10;
+  @apply rounded-md bg-slate-500/10 p-1;
 }
 [data-rehype-pretty-code-title] {
-  @apply px-4 py-3 font-mono text-xs font-medium border rounded-t-lg text-neutral-200 border-[#333333] bg-[#1c1c1c];
+  @apply rounded-t-lg border border-[#333333] bg-[#1c1c1c] px-4 py-3 font-mono text-xs font-medium text-neutral-200;
 }
 [data-rehype-pretty-code-title] + pre {
-  @apply mt-0 border-t-0 rounded-t-none;
+  @apply mt-0 rounded-t-none border-t-0;
 }
 
 p {
@@ -187,15 +187,15 @@ p {
 }
 
 a {
-  @apply hover:text-accent !decoration-0;
+  @apply !decoration-0 hover:text-accent;
 }
 
 .cta-link {
-  @apply inline-block transition-colors text-accent no-underline;
+  @apply inline-block text-accent no-underline transition-colors;
 }
 
 .prose-link {
-  @apply underline decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 transition-colors;
+  @apply underline decoration-neutral-400 underline-offset-2 transition-colors dark:decoration-neutral-600;
 }
 
 /* Print styles - ensure all text is black when printing */

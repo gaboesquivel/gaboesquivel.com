@@ -1,29 +1,31 @@
-import { EmbeddedTweet, TweetNotFound, type TweetProps } from 'react-tweet'
-import { getTweet } from 'react-tweet/api'
-import './tweet.css'
+import { EmbeddedTweet, TweetNotFound } from "react-tweet";
+import type { TweetProps } from "react-tweet";
+import { getTweet } from "react-tweet/api";
+
+import "./tweet.css";
 
 const TweetContent = async ({ id, components, onError }: TweetProps) => {
-  let error: unknown
+  let error: unknown;
   const tweet = id
-    ? await getTweet(id).catch((err) => {
+    ? await getTweet(id).catch((error) => {
         if (onError) {
-          error = onError(err)
+          error = onError(error);
         } else {
-          console.error(err)
-          error = err
+          console.error(error);
+          error = error;
         }
       })
-    : undefined
+    : undefined;
 
   if (!tweet) {
-    const NotFound = components?.TweetNotFound || TweetNotFound
-    return <NotFound error={error} />
+    const NotFound = components?.TweetNotFound || TweetNotFound;
+    return <NotFound error={error} />;
   }
 
-  return <EmbeddedTweet tweet={tweet} components={components} />
-}
+  return <EmbeddedTweet tweet={tweet} components={components} />;
+};
 
-export const ReactTweet = (props: TweetProps) => <TweetContent {...props} />
+export const ReactTweet = (props: TweetProps) => <TweetContent {...props} />;
 
 export async function TweetComponent({ id }: { id: string }) {
   return (
@@ -32,5 +34,5 @@ export async function TweetComponent({ id }: { id: string }) {
         <ReactTweet id={id} />
       </div>
     </div>
-  )
+  );
 }

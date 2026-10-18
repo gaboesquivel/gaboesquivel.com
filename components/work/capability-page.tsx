@@ -1,8 +1,9 @@
-import { LatestPosts } from 'components/blog/latest-posts'
-import { PageSection, PageTitle, Prose } from 'components/shared/page-layout'
-import Link from 'next/link'
-import type { ReactNode } from 'react'
-import { ProjectEvidence } from './project-evidence'
+import { LatestPosts } from "components/blog/latest-posts";
+import { PageSection, PageTitle, Prose } from "components/shared/page-layout";
+import Link from "next/link";
+import type { ReactNode } from "react";
+
+import { ProjectEvidence } from "./project-evidence";
 
 export function CapabilityPage({
   title,
@@ -12,16 +13,16 @@ export function CapabilityPage({
   writingTitle,
   children,
 }: {
-  title: string
-  intro: string[]
-  sections: Array<{
-    heading: string
-    paragraphs: string[]
-    projectSlugs: string[]
-  }>
-  postSlugs: string[]
-  writingTitle: string
-  children?: ReactNode
+  title: string;
+  intro: string[];
+  sections: {
+    heading: string;
+    paragraphs: string[];
+    projectSlugs: string[];
+  }[];
+  postSlugs: string[];
+  writingTitle: string;
+  children?: ReactNode;
 }) {
   return (
     <section>
@@ -43,15 +44,15 @@ export function CapabilityPage({
 
       <PageSection title="See the work">
         <Prose>
-          The{' '}
+          The{" "}
           <Link href="/work" className="prose-link">
             work library
-          </Link>{' '}
+          </Link>{" "}
           has a page for each project, with the stack and the implementation
           details.
         </Prose>
         {children}
       </PageSection>
     </section>
-  )
+  );
 }

@@ -1,21 +1,21 @@
-import { FilterNav, IndexHeading } from 'components/shared/page-layout'
-import { ProjectsMasonry } from 'components/work/projects-masonry'
-import type { Project } from 'gaboesquivel'
+import { FilterNav, IndexHeading } from "components/shared/page-layout";
+import { ProjectsMasonry } from "components/work/projects-masonry";
+import type { Project } from "gaboesquivel";
 import {
   isWorkType,
   workTypeCopy,
   workTypeHref,
   workTypeOptions,
-} from 'lib/work-types'
+} from "lib/work-types";
 
 export function Projects({
   projects,
   type,
   heading,
 }: {
-  projects: Project[]
-  type?: string
-  heading?: string
+  projects: Project[];
+  type?: string;
+  heading?: string;
 }) {
   return (
     <section>
@@ -33,8 +33,8 @@ export function Projects({
           label="Work types"
           current={type}
           items={workTypeOptions.map((option) => ({
-            id: option,
             href: workTypeHref({ type: option }),
+            id: option,
             label: option,
           }))}
         />
@@ -42,5 +42,5 @@ export function Projects({
 
       <ProjectsMasonry projects={projects} identifier={type} />
     </section>
-  )
+  );
 }

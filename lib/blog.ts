@@ -1,5 +1,5 @@
-import { blogs } from '#velite'
+import { blogs } from "#velite";
 
-export type Blog = (typeof blogs)[number]
+export type Blog = (typeof blogs)[number];
 
-export const allBlogs = blogs
+export const allBlogs = blogs;

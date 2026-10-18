@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-const footerLink = 'text-neutral-300 transition-colors hover:text-white'
+const footerLink = "text-neutral-300 transition-colors hover:text-white";
 
 export function Footer() {
   return (
@@ -102,7 +102,7 @@ export function Footer() {
         <div className="col-span-2 sm:col-span-1">
           <ul className="space-y-2">
             <li className="text-neutral-300">
-              Open to direct hire, international hire, or{' '}
+              Open to direct hire, international hire, or{" "}
               <Link
                 href="/blog/2025-11-1099-contracting"
                 className={footerLink}
@@ -123,5 +123,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { cardLink, proseClass } from 'components/shared/spacing'
-import { cn } from 'lib/utils'
-import Link from 'next/link'
+import { cardLink, proseClass } from "components/shared/spacing";
+import { cn } from "lib/utils";
+import Link from "next/link";
 
 export function PageCard({
   href,
@@ -8,21 +8,21 @@ export function PageCard({
   description,
   featured = false,
 }: {
-  href: string
-  title: string
-  description: string
-  featured?: boolean
+  href: string;
+  title: string;
+  description: string;
+  featured?: boolean;
 }) {
   return (
     <Link
       href={href}
-      className={cn(cardLink, 'group h-full', featured && 'p-5')}
+      className={cn(cardLink, "group h-full", featured && "p-5")}
     >
       <div className="mb-1 flex items-start justify-between gap-3">
         <h3
           className={cn(
-            'font-medium',
-            featured ? 'text-lg font-semibold' : 'text-base',
+            "font-medium",
+            featured ? "text-lg font-semibold" : "text-base"
           )}
         >
           {title}
@@ -37,9 +37,9 @@ export function PageCard({
       <p className="mb-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
         {href}
       </p>
-      <p className={cn(proseClass, 'line-clamp-3 flex-grow text-sm')}>
+      <p className={cn(proseClass, "line-clamp-3 flex-grow text-sm")}>
         {description}
       </p>
     </Link>
-  )
+  );
 }

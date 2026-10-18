@@ -1,15 +1,15 @@
-import { LatestPosts } from 'components/blog/latest-posts'
-import { LetsConnect } from 'components/shared/lets-connect'
+import { LatestPosts } from "components/blog/latest-posts";
+import { LetsConnect } from "components/shared/lets-connect";
 import {
   PageImage,
   PageSection,
   PageTitle,
   Prose,
-} from 'components/shared/page-layout'
-import { ProjectEvidence } from 'components/work/project-evidence'
-import { pageMetadata } from 'lib/page-metadata'
-import Link from 'next/link'
-import web3Img from 'public/images/work/ticoblockchain.jpg'
+} from "components/shared/page-layout";
+import { ProjectEvidence } from "components/work/project-evidence";
+import { pageMetadata } from "lib/page-metadata";
+import Link from "next/link";
+import web3Img from "public/images/work/ticoblockchain.jpg";
 
 export default function Web3ExperiencePage() {
   return (
@@ -47,7 +47,7 @@ export default function Web3ExperiencePage() {
           intercompany transactions and tax workflows.
         </Prose>
 
-        <ProjectEvidence slugs={['knowledge-io', 'eos-costa-rica']} />
+        <ProjectEvidence slugs={["knowledge-io", "eos-costa-rica"]} />
       </PageSection>
 
       <PageSection title="Indexing, subscriptions, and browser signing">
@@ -61,7 +61,7 @@ export default function Web3ExperiencePage() {
           over EOSIO and Antelope data with realtime subscriptions.
         </Prose>
 
-        <ProjectEvidence slugs={['bitcashbank', 'chaingraph']} />
+        <ProjectEvidence slugs={["bitcashbank", "chaingraph"]} />
       </PageSection>
 
       <PageSection title="Wallets, marketplaces, auctions, and trading">
@@ -84,14 +84,14 @@ export default function Web3ExperiencePage() {
           Arbitrum testnet into the trading interface with viem and wagmi.
         </Prose>
 
-        <ProjectEvidence slugs={['raremint', 'ztx', 'bitlauncher', 'opyn']} />
+        <ProjectEvidence slugs={["raremint", "ztx", "bitlauncher", "opyn"]} />
       </PageSection>
 
       <LatestPosts title="Writing about Web3 systems" category="Web3" />
 
       <PageSection title="Work together">
         <Prose>
-          The roles and dates behind this work are on the{' '}
+          The roles and dates behind this work are on the{" "}
           <Link href="/cv?focus=web3" className="prose-link">
             Web3 CV
           </Link>
@@ -100,12 +100,12 @@ export default function Web3ExperiencePage() {
         <LetsConnect />
       </PageSection>
     </section>
-  )
+  );
 }
 
 export const metadata = pageMetadata({
-  title: 'Web3 Product Engineering | Gabo Esquivel',
   description:
-    'Web3 product engineering across wallets, trading interfaces, token flows, blockchain indexers, auctions, and DeFi systems.',
-  path: '/web3',
-})
+    "Web3 product engineering across wallets, trading interfaces, token flows, blockchain indexers, auctions, and DeFi systems.",
+  path: "/web3",
+  title: "Web3 Product Engineering | Gabo Esquivel",
+});

@@ -3,31 +3,33 @@ import {
   Prose,
   projectMedia,
   subHeadingSm,
-} from 'components/shared/page-layout'
-import { blockSpacing } from 'components/shared/spacing'
-import { VimeoPlayer } from 'components/vimeo'
-import { YouTubePlayer } from 'components/youtube'
-import { getTechStackByTag, type Project, type Tag } from 'gaboesquivel'
-import { comparePublishedAtDesc } from 'lib/blog-order'
-import { cn } from 'lib/utils'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import { LatestPosts } from '../blog/latest-posts'
-import { PostGrid } from '../blog/posts-grid'
+} from "components/shared/page-layout";
+import { blockSpacing } from "components/shared/spacing";
+import { VimeoPlayer } from "components/vimeo";
+import { YouTubePlayer } from "components/youtube";
+import { getTechStackByTag } from "gaboesquivel";
+import type { Project, Tag } from "gaboesquivel";
+import { comparePublishedAtDesc } from "lib/blog-order";
+import { cn } from "lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+import { LatestPosts } from "../blog/latest-posts";
+import { PostGrid } from "../blog/posts-grid";
 
 export function ProjectDetails({
   project,
   full = false,
 }: {
-  project: Project
-  full?: boolean
+  project: Project;
+  full?: boolean;
 }) {
   return (
     <div className="mb-10">
       <IndexHeading>{project.title}</IndexHeading>
 
-      {project.description.split('\n').map((item) => (
+      {project.description.split("\n").map((item) => (
         <Prose key={`${project.slug}-${item}`}>
           {item}
           <br />
@@ -37,20 +39,20 @@ export function ProjectDetails({
       {full && !project.link ? (
         <div className={projectMedia}>
           <Image
-            src={project.image.replace('https://gaboesquivel.com', '')}
+            src={project.image.replace("https://gaboesquivel.com", "")}
             alt={`${project.title} Image`}
             fill={true}
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
           />
         </div>
       ) : full && project.link ? (
         <Link href={project.link} target="_blank" rel="noopener noreferrer">
           <div className={projectMedia}>
             <Image
-              src={project.image.replace('https://gaboesquivel.com', '')}
+              src={project.image.replace("https://gaboesquivel.com", "")}
               alt={`${project.title} Image`}
               fill={true}
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
             />
           </div>
         </Link>
@@ -58,10 +60,10 @@ export function ProjectDetails({
         <Link href={`/project/${project.slug}`}>
           <div className={projectMedia}>
             <Image
-              src={project.image.replace('https://gaboesquivel.com', '')}
+              src={project.image.replace("https://gaboesquivel.com", "")}
               alt={`${project.title} Image`}
               fill={true}
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
             />
           </div>
         </Link>
@@ -77,9 +79,9 @@ export function ProjectDetails({
 
       {full && project.video && (
         <div className={projectMedia}>
-          {project.video.includes('youtube') ? (
+          {project.video.includes("youtube") ? (
             <YouTubePlayer title={project.title} url={project.video} />
-          ) : project.video.includes('vimeo') ? (
+          ) : project.video.includes("vimeo") ? (
             <VimeoPlayer title={project.title} url={project.video} />
           ) : null}
         </div>
@@ -106,10 +108,10 @@ export function ProjectDetails({
           {project.images.map((image) => (
             <div key={`${image}`} className={projectMedia}>
               <Image
-                src={image.replace('https://gaboesquivel.com', '')}
+                src={image.replace("https://gaboesquivel.com", "")}
                 alt={`${project.title} Image`}
                 fill={true}
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: "cover" }}
               />
             </div>
           ))}
@@ -117,8 +119,8 @@ export function ProjectDetails({
       )}
 
       {full && project.link && project.link !== project.repo && (
-        <p className={cn(blockSpacing, 'text-sm')}>
-          <span className="font-bold">Link:</span>{' '}
+        <p className={cn(blockSpacing, "text-sm")}>
+          <span className="font-bold">Link:</span>{" "}
           <a
             href={project.link}
             target="_blank"
@@ -129,12 +131,14 @@ export function ProjectDetails({
           </a>
         </p>
       )}
-      <p className="text-sm ">
-        {' '}
-        <span className="font-bold">Stack:</span>{' '}
+      <p className="text-sm">
+        {" "}
+        <span className="font-bold">Stack:</span>{" "}
         {project.tech.map((tech) => {
-          const techItem = getTechStackByTag(tech as Tag)
-          if (!techItem) return null
+          const techItem = getTechStackByTag(tech as Tag);
+          if (!techItem) {
+            return null;
+          }
           return (
             <Link
               href={`/tech/${techItem?.slug}`}
@@ -142,33 +146,34 @@ export function ProjectDetails({
             >
               <span>
                 {techItem.name}
-                {tech !== project.tech.at(-1) ? ', ' : ''}
+                {tech === project.tech.at(-1) ? "" : ", "}
               </span>
             </Link>
-          )
+          );
         })}
       </p>
 
       {project.type && project.type.length > 0 && (
-        <p className="text-sm mt-1">
-          <span className="font-bold">Experience:</span> {(() => {
+        <p className="mt-1 text-sm">
+          <span className="font-bold">Experience:</span>{" "}
+          {(() => {
             // Map of types to their display names and URLs
             const typeMap: Record<
               string,
               { display: string; url: string } | undefined
             > = {
-              frontend: { display: 'Frontend', url: '/frontend' },
-              backend: { display: 'Backend', url: '/backend' },
-              fullstack: { display: 'Fullstack', url: '/fullstack' },
-              mobile: { display: 'React Native', url: '/mobile' },
-              web3: { display: 'Web3', url: '/web3' },
-              ai: { display: 'AI', url: '/ai' },
-            }
+              ai: { display: "AI", url: "/ai" },
+              backend: { display: "Backend", url: "/backend" },
+              frontend: { display: "Frontend", url: "/frontend" },
+              fullstack: { display: "Fullstack", url: "/fullstack" },
+              mobile: { display: "React Native", url: "/mobile" },
+              web3: { display: "Web3", url: "/web3" },
+            };
 
             // Filter types that have entries in the map
             const validTypes = project.type
               .map((type) => typeMap[type])
-              .filter(Boolean) as { display: string; url: string }[]
+              .filter(Boolean) as { display: string; url: string }[];
 
             // Return the links
             return validTypes.map((item) => (
@@ -176,16 +181,16 @@ export function ProjectDetails({
                 <Link href={item.url}>
                   <span>{item.display}</span>
                 </Link>
-                {item !== validTypes.at(-1) ? ', ' : ''}
+                {item === validTypes.at(-1) ? "" : ", "}
               </React.Fragment>
-            ))
+            ));
           })()}
         </p>
       )}
 
       {full && project.repo && (
         <p className="text-sm">
-          <span className="font-bold">Repo:</span>{' '}
+          <span className="font-bold">Repo:</span>{" "}
           <a
             href={project.repo}
             target="_blank"
@@ -203,9 +208,9 @@ export function ProjectDetails({
             posts={[...project.related]
               .sort(comparePublishedAtDesc)
               .map((post) => ({
+                publishedAt: post.publishedAt,
                 slug: post.url,
                 title: post.title,
-                publishedAt: post.publishedAt,
               }))}
             title="Related Posts"
           />
@@ -213,5 +218,5 @@ export function ProjectDetails({
           <LatestPosts />
         ))}
     </div>
-  )
+  );
 }

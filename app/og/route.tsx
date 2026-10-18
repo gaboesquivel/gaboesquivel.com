@@ -1,28 +1,28 @@
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from "next/og";
 
-export const runtime = 'edge'
+export const runtime = "edge";
 
 export async function GET() {
   return new ImageResponse(
     <div
       style={{
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        position: 'relative',
+        alignItems: "flex-start",
+        background: "black",
         backgroundImage:
-          'url(https://gaboesquivel.com/images/opengraph-image.png)',
-        backgroundSize: '100% 100%',
-        backgroundRepeat: 'no-repeat',
-        background: 'black',
+          "url(https://gaboesquivel.com/images/opengraph-image.png)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        justifyContent: "center",
+        position: "relative",
+        width: "100%",
       }}
     />,
     {
-      width: 1920,
       height: 1080,
-    },
-  )
+      width: 1920,
+    }
+  );
 }

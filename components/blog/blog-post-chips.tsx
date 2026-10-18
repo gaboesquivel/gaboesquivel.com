@@ -1,27 +1,29 @@
-import { blockSpacing } from 'components/shared/page-layout'
-import { categoryDisplayNames, toBrowseSlug } from 'lib/blog-taxonomy'
-import { cn } from 'lib/utils'
-import Link from 'next/link'
-import { Fragment } from 'react'
+import { blockSpacing } from "components/shared/page-layout";
+import { categoryDisplayNames, toBrowseSlug } from "lib/blog-taxonomy";
+import { cn } from "lib/utils";
+import Link from "next/link";
+import { Fragment } from "react";
 
 export function BlogPostChips({ categories }: { categories?: string[] }) {
   const browseSlugs = [
     ...new Set(
       categories?.flatMap((category) => {
-        const slug = toBrowseSlug(category)
-        return slug ? [slug] : []
-      }) ?? [],
+        const slug = toBrowseSlug(category);
+        return slug ? [slug] : [];
+      }) ?? []
     ),
-  ]
+  ];
 
-  if (browseSlugs.length === 0) return null
+  if (browseSlugs.length === 0) {
+    return null;
+  }
 
   return (
     <nav
       aria-label="Writing categories"
       className={cn(
         blockSpacing,
-        'max-w-[650px] text-sm text-neutral-600 print:hidden preview-print:hidden dark:text-neutral-400',
+        "max-w-[650px] text-sm text-neutral-600 dark:text-neutral-400 print:hidden preview-print:hidden"
       )}
     >
       {browseSlugs.map((slug, index) => (
@@ -40,5 +42,5 @@ export function BlogPostChips({ categories }: { categories?: string[] }) {
         </Fragment>
       ))}
     </nav>
-  )
+  );
 }

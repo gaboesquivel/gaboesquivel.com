@@ -4,11 +4,11 @@ import {
   PageTitle,
   Prose,
   sectionSpacing,
-} from 'components/shared/page-layout'
-import { techBrowseCategories } from 'components/tech/categories'
-import { TechList } from 'components/tech/tech-list'
-import { pageMetadata } from 'lib/page-metadata'
-import Link from 'next/link'
+} from "components/shared/page-layout";
+import { techBrowseCategories } from "components/tech/categories";
+import { TechList } from "components/tech/tech-list";
+import { pageMetadata } from "lib/page-metadata";
+import Link from "next/link";
 
 export default function TechStackPage() {
   return (
@@ -41,12 +41,12 @@ export default function TechStackPage() {
         className={sectionSpacing}
       />
     </section>
-  )
+  );
 }
 
 export const metadata = pageMetadata({
-  title: 'Technology stack | Gabo Esquivel',
   description:
-    'Technologies used across AI, Web3, frontend, backend, and cloud project work, grouped by area and linked to evidence.',
-  path: '/tech',
-})
+    "Technologies used across AI, Web3, frontend, backend, and cloud project work, grouped by area and linked to evidence.",
+  path: "/tech",
+  title: "Technology stack | Gabo Esquivel",
+});

@@ -1,51 +1,51 @@
-'use client'
+"use client";
 
-import clsx from 'clsx'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import clsx from "clsx";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
-  { path: '/', name: 'gabo' },
-  { path: '/work', name: 'work' },
-  { path: '/ai', name: 'ai' },
-  { path: '/web3', name: 'web3' },
-  { path: '/bio', name: 'bio' },
-  { path: '/blog', name: 'writing' },
-  { path: '/connect', name: 'connect' },
-]
+  { name: "gabo", path: "/" },
+  { name: "work", path: "/work" },
+  { name: "ai", path: "/ai" },
+  { name: "web3", path: "/web3" },
+  { name: "bio", path: "/bio" },
+  { name: "writing", path: "/blog" },
+  { name: "connect", path: "/connect" },
+];
 
 export default function Navbar() {
-  const pathname = usePathname() || '/'
+  const pathname = usePathname() || "/";
 
   return (
     <nav
       aria-label="Primary navigation"
-      className="-ml-[8px] mb-10 tracking-tight navbar print:hidden preview-print:hidden"
+      className="navbar mb-10 -ml-[8px] tracking-tight print:hidden preview-print:hidden"
     >
       <div className="relative px-0 pb-1" id="nav">
         <div className="flex flex-row flex-wrap">
           {navItems.map(({ path, name }) => {
             const isActive =
-              path === '/'
-                ? pathname === '/'
-                : pathname === path || pathname.startsWith(`${path}/`)
+              path === "/"
+                ? pathname === "/"
+                : pathname === path || pathname.startsWith(`${path}/`);
 
             return (
               <Link
                 key={path}
                 href={path}
-                aria-current={isActive ? 'page' : undefined}
+                aria-current={isActive ? "page" : undefined}
                 className={clsx(
-                  'flex align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent',
-                  isActive ? 'text-accent' : 'text-neutral-400',
+                  "flex align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent",
+                  isActive ? "text-accent" : "text-neutral-400"
                 )}
               >
                 <span className="px-2 py-2">{name}</span>
               </Link>
-            )
+            );
           })}
         </div>
       </div>
     </nav>
-  )
+  );
 }

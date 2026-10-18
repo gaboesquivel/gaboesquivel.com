@@ -1,13 +1,13 @@
-import { CardGrid } from 'components/shared/card-grid'
-import { TechCard } from 'components/tech/tech-card'
-import type { TechStackItem } from 'gaboesquivel'
+import { CardGrid } from "components/shared/card-grid";
+import { TechCard } from "components/tech/tech-card";
+import type { TechStackItem } from "gaboesquivel";
 
 export function TechMasonry({
   techStack,
-  identifier = 'tech',
+  identifier = "tech",
 }: {
-  techStack: TechStackItem[]
-  identifier?: string
+  techStack: TechStackItem[];
+  identifier?: string;
 }) {
   return (
     <CardGrid
@@ -16,5 +16,5 @@ export function TechMasonry({
       getKey={(tech) => tech.slug}
       renderItem={(tech) => <TechCard tech={tech} />}
     />
-  )
+  );
 }

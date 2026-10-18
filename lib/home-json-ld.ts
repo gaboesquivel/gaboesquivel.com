@@ -1,36 +1,36 @@
-const siteUrl = 'https://gaboesquivel.com'
+const siteUrl = "https://gaboesquivel.com";
 
 const description =
-  'I build useful and delightful software products across AI, Web3, and full-stack applications.'
+  "I build useful and delightful software products across AI, Web3, and full-stack applications.";
 
 export const homeJsonLd = () => [
   {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Gabo Esquivel',
-    jobTitle: 'Agentic Product Engineer',
+    "@context": "https://schema.org",
+    "@type": "Person",
     description,
-    url: siteUrl,
-    email: 'contact@gaboesquivel.com',
+    email: "contact@gaboesquivel.com",
+    jobTitle: "Agentic Product Engineer",
+    name: "Gabo Esquivel",
     sameAs: [
-      'https://github.com/gaboesquivel',
-      'https://twitter.com/gaboesquivel',
-      'https://linkedin.com/in/gaboesquivel',
+      "https://github.com/gaboesquivel",
+      "https://twitter.com/gaboesquivel",
+      "https://linkedin.com/in/gaboesquivel",
     ],
+    url: siteUrl,
   },
   {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Gabo Esquivel',
-    url: siteUrl,
-    contactPoint: {
-      '@type': 'ContactPoint',
-      email: 'contact@gaboesquivel.com',
-      contactType: 'professional inquiries',
-    },
+    "@context": "https://schema.org",
+    "@type": "Organization",
     address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'CR',
+      "@type": "PostalAddress",
+      addressCountry: "CR",
     },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "professional inquiries",
+      email: "contact@gaboesquivel.com",
+    },
+    name: "Gabo Esquivel",
+    url: siteUrl,
   },
-]
+];

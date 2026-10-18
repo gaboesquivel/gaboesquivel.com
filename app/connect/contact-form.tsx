@@ -1,89 +1,95 @@
-'use client'
+"use client";
 
-import { useForm } from '@tanstack/react-form'
-import { useRef, useState } from 'react'
-import { submitContactForm } from './actions'
-import { type ContactFormData, contactSchema } from './schema'
+import { useForm } from "@tanstack/react-form";
+import { useRef, useState } from "react";
 
-type FormState = {
-  success: boolean
-  error?: string
-  message?: string
+import { submitContactForm } from "./actions";
+import { contactSchema } from "./schema";
+import type { ContactFormData } from "./schema";
+
+interface FormState {
+  success: boolean;
+  error?: string;
+  message?: string;
 }
 
 const getErrorMessage = (error: unknown): string => {
-  if (typeof error === 'string') return error
-  if (error && typeof error === 'object' && 'message' in error)
-    return String(error.message)
+  if (typeof error === "string") {
+    return error;
+  }
+  if (error && typeof error === "object" && "message" in error) {
+    return String(error.message);
+  }
   if (
     error &&
-    typeof error === 'object' &&
-    'issues' in error &&
+    typeof error === "object" &&
+    "issues" in error &&
     Array.isArray(error.issues) &&
     error.issues[0] &&
-    typeof error.issues[0] === 'object' &&
-    'message' in error.issues[0]
-  )
-    return String(error.issues[0].message)
+    typeof error.issues[0] === "object" &&
+    "message" in error.issues[0]
+  ) {
+    return String(error.issues[0].message);
+  }
 
-  return 'Invalid input'
-}
+  return "Invalid input";
+};
 
 export function ContactForm() {
-  const [formState, setFormState] = useState<FormState | null>(null)
-  const [isPending, setIsPending] = useState(false)
-  const formOpenedAt = useRef(Date.now())
+  const [formState, setFormState] = useState<FormState | null>(null);
+  const [isPending, setIsPending] = useState(false);
+  const formOpenedAt = useRef(Date.now());
 
   const form = useForm({
     defaultValues: {
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
     } as ContactFormData,
-    validators: {
-      onSubmit: contactSchema,
-    },
     onSubmit: async ({ value }) => {
-      const formData = new FormData()
-      formData.append('name', value.name)
-      formData.append('email', value.email)
-      formData.append('subject', value.subject)
-      formData.append('message', value.message)
-      formData.append('timestamp', formOpenedAt.current.toString())
+      const formData = new FormData();
+      formData.append("name", value.name);
+      formData.append("email", value.email);
+      formData.append("subject", value.subject);
+      formData.append("message", value.message);
+      formData.append("timestamp", formOpenedAt.current.toString());
 
-      setIsPending(true)
+      setIsPending(true);
 
       try {
-        const result = await submitContactForm(formData)
-        setFormState(result)
+        const result = await submitContactForm(formData);
+        setFormState(result);
 
         if (result.success) {
-          form.reset()
-          formOpenedAt.current = Date.now()
+          form.reset();
+          formOpenedAt.current = Date.now();
         }
       } catch {
         setFormState({
           success: false,
-          error: 'Unable to send your message. Please try again.',
-        })
+          error: "Unable to send your message. Please try again.",
+        });
       } finally {
-        setIsPending(false)
+        setIsPending(false);
       }
     },
-  })
+    validators: {
+      onSubmit: contactSchema,
+    },
+  });
 
   return (
     <div className="space-y-6">
       {formState && (
         <div
-          key={formState.success ? 'success' : 'error'}
-          role={formState.success ? 'status' : 'alert'}
+          key={formState.success ? "success" : "error"}
+          role={formState.success ? "status" : "alert"}
           aria-live="polite"
-          className={`rounded-lg p-4 motion-safe:starting:opacity-0 motion-safe:starting:scale-[0.97] motion-safe:transition-[opacity,transform] motion-safe:duration-200 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:starting:opacity-0 motion-reduce:transition-opacity motion-reduce:duration-[120ms] ${
+          className={`rounded-lg p-4 motion-safe:transition-[opacity,transform] motion-safe:duration-200 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-opacity motion-reduce:duration-[120ms] motion-safe:starting:scale-[0.97] motion-safe:starting:opacity-0 motion-reduce:starting:opacity-0 ${
             formState.success
-              ? 'border border-accent text-accent'
-              : 'border border-red-800 text-red-800'
+              ? "border border-accent text-accent"
+              : "border border-red-800 text-red-800"
           }`}
         >
           {formState.success ? formState.message : formState.error}
@@ -92,8 +98,8 @@ export function ContactForm() {
 
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          void form.handleSubmit()
+          e.preventDefault();
+          void form.handleSubmit();
         }}
         className="space-y-4"
         noValidate
@@ -103,7 +109,7 @@ export function ContactForm() {
             <div>
               <label
                 htmlFor={field.name}
-                className="block text-sm font-medium mb-2"
+                className="mb-2 block text-sm font-medium"
               >
                 Name
               </label>
@@ -114,11 +120,11 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Your full name"
-                className="w-full px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                className="w-full rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none"
                 disabled={isPending}
               />
               {field.state.meta.errors.length > 0 && (
-                <p className="text-red-600 text-sm mt-2">
+                <p className="mt-2 text-sm text-red-600">
                   ✗ {getErrorMessage(field.state.meta.errors[0])}
                 </p>
               )}
@@ -131,7 +137,7 @@ export function ContactForm() {
             <div>
               <label
                 htmlFor={field.name}
-                className="block text-sm font-medium mb-2"
+                className="mb-2 block text-sm font-medium"
               >
                 Email Address
               </label>
@@ -143,11 +149,11 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                className="w-full rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none"
                 disabled={isPending}
               />
               {field.state.meta.errors.length > 0 && (
-                <p className="text-red-600 text-sm mt-2">
+                <p className="mt-2 text-sm text-red-600">
                   ✗ {getErrorMessage(field.state.meta.errors[0])}
                 </p>
               )}
@@ -160,7 +166,7 @@ export function ContactForm() {
             <div>
               <label
                 htmlFor={field.name}
-                className="block text-sm font-medium mb-2"
+                className="mb-2 block text-sm font-medium"
               >
                 Subject
               </label>
@@ -171,11 +177,11 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Email subject line"
-                className="w-full px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+                className="w-full rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none"
                 disabled={isPending}
               />
               {field.state.meta.errors.length > 0 && (
-                <p className="text-red-600 text-sm mt-2">
+                <p className="mt-2 text-sm text-red-600">
                   ✗ {getErrorMessage(field.state.meta.errors[0])}
                 </p>
               )}
@@ -188,7 +194,7 @@ export function ContactForm() {
             <div>
               <label
                 htmlFor={field.name}
-                className="block text-sm font-medium mb-2"
+                className="mb-2 block text-sm font-medium"
               >
                 Message
               </label>
@@ -199,10 +205,10 @@ export function ContactForm() {
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Describe the product, team, and what you need help with..."
-                className="w-full h-60 sm:h-80 px-4 py-3 border border-hairline bg-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-colors"
+                className="h-60 w-full resize-none rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none sm:h-80"
                 disabled={isPending}
               />
-              <div className="flex justify-between items-center mt-2">
+              <div className="mt-2 flex items-center justify-between">
                 <p className="text-sm text-gray-600">
                   {field.state.meta.errors.length > 0 ? (
                     <span className="text-red-600">
@@ -230,12 +236,12 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={isPending}
-            className="px-6 py-2 w-full border-accent border text-accent font-medium rounded-lg transition-[color,background-color,border-color,transform] ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset disabled:opacity-50"
+            className="focus:ring-offset w-full rounded-lg border border-accent px-6 py-2 font-medium text-accent transition-[color,background-color,border-color,transform] ease-[cubic-bezier(0.23,1,0.32,1)] focus:ring-2 focus:ring-accent focus:outline-none disabled:opacity-50 motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99]"
           >
-            {isPending ? 'Sending...' : 'Send Message'}
+            {isPending ? "Sending..." : "Send Message"}
           </button>
         </div>
       </form>
     </div>
-  )
+  );
 }

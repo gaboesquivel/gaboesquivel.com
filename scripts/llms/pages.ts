@@ -1,123 +1,145 @@
-import { readFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { getProjectBySlug, techStack } from 'gaboesquivel'
-import ts from 'typescript'
-import { techBrowseCategories } from '../../components/tech/categories'
-import { newestPosts } from '../../lib/blog-order'
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+import { getProjectBySlug, techStack } from "gaboesquivel";
+import ts from "typescript";
+
+import { techBrowseCategories } from "../../components/tech/categories";
+import { newestPosts } from "../../lib/blog-order";
 import {
   postMatchesBrowseCategory,
   toBrowseSlug,
-} from '../../lib/blog-taxonomy'
-import { isArchivePostFromBlog, loadBlogPosts } from './blog'
-import { absoluteUrl, rewriteLinks } from './format'
+} from "../../lib/blog-taxonomy";
+import { isArchivePostFromBlog, loadBlogPosts } from "./blog";
+import { absoluteUrl, rewriteLinks } from "./format";
 
-const APP_DIR = join(dirname(fileURLToPath(import.meta.url)), '../../app')
+const APP_DIR = join(import.meta.dirname, "../../app");
 
 const SKIP_COMPONENTS = new Set([
-  'PageImage',
-  'LatestPosts',
-  'ContactForm',
-  'PrintButton',
-  'FilterNav',
-  'ContactInfo',
-  'CapabilityPage',
-  'ProjectCard',
-])
+  "PageImage",
+  "LatestPosts",
+  "ContactForm",
+  "PrintButton",
+  "FilterNav",
+  "ContactInfo",
+  "CapabilityPage",
+  "ProjectCard",
+]);
 
-const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl('/blog/2025-11-1099-contracting')}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time.
+const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time.
 
-Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl('/connect')}).`
+Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl("/connect")}).`;
 
-const CONNECT_PAGE_EXPORT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl('/blog/2025-11-1099-contracting')}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time. Fluent in English, Spanish, Portuguese, and Italian.
+const CONNECT_PAGE_EXPORT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time. Fluent in English, Spanish, Portuguese, and Italian.
 
-I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send a note on this page, book time at [gaboesquivel.com/cal](${absoluteUrl('/cal')}), or read the [work portfolio](${absoluteUrl('/work')}) first.`
+I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send a note on this page, book time at [gaboesquivel.com/cal](${absoluteUrl("/cal")}), or read the [work portfolio](${absoluteUrl("/work")}) first.`;
 
-export type PageExport = {
-  path: string
-  title: string
-  body: string
+export interface PageExport {
+  path: string;
+  title: string;
+  body: string;
 }
 
-const narrativePages: Array<{ file: string; path: string }> = [
-  { file: 'page.tsx', path: '/' },
-  { file: 'bio/page.tsx', path: '/bio' },
-  { file: 'ai/page.tsx', path: '/ai' },
-  { file: 'web3/page.tsx', path: '/web3' },
-  { file: 'connect/page.tsx', path: '/connect' },
-  { file: 'about/page.tsx', path: '/about' },
-  { file: 'contact/page.tsx', path: '/contact' },
-  { file: 'privacy/page.tsx', path: '/privacy' },
-  { file: 'tech/page.tsx', path: '/tech' },
-  { file: 'fullstack/page.tsx', path: '/fullstack' },
-  { file: 'frontend/page.tsx', path: '/frontend' },
-  { file: 'backend/page.tsx', path: '/backend' },
-  { file: 'mobile/page.tsx', path: '/mobile' },
-  { file: 'startups/page.tsx', path: '/startups' },
-  { file: 'institutions/page.tsx', path: '/institutions' },
-  { file: 'lead/page.tsx', path: '/lead' },
-]
+const narrativePages: { file: string; path: string }[] = [
+  { file: "page.tsx", path: "/" },
+  { file: "bio/page.tsx", path: "/bio" },
+  { file: "ai/page.tsx", path: "/ai" },
+  { file: "web3/page.tsx", path: "/web3" },
+  { file: "connect/page.tsx", path: "/connect" },
+  { file: "about/page.tsx", path: "/about" },
+  { file: "contact/page.tsx", path: "/contact" },
+  { file: "privacy/page.tsx", path: "/privacy" },
+  { file: "tech/page.tsx", path: "/tech" },
+  { file: "fullstack/page.tsx", path: "/fullstack" },
+  { file: "frontend/page.tsx", path: "/frontend" },
+  { file: "backend/page.tsx", path: "/backend" },
+  { file: "mobile/page.tsx", path: "/mobile" },
+  { file: "startups/page.tsx", path: "/startups" },
+  { file: "institutions/page.tsx", path: "/institutions" },
+  { file: "lead/page.tsx", path: "/lead" },
+];
 
 const decodeText = (value: string) =>
   value
-    .replace(/&apos;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/\s+/g, ' ')
-    .trim()
+    .replaceAll("&apos;", "'")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&amp;", "&")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll(/\s+/g, " ")
+    .trim();
 
 const getPropName = (name: ts.JsxAttributeName) =>
-  ts.isIdentifier(name) ? name.text : name.getText()
+  ts.isIdentifier(name) ? name.text : name.getText();
 
 const literalValue = (node: ts.Expression | undefined): unknown => {
-  if (!node) return undefined
-  if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node))
-    return node.text
-  if (ts.isNumericLiteral(node)) return Number(node.text)
-  if (node.kind === ts.SyntaxKind.TrueKeyword) return true
-  if (node.kind === ts.SyntaxKind.FalseKeyword) return false
-  if (ts.isArrayLiteralExpression(node))
+  if (!node) {
+    return undefined;
+  }
+  if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
+    return node.text;
+  }
+  if (ts.isNumericLiteral(node)) {
+    return Number(node.text);
+  }
+  if (node.kind === ts.SyntaxKind.TrueKeyword) {
+    return true;
+  }
+  if (node.kind === ts.SyntaxKind.FalseKeyword) {
+    return false;
+  }
+  if (ts.isArrayLiteralExpression(node)) {
     return node.elements.flatMap((element) => {
-      if (ts.isSpreadElement(element)) return []
-      return [literalValue(element)]
-    })
-  if (ts.isObjectLiteralExpression(node))
+      if (ts.isSpreadElement(element)) return [];
+      return [literalValue(element)];
+    });
+  }
+  if (ts.isObjectLiteralExpression(node)) {
     return Object.fromEntries(
       node.properties.flatMap((property) => {
-        if (!ts.isPropertyAssignment(property)) return []
+        if (!ts.isPropertyAssignment(property)) return [];
         const key = ts.isIdentifier(property.name)
           ? property.name.text
-          : property.name.getText().replace(/['"]/g, '')
-        return [[key, literalValue(property.initializer)]]
-      }),
-    )
-  if (ts.isIdentifier(node) && node.text === 'sections') return 'sections-ref'
-  return undefined
-}
+          : property.name.getText().replace(/['"]/g, "");
+        return [[key, literalValue(property.initializer)]];
+      })
+    );
+  }
+  if (ts.isIdentifier(node) && node.text === "sections") {
+    return "sections-ref";
+  }
+  return undefined;
+};
 
 const getJsxAttributeValue = (
   attributes: ts.JsxAttributes,
   name: string,
-  variables: Map<string, unknown>,
+  variables: Map<string, unknown>
 ) => {
   for (const attr of attributes.properties) {
-    if (!ts.isJsxAttribute(attr) || getPropName(attr.name) !== name) continue
-    if (!attr.initializer) return true
-    if (ts.isStringLiteral(attr.initializer)) return attr.initializer.text
+    if (!ts.isJsxAttribute(attr) || getPropName(attr.name) !== name) {
+      continue;
+    }
+    if (!attr.initializer) {
+      return true;
+    }
+    if (ts.isStringLiteral(attr.initializer)) {
+      return attr.initializer.text;
+    }
     if (ts.isJsxExpression(attr.initializer) && attr.initializer.expression) {
-      const expression = attr.initializer.expression
-      if (ts.isIdentifier(expression) && variables.has(expression.text))
-        return variables.get(expression.text)
-      return literalValue(expression)
+      const { expression } = attr.initializer;
+      if (ts.isIdentifier(expression) && variables.has(expression.text)) {
+        return variables.get(expression.text);
+      }
+      return literalValue(expression);
     }
   }
-  return undefined
-}
+  return;
+};
 
 const collectVariables = (sourceFile: ts.SourceFile) => {
-  const variables = new Map<string, unknown>()
+  const variables = new Map<string, unknown>();
 
   const visit = (node: ts.Node) => {
     if (
@@ -125,273 +147,309 @@ const collectVariables = (sourceFile: ts.SourceFile) => {
       node.declarationList.flags & ts.NodeFlags.Const
     ) {
       for (const declaration of node.declarationList.declarations) {
-        if (!ts.isIdentifier(declaration.name) || !declaration.initializer)
-          continue
-        const value = literalValue(declaration.initializer)
-        if (value !== undefined) variables.set(declaration.name.text, value)
+        if (!ts.isIdentifier(declaration.name) || !declaration.initializer) {
+          continue;
+        }
+        const value = literalValue(declaration.initializer);
+        if (value !== undefined) {
+          variables.set(declaration.name.text, value);
+        }
       }
     }
-    ts.forEachChild(node, visit)
-  }
+    ts.forEachChild(node, visit);
+  };
 
-  visit(sourceFile)
-  return variables
-}
+  visit(sourceFile);
+  return variables;
+};
 
 const renderPostLinks = ({
   slugs,
   category,
   limit = 8,
 }: {
-  slugs?: string[]
-  category?: string
-  limit?: number
+  slugs?: string[];
+  category?: string;
+  limit?: number;
 }) => {
-  let posts = loadBlogPosts().filter((post) => !isArchivePostFromBlog(post))
+  let posts = loadBlogPosts().filter((post) => !isArchivePostFromBlog(post));
 
   if (category) {
-    const browseSlug = toBrowseSlug(category)
+    const browseSlug = toBrowseSlug(category);
     posts = browseSlug
       ? posts.filter((post) =>
           postMatchesBrowseCategory({
             categories: post.category,
             slug: browseSlug,
-          }),
+          })
         )
       : posts.filter((post) =>
           post.category?.some(
-            (item) => item.toLowerCase() === category.toLowerCase(),
-          ),
-        )
+            (item) => item.toLowerCase() === category.toLowerCase()
+          )
+        );
   }
 
-  return newestPosts({ posts, slugs, limit })
+  return newestPosts({ limit, posts, slugs })
     .map((post) => `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)})`)
-    .join('\n')
-}
+    .join("\n");
+};
 
 const renderProjectLinks = (slugs: string[]) =>
   slugs
     .flatMap((slug) => {
-      const project = getProjectBySlug(slug)
+      const project = getProjectBySlug(slug);
       return project
         ? [`- [${project.title}](${absoluteUrl(`/project/${slug}`)})`]
-        : []
+        : [];
     })
-    .join('\n')
+    .join("\n");
 
 const renderFeaturedTechLinks = () => {
   const featured = [...techStack]
     .filter((tech) => tech.featuredOrder !== undefined)
-    .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0))
+    .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0));
 
   return featured
     .map((tech) => `- [${tech.name}](${absoluteUrl(`/tech/${tech.slug}`)})`)
-    .join('\n')
-}
+    .join("\n");
+};
 
-let sourceFile: ts.SourceFile
+let sourceFile: ts.SourceFile;
 
 const jsxChildrenToText = (
-  children: ReadonlyArray<ts.JsxChild>,
-  variables: Map<string, unknown>,
+  children: readonly ts.JsxChild[],
+  variables: Map<string, unknown>
 ): string => {
-  const parts: string[] = []
+  const parts: string[] = [];
 
   for (const child of children) {
     if (ts.isJsxText(child)) {
-      const text = decodeText(child.getText(sourceFile))
-      if (text) parts.push(text)
-      continue
+      const text = decodeText(child.getText(sourceFile));
+      if (text) {
+        parts.push(text);
+      }
+      continue;
     }
 
-    if (!ts.isJsxElement(child) && !ts.isJsxSelfClosingElement(child)) continue
+    if (!ts.isJsxElement(child) && !ts.isJsxSelfClosingElement(child)) {
+      continue;
+    }
 
     const tagName = ts.isJsxElement(child)
       ? child.openingElement.tagName.getText(sourceFile)
-      : child.tagName.getText(sourceFile)
+      : child.tagName.getText(sourceFile);
 
-    if (SKIP_COMPONENTS.has(tagName)) continue
+    if (SKIP_COMPONENTS.has(tagName)) {
+      continue;
+    }
 
-    if (tagName === 'Link') {
+    if (tagName === "Link") {
       const attributes = ts.isJsxElement(child)
         ? child.openingElement.attributes
-        : child.attributes
-      const href = String(getJsxAttributeValue(attributes, 'href', variables))
+        : child.attributes;
+      const href = String(getJsxAttributeValue(attributes, "href", variables));
       const label = ts.isJsxElement(child)
         ? jsxChildrenToText(child.children, variables)
-        : ''
-      parts.push(`[${label.trim()}](${absoluteUrl(href)})`)
-      continue
+        : "";
+      parts.push(`[${label.trim()}](${absoluteUrl(href)})`);
+      continue;
     }
 
     if (ts.isJsxElement(child)) {
-      parts.push(jsxChildrenToText(child.children, variables))
+      parts.push(jsxChildrenToText(child.children, variables));
     }
   }
 
   return parts
-    .join(' ')
-    .replace(/\s+([.,;:!?])/g, '$1')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
+    .join(" ")
+    .replaceAll(/\s+([.,;:!?])/g, "$1")
+    .replaceAll(/\s+/g, " ")
+    .trim();
+};
 
 const jsxNodesToMarkdown = (
   nodes: ts.NodeArray<ts.JsxChild> | ts.Node[],
   variables: Map<string, unknown>,
   lines: string[],
-  pagePath = '',
+  pagePath = ""
 ) => {
-  for (const node of nodes) jsxNodeToMarkdown(node, variables, lines, pagePath)
-}
+  for (const node of nodes) {
+    jsxNodeToMarkdown(node, variables, lines, pagePath);
+  }
+};
 
 const jsxNodeToMarkdown = (
   node: ts.Node,
   variables: Map<string, unknown>,
   lines: string[],
-  pagePath = '',
+  pagePath = ""
 ) => {
   if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
     const tagName = ts.isJsxElement(node)
       ? node.openingElement.tagName.getText(sourceFile)
-      : node.tagName.getText(sourceFile)
+      : node.tagName.getText(sourceFile);
 
-    if (SKIP_COMPONENTS.has(tagName)) return
+    if (SKIP_COMPONENTS.has(tagName)) {
+      return;
+    }
 
     const attributes = ts.isJsxElement(node)
       ? node.openingElement.attributes
-      : node.attributes
+      : node.attributes;
 
-    if (tagName === 'LetsConnect') {
-      if (pagePath === '/connect') lines.push(LETS_CONNECT_MARKDOWN, '')
-      return
+    if (tagName === "LetsConnect") {
+      if (pagePath === "/connect") {
+        lines.push(LETS_CONNECT_MARKDOWN, "");
+      }
+      return;
     }
 
-    if (tagName === 'ConnectPageContent') {
-      if (pagePath === '/connect' || pagePath === '/contact')
-        lines.push(CONNECT_PAGE_EXPORT_MARKDOWN, '')
-      return
+    if (tagName === "ConnectPageContent") {
+      if (pagePath === "/connect" || pagePath === "/contact") {
+        lines.push(CONNECT_PAGE_EXPORT_MARKDOWN, "");
+      }
+      return;
     }
 
-    if (tagName === 'LatestPosts') {
-      const slugs = getJsxAttributeValue(attributes, 'slugs', variables) as
+    if (tagName === "LatestPosts") {
+      const slugs = getJsxAttributeValue(attributes, "slugs", variables) as
         | string[]
-        | undefined
+        | undefined;
       const category = String(
-        getJsxAttributeValue(attributes, 'category', variables) ?? '',
-      )
+        getJsxAttributeValue(attributes, "category", variables) ?? ""
+      );
       const title = String(
-        getJsxAttributeValue(attributes, 'title', variables) ??
-          'Latest Articles',
-      )
+        getJsxAttributeValue(attributes, "title", variables) ??
+          "Latest Articles"
+      );
       const limit = Number(
-        getJsxAttributeValue(attributes, 'limit', variables) ?? 8,
-      )
+        getJsxAttributeValue(attributes, "limit", variables) ?? 8
+      );
       const links = renderPostLinks({
-        slugs,
         category: category || undefined,
         limit,
-      })
+        slugs,
+      });
       if (links) {
-        lines.push(`## ${title}`, '', links, '')
+        lines.push(`## ${title}`, "", links, "");
       }
-      return
+      return;
     }
 
-    if (tagName === 'PathLink') {
-      const href = getJsxAttributeValue(attributes, 'href', variables)
-      const title = getJsxAttributeValue(attributes, 'title', variables)
-      const note = getJsxAttributeValue(attributes, 'note', variables)
+    if (tagName === "PathLink") {
+      const href = getJsxAttributeValue(attributes, "href", variables);
+      const title = getJsxAttributeValue(attributes, "title", variables);
+      const note = getJsxAttributeValue(attributes, "note", variables);
 
-      if (!href || !title) return
+      if (!href || !title) {
+        return;
+      }
 
-      const description = typeof note === 'string' && note ? `: ${note}` : ''
+      const description = typeof note === "string" && note ? `: ${note}` : "";
 
       lines.push(
-        `- [${String(title)}](${absoluteUrl(String(href))})${description}`,
-      )
-      return
+        `- [${String(title)}](${absoluteUrl(String(href))})${description}`
+      );
+      return;
     }
 
-    if (tagName === 'ProjectEvidence') {
-      const slugs = (getJsxAttributeValue(attributes, 'slugs', variables) ??
-        []) as string[]
-      const links = renderProjectLinks(slugs)
-      if (links) lines.push(links, '')
-      return
+    if (tagName === "ProjectEvidence") {
+      const slugs = (getJsxAttributeValue(attributes, "slugs", variables) ??
+        []) as string[];
+      const links = renderProjectLinks(slugs);
+      if (links) {
+        lines.push(links, "");
+      }
+      return;
     }
 
-    if (tagName === 'TechList') {
+    if (tagName === "TechList") {
       const heading = String(
-        getJsxAttributeValue(attributes, 'heading', variables) ?? '',
-      )
-      if (heading) lines.push(`## ${heading}`, '')
-      const links = renderFeaturedTechLinks()
-      if (links) lines.push(links, '')
-      return
+        getJsxAttributeValue(attributes, "heading", variables) ?? ""
+      );
+      if (heading) {
+        lines.push(`## ${heading}`, "");
+      }
+      const links = renderFeaturedTechLinks();
+      if (links) {
+        lines.push(links, "");
+      }
+      return;
     }
 
-    if (tagName === 'PageTitle' && ts.isJsxElement(node)) {
-      lines.push(`# ${jsxChildrenToText(node.children, variables)}`, '')
-      return
+    if (tagName === "PageTitle" && ts.isJsxElement(node)) {
+      lines.push(`# ${jsxChildrenToText(node.children, variables)}`, "");
+      return;
     }
 
-    if (tagName === 'PageSection' && ts.isJsxElement(node)) {
+    if (tagName === "PageSection" && ts.isJsxElement(node)) {
       const title = String(
-        getJsxAttributeValue(attributes, 'title', variables) ?? '',
-      )
-      if (title === 'Browse by area' && pagePath === '/tech') return
+        getJsxAttributeValue(attributes, "title", variables) ?? ""
+      );
+      if (title === "Browse by area" && pagePath === "/tech") {
+        return;
+      }
 
-      if (title) lines.push(`## ${title}`, '')
-      jsxNodesToMarkdown(node.children, variables, lines, pagePath)
+      if (title) {
+        lines.push(`## ${title}`, "");
+      }
+      jsxNodesToMarkdown(node.children, variables, lines, pagePath);
 
-      if (title === 'Selected work') {
-        const slugs = variables.get('selectedProjectSlugs') as
+      if (title === "Selected work") {
+        const slugs = variables.get("selectedProjectSlugs") as
           | string[]
-          | undefined
+          | undefined;
         if (slugs?.length) {
-          const links = renderProjectLinks(slugs)
-          if (links) lines.push(links, '')
+          const links = renderProjectLinks(slugs);
+          if (links) {
+            lines.push(links, "");
+          }
         }
       }
 
-      return
+      return;
     }
 
-    if (tagName === 'Prose' && ts.isJsxElement(node)) {
-      const text = jsxChildrenToText(node.children, variables)
-      if (text) lines.push(text, '')
-      return
+    if (tagName === "Prose" && ts.isJsxElement(node)) {
+      const text = jsxChildrenToText(node.children, variables);
+      if (text) {
+        lines.push(text, "");
+      }
+      return;
     }
 
-    if (tagName === 'h3' && ts.isJsxElement(node)) {
-      const text = jsxChildrenToText(node.children, variables)
-      if (text) lines.push(`### ${text}`, '')
-      return
+    if (tagName === "h3" && ts.isJsxElement(node)) {
+      const text = jsxChildrenToText(node.children, variables);
+      if (text) {
+        lines.push(`### ${text}`, "");
+      }
+      return;
     }
 
-    if (tagName === 'p' && ts.isJsxElement(node)) {
-      const text = jsxChildrenToText(node.children, variables)
-      if (text) lines.push(text, '')
-      return
+    if (tagName === "p" && ts.isJsxElement(node)) {
+      const text = jsxChildrenToText(node.children, variables);
+      if (text) {
+        lines.push(text, "");
+      }
+      return;
     }
 
     if (ts.isJsxElement(node)) {
-      jsxNodesToMarkdown(node.children, variables, lines, pagePath)
-      return
+      jsxNodesToMarkdown(node.children, variables, lines, pagePath);
+      return;
     }
   }
 
   ts.forEachChild(node, (child) =>
-    jsxNodeToMarkdown(child, variables, lines, pagePath),
-  )
-}
+    jsxNodeToMarkdown(child, variables, lines, pagePath)
+  );
+};
 
-type CapabilitySection = {
-  heading: string
-  paragraphs: string[]
-  projectSlugs?: string[]
+interface CapabilitySection {
+  heading: string;
+  paragraphs: string[];
+  projectSlugs?: string[];
 }
 
 const renderCapabilityPage = ({
@@ -402,180 +460,194 @@ const renderCapabilityPage = ({
   writingTitle,
   childrenMarkdown,
 }: {
-  title: string
-  intro: string[]
-  sections: CapabilitySection[]
-  postSlugs?: string[]
-  writingTitle?: string
-  childrenMarkdown?: string
+  title: string;
+  intro: string[];
+  sections: CapabilitySection[];
+  postSlugs?: string[];
+  writingTitle?: string;
+  childrenMarkdown?: string;
 }) => {
   const lines = [
     `# ${title}`,
-    '',
-    ...intro.flatMap((paragraph) => [paragraph, '']),
-  ]
+    "",
+    ...intro.flatMap((paragraph) => [paragraph, ""]),
+  ];
 
   for (const section of sections) {
-    lines.push(`## ${section.heading}`, '')
-    lines.push(...section.paragraphs.flatMap((paragraph) => [paragraph, '']))
+    lines.push(
+      `## ${section.heading}`,
+      "",
+      ...section.paragraphs.flatMap((paragraph) => [paragraph, ""])
+    );
     if (section.projectSlugs?.length) {
-      lines.push(renderProjectLinks(section.projectSlugs), '')
+      lines.push(renderProjectLinks(section.projectSlugs), "");
     }
   }
 
   if (postSlugs?.length) {
-    const links = renderPostLinks({ slugs: postSlugs })
+    const links = renderPostLinks({ slugs: postSlugs });
     if (links) {
-      lines.push(`## ${writingTitle ?? 'Related writing'}`, '', links, '')
+      lines.push(`## ${writingTitle ?? "Related writing"}`, "", links, "");
     }
   }
 
   lines.push(
-    `The [work library](${absoluteUrl('/work')}) has a page for each project, with the stack and the implementation details.`,
-    '',
-  )
+    `The [work library](${absoluteUrl("/work")}) has a page for each project, with the stack and the implementation details.`,
+    ""
+  );
 
-  if (childrenMarkdown) lines.push(childrenMarkdown, '')
+  if (childrenMarkdown) {
+    lines.push(childrenMarkdown, "");
+  }
 
-  return lines.join('\n').trim()
-}
+  return lines.join("\n").trim();
+};
 
 const renderCategoryGroups = (
-  groups: Array<{ href: string; name: string; description: string }>,
+  groups: { href: string; name: string; description: string }[]
 ) => {
-  const lines = ['## Browse by area', '']
-  for (const group of groups)
+  const lines = ["## Browse by area", ""];
+  for (const group of groups) {
     lines.push(
-      `- [${group.name}](${absoluteUrl(group.href)}): ${group.description}`,
-    )
-  lines.push('')
-  return lines.join('\n')
-}
+      `- [${group.name}](${absoluteUrl(group.href)}): ${group.description}`
+    );
+  }
+  lines.push("");
+  return lines.join("\n");
+};
 
 const parseCapabilityPage = (
   source: ts.SourceFile,
-  variables: Map<string, unknown>,
+  variables: Map<string, unknown>
 ) => {
-  let title = ''
-  let intro: string[] = []
-  let sections: CapabilitySection[] = []
-  let postSlugs: string[] | undefined
-  let writingTitle: string | undefined
-  let childrenMarkdown = ''
+  let title = "";
+  let intro: string[] = [];
+  let sections: CapabilitySection[] = [];
+  let postSlugs: string[] | undefined;
+  let writingTitle: string | undefined;
+  let childrenMarkdown = "";
 
   const readCapabilityPage = ({
     tagName,
     attributes,
     children = [],
   }: {
-    tagName: string
-    attributes: ts.JsxAttributes
-    children?: ts.JsxChild[]
+    tagName: string;
+    attributes: ts.JsxAttributes;
+    children?: ts.JsxChild[];
   }) => {
-    if (tagName !== 'CapabilityPage') return false
+    if (tagName !== "CapabilityPage") {
+      return false;
+    }
 
-    title = String(getJsxAttributeValue(attributes, 'title', variables))
-    intro = (getJsxAttributeValue(attributes, 'intro', variables) ??
-      []) as string[]
-    sections = (getJsxAttributeValue(attributes, 'sections', variables) ??
-      []) as CapabilitySection[]
-    postSlugs = getJsxAttributeValue(attributes, 'postSlugs', variables) as
+    title = String(getJsxAttributeValue(attributes, "title", variables));
+    intro = (getJsxAttributeValue(attributes, "intro", variables) ??
+      []) as string[];
+    sections = (getJsxAttributeValue(attributes, "sections", variables) ??
+      []) as CapabilitySection[];
+    postSlugs = getJsxAttributeValue(attributes, "postSlugs", variables) as
       | string[]
-      | undefined
+      | undefined;
     writingTitle = String(
-      getJsxAttributeValue(attributes, 'writingTitle', variables) ?? '',
-    )
+      getJsxAttributeValue(attributes, "writingTitle", variables) ?? ""
+    );
 
-    const childLines: string[] = []
-    jsxNodesToMarkdown(children, variables, childLines)
-    childrenMarkdown = childLines.join('\n').trim()
-    return true
-  }
+    const childLines: string[] = [];
+    jsxNodesToMarkdown(children, variables, childLines);
+    childrenMarkdown = childLines.join("\n").trim();
+    return true;
+  };
 
   const visit = (node: ts.Node) => {
     if (ts.isJsxElement(node)) {
-      const tagName = node.openingElement.tagName.getText(source)
+      const tagName = node.openingElement.tagName.getText(source);
       if (
         readCapabilityPage({
-          tagName,
           attributes: node.openingElement.attributes,
           children: [...node.children],
+          tagName,
         })
-      )
-        return
+      ) {
+        return;
+      }
     }
 
     if (ts.isJsxSelfClosingElement(node)) {
-      const tagName = node.tagName.getText(source)
+      const tagName = node.tagName.getText(source);
       if (
         readCapabilityPage({
-          tagName,
           attributes: node.attributes,
+          tagName,
         })
-      )
-        return
+      ) {
+        return;
+      }
     }
 
-    ts.forEachChild(node, visit)
+    ts.forEachChild(node, visit);
+  };
+
+  visit(source);
+
+  if (!title) {
+    return null;
   }
-
-  visit(source)
-
-  if (!title) return null
   return renderCapabilityPage({
-    title,
-    intro,
-    sections,
-    postSlugs,
-    writingTitle: writingTitle || undefined,
     childrenMarkdown: childrenMarkdown || undefined,
-  })
-}
+    intro,
+    postSlugs,
+    sections,
+    title,
+    writingTitle: writingTitle || undefined,
+  });
+};
 
 const parsePageFile = ({ file, path }: { file: string; path: string }) => {
-  const filePath = join(APP_DIR, file)
-  const content = readFileSync(filePath, 'utf8')
+  const filePath = join(APP_DIR, file);
+  const content = readFileSync(filePath, "utf-8");
   sourceFile = ts.createSourceFile(
     filePath,
     content,
     ts.ScriptTarget.Latest,
     true,
-    ts.ScriptKind.TSX,
-  )
+    ts.ScriptKind.TSX
+  );
 
-  const variables = collectVariables(sourceFile)
-  const capability = parseCapabilityPage(sourceFile, variables)
-  if (capability)
+  const variables = collectVariables(sourceFile);
+  const capability = parseCapabilityPage(sourceFile, variables);
+  if (capability) {
     return {
       path,
       title: capability.match(/^# (.+)/m)?.[1] ?? path,
-      body: rewriteLinks(capability.replace(/^# .+\n\n?/, '')),
-    }
+      body: rewriteLinks(capability.replace(/^# .+\n\n?/, "")),
+    };
+  }
 
-  const lines: string[] = []
-  jsxNodeToMarkdown(sourceFile, variables, lines, path)
+  const lines: string[] = [];
+  jsxNodeToMarkdown(sourceFile, variables, lines, path);
 
-  if (path === '/tech' && techBrowseCategories.length)
+  if (path === "/tech" && techBrowseCategories.length) {
     lines.push(
       renderCategoryGroups(
         techBrowseCategories.map(({ href, name, description }) => ({
           href,
           name,
           description,
-        })),
-      ),
-    )
+        }))
+      )
+    );
+  }
 
-  const fullText = lines.join('\n').trim()
-  const titleMatch = fullText.match(/^# (.+)/m)
-  const title = titleMatch?.[1] ?? path
+  const fullText = lines.join("\n").trim();
+  const titleMatch = fullText.match(/^# (.+)/m);
+  const title = titleMatch?.[1] ?? path;
 
   return {
+    body: rewriteLinks(fullText.replace(/^# .+\n\n?/, "")),
     path,
     title,
-    body: rewriteLinks(fullText.replace(/^# .+\n\n?/, '')),
-  }
-}
+  };
+};
 
 export const loadNarrativePages = (): PageExport[] =>
-  narrativePages.map((page) => parsePageFile(page))
+  narrativePages.map((page) => parsePageFile(page));

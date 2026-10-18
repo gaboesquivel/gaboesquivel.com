@@ -1,19 +1,21 @@
-import { PageSection } from 'components/shared/page-layout'
-import { cardLink, twoColGrid } from 'components/shared/spacing'
-import { formatDate } from 'lib/utils'
-import Link from 'next/link'
-import type { ReactNode } from 'react'
+import { PageSection } from "components/shared/page-layout";
+import { cardLink, twoColGrid } from "components/shared/spacing";
+import { formatDate } from "lib/utils";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 export function PostGrid({
   posts,
   title,
   action,
 }: {
-  posts: { slug: string; title: string; publishedAt: string }[]
-  title: string
-  action?: ReactNode
+  posts: { slug: string; title: string; publishedAt: string }[];
+  title: string;
+  action?: ReactNode;
 }) {
-  if (posts.length === 0) return null
+  if (posts.length === 0) {
+    return null;
+  }
 
   return (
     <PageSection
@@ -34,5 +36,5 @@ export function PostGrid({
         ))}
       </ul>
     </PageSection>
-  )
+  );
 }

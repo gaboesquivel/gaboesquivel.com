@@ -1,46 +1,50 @@
-import { ProjectDetails } from 'components/work/project'
-import { getProjectBySlug, projects } from 'gaboesquivel'
-import { metadataWithMarkdownAlternate } from 'lib/page-metadata'
-import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { ProjectDetails } from "components/work/project";
+import { getProjectBySlug, projects } from "gaboesquivel";
+import { metadataWithMarkdownAlternate } from "lib/page-metadata";
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }))
+  return projects.map((project) => ({ slug: project.slug }));
 }
 
 export default async function ProjectPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params
-  const project = getProjectBySlug(slug)
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
-  if (!project) redirect('/')
+  if (!project) {
+    redirect("/");
+  }
 
-  return <ProjectDetails project={project} full={true} />
+  return <ProjectDetails project={project} full={true} />;
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params
-  const project = getProjectBySlug(slug)
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
-  if (!project) redirect('/')
+  if (!project) {
+    redirect("/");
+  }
 
   return metadataWithMarkdownAlternate({
-    path: `/project/${slug}`,
     metadata: {
-      title: project.title,
-      description: project.description.split('\n')[0],
+      description: project.description.split("\n")[0],
       openGraph: {
-        title: project.title,
-        description: project.description.split('\n')[0],
+        description: project.description.split("\n")[0],
         images: [project.image],
+        title: project.title,
       },
+      title: project.title,
     },
-  })
+    path: `/project/${slug}`,
+  });
 }

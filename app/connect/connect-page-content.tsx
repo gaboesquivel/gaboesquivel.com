@@ -1,13 +1,14 @@
-import { blockSpacing, PageTitle, Prose } from 'components/shared/page-layout'
-import Link from 'next/link'
-import { LazyContactForm } from './lazy-contact-form'
+import { blockSpacing, PageTitle, Prose } from "components/shared/page-layout";
+import Link from "next/link";
+
+import { LazyContactForm } from "./lazy-contact-form";
 
 export function ConnectPageContent() {
   return (
     <section>
       <PageTitle>Connect</PageTitle>
       <Prose>
-        Open to direct hire, international hire, or{' '}
+        Open to direct hire, international hire, or{" "}
         <Link href="/blog/2025-11-1099-contracting" className="prose-link">
           contracting through Blockmatic Labs LLC
         </Link>
@@ -20,14 +21,14 @@ export function ConnectPageContent() {
         has to earn trust under regulation, real money, or production load. Tell
         me what you are building, where it is stuck, and whether you are hiring
         directly, hiring internationally, or contracting through Blockmatic Labs
-        LLC. You can send a note below, book time at{' '}
+        LLC. You can send a note below, book time at{" "}
         <Link href="/cal" className="prose-link">
           gaboesquivel.com/cal
         </Link>
-        , or read the{' '}
+        , or read the{" "}
         <Link href="/work" className="prose-link">
           work portfolio
-        </Link>{' '}
+        </Link>{" "}
         first.
       </Prose>
 
@@ -35,5 +36,5 @@ export function ConnectPageContent() {
         <LazyContactForm />
       </div>
     </section>
-  )
+  );
 }

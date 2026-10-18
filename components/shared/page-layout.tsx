@@ -1,7 +1,9 @@
-import { cn } from 'lib/utils'
-import Image, { type StaticImageData } from 'next/image'
-import Link from 'next/link'
-import type { ReactNode } from 'react'
+import { cn } from "lib/utils";
+import Image from "next/image";
+import type { StaticImageData } from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
+
 import {
   blockSpacing,
   indexTitle,
@@ -10,7 +12,7 @@ import {
   sectionHeadingRow,
   sectionSpacing,
   sectionTitle,
-} from './spacing'
+} from "./spacing";
 
 export {
   blockGrid,
@@ -31,30 +33,30 @@ export {
   subHeadingSm,
   titleSpacing,
   twoColGrid,
-} from './spacing'
+} from "./spacing";
 
 export function Prose({
   children,
   className,
 }: {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }) {
-  return <p className={cn(proseClass, blockSpacing, className)}>{children}</p>
+  return <p className={cn(proseClass, blockSpacing, className)}>{children}</p>;
 }
 
 export function IndexHeading({ children }: { children: ReactNode }) {
-  return <h1 className={cn(indexTitle, 'text-balance')}>{children}</h1>
+  return <h1 className={cn(indexTitle, "text-balance")}>{children}</h1>;
 }
 
 export function PageTitle({
   children,
   className,
 }: {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }) {
-  return <h1 className={cn(pageTitle, className)}>{children}</h1>
+  return <h1 className={cn(pageTitle, className)}>{children}</h1>;
 }
 
 export function PageSection({
@@ -64,11 +66,11 @@ export function PageSection({
   className,
   headingRowClassName,
 }: {
-  title: ReactNode
-  action?: ReactNode
-  children: ReactNode
-  className?: string
-  headingRowClassName?: string
+  title: ReactNode;
+  action?: ReactNode;
+  children: ReactNode;
+  className?: string;
+  headingRowClassName?: string;
 }) {
   return (
     <section className={cn(sectionSpacing, className)}>
@@ -78,7 +80,7 @@ export function PageSection({
       </div>
       {children}
     </section>
-  )
+  );
 }
 
 export function PageImage({
@@ -88,18 +90,18 @@ export function PageImage({
   className,
   objectClassName,
 }: {
-  src: StaticImageData | string
-  alt: string
-  priority?: boolean
-  className?: string
-  objectClassName?: string
+  src: StaticImageData | string;
+  alt: string;
+  priority?: boolean;
+  className?: string;
+  objectClassName?: string;
 }) {
   return (
     <div
       className={cn(
-        'relative aspect-[16/9] h-auto w-full max-h-[420px]',
+        "relative aspect-[16/9] h-auto max-h-[420px] w-full",
         blockSpacing,
-        className,
+        className
       )}
     >
       <Image
@@ -108,11 +110,11 @@ export function PageImage({
         fill
         sizes="(max-width: 768px) 100vw, 896px"
         preload={priority}
-        fetchPriority={priority ? 'high' : undefined}
-        className={cn('rounded-lg object-cover', objectClassName)}
+        fetchPriority={priority ? "high" : undefined}
+        className={cn("rounded-lg object-cover", objectClassName)}
       />
     </div>
-  )
+  );
 }
 
 export function FilterNav({
@@ -120,9 +122,9 @@ export function FilterNav({
   current,
   items,
 }: {
-  label: string
-  current: string
-  items: { id: string; href: string; label: string }[]
+  label: string;
+  current: string;
+  items: { id: string; href: string; label: string }[];
 }) {
   return (
     <nav aria-label={label} className="flex flex-wrap gap-2 md:gap-4">
@@ -130,17 +132,17 @@ export function FilterNav({
         <Link
           key={item.id}
           href={item.href}
-          aria-current={current === item.id ? 'page' : undefined}
+          aria-current={current === item.id ? "page" : undefined}
           className={cn(
-            'rounded-md bg-neutral-200 px-2 py-2 dark:bg-neutral-800',
+            "rounded-md bg-neutral-200 px-2 py-2 dark:bg-neutral-800",
             current === item.id
-              ? 'text-accent'
-              : 'text-neutral-200 dark:text-neutral-200',
+              ? "text-accent"
+              : "text-neutral-200 dark:text-neutral-200"
           )}
         >
           {item.label}
         </Link>
       ))}
     </nav>
-  )
+  );
 }

@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { RecoveryPage } from 'components/shared/recovery-page'
-import { useEffect } from 'react'
+import { RecoveryPage } from "components/shared/recovery-page";
+import { useEffect } from "react";
 
 export default function ErrorPage({
   error,
   retry,
 }: {
-  error: Error & { digest?: string }
-  retry: () => void
+  error: Error & { digest?: string };
+  retry: () => void;
 }) {
   useEffect(() => {
-    console.error(error)
-  }, [error])
+    console.error(error);
+  }, [error]);
 
   return (
     <RecoveryPage
@@ -22,5 +22,5 @@ export default function ErrorPage({
     >
       This page failed while loading. Try again, or go to home or explore.
     </RecoveryPage>
-  )
+  );
 }

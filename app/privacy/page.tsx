@@ -1,6 +1,6 @@
-import { PageTitle, Prose } from 'components/shared/page-layout'
-import { pageMetadata } from 'lib/page-metadata'
-import Link from 'next/link'
+import { PageTitle, Prose } from "components/shared/page-layout";
+import { pageMetadata } from "lib/page-metadata";
+import Link from "next/link";
 
 export default function PrivacyPage() {
   return (
@@ -12,7 +12,7 @@ export default function PrivacyPage() {
         advertising trackers beyond what is described here.
       </Prose>
       <Prose>
-        When you use the connect form on{' '}
+        When you use the connect form on{" "}
         <Link href="/connect" className="prose-link">
           /connect
         </Link>
@@ -29,24 +29,24 @@ export default function PrivacyPage() {
         addresses, URLs, and request headers for security and reliability.
       </Prose>
       <Prose>
-        Public pages, CV PDFs, and the llms corpus at{' '}
+        Public pages, CV PDFs, and the llms corpus at{" "}
         <Link href="/llms.txt" className="prose-link">
           /llms.txt
-        </Link>{' '}
+        </Link>{" "}
         are meant to be read by people and by AI tools. If you need a record
-        removed or corrected, email{' '}
+        removed or corrected, email{" "}
         <Link href="mailto:contact@gaboesquivel.com" className="prose-link">
           contact@gaboesquivel.com
         </Link>
         .
       </Prose>
     </section>
-  )
+  );
 }
 
 export const metadata = pageMetadata({
-  title: 'Privacy | Gabo Esquivel',
   description:
-    'How gaboesquivel.com handles the connect form, email delivery, and Vercel Web Analytics.',
-  path: '/privacy',
-})
+    "How gaboesquivel.com handles the connect form, email delivery, and Vercel Web Analytics.",
+  path: "/privacy",
+  title: "Privacy | Gabo Esquivel",
+});

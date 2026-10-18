@@ -47,12 +47,12 @@
 }
 
 .tweet .react-tweet-theme p a {
-  @apply border-b transition-[border-color] border-gray-300 hover:border-gray-600;
+  @apply border-b border-gray-300 transition-[border-color] hover:border-gray-600;
 }
 
 @media (prefers-color-scheme: dark) {
   .tweet .react-tweet-theme p a {
-    @apply text-white border-gray-500 hover:border-white;
+    @apply border-gray-500 text-white hover:border-white;
   }
 }
 

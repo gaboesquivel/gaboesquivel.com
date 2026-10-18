@@ -1,15 +1,15 @@
-import { LatestPosts } from 'components/blog/latest-posts'
-import { LetsConnect } from 'components/shared/lets-connect'
+import { LatestPosts } from "components/blog/latest-posts";
+import { LetsConnect } from "components/shared/lets-connect";
 import {
   PageImage,
   PageSection,
   PageTitle,
   Prose,
-} from 'components/shared/page-layout'
-import { ProjectEvidence } from 'components/work/project-evidence'
-import { pageMetadata } from 'lib/page-metadata'
-import Link from 'next/link'
-import aiImg from 'public/images/ai/ai.webp'
+} from "components/shared/page-layout";
+import { ProjectEvidence } from "components/work/project-evidence";
+import { pageMetadata } from "lib/page-metadata";
+import Link from "next/link";
+import aiImg from "public/images/ai/ai.webp";
 
 export default function AIExperiencePage() {
   return (
@@ -46,7 +46,7 @@ export default function AIExperiencePage() {
           prompts, and sets the categories that decide what retrieval can reach.
         </Prose>
 
-        <ProjectEvidence slugs={['legal-agent']} columns={1} />
+        <ProjectEvidence slugs={["legal-agent"]} columns={1} />
       </PageSection>
 
       <PageSection title="Domain-specific assistants">
@@ -64,14 +64,14 @@ export default function AIExperiencePage() {
         <Prose>
           <Link href="/project/wizard-world" className="prose-link">
             Wizard World
-          </Link>{' '}
+          </Link>{" "}
           was a progressive web app we built with collaborators at bitcashorg
           for the February 2023 Flow Hackathon. A user could generate an image
           with OpenAI&apos;s models and mint it as an NFT on Flow through
           Niftory, and I worked on both the generation and the minting flow.
         </Prose>
 
-        <ProjectEvidence slugs={['masterbots', 'bitlauncher']} />
+        <ProjectEvidence slugs={["masterbots", "bitlauncher"]} />
       </PageSection>
 
       <LatestPosts
@@ -81,7 +81,7 @@ export default function AIExperiencePage() {
 
       <PageSection title="Work together">
         <Prose>
-          The roles and dates behind this work are on the{' '}
+          The roles and dates behind this work are on the{" "}
           <Link href="/cv?focus=ai" className="prose-link">
             AI CV
           </Link>
@@ -90,12 +90,12 @@ export default function AIExperiencePage() {
         <LetsConnect />
       </PageSection>
     </section>
-  )
+  );
 }
 
 export const metadata = pageMetadata({
-  title: 'AI Product Engineering | Gabo Esquivel',
   description:
     "AI product engineering for LegalAgent's voice and chat, retrieval over case context and documents, and an admin for prompts and retrieval categories.",
-  path: '/ai',
-})
+  path: "/ai",
+  title: "AI Product Engineering | Gabo Esquivel",
+});

@@ -1,5 +1,6 @@
-import type { Metadata } from 'next'
-import { markdownSiblingPath } from './markdown-sibling'
+import type { Metadata } from "next";
+
+import { markdownSiblingPath } from "./markdown-sibling";
 
 export const pageMetadata = ({
   title,
@@ -7,52 +8,52 @@ export const pageMetadata = ({
   path,
   images,
 }: {
-  title: string
-  description: string
-  path?: string
-  images?: Array<{
-    url: string
-    width?: number
-    height?: number
-    alt?: string
-  }>
+  title: string;
+  description: string;
+  path?: string;
+  images?: {
+    url: string;
+    width?: number;
+    height?: number;
+    alt?: string;
+  }[];
 }): Metadata => ({
   title,
   description,
   ...(path
     ? {
         alternates: {
-          types: { 'text/markdown': markdownSiblingPath(path) },
+          types: { "text/markdown": markdownSiblingPath(path) },
         },
       }
     : {}),
   openGraph: {
-    title,
     description,
-    type: 'website',
+    title,
+    type: "website",
     ...(images ? { images } : {}),
   },
   twitter: {
-    card: 'summary_large_image',
-    title,
+    card: "summary_large_image",
     description,
+    title,
     ...(images ? { images } : {}),
   },
-})
+});
 
 export const metadataWithMarkdownAlternate = ({
   metadata,
   path,
 }: {
-  metadata: Metadata
-  path: string
+  metadata: Metadata;
+  path: string;
 }): Metadata => ({
   ...metadata,
   alternates: {
     ...metadata.alternates,
     types: {
       ...metadata.alternates?.types,
-      'text/markdown': markdownSiblingPath(path),
+      "text/markdown": markdownSiblingPath(path),
     },
   },
-})
+});

@@ -1,18 +1,18 @@
-type BlogPost = {
-  title: string
-  publishedAt: string
-  summary: string
-  image?: string
-  slug: string
-  category?: string[]
-  tech?: string[]
+interface BlogPost {
+  title: string;
+  publishedAt: string;
+  summary: string;
+  image?: string;
+  slug: string;
+  category?: string[];
+  tech?: string[];
 }
 
-const siteUrl = 'https://gaboesquivel.com'
+const siteUrl = "https://gaboesquivel.com";
 
 export const blogJsonLd = (post: BlogPost) => ({
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
   headline: post.title,
   datePublished: post.publishedAt,
   dateModified: post.publishedAt,
@@ -20,14 +20,14 @@ export const blogJsonLd = (post: BlogPost) => ({
   ...(post.image ? { image: `${siteUrl}${post.image}` } : {}),
   url: `${siteUrl}/blog/${post.slug}`,
   author: {
-    '@type': 'Person',
-    name: 'Gabo Esquivel',
+    "@type": "Person",
+    name: "Gabo Esquivel",
     url: siteUrl,
   },
   publisher: {
-    '@type': 'Person',
-    name: 'Gabo Esquivel',
+    "@type": "Person",
+    name: "Gabo Esquivel",
     url: siteUrl,
   },
-  keywords: [...(post.category ?? []), ...(post.tech ?? [])].join(', '),
-})
+  keywords: [...(post.category ?? []), ...(post.tech ?? [])].join(", "),
+});

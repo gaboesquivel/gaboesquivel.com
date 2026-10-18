@@ -1,22 +1,22 @@
-import { LatestPosts } from 'components/blog/latest-posts'
-import { PageSection, PageTitle, Prose } from 'components/shared/page-layout'
-import { ProjectsMasonry } from 'components/work/projects-masonry'
-import type { TechStackItemWithProjects } from 'gaboesquivel'
-import { sortProjectsForTech } from 'lib/tech-evidence'
-import Link from 'next/link'
+import { LatestPosts } from "components/blog/latest-posts";
+import { PageSection, PageTitle, Prose } from "components/shared/page-layout";
+import { ProjectsMasonry } from "components/work/projects-masonry";
+import type { TechStackItemWithProjects } from "gaboesquivel";
+import { sortProjectsForTech } from "lib/tech-evidence";
+import Link from "next/link";
 
 const officialLinkLabel = (url: string) =>
-  url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+  url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 export default function TechStack({
   tech,
 }: {
-  tech: TechStackItemWithProjects
+  tech: TechStackItemWithProjects;
 }) {
   const projects = sortProjectsForTech({
-    projects: tech.projects,
     experience: tech.experience,
-  })
+    projects: tech.projects,
+  });
 
   return (
     <section>
@@ -54,13 +54,13 @@ export default function TechStack({
 
       <PageSection title="See the work">
         <Prose>
-          Explore the{' '}
+          Explore the{" "}
           <Link href="/work" className="prose-link">
             project portfolio
-          </Link>{' '}
+          </Link>{" "}
           for implementation details, systems, and technology.
         </Prose>
       </PageSection>
     </section>
-  )
+  );
 }

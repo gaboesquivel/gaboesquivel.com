@@ -1,5 +1,5 @@
-import { LatestPosts } from 'components/blog/latest-posts'
-import { LetsConnect } from 'components/shared/lets-connect'
+import { LatestPosts } from "components/blog/latest-posts";
+import { LetsConnect } from "components/shared/lets-connect";
 import {
   blockGrid,
   PageImage,
@@ -8,19 +8,19 @@ import {
   Prose,
   sectionAction,
   twoColGrid,
-} from 'components/shared/page-layout'
-import { PathLink } from 'components/shared/path-link'
-import { ProjectCard } from 'components/work/project-card'
-import { projects } from 'gaboesquivel'
-import { homeJsonLd } from 'lib/home-json-ld'
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import workshop from 'public/images/gabo-workshop.jpg'
+} from "components/shared/page-layout";
+import { PathLink } from "components/shared/path-link";
+import { ProjectCard } from "components/work/project-card";
+import { projects } from "gaboesquivel";
+import { homeJsonLd } from "lib/home-json-ld";
+import type { Metadata } from "next";
+import Link from "next/link";
+import workshop from "public/images/gabo-workshop.jpg";
 
-const selectedProjectSlugs = ['legal-agent', 'wink', 'ztx', 'bitlauncher']
+const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
 const selectedProjects = selectedProjectSlugs.flatMap((slug) =>
-  projects.filter((project) => project.slug === slug),
-)
+  projects.filter((project) => project.slug === slug)
+);
 
 export default function HomePage() {
   return (
@@ -28,7 +28,6 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         suppressHydrationWarning
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized from static homepage identity.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
       <PageTitle className="leading-tight">
@@ -92,11 +91,11 @@ export default function HomePage() {
           </li>
         </ul>
         <Prose>
-          I ship in{' '}
+          I ship in{" "}
           <Link href="/startups" className="prose-link">
             startups
           </Link>
-          , where the first version still has to hold, and in{' '}
+          , where the first version still has to hold, and in{" "}
           <Link href="/institutions" className="prose-link">
             established companies
           </Link>
@@ -150,21 +149,21 @@ export default function HomePage() {
         <LetsConnect />
       </PageSection>
     </section>
-  )
+  );
 }
 
 export const metadata: Metadata = {
-  title: 'Gabo Esquivel | Agentic Product Engineer',
-  description:
-    'I build useful and delightful software products across AI, Web3, and full-stack applications.',
   alternates: {
-    canonical: '/',
-    types: { 'text/markdown': '/index.md' },
+    canonical: "/",
+    types: { "text/markdown": "/index.md" },
   },
+  description:
+    "I build useful and delightful software products across AI, Web3, and full-stack applications.",
   openGraph: {
-    title: 'Gabo Esquivel | Agentic Product Engineer',
     description:
-      'I build useful and delightful software products across AI, Web3, and full-stack applications.',
-    type: 'website',
+      "I build useful and delightful software products across AI, Web3, and full-stack applications.",
+    title: "Gabo Esquivel | Agentic Product Engineer",
+    type: "website",
   },
-}
+  title: "Gabo Esquivel | Agentic Product Engineer",
+};

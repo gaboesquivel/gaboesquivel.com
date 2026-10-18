@@ -1,3 +1,3 @@
 interface ImportMeta {
-  dir: string
+  dir: string;
 }

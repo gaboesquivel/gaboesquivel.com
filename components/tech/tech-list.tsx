@@ -1,17 +1,17 @@
-import { FilterNav, IndexHeading } from 'components/shared/page-layout'
+import { FilterNav, IndexHeading } from "components/shared/page-layout";
 import {
   techCategoryHref,
   techCategoryIds,
   techCategoryLabels,
-} from 'components/tech/categories'
-import { TechMasonry } from 'components/tech/tech-masonry'
+} from "components/tech/categories";
+import { TechMasonry } from "components/tech/tech-masonry";
 import {
   filterTechByCategory,
   getProjectsByTechnology,
   techStack,
-} from 'gaboesquivel'
-import { isEmptyTech } from 'lib/tech-evidence'
-import { cn } from 'lib/utils'
+} from "gaboesquivel";
+import { isEmptyTech } from "lib/tech-evidence";
+import { cn } from "lib/utils";
 
 export function TechList({
   category,
@@ -19,31 +19,33 @@ export function TechList({
   showNavigation = true,
   className,
 }: {
-  category?: string
-  heading?: string
-  showNavigation?: boolean
-  className?: string
+  category?: string;
+  heading?: string;
+  showNavigation?: boolean;
+  className?: string;
 }) {
-  const currentCategory = category ?? 'featured'
+  const currentCategory = category ?? "featured";
   const filteredTech = filterTechByCategory(techStack, currentCategory).filter(
-    (tech) => !isEmptyTech(tech),
-  )
+    (tech) => !isEmptyTech(tech)
+  );
 
   const sortedTech = [...filteredTech].sort((a, b) => {
-    const aProjects = getProjectsByTechnology(a.tag).length
-    const bProjects = getProjectsByTechnology(b.tag).length
+    const aProjects = getProjectsByTechnology(a.tag).length;
+    const bProjects = getProjectsByTechnology(b.tag).length;
 
-    if (currentCategory === 'featured') {
-      const aOrder = a.featuredOrder ?? Number.POSITIVE_INFINITY
-      const bOrder = b.featuredOrder ?? Number.POSITIVE_INFINITY
+    if (currentCategory === "featured") {
+      const aOrder = a.featuredOrder ?? Number.POSITIVE_INFINITY;
+      const bOrder = b.featuredOrder ?? Number.POSITIVE_INFINITY;
 
-      if (aOrder !== bOrder) return aOrder - bOrder
+      if (aOrder !== bOrder) {
+        return aOrder - bOrder;
+      }
 
-      return bProjects - aProjects
+      return bProjects - aProjects;
     }
 
-    return bProjects - aProjects
-  })
+    return bProjects - aProjects;
+  });
 
   return (
     <section className={cn(className)}>
@@ -54,8 +56,8 @@ export function TechList({
           label="Technology categories"
           current={currentCategory}
           items={techCategoryIds.map((id) => ({
-            id,
             href: techCategoryHref(id),
+            id,
             label: techCategoryLabels[id],
           }))}
         />
@@ -63,5 +65,5 @@ export function TechList({
 
       <TechMasonry techStack={sortedTech} identifier={currentCategory} />
     </section>
-  )
+  );
 }

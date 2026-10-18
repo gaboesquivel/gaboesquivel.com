@@ -1,7 +1,7 @@
-import { blockGrid, PageTitle, Prose } from 'components/shared/page-layout'
-import { PathLink } from 'components/shared/path-link'
-import { pageMetadata } from 'lib/page-metadata'
-import Link from 'next/link'
+import { blockGrid, PageTitle, Prose } from "components/shared/page-layout";
+import { PathLink } from "components/shared/path-link";
+import { pageMetadata } from "lib/page-metadata";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -17,25 +17,25 @@ export default function AboutPage() {
       <Prose>
         His public role on this site is product engineer across product,
         interface, and systems — not a second résumé page. The full career
-        narrative lives on{' '}
+        narrative lives on{" "}
         <Link href="/bio" className="prose-link">
           /bio
         </Link>
-        ; selected implementation evidence lives on{' '}
+        ; selected implementation evidence lives on{" "}
         <Link href="/work" className="prose-link">
           /work
-        </Link>{' '}
-        and the project pages. AI agents and tools can read{' '}
+        </Link>{" "}
+        and the project pages. AI agents and tools can read{" "}
         <Link href="/llms.txt" className="prose-link">
           llms.txt
-        </Link>{' '}
+        </Link>{" "}
         for a plain-text index of the same facts.
       </Prose>
       <Prose>
         Gabo is open to long-term and short-term work: direct hire,
         international hire, or contracting through Blockmatic Labs LLC. He
         cannot work under W-2. For hire terms, scheduling, and the contact form,
-        use{' '}
+        use{" "}
         <Link href="/connect" className="prose-link">
           /connect
         </Link>
@@ -65,12 +65,12 @@ export default function AboutPage() {
         </li>
       </ul>
     </section>
-  )
+  );
 }
 
 export const metadata = pageMetadata({
-  title: 'About Gabo Esquivel',
   description:
-    'Agentic product engineer in Costa Rica (US Mountain Time). Open to direct hire, international hire, or contracting through Blockmatic Labs LLC.',
-  path: '/about',
-})
+    "Agentic product engineer in Costa Rica (US Mountain Time). Open to direct hire, international hire, or contracting through Blockmatic Labs LLC.",
+  path: "/about",
+  title: "About Gabo Esquivel",
+});

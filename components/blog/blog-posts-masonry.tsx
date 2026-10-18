@@ -1,13 +1,13 @@
-import { BlogPostCard } from 'components/blog/blog-post-card'
-import { CardGrid } from 'components/shared/card-grid'
-import type { Blog } from 'lib/blog'
+import { BlogPostCard } from "components/blog/blog-post-card";
+import { CardGrid } from "components/shared/card-grid";
+import type { Blog } from "lib/blog";
 
 export function BlogPostsMasonry({
   posts,
-  identifier = 'posts',
+  identifier = "posts",
 }: {
-  posts: Blog[]
-  identifier?: string
+  posts: Blog[];
+  identifier?: string;
 }) {
   return (
     <CardGrid
@@ -16,5 +16,5 @@ export function BlogPostsMasonry({
       getKey={(post) => post.slug}
       renderItem={(post) => <BlogPostCard post={post} />}
     />
-  )
+  );
 }

@@ -1,11 +1,10 @@
-'use client'
+"use client";
 
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
 export const LazyContactForm = dynamic(
-  () => import('./contact-form').then((mod) => mod.ContactForm),
+  () => import("./contact-form").then((mod) => mod.ContactForm),
   {
-    ssr: false,
     loading: () => (
       <div
         aria-busy="true"
@@ -15,5 +14,6 @@ export const LazyContactForm = dynamic(
         <span className="sr-only">Loading contact form</span>
       </div>
     ),
-  },
-)
+    ssr: false,
+  }
+);

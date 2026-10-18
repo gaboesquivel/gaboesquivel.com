@@ -1,95 +1,95 @@
-import { techCategoryIds } from 'components/tech/categories'
-import { projects, techStack } from 'gaboesquivel'
-import { allBlogs } from 'lib/blog'
-import { browseCategories, isArchivePost } from 'lib/blog-taxonomy'
-import type { MetadataRoute } from 'next'
+import { techCategoryIds } from "components/tech/categories";
+import { projects, techStack } from "gaboesquivel";
+import { allBlogs } from "lib/blog";
+import { browseCategories, isArchivePost } from "lib/blog-taxonomy";
+import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://gaboesquivel.com'
+  const baseUrl = "https://gaboesquivel.com";
 
-  const primaryRoutes = [''].map((route) => ({
-    url: `${baseUrl}${route}`,
-    changeFrequency: 'daily' as const,
+  const primaryRoutes = [""].map((route) => ({
+    changeFrequency: "daily" as const,
     priority: 1,
-  }))
+    url: `${baseUrl}${route}`,
+  }));
 
   const secondaryRoutes = [
-    '/blog',
-    '/tech',
-    '/work',
-    '/ai',
-    '/web3',
-    '/connect',
+    "/blog",
+    "/tech",
+    "/work",
+    "/ai",
+    "/web3",
+    "/connect",
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    changeFrequency: 'weekly' as const,
+    changeFrequency: "weekly" as const,
     priority: 0.8,
-  }))
+    url: `${baseUrl}${route}`,
+  }));
 
   const tertiaryRoutes = [
-    '/about',
-    '/contact',
-    '/privacy',
-    '/cv',
-    '/bio',
-    '/frontend',
-    '/backend',
-    '/fullstack',
-    '/mobile',
-    '/startups',
-    '/institutions',
-    '/lead',
+    "/about",
+    "/contact",
+    "/privacy",
+    "/cv",
+    "/bio",
+    "/frontend",
+    "/backend",
+    "/fullstack",
+    "/mobile",
+    "/startups",
+    "/institutions",
+    "/lead",
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    changeFrequency: 'monthly' as const,
+    changeFrequency: "monthly" as const,
     priority: 0.6,
-  }))
+    url: `${baseUrl}${route}`,
+  }));
 
   const llmsRoutes = [
-    '/llms.txt',
-    '/llms-full.txt',
-    '/.well-known/llms.txt',
-    '/.well-known/llms-full.txt',
+    "/llms.txt",
+    "/llms-full.txt",
+    "/.well-known/llms.txt",
+    "/.well-known/llms-full.txt",
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    changeFrequency: 'monthly' as const,
+    changeFrequency: "monthly" as const,
     priority: 0.4,
-  }))
+    url: `${baseUrl}${route}`,
+  }));
 
   const blogs = allBlogs.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.publishedAt,
     changeFrequency: isArchivePost(post.publishedAt)
-      ? ('yearly' as const)
-      : ('monthly' as const),
+      ? ("yearly" as const)
+      : ("monthly" as const),
+    lastModified: post.publishedAt,
     priority: isArchivePost(post.publishedAt) ? 0.3 : 0.6,
-  }))
+    url: `${baseUrl}/blog/${post.slug}`,
+  }));
 
   const categoryUrls = browseCategories.map((category) => ({
-    url: `${baseUrl}/blog/category/${category}`,
-    changeFrequency: 'weekly' as const,
+    changeFrequency: "weekly" as const,
     priority: 0.5,
-  }))
+    url: `${baseUrl}/blog/category/${category}`,
+  }));
 
   const projectUrls = projects.map((project) => ({
-    url: `${baseUrl}/project/${project.slug}`,
-    changeFrequency: 'monthly' as const,
+    changeFrequency: "monthly" as const,
     priority: 0.8,
-  }))
+    url: `${baseUrl}/project/${project.slug}`,
+  }));
 
   const techCategoryUrls = techCategoryIds
-    .filter((id) => id !== 'featured')
+    .filter((id) => id !== "featured")
     .map((category) => ({
-      url: `${baseUrl}/tech/${category}`,
-      changeFrequency: 'weekly' as const,
+      changeFrequency: "weekly" as const,
       priority: 0.7,
-    }))
+      url: `${baseUrl}/tech/${category}`,
+    }));
 
   const techUrls = techStack.map((tech) => ({
-    url: `${baseUrl}/tech/${tech.slug}`,
-    changeFrequency: 'monthly' as const,
+    changeFrequency: "monthly" as const,
     priority: 0.7,
-  }))
+    url: `${baseUrl}/tech/${tech.slug}`,
+  }));
 
   return [
     ...primaryRoutes,
@@ -101,5 +101,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...projectUrls,
     ...techCategoryUrls,
     ...techUrls,
-  ]
+  ];
 }

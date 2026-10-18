@@ -1,8 +1,8 @@
-import { proseClass } from 'components/shared/spacing'
-import type { Project } from 'gaboesquivel'
-import { cn } from 'lib/utils'
-import Image from 'next/image'
-import Link from 'next/link'
+import { proseClass } from "components/shared/spacing";
+import type { Project } from "gaboesquivel";
+import { cn } from "lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 
 export function ProjectCard({
   project,
@@ -10,12 +10,12 @@ export function ProjectCard({
   showRole = false,
   wide = false,
 }: {
-  project: Project
-  priority?: boolean
-  showRole?: boolean
-  wide?: boolean
+  project: Project;
+  priority?: boolean;
+  showRole?: boolean;
+  wide?: boolean;
 }) {
-  const src = project.image?.replace('https://gaboesquivel.com', '')
+  const src = project.image?.replace("https://gaboesquivel.com", "");
 
   return (
     <Link
@@ -31,10 +31,10 @@ export function ProjectCard({
               width={1600}
               height={1067}
               preload={priority}
-              fetchPriority={priority ? 'high' : undefined}
+              fetchPriority={priority ? "high" : undefined}
               sizes="(max-width: 768px) 100vw, 896px"
               className="h-auto w-full transition-transform duration-500 group-hover:scale-110"
-              style={{ width: '100%', height: 'auto' }}
+              style={{ height: "auto", width: "100%" }}
             />
           </div>
         ) : (
@@ -44,7 +44,7 @@ export function ProjectCard({
               alt={project.title}
               fill
               preload={priority}
-              fetchPriority={priority ? 'high' : undefined}
+              fetchPriority={priority ? "high" : undefined}
               sizes="(max-width: 768px) 100vw, 448px"
               className="object-cover transition-transform duration-500 group-hover:scale-110"
             />
@@ -60,8 +60,8 @@ export function ProjectCard({
             {project.role}
           </p>
         ) : null}
-        <p className={cn(proseClass, 'line-clamp-3')}>{project.description}</p>
+        <p className={cn(proseClass, "line-clamp-3")}>{project.description}</p>
       </div>
     </Link>
-  )
+  );
 }

@@ -2,11 +2,11 @@ export default function robots() {
   return {
     rules: [
       {
-        userAgent: '*',
+        userAgent: "*",
       },
     ],
-    sitemap: 'https://gaboesquivel.com/sitemap.xml',
-    host: 'https://gaboesquivel.com',
+    sitemap: "https://gaboesquivel.com/sitemap.xml",
+    host: "https://gaboesquivel.com",
     // LLM index: https://gaboesquivel.com/llms.txt
-  }
+  };
 }

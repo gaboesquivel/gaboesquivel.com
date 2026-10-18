@@ -1,5 +1,5 @@
-import './cv.css'
-import { LatestPosts } from 'components/blog/latest-posts'
+import "./cv.css";
+import { LatestPosts } from "components/blog/latest-posts";
 import {
   PageSection,
   PageTitle,
@@ -9,51 +9,52 @@ import {
   sectionSpacing,
   sectionTitle,
   titleSpacing,
-} from 'components/shared/page-layout'
-import { cn } from 'lib/utils'
-import type { Metadata } from 'next'
-import { PrintButton } from '../../components/print-button'
-import { ContactInfo } from '../../components/shared/contact-info'
-import { cvPdfFile, cvSectionBreak, resolveCv } from './variants'
+} from "components/shared/page-layout";
+import { cn } from "lib/utils";
+import type { Metadata } from "next";
 
-type CvPageProps = {
+import { PrintButton } from "../../components/print-button";
+import { ContactInfo } from "../../components/shared/contact-info";
+import { cvPdfFile, cvSectionBreak, resolveCv } from "./variants";
+
+interface CvPageProps {
   searchParams?: Promise<{
-    focus?: string | string[]
-    preview?: string | string[]
-  }>
+    focus?: string | string[];
+    preview?: string | string[];
+  }>;
 }
 
 const bulletItemClass =
-  "cv-content cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•']"
+  "cv-content cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•']";
 
-const bulletListClass = cn(proseClass, 'mb-0 list-none pl-0')
+const bulletListClass = cn(proseClass, "mb-0 list-none pl-0");
 
 const previewParam = ({ preview }: { preview?: string | string[] }) =>
-  Array.isArray(preview) ? preview[0] : preview
+  Array.isArray(preview) ? preview[0] : preview;
 
 export default async function CVPage({ searchParams }: CvPageProps) {
-  const resolved = await searchParams
-  const { key, variant, entries } = resolveCv({ focus: resolved?.focus })
+  const resolved = await searchParams;
+  const { key, variant, entries } = resolveCv({ focus: resolved?.focus });
   const isPreviewPrint =
-    previewParam({ preview: resolved?.preview }) === 'print'
+    previewParam({ preview: resolved?.preview }) === "print";
 
   return (
     <section
-      className="p-0 m-0 cv-content cv-print print:block print:w-full print:max-w-none"
-      {...(isPreviewPrint ? { 'data-cv-preview': 'print' } : {})}
+      className="cv-content cv-print m-0 p-0 print:block print:w-full print:max-w-none"
+      {...(isPreviewPrint ? { "data-cv-preview": "print" } : {})}
     >
       {/* Bundlers ignore `@import … print`; load print tokens via real media attr */}
       <link
         rel="stylesheet"
         href="/cv-print.css"
-        media={isPreviewPrint ? 'all' : 'print'}
+        media={isPreviewPrint ? "all" : "print"}
       />
       <div className="no-break-inside" data-cv-block="intro">
         <header
           className={cn(
-            'cv-header flex flex-col',
+            "cv-header flex flex-col",
             titleSpacing,
-            'print:mb-0 preview-print:mb-0',
+            "print:mb-0 preview-print:mb-0"
           )}
         >
           <PageTitle className="mb-0 flex items-baseline justify-between leading-none">
@@ -82,12 +83,12 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         </PageSection>
       </div>
 
-      <div className="cv-experience-list space-y-8 list-none list-inside print:space-y-0 preview-print:space-y-0">
+      <div className="cv-experience-list list-inside list-none space-y-8 print:space-y-0 preview-print:space-y-0">
         {entries.map((exp, index) => (
           <div
             key={exp.company}
             data-cv-block={exp.company}
-            className={`${exp.pageBreak ? 'page-break-before ' : ''}cv-entry-group no-break-inside${index === 0 ? ` ${sectionSpacing} print:mt-0 preview-print:mt-0` : ''}`}
+            className={`${exp.pageBreak ? "page-break-before " : ""}cv-entry-group no-break-inside${index === 0 ? ` ${sectionSpacing} print:mt-0 preview-print:mt-0` : ""}`}
           >
             {index === 0 ? (
               <div className={sectionHeadingRow}>
@@ -95,7 +96,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
               </div>
             ) : null}
             <div className="cv-entry">
-              <h3 className="mb-1 font-bold text-xl cv-entry-title">
+              <h3 className="cv-entry-title mb-1 text-xl font-bold">
                 {exp.title}, {exp.company}
               </h3>
               {exp.title ? (
@@ -107,7 +108,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
               <p
                 className={cn(
                   proseClass,
-                  'mb-4 exp-description cv-content cv-entry-description',
+                  "exp-description cv-content cv-entry-description mb-4"
                 )}
               >
                 {exp.description}
@@ -115,7 +116,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
               <ul
                 className={cn(
                   proseClass,
-                  'mb-4 list-none pl-0 cv-content cv-entry-achievements',
+                  "cv-content cv-entry-achievements mb-4 list-none pl-0"
                 )}
               >
                 {exp.achievements.map((achievement) => (
@@ -132,7 +133,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
       {variant.also ? (
         <div
           data-cv-block="also"
-          className={`${cvSectionBreak({ key, id: 'also' })}no-break-inside`}
+          className={`${cvSectionBreak({ id: "also", key })}no-break-inside`}
         >
           <PageSection
             className="print:mt-0 preview-print:mt-0"
@@ -145,7 +146,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
       <div
         data-cv-block="skills"
-        className={`${cvSectionBreak({ key, id: 'skills' })}no-break-inside`}
+        className={`${cvSectionBreak({ id: "skills", key })}no-break-inside`}
       >
         <PageSection className="print:mt-0 preview-print:mt-0" title="Skills">
           <ul className={bulletListClass}>
@@ -160,7 +161,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
       <div
         data-cv-block="contact"
-        className={`${cvSectionBreak({ key, id: 'contact' })}no-break-inside`}
+        className={`${cvSectionBreak({ id: "contact", key })}no-break-inside`}
       >
         <ContactInfo />
       </div>
@@ -169,29 +170,29 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         <LatestPosts />
       </div>
     </section>
-  )
+  );
 }
 
 export async function generateMetadata({
   searchParams,
 }: CvPageProps): Promise<Metadata> {
-  const resolved = await searchParams
-  const { variant } = resolveCv({ focus: resolved?.focus })
+  const resolved = await searchParams;
+  const { variant } = resolveCv({ focus: resolved?.focus });
   const isPreviewPrint =
-    previewParam({ preview: resolved?.preview }) === 'print'
+    previewParam({ preview: resolved?.preview }) === "print";
 
   return {
-    title: variant.metadata.title,
+    alternates: {
+      canonical: "/cv",
+      types: { "text/markdown": "/cv.md" },
+    },
     description: variant.metadata.description,
     keywords: variant.metadata.keywords,
     openGraph: {
       ...variant.metadata.openGraph,
-      type: 'profile',
+      type: "profile",
     },
-    alternates: {
-      canonical: '/cv',
-      types: { 'text/markdown': '/cv.md' },
-    },
-    ...(isPreviewPrint ? { robots: { index: false, follow: false } } : {}),
-  }
+    title: variant.metadata.title,
+    ...(isPreviewPrint ? { robots: { follow: false, index: false } } : {}),
+  };
 }

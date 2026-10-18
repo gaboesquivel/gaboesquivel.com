@@ -1,16 +1,16 @@
-import { PageCard } from 'components/shared/page-card'
+import { PageCard } from "components/shared/page-card";
 import {
   blockGrid,
   PageSection,
   PageTitle,
   Prose,
-} from 'components/shared/page-layout'
-import { blockSpacing } from 'components/shared/spacing'
-import { featuredLandingPages, landingPageGroups } from 'lib/landing-pages'
-import { cn } from 'lib/utils'
-import type { Metadata } from 'next'
+} from "components/shared/page-layout";
+import { blockSpacing } from "components/shared/spacing";
+import { featuredLandingPages, landingPageGroups } from "lib/landing-pages";
+import { cn } from "lib/utils";
+import type { Metadata } from "next";
 
-const featuredGrid = cn(blockSpacing, 'grid grid-cols-1 gap-4 md:grid-cols-3')
+const featuredGrid = cn(blockSpacing, "grid grid-cols-1 gap-4 md:grid-cols-3");
 
 export default function ExplorePage() {
   return (
@@ -54,18 +54,18 @@ export default function ExplorePage() {
         </PageSection>
       ))}
     </section>
-  )
+  );
 }
 
 export const metadata: Metadata = {
-  title: 'Explore | Gabo Esquivel',
-  description:
-    'Every page on the site, grouped by domain, engineering capability, and career context.',
   alternates: {
-    types: { 'text/markdown': '/explore.md' },
+    types: { "text/markdown": "/explore.md" },
   },
+  description:
+    "Every page on the site, grouped by domain, engineering capability, and career context.",
   robots: {
-    index: false,
     follow: true,
+    index: false,
   },
-}
+  title: "Explore | Gabo Esquivel",
+};
