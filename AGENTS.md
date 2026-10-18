@@ -53,7 +53,7 @@ Page lists, identity facts, and the featured set are repeated in code. Update ev
 
 ## Checks
 
-- `bun run dev`: Velite watch and Next.js at `http://localhost:3099`.
+- `bun run dev`: Velite watch and Next.js at `https://gaboesquivel.localhost` (Next listens on port 3099). `bun run setup:portless` trusts the local certificate once.
 - `bun run verify`: Velite content build and Biome.
 - `bun run test:llms`: the llms export, blog, and CV page-break tests. Run it after page, blog, or CV changes.
 - `bun run verify:routes [base-url]`: curls `/`, the `/cv` variants, `/connect`, sample posts, and the `/cal` redirect. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).

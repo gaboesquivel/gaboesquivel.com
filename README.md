@@ -11,7 +11,13 @@ bun install
 bun run dev
 ```
 
-`bun run dev` runs Velite and Next.js at [http://localhost:3099](http://localhost:3099).
+`bun run dev` runs Velite and Next.js at [https://gaboesquivel.localhost](https://gaboesquivel.localhost). Next listens on port 3099, so [http://localhost:3099](http://localhost:3099) is the same server.
+
+Trust the local HTTPS certificate once (this may prompt for sudo or Keychain):
+
+```bash
+bun run setup:portless
+```
 
 ## Docs
 

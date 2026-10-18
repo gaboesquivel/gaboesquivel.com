@@ -1,7 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "sh -c 'ulimit -n 10240 2>/dev/null; bun scripts/export-llms.ts; exec bunx concurrently -k \"velite --watch\" \"next dev -p 3099\"'",
+    "dev": "portless",
+    "dev:app": "sh -c 'ulimit -n 10240 2>/dev/null; bun scripts/export-llms.ts; exec bunx concurrently -k \"velite --watch\" \"next dev -p 3099\"'",
+    "setup:portless": "portless trust && portless proxy start",
     "content:build": "velite",
     "content:watch": "velite --watch",
     "build": "velite && bun scripts/export-llms.ts && next build",
@@ -52,6 +54,7 @@
     "@types/react-dom": "^19.0.0",
     "concurrently": "^9.0.0",
     "playwright-core": "^1.55.0",
+    "portless": "^0.15.8",
     "postcss": "^8.4.29",
     "remark-parse": "^11.0.0",
     "simple-git-hooks": "2.11.1",
@@ -61,5 +64,10 @@
   },
   "simple-git-hooks": {
     "pre-commit": "bun run hooks:pre-commit"
+  },
+  "portless": {
+    "name": "gaboesquivel",
+    "script": "dev:app",
+    "appPort": 3099
   }
 }

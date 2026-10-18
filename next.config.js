@@ -28,6 +28,7 @@ const blogTechRedirects = techStack.flatMap((tech) => [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: ['gaboesquivel.localhost', '*.gaboesquivel.localhost'],
   ...(isGaboesquivelLinked && {
     transpilePackages: ['gaboesquivel'],
     outputFileTracingRoot: path.join(__dirname, '..'),
