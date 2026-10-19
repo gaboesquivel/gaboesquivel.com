@@ -1,6 +1,6 @@
-export const HAIKU_GATEWAY_MODEL = "anthropic/claude-haiku-4.5";
+export const SONNET_GATEWAY_MODEL = "anthropic/claude-sonnet-5.5";
 
-export const haikuSessionSelection = ({
+export const sonnetSessionSelection = ({
   anthropicApiKey,
 }: {
   anthropicApiKey: string | undefined;
@@ -11,7 +11,7 @@ export const haikuSessionSelection = ({
   }
 
   return {
-    model: HAIKU_GATEWAY_MODEL,
+    model: SONNET_GATEWAY_MODEL,
     modelOptions: {
       providerOptions: {
         gateway: {

@@ -79,7 +79,7 @@ Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institu
 
 ### `/ask`
 
-The page is the chat. People use it to ask, leave a note, or book a 15- or 30-minute call. Other agents start a task at `/mcp` (`agent_start`, then `agent_get`). Notes go to contact@gaboesquivel.com. Bookings insert from the chat or from MCP, cap at 2 a day, then point at `/cal`. No confirm email. The portfolio stays a content site. Hire terms are not printed on the page; the agent and the llms export carry them.
+The page is the chat. People use it to ask, leave a note, or book a 15- or 30-minute call. Other agents start a task at `/mcp` (`agent_start`, then `agent_get`). Notes go to contact@gaboesquivel.com. Bookings insert from the chat or from MCP, cap at 2 a day, then point at `/cal`. No confirm email. The portfolio stays a content site. Hire terms are not printed on the page; the agent and the llms export carry them. A broad experience or shipped-work question shows featured project media cards under the reply; each card opens the project page in a new tab.
 
 Use only facts already present in `LetsConnect`: direct hire, international hire, contracting through Blockmatic Labs LLC, cannot work under W-2, Costa Rica, and US Mountain Time.
 

@@ -41,7 +41,7 @@ Before changing the Eve agent, Jev slot layout, or chat UI, read the installed `
 Credentials (two keys; do not conflate them):
 
 - `AI_GATEWAY_API_KEY` — Eve gateway auth and Jev (`lib/connect/compose.ts`).
-- `ANTHROPIC_API_KEY` — BYOK for Haiku on gateway (`lib/connect/haiku-model.ts`, `agent/agent.ts`).
+- `ANTHROPIC_API_KEY` — BYOK for Sonnet on gateway (`lib/connect/sonnet-model.ts`, `agent/agent.ts`).
 
 Names are documented in `.env.example`. If a name is missing from `.env`, stop and ask. If it is set locally, use it and do not ask again. Never print values.
 
@@ -49,7 +49,7 @@ On Vercel, chat/book/note caps need Upstash Redis REST credentials. The app read
 
 Calendar booking uses a **Google service account** with **domain-wide delegation** impersonating `GOOGLE_CALENDAR_ID` (default `contact@gaboesquivel.com`). Set `GOOGLE_SERVICE_ACCOUNT_JSON` and `GOOGLE_CALENDAR_ID` in `.env` and on Vercel Production and Preview. Provisioning (once): enable Calendar API in GCP project `gabo-esquivel`; create service account `gaboesquivel-ask-booking` and a JSON key (see [scripts/google-service-account.json.example](scripts/google-service-account.json.example)); in Google Admin authorize the service account client id for scopes `calendar.events` and `calendar.freebusy`; redeploy. JWTs use `sub` = the calendar id. No visitor OAuth and no key file at runtime.
 
-Main files: `agent/agent.ts`, `app/connect/connect-chat.tsx`, `app/connect/eve-thread.tsx`, `lib/connect/compose.ts`, `lib/connect/haiku-model.ts`.
+Main files: `agent/agent.ts`, `app/connect/connect-chat.tsx`, `app/connect/eve-thread.tsx`, `lib/connect/compose.ts`, `lib/connect/sonnet-model.ts`.
 
 The send-email opener is not sent to the agent. The note form is the reply: it owns `NOTE_FORM_LEAD`, and the thread does not show Replying while that form is on screen. `agent/instructions/rules.md` tells the model not to repeat the lead.
 
@@ -83,7 +83,7 @@ Page lists, identity facts, and the featured set are repeated in code. Update ev
 - `bun run test:llms`: the llms export, blog, and CV page-break tests. Run it after page, blog, or CV changes.
 - `bun run verify:routes [base-url]`: curls `/`, the `/cv` variants, `/ask`, sample posts, and the `/cal` redirect. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).
 - `bun run verify:calendar`: calls Calendar `freeBusy` using `GOOGLE_SERVICE_ACCOUNT_JSON` and `GOOGLE_CALENDAR_ID` from the environment. Run after Admin delegation is authorized. `sh scripts/sync-google-calendar-vercel.sh` pushes those vars from the environment to Vercel Production and Preview.
-- Pre-commit (simple-git-hooks) runs `ultracite fix` on staged files, then when `app/cv/`, `app/global.css`, or `components/shared/contact-info.tsx` is staged, runs `bun run cvs`: the CV PDFs are printed with local Google Chrome (it starts `next dev` on port 3099 if nothing is running), then the PDFs and `app/cv/page-breaks.ts` are staged.
+- Pre-commit (simple-git-hooks) always runs `bun qa` (`lint:fix`, `format`, `build`). When `app/cv/`, `app/global.css`, or `components/shared/contact-info.tsx` is staged, it then runs `bun run cvs`: the CV PDFs are printed with local Google Chrome (it starts `next dev` on port 3099 if nothing is running), then the PDFs and `app/cv/page-breaks.ts` are staged. Formatter edits to files already in the index are written back with `git update-index --again`.
 
 ## Git
 

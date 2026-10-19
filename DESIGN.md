@@ -100,6 +100,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Filter | `FilterNav` | `components/shared/page-layout.tsx` |
 | Text / route card | `PageCard` / `cardLink` | `components/shared/page-card.tsx`, `spacing.ts` |
 | Project with image | `ProjectCard` | `components/work/project-card.tsx` |
+| Chat project row | `ProjectMedia` / `ProjectMediaStack` | `components/work/project-media.tsx` |
 | Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
 | Section CTA | `.cta-link` / `sectionAction` | `app/global.css`, `spacing.ts` |
 | In-prose link | `.prose-link` | `app/global.css` |

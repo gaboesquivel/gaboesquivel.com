@@ -12,6 +12,7 @@ import {
   MessageResponse,
 } from "@/components/ai-elements/message";
 import { Shimmer } from "@/components/ai-elements/shimmer";
+import { ProjectMediaStack } from "@/components/work/project-media";
 
 import {
   fixedNoteSpec,
@@ -31,6 +32,11 @@ import {
   threadHasNoteFormPayload,
 } from "../../lib/connect/note-receipt";
 import { visitorFacingAssistantText } from "../../lib/connect/visitor-facing";
+import {
+  featuredWorkCardProjects,
+  precedingUserText,
+  shouldShowWorkCards,
+} from "../../lib/connect/work-cards";
 import { accentButton, enter, quietButton } from "./chat-styles";
 import { NoteReceipt } from "./note-receipt";
 import type { SessionCursor } from "./session-cookie";
@@ -589,6 +595,21 @@ export function EveThread({
               }
               return null;
             })}
+            {message.role === "assistant" &&
+            !assistantFollowsFormNote({
+              messageId: message.id,
+              messages: agent.data.messages,
+            }) &&
+            shouldShowWorkCards(
+              precedingUserText({
+                messageId: message.id,
+                messages: agent.data.messages,
+              })
+            ) ? (
+              <div className={enter}>
+                <ProjectMediaStack projects={featuredWorkCardProjects()} />
+              </div>
+            ) : null}
           </Message>
         );
       })}

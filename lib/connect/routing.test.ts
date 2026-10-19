@@ -1,23 +1,23 @@
 import { describe, expect, test } from "bun:test";
 
 import { jevEvaluatorConfig } from "./compose";
-import { HAIKU_GATEWAY_MODEL, haikuSessionSelection } from "./haiku-model";
+import { SONNET_GATEWAY_MODEL, sonnetSessionSelection } from "./sonnet-model";
 
 describe("connect model routing", () => {
-  test("Haiku uses gateway Anthropic-only BYOK", () => {
-    const selection = haikuSessionSelection({
+  test("Sonnet uses gateway Anthropic-only BYOK", () => {
+    const selection = sonnetSessionSelection({
       anthropicApiKey: "sk-ant-test",
     });
-    expect(selection.model).toBe(HAIKU_GATEWAY_MODEL);
+    expect(selection.model).toBe(SONNET_GATEWAY_MODEL);
     expect(selection.modelOptions.providerOptions.gateway).toEqual({
       byok: { anthropic: [{ apiKey: "sk-ant-test" }] },
       caching: "auto",
       only: ["anthropic"],
     });
-    expect(() => haikuSessionSelection({ anthropicApiKey: "" })).toThrow(
+    expect(() => sonnetSessionSelection({ anthropicApiKey: "" })).toThrow(
       /ANTHROPIC_API_KEY/
     );
-    expect(() => haikuSessionSelection({ anthropicApiKey: "   " })).toThrow(
+    expect(() => sonnetSessionSelection({ anthropicApiKey: "   " })).toThrow(
       /ANTHROPIC_API_KEY/
     );
   });

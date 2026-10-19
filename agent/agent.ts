@@ -1,13 +1,13 @@
 import { defineAgent, defineDynamic } from "eve";
 
-import { haikuSessionSelection } from "../lib/connect/haiku-model";
+import { sonnetSessionSelection } from "../lib/connect/sonnet-model";
 
 export default defineAgent({
   defaultTools: false,
   model: defineDynamic({
     events: {
       "session.started": () =>
-        haikuSessionSelection({
+        sonnetSessionSelection({
           anthropicApiKey: process.env.ANTHROPIC_API_KEY,
         }),
     },
