@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Shimmer } from "@/components/ai-elements/shimmer";
 
 import { noteMessageLines, noteSubject } from "../../lib/connect/note-present";
-import { enter } from "./chat-styles";
+import { ConnectCard } from "./connect-gen-ui";
 
 const NoteLink = ({ href, label }: { href: string; label: string }) => {
   const internal =
@@ -62,9 +62,7 @@ export function NoteReceipt({
 }) {
   const sending = !status.error && status.text !== "Sent.";
   return (
-    <section
-      className={`flex w-full flex-col gap-4 rounded-lg border border-hairline p-4 text-sm ${enter}`}
-    >
+    <ConnectCard aria-live="polite" className="text-sm" title="Email">
       {sending ? (
         <Shimmer className="text-sm text-neutral-400" duration={1}>
           {status.text}
@@ -93,6 +91,6 @@ export function NoteReceipt({
           </dd>
         </div>
       </dl>
-    </section>
+    </ConnectCard>
   );
 }

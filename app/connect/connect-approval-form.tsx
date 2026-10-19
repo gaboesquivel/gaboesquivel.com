@@ -2,13 +2,18 @@
 
 import { useState } from "react";
 
-import { accentButton, quietButton } from "./chat-styles";
 import {
   ConnectEmailField,
   ConnectNameField,
   ConnectTopicField,
   contactValid,
 } from "./connect-fields";
+import {
+  ConnectActions,
+  ConnectCard,
+  ConnectPrimaryButton,
+  ConnectSecondaryButton,
+} from "./connect-gen-ui";
 
 const readContact = (input: Record<string, unknown>) => ({
   description: typeof input.description === "string" ? input.description : "",
@@ -41,6 +46,7 @@ export function ConnectApprovalForm({
   const [name, setName] = useState(initial.name);
   const [email, setEmail] = useState(initial.email);
   const [description, setDescription] = useState(initial.description);
+  const [settled, setSettled] = useState(false);
   const valid = contactValid({ description, email, name });
   const bookingFieldsMissing =
     booking &&
@@ -48,7 +54,7 @@ export function ConnectApprovalForm({
       typeof input.start !== "string");
 
   return (
-    <div className="flex flex-col gap-4">
+    <ConnectCard title={booking ? "Confirm booking" : "Confirm email"}>
       {booking && bookingSummary ? (
         <p className="text-sm text-neutral-400 tabular-nums">
           {bookingSummary}
@@ -63,25 +69,25 @@ export function ConnectApprovalForm({
           booked.
         </p>
       ) : null}
-      <div className="flex flex-wrap gap-2">
-        <button
-          className={accentButton}
-          disabled={!valid || bookingFieldsMissing}
-          onClick={() =>
+      <ConnectActions>
+        <ConnectPrimaryButton
+          disabled={settled || !valid || bookingFieldsMissing}
+          onClick={() => {
+            if (settled || !valid || bookingFieldsMissing) return;
+            setSettled(true);
             onApprove({
               description: description.trim(),
               email: email.trim(),
               name: name.trim(),
-            })
-          }
-          type="button"
+            });
+          }}
         >
           {primaryLabel}
-        </button>
-        <button className={quietButton} onClick={onCancel} type="button">
+        </ConnectPrimaryButton>
+        <ConnectSecondaryButton disabled={settled} onClick={onCancel}>
           {secondaryLabel}
-        </button>
-      </div>
-    </div>
+        </ConnectSecondaryButton>
+      </ConnectActions>
+    </ConnectCard>
   );
 }

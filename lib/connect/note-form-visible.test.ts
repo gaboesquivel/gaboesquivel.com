@@ -12,6 +12,7 @@ import { NOTE_FORM_LEAD } from "./copy";
 import { noteOpener } from "./intent";
 import { noteEmailHtml, noteMessageSegments } from "./note-present";
 import {
+  bookReceiptStatus,
   messageHasNoteFormPayload,
   noteReceiptStatus,
   sendPartAfterMessage,
@@ -107,6 +108,31 @@ describe("note form", () => {
         name: "Ada",
       })
     ).toContain('href="https://gaboesquivel.com/cal"');
+  });
+
+  test("book receipt status follows the book tool", () => {
+    expect(
+      bookReceiptStatus({
+        output: { inserted: true, ok: true },
+        state: "output-available",
+      })
+    ).toEqual({ error: false, text: "Booked. See you then." });
+    expect(bookReceiptStatus({ state: "input-streaming" })).toEqual({
+      error: false,
+      text: "Booking the call.",
+    });
+    expect(
+      bookReceiptStatus({
+        output: {
+          message: "That time is busy. Nothing was booked.",
+          ok: false,
+        },
+        state: "output-available",
+      })
+    ).toEqual({
+      error: true,
+      text: "That time is busy. Nothing was booked.",
+    });
   });
 
   test("note receipt status follows the send tool", () => {

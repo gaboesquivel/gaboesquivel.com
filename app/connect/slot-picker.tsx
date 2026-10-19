@@ -3,18 +3,47 @@
 import type { Spec } from "@json-render/core";
 import {
   ActionProvider,
-  Renderer,
   StateProvider,
-  VisibilityProvider,
   useStateStore,
   useStateValue,
+  VisibilityProvider,
 } from "@json-render/react";
-import { createContext, useContext } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import type { SlotState } from "@/lib/connect/compose";
+import { BOOK_SLOT_LEAD } from "@/lib/connect/copy";
+import {
+  addCalendarDays,
+  formatSlotSelectionLine,
+  isOpenStart,
+  rebucketSlots,
+  slotsForDay,
+  sortedDays,
+  startOfWeek,
+  timeZoneOptions,
+  upcomingAppointments,
+  weekDayRange,
+} from "@/lib/connect/slot-display";
+import { zonedInstant } from "@/lib/connect/slots";
 import { cn } from "@/lib/utils";
 
-import { chipClass } from "./chat-styles";
+import { chipClass, enter } from "./chat-styles";
+import {
+  ConnectEmailField,
+  ConnectNameField,
+  ConnectTopicField,
+  contactValid,
+} from "./connect-fields";
+import {
+  ConnectActions,
+  ConnectCard,
+  ConnectHint,
+  ConnectPrimaryButton,
+  ConnectSecondaryButton,
+  DurationToggle,
+} from "./connect-gen-ui";
+
+const EMPTY_SLOTS: SlotState["slots"] = { "15": {}, "30": {} };
 
 const formatTime = ({ iso, timeZone }: { iso: string; timeZone: string }) =>
   new Intl.DateTimeFormat("en-US", {
@@ -24,7 +53,7 @@ const formatTime = ({ iso, timeZone }: { iso: string; timeZone: string }) =>
     timeZone,
   }).format(new Date(iso));
 
-const formatDay = ({ iso, timeZone }: { iso: string; timeZone: string }) =>
+const formatDayShort = ({ iso, timeZone }: { iso: string; timeZone: string }) =>
   new Intl.DateTimeFormat("en-US", {
     day: "numeric",
     month: "short",
@@ -32,120 +61,374 @@ const formatDay = ({ iso, timeZone }: { iso: string; timeZone: string }) =>
     weekday: "short",
   }).format(new Date(iso));
 
-const Duration = () => {
-  const selected = useStateValue<number>("/duration");
-  const { set } = useStateStore();
-  return (
-    <fieldset className="flex flex-wrap gap-2">
-      <legend className="mb-2 text-sm text-neutral-400">Duration</legend>
-      {[15, 30].map((choice) => (
-        <label
-          className="flex min-h-11 items-center gap-2 rounded-md border border-hairline px-3"
-          key={choice}
-        >
-          <input
-            checked={selected === choice}
-            className="accent-accent"
-            name="duration"
-            onChange={() => set("/duration", choice)}
-            type="radio"
-            value={choice}
-          />
-          {choice} minutes
-        </label>
-      ))}
-    </fieldset>
-  );
-};
+const formatDayChip = ({
+  date,
+  timeZone,
+}: {
+  date: string;
+  timeZone: string;
+}) =>
+  new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "short",
+    timeZone,
+    weekday: "short",
+  }).format(zonedInstant({ date, time: "12:00", timeZone }));
 
-const Days = () => {
-  const days = useStateValue<string[]>("/days") ?? [];
-  const selected = useStateValue<string | null>("/day");
-  const timeZone = useStateValue<string>("/timeZone") ?? "UTC";
-  const slots =
-    useStateValue<Record<string, Record<string, string[]>>>("/slots") ?? {};
-  const { set } = useStateStore();
-  return (
-    <div aria-label="Day" className="flex flex-wrap gap-2" role="group">
-      {days.map((day) => {
-        const sample = slots["15"]?.[day]?.[0] ?? slots["30"]?.[day]?.[0] ?? "";
-        return (
-          <button
-            aria-pressed={selected === day}
-            className={cn(
-              chipClass,
-              selected === day && "border-accent text-accent"
-            )}
-            key={day}
-            onClick={() => set("/day", day)}
-            type="button"
-          >
-            {sample ? formatDay({ iso: sample, timeZone }) : day}
-          </button>
-        );
-      })}
-    </div>
-  );
-};
-
-const PickContext = createContext<
-  (input: { duration: 15 | 30; start: string }) => void
->(() => {
-  return;
-});
-
-const Times = () => {
-  const onPick = useContext(PickContext);
-  const duration = useStateValue<number>("/duration");
-  const day = useStateValue<string | null>("/day");
-  const timeZone = useStateValue<string>("/timeZone") ?? "UTC";
-  const slots =
-    useStateValue<Record<string, Record<string, string[]>>>("/slots") ?? {};
-  if (duration !== 15 && duration !== 30) {
-    return <p className="text-sm text-neutral-400">Choose 15 or 30 minutes.</p>;
-  }
-  const starts = (day ? slots[String(duration)]?.[day] : []) ?? [];
-  return (
-    <div aria-label="Time" className="flex flex-col gap-2" role="group">
-      {starts.map((start) => {
-        const time = formatTime({ iso: start, timeZone });
-        return (
-          <button
-            className={chipClass}
-            key={start}
-            onClick={() => onPick({ duration, start })}
-            type="button"
-          >
-            {duration} min {time}
-          </button>
-        );
-      })}
-    </div>
-  );
-};
-
-const Stack = ({ children }: { children?: ReactNode }) => (
-  <div className="flex flex-col gap-4">{children}</div>
+const TimeButton = ({
+  duration,
+  iso,
+  onPick,
+  timeZone,
+}: {
+  duration: 15 | 30;
+  iso: string;
+  onPick: (input: { duration: 15 | 30; start: string }) => void;
+  timeZone: string;
+}) => (
+  <button
+    className={cn(chipClass, "tabular-nums")}
+    onClick={() => onPick({ duration, start: iso })}
+    type="button"
+  >
+    {formatTime({ iso, timeZone })}
+  </button>
 );
 
-const registry = { Days, Duration, Stack, Times };
+const BookingScheduler = ({
+  lockedSummary,
+  onContinue,
+}: {
+  lockedSummary?: string | null;
+  onContinue: (input: {
+    description: string;
+    duration: 15 | 30;
+    email: string;
+    name: string;
+    start: string;
+    timeZone: string;
+  }) => void;
+}) => {
+  const rawSlots = useStateValue<SlotState["slots"]>("/slots");
+  const storedZone = useStateValue<string>("/timeZone") ?? "UTC";
+  const storedDuration = useStateValue<number>("/duration");
+  const duration: 15 | 30 =
+    storedDuration === 15 || storedDuration === 30 ? storedDuration : 30;
+  const [displayZone, setDisplayZone] = useState(storedZone);
+  const [expanded, setExpanded] = useState(false);
+  const [weekStart, setWeekStart] = useState(() =>
+    startOfWeek({
+      date: new Intl.DateTimeFormat("en-CA", {
+        timeZone: displayZone,
+      }).format(new Date()),
+      timeZone: displayZone,
+    })
+  );
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [phase, setPhase] = useState<"details" | "schedule">("schedule");
+  const [selection, setSelection] = useState<{
+    duration: 15 | 30;
+    start: string;
+  } | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [now, setNow] = useState(() => new Date());
+  const { set } = useStateStore();
+
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(new Date()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const slots = useMemo(
+    () =>
+      rebucketSlots({
+        slots: rawSlots ?? EMPTY_SLOTS,
+        timeZone: displayZone,
+      }),
+    [displayZone, rawSlots]
+  );
+
+  const days = sortedDays(slots, duration);
+  const activeDay =
+    selectedDay && days.includes(selectedDay) ? selectedDay : (days[0] ?? null);
+
+  const compact = upcomingAppointments({
+    duration,
+    limit: 5,
+    now,
+    slots,
+    timeZone: displayZone,
+  });
+
+  const weekDays = weekDayRange({ timeZone: displayZone, weekStart });
+  const weekSlots = weekDays.flatMap((day) =>
+    slotsForDay({
+      day,
+      duration,
+      now,
+      slots,
+      timeZone: displayZone,
+    }).map((start) => ({ day, start }))
+  );
+
+  const pickTime = (input: { duration: 15 | 30; start: string }) => {
+    setSelection(input);
+    setPhase("details");
+  };
+
+  const changeZone = (next: string) => {
+    setDisplayZone(next);
+    set("/timeZone", next);
+  };
+
+  const slotStillOpen =
+    selection &&
+    isOpenStart({
+      duration: selection.duration,
+      now,
+      slots,
+      start: selection.start,
+      timeZone: displayZone,
+    });
+
+  const detailsValid =
+    selection && contactValid({ description, email, name }) && slotStillOpen;
+
+  if (lockedSummary) {
+    return (
+      <ConnectCard aria-live="polite" title="Pick a time">
+        <ConnectHint>
+          Time selected. Continue in the booking card below.
+        </ConnectHint>
+        <p className="text-sm text-white tabular-nums">{lockedSummary}</p>
+      </ConnectCard>
+    );
+  }
+
+  if (phase === "details" && selection) {
+    return (
+      <ConnectCard title="Book a call">
+        <ConnectHint>{BOOK_SLOT_LEAD}</ConnectHint>
+        <p className="text-sm text-white tabular-nums">
+          {formatSlotSelectionLine({
+            duration: selection.duration,
+            start: selection.start,
+            timeZone: displayZone,
+          })}
+        </p>
+        {slotStillOpen ? null : (
+          <p className="text-sm text-red-400" role="alert">
+            That time is no longer available. Pick another slot.
+          </p>
+        )}
+        <ConnectNameField onChange={setName} value={name} />
+        <ConnectEmailField onChange={setEmail} value={email} />
+        <ConnectTopicField onChange={setDescription} value={description} />
+        <ConnectActions>
+          <ConnectPrimaryButton
+            disabled={!detailsValid || submitted}
+            onClick={() => {
+              if (submitted || !detailsValid) return;
+              setSubmitted(true);
+              onContinue({
+                description: description.trim(),
+                duration: selection.duration,
+                email: email.trim(),
+                name: name.trim(),
+                start: selection.start,
+                timeZone: displayZone,
+              });
+            }}
+          >
+            Continue
+          </ConnectPrimaryButton>
+          <ConnectSecondaryButton
+            onClick={() => {
+              setPhase("schedule");
+            }}
+          >
+            Change time
+          </ConnectSecondaryButton>
+        </ConnectActions>
+      </ConnectCard>
+    );
+  }
+
+  return (
+    <ConnectCard title="Pick a time">
+      <DurationToggle
+        onChange={(next) => {
+          set("/duration", next);
+          setSelection(null);
+        }}
+        value={duration}
+      />
+      <label className="flex flex-col gap-2 text-sm">
+        <span className="text-neutral-400">Times shown in</span>
+        <select
+          className="min-h-11 rounded-lg border border-hairline bg-transparent px-3 text-white focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+          onChange={(event) => changeZone(event.currentTarget.value)}
+          value={displayZone}
+        >
+          {timeZoneOptions(storedZone).map((zone) => (
+            <option key={zone} value={zone}>
+              {zone.replace(/_/g, " ")}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      {expanded ? (
+        <>
+          <div className="flex items-center justify-between gap-2">
+            <ConnectSecondaryButton
+              onClick={() =>
+                setWeekStart(addCalendarDays({ date: weekStart, days: -7 }))
+              }
+            >
+              Previous week
+            </ConnectSecondaryButton>
+            <ConnectSecondaryButton
+              onClick={() =>
+                setWeekStart(addCalendarDays({ date: weekStart, days: 7 }))
+              }
+            >
+              Next week
+            </ConnectSecondaryButton>
+          </div>
+          <div
+            aria-label="Week days"
+            className="flex flex-wrap gap-2"
+            role="group"
+          >
+            {weekDays.map((day) => {
+              const count = slotsForDay({
+                day,
+                duration,
+                now,
+                slots,
+                timeZone: displayZone,
+              }).length;
+              return (
+                <button
+                  aria-pressed={activeDay === day}
+                  className={cn(
+                    chipClass,
+                    activeDay === day && "border-accent text-accent",
+                    count === 0 && "opacity-40"
+                  )}
+                  disabled={count === 0}
+                  key={day}
+                  onClick={() => setSelectedDay(day)}
+                  type="button"
+                >
+                  {formatDayChip({ date: day, timeZone: displayZone })}
+                </button>
+              );
+            })}
+          </div>
+          <div
+            aria-label="Available times"
+            className="grid grid-cols-2 gap-2 sm:grid-cols-3"
+            role="group"
+          >
+            {(activeDay
+              ? slotsForDay({
+                  day: activeDay,
+                  duration,
+                  now,
+                  slots,
+                  timeZone: displayZone,
+                })
+              : weekSlots.map((item) => item.start)
+            ).map((start) => (
+              <TimeButton
+                duration={duration}
+                iso={start}
+                key={start}
+                onPick={pickTime}
+                timeZone={displayZone}
+              />
+            ))}
+          </div>
+          <ConnectSecondaryButton onClick={() => setExpanded(false)}>
+            Show fewer times
+          </ConnectSecondaryButton>
+        </>
+      ) : (
+        <>
+          <div
+            aria-label="Next available times"
+            className="flex flex-wrap gap-2"
+            role="group"
+          >
+            {compact.length === 0 ? (
+              <ConnectHint>No open times for this duration.</ConnectHint>
+            ) : (
+              compact.map((item) => (
+                <button
+                  className={cn(chipClass, "tabular-nums")}
+                  key={item.start}
+                  onClick={() => pickTime(item)}
+                  type="button"
+                >
+                  {formatDayShort({ iso: item.start, timeZone: displayZone })}{" "}
+                  {formatTime({ iso: item.start, timeZone: displayZone })}
+                </button>
+              ))
+            )}
+          </div>
+          {days.length > 0 ? (
+            <ConnectSecondaryButton
+              onClick={() => {
+                if (activeDay) {
+                  setWeekStart(
+                    startOfWeek({ date: activeDay, timeZone: displayZone })
+                  );
+                }
+                setExpanded(true);
+              }}
+            >
+              More dates and times
+            </ConnectSecondaryButton>
+          ) : null}
+        </>
+      )}
+    </ConnectCard>
+  );
+};
 
 export function SlotPicker({
+  lockedSummary,
   onPick,
   spec,
 }: {
-  onPick: (input: { duration: 15 | 30; start: string }) => void;
+  lockedSummary?: string | null;
+  onPick: (input: {
+    description: string;
+    duration: 15 | 30;
+    email: string;
+    name: string;
+    start: string;
+    timeZone: string;
+  }) => void;
   spec: Spec;
 }) {
   return (
-    <PickContext.Provider value={onPick}>
-      <StateProvider initialState={spec.state ?? {}}>
-        <VisibilityProvider>
-          <ActionProvider>
-            <Renderer registry={registry} spec={spec} />
-          </ActionProvider>
-        </VisibilityProvider>
-      </StateProvider>
-    </PickContext.Provider>
+    <StateProvider initialState={spec.state ?? {}}>
+      <VisibilityProvider>
+        <ActionProvider>
+          <div className={enter}>
+            <BookingScheduler
+              lockedSummary={lockedSummary}
+              onContinue={onPick}
+            />
+          </div>
+        </ActionProvider>
+      </VisibilityProvider>
+    </StateProvider>
   );
 }

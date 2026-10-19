@@ -197,6 +197,9 @@ export function ConnectChat() {
     <div className="flex min-h-0 flex-1 flex-col text-foreground">
       <Conversation className="relative min-h-0 flex-1 [scrollbar-gutter:stable] overflow-y-auto overscroll-contain">
         <ConversationContent className="w-full min-w-0 gap-6 px-0 pe-1 pb-4">
+          {showStarters ? null : (
+            <h1 className="sr-only">Work with Gabo Esquivel</h1>
+          )}
           {showStarters ? (
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">

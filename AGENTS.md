@@ -12,6 +12,14 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Narrative site. Voice, identity, and claims: installed `gabo` skill, which outranks any other writing skill on those three.
 
+## Development workflow
+
+1. Inspect the current diff and the relevant source. Load the docs and installed skills triggered by the task; keep unrelated work intact.
+2. Define observable acceptance criteria. For a change spanning system boundaries or requiring a consequential decision, outline the approach and resolve that decision before implementation. Small edits need no separate plan document.
+3. Implement the scoped change and update the document that owns any changed decision.
+4. Run the applicable checks below; for UI changes, complete the browser verification in **Tools**. Fix failures and recheck the affected behavior.
+5. Report what changed, the checks actually run and their results, and any remaining blockers or unverified behavior. A proposed check is not verification evidence.
+
 ## Tools
 
 Prefer a CLI to interact with a product or service. Use MCP when no CLI covers the operation.
@@ -20,6 +28,7 @@ For UI, layout, or interaction changes (not backend-only, docs-only, or ordinary
 
 ## Docs
 
+- [ARCHITECTURE.md](ARCHITECTURE.md): read before changing data flow, integrations, generated outputs, or system boundaries.
 - [PRODUCT.md](PRODUCT.md): read the relevant sections before changing page copy, routes, metadata, or blog links. Page jobs, evidence, keyword owners, and linking rules live there.
 - [DESIGN.md](DESIGN.md): read before visual or interaction changes. Tokens, primitives, layout, motion, and accessibility rules live there.
 - [README.md](README.md): setup for people.
@@ -53,7 +62,7 @@ Names are documented in `.env.example`. If a name is missing from `.env`, stop a
 
 On Vercel, chat/book/note caps need Upstash Redis REST credentials. The app reads `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, or the marketplace pair `KV_REST_API_URL` and `KV_REST_API_TOKEN`. Provision with the [Upstash for Redis](https://vercel.com/marketplace/upstash/upstash-kv) marketplace integration on project `gaboesquivel` (accept marketplace terms in the dashboard if the CLI prompts). On `localhost` and `gaboesquivel.localhost`, daily caps are skipped unless `CONNECT_ENFORCE_CAPS=1` (for testing cap behavior locally).
 
-Calendar booking uses a **Google service account** with **domain-wide delegation** impersonating `GOOGLE_CALENDAR_ID` (default `contact@gaboesquivel.com`). Set `GOOGLE_SERVICE_ACCOUNT_JSON` and `GOOGLE_CALENDAR_ID` in `.env` and on Vercel Production and Preview. Provisioning (once): enable Calendar API in GCP project `gabo-esquivel`; create service account `gaboesquivel-ask-booking` and a JSON key (see [scripts/google-service-account.json.example](scripts/google-service-account.json.example)); in Google Admin authorize the service account client id for scopes `calendar.events` and `calendar.freebusy`; redeploy. JWTs use `sub` = the calendar id. No visitor OAuth and no key file at runtime.
+Calendar booking uses a **Google service account** with **domain-wide delegation** impersonating the explicitly configured `GOOGLE_CALENDAR_ID` (use `contact@gaboesquivel.com` for this site; there is no runtime default). Set `GOOGLE_SERVICE_ACCOUNT_JSON` and `GOOGLE_CALENDAR_ID` in `.env` and on Vercel Production and Preview. Provisioning (once): enable Calendar API in GCP project `gabo-esquivel`; create service account `gaboesquivel-ask-booking` and a JSON key (see [scripts/google-service-account.json.example](scripts/google-service-account.json.example)); in Google Admin authorize the service account client id for scopes `calendar.events` and `calendar.freebusy`; redeploy. JWTs use `sub` = the calendar id. No visitor OAuth and no key file at runtime.
 
 Main files: `agent/agent.ts`, `app/connect/connect-chat.tsx`, `app/connect/eve-thread.tsx`, `lib/connect/compose.ts`, `lib/connect/sonnet-model.ts`.
 
@@ -81,13 +90,24 @@ Page lists, identity facts, and the featured set are repeated in code. Update ev
 - Hire terms or identity facts (location, time zone, languages): the `gabo` skill's Identity first, then `PRODUCT.md` (`/ask`), `components/shared/lets-connect.tsx`, `scripts/llms/pages.ts`, `scripts/llms/corpus.ts`, and `scripts/llms/authority.ts`.
 - Featured projects: the package's `featured` allowlist first, then `scripts/llms/projects.ts` and `scripts/llms/authority.ts`.
 - Tokens, primitives, layout, motion budget, or accessibility conventions: `DESIGN.md`.
+- System boundaries, data flow, integrations, or generated-output ownership: `ARCHITECTURE.md`.
+- Development setup: `README.md`. Keep operational constraints here and link to the owning document for explanations.
 
 ## Checks
 
-- `bun run dev`: Velite watch and Next.js at `https://gaboesquivel.localhost` (Next listens on port 3099). `bun run setup:portless` trusts the local certificate once. UI changes: browser-verify affected routes on **`https://gaboesquivel.localhost`** (see **Tools**); fall back to `http://localhost:3099` only for TLS or proxy troubleshooting.
-- `bun run verify`: Velite content build and Ultracite (`oxlint` + `oxfmt`).
-- `bun run test:llms`: the llms export, blog, and CV page-break tests. Run it after page, blog, or CV changes.
-- `bun run verify:routes [base-url]`: curls `/`, the `/cv` variants, `/ask`, sample posts, and the `/cal` redirect. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).
+Choose checks by the changed behavior; command definitions in `package.json` are authoritative.
+
+- Documentation only: verify claims against source, local links and paths, changed-file formatting, and diff scope. No application build or browser pass is required.
+- Content or page changes: run `bun run verify` and `bun run test:llms`. Add route checks when routing changes.
+- UI or interaction changes: run relevant existing checks and the browser verification in **Tools**.
+- Backend or integration changes: run the owning modules' existing tests and relevant contract checks. Report any live integration left unverified; local tests alone do not prove external delivery or booking.
+
+Commands and hooks:
+
+- `bun run dev`: starts the local development server; setup and certificate trust are documented in [README.md](README.md).
+- `bun run verify`: Velite content build and Ultracite (`oxlint` + `oxfmt`); not a production build.
+- `bun run test:llms`: regenerates exports and runs an explicit selection of corpus, blog, CV, API, and chat tests. Run it after page, blog, or CV changes. It does not run every test file; add existing module tests as needed.
+- `bun run verify:routes [base-url]`: checks core pages, CV variants, chat/contact, API responses, sample posts, and redirects. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).
 - `bun run verify:calendar`: calls Calendar `freeBusy` using `GOOGLE_SERVICE_ACCOUNT_JSON` and `GOOGLE_CALENDAR_ID` from the environment. Run after Admin delegation is authorized. `sh scripts/sync-google-calendar-vercel.sh` pushes those vars from the environment to Vercel Production and Preview.
 - Pre-commit (simple-git-hooks) always runs `bun qa` (`lint:fix`, `format`, `build`). When `app/cv/`, `app/global.css`, or `components/shared/contact-info.tsx` is staged, it then runs `bun run cvs`: the CV PDFs are printed with local Google Chrome (it starts `next dev` on port 3099 if nothing is running), then the PDFs and `app/cv/page-breaks.ts` are staged. Formatter edits to files already in the index are written back with `git update-index --again`.
 

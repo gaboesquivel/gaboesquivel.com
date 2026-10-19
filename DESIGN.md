@@ -106,12 +106,30 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | In-prose link | `.prose-link` | `app/global.css` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
 | Forms | Match `/ask`: transparent fields, `border-hairline`, `focus-visible:ring-accent` | `app/connect/connect-chat.tsx` |
+| Connect generative cards | `ConnectCard`, shared actions, duration chips | `app/connect/connect-gen-ui.tsx` |
 
 `PathLink` uses `cardLink`, so it takes the same hairline border.
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status, approval card, and slot picker entrance (`starting:` fade + scale), connect starter, Send, Stop, and approval `:active` scale, and `cardLink` `:active` scale. The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status, approval card, and connect generative cards (`starting:` fade + scale via `enter`), connect starter, Send, Stop, and approval `:active` scale, and `cardLink` `:active` scale. The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+
+## `/ask` generative UI
+
+Conversation carries intent; interactive cards carry data entry and confirmation. The model calls `list_slots`, `book`, and `send`; React owns layout, validation, and local UI state without extra chat turns for ordinary picker navigation.
+
+**Principles**
+
+- One card surface per workflow step: hairline border, `rounded-lg`, `p-4`, `max-w-md`, `gap-3`, mono type, mint focus rings — see `ConnectCard` in `app/connect/connect-gen-ui.tsx`.
+- Progressive disclosure: booking shows duration, visitor time zone, and the next few starts before an in-place expand for week navigation and a responsive time grid (`app/connect/slot-picker.tsx`, logic in `lib/connect/slot-display.ts`).
+- Stateful flows: availability → details → approval → receipt. Contact fields persist when the visitor changes time. The discussion field is never prefilled from chat history.
+- Shared fields and actions: `connect-fields.tsx`, `ConnectPrimaryButton` / `ConnectSecondaryButton`, `DurationToggle` chips with `aria-pressed` and accent border when selected.
+- Approval: `ConnectApprovalForm` edits name, email, and topic once more; primary label names the action (`Book …`, `Send email`).
+- Receipts: compact `BookReceipt` and `NoteReceipt` cards with shimmer while pending, neutral or red status text when settled, definition lists for summary fields. After a slot is chosen, the picker collapses to a read-only summary (`picker-lock.ts`); approval and receipt cards disable repeat submission.
+- Responsive: generative cards stay `max-w-md` in the chat column; expanded time grids use two columns on narrow viewports and three from `sm` up. Verify with `agent-browser set viewport <w> <h>`.
+- Motion: existing `enter` on card mount only; no decorative animation. Loading uses `Shimmer` on status lines.
+- Time zones: IANA identifiers in a native `select`; slots rebucket client-side when the display zone changes. Business hours stay America/Denver server-side.
+- Accessibility: grouped times with `role="group"` and `aria-label`, keyboard-focusable chips and buttons, `tabular-nums` on times, reduced motion via existing `motion-safe` / `motion-reduce` on press styles. After the visitor leaves the empty state, `/ask` keeps a screen-reader-only `h1` (`connect-chat.tsx`) so the page still has a level-one heading.
 
 ## Accessibility
 

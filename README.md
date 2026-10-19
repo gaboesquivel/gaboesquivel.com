@@ -28,7 +28,7 @@ npm i -g agent-browser && agent-browser install
 npx skills@latest add vercel-labs/agent-browser -g -y
 ```
 
-Use `-g` when installing the skill so it targets your coding agent, not this repo’s Eve runtime (`agent/skills/`).
+The CLI and skill are global development tools, not application dependencies.
 
 With `bun run dev` running, smoke-test the CLI against **`https://gaboesquivel.localhost`**. Read `agent-browser skills get core` before other commands. If the browser reports an untrusted certificate, run `bun run setup:portless` once—do not disable TLS verification by default.
 
@@ -40,12 +40,21 @@ agent-browser errors
 agent-browser close
 ```
 
-If HTTPS fails in the CLI only, retry with `http://localhost:3099` after fixing trust.
+Use `http://localhost:3099` only to troubleshoot a blocked HTTPS connection or certificate trust.
 
-For a UI change: implement, run the relevant checks (`bun run verify` and others), open affected pages at `https://gaboesquivel.localhost`, interact, and inspect snapshots, screenshots, and errors. Fix and re-verify, then report what you ran and what you saw. Leave screenshots and other local browser artifacts uncommitted.
+Follow [AGENTS.md](AGENTS.md#tools) for UI verification requirements. Leave screenshots and other local browser artifacts uncommitted.
+
+## Development checks
+
+- `bun run verify`: build content and check lint/formatting.
+- `bun run test:llms`: regenerate exports and run selected content, CV, API, and chat tests.
+- `bun run build`: generate content and machine-readable outputs, then build Next.js.
+
+See [AGENTS.md](AGENTS.md#checks) for task-specific checks and pre-commit behavior. The workflow uses repository docs, installed skills, and CLI tools across coding agents; it does not depend on a particular editor.
 
 ## Docs
 
+- [ARCHITECTURE.md](ARCHITECTURE.md): system boundaries, data flow, integrations, and source ownership
 - [PRODUCT.md](PRODUCT.md): audience, pages, and what each page is for
 - [DESIGN.md](DESIGN.md): visual system, components, and accessibility
 - [AGENTS.md](AGENTS.md): workflow, checks, and rules for coding agents

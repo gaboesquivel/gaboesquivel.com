@@ -19,6 +19,7 @@ import {
   fixedNoteSpec,
   noteFormMessage,
   noteFormVisible,
+  parseBookTimeZone,
 } from "../../lib/connect/compose";
 import type { NoteFormState } from "../../lib/connect/compose";
 import { STREAM_FAILED } from "../../lib/connect/copy";
@@ -30,7 +31,10 @@ import {
 } from "../../lib/connect/intent";
 import { splitNext } from "../../lib/connect/next-step";
 import {
-  assistantFollowsFormNote,
+  assistantFollowsConnectForm,
+  bookFormPayloadFromMessage,
+  bookPartAfterMessage,
+  bookReceiptStatus,
   messageHasBookFormPayload,
   messageHasNoteFormPayload,
   noteFormPayloadFromMessage,
@@ -38,12 +42,15 @@ import {
   sendPartAfterMessage,
   threadHasNoteFormPayload,
 } from "../../lib/connect/note-receipt";
+import { lockedPickerSummaries } from "../../lib/connect/picker-lock";
+import { formatSlotSelectionLine } from "../../lib/connect/slot-display";
 import { visitorFacingAssistantText } from "../../lib/connect/visitor-facing";
 import {
   featuredWorkCardProjects,
   precedingUserText,
   shouldShowWorkCards,
 } from "../../lib/connect/work-cards";
+import { BookReceipt } from "./book-receipt";
 import { enter } from "./chat-styles";
 import { CvDownloadCard } from "./cv-download-card";
 import { NoteReceipt } from "./note-receipt";
@@ -57,11 +64,6 @@ const SlotPicker = dynamic(
 
 const NoteForm = dynamic(
   () => import("./note-form").then((mod) => mod.NoteForm),
-  { ssr: false }
-);
-
-const BookSlotForm = dynamic(
-  () => import("./book-slot-form").then((mod) => mod.BookSlotForm),
   { ssr: false }
 );
 
@@ -205,11 +207,17 @@ export function EveThread({
   const [optimisticNote, setOptimisticNote] = useState<NoteFormState | null>(
     null
   );
-  const [pendingBook, setPendingBook] = useState<{
-    duration: 15 | 30;
-    start: string;
-  } | null>(null);
+  const [pendingPickerLocks, setPendingPickerLocks] = useState<
+    Record<string, string>
+  >({});
   const noteSpec = useMemo(() => fixedNoteSpec(), []);
+  const pickerLocks = useMemo(
+    () => ({
+      ...lockedPickerSummaries(agent.data.messages),
+      ...pendingPickerLocks,
+    }),
+    [agent.data.messages, pendingPickerLocks]
+  );
   const previousMode = useRef(mode);
   const onStateRef = useRef(onState);
   const onInitialSendFailedRef = useRef(onInitialSendFailed);
@@ -219,9 +227,6 @@ export function EveThread({
     if (previousMode.current !== "note" && mode === "note") {
       setNoteFormDisabled(false);
       setOptimisticNote(null);
-    }
-    if (previousMode.current !== "book" && mode === "book") {
-      setPendingBook(null);
     }
     previousMode.current = mode;
   }, [mode]);
@@ -333,6 +338,7 @@ export function EveThread({
     () =>
       agent.data.messages.filter((message) => {
         if (messageHasNoteFormPayload(message)) return true;
+        if (messageHasBookFormPayload(message)) return true;
         return message.parts.some((part) => {
           if (part.type === "text") {
             const visible =
@@ -341,7 +347,7 @@ export function EveThread({
                 : visitorFacingAssistantText(splitNext(part.text).text);
             if (message.role === "assistant") {
               if (
-                assistantFollowsFormNote({
+                assistantFollowsConnectForm({
                   messageId: message.id,
                   messages: agent.data.messages,
                 })
@@ -374,12 +380,10 @@ export function EveThread({
     hasSendApproval,
     mode,
   });
-  const showBookSlotForm = Boolean(pendingBook) && !waiting;
   const showReplying =
     waiting &&
     visibleAssistantText.trim().length === 0 &&
     !showNoteForm &&
-    !showBookSlotForm &&
     !optimisticReceipt &&
     !hideAssistantForFormNote;
 
@@ -416,13 +420,11 @@ export function EveThread({
         showReplying ||
         Boolean(showFailure) ||
         showNoteForm ||
-        showBookSlotForm ||
         Boolean(optimisticReceipt)
     );
   }, [
     onVisibleChange,
     optimisticReceipt,
-    showBookSlotForm,
     showFailure,
     showNoteForm,
     showReplying,
@@ -431,18 +433,45 @@ export function EveThread({
 
   const lastVisibleId = visibleMessages.at(-1)?.id;
   const visitorZone = browserTimeZone();
-  const pendingBookLabel =
-    pendingBook &&
-    `${formatSlot({ iso: pendingBook.start, timeZone: visitorZone })} ${zoneName(
-      {
-        iso: pendingBook.start,
-        timeZone: visitorZone,
-      }
-    )}`;
 
   return (
     <div aria-busy={waiting} className="flex flex-col gap-6">
       {visibleMessages.map((message) => {
+        const bookPayload = bookFormPayloadFromMessage(message);
+        if (bookPayload) {
+          const bookPart = bookPartAfterMessage(
+            agent.data.messages,
+            message.id
+          );
+          const output = bookPart?.output as
+            | { inserted?: boolean; message?: string; ok?: boolean }
+            | undefined;
+          const timeZone =
+            message.parts
+              .flatMap((part) =>
+                part.type === "text" ? [part.text ?? ""] : []
+              )
+              .map(parseBookTimeZone)
+              .find(Boolean) ?? visitorZone;
+          return (
+            <Message from="assistant" key={message.id}>
+              <BookReceipt
+                description={bookPayload.description}
+                duration={bookPayload.duration}
+                email={bookPayload.email}
+                name={bookPayload.name}
+                start={bookPayload.start}
+                status={bookReceiptStatus({
+                  fallback: errorText,
+                  output,
+                  settled: !waiting,
+                  state: bookPart?.state ?? "pending",
+                })}
+                timeZone={timeZone}
+              />
+            </Message>
+          );
+        }
         const notePayload = noteFormPayloadFromMessage(message);
         if (notePayload) {
           const sendPart = sendPartAfterMessage(
@@ -474,7 +503,7 @@ export function EveThread({
               if (part.type === "text") {
                 if (
                   message.role === "assistant" &&
-                  assistantFollowsFormNote({
+                  assistantFollowsConnectForm({
                     messageId: message.id,
                     messages: agent.data.messages,
                   })
@@ -524,8 +553,43 @@ export function EveThread({
                   return (
                     <div className={enter} key={part.toolCallId}>
                       <SlotPicker
-                        onPick={({ duration, start }) => {
-                          setPendingBook({ duration, start });
+                        lockedSummary={pickerLocks[part.toolCallId] ?? null}
+                        onPick={(values) => {
+                          const summary = formatSlotSelectionLine({
+                            duration: values.duration,
+                            start: values.start,
+                            timeZone: values.timeZone,
+                          });
+                          setPendingPickerLocks((current) => ({
+                            ...current,
+                            [part.toolCallId]: summary,
+                          }));
+                          void agent
+                            .send(
+                              bookFormMessage({
+                                description: values.description,
+                                duration: values.duration,
+                                email: values.email,
+                                name: values.name,
+                                start: values.start,
+                                timeZone: values.timeZone,
+                              })
+                            )
+                            .then(() => {
+                              setPendingPickerLocks((current) => {
+                                const { [part.toolCallId]: _, ...rest } =
+                                  current;
+                                return rest;
+                              });
+                              onContinue?.();
+                            })
+                            .catch(() => {
+                              setPendingPickerLocks((current) => {
+                                const { [part.toolCallId]: _, ...rest } =
+                                  current;
+                                return rest;
+                              });
+                            });
                         }}
                         spec={spec as Spec}
                       />
@@ -618,7 +682,7 @@ export function EveThread({
               return null;
             })}
             {message.role === "assistant" &&
-            !assistantFollowsFormNote({
+            !assistantFollowsConnectForm({
               messageId: message.id,
               messages: agent.data.messages,
             }) &&
@@ -635,31 +699,6 @@ export function EveThread({
           </Message>
         );
       })}
-      {showBookSlotForm && pendingBook && pendingBookLabel ? (
-        <div className={enter}>
-          <BookSlotForm
-            duration={pendingBook.duration}
-            onCancel={() => setPendingBook(null)}
-            onSubmit={(values) => {
-              const pick = pendingBook;
-              if (!pick) return;
-              setPendingBook(null);
-              void agent
-                .send(
-                  bookFormMessage({
-                    ...values,
-                    duration: pick.duration,
-                    start: pick.start,
-                    timeZone: visitorZone,
-                  })
-                )
-                .then(() => onContinue?.())
-                .catch(() => setPendingBook(pick));
-            }}
-            slotLabel={pendingBookLabel}
-          />
-        </div>
-      ) : null}
       {showNoteForm ? (
         <div className={enter}>
           <NoteForm

@@ -21,6 +21,9 @@ const slotStateRecord = (state: SlotState) =>
 const catalog = {
   data: {
     components: {
+      BookingScheduler: {
+        props: z.object({}),
+      },
       Days: {
         props: z.object({
           days: z.array(z.string()),
@@ -46,7 +49,13 @@ const catalog = {
     },
   },
   validate: (spec: unknown) => {
-    const allowed = new Set(["Stack", "Duration", "Days", "Times"]);
+    const allowed = new Set([
+      "BookingScheduler",
+      "Stack",
+      "Duration",
+      "Days",
+      "Times",
+    ]);
     if (!spec || typeof spec !== "object" || !("elements" in spec)) {
       return { success: false };
     }
@@ -184,6 +193,11 @@ export const parseNoteFormPayload = (text: string): NoteFormState | null => {
   };
 };
 
+export const parseBookTimeZone = (text: string) => {
+  const match = text.match(/\[site:book\s+([^\]]+)\]/);
+  return match?.[1]?.trim() ?? "UTC";
+};
+
 export const parseBookFormPayload = (
   text: string
 ): (NoteFormState & { duration: 15 | 30; start: string }) | null => {
@@ -226,25 +240,12 @@ export const noteFormVisible = ({
 
 export const fixedSpec = (state: SlotState): Spec => ({
   elements: {
-    days: {
-      props: { days: { $state: "/days" } },
-      type: "Days",
-    },
-    duration: {
-      props: { choices: [15, 30] },
-      type: "Duration",
-    },
-    stack: {
-      children: ["duration", "days", "times"],
+    scheduler: {
       props: {},
-      type: "Stack",
-    },
-    times: {
-      props: { slots: { $state: "/slots" } },
-      type: "Times",
+      type: "BookingScheduler",
     },
   },
-  root: "stack",
+  root: "scheduler",
   state: slotStateRecord(state),
 });
 
@@ -252,7 +253,10 @@ const hasPicker = (spec: Spec) => {
   const types = new Set(
     Object.values(spec.elements).map((element) => element.type)
   );
-  return types.has("Duration") && types.has("Days") && types.has("Times");
+  return (
+    types.has("BookingScheduler") ||
+    (types.has("Duration") && types.has("Days") && types.has("Times"))
+  );
 };
 
 export const layoutIsForced = ({

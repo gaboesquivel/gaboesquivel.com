@@ -19,6 +19,7 @@ import {
   ConnectTopicField,
   contactValid,
 } from "./connect-fields";
+import { ConnectCard } from "./connect-gen-ui";
 
 const SubmitContext = createContext<
   | ((values: { description: string; email: string; name: string }) => void)
@@ -82,7 +83,7 @@ const Submit = ({ element }: { element: { props: { label?: string } } }) => {
 };
 
 const NoteStack = ({ children }: { children?: ReactNode }) => (
-  <div className="flex flex-col gap-4">{children}</div>
+  <ConnectCard title="Send email">{children}</ConnectCard>
 );
 
 const registry = {
