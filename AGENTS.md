@@ -12,6 +12,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Narrative site. Voice, identity, and claims: installed `gabo` skill, which outranks any other writing skill on those three.
 
+## Tools
+
+Prefer a CLI to interact with a product or service. Use MCP when no CLI covers the operation.
+
 ## Docs
 
 - [PRODUCT.md](PRODUCT.md): read the relevant sections before changing page copy, routes, metadata, or blog links. Page jobs, evidence, keyword owners, and linking rules live there.
