@@ -7,7 +7,9 @@ const endpoint = "https://gaboesquivel.com/mcp";
 export default function DocsPage() {
   return (
     <section>
-      <PageTitle>Gabo Esquivel MCP — developer documentation</PageTitle>
+      <PageTitle>
+        Gabo Esquivel MCP and Site API — developer documentation
+      </PageTitle>
       <Prose>
         The Gabo Esquivel MCP server is how another agent reaches the same site
         agent as{" "}
@@ -37,9 +39,17 @@ export default function DocsPage() {
           <Link href="/mcp" className="prose-link">
             gaboesquivel.com/mcp
           </Link>
-          . There is no OpenAPI spec, separate REST API, or published SDK — only
-          the MCP <code className="text-neutral-200">agent_*</code> tools
-          documented below. For a plain-text corpus index, use{" "}
+          . For read-only JSON (profile and Markdown page exports), use the{" "}
+          <Link href="/openapi.json" className="prose-link">
+            Gabo Esquivel Site API
+          </Link>{" "}
+          OpenAPI description at{" "}
+          <Link href="/openapi.json" className="prose-link">
+            /openapi.json
+          </Link>
+          . Task execution is not on that REST surface — use the MCP{" "}
+          <code className="text-neutral-200">agent_*</code> tools documented
+          below. For a plain-text corpus index, use{" "}
           <Link href="/llms.txt" className="prose-link">
             llms.txt
           </Link>
@@ -181,7 +191,7 @@ export default function DocsPage() {
 
 export const metadata = pageMetadata({
   description:
-    "Gabo Esquivel MCP developer documentation: Streamable HTTP at gaboesquivel.com/mcp, protocol at /docs (also /developers), public auth, agent_start and agent_get.",
+    "Gabo Esquivel MCP and Site API: OpenAPI at /openapi.json, Streamable HTTP at /mcp, protocol at /docs (also /developers), public auth, agent_start and agent_get.",
   path: "/docs",
-  title: "Gabo Esquivel MCP — Developer documentation",
+  title: "Gabo Esquivel MCP and Site API — Developer documentation",
 });

@@ -34,6 +34,7 @@ const canonicalRoutes = [
   { label: "Ask", path: "/ask" },
   { label: "Site agent", path: "/mcp" },
   { label: "Gabo Esquivel MCP", path: "/docs" },
+  { label: "Contact", path: "/contact" },
   { label: "About", path: "/about" },
   { label: "Privacy", path: "/privacy" },
   { label: "Work portfolio", path: "/work" },
@@ -63,8 +64,13 @@ const buildLlmsIndex = ({
 
   const developerResourceLines = [
     llmsListItem({
+      name: "Gabo Esquivel Site API (OpenAPI)",
+      note: "Read-only JSON: profile, page list, and Markdown exports. Task execution uses MCP at /mcp.",
+      url: `${BASE_URL}/openapi.json`,
+    }),
+    llmsListItem({
       name: "Gabo Esquivel MCP — developer documentation",
-      note: "Streamable HTTP protocol (agent_start, agent_get), auth, and limits. Aliases: /developers, /mcp/docs.",
+      note: "Streamable HTTP protocol (agent_start, agent_get), Gabo Esquivel MCP authentication, and limits. Aliases: /developers, /mcp/docs.",
       url: `${BASE_URL}/docs`,
     }),
     llmsListItem({

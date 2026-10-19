@@ -41,7 +41,6 @@ const nextConfig = {
     };
     const askRedirects = [
       { destination: "/ask", permanent: true, source: "/connect" },
-      { destination: "/ask", permanent: true, source: "/contact" },
     ];
     const mcpDocsRedirects = [
       { destination: "/docs", permanent: true, source: "/developers" },
@@ -85,6 +84,8 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "/api/markdown": ["./generated/markdown-routes.json"],
     "/api/markdown/[[...slug]]": ["./generated/markdown-routes.json"],
+    "/api/v1/pages": ["./generated/markdown-routes.json"],
+    "/api/v1/pages/[...path]": ["./generated/markdown-routes.json"],
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "@tanstack/react-form"],

@@ -52,7 +52,7 @@ export default function HomePage() {
       <PageImage alt="Gabo Esquivel giving a workshop in 2019" src={workshop} />
 
       <PageSection
-        title="Selected work"
+        title="Work portfolio"
         action={
           <Link href="/work" className={sectionAction}>
             More work

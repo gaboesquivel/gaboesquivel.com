@@ -51,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/llms-full.txt",
     "/.well-known/llms.txt",
     "/.well-known/llms-full.txt",
+    "/openapi.json",
   ].map((route) => ({
     changeFrequency: "monthly" as const,
     priority: 0.4,

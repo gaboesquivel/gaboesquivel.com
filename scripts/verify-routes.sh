@@ -85,7 +85,47 @@ fi
 rm -f "$ask_body"
 echo "OK   /ask 200"
 check_redirect /connect
-check_redirect /contact
+contact_body="$(mktemp)"
+contact_code="$(curl -s -o "$contact_body" -w '%{http_code}' "${base}/contact")"
+if [ "$contact_code" != "200" ]; then
+  echo "FAIL /contact expected 200 got ${contact_code}"
+  exit 1
+fi
+if ! grep -q "Contact Gabo Esquivel" "$contact_body"; then
+  echo "FAIL /contact body missing Contact Gabo Esquivel"
+  exit 1
+fi
+rm -f "$contact_body"
+echo "OK   /contact 200"
+check /openapi.json
+api_body="$(mktemp)"
+api_code="$(curl -s -o "$api_body" -w '%{http_code}' "${base}/api/v1/profile")"
+if [ "$api_code" != "200" ]; then
+  echo "FAIL /api/v1/profile expected 200 got ${api_code}"
+  exit 1
+fi
+if ! grep -q '"name":"Gabo Esquivel"' "$api_body" && ! grep -q '"name": "Gabo Esquivel"' "$api_body"; then
+  echo "FAIL /api/v1/profile body missing name"
+  exit 1
+fi
+rm -f "$api_body"
+echo "OK   /api/v1/profile 200"
+api_err="$(mktemp)"
+api_err_code="$(curl -s -o "$api_err" -w '%{http_code}' "${base}/api/not-a-route")"
+if [ "$api_err_code" != "404" ]; then
+  echo "FAIL /api/not-a-route expected 404 got ${api_err_code}"
+  exit 1
+fi
+ctype="$(curl -sI "${base}/api/not-a-route" | tr -d '\r' | grep -i '^content-type:' || true)"
+case "$ctype" in
+  *application/problem+json*) ;;
+  *)
+    echo "FAIL /api/not-a-route expected application/problem+json got ${ctype:-none}"
+    exit 1
+    ;;
+esac
+rm -f "$api_err"
+echo "OK   /api/not-a-route 404 problem+json"
 check "/blog/${recent}"
 check "/blog/${archive}"
 check "/blog/${embed}"

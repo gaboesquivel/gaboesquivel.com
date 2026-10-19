@@ -22,7 +22,7 @@ Only `/bio` tells the full career story. Other pages are not alternate resumes.
 - CV: `/cv` and `/cv?focus=ai|web3|fullstack`, each with a PDF in `public/`
 - `/explore`: directory of pages, linked from the footer
 - Missing URLs (`app/not-found.tsx`) and failed pages (`app/error.tsx`, `app/global-error.tsx`) keep the site nav and link to `/` and `/explore`. They are not in the primary nav or `/explore` directory. Public HTML pages negotiate Markdown via `Accept: text/markdown` (and optional `.md` siblings such as `/index.md`) per [acceptmarkdown.com](https://acceptmarkdown.com/); HTML responses advertise the sibling with `Link: rel="alternate"` and page metadata. Missing paths with `Accept: text/markdown` receive HTTP 404 and a Markdown body with links to `/`, `/explore`, `/llms.txt`, and the sitemap
-- Trust and integration pages (`/about`, `/privacy`, `/docs`): public identity, privacy policy, and MCP integration docs for the site agent. `/contact` permanently redirects to `/ask`. Linked from the footer; not in the primary nav or `/explore` (`/docs` appears on `/explore` in the About group)
+- Trust and integration pages (`/about`, `/contact`, `/privacy`, `/docs`): public identity, contact paths, privacy policy, and MCP integration docs for the site agent. `/connect` permanently redirects to `/ask`. Linked from the footer; not in the primary nav or `/explore` (`/docs` appears on `/explore` in the About group)
 - llms corpus: `/llms.txt`, `/llms-full.txt`, and their `/.well-known/` copies, built by `scripts/llms/`
 - Redirects (`next.config.js`): `/cal` to Calendly, `/blog/tech/*` to `/tech/[slug]`, plus the Edge Config `redirects` list
 

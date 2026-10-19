@@ -49,6 +49,7 @@ const narrativePages: { file: string; path: string }[] = [
   { file: "web3/page.tsx", path: "/web3" },
   { file: "ask/page.tsx", path: "/ask" },
   { file: "about/page.tsx", path: "/about" },
+  { file: "contact/page.tsx", path: "/contact" },
   { file: "docs/page.tsx", path: "/docs" },
   { file: "privacy/page.tsx", path: "/privacy" },
   { file: "tech/page.tsx", path: "/tech" },
