@@ -1,3 +1,5 @@
+import { getTechCategories, techStack } from "gaboesquivel";
+
 const TOKEN_CAP = 1500;
 
 export interface RankSection {
@@ -26,6 +28,27 @@ const asksView = (question: string) =>
   /\b(think|thought|view|opinion|into|believe|wrote|writing|interested)\b/i.test(
     question
   );
+
+const asksStack = (question: string) =>
+  /\b(stacks?|technolog(?:y|ies))\b/i.test(question);
+
+const stackCategory = (question: string) => {
+  const q = question.toLowerCase();
+  if (/\bai\b/.test(q)) return "ai";
+  if (/\bweb3\b|\bblockchain\b/.test(q)) return "web3";
+  if (/\bfront-?end\b/.test(q)) return "frontend";
+  if (/\bback-?end\b/.test(q)) return "backend";
+  if (/\b(?:cloud|devops)\b/.test(q)) return "cloud-devops";
+  return "";
+};
+
+const categoriesFor = (section: RankSection) => {
+  if (section.categories.length > 0) return section.categories;
+  if (section.kind !== "tech") return section.categories;
+  const slug = section.path.split("/").at(-1) ?? "";
+  const item = techStack.find((tech) => tech.slug === slug);
+  return item ? [...getTechCategories(item)] : section.categories;
+};
 
 const namesArchive = ({
   question,
@@ -205,6 +228,15 @@ export const rankSections = ({
     .map((section) => ({ score: scoreOf({ question, section }), section }))
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score);
+
+  const category = asksStack(question) ? stackCategory(question) : "";
+  const tech = category
+    ? sections.filter(
+        (section) =>
+          section.kind === "tech" && categoriesFor(section).includes(category)
+      )
+    : [];
+  if (tech.length > 0) return takeFitting({ bodies, sections: tech });
 
   const employment = scored.find(
     (item) =>

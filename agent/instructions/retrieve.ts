@@ -1,7 +1,5 @@
 import { defineDynamic, defineInstructions } from "eve/instructions";
 
-import index from "../../generated/agent-index.json";
-import bodies from "../../generated/markdown-routes.json";
 import { admitChatOnce } from "../../lib/connect/caps";
 import {
   isMcpChannel,
@@ -9,22 +7,12 @@ import {
   userTexts,
   visitorZone,
 } from "../../lib/connect/intent";
-import { rankSections } from "../../lib/connect/rank";
-import type { RankSection } from "../../lib/connect/rank";
 import { liveCapStore } from "../../lib/connect/store";
-
-const sections = index as RankSection[];
-const corpus = bodies as Record<string, string>;
 
 export default defineDynamic({
   events: {
     "turn.started": async (_event, ctx) => {
       const texts = userTexts(ctx.messages);
-      const question = texts
-        .map((text) =>
-          text.replace(/\[site:(?:book|note|ask)\s+[^\]]+\]\n?/g, "")
-        )
-        .join("\n");
       const mcp =
         isMcpChannel(ctx.channel.kind) ||
         isMcpChannel(ctx.conversation?.channel.kind);
@@ -43,19 +31,10 @@ export default defineDynamic({
         }
       }
 
-      const ranked = question.trim()
-        ? rankSections({ bodies: corpus, question, sections })
-        : { paste: "", paths: [] };
       const zone = visitorZone(texts);
-      const lines = [
-        zone
-          ? `Visitor time zone: ${zone}. Do not assume America/Denver.`
-          : "No visitor time zone was provided. If they name a clock time, ask which zone.",
-        ranked.paste,
-      ].filter(Boolean);
-      if (!ranked.paste && !zone) return null;
+      if (!zone) return null;
       return defineInstructions({
-        content: lines.join("\n\n"),
+        content: `Visitor time zone: ${zone}. Do not assume America/Denver.`,
         role: "user",
       });
     },

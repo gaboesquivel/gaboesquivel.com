@@ -65,6 +65,43 @@ describe("connect ranker", () => {
     expect(ranked.paths[0]).toBe("/cv");
   });
 
+  test("selects AI tech pages for a stack question", () => {
+    const ranked = rankSections({
+      question: "What stacks do you use for AI products?",
+      sections: [
+        ...sections,
+        {
+          body: "OpenAI models for assistants.",
+          categories: ["ai"],
+          company: "",
+          kind: "tech",
+          opening: "OpenAI",
+          path: "/tech/openai",
+          publishedAt: "",
+          summary: "Chat and voice models",
+          tags: ["OpenAI"],
+          title: "OpenAI",
+        },
+        {
+          body: "React interfaces.",
+          categories: ["frontend"],
+          company: "",
+          kind: "tech",
+          opening: "React",
+          path: "/tech/reactjs",
+          publishedAt: "",
+          summary: "Interface library",
+          tags: ["ReactJS"],
+          title: "React",
+        },
+      ],
+    });
+    expect(ranked.paths).toEqual(["/tech/openai"]);
+    expect(ranked.paste).toContain("/tech/openai");
+    expect(ranked.paste).not.toContain("/project/wink");
+    expect(ranked.paste).not.toContain("/tech/reactjs");
+  });
+
   test("selects a current post for a view and leaves a pre-2020 post out", () => {
     const ranked = rankSections({
       question: "What do you think about agents?",

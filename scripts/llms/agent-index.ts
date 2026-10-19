@@ -1,4 +1,4 @@
-import { experience, resolveCv } from "gaboesquivel";
+import { experience, getTechCategories, resolveCv } from "gaboesquivel";
 
 import { loadBlogPosts, renderBlogMarkdown } from "./blog";
 import { absoluteUrl } from "./format";
@@ -135,6 +135,7 @@ export const buildAgentIndex = () => {
       section({
         body,
         bodyKey: `/tech/${item.slug}`,
+        categories: getTechCategories(item),
         kind: "tech",
         path: `/tech/${item.slug}`,
         summary: item.description,
