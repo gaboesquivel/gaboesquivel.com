@@ -4,7 +4,7 @@ const footerLink = "text-neutral-300 transition-colors hover:text-white";
 
 export function Footer() {
   return (
-    <footer className="mt-28 print:hidden preview-print:hidden">
+    <footer className="mt-12 sm:mt-28 print:hidden preview-print:hidden">
       <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
         <div>
           <ul className="space-y-2">
