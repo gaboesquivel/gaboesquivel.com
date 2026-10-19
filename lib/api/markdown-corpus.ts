@@ -1,12 +1,10 @@
 import { canonicalizePath } from "lib/canonical-path";
-import { buildRouteManifest } from "scripts/llms/routes";
 
 import corpus from "../../generated/markdown-routes.json";
 
 const routes = corpus as Record<string, string>;
 
-export const listPublishedPagePaths = () =>
-  [...buildRouteManifest()].sort((a, b) => a.localeCompare(b));
+export { listPublishedPagePaths } from "./published-page-paths";
 
 export const resolvePageRouteKey = ({
   segments,

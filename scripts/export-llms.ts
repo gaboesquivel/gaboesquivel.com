@@ -1,9 +1,9 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { listPublishedPagePaths } from "../lib/api/markdown-corpus";
 import { openApiDocument } from "../lib/api/openapi";
 import { siteProfile } from "../lib/api/profile";
+import { listPublishedPagePaths } from "../lib/api/published-page-paths";
 import {
   buildAgentIndex,
   cvOverviewMarkdown,
