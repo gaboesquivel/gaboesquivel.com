@@ -8,7 +8,7 @@ export const connectSuggestionMessage = (
 ) => {
   const zone = visitorTimeZone();
   if (kind === "book") return `[site:book ${zone}]\nBook a call`;
-  if (kind === "note") return `[site:note ${zone}]\nSend a note`;
+  if (kind === "note") return `[site:note ${zone}]\nSend email`;
   if (kind === "fit") return `[site:ask ${zone}]\nDiscuss a project`;
   return EXPERIENCE_QUESTION;
 };
@@ -16,6 +16,6 @@ export const connectSuggestionMessage = (
 export const CONNECT_SUGGESTIONS = [
   { id: "fit" as const, label: "Discuss a project" },
   { id: "experience" as const, label: "Explore my work" },
-  { id: "note" as const, label: "Send a note" },
+  { id: "note" as const, label: "Send email" },
   { id: "book" as const, label: "Book a call" },
 ];

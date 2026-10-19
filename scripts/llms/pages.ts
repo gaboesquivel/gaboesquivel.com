@@ -34,7 +34,7 @@ const CONNECT_PAGE_EXPORT_MARKDOWN = `A site agent for my published work, a note
 
 Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time. Fluent in English, Spanish, Portuguese, and Italian.
 
-I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send a note on this page, book a 15- or 30-minute call here, use [gaboesquivel.com/cal](${absoluteUrl("/cal")}) when the day is full, or read the [work portfolio](${absoluteUrl("/work")}) first.`;
+I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send email on this page, book a 15- or 30-minute call here, use [gaboesquivel.com/cal](${absoluteUrl("/cal")}) when the day is full, or read the [work portfolio](${absoluteUrl("/work")}) first.`;
 
 export interface PageExport {
   path: string;

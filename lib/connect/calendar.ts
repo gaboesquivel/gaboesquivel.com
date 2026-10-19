@@ -1,3 +1,5 @@
+import { calendarId, googleAccessToken } from "./calendar-auth";
+
 export interface BusyInterval {
   end: number;
   start: number;
@@ -14,50 +16,8 @@ export interface CalendarClient {
   }) => Promise<{ id: string }>;
 }
 
-interface TokenCache {
-  token: string;
-  expiresAt: number;
-}
-
-let cached: TokenCache | undefined;
-
-const googleConfig = () => {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
-  if (!clientId || !clientSecret || !refreshToken) return null;
-  return { clientId, clientSecret, refreshToken };
-};
-
-const accessToken = async () => {
-  const config = googleConfig();
-  if (!config) throw new Error("calendar-unconfigured");
-  if (cached && cached.expiresAt > Date.now() + 30_000) return cached.token;
-  const body = new URLSearchParams({
-    client_id: config.clientId,
-    client_secret: config.clientSecret,
-    grant_type: "refresh_token",
-    refresh_token: config.refreshToken,
-  });
-  const response = await fetch("https://oauth2.googleapis.com/token", {
-    body,
-    method: "POST",
-  });
-  if (!response.ok) throw new Error("calendar-token");
-  const payload = (await response.json()) as {
-    access_token?: string;
-    expires_in?: number;
-  };
-  if (!payload.access_token) throw new Error("calendar-token");
-  cached = {
-    expiresAt: Date.now() + (payload.expires_in ?? 3000) * 1000,
-    token: payload.access_token,
-  };
-  return payload.access_token;
-};
-
 const googleFetch = async ({ body, path }: { body: unknown; path: string }) => {
-  const token = await accessToken();
+  const token = await googleAccessToken();
   const response = await fetch(
     `https://www.googleapis.com/calendar/v3${path}`,
     {
@@ -69,32 +29,60 @@ const googleFetch = async ({ body, path }: { body: unknown; path: string }) => {
       method: "POST",
     }
   );
-  if (!response.ok) throw new Error("calendar-request");
+  if (!response.ok) {
+    const payload = (await response.json().catch(() => ({}))) as {
+      error?: { errors?: { reason?: string }[] };
+    };
+    const reason = payload.error?.errors?.[0]?.reason ?? "unknown";
+    throw new Error(`calendar-request:${reason}`);
+  }
   return response.json() as Promise<unknown>;
 };
 
-export const googleCalendar = (): CalendarClient => ({
-  freeBusy: async ({ timeMax, timeMin }) => {
-    const payload = (await googleFetch({
-      body: { items: [{ id: "primary" }], timeMax, timeMin },
-      path: "/freeBusy",
-    })) as {
-      calendars?: { primary?: { busy?: { end?: string; start?: string }[] } };
-    };
-    return (payload.calendars?.primary?.busy ?? []).flatMap((block) => {
-      if (!block.start || !block.end) return [];
-      return [{ end: Date.parse(block.end), start: Date.parse(block.start) }];
-    });
-  },
-  insert: async ({ event, requestId }) => {
-    const payload = (await googleFetch({
-      body: event,
-      path: `/calendars/primary/events?sendUpdates=all&conferenceDataVersion=1`,
-    })) as { id?: string };
-    if (!payload.id) throw new Error("calendar-insert");
-    return { id: payload.id || requestId };
-  },
-});
+const busyForCalendar = ({
+  calendars,
+  id,
+}: {
+  calendars?: Record<string, { busy?: { end?: string; start?: string }[] }>;
+  id: string;
+}) => {
+  const blocks =
+    calendars?.[id]?.busy ??
+    (id === "primary" ? calendars?.primary?.busy : undefined) ??
+    [];
+  return blocks.flatMap((block) => {
+    if (!block.start || !block.end) return [];
+    return [{ end: Date.parse(block.end), start: Date.parse(block.start) }];
+  });
+};
+
+export const googleCalendar = (): CalendarClient => {
+  const id = calendarId();
+  const calendarPath = encodeURIComponent(id);
+
+  return {
+    freeBusy: async ({ timeMax, timeMin }) => {
+      const payload = (await googleFetch({
+        body: { items: [{ id }], timeMax, timeMin },
+        path: "/freeBusy",
+      })) as {
+        calendars?: Record<
+          string,
+          { busy?: { end?: string; start?: string }[] }
+        >;
+      };
+      return busyForCalendar({ calendars: payload.calendars, id });
+    },
+    insert: async ({ event, requestId }) => {
+      const payload = (await googleFetch({
+        body: event,
+        path: `/calendars/${calendarPath}/events?sendUpdates=all&conferenceDataVersion=1`,
+      })) as { id?: string };
+      if (!payload.id) throw new Error("calendar-insert");
+      return { id: payload.id || requestId };
+    },
+  };
+};
 
 export const eventBody = ({
   description,

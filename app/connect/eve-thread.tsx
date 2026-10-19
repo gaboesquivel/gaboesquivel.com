@@ -4,7 +4,7 @@ import type { Spec } from "@json-render/core";
 import { openConversationInputs, useEveAgent } from "eve/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   Message,
@@ -13,6 +13,11 @@ import {
 } from "@/components/ai-elements/message";
 import { Shimmer } from "@/components/ai-elements/shimmer";
 
+import {
+  fixedNoteSpec,
+  noteFormMessage,
+  noteFormVisible,
+} from "../../lib/connect/compose";
 import { STREAM_FAILED } from "../../lib/connect/copy";
 import { stripMarker } from "../../lib/connect/intent";
 import { splitNext } from "../../lib/connect/next-step";
@@ -22,6 +27,11 @@ import { writeSession } from "./session-cookie";
 
 const SlotPicker = dynamic(
   () => import("./slot-picker").then((mod) => mod.SlotPicker),
+  { ssr: false }
+);
+
+const NoteForm = dynamic(
+  () => import("./note-form").then((mod) => mod.NoteForm),
   { ssr: false }
 );
 
@@ -168,6 +178,8 @@ export function EveThread({
     resume: Boolean(resume && initialSession),
   });
   const sent = useRef(false);
+  const [noteFormDisabled, setNoteFormDisabled] = useState(false);
+  const noteSpec = useMemo(() => fixedNoteSpec(), []);
   const onStateRef = useRef(onState);
   const onInitialSendFailedRef = useRef(onInitialSendFailed);
   const agentRef = useRef(agent);
@@ -272,6 +284,20 @@ export function EveThread({
     [agent.data.messages]
   );
 
+  const hasSendApproval = agent.data.messages.some((message) =>
+    message.parts.some(
+      (part) =>
+        part.type === "dynamic-tool" &&
+        part.toolName === "send" &&
+        part.state === "approval-requested"
+    )
+  );
+  const showNoteForm = noteFormVisible({
+    formDisabled: noteFormDisabled,
+    hasSendApproval,
+    mode,
+  });
+
   const showFailure =
     agent.status === "error" ||
     (!waiting &&
@@ -289,9 +315,18 @@ export function EveThread({
 
   useEffect(() => {
     onVisibleChange?.(
-      visibleMessages.length > 0 || showReplying || Boolean(showFailure)
+      visibleMessages.length > 0 ||
+        showReplying ||
+        Boolean(showFailure) ||
+        showNoteForm
     );
-  }, [onVisibleChange, showFailure, showReplying, visibleMessages.length]);
+  }, [
+    onVisibleChange,
+    showFailure,
+    showNoteForm,
+    showReplying,
+    visibleMessages.length,
+  ]);
 
   const lastVisibleId = visibleMessages.at(-1)?.id;
 
@@ -370,7 +405,7 @@ export function EveThread({
                 ? start
                   ? `Book ${formatSlot({ iso: start, timeZone })}`
                   : "Book call"
-                : "Send note";
+                : "Send email";
               const requestId = part.approval.id;
               return (
                 <section
@@ -440,6 +475,20 @@ export function EveThread({
           })}
         </Message>
       ))}
+      {showNoteForm ? (
+        <div className={enter}>
+          <NoteForm
+            onSubmit={(values) => {
+              const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+              setNoteFormDisabled(true);
+              void agent
+                .send(noteFormMessage({ ...values, timeZone: zone }))
+                .catch(() => setNoteFormDisabled(false));
+            }}
+            spec={noteSpec}
+          />
+        </div>
+      ) : null}
       {showReplying ? (
         <Message aria-live="polite" from="assistant">
           <MessageContent>

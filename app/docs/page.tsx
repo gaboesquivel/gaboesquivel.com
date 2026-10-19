@@ -112,7 +112,7 @@ export default function DocsPage() {
       <PageSection title="What a message can do">
         <Prose>
           The site agent answers from the published corpus (same retrieval as
-          the chat). It can also book a call or send a note through internal
+          the chat). It can also book a call or send email through internal
           tools that are not published on the MCP surface:{" "}
           <code className="text-neutral-200">list_slots</code>,{" "}
           <code className="text-neutral-200">book</code>, and{" "}

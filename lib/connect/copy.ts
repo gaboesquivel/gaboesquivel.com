@@ -24,8 +24,25 @@ export const STORE_UNAVAILABLE_CHAT =
 export const STREAM_FAILED =
   "The reply stopped. The text above is what arrived. Send again to retry.";
 
+export const CALENDAR_UNCONNECTED =
+  "The calendar is not connected. Open times are not available.";
+
 export const SLOTS_FAILED =
   "The calendar did not return open times. Nothing was booked.";
+
+export const slotsMessageForError = (error: unknown) => {
+  const message = error instanceof Error ? error.message : "";
+  if (message === "calendar-unconfigured") return CALENDAR_UNCONNECTED;
+  if (
+    message === "calendar-token" ||
+    message.startsWith("calendar-token:") ||
+    message === "calendar-request" ||
+    message.startsWith("calendar-request:")
+  ) {
+    return SLOTS_FAILED;
+  }
+  return SLOTS_FAILED;
+};
 
 export const NO_SLOTS =
   "Nothing is open on weekdays between 9:00 and 17:00 America/Denver. Nothing was booked. Use gaboesquivel.com/cal.";

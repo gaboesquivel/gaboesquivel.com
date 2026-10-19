@@ -2,8 +2,10 @@
 
 import type { Spec } from "@json-render/core";
 import {
+  ActionProvider,
   Renderer,
   StateProvider,
+  VisibilityProvider,
   useStateStore,
   useStateValue,
 } from "@json-render/react";
@@ -138,7 +140,11 @@ export function SlotPicker({
   return (
     <PickContext.Provider value={onPick}>
       <StateProvider initialState={spec.state ?? {}}>
-        <Renderer registry={registry} spec={spec} />
+        <VisibilityProvider>
+          <ActionProvider>
+            <Renderer registry={registry} spec={spec} />
+          </ActionProvider>
+        </VisibilityProvider>
       </StateProvider>
     </PickContext.Provider>
   );

@@ -21,7 +21,7 @@ const catalog = {
     components: {
       Days: {
         props: z.object({
-          days: z.object({ $state: z.literal("/days") }),
+          days: z.array(z.string()),
         }),
       },
       Duration: {
@@ -35,7 +35,10 @@ const catalog = {
       },
       Times: {
         props: z.object({
-          slots: z.object({ $state: z.literal("/slots") }),
+          slots: z.object({
+            "15": z.record(z.string(), z.array(z.string())),
+            "30": z.record(z.string(), z.array(z.string())),
+          }),
         }),
       },
     },
@@ -85,6 +88,67 @@ const candidates = [
     root: false,
   },
 ];
+
+export interface NoteFormState {
+  description: string;
+  email: string;
+  name: string;
+}
+
+const emptyNoteFormState = (): NoteFormState => ({
+  description: "",
+  email: "",
+  name: "",
+});
+
+const noteStateRecord = (state: NoteFormState) =>
+  state as unknown as Record<string, unknown>;
+
+export const fixedNoteSpec = (state?: NoteFormState): Spec => ({
+  elements: {
+    email: {
+      props: {},
+      type: "EmailField",
+    },
+    name: {
+      props: {},
+      type: "NameField",
+    },
+    stack: {
+      children: ["name", "email", "topic", "submit"],
+      props: {},
+      type: "NoteStack",
+    },
+    submit: {
+      props: { label: "Send email" },
+      type: "Submit",
+    },
+    topic: {
+      props: {},
+      type: "TopicField",
+    },
+  },
+  root: "stack",
+  state: noteStateRecord(state ?? emptyNoteFormState()),
+});
+
+export const noteFormMessage = ({
+  description,
+  email,
+  name,
+  timeZone,
+}: NoteFormState & { timeZone: string }) =>
+  `[site:note ${timeZone}]\nName: ${name.trim()}\nEmail: ${email.trim()}\nDiscuss: ${description.trim()}`;
+
+export const noteFormVisible = ({
+  formDisabled,
+  hasSendApproval,
+  mode,
+}: {
+  formDisabled?: boolean;
+  hasSendApproval: boolean;
+  mode: "book" | "note" | null;
+}) => mode === "note" && !hasSendApproval && !formDisabled;
 
 export const fixedSpec = (state: SlotState): Spec => ({
   elements: {

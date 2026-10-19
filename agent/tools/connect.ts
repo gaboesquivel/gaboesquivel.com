@@ -6,11 +6,16 @@ import { googleCalendar } from "../../lib/connect/calendar";
 import { admitChatOnce } from "../../lib/connect/caps";
 import { composeSlots } from "../../lib/connect/compose";
 import type { SlotState } from "../../lib/connect/compose";
-import { NO_SLOTS, SLOTS_FAILED, ZONE_NEEDED } from "../../lib/connect/copy";
+import {
+  NO_SLOTS,
+  ZONE_NEEDED,
+  slotsMessageForError,
+} from "../../lib/connect/copy";
 import { resendNote } from "../../lib/connect/email";
 import {
   isMcpChannel,
   sessionIp,
+  assistantTexts,
   toolsForTurn,
   userTexts,
 } from "../../lib/connect/intent";
@@ -46,7 +51,10 @@ export default defineDynamic({
         });
         if (!admitted.ok) return null;
       }
-      const turnTools = toolsForTurn({ texts });
+      const turnTools = toolsForTurn({
+        assistantTexts: assistantTexts(ctx.messages),
+        texts,
+      });
       if (!turnTools?.length) return null;
 
       const userApproval = !mcp;
@@ -113,10 +121,10 @@ export default defineDynamic({
               spec,
               timeZone,
             };
-          } catch {
+          } catch (error) {
             return {
               duration,
-              message: SLOTS_FAILED,
+              message: slotsMessageForError(error),
               slots: [],
               spec: null,
               timeZone,
@@ -140,7 +148,7 @@ export default defineDynamic({
       const send = defineTool({
         approval: () => (userApproval ? "user-approval" : "not-applicable"),
         description:
-          "Send a note to contact@gaboesquivel.com with reply-to set to the visitor. Requires name, email, and what they want to discuss. Does not email the visitor a receipt.",
+          "Send email to contact@gaboesquivel.com with reply-to set to the visitor. Requires name, email, and what they want to discuss. Does not email the visitor a receipt.",
         execute: async (input, toolCtx) =>
           sendNote({
             input,

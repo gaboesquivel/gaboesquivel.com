@@ -10,7 +10,17 @@ const NOTE_TOOLS: ConnectTool[] = ["send"];
 const bookPattern =
   /\b(book|booking|calendar|schedule|time slot|weekdays|15[-\s]?minutes?|30[-\s]?minutes?)\b/i;
 const notePattern = /\b(note|email|pass along|contact@)\b/i;
+
+export const typedNoteIntent = (text: string) => notePattern.test(text.trim());
 const continuationPattern = /@|\b\d{1,2}:\d{2}\b/;
+
+export const affirmativeBookingReply = (text: string) =>
+  /^(yes|sure|ok|okay|let'?s book|yep|yeah)[.!]?$/i.test(text.trim());
+
+export const assistantOfferedCall = (text: string) =>
+  /\b(15[-\s]?or[-\s]?30[-\s]?minute|book a (15|30)|book a call|on this page)\b/i.test(
+    text
+  );
 
 export const markerIntent = (text: string) => {
   const match = text.match(/\[site:(book|note|ask)\s+[^\]]+\]/);
@@ -42,6 +52,15 @@ export const userTexts = (
     return [text];
   });
 
+export const assistantTexts = (
+  messages: readonly { content: unknown; role: string }[]
+) =>
+  messages.flatMap((message) => {
+    if (message.role !== "assistant") return [];
+    const text = contentText(message.content).trim();
+    return text ? [text] : [];
+  });
+
 const connectToolsForIntent = ({
   wantsBook,
   wantsNote,
@@ -55,7 +74,13 @@ const connectToolsForIntent = ({
   return [...BOOK_TOOLS];
 };
 
-export const toolsForTurn = ({ texts }: { texts: string[] }) => {
+export const toolsForTurn = ({
+  assistantTexts: priorAssistant = [],
+  texts,
+}: {
+  assistantTexts?: string[];
+  texts: string[];
+}) => {
   const cleaned = texts
     .map(stripMarker)
     .map((text) => text.trim())
@@ -82,6 +107,12 @@ export const toolsForTurn = ({ texts }: { texts: string[] }) => {
   if (continuationPattern.test(latest)) {
     if (bookPattern.test(earlier)) wantsBook = true;
     if (notePattern.test(earlier)) wantsNote = true;
+  }
+  if (
+    affirmativeBookingReply(latest) &&
+    priorAssistant.some((text) => assistantOfferedCall(text))
+  ) {
+    wantsBook = true;
   }
   return connectToolsForIntent({ wantsBook, wantsNote });
 };

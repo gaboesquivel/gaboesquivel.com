@@ -7,9 +7,21 @@ import type { RankSection } from "./rank";
 const estimateTokens = (text: string) => Math.ceil(text.length / 4);
 
 describe("connect ask turn", () => {
+  test("registers book tools after an affirmative when a call was offered", () => {
+    expect(toolsForTurn({ texts: ["are you available for work?"] })).toBeNull();
+    expect(
+      toolsForTurn({
+        assistantTexts: [
+          "You can book a 15- or 30-minute call on this page to discuss what you have in mind.",
+        ],
+        texts: ["yes"],
+      })
+    ).toEqual(["list_slots", "book"]);
+  });
+
   test("registers tools by note vs book intent", () => {
     expect(
-      toolsForTurn({ texts: ["[site:note America/Denver]\nSend a note"] })
+      toolsForTurn({ texts: ["[site:note America/Denver]\nSend email"] })
     ).toEqual(["send"]);
     expect(
       toolsForTurn({ texts: ["[site:book America/Denver]\nBook a call"] })
@@ -18,7 +30,7 @@ describe("connect ask turn", () => {
       toolsForTurn({
         texts: [
           "[site:book America/Denver]\nBook a call",
-          "[site:note America/Denver]\nAlso send a note",
+          "[site:note America/Denver]\nAlso send email",
         ],
       })
     ).toEqual([...CONNECT_TOOLS]);

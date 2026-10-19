@@ -20,6 +20,11 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 import { Suggestion } from "@/components/ai-elements/suggestion";
 
 import {
+  affirmativeBookingReply,
+  assistantOfferedCall,
+  typedNoteIntent,
+} from "../../lib/connect/intent";
+import {
   CONNECT_SUGGESTIONS,
   connectSuggestionMessage,
 } from "../../lib/connect/suggestions";
@@ -54,6 +59,7 @@ export function ConnectChat() {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [engaged, setEngaged] = useState(false);
   const [threadVisible, setThreadVisible] = useState(false);
+  const [assistantReply, setAssistantReply] = useState("");
   const eveOn = started;
   const streaming = status === "streaming";
   const sending = status === "submitted" || status === "resuming";
@@ -72,8 +78,12 @@ export function ConnectChat() {
     setComposerKey((key) => key + 1);
   };
 
+  const bookAffirmativeTurn = (trimmed: string) =>
+    affirmativeBookingReply(trimmed) &&
+    (next.includes("book") || assistantOfferedCall(assistantReply));
+
   const beginTurn = (text: string) => {
-    const trimmed = text.trim();
+    let trimmed = text.trim();
     if (!trimmed || resuming) return;
     if (pendingId && APPROVE.test(trimmed)) {
       apiRef.current
@@ -84,6 +94,10 @@ export function ConnectChat() {
         .catch(() => null);
       return;
     }
+    if (bookAffirmativeTurn(trimmed)) {
+      setMode("book");
+      trimmed = connectSuggestionMessage("book");
+    } else if (typedNoteIntent(trimmed)) setMode("note");
     if (!eveOn) {
       setEngaged(true);
       setPending(trimmed);
@@ -126,7 +140,7 @@ export function ConnectChat() {
               return [
                 {
                   id: "note",
-                  label: item === "pass" ? "Pass it along" : "Send a note",
+                  label: item === "pass" ? "Pass it along" : "Send email",
                 },
               ];
             }
@@ -217,6 +231,9 @@ export function ConnectChat() {
               mode={mode}
               onInitialSendFailed={handleInitialSendFailed}
               onState={(state) => {
+                setAssistantReply((current) =>
+                  current === state.assistant ? current : state.assistant
+                );
                 setStatus((current) =>
                   current === state.status ? current : state.status
                 );
