@@ -17,5 +17,5 @@ export const resendNote: NoteMailer = async ({ description, email, name }) => {
     text: description,
     to: ["contact@gaboesquivel.com"],
   });
-  if (error) throw new Error("email-failed");
+  if (error) throw new Error(error.message || "email-failed");
 };

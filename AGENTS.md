@@ -45,7 +45,7 @@ Credentials (two keys; do not conflate them):
 
 Names are documented in `.env.example`. If a name is missing from `.env`, stop and ask. If it is set locally, use it and do not ask again. Never print values.
 
-On Vercel, chat/book/note caps need Upstash Redis (`UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`). Provision with the [Upstash for Redis](https://vercel.com/marketplace/upstash/upstash-kv) marketplace integration on project `gaboesquivel` (accept marketplace terms in the dashboard if the CLI prompts).
+On Vercel, chat/book/note caps need Upstash Redis REST credentials. The app reads `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, or the marketplace pair `KV_REST_API_URL` and `KV_REST_API_TOKEN`. Provision with the [Upstash for Redis](https://vercel.com/marketplace/upstash/upstash-kv) marketplace integration on project `gaboesquivel` (accept marketplace terms in the dashboard if the CLI prompts).
 
 Main files: `agent/agent.ts`, `app/connect/connect-chat.tsx`, `app/connect/eve-thread.tsx`, `lib/connect/compose.ts`, `lib/connect/haiku-model.ts`.
 

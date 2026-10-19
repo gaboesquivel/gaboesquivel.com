@@ -66,8 +66,13 @@ export const sendNote = async ({
     await mailer(note);
     await store.set(key, "sent");
     return { message: "Sent the note.", ok: true, sent: true };
-  } catch {
+  } catch (error) {
     await release();
-    return { message: EMAIL_FAILED, ok: false, sent: false };
+    const detail = error instanceof Error ? error.message.trim() : "";
+    const message =
+      detail && detail !== "email-failed"
+        ? `${EMAIL_FAILED} ${detail}`
+        : EMAIL_FAILED;
+    return { message, ok: false, sent: false };
   }
 };

@@ -366,11 +366,12 @@ export function EveThread({
               const start = typeof input.start === "string" ? input.start : "";
               const timeZone =
                 typeof input.timeZone === "string" ? input.timeZone : "UTC";
-              const label =
-                booking && start
+              const label = booking
+                ? start
                   ? `Book ${formatSlot({ iso: start, timeZone })}`
-                  : "Send note";
-              const requestId = pending?.requestId ?? part.approval.id;
+                  : "Book call"
+                : "Send note";
+              const requestId = part.approval.id;
               return (
                 <section
                   className={`rounded-lg border border-hairline p-4 ${enter}`}

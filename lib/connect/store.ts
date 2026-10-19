@@ -43,10 +43,25 @@ const redisStore = ({
   };
 };
 
+const envValue = (value?: string) => {
+  const trimmed = value?.trim();
+  return trimmed && trimmed.length > 0 ? trimmed : undefined;
+};
+
+export const restRedisEnv = () => {
+  const url =
+    envValue(process.env.UPSTASH_REDIS_REST_URL) ??
+    envValue(process.env.KV_REST_API_URL);
+  const token =
+    envValue(process.env.UPSTASH_REDIS_REST_TOKEN) ??
+    envValue(process.env.KV_REST_API_TOKEN);
+  if (!url || !token) return null;
+  return { token, url };
+};
+
 export const liveCapStore = (): CapStore | null => {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (url && token) return redisStore({ token, url });
+  const config = restRedisEnv();
+  if (config) return redisStore(config);
   const hosted =
     process.env.VERCEL_ENV === "production" ||
     process.env.VERCEL_ENV === "preview";

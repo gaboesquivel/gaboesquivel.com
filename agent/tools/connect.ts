@@ -46,113 +46,114 @@ export default defineDynamic({
         });
         if (!admitted.ok) return null;
       }
-      if (!toolsForTurn({ texts })) return null;
+      const turnTools = toolsForTurn({ texts });
+      if (!turnTools?.length) return null;
 
       const userApproval = !mcp;
-      return {
-        book: defineTool({
-          approval: () => (userApproval ? "user-approval" : "not-applicable"),
-          description:
-            "Book a 15- or 30-minute call on the primary calendar. Requires name, email, duration, an ISO start, a time zone, and what they want to discuss. Does not assume 30 minutes.",
-          execute: async (input) =>
-            bookCall({
-              calendar: googleCalendar(),
-              input,
-              now: new Date(),
-              store: liveCapStore(),
-            }),
-          inputSchema: bookSchema,
-          toModelOutput: (output) => ({ type: "json", value: output }),
+      const book = defineTool({
+        approval: () => (userApproval ? "user-approval" : "not-applicable"),
+        description:
+          "Book a 15- or 30-minute call on the primary calendar. Requires name, email, duration, an ISO start, a time zone, and what they want to discuss. Does not assume 30 minutes.",
+        execute: async (input) =>
+          bookCall({
+            calendar: googleCalendar(),
+            input,
+            now: new Date(),
+            store: liveCapStore(),
+          }),
+        inputSchema: bookSchema,
+        toModelOutput: (output) => ({ type: "json", value: output }),
+      });
+      const list_slots = defineTool({
+        description:
+          "List open 15- and 30-minute starts on weekdays from 9:00 to 17:00 America/Denver. Pass the visitor time zone. This does not book.",
+        execute: async (input) => {
+          const timeZone = input.timeZone;
+          const duration =
+            input.duration === 15 || input.duration === 30
+              ? input.duration
+              : null;
+          if (!validTimeZone(timeZone)) {
+            return {
+              duration,
+              message: ZONE_NEEDED,
+              slots: [],
+              spec: null,
+              timeZone,
+            };
+          }
+          try {
+            const now = new Date();
+            const busy = await googleCalendar().freeBusy({
+              timeMax: new Date(
+                now.getTime() + 21 * 24 * 60 * 60 * 1000
+              ).toISOString(),
+              timeMin: now.toISOString(),
+            });
+            const open = listOpenSlots({ busy, now, timeZone });
+            if (open.days.length === 0) {
+              return {
+                duration,
+                message: NO_SLOTS,
+                slots: [],
+                spec: null,
+                timeZone,
+              };
+            }
+            const state: SlotState = {
+              ...open,
+              day: open.days[0] ?? null,
+              duration,
+            };
+            const spec = await composeSlots({ duration, state });
+            return {
+              duration,
+              message: "Open times are in the picker.",
+              slots: shortSlots(state),
+              spec,
+              timeZone,
+            };
+          } catch {
+            return {
+              duration,
+              message: SLOTS_FAILED,
+              slots: [],
+              spec: null,
+              timeZone,
+            };
+          }
+        },
+        inputSchema: z.object({
+          duration: z.union([z.literal(15), z.literal(30)]).optional(),
+          timeZone: z.string().min(1),
         }),
-        list_slots: defineTool({
-          description:
-            "List open 15- and 30-minute starts on weekdays from 9:00 to 17:00 America/Denver. Pass the visitor time zone. This does not book.",
-          execute: async (input) => {
-            const timeZone = input.timeZone;
-            const duration =
-              input.duration === 15 || input.duration === 30
-                ? input.duration
-                : null;
-            if (!validTimeZone(timeZone)) {
-              return {
-                duration,
-                message: ZONE_NEEDED,
-                slots: [],
-                spec: null,
-                timeZone,
-              };
-            }
-            try {
-              const now = new Date();
-              const busy = await googleCalendar().freeBusy({
-                timeMax: new Date(
-                  now.getTime() + 21 * 24 * 60 * 60 * 1000
-                ).toISOString(),
-                timeMin: now.toISOString(),
-              });
-              const open = listOpenSlots({ busy, now, timeZone });
-              if (open.days.length === 0) {
-                return {
-                  duration,
-                  message: NO_SLOTS,
-                  slots: [],
-                  spec: null,
-                  timeZone,
-                };
-              }
-              const state: SlotState = {
-                ...open,
-                day: open.days[0] ?? null,
-                duration,
-              };
-              const spec = await composeSlots({ duration, state });
-              return {
-                duration,
-                message: "Open times are in the picker.",
-                slots: shortSlots(state),
-                spec,
-                timeZone,
-              };
-            } catch {
-              return {
-                duration,
-                message: SLOTS_FAILED,
-                slots: [],
-                spec: null,
-                timeZone,
-              };
-            }
+        toModelOutput: (output) => ({
+          type: "json",
+          value: {
+            duration: output.duration,
+            message: output.message,
+            slots: output.slots,
+            timeZone: output.timeZone,
           },
-          inputSchema: z.object({
-            duration: z.union([z.literal(15), z.literal(30)]).optional(),
-            timeZone: z.string().min(1),
-          }),
-          toModelOutput: (output) => ({
-            type: "json",
-            value: {
-              duration: output.duration,
-              message: output.message,
-              slots: output.slots,
-              timeZone: output.timeZone,
-            },
-          }),
         }),
-        send: defineTool({
-          approval: () => (userApproval ? "user-approval" : "not-applicable"),
-          description:
-            "Send a note to contact@gaboesquivel.com with reply-to set to the visitor. Requires name, email, and what they want to discuss. Does not email the visitor a receipt.",
-          execute: async (input, toolCtx) =>
-            sendNote({
-              input,
-              ip: sessionIp(toolCtx.session.auth.current?.attributes),
-              mailer: resendNote,
-              now: new Date(),
-              store: liveCapStore(),
-            }),
-          inputSchema: noteSchema,
-          toModelOutput: (output) => ({ type: "json", value: output }),
-        }),
-      };
+      });
+      const send = defineTool({
+        approval: () => (userApproval ? "user-approval" : "not-applicable"),
+        description:
+          "Send a note to contact@gaboesquivel.com with reply-to set to the visitor. Requires name, email, and what they want to discuss. Does not email the visitor a receipt.",
+        execute: async (input, toolCtx) =>
+          sendNote({
+            input,
+            ip: sessionIp(toolCtx.session.auth.current?.attributes),
+            mailer: resendNote,
+            now: new Date(),
+            store: liveCapStore(),
+          }),
+        inputSchema: noteSchema,
+        toModelOutput: (output) => ({ type: "json", value: output }),
+      });
+      const byName = { book, list_slots, send };
+      return Object.fromEntries(turnTools.map((name) => [name, byName[name]]));
     },
   },
 });

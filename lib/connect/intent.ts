@@ -2,6 +2,10 @@ export const EXPERIENCE_QUESTION =
   "What have you shipped, and where did you lead?";
 
 export const CONNECT_TOOLS = ["list_slots", "book", "send"] as const;
+export type ConnectTool = (typeof CONNECT_TOOLS)[number];
+
+const BOOK_TOOLS: ConnectTool[] = ["list_slots", "book"];
+const NOTE_TOOLS: ConnectTool[] = ["send"];
 
 const bookPattern =
   /\b(book|booking|calendar|schedule|time slot|weekdays|15[-\s]?minutes?|30[-\s]?minutes?)\b/i;
@@ -38,6 +42,19 @@ export const userTexts = (
     return [text];
   });
 
+const connectToolsForIntent = ({
+  wantsBook,
+  wantsNote,
+}: {
+  wantsBook: boolean;
+  wantsNote: boolean;
+}) => {
+  if (!wantsBook && !wantsNote) return null;
+  if (wantsBook && wantsNote) return [...CONNECT_TOOLS];
+  if (wantsNote) return [...NOTE_TOOLS];
+  return [...BOOK_TOOLS];
+};
+
 export const toolsForTurn = ({ texts }: { texts: string[] }) => {
   const cleaned = texts
     .map(stripMarker)
@@ -57,19 +74,16 @@ export const toolsForTurn = ({ texts }: { texts: string[] }) => {
   ) {
     return null;
   }
-  if (markers.has("book") || markers.has("note")) return CONNECT_TOOLS;
   const joined = cleaned.join("\n");
-  if (bookPattern.test(joined) || notePattern.test(joined))
-    return CONNECT_TOOLS;
   const earlier = cleaned.slice(0, -1).join("\n");
   const latest = cleaned.at(-1) ?? "";
-  if (
-    continuationPattern.test(latest) &&
-    (bookPattern.test(earlier) || notePattern.test(earlier))
-  ) {
-    return CONNECT_TOOLS;
+  let wantsBook = markers.has("book") || bookPattern.test(joined);
+  let wantsNote = markers.has("note") || notePattern.test(joined);
+  if (continuationPattern.test(latest)) {
+    if (bookPattern.test(earlier)) wantsBook = true;
+    if (notePattern.test(earlier)) wantsNote = true;
   }
-  return null;
+  return connectToolsForIntent({ wantsBook, wantsNote });
 };
 
 export const isMcpChannel = (kind?: string) => kind?.includes("mcp") ?? false;
