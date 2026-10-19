@@ -87,6 +87,28 @@ describe("connect gate", () => {
     expect(inserts).toHaveLength(2);
   });
 
+  test("a third booking the same day succeeds when caps are not enforced", async () => {
+    const store = memoryCapStore();
+    const { calendar, inserts } = fakeCalendar();
+    const now = new Date("2026-10-19T12:00:00.000Z");
+    const starts = [
+      "2026-10-19T15:00:00.000Z",
+      "2026-10-19T16:00:00.000Z",
+      "2026-10-19T17:00:00.000Z",
+    ];
+    for (const start of starts) {
+      const result = await bookCall({
+        calendar,
+        enforce: false,
+        input: { ...booking, start },
+        now,
+        store,
+      });
+      expect(result.inserted).toBe(true);
+    }
+    expect(inserts).toHaveLength(3);
+  });
+
   test("lists 15- and 30-minute starts and skips busy time", () => {
     const denverNine = zonedInstant({
       date: "2026-10-19",

@@ -51,14 +51,17 @@ const localCounts = new Map<string, number>();
 const inflight = new Map<string, Promise<{ message: string; ok: boolean }>>();
 
 export const admitChat = async ({
+  enforce = true,
   ip,
   now,
   store,
 }: {
+  enforce?: boolean;
   ip: string;
   now: Date;
   store: CapStore | null;
 }) => {
+  if (!enforce) return { message: "", ok: true };
   const key = `connect:chat:ip:${ip}:${denverDay(now)}`;
   if ((localCounts.get(key) ?? 0) >= 30) {
     return { message: CHAT_CAP, ok: false };
@@ -71,11 +74,13 @@ export const admitChat = async ({
 };
 
 export const admitChatOnce = ({
+  enforce = true,
   ip,
   key,
   now,
   store,
 }: {
+  enforce?: boolean;
   ip: string;
   key: string;
   now: Date;
@@ -83,7 +88,7 @@ export const admitChatOnce = ({
 }) => {
   const existing = inflight.get(key);
   if (existing) return existing;
-  const promise = admitChat({ ip, now, store });
+  const promise = admitChat({ enforce, ip, now, store });
   inflight.set(key, promise);
   return promise;
 };

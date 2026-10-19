@@ -5,12 +5,14 @@ import type { NoteMailer } from "./email";
 import { noteSchema } from "./schema";
 
 export const sendNote = async ({
+  enforce = true,
   input,
   ip,
   mailer,
   now,
   store,
 }: {
+  enforce?: boolean;
   input: unknown;
   ip: string;
   mailer: NoteMailer;
@@ -45,21 +47,25 @@ export const sendNote = async ({
   const emailKey = `connect:notes:email:${note.email.toLowerCase()}:${day}`;
   const ipKey = `connect:notes:ip:${ip}:${day}`;
   const release = async () => {
-    await store.decr(emailKey);
-    await store.decr(ipKey);
+    if (enforce) {
+      await store.decr(emailKey);
+      await store.decr(ipKey);
+    }
     await store.del(key);
   };
 
-  const emailCount = await store.incr(emailKey);
-  if (emailCount > 5) {
-    await store.decr(emailKey);
-    await store.del(key);
-    return { message: NOTE_CAP, ok: false, sent: false };
-  }
-  const ipCount = await store.incr(ipKey);
-  if (ipCount > 5) {
-    await release();
-    return { message: NOTE_CAP, ok: false, sent: false };
+  if (enforce) {
+    const emailCount = await store.incr(emailKey);
+    if (emailCount > 5) {
+      await store.decr(emailKey);
+      await store.del(key);
+      return { message: NOTE_CAP, ok: false, sent: false };
+    }
+    const ipCount = await store.incr(ipKey);
+    if (ipCount > 5) {
+      await release();
+      return { message: NOTE_CAP, ok: false, sent: false };
+    }
   }
 
   try {

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { CONNECT_TOOLS, EXPERIENCE_QUESTION, toolsForTurn } from "./intent";
+import { EXPERIENCE_QUESTION, toolsForTurn } from "./intent";
 import { rankSections } from "./rank";
 import type { RankSection } from "./rank";
 
@@ -33,7 +33,15 @@ describe("connect ask turn", () => {
           "[site:note America/Denver]\nAlso send email",
         ],
       })
-    ).toEqual([...CONNECT_TOOLS]);
+    ).toEqual(["send"]);
+    expect(
+      toolsForTurn({
+        texts: [
+          "[site:note America/Denver]\nName: Ada\nEmail: ada@example.com\nDiscuss: The lending integration needs a review.",
+          "What did you ship at Wink?",
+        ],
+      })
+    ).toBeNull();
   });
 
   test("registers no tools and keeps the paste under 1500 tokens", () => {

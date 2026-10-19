@@ -21,6 +21,9 @@ export const STORE_UNAVAILABLE_NOTE =
 export const STORE_UNAVAILABLE_CHAT =
   "The conversation is unavailable. Nothing was sent.";
 
+export const NOTE_FORM_LEAD =
+  "I'm ready to take a note. What would you like to discuss?";
+
 export const STREAM_FAILED =
   "The reply stopped. The text above is what arrived. Send again to retry.";
 

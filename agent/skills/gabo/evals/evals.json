@@ -1,0 +1,201 @@
+{
+  "skill_name": "gabo",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Pitch rewrite",
+      "prompt": "rewrite this draft so it sounds like gabo, not a pitch deck — keep only claims I already verified",
+      "expected_output": "Preserve verified LegalAgent and Wink work while removing unsupported results and generic promotion.",
+      "files": ["evals/files/pitch-draft.md", "evals/files/legal-agent.md"],
+      "expectations": [
+        "The output drops the claim that attorney research time fell by 60%, which no input supports",
+        "The output keeps all three verified facts from the draft: voice and chat in LegalAgent's React Native Expo app, RAG for case context, document summaries, and procedural guidance, and leading engineering for Wink from architecture to launch",
+        "The output adds nothing from the Identity list (years of experience, languages, time zone, engagement terms, the public role \"Agentic Product Engineer\", or a stack list)",
+        "The output replaces unsupported superlatives and generic promotion with the verified work rather than merely swapping synonyms",
+        "The output makes no claim that users love the products and no unsupported claim about the author's feelings"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "LinkedIn and X from URL",
+      "prompt": "linkedin and x https://gaboesquivel.com/blog/2026-10-legal-agent",
+      "expected_output": "Separate LinkedIn and X drafts; hero image named separately; original URL retained; X within 280 characters including link.",
+      "files": ["evals/files/legal-agent-post.md"],
+      "expectations": [
+        "The hero image from the piece is named separately from the post copy",
+        "The output provides distinct LinkedIn and X versions rather than imposing the X length on both",
+        "Each version's claims stay within the source piece, and each version gives the reader an understandable point",
+        "Each version keeps the exact supplied URL; no substitute short link is created",
+        "The X post including its link is at most 280 characters",
+        "The output invents no metric, user count, quote, reaction, or availability"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Underspecified LinkedIn About",
+      "prompt": "Write my LinkedIn About.",
+      "expected_output": "A LinkedIn About section with room to develop a point of view, not an X-length post.",
+      "files": ["evals/files/positioning.md", "evals/files/legal-agent.md"],
+      "expectations": [
+        "The About section is substantially longer than 280 characters",
+        "The section is not formatted as a pair of short social posts labeled LinkedIn and X",
+        "Every project claim is supported by the fixtures; the draft does not add how a product was operated or who used it beyond those sources",
+        "The section does not open or close by listing human experience, agent access, and operations together as its frame",
+        "The section does not insert W-2 terms or a booking CTA unless the brief requests hiring outreach"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Underspecified website intro",
+      "prompt": "Write a short introduction for my personal website.",
+      "expected_output": "A brief site introduction using supported facts; does not replace approved copy unless asked.",
+      "files": ["evals/files/positioning.md", "evals/files/legal-agent.md"],
+      "expectations": [
+        "The draft identifies Gabo or the Agentic Product Engineer role using supported material",
+        "The draft does not paste the two approved website paragraphs verbatim unless asked to use approved copy",
+        "The draft invents no metrics, endorsements, or achievements beyond the fixtures",
+        "The introduction is short enough for a website hero or intro block (roughly under 120 words unless the brief implied otherwise)"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Underspecified conference bio",
+      "prompt": "Write a conference biography for me.",
+      "expected_output": "Third-person conference biography with supported facts.",
+      "files": ["evals/files/positioning.md", "evals/files/legal-agent.md"],
+      "expectations": [
+        "The biography uses third person",
+        "The biography includes the approved Agentic Product Engineer title or equivalent from the positioning fixture",
+        "Named projects and experience match the fixtures; no invented credentials appear",
+        "The biography is appropriate conference length (more than one sentence, typically under 150 words)"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Underspecified Alex reply",
+      "prompt": "Reply to Alex about what I'm working on.",
+      "expected_output": "A peer-appropriate reply to Alex's question using supported work facts.",
+      "files": [
+        "evals/files/alex-peer.md",
+        "evals/files/legal-agent.md",
+        "evals/files/positioning.md"
+      ],
+      "expectations": [
+        "The message answers what Gabo is working on using supported project facts",
+        "The message invents no familiarity with Alex beyond the supplied fixture",
+        "The message does not insert W-2 availability terms or https://gaboesquivel.com/cal unless the brief is clearly a hiring or booking conversation",
+        "The message is proportionate outreach length (typically under 150 words)"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Observation light edit",
+      "prompt": "Light edit for flow only — keep my observation and meaning: I keep noticing that a product can have impressive capabilities and still make a simple task feel like work. I'm more interested in whether someone can finish what they came to do.",
+      "expected_output": "Flow improved; the noticing and finish-what-they-came-to-do ideas remain.",
+      "files": ["evals/files/observation-synthetic.md"],
+      "expectations": [
+        "The output preserves that impressive capabilities can still make a simple task feel like work",
+        "The output preserves interest in whether someone can finish what they came to do",
+        "The output does not replace the observation with a generic three-pillar product essay",
+        "The output invents no anecdote, metric, or named product the user did not supply"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Observation broader rewrite",
+      "prompt": "Rewrite this in my voice for a short blog paragraph — keep the observation, you can restructure: I keep noticing that a product can have impressive capabilities and still make a simple task feel like work. I'm more interested in whether someone can finish what they came to do.",
+      "expected_output": "Readable paragraph that keeps the supplied observation as the point.",
+      "files": ["evals/files/observation-synthetic.md"],
+      "expectations": [
+        "The output preserves that impressive capabilities can still make a simple task feel like work",
+        "The output preserves interest in whether someone can finish what they came to do",
+        "The output does not replace the observation with a generic three-pillar product essay",
+        "The output invents no anecdote, metric, or named product the user did not supply"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Opinion short post",
+      "prompt": "Turn this into a short public post in my voice.",
+      "expected_output": "Short post preserving the opinion and reason about chat vs workflow AI.",
+      "files": ["evals/files/opinion-synthetic.md"],
+      "expectations": [
+        "The output preserves that not every product needs a chat interface",
+        "The output preserves that AI can help by making an existing workflow shorter and easier to understand",
+        "The output does not add unsupported certainty, a combative tone, or a formulaic it-is-not-X-it-is-Y closer as the main ending",
+        "The output invents no customer story, metric, or employer claim"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Agent disagreement reply",
+      "prompt": "Write a concise reply to my colleague.",
+      "expected_output": "Concise reply preserving agreement, practical disagreement, and the staged expansion reason.",
+      "files": ["evals/files/agent-disagreement-synthetic.md"],
+      "expectations": [
+        "The output agrees that agents should be first-class users",
+        "The output recommends starting with capabilities where permissions, outcomes, and failure recovery are clear",
+        "The output mentions expanding based on how people and agents actually use them",
+        "The tone is direct and practical rather than evasive, preachy, or overly formal",
+        "The output invents no real colleague name, company policy, or shipped project as proof"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Technical architecture",
+      "prompt": "Explain the shipped LegalAgent architecture to a senior engineer, up to 220 words. Preserve the app, chat and voice technologies, retrieval responsibilities and languages, admin controls, and feedback loop. Flag any unspecified reliability or authorization details instead of inventing them.",
+      "expected_output": "Accurate architecture with gaps named, not filled in.",
+      "files": ["evals/files/legal-agent.md"],
+      "expectations": [
+        "The explanation retains React Native Expo, Vercel AI SDK chat, OpenAI Realtime API voice, Tailwind UI, retrieval for case context/document summaries/procedural guidance in Spanish and English, and TanStack Start admin with Microsoft SSO, prompt management, and document categorization",
+        "Attorney feedback changing persona and tool calling is preserved",
+        "Unspecified reliability and authorization details are identified rather than claimed as implemented; length is at most 220 words"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Punctuation-only edit",
+      "prompt": "Edit only punctuation in this sentence; keep my reflection and qualifier: I often return to one question how can this feel simpler for the person using it?",
+      "expected_output": "Only punctuation changes; reflection and qualifier remain.",
+      "files": [],
+      "expectations": [
+        "The words and their order are unchanged",
+        "Punctuation makes the question readable",
+        "No blanket ban removes often, reflection, or the question"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Verbatim approved copy",
+      "prompt": "Return the approved website copy exactly as provided, with its two paragraphs. Do not introduce or explain it.",
+      "expected_output": "Verbatim approved website copy only.",
+      "files": ["evals/files/positioning.md"],
+      "expectations": [
+        "Both approved paragraphs are preserved verbatim",
+        "No commentary, rewrites, biography, or motto is added"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Bounded article preparation",
+      "prompt": "Draft a short blog article in my voice from these notes: I think AI is most useful when it makes an existing workflow shorter and easier to understand. A chat interface is one option, not a requirement. Use a hypothetical document review example and label it as hypothetical. This is a draft only; no project claims or repository edits.",
+      "expected_output": "A draft grounded in the supplied opinion and a clearly hypothetical example, with preparation limited to relevant voice guidance.",
+      "files": [],
+      "expectations": [
+        "The agent starts drafting after reading relevant voice guidance; it does not scan the site, archive, project history, or framework code",
+        "The draft preserves the supplied opinion and labels the document review example as hypothetical",
+        "The draft invents no shipped project, metric, personal anecdote, or endorsement",
+        "The agent delivers the draft without repository edits or publishing checks"
+      ]
+    }
+  ],
+  "editorial_review": {
+    "method": "Compare actual outputs from the same prompts and facts. Grade expectations separately from editorial judgment. Cite a phrase for each preference; allow ties and retain failures. Synthetic fixtures demonstrate behavior, not Gabo’s biography.",
+    "questions": [
+      "Does the piece develop an intelligible point rather than list credentials or values?",
+      "Does it preserve the supplied conviction, curiosity, or enthusiasm without manufacturing new experience?",
+      "Do the sentences connect naturally, with detail proportionate to the reader?",
+      "Across formats, do openings and endings serve each piece rather than repeat a signature formula?"
+    ]
+  }
+}

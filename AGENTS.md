@@ -45,11 +45,13 @@ Credentials (two keys; do not conflate them):
 
 Names are documented in `.env.example`. If a name is missing from `.env`, stop and ask. If it is set locally, use it and do not ask again. Never print values.
 
-On Vercel, chat/book/note caps need Upstash Redis REST credentials. The app reads `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, or the marketplace pair `KV_REST_API_URL` and `KV_REST_API_TOKEN`. Provision with the [Upstash for Redis](https://vercel.com/marketplace/upstash/upstash-kv) marketplace integration on project `gaboesquivel` (accept marketplace terms in the dashboard if the CLI prompts).
+On Vercel, chat/book/note caps need Upstash Redis REST credentials. The app reads `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, or the marketplace pair `KV_REST_API_URL` and `KV_REST_API_TOKEN`. Provision with the [Upstash for Redis](https://vercel.com/marketplace/upstash/upstash-kv) marketplace integration on project `gaboesquivel` (accept marketplace terms in the dashboard if the CLI prompts). On `localhost` and `gaboesquivel.localhost`, daily caps are skipped unless `CONNECT_ENFORCE_CAPS=1` (for testing cap behavior locally).
 
 Calendar booking uses a **Google service account** with **domain-wide delegation** impersonating `GOOGLE_CALENDAR_ID` (default `contact@gaboesquivel.com`). Set `GOOGLE_SERVICE_ACCOUNT_JSON` and `GOOGLE_CALENDAR_ID` in `.env` and on Vercel Production and Preview. Provisioning (once): enable Calendar API in GCP project `gabo-esquivel`; create service account `gaboesquivel-ask-booking` and a JSON key (see [scripts/google-service-account.json.example](scripts/google-service-account.json.example)); in Google Admin authorize the service account client id for scopes `calendar.events` and `calendar.freebusy`; redeploy. JWTs use `sub` = the calendar id. No visitor OAuth and no key file at runtime.
 
 Main files: `agent/agent.ts`, `app/connect/connect-chat.tsx`, `app/connect/eve-thread.tsx`, `lib/connect/compose.ts`, `lib/connect/haiku-model.ts`.
+
+The send-email opener is not sent to the agent. The note form is the reply: it owns `NOTE_FORM_LEAD`, and the thread does not show Replying while that form is on screen. `agent/instructions/rules.md` tells the model not to repeat the lead.
 
 ## Task scope
 

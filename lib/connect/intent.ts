@@ -12,6 +12,9 @@ const bookPattern =
 const notePattern = /\b(note|email|pass along|contact@)\b/i;
 
 export const typedNoteIntent = (text: string) => notePattern.test(text.trim());
+
+export const noteOpener = (text: string) =>
+  /^(send email|pass it along)[.!]?$/i.test(stripMarker(text));
 const continuationPattern = /@|\b\d{1,2}:\d{2}\b/;
 
 export const affirmativeBookingReply = (text: string) =>
@@ -85,28 +88,31 @@ export const toolsForTurn = ({
     .map(stripMarker)
     .map((text) => text.trim())
     .filter(Boolean);
-  const markers = new Set(
-    texts.flatMap((text) => {
+  const latestRaw = texts.at(-1) ?? "";
+  const latestMarker = markerIntent(latestRaw);
+  if (
+    cleaned.length === 1 &&
+    cleaned[0] === EXPERIENCE_QUESTION &&
+    latestMarker !== "book" &&
+    latestMarker !== "note"
+  ) {
+    return null;
+  }
+  const earlier = cleaned.slice(0, -1).join("\n");
+  const earlierMarkers = new Set(
+    texts.slice(0, -1).flatMap((text) => {
       const intent = markerIntent(text);
       return intent ? [intent] : [];
     })
   );
-  if (
-    cleaned.length === 1 &&
-    cleaned[0] === EXPERIENCE_QUESTION &&
-    !markers.has("book") &&
-    !markers.has("note")
-  ) {
-    return null;
-  }
-  const joined = cleaned.join("\n");
-  const earlier = cleaned.slice(0, -1).join("\n");
   const latest = cleaned.at(-1) ?? "";
-  let wantsBook = markers.has("book") || bookPattern.test(joined);
-  let wantsNote = markers.has("note") || notePattern.test(joined);
+  let wantsBook = latestMarker === "book" || bookPattern.test(latest);
+  let wantsNote = latestMarker === "note" || notePattern.test(latest);
   if (continuationPattern.test(latest)) {
-    if (bookPattern.test(earlier)) wantsBook = true;
-    if (notePattern.test(earlier)) wantsNote = true;
+    if (earlierMarkers.has("book") || bookPattern.test(earlier))
+      wantsBook = true;
+    if (earlierMarkers.has("note") || notePattern.test(earlier))
+      wantsNote = true;
   }
   if (
     affirmativeBookingReply(latest) &&
@@ -126,6 +132,29 @@ export const sessionIp = (attributes: unknown) => {
   const ip = attributes.ip;
   return typeof ip === "string" && ip.length > 0 ? ip : "unknown";
 };
+
+export const sessionCapsEnforced = (attributes: unknown) => {
+  if (
+    !attributes ||
+    typeof attributes !== "object" ||
+    !("capsEnforced" in attributes)
+  ) {
+    return true;
+  }
+  const value = attributes.capsEnforced;
+  if (typeof value === "string") return value !== "0" && value !== "false";
+  return true;
+};
+
+export const channelMessage = ({
+  mode,
+  text,
+  timeZone,
+}: {
+  mode: "book" | "note";
+  text: string;
+  timeZone: string;
+}) => (text.includes("[site:") ? text : `[site:${mode} ${timeZone}]\n${text}`);
 
 export const visitorZone = (texts: string[]) => {
   for (const text of texts) {

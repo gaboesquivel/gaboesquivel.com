@@ -1,3 +1,21 @@
+const LOCAL_DEV_HOSTS = new Set([
+  "localhost",
+  "127.0.0.1",
+  "::1",
+  "gaboesquivel.localhost",
+]);
+
+export const requestHost = (request: Request) =>
+  new URL(request.url).hostname.toLowerCase();
+
+export const isLocalDevHost = (host: string) =>
+  LOCAL_DEV_HOSTS.has(host.toLowerCase());
+
+export const capsEnforced = ({ host }: { host: string }) => {
+  if (process.env.CONNECT_ENFORCE_CAPS === "1") return true;
+  return !isLocalDevHost(host);
+};
+
 export const readRequestIp = (request: Request) => {
   const forwarded = request.headers
     .get("x-forwarded-for")

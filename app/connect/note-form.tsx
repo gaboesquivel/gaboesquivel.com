@@ -32,6 +32,9 @@ const noteValid = ({
   email.includes("@") &&
   description.trim().length >= 10;
 
+const Lead = ({ element }: { element: { props: { text?: string } } }) =>
+  element.props.text ? <p>{element.props.text}</p> : null;
+
 const NameField = () => {
   const name = useStateValue<string>("/name") ?? "";
   const { set } = useStateStore();
@@ -83,7 +86,8 @@ const TopicField = () => {
   );
 };
 
-const Submit = ({ label }: { label?: string }) => {
+const Submit = ({ element }: { element: { props: { label?: string } } }) => {
+  const label = element.props.label;
   const onSubmit = useContext(SubmitContext);
   const name = useStateValue<string>("/name") ?? "";
   const email = useStateValue<string>("/email") ?? "";
@@ -107,7 +111,14 @@ const NoteStack = ({ children }: { children?: ReactNode }) => (
   <div className="flex flex-col gap-4">{children}</div>
 );
 
-const registry = { EmailField, NameField, NoteStack, Submit, TopicField };
+const registry = {
+  EmailField,
+  Lead,
+  NameField,
+  NoteStack,
+  Submit,
+  TopicField,
+};
 
 export function NoteForm({
   onSubmit,

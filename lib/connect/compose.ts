@@ -5,6 +5,8 @@ import {
 import type { Spec } from "@json-render/core";
 import { z } from "zod";
 
+import { NOTE_FORM_LEAD } from "./copy";
+
 export interface SlotState {
   day: string | null;
   days: string[];
@@ -110,12 +112,16 @@ export const fixedNoteSpec = (state?: NoteFormState): Spec => ({
       props: {},
       type: "EmailField",
     },
+    lead: {
+      props: { text: NOTE_FORM_LEAD },
+      type: "Lead",
+    },
     name: {
       props: {},
       type: "NameField",
     },
     stack: {
-      children: ["name", "email", "topic", "submit"],
+      children: ["lead", "name", "email", "topic", "submit"],
       props: {},
       type: "NoteStack",
     },
@@ -139,6 +145,28 @@ export const noteFormMessage = ({
   timeZone,
 }: NoteFormState & { timeZone: string }) =>
   `[site:note ${timeZone}]\nName: ${name.trim()}\nEmail: ${email.trim()}\nDiscuss: ${description.trim()}`;
+
+export const parseNoteFormPayload = (text: string): NoteFormState | null => {
+  const marker = text.match(/\[site:note\s+[^\]]+\]\n?/);
+  if (!marker) return null;
+  const lines = text.slice(marker[0].length).split("\n");
+  if (lines.length < 3) return null;
+  const nameMatch = lines[0]?.match(/^Name:\s*(.+)$/);
+  const emailMatch = lines[1]?.match(/^Email:\s*(.+)$/);
+  const discussLine = lines[2];
+  if (!nameMatch || !emailMatch || !discussLine?.startsWith("Discuss: ")) {
+    return null;
+  }
+  const description = [
+    discussLine.slice("Discuss: ".length),
+    ...lines.slice(3),
+  ].join("\n");
+  return {
+    description: description.trim(),
+    email: emailMatch[1].trim(),
+    name: nameMatch[1].trim(),
+  };
+};
 
 export const noteFormVisible = ({
   formDisabled,

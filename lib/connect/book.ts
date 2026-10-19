@@ -27,11 +27,13 @@ const overlaps = ({
 
 export const bookCall = async ({
   calendar,
+  enforce = true,
   input,
   now,
   store,
 }: {
   calendar: CalendarClient;
+  enforce?: boolean;
   input: unknown;
   now: Date;
   store: CapStore | null;
@@ -61,11 +63,16 @@ export const bookCall = async ({
   }
 
   const capKey = `connect:bookings:${denverDay(now)}`;
-  const count = await store.incr(capKey);
-  if (count > 2) {
-    await store.decr(capKey);
+  const releaseCap = async () => {
+    if (enforce) await store.decr(capKey);
     await store.del(key);
-    return { inserted: false, message: BOOKING_CAP, ok: false };
+  };
+  if (enforce) {
+    const count = await store.incr(capKey);
+    if (count > 2) {
+      await releaseCap();
+      return { inserted: false, message: BOOKING_CAP, ok: false };
+    }
   }
 
   const startMs = Date.parse(booking.start);
@@ -76,8 +83,7 @@ export const bookCall = async ({
       timeMin: booking.start,
     });
     if (overlaps({ busy, duration: booking.duration, start: startMs })) {
-      await store.decr(capKey);
-      await store.del(key);
+      await releaseCap();
       return { inserted: false, message: BUSY_SLOT, ok: false };
     }
     const created = await calendar.insert({
@@ -98,8 +104,7 @@ export const bookCall = async ({
       ok: true,
     };
   } catch (error) {
-    await store.decr(capKey);
-    await store.del(key);
+    await releaseCap();
     const message =
       error instanceof Error && error.message === "calendar-unconfigured"
         ? CALENDAR_UNCONNECTED

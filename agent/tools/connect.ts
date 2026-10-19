@@ -4,7 +4,7 @@ import { z } from "zod";
 import { bookCall } from "../../lib/connect/book";
 import { googleCalendar } from "../../lib/connect/calendar";
 import { admitChatOnce } from "../../lib/connect/caps";
-import { composeSlots } from "../../lib/connect/compose";
+import { composeSlots, parseNoteFormPayload } from "../../lib/connect/compose";
 import type { SlotState } from "../../lib/connect/compose";
 import {
   NO_SLOTS,
@@ -14,6 +14,7 @@ import {
 import { resendNote } from "../../lib/connect/email";
 import {
   isMcpChannel,
+  sessionCapsEnforced,
   sessionIp,
   assistantTexts,
   toolsForTurn,
@@ -44,6 +45,7 @@ export default defineDynamic({
         isMcpChannel(ctx.conversation?.channel.kind);
       if (mcp) {
         const admitted = await admitChatOnce({
+          enforce: sessionCapsEnforced(ctx.session.auth.current?.attributes),
           ip: sessionIp(ctx.session.auth.current?.attributes),
           key: `${ctx.session.id}:${ctx.messages.length}`,
           now: new Date(),
@@ -58,13 +60,17 @@ export default defineDynamic({
       if (!turnTools?.length) return null;
 
       const userApproval = !mcp;
+      const formNotePayload = parseNoteFormPayload(texts.at(-1) ?? "");
       const book = defineTool({
         approval: () => (userApproval ? "user-approval" : "not-applicable"),
         description:
           "Book a 15- or 30-minute call on the primary calendar. Requires name, email, duration, an ISO start, a time zone, and what they want to discuss. Does not assume 30 minutes.",
-        execute: async (input) =>
+        execute: async (input, toolCtx) =>
           bookCall({
             calendar: googleCalendar(),
+            enforce: sessionCapsEnforced(
+              toolCtx.session.auth.current?.attributes
+            ),
             input,
             now: new Date(),
             store: liveCapStore(),
@@ -146,11 +152,17 @@ export default defineDynamic({
         }),
       });
       const send = defineTool({
-        approval: () => (userApproval ? "user-approval" : "not-applicable"),
+        approval: () => {
+          if (!userApproval || formNotePayload) return "not-applicable";
+          return "user-approval";
+        },
         description:
           "Send email to contact@gaboesquivel.com with reply-to set to the visitor. Requires name, email, and what they want to discuss. Does not email the visitor a receipt.",
         execute: async (input, toolCtx) =>
           sendNote({
+            enforce: sessionCapsEnforced(
+              toolCtx.session.auth.current?.attributes
+            ),
             input,
             ip: sessionIp(toolCtx.session.auth.current?.attributes),
             mailer: resendNote,

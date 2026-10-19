@@ -18,10 +18,21 @@ import {
   noteFormMessage,
   noteFormVisible,
 } from "../../lib/connect/compose";
+import type { NoteFormState } from "../../lib/connect/compose";
 import { STREAM_FAILED } from "../../lib/connect/copy";
-import { stripMarker } from "../../lib/connect/intent";
+import { channelMessage, stripMarker } from "../../lib/connect/intent";
 import { splitNext } from "../../lib/connect/next-step";
+import {
+  assistantFollowsFormNote,
+  messageHasNoteFormPayload,
+  noteFormPayloadFromMessage,
+  noteReceiptStatus,
+  sendPartAfterMessage,
+  threadHasNoteFormPayload,
+} from "../../lib/connect/note-receipt";
+import { visitorFacingAssistantText } from "../../lib/connect/visitor-facing";
 import { accentButton, enter, quietButton } from "./chat-styles";
+import { NoteReceipt } from "./note-receipt";
 import type { SessionCursor } from "./session-cookie";
 import { writeSession } from "./session-cookie";
 
@@ -137,6 +148,7 @@ export function EveThread({
   initialSession,
   initialText,
   mode,
+  onContinue,
   onInitialSendFailed,
   onState,
   onVisibleChange,
@@ -146,6 +158,7 @@ export function EveThread({
   initialSession?: SessionCursor | null;
   initialText?: string | null;
   mode: "book" | "note" | null;
+  onContinue?: () => void;
   onInitialSendFailed?: (text: string) => void;
   onState: (state: {
     assistant: string;
@@ -179,10 +192,22 @@ export function EveThread({
   });
   const sent = useRef(false);
   const [noteFormDisabled, setNoteFormDisabled] = useState(false);
+  const [optimisticNote, setOptimisticNote] = useState<NoteFormState | null>(
+    null
+  );
   const noteSpec = useMemo(() => fixedNoteSpec(), []);
+  const previousMode = useRef(mode);
   const onStateRef = useRef(onState);
   const onInitialSendFailedRef = useRef(onInitialSendFailed);
   const agentRef = useRef(agent);
+
+  useEffect(() => {
+    if (previousMode.current !== "note" && mode === "note") {
+      setNoteFormDisabled(false);
+      setOptimisticNote(null);
+    }
+    previousMode.current = mode;
+  }, [mode]);
 
   useEffect(() => {
     agentRef.current = agent;
@@ -195,13 +220,7 @@ export function EveThread({
       reset: () => agentRef.current.reset(),
       respond: ({ optionId, requestId }) =>
         agentRef.current.respond([{ optionId, requestId }]),
-      send: (text) => {
-        const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const needsMarker =
-          (mode === "book" || mode === "note") && !text.includes("[site:");
-        const message = needsMarker ? `[site:${mode} ${zone}]\n${text}` : text;
-        return agentRef.current.send(message);
-      },
+      send: (text) => agentRef.current.send(text),
     };
   });
 
@@ -209,11 +228,10 @@ export function EveThread({
     if (!initialText || sent.current) return;
     let cancelled = false;
     const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const needsMarker =
-      (mode === "book" || mode === "note") && !initialText.includes("[site:");
-    const message = needsMarker
-      ? `[site:${mode} ${zone}]\n${initialText}`
-      : initialText;
+    const message =
+      mode === "book" || mode === "note"
+        ? channelMessage({ mode, text: initialText, timeZone: zone })
+        : initialText;
 
     const run = () => {
       if (cancelled || sent.current) return;
@@ -241,7 +259,19 @@ export function EveThread({
       .flatMap((part) => (part.type === "text" ? [part.text] : []))
       .join("\n") ?? ""
   );
-  const assistantText = finished.text;
+  const lastUserMessage = [...agent.data.messages]
+    .toReversed()
+    .find((message) => message.role === "user");
+  const hideAssistantForFormNote = Boolean(
+    lastUserMessage && messageHasNoteFormPayload(lastUserMessage)
+  );
+  const visibleAssistantText = hideAssistantForFormNote
+    ? ""
+    : visitorFacingAssistantText(finished.text);
+  const leakedAssistant =
+    !hideAssistantForFormNote &&
+    finished.text.trim().length > 0 &&
+    visibleAssistantText.trim().length === 0;
   const errorText =
     agent.error instanceof Error
       ? agent.error.message
@@ -253,34 +283,64 @@ export function EveThread({
 
   useEffect(() => {
     onStateRef.current({
-      assistant: assistantText,
+      assistant: visibleAssistantText,
       error: errorText,
       next: nextSteps,
       pendingId: pendingRequestId,
       status: agent.status,
     });
-  }, [agent.status, assistantText, errorText, nextSteps, pendingRequestId]);
+  }, [
+    agent.status,
+    visibleAssistantText,
+    errorText,
+    nextSteps,
+    pendingRequestId,
+  ]);
 
   const waiting = agent.status === "submitted" || agent.status === "streaming";
-  const showReplying = waiting && assistantText.trim().length === 0;
+
+  const optimisticReceipt = useMemo(() => {
+    if (!optimisticNote) return null;
+    const inTranscript = agent.data.messages.some((message) => {
+      const payload = noteFormPayloadFromMessage(message);
+      return (
+        payload?.email === optimisticNote.email &&
+        payload.description === optimisticNote.description &&
+        payload.name === optimisticNote.name
+      );
+    });
+    return inTranscript ? null : optimisticNote;
+  }, [agent.data.messages, optimisticNote]);
 
   const visibleMessages = useMemo(
     () =>
-      agent.data.messages.filter((message) =>
-        message.parts.some((part) => {
+      agent.data.messages.filter((message) => {
+        if (messageHasNoteFormPayload(message)) return true;
+        return message.parts.some((part) => {
           if (part.type === "text") {
             const visible =
               message.role === "user"
                 ? stripMarker(part.text)
-                : splitNext(part.text).text;
+                : visitorFacingAssistantText(splitNext(part.text).text);
+            if (message.role === "assistant") {
+              if (
+                assistantFollowsFormNote({
+                  messageId: message.id,
+                  messages: agent.data.messages,
+                })
+              ) {
+                return false;
+              }
+              return visible.trim().length > 0;
+            }
             return visible.trim().length > 0;
           }
           if (part.type !== "dynamic-tool") return false;
           if (part.toolName === "list_slots")
             return part.state !== "output-error";
           return part.state === "approval-requested";
-        })
-      ),
+        });
+      }),
     [agent.data.messages]
   );
 
@@ -297,31 +357,51 @@ export function EveThread({
     hasSendApproval,
     mode,
   });
+  const showReplying =
+    waiting &&
+    visibleAssistantText.trim().length === 0 &&
+    !showNoteForm &&
+    !optimisticReceipt &&
+    !hideAssistantForFormNote;
 
+  const hasPendingConnectUi = agent.data.messages.some((message) =>
+    message.parts.some((part) => {
+      if (part.type !== "dynamic-tool") return false;
+      if (part.toolName === "list_slots") return part.state !== "output-error";
+      if (part.toolName === "book") return part.state === "approval-requested";
+      if (part.toolName === "send") {
+        if (part.state === "approval-requested") return true;
+        return (
+          part.state !== "output-available" && part.state !== "output-error"
+        );
+      }
+      return false;
+    })
+  );
+
+  const noteReceiptOnScreen =
+    Boolean(optimisticReceipt) || threadHasNoteFormPayload(agent.data.messages);
   const showFailure =
-    agent.status === "error" ||
-    (!waiting &&
-      assistantText.trim().length === 0 &&
-      agent.data.messages.some((message) => message.role === "user") &&
-      !agent.data.messages.some((message) =>
-        message.parts.some(
-          (part) =>
-            part.type === "dynamic-tool" &&
-            (part.toolName === "list_slots"
-              ? part.state !== "output-error"
-              : part.state === "approval-requested")
-        )
-      ));
+    !noteReceiptOnScreen &&
+    (agent.status === "error" ||
+      (!leakedAssistant &&
+        !showNoteForm &&
+        !waiting &&
+        visibleAssistantText.trim().length === 0 &&
+        agent.data.messages.some((message) => message.role === "user") &&
+        !hasPendingConnectUi));
 
   useEffect(() => {
     onVisibleChange?.(
       visibleMessages.length > 0 ||
         showReplying ||
         Boolean(showFailure) ||
-        showNoteForm
+        showNoteForm ||
+        Boolean(optimisticReceipt)
     );
   }, [
     onVisibleChange,
+    optimisticReceipt,
     showFailure,
     showNoteForm,
     showReplying,
@@ -332,162 +412,216 @@ export function EveThread({
 
   return (
     <div aria-busy={waiting} className="flex flex-col gap-6">
-      {visibleMessages.map((message) => (
-        <Message from={message.role} key={message.id}>
-          {message.parts.map((part, index) => {
-            if (part.type === "text") {
-              const visible =
-                message.role === "user"
-                  ? stripMarker(part.text)
-                  : splitNext(part.text).text;
-              if (!visible) return null;
-              const streaming =
-                waiting &&
-                message.role === "assistant" &&
-                message.id === lastVisibleId;
-              return (
-                <MessageContent key={part.id ?? index}>
-                  {message.role === "user" ? (
-                    <span className="whitespace-pre-wrap">
-                      {renderText(visible)}
-                    </span>
-                  ) : (
-                    <MessageResponse isAnimating={streaming}>
-                      {visible}
-                    </MessageResponse>
-                  )}
-                </MessageContent>
-              );
-            }
-            if (part.type !== "dynamic-tool") return null;
-            if (part.toolName === "list_slots") {
-              if (part.state === "output-available") {
-                const spec = (part.output as { spec?: unknown } | undefined)
-                  ?.spec;
-                if (!spec || typeof spec !== "object") return null;
+      {visibleMessages.map((message) => {
+        const notePayload = noteFormPayloadFromMessage(message);
+        if (notePayload) {
+          const sendPart = sendPartAfterMessage(
+            agent.data.messages,
+            message.id
+          );
+          const output = sendPart?.output as
+            | { message?: string; sent?: boolean }
+            | undefined;
+          return (
+            <Message from="assistant" key={message.id}>
+              <NoteReceipt
+                description={notePayload.description}
+                email={notePayload.email}
+                name={notePayload.name}
+                status={noteReceiptStatus({
+                  fallback: errorText,
+                  output,
+                  settled: !waiting,
+                  state: sendPart?.state ?? "pending",
+                })}
+              />
+            </Message>
+          );
+        }
+        return (
+          <Message from={message.role} key={message.id}>
+            {message.parts.map((part, index) => {
+              if (part.type === "text") {
+                if (
+                  message.role === "assistant" &&
+                  assistantFollowsFormNote({
+                    messageId: message.id,
+                    messages: agent.data.messages,
+                  })
+                ) {
+                  return null;
+                }
+                const visible =
+                  message.role === "user"
+                    ? stripMarker(part.text)
+                    : visitorFacingAssistantText(splitNext(part.text).text);
+                if (!visible) return null;
+                const streaming =
+                  waiting &&
+                  message.role === "assistant" &&
+                  message.id === lastVisibleId;
                 return (
-                  <div className={enter} key={part.toolCallId}>
-                    <SlotPicker
-                      onPick={({ duration, start }) => {
-                        const zone =
-                          Intl.DateTimeFormat().resolvedOptions().timeZone;
-                        agent
-                          .send(
-                            `[site:book ${zone}]\nBook ${duration} minutes starting ${start}.`
-                          )
-                          .catch(() => null);
-                      }}
-                      spec={spec as Spec}
-                    />
-                  </div>
+                  <MessageContent key={part.id ?? index}>
+                    {message.role === "user" ? (
+                      <span className="whitespace-pre-wrap">
+                        {renderText(visible)}
+                      </span>
+                    ) : (
+                      <MessageResponse isAnimating={streaming}>
+                        {visible}
+                      </MessageResponse>
+                    )}
+                  </MessageContent>
                 );
               }
-              if (part.state === "output-error") return null;
-              return <PickerSkeleton key={part.toolCallId} />;
-            }
-            if (
-              (part.toolName === "book" || part.toolName === "send") &&
-              part.state === "approval-requested"
-            ) {
-              const input =
-                part.input && typeof part.input === "object"
-                  ? (part.input as Record<string, unknown>)
-                  : {};
-              const missing = missingFields({
-                input,
-                toolName: part.toolName,
-              });
-              const booking = part.toolName === "book";
-              const start = typeof input.start === "string" ? input.start : "";
-              const timeZone =
-                typeof input.timeZone === "string" ? input.timeZone : "UTC";
-              const label = booking
-                ? start
-                  ? `Book ${formatSlot({ iso: start, timeZone })}`
-                  : "Book call"
-                : "Send email";
-              const requestId = part.approval.id;
-              return (
-                <section
-                  className={`rounded-lg border border-hairline p-4 ${enter}`}
-                  key={part.toolCallId}
-                >
-                  <p>
-                    {typeof input.name === "string"
-                      ? input.name
-                      : "Name is missing."}
-                  </p>
-                  <p>
-                    {typeof input.email === "string"
-                      ? input.email
-                      : "Email is missing."}
-                  </p>
-                  {booking ? (
-                    <p className="tabular-nums">
-                      {input.duration === 15 || input.duration === 30
-                        ? `${input.duration} minutes`
-                        : "Duration is missing."}
-                      {start
-                        ? ` · ${formatSlot({ iso: start, timeZone })} ${zoneName({ iso: start, timeZone })}`
-                        : ""}
+              if (part.type !== "dynamic-tool") return null;
+              if (part.toolName === "list_slots") {
+                if (part.state === "output-available") {
+                  const spec = (part.output as { spec?: unknown } | undefined)
+                    ?.spec;
+                  if (!spec || typeof spec !== "object") return null;
+                  return (
+                    <div className={enter} key={part.toolCallId}>
+                      <SlotPicker
+                        onPick={({ duration, start }) => {
+                          const zone =
+                            Intl.DateTimeFormat().resolvedOptions().timeZone;
+                          agent
+                            .send(
+                              `[site:book ${zone}]\nBook ${duration} minutes starting ${start}.`
+                            )
+                            .catch(() => null);
+                        }}
+                        spec={spec as Spec}
+                      />
+                    </div>
+                  );
+                }
+                if (part.state === "output-error") return null;
+                return <PickerSkeleton key={part.toolCallId} />;
+              }
+              if (
+                (part.toolName === "book" || part.toolName === "send") &&
+                part.state === "approval-requested"
+              ) {
+                const input =
+                  part.input && typeof part.input === "object"
+                    ? (part.input as Record<string, unknown>)
+                    : {};
+                const missing = missingFields({
+                  input,
+                  toolName: part.toolName,
+                });
+                const booking = part.toolName === "book";
+                const start =
+                  typeof input.start === "string" ? input.start : "";
+                const timeZone =
+                  typeof input.timeZone === "string" ? input.timeZone : "UTC";
+                const label = booking
+                  ? start
+                    ? `Book ${formatSlot({ iso: start, timeZone })}`
+                    : "Book call"
+                  : "Send email";
+                const requestId = part.approval.id;
+                return (
+                  <section
+                    className={`rounded-lg border border-hairline p-4 ${enter}`}
+                    key={part.toolCallId}
+                  >
+                    <p>
+                      {typeof input.name === "string"
+                        ? input.name
+                        : "Name is missing."}
                     </p>
-                  ) : null}
-                  <p className="whitespace-pre-wrap">
-                    {typeof input.description === "string"
-                      ? input.description
-                      : "What you want to discuss is missing."}
-                  </p>
-                  {missing.length > 0 ? (
-                    <p className="text-red-400">
-                      {missing[0]} is missing.{" "}
-                      {booking ? "Nothing was booked." : "Nothing was sent."}
+                    <p>
+                      {typeof input.email === "string"
+                        ? input.email
+                        : "Email is missing."}
                     </p>
-                  ) : null}
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <button
-                      className={accentButton}
-                      disabled={missing.length > 0}
-                      onClick={() =>
-                        agent
-                          .respond([{ optionId: "approve", requestId }])
-                          .catch(() => null)
-                      }
-                      type="button"
-                    >
-                      {label}
-                    </button>
-                    <button
-                      className={quietButton}
-                      onClick={() =>
-                        agent
-                          .respond([{ optionId: "cancel", requestId }])
-                          .catch(() => null)
-                      }
-                      type="button"
-                    >
-                      {booking ? "Don't book" : "Don't send"}
-                    </button>
-                  </div>
-                </section>
-              );
-            }
-            return null;
-          })}
-        </Message>
-      ))}
+                    {booking ? (
+                      <p className="tabular-nums">
+                        {input.duration === 15 || input.duration === 30
+                          ? `${input.duration} minutes`
+                          : "Duration is missing."}
+                        {start
+                          ? ` · ${formatSlot({ iso: start, timeZone })} ${zoneName({ iso: start, timeZone })}`
+                          : ""}
+                      </p>
+                    ) : null}
+                    <p className="whitespace-pre-wrap">
+                      {typeof input.description === "string"
+                        ? input.description
+                        : "What you want to discuss is missing."}
+                    </p>
+                    {missing.length > 0 ? (
+                      <p className="text-red-400">
+                        {missing[0]} is missing.{" "}
+                        {booking ? "Nothing was booked." : "Nothing was sent."}
+                      </p>
+                    ) : null}
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <button
+                        className={accentButton}
+                        disabled={missing.length > 0}
+                        onClick={() =>
+                          agent
+                            .respond([{ optionId: "approve", requestId }])
+                            .catch(() => null)
+                        }
+                        type="button"
+                      >
+                        {label}
+                      </button>
+                      <button
+                        className={quietButton}
+                        onClick={() =>
+                          agent
+                            .respond([{ optionId: "cancel", requestId }])
+                            .catch(() => null)
+                        }
+                        type="button"
+                      >
+                        {booking ? "Don't book" : "Don't send"}
+                      </button>
+                    </div>
+                  </section>
+                );
+              }
+              return null;
+            })}
+          </Message>
+        );
+      })}
       {showNoteForm ? (
         <div className={enter}>
           <NoteForm
             onSubmit={(values) => {
               const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+              setOptimisticNote(values);
               setNoteFormDisabled(true);
               void agent
                 .send(noteFormMessage({ ...values, timeZone: zone }))
-                .catch(() => setNoteFormDisabled(false));
+                .then(() => {
+                  onContinue?.();
+                })
+                .catch(() => {
+                  setNoteFormDisabled(false);
+                  setOptimisticNote(null);
+                });
             }}
             spec={noteSpec}
           />
         </div>
+      ) : null}
+      {optimisticReceipt ? (
+        <Message from="assistant">
+          <NoteReceipt
+            description={optimisticReceipt.description}
+            email={optimisticReceipt.email}
+            name={optimisticReceipt.name}
+            status={{ error: false, text: "Sending the note." }}
+          />
+        </Message>
       ) : null}
       {showReplying ? (
         <Message aria-live="polite" from="assistant">
@@ -510,7 +644,7 @@ export function EveThread({
         </Message>
       ) : null}
       <p className="sr-only" aria-live="polite">
-        {agent.status === "ready" ? assistantText : ""}
+        {agent.status === "ready" ? visibleAssistantText : ""}
       </p>
     </div>
   );

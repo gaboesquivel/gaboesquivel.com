@@ -22,6 +22,8 @@ import { Suggestion } from "@/components/ai-elements/suggestion";
 import {
   affirmativeBookingReply,
   assistantOfferedCall,
+  channelMessage,
+  noteOpener,
   typedNoteIntent,
 } from "../../lib/connect/intent";
 import {
@@ -94,10 +96,28 @@ export function ConnectChat() {
         .catch(() => null);
       return;
     }
+    const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     if (bookAffirmativeTurn(trimmed)) {
       setMode("book");
-      trimmed = connectSuggestionMessage("book");
-    } else if (typedNoteIntent(trimmed)) setMode("note");
+      trimmed = channelMessage({
+        mode: "book",
+        text: connectSuggestionMessage("book"),
+        timeZone: zone,
+      });
+    } else if (noteOpener(trimmed)) {
+      setMode("note");
+      setEngaged(true);
+      setStarted(true);
+      setDraft("");
+      return;
+    } else if (typedNoteIntent(trimmed)) {
+      setMode("note");
+      trimmed = channelMessage({
+        mode: "note",
+        text: trimmed,
+        timeZone: zone,
+      });
+    } else if (eveOn) setMode(null);
     if (!eveOn) {
       setEngaged(true);
       setPending(trimmed);
@@ -229,6 +249,7 @@ export function ConnectChat() {
               initialSession={null}
               initialText={pending}
               mode={mode}
+              onContinue={() => setMode(null)}
               onInitialSendFailed={handleInitialSendFailed}
               onState={(state) => {
                 setAssistantReply((current) =>
