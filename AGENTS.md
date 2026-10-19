@@ -14,7 +14,7 @@ Narrative site. Voice, identity, and claims: installed `gabo` skill, which outra
 
 ## Docs
 
-- [PRODUCT.md](PRODUCT.md): read before changing page copy, routes, metadata, or blog links. Page jobs, evidence, keyword owners, and linking rules live there.
+- [PRODUCT.md](PRODUCT.md): read the relevant sections before changing page copy, routes, metadata, or blog links. Page jobs, evidence, keyword owners, and linking rules live there.
 - [DESIGN.md](DESIGN.md): read before visual or interaction changes. Tokens, primitives, layout, motion, and accessibility rules live there.
 - [README.md](README.md): setup for people.
 
@@ -34,6 +34,21 @@ Package copy or types change: edit the package → `bun run build` there (it run
 
 Use package descriptions for project cards. Do not write separate project essays on site pages.
 
+## `/ask` chat
+
+Before changing the Eve agent, Jev slot layout, or chat UI, read the installed `eve`, `ai-sdk`, `core`, `react`, and `typesafe-ai` skills (bundled docs in `node_modules`, not memory). Then read Eve’s Web Chat scaffold source in `node_modules/eve/dist/src/setup/scaffold/create/web-template.js` (`agent-chat.tsx` / `agent-message.tsx` strings).
+
+Credentials (two keys; do not conflate them):
+
+- `AI_GATEWAY_API_KEY` — Eve gateway auth and Jev (`lib/connect/compose.ts`).
+- `ANTHROPIC_API_KEY` — BYOK for Haiku on gateway (`lib/connect/haiku-model.ts`, `agent/agent.ts`).
+
+Names are documented in `.env.example`. If a name is missing from `.env`, stop and ask. If it is set locally, use it and do not ask again. Never print values.
+
+On Vercel, chat/book/note caps need Upstash Redis (`UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`). Provision with the [Upstash for Redis](https://vercel.com/marketplace/upstash/upstash-kv) marketplace integration on project `gaboesquivel` (accept marketplace terms in the dashboard if the CLI prompts).
+
+Main files: `agent/agent.ts`, `app/connect/connect-chat.tsx`, `app/connect/eve-thread.tsx`, `lib/connect/compose.ts`, `lib/connect/haiku-model.ts`.
+
 ## Task scope
 
 - Do not restyle or upgrade Next.js in a content pass.
@@ -42,12 +57,18 @@ Use package descriptions for project cards. Do not write separate project essays
 
 When researching, spawn read-only agents in parallel for lookups that do not invent copy. One agent writes. Do not spawn to write, rewrite, outline, or find a better voice.
 
+### Single blog post
+
+Start with the brief, the `gabo` skill's relevant guidance, and PRODUCT's blog conventions and internal linking rules. Draft once the article's claims are supported; look up only specific missing facts. For related posts, search titles, descriptions, or topic keywords and read only promising matches, stopping when useful links are supported. A single article does not require a whole-site scan.
+
+For a draft-only request, deliver the draft. When adding MDX to the repository, inspect the content schema or one existing post only as needed for publishing conventions, then run the applicable checks after the edit. Read framework code, design guidance, or export implementations only when the task changes their behavior.
+
 ## When things change
 
 Page lists, identity facts, and the featured set are repeated in code. Update every copy in the same change:
 
-- Page added, renamed, or re-scoped: `PRODUCT.md`, `components/layout/navbar.tsx` (primary nav only), `lib/landing-pages.ts` (`/explore`), `app/sitemap.ts`, `scripts/llms/routes.ts`, `scripts/llms/corpus.ts`, `scripts/llms/pages.ts`, and `scripts/llms/authority.ts` if its place in the authority order changes.
-- Hire terms or identity facts (location, time zone, languages): the `gabo` skill's Identity first, then `PRODUCT.md` (`/connect`), `components/shared/lets-connect.tsx`, `scripts/llms/pages.ts`, `scripts/llms/corpus.ts`, and `scripts/llms/authority.ts`.
+- Site page added, renamed, or re-scoped: `PRODUCT.md`, `components/layout/navbar.tsx` (primary nav only), `lib/landing-pages.ts` (`/explore`), `app/sitemap.ts`, `scripts/llms/routes.ts`, `scripts/llms/corpus.ts`, `scripts/llms/pages.ts`, and `scripts/llms/authority.ts` if its place in the authority order changes. An ordinary blog post using the existing blog template is excluded unless it changes route architecture or export behavior.
+- Hire terms or identity facts (location, time zone, languages): the `gabo` skill's Identity first, then `PRODUCT.md` (`/ask`), `components/shared/lets-connect.tsx`, `scripts/llms/pages.ts`, `scripts/llms/corpus.ts`, and `scripts/llms/authority.ts`.
 - Featured projects: the package's `featured` allowlist first, then `scripts/llms/projects.ts` and `scripts/llms/authority.ts`.
 - Tokens, primitives, layout, motion budget, or accessibility conventions: `DESIGN.md`.
 
@@ -56,7 +77,7 @@ Page lists, identity facts, and the featured set are repeated in code. Update ev
 - `bun run dev`: Velite watch and Next.js at `https://gaboesquivel.localhost` (Next listens on port 3099). `bun run setup:portless` trusts the local certificate once.
 - `bun run verify`: Velite content build and Ultracite (`oxlint` + `oxfmt`).
 - `bun run test:llms`: the llms export, blog, and CV page-break tests. Run it after page, blog, or CV changes.
-- `bun run verify:routes [base-url]`: curls `/`, the `/cv` variants, `/connect`, sample posts, and the `/cal` redirect. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).
+- `bun run verify:routes [base-url]`: curls `/`, the `/cv` variants, `/ask`, sample posts, and the `/cal` redirect. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).
 - Pre-commit (simple-git-hooks) runs `ultracite fix` on staged files, then when `app/cv/`, `app/global.css`, or `components/shared/contact-info.tsx` is staged, runs `bun run cvs`: the CV PDFs are printed with local Google Chrome (it starts `next dev` on port 3099 if nothing is running), then the PDFs and `app/cv/page-breaks.ts` are staged.
 
 ## Git

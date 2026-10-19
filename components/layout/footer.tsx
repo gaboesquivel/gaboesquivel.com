@@ -47,28 +47,8 @@ export function Footer() {
         <div>
           <ul className="space-y-2">
             <li>
-              <Link href="/bio" className={footerLink}>
-                Bio
-              </Link>
-            </li>
-            <li>
-              <Link href="/ai" className={footerLink}>
-                AI
-              </Link>
-            </li>
-            <li>
-              <Link href="/web3" className={footerLink}>
-                Web3
-              </Link>
-            </li>
-            <li>
               <Link href="/tech" className={footerLink}>
                 Tech Stack
-              </Link>
-            </li>
-            <li>
-              <Link href="/cv" className={footerLink}>
-                CV
               </Link>
             </li>
             <li>
@@ -79,6 +59,11 @@ export function Footer() {
             <li>
               <Link href="/llms.txt" className={footerLink}>
                 llms.txt
+              </Link>
+            </li>
+            <li>
+              <Link href="/docs" className={footerLink}>
+                MCP docs
               </Link>
             </li>
             <li>
@@ -115,7 +100,7 @@ export function Footer() {
             </li>
             <li className="text-neutral-300">Have something in mind?</li>
             <li>
-              <Link href="/connect" className="cta-link">
+              <Link href="/ask" className="cta-link">
                 Let’s talk
               </Link>
             </li>

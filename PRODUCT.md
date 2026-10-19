@@ -7,14 +7,14 @@ Gabo Esquivel's personal site. It shows founders and technical or product leader
 ## Audience
 
 - **Founders and technical or product leads** check whether the work is real and relevant. Landing pages answer with named, verified projects.
-- **Recruiters** need dates, titles, and a PDF: `/cv`, then `/connect`.
+- **Recruiters** need dates, titles, and a PDF: `/cv`, then `/ask`.
 - **AI agents and LLM tools** read `/llms.txt` and `/llms-full.txt` (also served under `/.well-known/`), a plain-text corpus built from the same pages, projects, technologies, CVs, and current posts.
 
 Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
 ## Implemented surfaces
 
-- Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “writing”), `/connect`
+- Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “writing”), `/ask` (labeled “ask”)
 - Capability and context pages: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institutions`, `/lead`
 - Projects: `/work`, `/work/[type]`, `/project/[slug]`
 - Technologies: `/tech` and `/tech/[category]`, which serves both category pages and single-technology pages (`/tech/[slug]`). A technology with no project evidence redirects to `/tech`.
@@ -22,7 +22,7 @@ Only `/bio` tells the full career story. Other pages are not alternate resumes.
 - CV: `/cv` and `/cv?focus=ai|web3|fullstack`, each with a PDF in `public/`
 - `/explore`: directory of pages, linked from the footer
 - Missing URLs (`app/not-found.tsx`) and failed pages (`app/error.tsx`, `app/global-error.tsx`) keep the site nav and link to `/` and `/explore`. They are not in the primary nav or `/explore` directory. Public HTML pages negotiate Markdown via `Accept: text/markdown` (and optional `.md` siblings such as `/index.md`) per [acceptmarkdown.com](https://acceptmarkdown.com/); HTML responses advertise the sibling with `Link: rel="alternate"` and page metadata. Missing paths with `Accept: text/markdown` receive HTTP 404 and a Markdown body with links to `/`, `/explore`, `/llms.txt`, and the sitemap
-- Trust pages (`/about`, `/contact`, `/privacy`): public identity, contact (canonical `/connect`), and privacy policy. Linked from the footer; not in the primary nav or `/explore`
+- Trust and integration pages (`/about`, `/privacy`, `/docs`): public identity, privacy policy, and MCP integration docs for the site agent. `/contact` permanently redirects to `/ask`. Linked from the footer; not in the primary nav or `/explore` (`/docs` appears on `/explore` in the About group)
 - llms corpus: `/llms.txt`, `/llms-full.txt`, and their `/.well-known/` copies, built by `scripts/llms/`
 - Redirects (`next.config.js`): `/cal` to Calendly, `/blog/tech/*` to `/tech/[slug]`, plus the Edge Config `redirects` list
 
@@ -36,7 +36,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Question: who is Gabo, and is the work real?
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
-- Order: positioning, proof, projects, focus, bio preview, writing, `/connect`
+- Order: positioning, proof, projects, focus, bio preview, writing, `/ask`
 
 ### `/bio`
 
@@ -44,7 +44,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Spine: interfaces → products → complex systems → intelligent interfaces
 - Chapter evidence: `costa-rica-js`, `wink`, Web3 projects, `legal-agent`
 - Worldview, stated once and grounded in Wink: technology should expand access rather than create new gatekeepers. Capability and project pages do not restate or paraphrase it.
-- End in the present and link to `/connect`
+- End in the present and link to `/ask`
 
 ### `/ai`
 
@@ -53,14 +53,14 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Supporting evidence: `masterbots`, Bitlauncher AI work
 - Lower weight: `wizard-world`
 - Do not retell the career or invent users
-- CTA: `/connect`
+- CTA: `/ask`
 
 ### `/web3`
 
 - Job: Web3 and financial-systems depth, not a biography
 - Evidence: `knowledge-io`, `eos-costa-rica`, `chaingraph`, `bitcashbank`, `ztx`, `raremint`, `opyn`, `bitlauncher`
 - Use American Express and `wink` only as a short financial-systems origin
-- CTA: `/connect`
+- CTA: `/ask`
 
 ### `/work` and `/project/[slug]`
 
@@ -77,9 +77,19 @@ Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institu
 - CTA: `/work`
 - `/lead` title: Technical Leadership
 
-### `/connect`
+### `/ask`
+
+The page is the chat. People use it to ask, leave a note, or book a 15- or 30-minute call. Other agents start a task at `/mcp` (`agent_start`, then `agent_get`). Notes go to contact@gaboesquivel.com. Bookings insert from the chat or from MCP, cap at 2 a day, then point at `/cal`. No confirm email. The portfolio stays a content site. Hire terms are not printed on the page; the agent and the llms export carry them.
 
 Use only facts already present in `LetsConnect`: direct hire, international hire, contracting through Blockmatic Labs LLC, cannot work under W-2, Costa Rica, and US Mountain Time.
+
+### `/docs`
+
+- Job: how another agent calls the Gabo Esquivel MCP server at `/mcp` (`agent_start`, then `agent_get`)
+- Visitor: integrator or coding agent wiring MCP
+- Message: public Streamable HTTP endpoint, invocation protocol, what messages can do, limits, and what is not offered
+- Do not duplicate hire terms; link `/ask` and `/privacy`
+- Not a second `/ask` page or API reference for unpublished tools
 
 ### `/blog`
 
@@ -88,7 +98,7 @@ Use only facts already present in `LetsConnect`: direct hire, international hire
 - Message: notes on AI, Web3, and engineering from real implementation work
 - Evidence: current-era posts in the masonry; archive posts stay visible and dated
 - Category pages name the writing slice only — do not target capability keywords owned by `/`, `/ai`, or `/web3`. `/blog/category/product` is writing about product work, not the “product engineer” capability claim owned by `/`
-- CTA: read a post, then `/connect` via site chrome
+- CTA: read a post, then `/ask` via site chrome
 
 ### `/cv` and `/tech`
 
@@ -106,7 +116,7 @@ Use only facts already present in `LetsConnect`: direct hire, international hire
 ### llms corpus
 
 - Job: an authoritative plain-text view of the site for AI tools
-- `scripts/llms/authority.ts` sets the authority order and the strongest project evidence. Hire terms appear only under `/connect`.
+- `scripts/llms/authority.ts` sets the authority order and the strongest project evidence. Hire terms appear only under `/ask`.
 - `/llms-full.txt` leaves out pre-2020 posts
 
 ## Repetition across pages
@@ -145,7 +155,8 @@ Keyword owners:
 - `/bio`: Gabo Esquivel career story
 - `/work`: selected software projects
 - `/project/[slug]`: the named project
-- `/connect`: work with Gabo Esquivel
+- `/ask`: work with Gabo Esquivel
+- `/docs`: Gabo Esquivel MCP
 - `/cv`: Senior Product Engineer CV
 - `/tech`: technology stack
 - `/blog`: writing and engineering notes
@@ -162,15 +173,15 @@ Do not make multiple narrative pages target the same career-story intent. Blog c
 
 Apply when authoring a new post. Do not open or edit existing posts solely to retrofit links.
 
-Link to the most useful next step: domain capability (`/ai`, `/web3`, `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/lead`, `/startups`, `/institutions`), named project (`/project/[slug]`), named technology (`/tech/[technology-slug]`), or `/connect`.
+Link to the most useful next step: a related blog post, domain capability (`/ai`, `/web3`, `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/lead`, `/startups`, `/institutions`), named project (`/project/[slug]`), named technology (`/tech/[technology-slug]`), or `/ask`.
 
 - Add only links that clarify or extend the current sentence.
 - Use one link per destination in a post.
 - Link a project only when the project is explicitly named.
 - Link only to projects that existed by the post's publication date.
-- Verify every route exists before linking.
+- Verify each selected route exists using its route or content slug; this does not require auditing other destinations.
 - Prefer a domain page for a broad concept and a project or technology page for a specific implementation.
-- Keep total contextual internal links to roughly three to five.
+- Roughly three to five contextual internal links is a guideline, not a quota. Use fewer when they sufficiently serve the piece.
 - Use descriptive anchor text. Do not force keywords.
 
 ## Non-goals

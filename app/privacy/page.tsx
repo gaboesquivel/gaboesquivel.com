@@ -12,15 +12,25 @@ export default function PrivacyPage() {
         advertising trackers beyond what is described here.
       </Prose>
       <Prose>
-        When you use the connect form on{" "}
-        <Link href="/connect" className="prose-link">
-          /connect
-        </Link>
-        , you send your name, email address, subject line, and message. That
-        information is delivered by email so Gabo can read and reply. The form
-        is sent through Resend from the site&apos;s hosting on Vercel; Gabo
-        receives the message at his work inbox. Do not send passwords, payment
-        card numbers, or other secrets through the form.
+        The site agent on{" "}
+        <Link href="/ask" className="prose-link">
+          /ask
+        </Link>{" "}
+        and the task endpoint at /mcp can take a question about published work,
+        a note, or a request for a 15- or 30-minute call. A note sends your
+        name, email address, and what you want to discuss to
+        contact@gaboesquivel.com through Resend. The reply-to address is yours.
+        The site does not email you a receipt. A booking adds you as a guest on
+        Gabo&apos;s calendar and Google sends the invitation. The event includes
+        the time, the length, and what you wanted to discuss.
+      </Prose>
+      <Prose>
+        The page may store a session cursor in a cookie named connect_eve while
+        you are on /ask; opening /ask again starts a new thread. Chat, notes,
+        and bookings are counted per day in Upstash so the public limits hold.
+        Those counts use your IP address and, for a note, your email address. Do
+        not send passwords, payment card numbers, or other secrets through the
+        agent.
       </Prose>
       <Prose>
         The site loads Vercel Web Analytics to understand aggregate traffic
@@ -46,7 +56,7 @@ export default function PrivacyPage() {
 
 export const metadata = pageMetadata({
   description:
-    "How gaboesquivel.com handles the connect form, email delivery, and Vercel Web Analytics.",
+    "How gaboesquivel.com handles the site agent, notes, calendar invites, and Vercel Web Analytics.",
   path: "/privacy",
   title: "Privacy | Gabo Esquivel",
 });

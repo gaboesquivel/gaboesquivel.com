@@ -1,5 +1,11 @@
 import { cn } from "lib/utils";
 
+/** Reading column: nav, page body, and /ask chat share this width and gutters. */
+export const siteColumn = "mx-auto w-full max-w-4xl min-w-0 px-4 sm:px-6";
+
+/** Sticky header: tight under accent bar; room below nav matches block cadence (2rem). */
+export const headerColumnPadding = "pt-4 pb-8";
+
 export const proseClass = "prose prose-neutral dark:prose-invert";
 
 export const blockSpacing = "mt-8";

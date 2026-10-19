@@ -104,10 +104,16 @@ export const landingPageGroups = [
           "Printable employment record with titles, dates, and skills.",
       },
       {
-        href: "/connect",
-        title: "Connect",
+        href: "/ask",
+        title: "Ask",
         description:
           "Direct hire, international hire, or contracting through Blockmatic Labs LLC.",
+      },
+      {
+        href: "/docs",
+        title: "Gabo Esquivel MCP",
+        description:
+          "Streamable HTTP at /mcp: ask, note, or book through agent_start and agent_get.",
       },
     ],
     title: "About",

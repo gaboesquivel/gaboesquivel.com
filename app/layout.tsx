@@ -1,6 +1,10 @@
 import "./global.css";
 import type { Metadata } from "next";
 
+import { headerColumnPadding, siteColumn } from "@/components/shared/spacing";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+
 import { DeferredAnalytics } from "../components/layout/deferred-analytics";
 import { Footer } from "../components/layout/footer";
 import Navbar from "../components/layout/navbar";
@@ -57,14 +61,27 @@ export default function RootLayout({
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>👩‍🚀</text></svg>"
         />
       </head>
-      <body className="relative mb-12 max-w-full min-w-0 antialiased sm:mb-40">
-        <div className="sticky top-0 z-50 h-0.5 w-full bg-accent print:hidden preview-print:hidden" />
-        <main className="mx-auto mt-8 flex max-w-4xl min-w-0 flex-auto flex-col px-4 sm:px-6 print:mt-0 print:max-w-none print:px-0 preview-print:mt-0 preview-print:max-w-none preview-print:px-0">
-          <Navbar />
-          {children}
-          <Footer />
-          <DeferredAnalytics />
-        </main>
+      <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
+        <TooltipProvider>
+          <div className="flex min-h-0 flex-1 flex-col">
+            <header className="sticky top-0 z-50 bg-black print:hidden preview-print:hidden">
+              <div className="h-0.5 w-full bg-accent" />
+              <div className={cn(siteColumn, headerColumnPadding)}>
+                <Navbar />
+              </div>
+            </header>
+            <main
+              className={cn(
+                siteColumn,
+                "flex min-h-0 flex-1 flex-col print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
+              )}
+            >
+              {children}
+              <Footer />
+              <DeferredAnalytics />
+            </main>
+          </div>
+        </TooltipProvider>
       </body>
     </html>
   );

@@ -34,10 +34,10 @@ export default function AboutPage() {
       <Prose>
         Gabo is open to long-term and short-term work: direct hire,
         international hire, or contracting through Blockmatic Labs LLC. He
-        cannot work under W-2. For hire terms, scheduling, and the contact form,
-        use{" "}
-        <Link href="/connect" className="prose-link">
-          /connect
+        cannot work under W-2. For hire terms, a note, or a 15- or 30-minute
+        call, use{" "}
+        <Link href="/ask" className="prose-link">
+          /ask
         </Link>
         .
       </Prose>
@@ -58,9 +58,9 @@ export default function AboutPage() {
         </li>
         <li className="h-full">
           <PathLink
-            href="/connect"
-            title="Connect"
-            note="Hire paths, contact form, and scheduling."
+            href="/ask"
+            title="Ask"
+            note="Hire terms, a note, or a 15- or 30-minute call."
           />
         </li>
       </ul>

@@ -128,7 +128,7 @@ export const renderBlogMarkdown = (post: BlogPost) => {
       ? "**Status:** historical (views and technology at time of publication)"
       : "",
     post.slug === CONTRACTING_SLUG
-      ? "**Content type:** personal contracting setup (not legal or tax guidance; see /connect for engagement)"
+      ? "**Content type:** personal contracting setup (not legal or tax guidance; see /ask for engagement)"
       : "",
     post.summary ? `**Summary:** ${post.summary}` : "",
     post.category?.length ? `**Categories:** ${post.category.join(", ")}` : "",

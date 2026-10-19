@@ -68,7 +68,24 @@ check /cv
 check "/cv?focus=ai"
 check "/cv?focus=web3"
 check "/cv?focus=fullstack"
-check /connect
+ask_body="$(mktemp)"
+ask_code="$(curl -s -o "$ask_body" -w '%{http_code}' "${base}/ask")"
+if [ "$ask_code" != "200" ]; then
+  echo "FAIL /ask expected 200 got ${ask_code}"
+  exit 1
+fi
+if ! grep -q "Book a call" "$ask_body"; then
+  echo "FAIL /ask body missing Book a call"
+  exit 1
+fi
+if grep -q "Send Message" "$ask_body"; then
+  echo "FAIL /ask still has Send Message"
+  exit 1
+fi
+rm -f "$ask_body"
+echo "OK   /ask 200"
+check_redirect /connect
+check_redirect /contact
 check "/blog/${recent}"
 check "/blog/${archive}"
 check "/blog/${embed}"

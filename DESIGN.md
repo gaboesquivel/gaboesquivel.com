@@ -68,11 +68,12 @@ Type scale and spacing tokens live in [`components/shared/spacing.ts`](component
 
 Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](components/shared/spacing.ts).
 
-- Column: `max-w-4xl` with `px-4 sm:px-6` gutters, sticky `h-0.5 bg-accent` top bar
+- Column: `siteColumn` in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`max-w-4xl` with `px-4 sm:px-6` gutters) on nav and `main`, sticky `h-0.5 bg-accent` top bar
 - Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
 - Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name below `md` (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up it is one line with an em dash
-- The primary nav wraps onto more lines on narrow screens (`flex-wrap`), including `connect`; there is no menu toggle
+- The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The last item is labeled `ask` so a phone-width row can stay on one line
+- `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); sticky header (accent bar + nav); footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
 - Images: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`
 
@@ -103,21 +104,21 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Section CTA | `.cta-link` / `sectionAction` | `app/global.css`, `spacing.ts` |
 | In-prose link | `.prose-link` | `app/global.css` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
-| Forms | Match `/connect`: transparent fields, `border-hairline`, `focus:ring-accent` | `app/connect/contact-form.tsx` |
+| Forms | Match `/ask`: transparent fields, `border-hairline`, `focus-visible:ring-accent` | `app/connect/connect-chat.tsx` |
 
 `PathLink` uses `cardLink`, so it takes the same hairline border.
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status banner entrance (`starting:` fade + scale), connect send `:active` scale, and `cardLink` `:active` scale. The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status, approval card, and slot picker entrance (`starting:` fade + scale), connect starter, Send, Stop, and approval `:active` scale, and `cardLink` `:active` scale. The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## Accessibility
 
 - Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under; it colors inactive nav items and meta text in `navbar.tsx`, `page-card.tsx`, `path-link.tsx`, `project-card.tsx`, `tech-stack.tsx`, and `app/blog/[slug]/page.tsx`. See Open questions.
-- Focus: `cardLink` cards and `/connect` fields draw an accent ring; other links (nav, `PathLink`, `ProjectCard`) keep the browser's default outline. Do not remove an outline without adding the accent ring.
+- Focus: `cardLink` cards and `/ask` fields draw an accent ring; other links (nav, `PathLink`, `ProjectCard`) keep the browser's default outline. Do not remove an outline without adding the accent ring.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
 - Images: `PageImage` requires `alt`; describe what the photo shows.
-- Reduced motion: the `PathLink` arrow nudge, connect status banner, send button press, and `cardLink` press use `motion-safe:` / `motion-reduce:` (gentler scale or opacity-only, not off). The `ProjectCard` image zoom runs regardless.
+- Reduced motion: the `PathLink` arrow nudge, connect status, approval card, slot picker, starter and send press, and `cardLink` press use `motion-safe:` / `motion-reduce:` (gentler scale or opacity-only, not off). The `ProjectCard` image zoom runs regardless.
 - Print: the top bar, nav, and footer are `print:hidden`.
 
 ## Do's and Don'ts

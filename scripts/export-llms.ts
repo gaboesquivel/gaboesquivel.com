@@ -1,6 +1,11 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+import {
+  buildAgentIndex,
+  cvOverviewMarkdown,
+  employmentRecords,
+} from "./llms/agent-index";
 import { getLlmsFull, getLlmsIndex } from "./llms/corpus";
 import { estimateTokens } from "./llms/format";
 import { buildMarkdownCorpus } from "./llms/markdown-corpus";
@@ -13,6 +18,14 @@ const llmsIndex = getLlmsIndex();
 const llmsFull = getLlmsFull();
 const markdownCorpus = buildMarkdownCorpus();
 
+for (const entry of employmentRecords()) {
+  markdownCorpus[entry.bodyKey] = entry.markdown;
+}
+
+markdownCorpus["#cv/overview"] = cvOverviewMarkdown();
+
+const agentIndex = buildAgentIndex();
+
 mkdirSync(PUBLIC_DIR, { recursive: true });
 mkdirSync(GENERATED_DIR, { recursive: true });
 
@@ -24,6 +37,11 @@ writeFileSync(fullPath, llmsFull, "utf-8");
 writeFileSync(
   join(GENERATED_DIR, "markdown-routes.json"),
   JSON.stringify(markdownCorpus),
+  "utf-8"
+);
+writeFileSync(
+  join(GENERATED_DIR, "agent-index.json"),
+  JSON.stringify(agentIndex),
   "utf-8"
 );
 

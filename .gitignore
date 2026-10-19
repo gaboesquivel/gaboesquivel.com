@@ -43,9 +43,12 @@ next-env.d.ts
 public/llms.txt
 public/llms-full.txt
 generated/markdown-routes.json
+generated/agent-index.json
 
 # contentlayer (legacy)
 .contentlayer
+
+.eve/
 
 .env
 
@@ -56,3 +59,4 @@ __dev
 
 # accidental nested build output
 /gaboesquivel.com/
+.env*

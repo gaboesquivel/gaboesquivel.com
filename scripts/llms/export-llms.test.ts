@@ -192,29 +192,30 @@ describe("llms export helpers", () => {
     }
   });
 
-  test("loadNarrativePages emits W-2 hire copy only on /connect", () => {
-    const connect = loadNarrativePages().find(
-      (page) => page.path === "/connect"
-    );
+  test("loadNarrativePages emits W-2 hire copy only on /ask", () => {
+    const ask = loadNarrativePages().find((page) => page.path === "/ask");
     const ai = loadNarrativePages().find((page) => page.path === "/ai");
-    expect(connect?.body).toContain("Cannot work under W-2");
+    expect(ask?.body).toContain("Cannot work under W-2");
     expect(ai?.body).not.toContain("Cannot work under W-2");
   });
 
   test("llms index includes when-to-use guidance", () => {
     const index = getLlmsIndex();
     expect(index).toContain("## When to use this corpus");
-    expect(index).toContain("/connect");
+    expect(index).toContain("/ask");
     expect(index).toContain("/project/[slug]");
     expect(index).toContain("/cv");
     expect(index).toContain("/tech/[slug]");
     expect(index).toContain("Cannot work under W-2");
+    expect(index).toContain("/mcp");
+    expect(index).toContain("/docs");
+    expect(index).toContain("agent_start");
+    expect(index).toContain("agent_get");
   });
 
   test("homepage corpus includes focus and bio preview", () => {
     const home = loadNarrativePages().find((page) => page.path === "/");
     expect(home?.body).toContain("/startups");
-    expect(home?.body).toContain("/institutions");
     expect(home?.body).toContain("/ai");
     expect(home?.body).toContain("/web3");
     expect(home?.body).toContain("/bio");

@@ -15,6 +15,7 @@
     "jsx": "react-jsx",
     "paths": {
       "#velite": ["./.velite"],
+      "@/*": ["./*"],
       "*": ["./*"]
     },
     "incremental": true,

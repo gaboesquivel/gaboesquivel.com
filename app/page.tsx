@@ -69,38 +69,22 @@ export default function HomePage() {
       </PageSection>
 
       <PageSection title="Focus">
-        <Prose>
-          Right now I work on agentic AI and onchain finance. In both, the model
-          or the chain does the hard part, and the product decides whether
-          people can trust it with real work and real money.
-        </Prose>
         <ul className={blockGrid}>
           <li className="h-full">
             <PathLink
               href="/ai"
               title="Agentic AI products"
-              note="Agents that call tools and render generative UI, with clear limits on what the model decides and controls your team can change after launch."
+              note="AI agents and generative interfaces that help people get things done, with tools and workflows your team can refine as the product evolves."
             />
           </li>
           <li className="h-full">
             <PathLink
               href="/web3"
-              title="Stablecoins and trading"
-              note="Stablecoin flows, wallets, and trading interfaces that show people what they're about to sign, with WebAuthn key management and indexed balances behind them."
+              title="Onchain finance"
+              note="Wallets, stablecoin payments, and trading products that make complex financial interactions intuitive, with clear information about what people are signing."
             />
           </li>
         </ul>
-        <Prose>
-          I ship in{" "}
-          <Link href="/startups" className="prose-link">
-            startups
-          </Link>
-          , where the first version still has to hold, and in{" "}
-          <Link href="/institutions" className="prose-link">
-            established companies
-          </Link>
-          , where the constraint is usually the systems already running.
-        </Prose>
       </PageSection>
 
       <PageSection title="Career">

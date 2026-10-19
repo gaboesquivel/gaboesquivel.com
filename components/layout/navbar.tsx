@@ -11,7 +11,7 @@ const navItems = [
   { name: "web3", path: "/web3" },
   { name: "bio", path: "/bio" },
   { name: "writing", path: "/blog" },
-  { name: "connect", path: "/connect" },
+  { name: "ask", path: "/ask" },
 ];
 
 export default function Navbar() {
@@ -20,9 +20,9 @@ export default function Navbar() {
   return (
     <nav
       aria-label="Primary navigation"
-      className="navbar mb-10 -ml-[8px] tracking-tight print:hidden preview-print:hidden"
+      className="navbar -ml-[8px] tracking-tight print:hidden preview-print:hidden"
     >
-      <div className="relative px-0 pb-1" id="nav">
+      <div className="relative px-0" id="nav">
         <div className="flex flex-row flex-wrap">
           {navItems.map(({ path, name }) => {
             const isActive =
@@ -40,7 +40,7 @@ export default function Navbar() {
                   isActive ? "text-accent" : "text-neutral-400"
                 )}
               >
-                <span className="px-2 py-2">{name}</span>
+                <span className="px-2 py-1">{name}</span>
               </Link>
             );
           })}

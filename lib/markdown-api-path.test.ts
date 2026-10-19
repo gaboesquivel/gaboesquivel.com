@@ -23,4 +23,11 @@ describe("markdown negotiation paths", () => {
     expect(skipMarkdownNegotiation("/favicon.ico")).toBe(true);
     expect(skipMarkdownNegotiation("/about.md")).toBe(false);
   });
+
+  test("skips agent routes so JSON and event streams are not negotiated", () => {
+    expect(skipMarkdownNegotiation("/mcp")).toBe(true);
+    expect(skipMarkdownNegotiation("/eve/v1/session")).toBe(true);
+    expect(skipMarkdownNegotiation("/_eve_internal/eve")).toBe(true);
+    expect(skipMarkdownNegotiation("/")).toBe(false);
+  });
 });

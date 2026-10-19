@@ -28,11 +28,13 @@ const SKIP_COMPONENTS = new Set([
 
 const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time.
 
-Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl("/connect")}).`;
+Tell me what you're building and where it's stuck. [Ask, leave a note, or book a call](${absoluteUrl("/ask")}).`;
 
-const CONNECT_PAGE_EXPORT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time. Fluent in English, Spanish, Portuguese, and Italian.
+const CONNECT_PAGE_EXPORT_MARKDOWN = `A site agent for my published work, a note, or a 15- or 30-minute call.
 
-I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send a note on this page, book time at [gaboesquivel.com/cal](${absoluteUrl("/cal")}), or read the [work portfolio](${absoluteUrl("/work")}) first.`;
+Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time. Fluent in English, Spanish, Portuguese, and Italian.
+
+I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send a note on this page, book a 15- or 30-minute call here, use [gaboesquivel.com/cal](${absoluteUrl("/cal")}) when the day is full, or read the [work portfolio](${absoluteUrl("/work")}) first.`;
 
 export interface PageExport {
   path: string;
@@ -45,9 +47,9 @@ const narrativePages: { file: string; path: string }[] = [
   { file: "bio/page.tsx", path: "/bio" },
   { file: "ai/page.tsx", path: "/ai" },
   { file: "web3/page.tsx", path: "/web3" },
-  { file: "connect/page.tsx", path: "/connect" },
+  { file: "ask/page.tsx", path: "/ask" },
   { file: "about/page.tsx", path: "/about" },
-  { file: "contact/page.tsx", path: "/contact" },
+  { file: "docs/page.tsx", path: "/docs" },
   { file: "privacy/page.tsx", path: "/privacy" },
   { file: "tech/page.tsx", path: "/tech" },
   { file: "fullstack/page.tsx", path: "/fullstack" },
@@ -298,14 +300,14 @@ const jsxNodeToMarkdown = (
       : node.attributes;
 
     if (tagName === "LetsConnect") {
-      if (pagePath === "/connect") {
+      if (pagePath === "/ask") {
         lines.push(LETS_CONNECT_MARKDOWN, "");
       }
       return;
     }
 
     if (tagName === "ConnectPageContent") {
-      if (pagePath === "/connect" || pagePath === "/contact") {
+      if (pagePath === "/ask") {
         lines.push(CONNECT_PAGE_EXPORT_MARKDOWN, "");
       }
       return;

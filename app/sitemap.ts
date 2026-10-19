@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/work",
     "/ai",
     "/web3",
-    "/connect",
+    "/ask",
   ].map((route) => ({
     changeFrequency: "weekly" as const,
     priority: 0.8,
@@ -29,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const tertiaryRoutes = [
     "/about",
     "/contact",
+    "/docs",
     "/privacy",
     "/cv",
     "/bio",

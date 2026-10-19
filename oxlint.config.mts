@@ -59,7 +59,13 @@ const migrationRules = {
 export default defineConfig({
   env: core.env,
   extends: [core, react, next],
-  ignorePatterns: [...core.ignorePatterns, "contracts/**"],
+  ignorePatterns: [
+    ...core.ignorePatterns,
+    "contracts/**",
+    "components/ai-elements/**",
+    "components/ui/**",
+    ".eve/**",
+  ],
   // Progressive migration: remove a rule as its problems are fixed.
   rules: migrationRules,
 });

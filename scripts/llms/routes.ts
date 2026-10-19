@@ -26,7 +26,7 @@ export const buildRouteManifest = () => {
     "/startups",
     "/institutions",
     "/lead",
-    "/connect",
+    "/ask",
     "/cv",
     "/cv?focus=ai",
     "/cv?focus=web3",
@@ -37,6 +37,7 @@ export const buildRouteManifest = () => {
     "/explore",
     "/about",
     "/contact",
+    "/docs",
     "/privacy",
   ]);
 
