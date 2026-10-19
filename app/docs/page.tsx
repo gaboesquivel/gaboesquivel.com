@@ -7,7 +7,7 @@ const endpoint = "https://gaboesquivel.com/mcp";
 export default function DocsPage() {
   return (
     <section>
-      <PageTitle>Gabo Esquivel MCP</PageTitle>
+      <PageTitle>Gabo Esquivel MCP — developer documentation</PageTitle>
       <Prose>
         The Gabo Esquivel MCP server is how another agent reaches the same site
         agent as{" "}
@@ -19,20 +19,47 @@ export default function DocsPage() {
         delegate durable work over Streamable HTTP.
       </Prose>
 
-      <PageSection title="Endpoint">
+      <PageSection title="Gabo Esquivel MCP developer resources">
+        <Prose>
+          Canonical documentation lives at{" "}
+          <Link href="/docs" className="prose-link">
+            gaboesquivel.com/docs
+          </Link>
+          . Predictable aliases:{" "}
+          <Link href="/developers" className="prose-link">
+            /developers
+          </Link>
+          ,{" "}
+          <Link href="/mcp/docs" className="prose-link">
+            /mcp/docs
+          </Link>
+          . The Streamable HTTP server is at{" "}
+          <Link href="/mcp" className="prose-link">
+            gaboesquivel.com/mcp
+          </Link>
+          . There is no OpenAPI spec, separate REST API, or published SDK — only
+          the MCP <code className="text-neutral-200">agent_*</code> tools
+          documented below. For a plain-text corpus index, use{" "}
+          <Link href="/llms.txt" className="prose-link">
+            llms.txt
+          </Link>
+          .
+        </Prose>
+      </PageSection>
+
+      <PageSection title="Gabo Esquivel MCP server endpoint">
         <Prose>
           Connect a Streamable HTTP MCP client to{" "}
           <Link href="/mcp" className="prose-link">
             {endpoint}
           </Link>
-          . The route registers GET, POST, and DELETE. Access is public: no API
-          key and no OAuth. Every caller shares the anonymous principal, so an
-          invocation id is a bearer capability until workflow retention expires.
-          Keep invocation ids out of logs and public URLs.
+          . The route registers GET, POST, and DELETE. Access rules and
+          invocation-id handling are under Gabo Esquivel MCP authentication
+          below.
         </Prose>
       </PageSection>
 
-      <PageSection title="Invocation protocol">
+      <PageSection title="Gabo Esquivel MCP invocation protocol">
         <Prose>
           The channel exposes four MCP tools. Start with{" "}
           <code className="text-neutral-200">agent_start</code> and a{" "}
@@ -126,7 +153,16 @@ export default function DocsPage() {
         </Prose>
       </PageSection>
 
-      <PageSection title="Not offered">
+      <PageSection title="Gabo Esquivel MCP authentication">
+        <Prose>
+          Access is public: no API key, no OAuth, and no scoped credentials.
+          Every caller shares the anonymous principal. An invocation id is a
+          bearer capability until workflow retention expires — keep invocation
+          ids out of logs and public URLs.
+        </Prose>
+      </PageSection>
+
+      <PageSection title="Not offered on Gabo Esquivel MCP">
         <Prose>
           There is no separate write API, webhooks, API-key authentication, or
           OAuth scopes for this endpoint. The agent&apos;s own tools and skills
@@ -145,7 +181,7 @@ export default function DocsPage() {
 
 export const metadata = pageMetadata({
   description:
-    "Streamable HTTP MCP at gaboesquivel.com/mcp: agent_start and agent_get to ask about published work, leave a note, or book a call.",
+    "Gabo Esquivel MCP developer documentation: Streamable HTTP at gaboesquivel.com/mcp, protocol at /docs (also /developers), public auth, agent_start and agent_get.",
   path: "/docs",
-  title: "Gabo Esquivel MCP",
+  title: "Gabo Esquivel MCP — Developer documentation",
 });

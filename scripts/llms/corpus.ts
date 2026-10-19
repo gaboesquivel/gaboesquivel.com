@@ -61,6 +61,24 @@ const buildLlmsIndex = ({
       : [];
   });
 
+  const developerResourceLines = [
+    llmsListItem({
+      name: "Gabo Esquivel MCP — developer documentation",
+      note: "Streamable HTTP protocol (agent_start, agent_get), auth, and limits. Aliases: /developers, /mcp/docs.",
+      url: `${BASE_URL}/docs`,
+    }),
+    llmsListItem({
+      name: "Gabo Esquivel MCP server endpoint",
+      note: "Public Streamable HTTP; no API key or OAuth.",
+      url: `${BASE_URL}/mcp`,
+    }),
+    llmsListItem({
+      name: "Gabo Esquivel llms.txt (agent corpus)",
+      note: "Plain-text index of site facts; not an OpenAPI spec.",
+      url: `${BASE_URL}/llms.txt`,
+    }),
+  ];
+
   const routeLines = canonicalRoutes.map((route) =>
     llmsListItem({
       name: route.label,
@@ -86,6 +104,9 @@ const buildLlmsIndex = ({
     LLMS_PREAMBLE_INDEX,
     "",
     `Full corpus: [llms-full.txt](${BASE_URL}/llms-full.txt)`,
+    "",
+    "## Gabo Esquivel MCP (developer resources)",
+    ...developerResourceLines,
     "",
     "## Canonical routes",
     ...routeLines,

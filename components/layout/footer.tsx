@@ -63,7 +63,7 @@ export function Footer() {
             </li>
             <li>
               <Link href="/docs" className={footerLink}>
-                MCP docs
+                Gabo Esquivel MCP
               </Link>
             </li>
             <li>

@@ -43,16 +43,28 @@ const nextConfig = {
       { destination: "/ask", permanent: true, source: "/connect" },
       { destination: "/ask", permanent: true, source: "/contact" },
     ];
+    const mcpDocsRedirects = [
+      { destination: "/docs", permanent: true, source: "/developers" },
+      { destination: "/docs", permanent: true, source: "/developer" },
+      { destination: "/docs", permanent: true, source: "/mcp/docs" },
+      { destination: "/docs", permanent: true, source: "/docs/mcp" },
+    ];
     try {
       const edgeRedirects = await get("redirects");
       return [
         calRedirect,
         ...askRedirects,
+        ...mcpDocsRedirects,
         ...blogTechRedirects,
         ...(edgeRedirects ?? []),
       ];
     } catch {
-      return [calRedirect, ...askRedirects, ...blogTechRedirects];
+      return [
+        calRedirect,
+        ...askRedirects,
+        ...mcpDocsRedirects,
+        ...blogTechRedirects,
+      ];
     }
   },
   headers() {

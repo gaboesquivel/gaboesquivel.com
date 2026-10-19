@@ -88,6 +88,7 @@ Use only facts already present in `LetsConnect`: direct hire, international hire
 - Job: how another agent calls the Gabo Esquivel MCP server at `/mcp` (`agent_start`, then `agent_get`)
 - Visitor: integrator or coding agent wiring MCP
 - Message: public Streamable HTTP endpoint, invocation protocol, what messages can do, limits, and what is not offered
+- Canonical developer documentation URL; permanent redirects from `/developers`, `/developer`, `/mcp/docs`, and `/docs/mcp`
 - Do not duplicate hire terms; link `/ask` and `/privacy`
 - Not a second `/ask` page or API reference for unpublished tools
 

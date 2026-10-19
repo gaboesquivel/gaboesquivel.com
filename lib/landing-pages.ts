@@ -111,9 +111,9 @@ export const landingPageGroups = [
       },
       {
         href: "/docs",
-        title: "Gabo Esquivel MCP",
+        title: "Gabo Esquivel MCP — developer documentation",
         description:
-          "Streamable HTTP at /mcp: ask, note, or book through agent_start and agent_get.",
+          "Protocol at /docs (also /developers); Streamable HTTP server at /mcp with agent_start and agent_get.",
       },
     ],
     title: "About",

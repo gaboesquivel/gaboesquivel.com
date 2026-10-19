@@ -29,7 +29,15 @@ export default function AboutPage() {
         <Link href="/llms.txt" className="prose-link">
           llms.txt
         </Link>{" "}
-        for a plain-text index of the same facts.
+        for a plain-text index of the same facts, or the{" "}
+        <Link href="/docs" className="prose-link">
+          Gabo Esquivel MCP
+        </Link>{" "}
+        developer documentation to call the site agent at{" "}
+        <Link href="/mcp" className="prose-link">
+          /mcp
+        </Link>
+        .
       </Prose>
       <Prose>
         Gabo is open to long-term and short-term work: direct hire,
@@ -61,6 +69,13 @@ export default function AboutPage() {
             href="/ask"
             title="Ask"
             note="Hire terms, a note, or a 15- or 30-minute call."
+          />
+        </li>
+        <li className="h-full">
+          <PathLink
+            href="/docs"
+            title="Gabo Esquivel MCP"
+            note="Developer docs for the Streamable HTTP site agent at /mcp."
           />
         </li>
       </ul>
