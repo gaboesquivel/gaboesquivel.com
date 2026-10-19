@@ -2,9 +2,14 @@ import {
   getPublishedPageMarkdown,
   resolvePageRouteKey,
 } from "lib/api/markdown-corpus";
+import { publishedPageStaticParams } from "lib/api/page-static-params";
 import { apiNotFound, jsonResponse, methodNotAllowed } from "lib/api/problem";
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
+export const dynamicParams = true;
+
+export const generateStaticParams = () => publishedPageStaticParams();
 
 export const GET = async (
   req: Request,

@@ -1,9 +1,10 @@
+import { generatedProfile } from "lib/api/generated/profile";
 import { jsonResponse, methodNotAllowed } from "lib/api/problem";
-import { siteProfile } from "lib/api/profile";
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
 
-export const GET = () => jsonResponse(siteProfile());
+export const GET = () => jsonResponse(generatedProfile());
 
 export const POST = () => methodNotAllowed();
 export const PUT = () => methodNotAllowed();

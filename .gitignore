@@ -42,8 +42,11 @@ next-env.d.ts
 # llms export (generated at build)
 public/llms.txt
 public/llms-full.txt
+public/openapi.json
 generated/markdown-routes.json
 generated/agent-index.json
+generated/api/profile.json
+generated/api/pages.json
 
 # contentlayer (legacy)
 .contentlayer

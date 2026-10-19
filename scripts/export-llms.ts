@@ -1,6 +1,9 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { listPublishedPagePaths } from "../lib/api/markdown-corpus";
+import { openApiDocument } from "../lib/api/openapi";
+import { siteProfile } from "../lib/api/profile";
 import {
   buildAgentIndex,
   cvOverviewMarkdown,
@@ -26,8 +29,11 @@ markdownCorpus["#cv/overview"] = cvOverviewMarkdown();
 
 const agentIndex = buildAgentIndex();
 
+const GENERATED_API_DIR = join(GENERATED_DIR, "api");
+
 mkdirSync(PUBLIC_DIR, { recursive: true });
 mkdirSync(GENERATED_DIR, { recursive: true });
+mkdirSync(GENERATED_API_DIR, { recursive: true });
 
 const indexPath = join(PUBLIC_DIR, "llms.txt");
 const fullPath = join(PUBLIC_DIR, "llms-full.txt");
@@ -45,6 +51,26 @@ writeFileSync(
   "utf-8"
 );
 
+const openapiPath = join(PUBLIC_DIR, "openapi.json");
+const profilePath = join(GENERATED_API_DIR, "profile.json");
+const pagesPath = join(GENERATED_API_DIR, "pages.json");
+
+writeFileSync(
+  openapiPath,
+  `${JSON.stringify(openApiDocument(), null, 2)}\n`,
+  "utf-8"
+);
+writeFileSync(
+  profilePath,
+  `${JSON.stringify(siteProfile(), null, 2)}\n`,
+  "utf-8"
+);
+writeFileSync(
+  pagesPath,
+  `${JSON.stringify({ paths: listPublishedPagePaths() }, null, 2)}\n`,
+  "utf-8"
+);
+
 const indexTokens = estimateTokens(llmsIndex);
 
 console.log(`Wrote ${indexPath} (${llmsIndex.length} bytes)`);
@@ -52,6 +78,9 @@ console.log(`Wrote ${fullPath} (${llmsFull.length} bytes)`);
 console.log(
   `Wrote ${join(GENERATED_DIR, "markdown-routes.json")} (${Object.keys(markdownCorpus).length} routes)`
 );
+console.log(`Wrote ${openapiPath}`);
+console.log(`Wrote ${profilePath}`);
+console.log(`Wrote ${pagesPath}`);
 console.log(
   `Estimated tokens — index: ~${indexTokens}, full: ~${estimateTokens(llmsFull)}`
 );

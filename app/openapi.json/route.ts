@@ -1,9 +1,11 @@
-import { openApiDocument } from "lib/api/openapi";
+import { generatedOpenApiDocument } from "lib/api/generated/openapi-document";
+import { methodNotAllowed } from "lib/api/problem";
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
 
 export const GET = () =>
-  Response.json(openApiDocument(), {
+  Response.json(generatedOpenApiDocument(), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -13,23 +15,3 @@ export const POST = () => methodNotAllowed();
 export const PUT = () => methodNotAllowed();
 export const PATCH = () => methodNotAllowed();
 export const DELETE = () => methodNotAllowed();
-
-const methodNotAllowed = () =>
-  Response.json(
-    {
-      code: "method_not_allowed",
-      detail: "This endpoint accepts GET only.",
-      message: "This endpoint accepts GET only.",
-      resolution: "Request GET /openapi.json.",
-      status: 405,
-      title: "Method not allowed",
-      type: "https://gaboesquivel.com/docs#api-errors",
-    },
-    {
-      headers: {
-        Allow: "GET",
-        "Content-Type": "application/problem+json; charset=utf-8",
-      },
-      status: 405,
-    }
-  );

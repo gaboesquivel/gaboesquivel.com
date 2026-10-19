@@ -24,6 +24,17 @@ describe("public JSON API routes", () => {
     expect(body.paths).toContain("/docs");
   });
 
+  test("GET /api/v1/pages/missing returns problem+json", async () => {
+    const res = await getPage(
+      new Request("https://gaboesquivel.com/api/v1/pages/not-a-real-page"),
+      { params: Promise.resolve({ path: ["not-a-real-page"] }) }
+    );
+    expect(res.status).toBe(404);
+    expect(res.headers.get("Content-Type")).toContain(
+      "application/problem+json"
+    );
+  });
+
   test("GET /api/v1/pages/about returns markdown JSON", async () => {
     const res = await getPage(
       new Request("https://gaboesquivel.com/api/v1/pages/about"),

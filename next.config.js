@@ -84,8 +84,13 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "/api/markdown": ["./generated/markdown-routes.json"],
     "/api/markdown/[[...slug]]": ["./generated/markdown-routes.json"],
-    "/api/v1/pages": ["./generated/markdown-routes.json"],
+    "/api/v1/pages": [
+      "./generated/markdown-routes.json",
+      "./generated/api/pages.json",
+    ],
     "/api/v1/pages/[...path]": ["./generated/markdown-routes.json"],
+    "/api/v1/profile": ["./generated/api/profile.json"],
+    "/openapi.json": ["./public/openapi.json"],
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "@tanstack/react-form"],
