@@ -83,10 +83,7 @@ export default defineDynamic({
           "List open 15- and 30-minute starts on weekdays from 9:00 to 17:00 America/Denver. Pass the visitor time zone. This does not book.",
         execute: async (input) => {
           const timeZone = input.timeZone;
-          const duration =
-            input.duration === 15 || input.duration === 30
-              ? input.duration
-              : null;
+          const duration = input.duration === 30 ? 30 : 15;
           if (!validTimeZone(timeZone)) {
             return {
               duration,

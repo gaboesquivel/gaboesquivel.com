@@ -1,5 +1,5 @@
 import type { NoteFormState } from "./compose";
-import { parseNoteFormPayload } from "./compose";
+import { parseBookFormPayload, parseNoteFormPayload } from "./compose";
 
 interface ThreadMessage {
   id: string;
@@ -17,6 +17,12 @@ export const messageHasNoteFormPayload = (message: ThreadMessage) =>
   message.role === "user" &&
   message.parts.some(
     (part) => part.type === "text" && parseNoteFormPayload(part.text ?? "")
+  );
+
+export const messageHasBookFormPayload = (message: ThreadMessage) =>
+  message.role === "user" &&
+  message.parts.some(
+    (part) => part.type === "text" && parseBookFormPayload(part.text ?? "")
   );
 
 export const noteFormPayloadFromMessage = (

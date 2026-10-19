@@ -1,9 +1,11 @@
 import { describe, expect, test } from "bun:test";
 
 import {
+  bookFormMessage,
   fixedNoteSpec,
   noteFormMessage,
   noteFormVisible,
+  parseBookFormPayload,
   parseNoteFormPayload,
 } from "./compose";
 import { NOTE_FORM_LEAD } from "./copy";
@@ -44,6 +46,24 @@ describe("note form", () => {
     expect(noteOpener("[site:note America/Denver]\nSend email")).toBe(true);
     expect(noteOpener("Pass it along")).toBe(true);
     expect(noteOpener("Email me about the lending integration")).toBe(false);
+  });
+
+  test("parseBookFormPayload round-trips the book form message", () => {
+    const message = bookFormMessage({
+      description: "Walk through the lending integration.",
+      duration: 15,
+      email: "ada@example.com",
+      name: "Ada",
+      start: "2026-10-19T15:00:00.000Z",
+      timeZone: "America/Denver",
+    });
+    expect(parseBookFormPayload(message)).toEqual({
+      description: "Walk through the lending integration.",
+      duration: 15,
+      email: "ada@example.com",
+      name: "Ada",
+      start: "2026-10-19T15:00:00.000Z",
+    });
   });
 
   test("parseNoteFormPayload round-trips the form message", () => {

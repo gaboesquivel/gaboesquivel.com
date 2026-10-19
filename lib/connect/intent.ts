@@ -163,3 +163,6 @@ export const visitorZone = (texts: string[]) => {
   }
   return "";
 };
+
+export const browserTimeZone = () =>
+  new Intl.DateTimeFormat().resolvedOptions().timeZone;

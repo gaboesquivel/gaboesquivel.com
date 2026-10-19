@@ -15,6 +15,7 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 import { ProjectMediaStack } from "@/components/work/project-media";
 
 import {
+  bookFormMessage,
   fixedNoteSpec,
   noteFormMessage,
   noteFormVisible,
@@ -22,10 +23,15 @@ import {
 import type { NoteFormState } from "../../lib/connect/compose";
 import { STREAM_FAILED } from "../../lib/connect/copy";
 import type { CvDownloadPayload } from "../../lib/connect/cv-download";
-import { channelMessage, stripMarker } from "../../lib/connect/intent";
+import {
+  browserTimeZone,
+  channelMessage,
+  stripMarker,
+} from "../../lib/connect/intent";
 import { splitNext } from "../../lib/connect/next-step";
 import {
   assistantFollowsFormNote,
+  messageHasBookFormPayload,
   messageHasNoteFormPayload,
   noteFormPayloadFromMessage,
   noteReceiptStatus,
@@ -38,7 +44,7 @@ import {
   precedingUserText,
   shouldShowWorkCards,
 } from "../../lib/connect/work-cards";
-import { accentButton, enter, quietButton } from "./chat-styles";
+import { enter } from "./chat-styles";
 import { CvDownloadCard } from "./cv-download-card";
 import { NoteReceipt } from "./note-receipt";
 import type { SessionCursor } from "./session-cookie";
@@ -51,6 +57,17 @@ const SlotPicker = dynamic(
 
 const NoteForm = dynamic(
   () => import("./note-form").then((mod) => mod.NoteForm),
+  { ssr: false }
+);
+
+const BookSlotForm = dynamic(
+  () => import("./book-slot-form").then((mod) => mod.BookSlotForm),
+  { ssr: false }
+);
+
+const ConnectApprovalForm = dynamic(
+  () =>
+    import("./connect-approval-form").then((mod) => mod.ConnectApprovalForm),
   { ssr: false }
 );
 
@@ -123,33 +140,18 @@ const PickerSkeleton = () => (
   </div>
 );
 
-const missingFields = ({
+const contactMatches = ({
+  contact,
   input,
-  toolName,
 }: {
+  contact: NoteFormState;
   input: Record<string, unknown>;
-  toolName: string;
-}) => {
-  const missing: string[] = [];
-  if (typeof input.name !== "string" || input.name.trim().length === 0) {
-    missing.push("Name");
-  }
-  if (typeof input.email !== "string" || !input.email.includes("@")) {
-    missing.push("Email");
-  }
-  if (
-    typeof input.description !== "string" ||
-    input.description.trim().length < 10
-  ) {
-    missing.push("What you want to discuss");
-  }
-  if (toolName === "book") {
-    if (input.duration !== 15 && input.duration !== 30)
-      missing.push("Duration");
-    if (typeof input.start !== "string") missing.push("Start time");
-  }
-  return missing;
-};
+}) =>
+  (typeof input.name === "string" ? input.name.trim() : "") === contact.name &&
+  (typeof input.email === "string" ? input.email.trim() : "") ===
+    contact.email &&
+  (typeof input.description === "string" ? input.description.trim() : "") ===
+    contact.description;
 
 export function EveThread({
   apiRef,
@@ -193,7 +195,7 @@ export function EveThread({
     prepareSend: (input) => ({
       ...input,
       clientContext: {
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        timeZone: browserTimeZone(),
       },
     }),
     resume: Boolean(resume && initialSession),
@@ -203,6 +205,10 @@ export function EveThread({
   const [optimisticNote, setOptimisticNote] = useState<NoteFormState | null>(
     null
   );
+  const [pendingBook, setPendingBook] = useState<{
+    duration: 15 | 30;
+    start: string;
+  } | null>(null);
   const noteSpec = useMemo(() => fixedNoteSpec(), []);
   const previousMode = useRef(mode);
   const onStateRef = useRef(onState);
@@ -213,6 +219,9 @@ export function EveThread({
     if (previousMode.current !== "note" && mode === "note") {
       setNoteFormDisabled(false);
       setOptimisticNote(null);
+    }
+    if (previousMode.current !== "book" && mode === "book") {
+      setPendingBook(null);
     }
     previousMode.current = mode;
   }, [mode]);
@@ -235,7 +244,7 @@ export function EveThread({
   useEffect(() => {
     if (!initialText || sent.current) return;
     let cancelled = false;
-    const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const zone = browserTimeZone();
     const message =
       mode === "book" || mode === "note"
         ? channelMessage({ mode, text: initialText, timeZone: zone })
@@ -365,10 +374,12 @@ export function EveThread({
     hasSendApproval,
     mode,
   });
+  const showBookSlotForm = Boolean(pendingBook) && !waiting;
   const showReplying =
     waiting &&
     visibleAssistantText.trim().length === 0 &&
     !showNoteForm &&
+    !showBookSlotForm &&
     !optimisticReceipt &&
     !hideAssistantForFormNote;
 
@@ -405,11 +416,13 @@ export function EveThread({
         showReplying ||
         Boolean(showFailure) ||
         showNoteForm ||
+        showBookSlotForm ||
         Boolean(optimisticReceipt)
     );
   }, [
     onVisibleChange,
     optimisticReceipt,
+    showBookSlotForm,
     showFailure,
     showNoteForm,
     showReplying,
@@ -417,6 +430,15 @@ export function EveThread({
   ]);
 
   const lastVisibleId = visibleMessages.at(-1)?.id;
+  const visitorZone = browserTimeZone();
+  const pendingBookLabel =
+    pendingBook &&
+    `${formatSlot({ iso: pendingBook.start, timeZone: visitorZone })} ${zoneName(
+      {
+        iso: pendingBook.start,
+        timeZone: visitorZone,
+      }
+    )}`;
 
   return (
     <div aria-busy={waiting} className="flex flex-col gap-6">
@@ -459,6 +481,12 @@ export function EveThread({
                 ) {
                   return null;
                 }
+                if (
+                  message.role === "user" &&
+                  messageHasBookFormPayload(message)
+                ) {
+                  return null;
+                }
                 const visible =
                   message.role === "user"
                     ? stripMarker(part.text)
@@ -497,13 +525,7 @@ export function EveThread({
                     <div className={enter} key={part.toolCallId}>
                       <SlotPicker
                         onPick={({ duration, start }) => {
-                          const zone =
-                            Intl.DateTimeFormat().resolvedOptions().timeZone;
-                          agent
-                            .send(
-                              `[site:book ${zone}]\nBook ${duration} minutes starting ${start}.`
-                            )
-                            .catch(() => null);
+                          setPendingBook({ duration, start });
                         }}
                         spec={spec as Spec}
                       />
@@ -521,82 +543,75 @@ export function EveThread({
                   part.input && typeof part.input === "object"
                     ? (part.input as Record<string, unknown>)
                     : {};
-                const missing = missingFields({
-                  input,
-                  toolName: part.toolName,
-                });
                 const booking = part.toolName === "book";
                 const start =
                   typeof input.start === "string" ? input.start : "";
                 const timeZone =
-                  typeof input.timeZone === "string" ? input.timeZone : "UTC";
+                  typeof input.timeZone === "string"
+                    ? input.timeZone
+                    : browserTimeZone();
                 const label = booking
                   ? start
                     ? `Book ${formatSlot({ iso: start, timeZone })}`
                     : "Book call"
                   : "Send email";
                 const requestId = part.approval.id;
+                const bookingSummary =
+                  booking &&
+                  start &&
+                  (input.duration === 15 || input.duration === 30)
+                    ? `${input.duration} minutes · ${formatSlot({ iso: start, timeZone })} ${zoneName({ iso: start, timeZone })}`
+                    : undefined;
+                const settleApproval = (contact: NoteFormState) => {
+                  const matches = contactMatches({ contact, input });
+                  const run = async () => {
+                    if (
+                      matches &&
+                      (!booking ||
+                        ((input.duration === 15 || input.duration === 30) &&
+                          typeof input.start === "string"))
+                    ) {
+                      await agent.respond([{ optionId: "approve", requestId }]);
+                      return;
+                    }
+                    await agent.respond([{ optionId: "cancel", requestId }]);
+                    const zone = browserTimeZone();
+                    if (
+                      booking &&
+                      (input.duration === 15 || input.duration === 30) &&
+                      typeof input.start === "string"
+                    ) {
+                      await agent.send(
+                        bookFormMessage({
+                          ...contact,
+                          duration: input.duration,
+                          start: input.start,
+                          timeZone,
+                        })
+                      );
+                      return;
+                    }
+                    await agent.send(
+                      noteFormMessage({ ...contact, timeZone: zone })
+                    );
+                  };
+                  void run().catch(() => null);
+                };
                 return (
-                  <section
-                    className={`rounded-lg border border-hairline p-4 ${enter}`}
-                    key={part.toolCallId}
-                  >
-                    <p>
-                      {typeof input.name === "string"
-                        ? input.name
-                        : "Name is missing."}
-                    </p>
-                    <p>
-                      {typeof input.email === "string"
-                        ? input.email
-                        : "Email is missing."}
-                    </p>
-                    {booking ? (
-                      <p className="tabular-nums">
-                        {input.duration === 15 || input.duration === 30
-                          ? `${input.duration} minutes`
-                          : "Duration is missing."}
-                        {start
-                          ? ` · ${formatSlot({ iso: start, timeZone })} ${zoneName({ iso: start, timeZone })}`
-                          : ""}
-                      </p>
-                    ) : null}
-                    <p className="whitespace-pre-wrap">
-                      {typeof input.description === "string"
-                        ? input.description
-                        : "What you want to discuss is missing."}
-                    </p>
-                    {missing.length > 0 ? (
-                      <p className="text-red-400">
-                        {missing[0]} is missing.{" "}
-                        {booking ? "Nothing was booked." : "Nothing was sent."}
-                      </p>
-                    ) : null}
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <button
-                        className={accentButton}
-                        disabled={missing.length > 0}
-                        onClick={() =>
-                          agent
-                            .respond([{ optionId: "approve", requestId }])
-                            .catch(() => null)
-                        }
-                        type="button"
-                      >
-                        {label}
-                      </button>
-                      <button
-                        className={quietButton}
-                        onClick={() =>
-                          agent
-                            .respond([{ optionId: "cancel", requestId }])
-                            .catch(() => null)
-                        }
-                        type="button"
-                      >
-                        {booking ? "Don't book" : "Don't send"}
-                      </button>
-                    </div>
+                  <section className={enter} key={part.toolCallId}>
+                    <ConnectApprovalForm
+                      booking={booking}
+                      bookingSummary={bookingSummary}
+                      input={input}
+                      onApprove={settleApproval}
+                      onCancel={() =>
+                        agent
+                          .respond([{ optionId: "cancel", requestId }])
+                          .catch(() => null)
+                      }
+                      primaryLabel={label}
+                      secondaryLabel={booking ? "Don't book" : "Don't send"}
+                    />
                   </section>
                 );
               }
@@ -620,11 +635,36 @@ export function EveThread({
           </Message>
         );
       })}
+      {showBookSlotForm && pendingBook && pendingBookLabel ? (
+        <div className={enter}>
+          <BookSlotForm
+            duration={pendingBook.duration}
+            onCancel={() => setPendingBook(null)}
+            onSubmit={(values) => {
+              const pick = pendingBook;
+              if (!pick) return;
+              setPendingBook(null);
+              void agent
+                .send(
+                  bookFormMessage({
+                    ...values,
+                    duration: pick.duration,
+                    start: pick.start,
+                    timeZone: visitorZone,
+                  })
+                )
+                .then(() => onContinue?.())
+                .catch(() => setPendingBook(pick));
+            }}
+            slotLabel={pendingBookLabel}
+          />
+        </div>
+      ) : null}
       {showNoteForm ? (
         <div className={enter}>
           <NoteForm
             onSubmit={(values) => {
-              const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+              const zone = browserTimeZone();
               setOptimisticNote(values);
               setNoteFormDisabled(true);
               void agent

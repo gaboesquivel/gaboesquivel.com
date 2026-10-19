@@ -16,6 +16,8 @@ Narrative site. Voice, identity, and claims: installed `gabo` skill, which outra
 
 Prefer a CLI to interact with a product or service. Use MCP when no CLI covers the operation.
 
+For UI, layout, or interaction changes (not backend-only, docs-only, or ordinary content-only MDX), verify in a running browser before marking work complete. Use the global [agent-browser](https://github.com/vercel-labs/agent-browser) CLI—not editor-built browser automation when agent-browser is available. Open pages at **`https://gaboesquivel.localhost`** (Portless HTTPS, same as `bun run dev`); use `http://localhost:3099` only when HTTPS or certificate trust blocks the CLI. Do not disable TLS verification by default. Read `agent-browser skills get core` before commands; use `skills get dogfood` for substantial UI passes. Name a session (`AGENT_BROWSER_SESSION="$(agent-browser session id --scope worktree --prefix <task>)"`), exercise affected interactions, snapshot for structure, screenshot for layout, and check `errors` / `console`. Fix issues and re-verify. Report what you actually ran and what you saw; if agent-browser is unavailable, say so instead of claiming verification.
+
 ## Docs
 
 - [PRODUCT.md](PRODUCT.md): read the relevant sections before changing page copy, routes, metadata, or blog links. Page jobs, evidence, keyword owners, and linking rules live there.
@@ -82,7 +84,7 @@ Page lists, identity facts, and the featured set are repeated in code. Update ev
 
 ## Checks
 
-- `bun run dev`: Velite watch and Next.js at `https://gaboesquivel.localhost` (Next listens on port 3099). `bun run setup:portless` trusts the local certificate once.
+- `bun run dev`: Velite watch and Next.js at `https://gaboesquivel.localhost` (Next listens on port 3099). `bun run setup:portless` trusts the local certificate once. UI changes: browser-verify affected routes on **`https://gaboesquivel.localhost`** (see **Tools**); fall back to `http://localhost:3099` only for TLS or proxy troubleshooting.
 - `bun run verify`: Velite content build and Ultracite (`oxlint` + `oxfmt`).
 - `bun run test:llms`: the llms export, blog, and CV page-break tests. Run it after page, blog, or CV changes.
 - `bun run verify:routes [base-url]`: curls `/`, the `/cv` variants, `/ask`, sample posts, and the `/cal` redirect. Needs a local content build (`bun run content:build`, or a running `bun run dev`) and a reachable server (default `http://localhost:3099`).

@@ -12,43 +12,29 @@ import {
 import { createContext, useCallback, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
-import { accentButton, fieldClass } from "./chat-styles";
+import { accentButton } from "./chat-styles";
+import {
+  ConnectEmailField,
+  ConnectNameField,
+  ConnectTopicField,
+  contactValid,
+} from "./connect-fields";
 
 const SubmitContext = createContext<
   | ((values: { description: string; email: string; name: string }) => void)
   | null
 >(null);
 
-const noteValid = ({
-  description,
-  email,
-  name,
-}: {
-  description: string;
-  email: string;
-  name: string;
-}) =>
-  name.trim().length > 0 &&
-  email.includes("@") &&
-  description.trim().length >= 10;
-
 const Lead = ({ element }: { element: { props: { text?: string } } }) =>
-  element.props.text ? <p>{element.props.text}</p> : null;
+  element.props.text ? (
+    <p className="text-sm text-neutral-400">{element.props.text}</p>
+  ) : null;
 
 const NameField = () => {
   const name = useStateValue<string>("/name") ?? "";
   const { set } = useStateStore();
   return (
-    <label className="flex flex-col gap-2 text-sm">
-      <span className="text-neutral-400">Name</span>
-      <input
-        autoComplete="name"
-        className={fieldClass}
-        onChange={(event) => set("/name", event.currentTarget.value)}
-        type="text"
-        value={name}
-      />
-    </label>
+    <ConnectNameField onChange={(value) => set("/name", value)} value={name} />
   );
 };
 
@@ -56,17 +42,10 @@ const EmailField = () => {
   const email = useStateValue<string>("/email") ?? "";
   const { set } = useStateStore();
   return (
-    <label className="flex flex-col gap-2 text-sm">
-      <span className="text-neutral-400">Email</span>
-      <input
-        autoComplete="email"
-        className={fieldClass}
-        inputMode="email"
-        onChange={(event) => set("/email", event.currentTarget.value)}
-        type="email"
-        value={email}
-      />
-    </label>
+    <ConnectEmailField
+      onChange={(value) => set("/email", value)}
+      value={email}
+    />
   );
 };
 
@@ -74,15 +53,10 @@ const TopicField = () => {
   const description = useStateValue<string>("/description") ?? "";
   const { set } = useStateStore();
   return (
-    <label className="flex flex-col gap-2 text-sm">
-      <span className="text-neutral-400">What you want to discuss</span>
-      <textarea
-        className={`${fieldClass} min-h-24 resize-y`}
-        onChange={(event) => set("/description", event.currentTarget.value)}
-        rows={4}
-        value={description}
-      />
-    </label>
+    <ConnectTopicField
+      onChange={(value) => set("/description", value)}
+      value={description}
+    />
   );
 };
 
@@ -92,7 +66,7 @@ const Submit = ({ element }: { element: { props: { label?: string } } }) => {
   const name = useStateValue<string>("/name") ?? "";
   const email = useStateValue<string>("/email") ?? "";
   const description = useStateValue<string>("/description") ?? "";
-  const valid = noteValid({ description, email, name });
+  const valid = contactValid({ description, email, name });
   return (
     <button
       className={accentButton}
@@ -134,7 +108,7 @@ export function NoteForm({
   const [disabled, setDisabled] = useState(false);
   const handleSubmit = useCallback(
     (values: { description: string; email: string; name: string }) => {
-      if (!noteValid(values) || disabled) return;
+      if (!contactValid(values) || disabled) return;
       setDisabled(true);
       onSubmit(values);
     },

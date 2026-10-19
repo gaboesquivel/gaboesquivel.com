@@ -24,6 +24,9 @@ export const STORE_UNAVAILABLE_CHAT =
 export const NOTE_FORM_LEAD =
   "I'm ready to take a note. What would you like to discuss?";
 
+export const BOOK_SLOT_LEAD =
+  "Share your details and I will confirm the call on the next step.";
+
 export const STREAM_FAILED =
   "The reply stopped. The text above is what arrived. Send again to retry.";
 
