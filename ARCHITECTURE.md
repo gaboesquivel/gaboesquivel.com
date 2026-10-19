@@ -82,7 +82,7 @@ HTML routes live in `app/`; PRODUCT.md owns their jobs and discoverability. Dyna
 
 The read-only JSON surface is `/api/v1/profile`, `/api/v1/pages`, and `/api/v1/pages/[...path]`. Its contract lives in `lib/api/openapi.ts`, with response and error helpers in `lib/api/`. `/openapi.json` exposes the generated specification. `app/api/[[...slug]]/route.ts` handles unknown API routes; it is not the Eve transport.
 
-`next.config.js` owns permanent redirects, optional Edge Config redirects, security headers, and Eve integration. If Edge Config cannot be read, the built-in redirects remain available. `/connect` redirects to `/ask`; `/cal` redirects to the external scheduling fallback.
+`next.config.js` owns permanent redirects, optional Edge Config redirects, security headers, and Eve integration. If Edge Config cannot be read, the built-in redirects remain available. `/connect` redirects to `/contact`; `/cal` redirects to the external scheduling fallback.
 
 ## Agent and action flow
 

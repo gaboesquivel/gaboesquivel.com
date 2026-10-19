@@ -12,6 +12,15 @@ export default function PrivacyPage() {
         advertising trackers beyond what is described here.
       </Prose>
       <Prose>
+        The contact form on{" "}
+        <Link href="/contact" className="prose-link">
+          /contact
+        </Link>{" "}
+        sends your name, email address, subject, and message to
+        contact@gaboesquivel.com through Resend. The reply-to address is yours.
+        The site does not email you a receipt.
+      </Prose>
+      <Prose>
         The site agent on{" "}
         <Link href="/ask" className="prose-link">
           /ask

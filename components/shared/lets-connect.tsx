@@ -13,7 +13,7 @@ export function LetsConnect() {
       </Prose>
       <Prose className="print:hidden">
         Tell me what you're building and where it's stuck.{" "}
-        <Link href="/ask" className="cta-link">
+        <Link href="/contact" className="cta-link">
           Start a conversation
         </Link>
         .

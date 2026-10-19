@@ -104,12 +104,6 @@ export const landingPageGroups = [
           "Printable employment record with titles, dates, and skills.",
       },
       {
-        href: "/ask",
-        title: "Ask",
-        description:
-          "Direct hire, international hire, or contracting through Blockmatic Labs LLC.",
-      },
-      {
         href: "/docs",
         title: "Gabo Esquivel MCP — developer documentation",
         description:

@@ -39,8 +39,8 @@ const nextConfig = {
       permanent: true,
       source: "/cal",
     };
-    const askRedirects = [
-      { destination: "/ask", permanent: true, source: "/connect" },
+    const connectRedirects = [
+      { destination: "/contact", permanent: true, source: "/connect" },
     ];
     const mcpDocsRedirects = [
       { destination: "/docs", permanent: true, source: "/developers" },
@@ -52,7 +52,7 @@ const nextConfig = {
       const edgeRedirects = await get("redirects");
       return [
         calRedirect,
-        ...askRedirects,
+        ...connectRedirects,
         ...mcpDocsRedirects,
         ...blogTechRedirects,
         ...(edgeRedirects ?? []),
@@ -60,7 +60,7 @@ const nextConfig = {
     } catch {
       return [
         calRedirect,
-        ...askRedirects,
+        ...connectRedirects,
         ...mcpDocsRedirects,
         ...blogTechRedirects,
       ];

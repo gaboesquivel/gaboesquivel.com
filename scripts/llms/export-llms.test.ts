@@ -192,10 +192,14 @@ describe("llms export helpers", () => {
     }
   });
 
-  test("loadNarrativePages emits W-2 hire copy only on /ask", () => {
+  test("loadNarrativePages emits W-2 hire copy on /contact and /ask only", () => {
     const ask = loadNarrativePages().find((page) => page.path === "/ask");
+    const contact = loadNarrativePages().find(
+      (page) => page.path === "/contact"
+    );
     const ai = loadNarrativePages().find((page) => page.path === "/ai");
     expect(ask?.body).toContain("Cannot work under W-2");
+    expect(contact?.body).toContain("Cannot work under W-2");
     expect(ai?.body).not.toContain("Cannot work under W-2");
   });
 

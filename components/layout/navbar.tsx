@@ -11,7 +11,6 @@ const navItems = [
   { name: "web3", path: "/web3" },
   { name: "bio", path: "/bio" },
   { name: "writing", path: "/blog" },
-  { name: "ask", path: "/ask" },
 ];
 
 export default function Navbar() {

@@ -30,7 +30,7 @@ export default function GlobalError({
         />
       </head>
       <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
-        <header className="sticky top-0 z-50 bg-black">
+        <header className="bg-black">
           <div className="h-0.5 w-full bg-accent" />
           <div className={`${siteColumn} ${headerColumnPadding}`}>
             <Navbar />

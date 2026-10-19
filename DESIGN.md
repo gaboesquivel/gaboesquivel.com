@@ -37,7 +37,7 @@ spacing:
 
 ## Overview
 
-Dark reading column, not a marketing landing kit. Black canvas, white type, one mint accent (`#54e8b3`), sticky 2px top bar, lowercase mono nav, `max-w-4xl` content. Photography is evidence (real workshop/project shots), not decoration. Feel: precise, thoughtful, quietly playful — whitespace and hierarchy over chrome.
+Dark reading column, not a marketing landing kit. Black canvas, white type, one mint accent (`#54e8b3`), 2px accent top bar, lowercase mono nav, `max-w-4xl` content. Photography is evidence (real workshop/project shots), not decoration. Feel: precise, thoughtful, quietly playful — whitespace and hierarchy over chrome.
 
 Voice and identity facts live in the installed `gabo` skill. UI microcopy: sentence case, plain verbs, no marketing CTAs. Do not duplicate biography or hire terms here.
 
@@ -68,12 +68,12 @@ Type scale and spacing tokens live in [`components/shared/spacing.ts`](component
 
 Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](components/shared/spacing.ts).
 
-- Column: `siteColumn` in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`max-w-4xl` with `px-4 sm:px-6` gutters) on nav and `main`, sticky `h-0.5 bg-accent` top bar
+- Column: `siteColumn` in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`max-w-4xl` with `px-4 sm:px-6` gutters) on nav and `main`, `h-0.5 bg-accent` top bar
 - Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
 - Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name below `md` (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up it is one line with an em dash
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The last item is labeled `ask` so a phone-width row can stay on one line
-- `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); sticky header (accent bar + nav); footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
+- `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); header (accent bar + nav) scrolls with the page; footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
 - Images: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`
 

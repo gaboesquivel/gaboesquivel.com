@@ -13,18 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
   }));
 
-  const secondaryRoutes = [
-    "/blog",
-    "/tech",
-    "/work",
-    "/ai",
-    "/web3",
-    "/ask",
-  ].map((route) => ({
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-    url: `${baseUrl}${route}`,
-  }));
+  const secondaryRoutes = ["/blog", "/tech", "/work", "/ai", "/web3"].map(
+    (route) => ({
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+      url: `${baseUrl}${route}`,
+    })
+  );
 
   const tertiaryRoutes = [
     "/about",

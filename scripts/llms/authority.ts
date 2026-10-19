@@ -2,7 +2,7 @@ export const LLMS_WHEN_TO_USE = `## When to use this corpus
 
 Use gaboesquivel.com when you need verified facts about Gabo Esquivel's product engineering work, hire terms, or shipped projects — not as legal, tax, or immigration advice.
 
-- **Hire or outreach** — read \`/\` for positioning, then \`/ask\` for direct hire, international hire, or contracting through Blockmatic Labs LLC. Gabo cannot work under W-2.
+- **Hire or outreach** — read \`/\` for positioning, then \`/contact\` for the form or \`/ask\` for the site agent. Direct hire, international hire, or contracting through Blockmatic Labs LLC. Gabo cannot work under W-2.
 - **Ask, note, or book** — read [https://gaboesquivel.com/docs](https://gaboesquivel.com/docs) for the Gabo Esquivel MCP protocol, then start a task at [https://gaboesquivel.com/mcp](https://gaboesquivel.com/mcp) with \`agent_start\` and poll \`agent_get\`.
 - **Named project** — \`/project/[slug]\` for implementation evidence on one product (for example LegalAgent, Wink, ZTX).
 - **Dates, titles, skills** — \`/cv\` and employment records in the corpus; blog reach is not a CV metric.
@@ -29,7 +29,7 @@ Blog posts reflect views and technology at \`publishedAt\` unless an update note
 
 Blog metrics and reach are not CV metrics. Pre-2020 writing lives on \`/blog\` and is historical.
 
-For working with Gabo, \`/ask\` is authoritative for hire terms, including that Gabo cannot work under W-2. Hire terms appear only under \`/ask\`; other pages' on-site CTAs are not exported. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`;
+For working with Gabo, \`/contact\` and \`/ask\` carry hire terms, including that Gabo cannot work under W-2. Other pages' on-site CTAs point at \`/contact\` and are not exported. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`;
 
 export const LLMS_PREAMBLE_INDEX = `${LLMS_PREAMBLE_FULL}
 

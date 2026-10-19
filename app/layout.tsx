@@ -64,7 +64,7 @@ export default function RootLayout({
       <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
         <TooltipProvider>
           <div className="flex min-h-0 flex-1 flex-col">
-            <header className="sticky top-0 z-50 bg-black print:hidden preview-print:hidden">
+            <header className="bg-black print:hidden preview-print:hidden">
               <div className="h-0.5 w-full bg-accent" />
               <div className={cn(siteColumn, headerColumnPadding)}>
                 <Navbar />

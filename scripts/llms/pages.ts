@@ -19,6 +19,7 @@ const SKIP_COMPONENTS = new Set([
   "PageImage",
   "LatestPosts",
   "ContactForm",
+  "LazyContactForm",
   "PrintButton",
   "FilterNav",
   "ContactInfo",
@@ -28,7 +29,7 @@ const SKIP_COMPONENTS = new Set([
 
 const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time.
 
-Tell me what you're building and where it's stuck. [Ask, leave a note, or book a call](${absoluteUrl("/ask")}).`;
+Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl("/contact")}).`;
 
 const CONNECT_PAGE_EXPORT_MARKDOWN = `A site agent for my published work, a note, or a 15- or 30-minute call.
 

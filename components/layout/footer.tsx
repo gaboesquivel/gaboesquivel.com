@@ -32,8 +32,8 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/blog" className={footerLink}>
-                Writing
+              <Link href="/tech" className={footerLink}>
+                Tech Stack
               </Link>
             </li>
             <li>
@@ -47,11 +47,6 @@ export function Footer() {
         <div>
           <ul className="space-y-2">
             <li>
-              <Link href="/tech" className={footerLink}>
-                Tech Stack
-              </Link>
-            </li>
-            <li>
               <Link href="/explore" className={footerLink}>
                 Explore
               </Link>
@@ -63,7 +58,7 @@ export function Footer() {
             </li>
             <li>
               <Link href="/docs" className={footerLink}>
-                Gabo Esquivel MCP
+                MCP Server
               </Link>
             </li>
             <li>
@@ -100,7 +95,7 @@ export function Footer() {
             </li>
             <li className="text-neutral-300">Have something in mind?</li>
             <li>
-              <Link href="/ask" className="cta-link">
+              <Link href="/contact" className="cta-link">
                 Let’s talk
               </Link>
             </li>
