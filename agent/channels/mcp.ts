@@ -15,4 +15,5 @@ export default mcpChannel({
     };
   },
   route: "/mcp",
+  tools: true,
 });

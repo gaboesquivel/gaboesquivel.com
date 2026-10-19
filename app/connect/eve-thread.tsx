@@ -21,6 +21,7 @@ import {
 } from "../../lib/connect/compose";
 import type { NoteFormState } from "../../lib/connect/compose";
 import { STREAM_FAILED } from "../../lib/connect/copy";
+import type { CvDownloadPayload } from "../../lib/connect/cv-download";
 import { channelMessage, stripMarker } from "../../lib/connect/intent";
 import { splitNext } from "../../lib/connect/next-step";
 import {
@@ -38,6 +39,7 @@ import {
   shouldShowWorkCards,
 } from "../../lib/connect/work-cards";
 import { accentButton, enter, quietButton } from "./chat-styles";
+import { CvDownloadCard } from "./cv-download-card";
 import { NoteReceipt } from "./note-receipt";
 import type { SessionCursor } from "./session-cookie";
 import { writeSession } from "./session-cookie";
@@ -481,6 +483,11 @@ export function EveThread({
                 );
               }
               if (part.type !== "dynamic-tool") return null;
+              if (part.toolName === "cv" && part.state === "output-available") {
+                const output = part.output as CvDownloadPayload | undefined;
+                if (!output?.pdfUrl) return null;
+                return <CvDownloadCard key={part.toolCallId} {...output} />;
+              }
               if (part.toolName === "list_slots") {
                 if (part.state === "output-available") {
                   const spec = (part.output as { spec?: unknown } | undefined)

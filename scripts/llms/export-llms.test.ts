@@ -208,6 +208,7 @@ describe("llms export helpers", () => {
     expect(index).toContain("/tech/[slug]");
     expect(index).toContain("Cannot work under W-2");
     expect(index).toContain("/mcp");
+    expect(index).toContain("/mcp/cv");
     expect(index).toContain("/docs");
     expect(index).toContain("openapi.json");
     expect(index).toContain("## Gabo Esquivel MCP (developer resources)");

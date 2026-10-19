@@ -79,15 +79,15 @@ Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institu
 
 ### `/ask`
 
-The page is the chat. People use it to ask, leave a note, or book a 15- or 30-minute call. Other agents start a task at `/mcp` (`agent_start`, then `agent_get`). Notes go to contact@gaboesquivel.com. Bookings insert from the chat or from MCP, cap at 2 a day, then point at `/cal`. No confirm email. The portfolio stays a content site. Hire terms are not printed on the page; the agent and the llms export carry them. A broad experience or shipped-work question shows featured project media cards under the reply; each card opens the project page in a new tab.
+The page is the chat. People use it to ask, leave a note, or book a 15- or 30-minute call. A CV or resume request shows a download card with the PDF and a link to `/cv`. Other agents start a task at `/mcp` (`agent_start`, then `agent_get`). Notes go to contact@gaboesquivel.com. Bookings insert from the chat or from MCP, cap at 2 a day, then point at `/cal`. No confirm email. The portfolio stays a content site. Hire terms are not printed on the page; the agent and the llms export carry them. A broad experience or shipped-work question shows featured project media cards under the reply; each card opens the project page in a new tab.
 
 Use only facts already present in `LetsConnect`: direct hire, international hire, contracting through Blockmatic Labs LLC, cannot work under W-2, Costa Rica, and US Mountain Time.
 
 ### `/docs`
 
-- Job: how another agent calls the Gabo Esquivel MCP server at `/mcp` (`agent_start`, then `agent_get`)
+- Job: how another agent calls the Gabo Esquivel MCP server at `/mcp` (`agent_start`, then `agent_get`), uses the published `cv` tool, or connects ChatGPT-style clients to `/mcp/cv` for a CV download card
 - Visitor: integrator or coding agent wiring MCP
-- Message: public Streamable HTTP endpoint, invocation protocol, what messages can do, limits, and what is not offered
+- Message: public Streamable HTTP endpoint, invocation protocol, what messages can do, limits, CV download surfaces, and what is not offered
 - Canonical developer documentation URL; permanent redirects from `/developers`, `/developer`, `/mcp/docs`, and `/docs/mcp`
 - Do not duplicate hire terms; link `/ask` and `/privacy`
 - Not a second `/ask` page or API reference for unpublished tools

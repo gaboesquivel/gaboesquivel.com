@@ -75,8 +75,13 @@ const buildLlmsIndex = ({
     }),
     llmsListItem({
       name: "Gabo Esquivel MCP server endpoint",
-      note: "Public Streamable HTTP; no API key or OAuth.",
+      note: "Public Streamable HTTP; agent_* tools and published cv tool; no API key or OAuth.",
       url: `${BASE_URL}/mcp`,
+    }),
+    llmsListItem({
+      name: "Gabo Esquivel MCP CV download card",
+      note: "MCP Apps UI at /mcp/cv; call cv for PDF links with a download card in ChatGPT and other MCP Apps hosts.",
+      url: `${BASE_URL}/mcp/cv`,
     }),
     llmsListItem({
       name: "Gabo Esquivel llms.txt (agent corpus)",

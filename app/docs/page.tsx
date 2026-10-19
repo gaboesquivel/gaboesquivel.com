@@ -3,6 +3,7 @@ import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 
 const endpoint = "https://gaboesquivel.com/mcp";
+const cvAppEndpoint = "https://gaboesquivel.com/mcp/cv";
 
 export default function DocsPage() {
   return (
@@ -119,6 +120,31 @@ export default function DocsPage() {
         </Prose>
       </PageSection>
 
+      <PageSection title="Published tools on /mcp">
+        <Prose>
+          The channel also publishes{" "}
+          <code className="text-neutral-200">cv</code>, a read-only tool that
+          returns PDF and HTML links for the CV variants (
+          <code className="text-neutral-200">full</code>,{" "}
+          <code className="text-neutral-200">ai</code>,{" "}
+          <code className="text-neutral-200">web3</code>,{" "}
+          <code className="text-neutral-200">fullstack</code>). Call it with{" "}
+          <code className="text-neutral-200">tools/call</code> or let{" "}
+          <code className="text-neutral-200">agent_start</code> handle a CV
+          request. Direct <code className="text-neutral-200">cv</code> calls do
+          not count toward message limits.
+        </Prose>
+        <Prose>
+          For MCP Apps hosts (ChatGPT and similar), connect a separate
+          Streamable HTTP server at{" "}
+          <Link href="/mcp/cv" className="prose-link">
+            {cvAppEndpoint}
+          </Link>
+          . It exposes the same <code className="text-neutral-200">cv</code>{" "}
+          tool with a UI resource that renders a download card.
+        </Prose>
+      </PageSection>
+
       <PageSection title="What a message can do">
         <Prose>
           The site agent answers from the published corpus (same retrieval as
@@ -175,10 +201,14 @@ export default function DocsPage() {
       <PageSection title="Not offered on Gabo Esquivel MCP">
         <Prose>
           There is no separate write API, webhooks, API-key authentication, or
-          OAuth scopes for this endpoint. The agent&apos;s own tools and skills
-          are not published on the MCP channel — only the{" "}
-          <code className="text-neutral-200">agent_*</code> invocation tools.
-          For a plain-text index of site facts, use{" "}
+          OAuth scopes for this endpoint. Booking and note tools (
+          <code className="text-neutral-200">list_slots</code>,{" "}
+          <code className="text-neutral-200">book</code>,{" "}
+          <code className="text-neutral-200">send</code>) and skills are not
+          published on <code className="text-neutral-200">/mcp</code> — only{" "}
+          <code className="text-neutral-200">agent_*</code> and{" "}
+          <code className="text-neutral-200">cv</code>. For a plain-text index
+          of site facts, use{" "}
           <Link href="/llms.txt" className="prose-link">
             llms.txt
           </Link>

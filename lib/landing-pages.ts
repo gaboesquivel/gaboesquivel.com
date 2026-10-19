@@ -113,7 +113,7 @@ export const landingPageGroups = [
         href: "/docs",
         title: "Gabo Esquivel MCP — developer documentation",
         description:
-          "Protocol at /docs (also /developers); Streamable HTTP server at /mcp with agent_start and agent_get.",
+          "Protocol at /docs (also /developers); Streamable HTTP at /mcp (agent_* and cv); CV download card at /mcp/cv.",
       },
     ],
     title: "About",
