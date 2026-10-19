@@ -15,6 +15,8 @@
     "verify:routes": "sh scripts/verify-routes.sh",
     "lint": "ultracite check",
     "lint:fix": "ultracite fix",
+    "format": "bun x oxfmt",
+    "qa": "bun run lint:fix && bun run format && bun run build",
     "hooks:cvs-if-needed": "sh scripts/hooks/cvs-if-needed.sh",
     "hooks:pre-commit": "sh -c 'set -eu; staged=$(git diff --cached --name-only --diff-filter=ACMR); if [ -n \"$staged\" ]; then printf \"%s\\n\" \"$staged\" | xargs bun x ultracite fix; fi' && bun run hooks:cvs-if-needed && git update-index --again",
     "skills:install": "bunx skills@latest experimental_install",
