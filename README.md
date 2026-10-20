@@ -42,7 +42,7 @@ agent-browser close
 
 Use `http://localhost:3099` only to troubleshoot a blocked HTTPS connection or certificate trust.
 
-Follow [AGENTS.md](AGENTS.md#tools) for UI verification requirements. Leave screenshots and other local browser artifacts uncommitted.
+Follow [docs/agents/verify.md](docs/agents/verify.md) for UI verification requirements.
 
 ## Development checks
 
@@ -50,13 +50,14 @@ Follow [AGENTS.md](AGENTS.md#tools) for UI verification requirements. Leave scre
 - `bun run test:llms`: regenerate exports and run selected content, CV, API, and chat tests.
 - `bun run build`: generate content and machine-readable outputs, then build Next.js.
 
-See [AGENTS.md](AGENTS.md#checks) for task-specific checks and pre-commit behavior. The workflow uses repository docs, installed skills, and CLI tools across coding agents; it does not depend on a particular editor.
+See [docs/agents/checks.md](docs/agents/checks.md) for task-specific checks and pre-commit behavior.
 
 ## Docs
 
 - [ARCHITECTURE.md](ARCHITECTURE.md): system boundaries, data flow, integrations, and source ownership
 - [PRODUCT.md](PRODUCT.md): audience, pages, and what each page is for
 - [DESIGN.md](DESIGN.md): visual system, components, and accessibility
-- [AGENTS.md](AGENTS.md): workflow, checks, and rules for coding agents
+- [GLOSSARY.md](GLOSSARY.md): shared terms
+- [AGENTS.md](AGENTS.md): lifecycle and pointers for coding agents. Procedures it points at live in [docs/agents/](docs/agents/checks.md).
 
 Credits: leerob.io

@@ -72,7 +72,7 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
 - Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name below `md` (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up it is one line with an em dash
-- The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The last item is labeled `ask` so a phone-width row can stay on one line
+- The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `writing` (`components/layout/navbar.tsx`). `/ask` stays out of this nav while that experience is in progress (`PRODUCT.md`)
 - `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); header (accent bar + nav) scrolls with the page; footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
 - Images: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`
@@ -133,7 +133,7 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 
 ## Accessibility
 
-- Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under; it colors inactive nav items and meta text in `navbar.tsx`, `page-card.tsx`, `path-link.tsx`, `project-card.tsx`, `tech-stack.tsx`, and `app/blog/[slug]/page.tsx`. See Open questions.
+- Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under. Inactive nav items use `neutral-400` (`navbar.tsx`). Some meta text still uses `neutral-500`. See Open questions.
 - Focus: `cardLink` cards and `/ask` fields draw an accent ring; other links (nav, `PathLink`, `ProjectCard`) keep the browser's default outline. Do not remove an outline without adding the accent ring.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
 - Images: `PageImage` requires `alt`; describe what the photo shows.
@@ -142,7 +142,7 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 
 ## Do's and Don'ts
 
-Which routes may be restyled, and in which passes, is in `AGENTS.md` (Task scope).
+Which routes may be restyled, and in which passes, is in [docs/agents/content.md](docs/agents/content.md).
 
 **Do (UX inside the system)**
 
@@ -167,7 +167,7 @@ Which routes may be restyled, and in which passes, is in `AGENTS.md` (Task scope
 
 ## Drift
 
-Intended surface border is `border-hairline`. Intended color family otherwise is `neutral-*`. Existing exceptions: `gray` on `components/layout/footer.tsx`, and some code-block `slate`/`#333` in `app/global.css`. Do not spread those. Do not bulk-rewrite them in a design-docs pass.
+Intended surface border is `border-hairline`. Intended color family otherwise is `neutral-*`. Existing exceptions in `app/global.css`: `::selection` uses `bg-gray-800`, and some code blocks use `slate` / `#333`. Leave those in place during a design-docs pass. Do not spread them.
 
 ## Open questions
 

@@ -120,12 +120,6 @@
       "sourceType": "github",
       "skillPath": "skills/web-design-guidelines/SKILL.md",
       "computedHash": "a6a44d5498f7e8f68289902f3dedfc6f38ae0cee1e96527c80724cf27f727c2a"
-    },
-    "workflow": {
-      "source": "blockmatic/basilic-skills",
-      "sourceType": "github",
-      "skillPath": "skills/workflow/SKILL.md",
-      "computedHash": "23ecb3f2de113552b41a943c7f8f94ae34c920ac3270ccb6471f1e68f1dcdece"
     }
   }
 }

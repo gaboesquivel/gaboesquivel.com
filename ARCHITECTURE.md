@@ -1,6 +1,6 @@
 # Architecture
 
-This document maps the implemented system and its ownership boundaries. Read it before changing data flow, integrations, build outputs, or the relationship between the website and its agent. Product intent lives in [PRODUCT.md](PRODUCT.md), visual and interaction decisions in [DESIGN.md](DESIGN.md), development setup in [README.md](README.md), and coding-agent constraints in [AGENTS.md](AGENTS.md).
+This document maps the implemented system and its ownership boundaries. Read it before changing data flow, integrations, build outputs, or the relationship between the website and its agent. Product intent lives in [PRODUCT.md](PRODUCT.md), visual and interaction decisions in [DESIGN.md](DESIGN.md), and development setup in [README.md](README.md). Procedures are linked from [AGENTS.md](AGENTS.md).
 
 ## System overview
 
@@ -35,11 +35,11 @@ flowchart TD
 | `content/*.mdx` | Blog source and frontmatter | Velite rendering and Markdown exports |
 | `scripts/llms/` | Machine-readable narrative, route mapping, authority order, corpus assembly | Text exports, Markdown responses, API data, agent retrieval |
 | `agent/` and `lib/connect/` | Agent configuration, tools, retrieval, contact and scheduling behavior | Web chat and MCP |
-| Installed `gabo` skill | Voice, identity, and claim constraints | Content authoring; see AGENTS.md for maintenance |
+| Installed `gabo` skill | Voice, identity, and claim constraints | Content authoring; maintenance is in [docs/agents/skills.md](docs/agents/skills.md) |
 
-The site does not own a second copy of package facts. Package changes follow the two-repository workflow in AGENTS.md. A local link makes unpublished package changes visible during development; production still installs the published dependency. `next.config.js` detects the link and adjusts transpilation and file tracing.
+The site does not own a second copy of package facts. Package changes follow [docs/agents/package.md](docs/agents/package.md). A local link makes unpublished package changes visible during development; production still installs the published dependency. `next.config.js` detects the link and adjusts transpilation and file tracing.
 
-The HTML narrative and its machine-readable representation share facts but include separately maintained prose and mappings. Changing a page does not automatically update every export. Use the propagation checklist in AGENTS.md when a route, identity fact, or featured project changes.
+The HTML narrative and its machine-readable representation share facts but include separately maintained prose and mappings. Changing a page does not automatically update every export. Use [docs/agents/propagation.md](docs/agents/propagation.md) when a route, identity fact, or featured project changes.
 
 ## Code boundaries
 
@@ -102,7 +102,7 @@ External agents use the Eve MCP channel at `/mcp`, with `agent_start` and `agent
 
 The portfolio's durable content is repository files and the published package. Eve manages conversation/session behavior; `lib/connect/store.ts` does not implement a conversation database. Browser session handling is in `app/connect/session-cookie.ts`.
 
-Upstash Redis stores action caps and idempotency state through `lib/connect/store.ts` and `caps.ts`. These records expire. Local development can use an in-memory store; Vercel Production and Preview require configured Redis for these controls. Local daily caps are skipped unless explicitly enabled for testing. See AGENTS.md for provisioning and environment names.
+Upstash Redis stores action caps and idempotency state through `lib/connect/store.ts` and `caps.ts`. These records expire. Local development can use an in-memory store; Vercel Production and Preview require configured Redis for these controls. Local daily caps are skipped unless explicitly enabled for testing. Provisioning and environment names are in [docs/agents/ask.md](docs/agents/ask.md).
 
 | Integration | Boundary |
 | --- | --- |
@@ -125,4 +125,4 @@ The pre-commit hook regenerates and stages CV outputs when the specified CV, glo
 
 ## Maintaining this map
 
-Update this document when source ownership, system boundaries, data flow, or integrations change. Keep product decisions in [PRODUCT.md](PRODUCT.md), visual decisions in [DESIGN.md](DESIGN.md), and setup in [README.md](README.md). [AGENTS.md](AGENTS.md) owns task-specific reading requirements, change-propagation rules, and verification criteria.
+Update this document when source ownership, system boundaries, data flow, or integrations change. Keep product decisions in [PRODUCT.md](PRODUCT.md), visual decisions in [DESIGN.md](DESIGN.md), and setup in [README.md](README.md).
