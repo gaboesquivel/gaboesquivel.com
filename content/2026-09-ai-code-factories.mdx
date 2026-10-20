@@ -1,7 +1,7 @@
 ---
 title: AI Coding Factories
 publishedAt: 2026-09-12
-summary: 'What an AI coding factory is: agents carrying work through specification, implementation, verification, and release, with architecture, orchestration, and evidence.'
+summary: 'How to turn coding agents into a repeatable delivery process, with clear tasks, isolated execution, useful checks, and feedback from the running product.'
 image: /images/2026/09/ai-coding-factory.webp
 category: ['Product', 'Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: []
@@ -16,28 +16,32 @@ That is what I mean by an **AI coding factory**: an engineering workflow in whic
 ![AI coding factory](/images/2026/09/ai-coding-factory.webp)
 </div>
 
-Paul Iusztin's [Inside a Software Factory](https://www.oreilly.com/radar/inside-a-software-factory/) is a useful reference. He describes a lifecycle spanning intake, planning, implementation, review, release, and production feedback, supported by shared context, and he also documents an overbuilt first version he stopped using, which is a good reminder that the process has to earn its complexity.
+Paul Iusztin's [Inside a Software Factory](https://www.oreilly.com/radar/inside-a-software-factory/) describes that broader lifecycle, from intake through release and production feedback. He also writes about an initial version that became so elaborate he stopped using it. That detail matters: the process has to make delivery easier for the people using it.
 
-## Delivery loop
+## Follow one change through delivery
 
-**Request → specification → implementation → verification → release → production feedback**
+Imagine a recurring bug: submitting a form twice creates duplicate records. A coding agent might find the handler and propose a fix. A delivery process has to carry the work further.
 
-Each transition needs an artifact and a decision:
+First, someone defines the expected behavior. What counts as the same submission? What should the person see while the request is pending? What happens when a request succeeds but the response never arrives? Those answers determine what the implementation and its tests need to prove.
+
+The work then moves through specification, implementation, verification, release, and production feedback. Each stage should leave something the next stage can use:
 
 - A specification defines expected behavior.
 - Implementation produces a reviewable change.
 - Verification produces evidence that the change meets the specification.
 - Release produces an observable change in the running product.
-- Production feedback becomes the next request.
+- Production feedback shows whether duplicate records stopped and whether the change introduced another problem.
 
-## Factory architecture
+The transitions are as important as the stages. A failed check should return useful evidence to the implementation step. An unresolved product question should go back to a person who can answer it. Neither should become an endless retry loop.
 
-I would organize the architecture around six components:
+## What the system needs to carry
+
+I would organize the architecture around six responsibilities. A small setup can handle several of them with tools the team already uses:
 
 - **Context and specifications.** Repository instructions, product requirements, architecture decisions, examples, and acceptance criteria give agents a working understanding of the system. Keep this material versioned and close to the code, with current decisions separated from historical notes.
-- **Models and harnesses.** The model reasons about the task while the harness manages file access, command execution, browser use, permissions, and context, so evaluate model choice and harness configuration together.
+- **Models and harnesses.** The model interprets the task and proposes actions. The harness assembles context and coordinates tool use. Their behavior needs to be evaluated together.
 - **Orchestration and state.** A coordinator tracks tasks, dependencies, assignments, retries, budgets, and completion. Durable records should make it possible to understand what happened and continue after an interruption.
-- **Execution environments.** Reproducible sandboxes hold dependencies and control access to files, credentials, and networks. Branches and worktrees isolate code changes, and containers or virtual machines bound execution.
+- **Execution environments.** The agent needs the dependencies and access required to do the work. Branches and worktrees separate code changes; sandboxes control execution and access to files, credentials, and networks. A separate branch is not a security boundary.
 - **Verification and release gates.** Tests, type checks, security checks, browser validation, and review determine whether a change meets its specification. Merging and deploying should have explicit conditions.
 - **Observability and feedback.** Logs, artifacts, costs, failures, and production signals let engineers diagnose runs and improve the workflow.
 
@@ -47,26 +51,28 @@ Useful autonomy still depends on the configured system around the model, the sam
 
 [Anthropic's guidance on effective agents](https://www.anthropic.com/engineering/building-effective-agents) distinguishes predefined workflows from agents that dynamically choose their steps. A factory can combine both: a sequential pipeline for predictable work, parallel workers for independent tasks, and a dynamic split when subtasks emerge during investigation.
 
-Parallelism needs boundaries. Two unrelated bug fixes can run together, while a database migration and a feature that depends on its schema need sequencing or an agreed contract, so I would define dependencies and file ownership before adding workers.
+Two unrelated bug fixes may be able to run in parallel. A database migration and a feature that depends on its schema need sequencing or an agreed contract. I would establish those dependencies and the files each worker may change before adding parallel execution.
 
 Long-running work needs continuity. Anthropic's [research on long-running harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) uses incremental progress and explicit handoff artifacts to preserve work across sessions. For a coding factory, that means recording completed tasks, failed checks, unresolved decisions, and the next useful step.
 
-My practical rule is observable evidence: a regression test reproduces the bug, the fix passes it, existing behavior remains intact, and the relevant user flow works. Agent review can supplement those checks. Keep acceptance criteria stable while the implementation iterates.
+For the duplicate-submission bug, I would want a test that reproduces the failure before the fix and passes afterward, along with checks of the affected user flow. Disabling a button may improve the interaction while leaving the server vulnerable to a retry. Verification should cover the behavior the team agreed on, including that distinction.
+
+Agent review can help find gaps. The evidence still needs to come from running the relevant checks and inspecting the result. If a run reveals that the acceptance criteria were wrong, resolve that explicitly rather than letting the agent quietly weaken them to pass.
 
 ## Platforms and pieces
 
-I think [Factory](https://factory.ai/) is helping lead the way because it treats these concerns as parts of one delivery system. Its [Software Factory documentation](https://docs.factory.ai/software-factory/overview) covers triage, implementation, validation, release, documentation, and monitoring, with visibility into automation health and repository coverage. The dedicated Software Factory product is currently in private preview.
+What interests me about [Factory](https://factory.ai/) is its treatment of these concerns as a connected delivery system. Its [Software Factory documentation](https://docs.factory.ai/software-factory/overview) covers triage, implementation, validation, release, documentation, and monitoring. That is a useful scope to evaluate: how well does the platform carry work between stages, and can the team understand where a run stopped?
 
 <YouTube id="ow1we5PzK-o" title="AI coding factories video" />
 
 You can also assemble a factory around existing tools. These projects address complementary layers:
 
 - **[Sandcastle](https://github.com/mattpocock/sandcastle)** is a [TypeScript](/tech/typescript) library for orchestrating coding agents in sandboxes, with configurable branch strategies and providers including Docker, Podman, and Vercel.
-- **[Machinist](https://github.com/owainlewis/machinist)** is open-source infrastructure for repeatable agent execution, approved commands, local repository access, and inspectable run records, and it leaves the shipping decision with a human. It is early-access software, so workflows must own any checkpointing they require.
-- **[Superpowers](https://github.com/obra/superpowers)** encodes a development methodology as composable agent skills. It runs brainstorming, planning, isolated worktrees, subagent-driven implementation, test-driven development, and review as mandatory workflows inside existing coding harnesses.
+- **[Machinist](https://github.com/owainlewis/machinist)** focuses on infrastructure for AI coding workflows. I would evaluate its execution controls and run records against the tasks I want to automate, including what must happen after an interrupted run.
+- **[Superpowers](https://github.com/obra/superpowers)** encodes a development methodology as composable agent skills. Its workflows include brainstorming, planning, worktree isolation, implementation, testing, and review within existing coding harnesses.
 - **[Addy Osmani's agent skills](https://skills.addy.ie/docs/getting-started/)** encode engineering workflows for specifications, incremental implementation, testing, review, and shipping, and carry that process knowledge into an existing agent environment.
 
-Skills describe how to perform work, orchestration determines when it runs, and execution infrastructure supplies the environment and records the outcome, which leaves the connections between them as engineering decisions you still have to make.
+These tools operate at different levels. Skills describe how to work. Orchestration coordinates when work runs and how results move between steps. Execution infrastructure provides the environment. Putting them together still requires decisions about state, permissions, failure handling, and release.
 
 For a small team, I would begin with a coding harness, a few carefully chosen skills, an isolated environment, and existing CI. A managed platform becomes more attractive when coordinating repositories, users, integrations, and operational controls takes substantial time.
 
@@ -74,4 +80,6 @@ For a small team, I would begin with a coding harness, a few carefully chosen sk
 
 The engineer still owns the problem, architectural tradeoffs, and definition of done, as in [Engineering in the AI Era](/blog/2026-02-engineering-ai-era). People also need to see what is running, why it stopped, and how to redirect it, as in [Evolution of AI UX](/blog/2026-01-evolution-ai-ux).
 
-I would start with one recurring task and measure time to an accepted change, review effort, defects, and total cost, use failed runs to improve specifications, tools, tests, and handoffs, and expand automation only when that evidence shows the factory is making delivery more reliable.
+I would start with one recurring task and track time to an accepted change, review effort, defects, and total cost. Failed runs should tell us which instructions, tools, checks, or handoffs need improvement.
+
+Then I would expand the workflow when it has demonstrated that it can carry that task reliably. The useful outcome is a change the team can understand, verify, and operate in production. The factory earns its place by making that outcome easier to achieve repeatedly.

@@ -1,63 +1,62 @@
 ---
 title: Product Engineering
 publishedAt: 2026-09-16
-summary: 'Why product engineering matters more now that implementation is cheap, and how I run the work with agents from the experience back to the system.'
+summary: 'Product engineering starts with the experience people need and follows it through design, implementation, and production. Coding agents make that ownership more valuable.'
 image: /images/2026/09/product-engineering.webp
 category: ['Product', 'Engineering', 'Artificial Intelligence', 'Startups']
 tech: []
 ---
 
-Coding agents made a first draft cheap, and that turned product engineering into the useful name for work that frontend and backend hiring buckets always described poorly: applying the stack to ship the product, working backwards from the experience.
+A working screen is a beginning. Someone still has to decide whether it solves the right problem, what happens when the connection drops, and how a person recovers when something goes wrong. Those decisions connect the interface to the system behind it. They are the work I mean when I talk about product engineering.
 
-[Lee Robinson's Product Engineers](https://leerob.com/product-engineers) is still the cleanest public description, and it fits 2026 better than when he wrote it, because [AI](/ai) flattened much of the syntax while taste, the paths through a product, and the definition of done stayed exactly where they were.
+Coding agents make it easier to get a first version running. That gives us more room to explore, but it also makes judgment more visible: which version is worth pursuing, what needs to change, and when the product is ready for someone to depend on it.
 
-I wrote about the [skillset](/blog/2025-03-the-product-engineer) in 2025. This is the update on why the role is more relevant now and how I use agents inside that work.
+I wrote about the [product engineer's skillset](/blog/2025-03-the-product-engineer) in 2025. This is how I think about that work as agents take on more of the implementation.
 
-{/* Prevent CLS with responsive aspect ratio */}
 <div className="image-container">
 ![Product Engineering](/images/2026/09/product-engineering.webp)
 </div>
 
-## Layers vs outcomes
+## Start with the experience
 
-Software engineer, as most teams use the title, still means a layer or a ticket: frontend, backend, infra, a slice of a backlog. That work is real, and it is a different job from owning whether the product works.
+[Lee Robinson's Product Engineers](https://leerob.com/product-engineers) describes an approach that resonates with me: start with the experience you want to create, then work back to the technology that makes it possible. That requires a broad understanding of the stack and enough depth to apply it well.
 
-A product manager owns the problem, the sequence, and a lot of the why, but not the last mile of making it real: the empty states, the error when the API fails, the session that dies on a bad connection, and the control a team needs after launch.
+Consider a document upload. The component is only one part of the feature. People need to know which files are accepted, whether an upload is progressing, and what to do if it fails. The backend needs to validate the file, enforce access rules, and make retries safe. If processing takes time, the product needs a way to tell someone when the result is ready.
 
-A [forward deployed engineer](/blog/2026-04-forward-deployed-engineer) owns adoption in one customer's environment. The two roles overlap, and the difference is the unit of accountability, since FDE work answers for the account and product engineering answers for the product.
+A product engineer follows those connections. The responsibility extends from the first interaction to the behavior of the running system.
 
-Product engineers sit in the gap Lee describes, less deep in every subsystem than a specialist and deep in applying the stack to the experience across interface, application, data, and now the model and tools around it. [Engineering in the AI Era](/blog/2026-02-engineering-ai-era) covers how that engineering shift works, with less time translating ideas into syntax and more time deciding what should exist, and this post covers the loop the product owns.
+Frontend, backend, and infrastructure expertise all contribute to that work. Product managers and designers contribute research, priorities, and experience design. The value of product engineering is being able to work across those concerns and carry a decision through implementation without losing its purpose.
 
-## Why the title is not junior
+A [forward deployed engineer](/blog/2026-04-forward-deployed-engineer) often does similar work in a particular customer's environment. The emphasis shifts toward making the product useful within that customer's systems and processes. The roles overlap; their scope depends on what the team needs someone to own.
 
-Coding agents write a first draft without knowing what done means in a product. They don't notice that a slow or missing network turns a feature into a brick, or that an error state dumps the user out of a flow they cannot reconstruct.
+## Judgment takes practice
 
-Lee's questions are still the spec: what happens offline, what happens when the API errors, how this feels on a phone, and which latency is acceptable. Taste, constraints, and those paths do not become commodities because a model can emit React.
+An agent can help identify failure cases, generate alternatives, and test behavior. It still needs a clear objective and someone who can assess whether the result fits the product.
 
-That is why this is not an entry-level title. You can hire people early in their careers to ship tickets, but you cannot hire a "product engineer" as a first job and expect the same ownership, because the scarce skills are judgment and contact with the user. Coding still matters, and when agents produce the first pass, the differentiator is whether you can tell if that pass is the product.
+For the upload flow, a passing test might prove that a file reaches storage. It won't necessarily tell you whether the progress indicator makes sense to a person on a slow connection, or whether an error message gives them enough information to continue. Those questions need explicit attention.
 
-Empathy is an engineering input. Sitting with the people who use the thing, watching where they stall, and changing what the product is allowed to do is how the system actually changes, and agents do not do that on their own.
+This is why I associate product engineering with substantial ownership. It takes experience to recognize tradeoffs across design, data, reliability, and delivery, and to know when a specialist needs to be involved. Engineers can develop that judgment throughout their careers. A title alone doesn't establish it.
 
-## Using AI in the work
+Contact with users is part of developing it. Watching someone struggle with a flow can reveal a problem the team never thought to put in the specification. Technical skill becomes more useful when it is informed by that understanding.
 
-The loop runs from the experience to its constraints, to something in users' hands, to whether it holds, and agents work in the middle of that loop while people still own both ends.
+## Where agents fit in my work
 
-**Specify the experience, not the ticket.** User paths, empty and error states, offline and mobile behavior, latency, permissions, and what the model is allowed to do are the constraints agents will not invent, so I write those down as the spec instead of a backlog item that only names a component. Those constraints are also the intake for an [AI coding factory](/blog/2026-09-ai-code-factories): the factory runs the loop, and product engineering decides what goes in.
+I use agents to shorten the distance between an idea and something I can evaluate. The most useful workflow keeps the intended experience visible throughout the work.
 
-**Prototype to feel the product.** I use coding tools to try the interaction rather than to generate more tickets, because the speed is for learning whether the experience holds, and until you can click through it you don't know yet.
+**Describe the behavior.** Before implementation, I want to know what the person is trying to accomplish, what constraints apply, and which failures matter. For an upload, that could include file limits, mobile behavior, cancellation, retries, and access permissions. The specification can be short, as long as it answers the questions that would otherwise become guesses.
 
-**Done is a path through the product.** Green CI is necessary and not sufficient. Acceptance is Lee's questions, failure states included, so if the happy path works and a timeout dumps the user, the work is not done.
+**Make the interaction tangible.** A prototype lets me try alternatives and notice awkward transitions. Being able to click through a flow changes the conversation: an abstract concern becomes something the team can see and adjust.
 
-**Review generated UI and behavior as product decisions.** Copy, empty states, permissions, latency, and tool or model boundaries belong in the review alongside architecture, because an agent will happily ship a screen that compiles and is still the wrong product.
+**Review the whole path.** I look at copy, loading states, errors, and permissions alongside the implementation. Automated checks provide evidence about correctness. Using the product provides another kind of evidence. Both belong in the definition of done.
 
-**Spend the extra capacity on alternatives.** Cheap implementation means more approaches in the same week, and taste still chooses between them.
+**Use the saved time to explore.** Faster implementation makes it practical to compare approaches before committing to one. Sometimes the best result is a smaller feature or a simpler interaction than the first proposal.
 
-Coding tools also lower the syntax floor for people who already know what to build, including PMs who can now prototype. The combination that matters in 2026 is product sense together with the ability to ship, review architecture, and hold those paths while agents do more of the typing, and a PM with a new coding tool has only the first half.
+Those decisions also shape the work handed to an [AI coding factory](/blog/2026-09-ai-code-factories). Automating delivery is useful when the system has a clear target and meaningful checks for reaching it.
 
-## What companies are actually asking for
+## What I would look for when hiring
 
-Startups still post fullstack or frontend roles when they need someone who can take a product from a vague constraint to something in users' hands. Lean AI product teams need the same person, because the model is available and the product around it is not.
+I would ask a product engineer to walk me through something they shipped. What did users need? Which alternatives did they consider? What changed after feedback? Where did a technical constraint reshape the experience?
 
-I would not keep a list of who is hiring this month, since the pattern is stable: companies that sell software to end users, run small teams, and have AI in the loop. Vendors separately staff forward deployed programs to close the gap from demo to production in one account. If you are hiring for the product itself, you want a product engineer, and if you are hiring for one customer's adoption of a platform, you want an FDE.
+Those answers reveal how someone connects decisions across the product. A polished demo is useful evidence, but so is an explanation of a difficult compromise or a failure that led to a better design.
 
-If you are hiring for this, look at shipped products and the decisions in them rather than at who produces the most code in a take-home. If you are doing the work, own the path from the experience back to the system, and treat layer titles as staffing labels.
+The opportunity with agents is to spend more time on that work. We can test ideas sooner and carry more of them into a running product. The responsibility remains to understand what people need, make thoughtful choices, and stay with the result long enough to learn whether it helped.

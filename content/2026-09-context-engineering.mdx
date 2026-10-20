@@ -7,11 +7,11 @@ category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['TypeScript', 'AI SDK']
 ---
 
-An agent can have access to the right information and still fail to use it. A decision gets buried in a long conversation. A search brings back an outdated document. A new session starts without the correction you made yesterday. To the person using the product, the result is simple: they have to explain themselves again.
+An agent can have access to the right information and still fail to use it. A decision gets buried in a long conversation. A search brings back an outdated document. A new session starts without the correction you made yesterday. The person using the product has to notice the mistake, repeat the missing context, and check the answer again.
 
 Context engineering is the work of deciding what information reaches the model, when it reaches it, and what should carry forward. The prompt is part of that work. So are the tools, retrieved documents, conversation history, skills, and memory that shape each response.
 
-This is one of the areas of AI engineering I'm most interested in. It connects the architecture of an agent to how useful it feels over time: whether it can follow a task, build on previous work, and respond to a correction without losing something else that matters.
+This is one of the areas of AI engineering I'm most interested in because it connects system design to everyday usefulness. An agent needs to follow the task at hand, build on previous work, and accept a correction without losing other constraints.
 
 <div className="image-container">
 ![Context Engineering](/images/2026/09/context-engineering.webp)
@@ -71,8 +71,6 @@ I find this useful because the procedure becomes something a team can inspect an
 
 Skills can include scripts, but their instructions don't replace the runtime's permissions. Knowing how to perform an action and being allowed to perform it remain separate concerns.
 
-Guillermo Rauch's [brain, hands, and files framing](https://x.com/rauchg/status/2102820148629614685) connects these ideas to system design. The model and harness coordinate the work, tools act on the world, and files hold things such as skills, memories, and repositories. Separating persistent storage from the execution environment makes it possible to review and consolidate memories without starting the agent's full computer. What an agent retains can have its own lifecycle.
-
 ## Remembering also means revising
 
 Memory introduces a write path as well as a read path. Some systems save information when the agent explicitly requests it. Others extract facts or summarize experiences in the background. Either approach needs a way to handle corrections.
@@ -82,6 +80,8 @@ Suppose someone says, “Use the staging environment for this test.” Saving th
 This is why I care about where a memory came from, when it was recorded, and what can supersede it. Retrieved notes should be treated as information with a source and scope. They shouldn't silently acquire the authority of system instructions.
 
 The same care applies when an agent proposes changes to its own skills. A successful run can suggest an improvement, but one success doesn't establish a reliable procedure. I'd want that change reviewed and exercised against representative tasks before making it the default.
+
+Guillermo Rauch's [brain, hands, and files framing](https://x.com/rauchg/status/2102820148629614685) connects these ideas to system design. The model and harness coordinate the work, tools act on the world, and files hold things such as skills, memories, and repositories. Separating persistent storage from the execution environment makes it possible to review and consolidate memories without starting the agent's full computer. What an agent retains can have its own lifecycle.
 
 ## Follow the context when something fails
 

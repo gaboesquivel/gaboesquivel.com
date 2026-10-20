@@ -1,69 +1,86 @@
 ---
 title: Agentic Domain-Driven Design
 publishedAt: 2026-10-17
-summary: 'Agents amplify whatever vocabulary a codebase gives them, so the shared language and bounded contexts of domain-driven design now decide how much of your intent survives the next run.'
+summary: 'Shared language helps coding agents preserve the meaning of a system. Domain-driven design gives teams a practical way to define that language and its boundaries.'
 image: /images/2026/10/domain-driven-design.webp
 category: ['Product', 'Engineering', 'Artificial Intelligence']
 tech: []
 ---
 
-At DDD Europe in June, Martin Fowler wrote in his [fragments](https://martinfowler.com/fragments/2026-06-16.html) that he suspects Domain-Driven Design "is going to be one of those things that will continue to be useful, indeed may become even more important," and he named Eric Evans's opening keynote the highlight of the conference. Evans framed that talk as a question, [whether AI will amplify DDD or replace it](https://2026.dddeurope.com/program/opening-keynote-eric-evans/), and offered a working hypothesis that domain models, bounded contexts, and language still matter even though the models will look different. His abstract left coding agents out on purpose, "where others have more interesting things to say," and the people who have taken that part up are the subject of this post.
+A request to “cancel an order” sounds clear until you ask what should happen next. Does it stop fulfillment? Release reserved inventory? Issue a refund? The answer depends on the business, the order's state, and which part of the system is handling it.
 
-{/* Prevent CLS with responsive aspect ratio */}
+A coding agent can implement a plausible interpretation quickly. If the team hasn't agreed on the meaning, that speed can carry the wrong assumption into code, tests, and documentation. This is where domain-driven design becomes particularly useful: it gives people a way to make the concepts behind the software explicit.
+
+After DDD Europe in June, [Martin Fowler wrote](https://martinfowler.com/fragments/2026-06-16.html) that he expects domain-driven design to remain useful and potentially become more important as LLMs change programming. His observation captures what interests me here. The more implementation we delegate, the more clearly we need to express the system we intend to build.
+
 <div className="image-container">
-![Domain-Driven Design for Agents](/images/2026/10/domain-driven-design.webp)
+![Agentic Domain-Driven Design](/images/2026/10/domain-driven-design.webp)
 </div>
 
-## What domain-driven design asks of a team
+## Agree on what the words mean
 
-Evans's 2003 book makes two commitments that carry over to agents. The first is a ubiquitous language, which [Fowler describes](https://martinfowler.com/bliki/UbiquitousLanguage.html) as a common, rigorous language between developers and users, built on the domain model the software uses and rigorous because "software doesn't cope well with ambiguity." The second is the bounded context, which starts from Evans's observation that "total unification of the domain model for a large system will not be feasible or cost-effective," as [Fowler quotes him](https://www.martinfowler.com/bliki/BoundedContext.html). A large system splits into contexts that each hold one consistent model, and a word like customer or product may mean something different inside each of them, with an explicit mapping where they meet.
+Two ideas from Eric Evans's domain-driven design are especially helpful when working with agents.
 
-## Why agents raise the cost of an ambiguous word
+The first is **ubiquitous language**: a shared vocabulary developed by the people who understand the domain and the people building the software. As [Fowler explains](https://martinfowler.com/bliki/UbiquitousLanguage.html), that language should be used in conversation as well as in the model. Working through examples tests whether the words actually describe the business.
 
-Dennis Traub [argues](https://dev.to/aws/your-agent-keeps-using-that-word--4g36) that agents change how ambiguity behaves. On a human team a vague term meets friction in review, in pairing, and in the question asked over coffee, whereas an agent writes code that compiles and tests that pass while the mismatch waits for a downstream system to read the same word differently. The agent also starts every session without any memory of the last disambiguation, so a term you settled on Monday has to be settled again on Tuesday unless it is written down. Russ Miles opens [Domain Driven Agent Design](https://engineeringagents.substack.com/p/domain-driven-agent-design) with a finance assistant that treated a booking, which means revenue recognition in one context, and a reservation, which means risk allocation in another, as the same thing, and it "began taking action that would've landed the CFO in handcuffs." Daniel Schleicher states the stakes more plainly: the greatest leverage with AI [lies "not in accelerating typing, but in establishing semantic agreement before implementation begins."](https://www.danielschleicher.com/software/engineering,/ai,/spec-driven/development/2026/01/04/removing-ambiguity-with-spec-driven-development.html)
+The second is a **bounded context**: a boundary within which a particular model and vocabulary are consistent. [Fowler's explanation](https://martinfowler.com/bliki/BoundedContext.html) makes room for different meanings in different parts of a large system, with explicit relationships between them.
 
-Matt Pocock arrives at the same place from the cost side. In the README of his [skills repository](https://github.com/mattpocock/skills) he writes that agents are "dropped into a project and asked to figure out the jargon as they go," and that "they use 20 words where 1 will do." His before and after comes from a course tool he built: "There's a problem when a lesson inside a section of a course is made 'real' (i.e. given a spot in the file system)" becomes "There's a problem with the materialization cascade." In [Software Fundamentals Matter More Than Ever](https://www.youtube.com/watch?v=v4F1gFy-hqg) he reports that reading the model's thinking traces showed a shared vocabulary improving the planning and letting the model think less verbosely, and he adds that he is still "on the edge of exploring" DDD, so the evidence is his reading of traces and not a measurement.
+In a hypothetical commerce system, an account might mean a person's login in identity management and a billable organization in billing. Both meanings can be useful. Trouble begins when code silently treats them as interchangeable. Naming the boundary tells engineers and agents which meaning applies and where a translation is needed.
+
+This takes more than choosing better names. The team has to decide which concepts exist, how they relate, and what rules govern them. The vocabulary expresses that understanding.
+
+## Give the agent a definition it can reuse
+
+A clarification in one conversation only helps later work if the agent can recover it. That may come from code, documentation, or remembered context. A concise glossary gives the team an explicit place to settle terms and review changes to their meaning.
+
+Matt Pocock's [domain-modeling skill](https://www.aihero.dev/skills-domain-modeling) takes this approach during design: challenge vague terms, test relationships with examples, and record a definition when it is agreed. It separates the glossary from implementation details and architectural decision records.
+
+For the order example, a small entry could look like this:
+
+```md
+**Order cancellation**:
+A request to stop fulfilling an order. It does not by itself confirm a refund.
+
+**Refund**:
+A return of money previously collected for an order.
+```
+
+These definitions are illustrative; a real business may need different ones. Their value is that they expose a question before it becomes a hidden assumption. Can an order be cancelled after shipment? Who decides whether a refund is due? The discussion can then refine the model.
+
+Pocock also discusses the value of shared vocabulary in this talk:
 
 <YouTube id="v4F1gFy-hqg" title="Matt Pocock: Software Fundamentals Matter More Than Ever" />
 
-## What an experiment measured
+## What the evidence does and doesn't show
 
-The closest thing to a measurement I found is a [semantic erosion experiment](https://github.com/cdelmonte-zg/semantic-erosion-experiment) published on GitHub, which tracks how many domain terms survive when an agent refactors a Java codebase for ten iterations. The subject is a synthetic royalty-collection system with six domain terms already in the code and four more that refactoring should surface. Neutral prompts such as "Refactor this project to improve readability" eroded nothing in any configuration. The stress prompt "Clean up this codebase. Rename anything that seems overly specific" did: OpenCode with Claude Sonnet 4.6 fell to a preservation score of 0.0, Claude Code oscillated down to 0.69, and GPT-5.4 eroded aggressively before recovering. Prompts that only hinted at renaming eroded a local Qwen3 30B model, at the ninth iteration, and left the cloud-backed configurations alone. With a glossary in context, preservation held at 1.0 in every control while the agents still changed between 502 and 1,497 lines.
+A [semantic erosion experiment](https://github.com/cdelmonte-zg/semantic-erosion-experiment) tested whether coding agents preserved domain terminology across ten rounds of refactoring in a synthetic Java royalty-management system.
 
-The author lists the limits: most configurations ran once, with three replicas for Qwen3, the codebase is one synthetic domain in one language, and Claude Code's extended thinking confounds the comparison with OpenCode. A domain term is overly specific by design, so a request to tidy names pushes against it, and teams make that request all the time. What the experiment suggests is that the glossary matters most on the day someone asks an agent to clean up.
+Neutral requests to improve readability preserved the terminology in every tested configuration. Explicit pressure to rename overly specific concepts caused losses that varied by model and harness. Providing domain context through a glossary preserved the tracked terms in the tested controls while still allowing substantial refactoring.
 
-## Bounded contexts decide what enters the window
+The limits matter. Most configurations ran once, the subject was one synthetic codebase, and differences in thinking configuration complicate comparisons between harnesses. Preserving a name also doesn't prove that the implementation preserves its meaning.
 
-Benny Johns [points out](https://www.bennyjohns.com/posts/20260222-steward-agents-agentic-ddd) that "context" in a bounded context and in a context window come from different roots and converge anyway, because a bounded context caps what an agent has to read, and keeping the complexity of other contexts out of the window is the benefit. The [Encyclopedia of Agentic Coding Patterns](https://aipatternbook.com/bounded-context) describes the working version: you point an agent at the billing context's code, glossary, and domain rules, and it never sees the competing definitions from the identity context. Pocock's skills encode the same split, since a repository with several domains gets a `GLOSSARY-MAP.md` at the root that points to a `GLOSSARY.md` for each context.
+I take this as a reason to include domain language in refactoring reviews. A name that looks unusually specific may encode a distinction the business depends on. An agent needs enough context to recognize that distinction before simplifying it away.
 
-In [Context Engineering](/blog/2026-09-context-engineering) I wrote that the work is deciding which tokens the next step is allowed to see, and a glossary with a context map is that decision made once per domain and kept in files. One detail from [a field guide to repository context files](https://emrebener.com/blogs/data-and-ai/ai-and-ml/a-field-guide-to-repository-context-files) belongs in the setup: to the harness, a `GLOSSARY.md` is another markdown file with a better name, so it reaches the window only when `AGENTS.md` or a skill points at it.
+## Connect the language to the work
 
-## A workflow that keeps the language in context
+A glossary only helps if it reaches the agent when the task needs it. This is a practical part of [context engineering](/blog/2026-09-context-engineering): deciding which information belongs in the model's working context.
 
-Pocock's engineering skills cover the first three steps of a loop that keeps the glossary current while the work is happening, and the last two are the wiring I would add:
+For a billing change, I would provide the billing definitions, relevant rules, and the interfaces to neighboring systems. A bounded context helps organize that material. It doesn't eliminate the need to understand an integration when the change crosses a boundary.
 
-1. **Grill the plan.** `/grill-with-docs` interviews you against the existing glossary, calls out a word that conflicts with an earlier definition, and tests relationships with concrete scenarios until the boundaries are exact.
-2. **Settle terms inline.** When a term is resolved, `GLOSSARY.md` changes in that conversation, with the chosen word defined and the rejected ones listed under `_Avoid_`.
-3. **Record the hard decisions.** An [architecture decision record](/blog/2024-07-adrs-in-software-teams) is offered only when a choice is hard to reverse, surprising without context, and the result of a real trade-off.
-4. **Name the code from the glossary.** Modules, tables, status values, and issue titles take the canonical words, because those are the names an agent reuses.
-5. **Point the agent at the files.** `AGENTS.md` or a skill loads the glossary, or the map, at the start of the session.
+The workflow I would use is small:
 
-The format stays small on purpose, and a real entry from Pocock's course tool at a [pinned commit](https://github.com/mattpocock/course-video-manager/blob/076a5a7a182db0fe1e62971dd7a68bcadf010f1c/CONTEXT.md) shows both the shape and the failure it invites:
+1. **Resolve ambiguity with an example.** Ask what happens in a specific scenario until the team agrees on the behavior.
+2. **Record the meaning.** Keep the glossary entry short and focused on the concept. Put implementation details in the document or code that owns them.
+3. **Use the term consistently.** Carry it into interfaces, tests, and task descriptions so the next change starts from the same understanding.
+4. **Make the definition discoverable.** Point to the relevant glossary from repository instructions or a task-specific skill.
+5. **Review meaning as well as naming.** If behavior changes, check whether the definition and affected code still agree.
 
-```md
-**Materialize**:
-The act of transitioning a ghost entity to a real entity by creating its on-disk representation.
-_Avoid_: Create on disk, Realize
+When a choice has consequences that will be hard to reconstruct later, an [architecture decision record](/blog/2024-07-adrs-in-software-teams) can preserve the reasoning. A glossary shouldn't have to carry the entire history of the design.
 
-**Ghost Lesson**:
-A lesson that exists in the database but not yet on the file system (`fsStatus = "ghost"`).
-_Avoid_: Planned lesson, Draft lesson
-```
+## Keep the language useful
 
-The second entry carries a column name, which the [current rule](https://www.aihero.dev/skills-domain-modeling) would cut, because `GLOSSARY.md` holds no implementation details and nothing else. Models treat an instruction to update the glossary as permission to store every answer, and the file turns into a running spec, so a term that grew a paragraph of mechanism needs to be cut back to what the thing is. Schleicher's Spec Ambiguity Resolver puts the guard in a different place: the agent proposes a definition and waits for a human to approve it. The skill's documentation states the cost of skipping that review plainly, because an unreviewed glossary that an agent wrote fills with confident claims that later sessions treat as true, and the right nouns on top of the wrong concepts produce output that reads as correct and is not. A precise vocabulary is how you direct an implementation you are no longer typing, and the glossary is where that vocabulary lives between sessions.
+A glossary can become stale or collect details that belong elsewhere. It can also make an incorrect assumption look authoritative, especially if an agent writes definitions that nobody reviews.
 
-## Where the glossary stops paying
+I would introduce one when recurring ambiguity starts costing the team time. I would split it by context when the domain requires that separation, and revise it when our understanding changes. The amount of documentation should follow the problem.
 
-The skill's documentation marks the boundary too. DDD gets less useful the closer it gets to the implementation, and the payoff sits upstream, in naming and concept alignment, not in aggregates and layer ceremony. Synonym control matters at the names that both you and the agent reuse and matters much less in ordinary prose, so a one-day build can skip the file, and a fair objection holds that the glossary mostly keeps you and your reviewers aligned with what the agent is doing. Evans's own answer to whether AI amplifies DDD or replaces it was that nobody can know yet.
-
-On the next [AI](/ai) product I would create `GLOSSARY.md` the first time the agent and I use two words for one thing, add one line to `AGENTS.md` that points to it and forbids synonyms in code, tests, and messages, and approve every definition myself before it lands in the file. I would split it with a `GLOSSARY-MAP.md` only when it covers two domains that nobody wants to hold at once, and I would cut any entry that starts describing how the thing is stored.
+What I want from DDD in agent-assisted work is a shared model that people understand and the implementation respects. Clear language gives us a way to discuss that model, direct changes to it, and notice when the code has drifted from what we meant.
