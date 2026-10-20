@@ -1,76 +1,94 @@
 ---
 title: Context Engineering
 publishedAt: 2026-09-30
-summary: 'Skills and memory files decide what an agent keeps between sessions, and an eval decides what the next run is allowed to see.'
+summary: 'How harnesses, memory, and skills give an AI agent the context it needs to carry useful work across steps and sessions.'
 image: /images/2026/09/context-engineering.webp
 category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['TypeScript', 'AI SDK']
 ---
 
-A single model call has a prompt you can open in the editor, while an agent's fourteenth call is the payload thirteen earlier steps have already assembled. Harrison Chase's point on [Sequoia's Training Data](https://www.youtube.com/watch?v=vtugjs2chdA) is that the code will not show you that payload, because those steps are what filled it.
+An agent can have access to the right information and still fail to use it. A decision gets buried in a long conversation. A search brings back an outdated document. A new session starts without the correction you made yesterday. To the person using the product, the result is simple: they have to explain themselves again.
 
-Prompt engineering is how you phrase one instruction, but an agent's later calls are assembled from everything the previous steps pulled in: files, tool results, memory, sometimes another agent's summary. Context engineering is deciding which of those tokens the next step is allowed to see, and which of them should still be there tomorrow.
+Context engineering is the work of deciding what information reaches the model, when it reaches it, and what should carry forward. The prompt is part of that work. So are the tools, retrieved documents, conversation history, skills, and memory that shape each response.
 
-{/* Prevent CLS with responsive aspect ratio */}
+This is one of the areas of AI engineering I'm most interested in. It connects the architecture of an agent to how useful it feels over time: whether it can follow a task, build on previous work, and respond to a correction without losing something else that matters.
+
 <div className="image-container">
 ![Context Engineering](/images/2026/09/context-engineering.webp)
 </div>
 
-## Decisions on each step
+## Context changes as the agent works
 
-Once a harness is in place, the decisions that stay with you are about files:
+Imagine asking an agent to investigate a bug. It starts with your description, reads the relevant code, runs a test, and inspects the failure. Each step produces information that can change what it should do next. By the time it proposes a fix, its answer depends on much more than your original request.
 
-- Every turn rebuilds the payload: instructions, tools, history, results, retrieved text, and whatever memory the provider recalled.
-- Extra tokens compete for the same attention, so a larger window still needs a smaller working set.
-- A skill is a procedure that stays out of the window until the task matches, and the file is what you change when the procedure was wrong.
-- Memory is curated state across runs. The provider may write it after the turn, and the next session will read it back.
-- A failed eval names which of those files to edit. The [trace](https://www.langchain.com/blog/in-software-the-code-documents-the-app-in-ai-the-traces-do) shows what actually entered the window.
+[Anthropic's explanation of context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) treats this as an ongoing process of selecting and maintaining the information available to the model. [Vercel's guide](https://vercel.com/i/context-engineering) makes the practical scope clear: instructions, tool definitions, history, tool results, and retrieved documents all contribute to that context.
 
-## What fills the window
+The challenge is deciding what remains useful. The failing test may be essential. Hundreds of lines from an unrelated search probably aren't. Two conflicting versions of a requirement need to be resolved, even if both fit comfortably in the context window. A larger window gives us room to work; we still have to organize what goes into it.
 
-[Anthropic](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) treats context as the full set of tokens at inference, including system instructions, tool definitions, retrieved data, and the message history, and [Vercel](https://vercel.com/i/context-engineering) splits that same payload into instructions, tools, history, tool results, and documents pulled in for the step. Google and Kaggle's [sessions and memory whitepaper](https://www.kaggle.com/whitepaper-context-engineering-sessions-and-memory) adds the split that matters once the agent outlives a single chat: a session is this run's working state, and memory is curated state meant to survive it. The model is stateless, so you assemble a payload on every turn, and Anthropic's 2025 guide still names the target the current harnesses use, which is the smallest set of high-signal tokens that produces the behavior you want.
+## The harness orchestrates context
 
-[NoLiMa](https://arxiv.org/abs/2502.05167) is why that target is a file decision and not a window decision. At 32,000 tokens, 11 of 13 models fell below half their short-context baseline, and GPT-4o went from 99.3% to 69.7%, because every token attends to every other token. Newer models have moved the cliff, and irrelevant tokens still spend the budget, which is the reason a procedure lives in a skill instead of in the standing prompt.
+The model needs software around it to keep this process moving. That software is the **harness**: it assembles the model's input, handles its requests to use tools, and brings the results back for the next step. Depending on the implementation, it also manages session state, loads skills, retrieves memory, and summarizes older history.
 
-| Pattern | What it keeps stable |
-| --- | --- |
-| Skills | The procedure stays out of the window until the task matches, and the file is what you change |
-| Memory | Decisions survive the session, and only the curated ones come back |
-| Evals | A failed probe names the skill or memory file to edit |
-| Tools | The interface stays small until it is used |
+Harrison Chase's [conversation on long-horizon agents](https://sequoiacap.com/podcast/context-engineering-our-way-to-long-horizon-agents-langchains-harrison-chase) helped shape how I think about this. A capable model is one part of an agent. The surrounding system determines how it stays oriented through a task that takes many steps.
 
-## Skills are files you can revise
+It helps to separate three responsibilities. The **model** interprets the available context and produces a response or tool request. The **harness** coordinates the loop and the information moving through it. The **runtime** is the environment where actions execute, with the access controls those actions require.
 
-[Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) keep a procedure out of the standing prompt: the window holds a name and a description, the body loads when the task matches, and extra files load only if the skill asks for them. [Eve](https://eve.dev/docs/skills) uses that same convention under `agent/skills/`. It advertises each description beside a `load_skill` tool, and the model pulls the markdown into the turn that needs it, so a skill written to the open standard drops in without becoming part of `instructions.md`.
+<figure id="harness-diagram" className="mx-auto max-w-lg">
+![The harness selects task context, recalls and writes memory, calls the model, and dispatches tools. Tool results return to the harness for the next model call.](/images/2026/09/context-harness.svg)
 
-On [LegalAgent](/project/legal-agent), attorney sessions were what showed that the persona and the tool calls had to change after launch, and the admin kept the system prompt and the retrieval categories where the team could edit them without touching the client or the model. A skill file is that same boundary for a procedure, small enough to review as a diff and loaded on the next session only when the task matches.
+<figcaption>The loop repeats as the agent works. Memory can carry information into later sessions; tool results update the current one. This is a conceptual view, not a required deployment layout.</figcaption>
+</figure>
 
-I keep standing instructions small and put procedures that change into skills. Typed tool schemas stay in code, because a skill adds instructions and does not add an execution surface, which is also how Eve separates `load_skill` from the tools that remain visible whether or not the skill was loaded.
+In the bug investigation, the model might request a test run. The harness routes that request to a tool, receives the output, and includes the relevant result in the next model call. The runtime enforces what the test process can access. A tool request is a proposed action; instructions alone don't grant permission to execute it.
 
-A [source study of eleven coding harnesses](https://arxiv.org/abs/2609.00006), pinned to July 2026, found skills in 9 of them and MCP in 8, and across the quarter they re-measured, behavioral policy was moving out of the standing prompt and into configuration, which is the loading Eve and those harnesses now do for you.
+Chase's [walkthrough with NVIDIA](https://www.youtube.com/watch?v=BEYEWw1Mkmw) explores this separation with an open model, Deep Agents, and OpenShell. The useful idea extends beyond that particular stack: context orchestration and execution permissions are distinct responsibilities, even when a framework packages them together.
 
-## Memory writes back
+## Memory gives the work continuity
 
-Eve drives memory from a file you declare under `agent/memory/`. Before each turn it asks the provider to recall relevant context, and after the turn it lets the provider capture what happened. The built-in file provider does not extract facts on its own, so the model calls `save_memory` or `remove_memory` into a document scoped to the caller, while other providers capture more on their own, including Supermemory after each turn and Upstash on user messages. The provider you pick is the rule for what gets written without you.
+The current session holds the conversation and working state for a task. Long-term memory lets selected information remain available after that session ends. Keeping a transcript is useful, but the next session still needs a way to find the parts that matter.
 
-Recalled text comes back as user messages attributed to the slot, so the instructions still have to say that those lines are caller-supplied facts and not new orders.
+The [CoALA paper](https://arxiv.org/abs/2309.02427) offers a useful distinction between three kinds of long-term memory. Applied to an engineering agent, they might look like this:
 
-Chase's warning sits on that write path. A note read back on a later turn is treated as ground truth, contradictions included, so a file that survived the session can be wrong in every run after it. [Guillermo Rauch's split](https://x.com/rauchg/status/2102820148629614685) is the current way to place that file: the brain is the model and the harness, the hands are the tools, the computer, and the browser, and the files are memories, skills, and repos. A consolidation pass can read and write those files without booting the computer the agent acts with, which is the same nightly job Chase described for traces that update instruction files.
+| Memory | What it captures | Example |
+| --- | --- | --- |
+| Episodic | What happened | A previous deployment failed because a migration had not run. |
+| Semantic | Facts and knowledge | This service depends on a separate migration step. |
+| Procedural | How to act | The deployment procedure checks migrations before releasing. |
 
-Eve's bundled self-modification will perform that edit while you are developing. You ask it to change a skill or an instruction, a subagent writes the files under `agent/`, and you review the diff the way you would any other source change. That extension ships with `eve dev` and is not part of the production build, so a deployed agent keeps what the memory provider captured, and it keeps a skill only after the file has been accepted.
+These are ways to understand what an agent retains, rather than requirements for three separate databases. An episode can provide evidence for a fact or a better procedure. The distinction matters because remembering a past failure and changing how future deployments work have different consequences.
 
-A probe is what makes that file safe to accept. [Louis Bouchard's tutor runs](https://www.louisbouchard.ai/context-engineering-2026/) show why the question has to ask for the fact: a reply can still look like a good answer on the turn where a planted fact is already gone. I would read the trace for the failing step, edit the skill or the memory file, and merge the change only after that probe passes.
+Retrieval brings stored information into the current context. That may mean finding a document in a shared knowledge base or recalling a decision from a previous conversation. Retrieval-augmented generation, or RAG, describes a way to use retrieved information; it doesn't, by itself, determine what an agent should remember about its user.
 
-## Brain, hands, and files
+For a product team, that leaves some concrete decisions: what belongs to an individual user, what can be shared across a project, how old information is corrected, and when a memory should expire. Those choices determine whether continuity feels helpful or becomes a source of repeated mistakes.
 
-The hands are the smaller problem once the tools are few and their returns are short. Names, descriptions, and parameter schemas sit in the window on every call that loads them, and if you cannot say which tool applies, the agent cannot either. [GitHub's MCP server](https://github.blog/changelog/2025-12-10-the-github-mcp-server-adds-support-for-tool-specific-configuration-and-more/) measured one version of that cost in December 2025: loading 3–10 tools instead of the default toolsets cut context use by about 60–90%. A subagent is the same budget in another window. It should come back with a short result, on the order of the 1,000–2,000 tokens Anthropic's research agents aim to return, because Chase's failure mode is a child that did the work and then said "look at my work above," when only the final message reaches the parent.
+## Skills make procedures available when needed
 
-Session compaction belongs to the harness that owns the brain. Eve persists the session and decides when recall, capture, and compaction run, and coding harnesses fold history when the window fills, so that mechanism can stay on the default. What you still decide is which constraint a summary is allowed to drop, and whether the behavior that must survive belongs in a skill or a memory file instead.
+Skills are a practical way to package reusable instructions. The [Agent Skills format](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) starts with a name and description, allowing an agent to discover relevant procedures before loading their full instructions. Supporting references and scripts can be consulted as needed.
 
-For the typed tools in a [TypeScript](/tech/typescript) app I reach for the [AI SDK](/tech/ai-sdk), one schema the model reads and the runtime validates. For the agent itself I would start from Eve: instructions, skills, and memory as files, a sandbox for anything that has to run, and the session durable underneath. Where that loop runs, and what it is allowed to touch, is the [agent infrastructure](/blog/2026-05-ai-agents) around this payload. On an [AI](/ai) product, the part I expect to keep editing after launch is the file layer.
+For the deployment example, the agent could discover a deployment skill, read its checklist when preparing a release, and consult a migration reference only if that step requires it. The full procedure doesn't need to accompany every unrelated question.
 
-## How I would build the next one
+I find this useful because the procedure becomes something a team can inspect and improve. If the instructions are wrong, there's a specific artifact to revise. If the agent never loads the skill, the problem may be its description or how the harness exposes it. If it follows the instructions and still fails, the procedure itself may need to change.
 
-I would start from a framework that already loads skills and recalls memory, keep the standing instructions small, and put each procedure in a skill whose description says when it should load. The memory slot would be scoped to the caller, with an explicit rule for what may be saved, and tool results would come back small or as a path. Compaction can stay on the harness default.
+Skills can include scripts, but their instructions don't replace the runtime's permissions. Knowing how to perform an action and being allowed to perform it remain separate concerns.
 
-When a step fails, I would open the trace, see which skill body or memory note was in the window, and change that file only after a probe for the procedure still passes, so the next session loads the revision.
+Guillermo Rauch's [brain, hands, and files framing](https://x.com/rauchg/status/2102820148629614685) connects these ideas to system design. The model and harness coordinate the work, tools act on the world, and files hold things such as skills, memories, and repositories. Separating persistent storage from the execution environment makes it possible to review and consolidate memories without starting the agent's full computer. What an agent retains can have its own lifecycle.
+
+## Remembering also means revising
+
+Memory introduces a write path as well as a read path. Some systems save information when the agent explicitly requests it. Others extract facts or summarize experiences in the background. Either approach needs a way to handle corrections.
+
+Suppose someone says, “Use the staging environment for this test.” Saving that as a permanent preference would change its meaning. A temporary instruction has become a rule for future work. The system needs to preserve enough context to distinguish a one-time request from a lasting decision.
+
+This is why I care about where a memory came from, when it was recorded, and what can supersede it. Retrieved notes should be treated as information with a source and scope. They shouldn't silently acquire the authority of system instructions.
+
+The same care applies when an agent proposes changes to its own skills. A successful run can suggest an improvement, but one success doesn't establish a reliable procedure. I'd want that change reviewed and exercised against representative tasks before making it the default.
+
+## Follow the context when something fails
+
+Chase's discussion also emphasizes traces: the record of the steps an agent actually took. Reading the initial prompt won't tell you which document was retrieved later, which tool output was truncated, or which memory influenced a decision.
+
+An evaluation tells us whether the behavior meets an expectation. A trace helps us investigate why it didn't. In the deployment example, I would check whether the agent loaded the procedure, saw the migration requirement, and received the test result. Each failure points toward a different change.
+
+Long tasks need this scrutiny too. Summarizing older history can keep a session manageable, but the summary has to preserve unresolved constraints and decisions. Delegating research to another agent can keep detailed exploration out of the main conversation, but its returned answer must contain the findings the parent needs. Moving information out of the window only helps if we can recover the right information later.
+
+The [infrastructure around an agent](/blog/2026-05-ai-agents) makes that work possible. Context engineering determines what the agent carries through it. That's what interests me here: building systems that can accumulate useful knowledge, accept corrections, and put both to work when the next task arrives.

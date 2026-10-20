@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="720" viewBox="0 0 600 720" role="img" aria-labelledby="title desc">
+  <title id="title">The harness orchestrates context</title>
+  <desc id="desc">The harness selects context from the current task, instructions, skills, and retrieved information. It recalls and writes long-term memory. It sends context to the model, receives a response or tool request, dispatches tools in the runtime, and feeds their results into the next model call.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="none" stroke="#54e8b3" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="600" height="720" rx="8" fill="#000"/>
+  <g fill="#111" stroke="#555" stroke-width="1.5">
+    <rect x="20" y="20" width="240" height="146" rx="8"/>
+    <rect x="340" y="20" width="240" height="146" rx="8"/>
+    <rect x="20" y="282" width="560" height="148" rx="8" stroke="#54e8b3"/>
+    <rect x="20" y="574" width="240" height="120" rx="8"/>
+    <rect x="340" y="574" width="240" height="120" rx="8"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" fill="#fff" text-anchor="middle">
+    <text x="140" y="57">Long-term memory</text>
+    <text x="140" y="96" fill="#bdbdbd">Facts and past</text><text x="140" y="126" fill="#bdbdbd">experiences</text>
+    <text x="460" y="57">Task + resources</text>
+    <text x="460" y="96" fill="#bdbdbd">History, skills,</text><text x="460" y="126" font-size="20" fill="#bdbdbd">instructions, docs</text>
+    <text x="300" y="322" fill="#54e8b3" font-size="28">Harness</text>
+    <text x="300" y="363">Assemble context · call the model</text>
+    <text x="300" y="399" fill="#bdbdbd">Route tools · update working state</text>
+    <text x="140" y="614" font-size="26">Model</text><text x="140" y="654" fill="#bdbdbd">Choose next step</text>
+    <text x="460" y="614" font-size="22">Tools / runtime</text><text x="460" y="654" fill="#bdbdbd">Execute actions</text>
+  </g>
+  <g fill="none" stroke="#54e8b3" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M100 170V278" marker-start="url(#arrow)"/>
+    <path d="M460 170V278"/>
+    <path d="M65 434V570"/>
+    <path d="M225 570V434"/>
+    <path d="M375 434V570"/>
+    <path d="M535 570V434"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" fill="#ddd" text-anchor="middle">
+    <text x="195" y="211">Recall /</text><text x="195" y="239">write back</text>
+    <rect x="410" y="207" width="100" height="30" fill="#000"/><text x="460" y="229">Select</text>
+    <rect x="20" y="481" width="90" height="30" fill="#000"/><text x="65" y="503">Context</text>
+    <rect x="164" y="467" width="122" height="58" fill="#000"/><text x="225" y="489">Response /</text><text x="225" y="517">tool call</text>
+    <rect x="330" y="481" width="90" height="30" fill="#000"/><text x="375" y="503">Dispatch</text>
+    <rect x="490" y="481" width="90" height="30" fill="#000"/><text x="535" y="503">Results</text>
+  </g>
+</svg>
