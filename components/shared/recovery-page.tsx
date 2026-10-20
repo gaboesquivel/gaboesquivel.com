@@ -1,5 +1,6 @@
 import { blockGrid, PageTitle, Prose } from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
+import { Button } from "components/ui/button";
 import type { ReactNode } from "react";
 
 const exits = [
@@ -32,13 +33,15 @@ export function RecoveryPage({
       <PageTitle>{title}</PageTitle>
       <Prose>{children}</Prose>
       {onRetry ? (
-        <button
-          type="button"
+        <Button
+          className="mt-8"
           onClick={onRetry}
-          className="mt-8 rounded-lg border border-accent px-6 py-2 font-medium text-accent transition-[color,background-color,border-color,transform] ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99] dark:hover:bg-neutral-800"
+          size="site"
+          type="button"
+          variant="siteAccent"
         >
           Try again
-        </button>
+        </Button>
       ) : null}
       <ul className={blockGrid}>
         {exits.map((exit) => (

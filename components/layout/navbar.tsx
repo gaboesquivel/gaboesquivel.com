@@ -1,6 +1,12 @@
 "use client";
 
-import clsx from "clsx";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "components/ui/navigation-menu";
+import { cn } from "lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -21,8 +27,8 @@ export default function Navbar() {
       aria-label="Primary navigation"
       className="navbar -ml-[8px] tracking-tight print:hidden preview-print:hidden"
     >
-      <div className="relative px-0" id="nav">
-        <div className="flex flex-row flex-wrap">
+      <NavigationMenu className="max-w-none flex-1 justify-start" align="start">
+        <NavigationMenuList className="flex flex-row flex-wrap justify-start gap-0">
           {navItems.map(({ path, name }) => {
             const isActive =
               path === "/"
@@ -30,21 +36,22 @@ export default function Navbar() {
                 : pathname === path || pathname.startsWith(`${path}/`);
 
             return (
-              <Link
-                key={path}
-                href={path}
-                aria-current={isActive ? "page" : undefined}
-                className={clsx(
-                  "flex align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent",
-                  isActive ? "text-accent" : "text-neutral-400"
-                )}
-              >
-                <span className="px-2 py-1">{name}</span>
-              </Link>
+              <NavigationMenuItem key={path}>
+                <NavigationMenuLink
+                  render={<Link href={path} />}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent",
+                    isActive ? "text-accent" : "text-neutral-400"
+                  )}
+                >
+                  {name}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
             );
           })}
-        </div>
-      </div>
+        </NavigationMenuList>
+      </NavigationMenu>
     </nav>
   );
 }

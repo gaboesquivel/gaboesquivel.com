@@ -12,14 +12,13 @@ import {
 import { createContext, useCallback, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
-import { accentButton } from "./chat-styles";
 import {
   ConnectEmailField,
   ConnectNameField,
   ConnectTopicField,
   contactValid,
 } from "./connect-fields";
-import { ConnectCard } from "./connect-gen-ui";
+import { ConnectCard, ConnectPrimaryButton } from "./connect-gen-ui";
 
 const SubmitContext = createContext<
   | ((values: { description: string; email: string; name: string }) => void)
@@ -69,16 +68,14 @@ const Submit = ({ element }: { element: { props: { label?: string } } }) => {
   const description = useStateValue<string>("/description") ?? "";
   const valid = contactValid({ description, email, name });
   return (
-    <button
-      className={accentButton}
+    <ConnectPrimaryButton
       disabled={!valid}
       onClick={() =>
         onSubmit?.({ description, email: email.trim(), name: name.trim() })
       }
-      type="button"
     >
       {label ?? "Send email"}
-    </button>
+    </ConnectPrimaryButton>
   );
 };
 

@@ -89,26 +89,27 @@ None. No shadows, glows, glass, or grain. Hover is background fill or a 1px bord
 
 ## Components
 
-Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/shared/page-layout.tsx) and `spacing.ts`. If a pattern is missing, add it there first — do not invent a parallel title, card, or section on a page.
+Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/shared/page-layout.tsx) and [`components/shared/spacing.ts`](components/shared/spacing.ts). Interactive surfaces use shadcn Base UI (`base-nova`, [`components.json`](components.json)) in [`components/ui/`](components/ui/). Site tokens (`siteCardSurface`, `siteCardInteractive`, `siteFieldClass`) live in `spacing.ts`. If a pattern is missing, add it there or in the relevant `components/ui` primitive first — do not invent a parallel title, card, or section on a page.
 
 | Job | Primitive | Source |
 | --- | --- | --- |
+| Primary nav | `NavigationMenu` + `NavigationMenuLink` | `components/layout/navbar.tsx`, `components/ui/navigation-menu.tsx` |
 | Page h1 | `PageTitle` / `IndexHeading` | `components/shared/page-layout.tsx` |
 | Section | `PageSection` | `components/shared/page-layout.tsx` |
 | Body paragraph | `Prose` | `components/shared/page-layout.tsx` |
 | Photo | `PageImage` (requires `alt`) | `components/shared/page-layout.tsx` |
-| Filter | `FilterNav` | `components/shared/page-layout.tsx` |
-| Text / route card | `PageCard` / `cardLink` | `components/shared/page-card.tsx`, `spacing.ts` |
-| Project with image | `ProjectCard` | `components/work/project-card.tsx` |
-| Chat project row | `ProjectMedia` / `ProjectMediaStack` | `components/work/project-media.tsx` |
+| Filter | `FilterNav` (`Button` as `Link`) | `components/shared/page-layout.tsx`, `components/ui/button.tsx` |
+| Text / route card | `PageCard` / `SiteCardLink` on `Card` | `components/shared/page-card.tsx`, `components/shared/site-card-link.tsx` |
+| Project with image | `ProjectCard` on `Card` | `components/work/project-card.tsx` |
+| Chat project row | `ProjectMedia` / `ProjectMediaStack` on `Card` | `components/work/project-media.tsx` |
 | Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
 | Section CTA | `.cta-link` / `sectionAction` | `app/global.css`, `spacing.ts` |
 | In-prose link | `.prose-link` | `app/global.css` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
-| Forms | Match `/ask`: transparent fields, `border-hairline`, `focus-visible:ring-accent` | `app/connect/connect-chat.tsx` |
-| Connect generative cards | `ConnectCard`, shared actions, duration chips | `app/connect/connect-gen-ui.tsx` |
+| Forms | `Field`, `Input`, `Textarea`; hairline + mint focus via `siteFieldClass` | `components/ui/field.tsx`, `app/contact/contact-form.tsx`, `app/connect/connect-fields.tsx` |
+| Connect generative cards | `ConnectCard` (`Card`), `Button` (`siteAccent` / `siteQuiet`), `ToggleGroup` chips | `app/connect/connect-gen-ui.tsx` |
 
-`PathLink` uses `cardLink`, so it takes the same hairline border.
+`PathLink` uses the same `Card` + `siteCardInteractive` treatment as `PageCard`.
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
@@ -120,7 +121,7 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 
 **Principles**
 
-- One card surface per workflow step: hairline border, `rounded-lg`, `p-4`, `max-w-md`, `gap-3`, mono type, mint focus rings — see `ConnectCard` in `app/connect/connect-gen-ui.tsx`.
+- One card surface per workflow step: shadcn `Card`, hairline border, `rounded-lg`, `p-4`, `max-w-md`, `gap-3`, mono type, mint focus rings — see `ConnectCard` in `app/connect/connect-gen-ui.tsx`.
 - Progressive disclosure: booking shows duration, visitor time zone, and the next few starts before an in-place expand for week navigation and a responsive time grid (`app/connect/slot-picker.tsx`, logic in `lib/connect/slot-display.ts`).
 - Stateful flows: availability → details → approval → receipt. Contact fields persist when the visitor changes time. The discussion field is never prefilled from chat history.
 - Shared fields and actions: `connect-fields.tsx`, `ConnectPrimaryButton` / `ConnectSecondaryButton`, `DurationToggle` chips with `aria-pressed` and accent border when selected.

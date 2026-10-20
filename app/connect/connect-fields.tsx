@@ -1,4 +1,8 @@
-import { fieldClass } from "./chat-styles";
+import { siteFieldClass } from "components/shared/spacing";
+
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export const ConnectNameField = ({
   onChange,
@@ -7,16 +11,17 @@ export const ConnectNameField = ({
   onChange: (value: string) => void;
   value: string;
 }) => (
-  <label className="flex flex-col gap-2 text-sm">
-    <span className="text-neutral-400">Name</span>
-    <input
+  <Field>
+    <FieldLabel htmlFor="connect-name">Name</FieldLabel>
+    <Input
       autoComplete="name"
-      className={fieldClass}
+      className={siteFieldClass}
+      id="connect-name"
       onChange={(event) => onChange(event.currentTarget.value)}
       type="text"
       value={value}
     />
-  </label>
+  </Field>
 );
 
 export const ConnectEmailField = ({
@@ -26,17 +31,18 @@ export const ConnectEmailField = ({
   onChange: (value: string) => void;
   value: string;
 }) => (
-  <label className="flex flex-col gap-2 text-sm">
-    <span className="text-neutral-400">Email</span>
-    <input
+  <Field>
+    <FieldLabel htmlFor="connect-email">Email</FieldLabel>
+    <Input
       autoComplete="email"
-      className={fieldClass}
+      className={siteFieldClass}
+      id="connect-email"
       inputMode="email"
       onChange={(event) => onChange(event.currentTarget.value)}
       type="email"
       value={value}
     />
-  </label>
+  </Field>
 );
 
 export const ConnectTopicField = ({
@@ -46,15 +52,16 @@ export const ConnectTopicField = ({
   onChange: (value: string) => void;
   value: string;
 }) => (
-  <label className="flex flex-col gap-2 text-sm">
-    <span className="text-neutral-400">What you want to discuss</span>
-    <textarea
-      className={`${fieldClass} min-h-24 resize-y`}
+  <Field>
+    <FieldLabel htmlFor="connect-topic">What you want to discuss</FieldLabel>
+    <Textarea
+      className={`${siteFieldClass} min-h-24 resize-y`}
+      id="connect-topic"
       onChange={(event) => onChange(event.currentTarget.value)}
       rows={4}
       value={value}
     />
-  </label>
+  </Field>
 );
 
 export const contactValid = ({

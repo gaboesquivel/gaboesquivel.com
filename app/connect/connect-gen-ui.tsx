@@ -1,8 +1,11 @@
 import type { ReactNode } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 
-import { accentButton, chipClass, enter, quietButton } from "./chat-styles";
+import { enter } from "./chat-styles";
 
 export const ConnectCard = ({
   "aria-live": ariaLive,
@@ -15,19 +18,20 @@ export const ConnectCard = ({
   className?: string;
   title?: string;
 }) => (
-  <section
-    aria-live={ariaLive}
-    className={cn(
-      `flex w-full max-w-md flex-col gap-3 rounded-lg border border-hairline p-4 ${enter}`,
-      className
-    )}
-  >
-    {title ? (
-      <h2 className="text-sm font-semibold tracking-tight text-white">
-        {title}
-      </h2>
-    ) : null}
-    {children}
+  <section aria-live={ariaLive}>
+    <Card
+      className={cn(
+        `flex w-full max-w-md flex-col gap-3 p-4 ${enter}`,
+        className
+      )}
+    >
+      {title ? (
+        <h2 className="text-sm font-semibold tracking-tight text-white">
+          {title}
+        </h2>
+      ) : null}
+      {children}
+    </Card>
   </section>
 );
 
@@ -48,14 +52,15 @@ export const ConnectPrimaryButton = ({
   disabled?: boolean;
   onClick: () => void;
 }) => (
-  <button
-    className={accentButton}
+  <Button
     disabled={disabled}
     onClick={onClick}
+    size="site"
     type="button"
+    variant="siteAccent"
   >
     {children}
-  </button>
+  </Button>
 );
 
 export const ConnectSecondaryButton = ({
@@ -67,14 +72,15 @@ export const ConnectSecondaryButton = ({
   disabled?: boolean;
   onClick: () => void;
 }) => (
-  <button
-    className={quietButton}
+  <Button
     disabled={disabled}
     onClick={onClick}
+    size="site"
     type="button"
+    variant="siteQuiet"
   >
     {children}
-  </button>
+  </Button>
 );
 
 export const DurationToggle = ({
@@ -87,20 +93,24 @@ export const DurationToggle = ({
   <fieldset className="flex flex-wrap items-center gap-2">
     <legend className="sr-only">Duration</legend>
     <span className="text-sm text-neutral-400">Duration</span>
-    {([15, 30] as const).map((choice) => (
-      <button
-        aria-pressed={value === choice}
-        className={cn(
-          chipClass,
-          "min-w-16 text-center tabular-nums",
-          value === choice && "border-accent text-accent"
-        )}
-        key={choice}
-        onClick={() => onChange(choice)}
-        type="button"
-      >
-        {choice} min
-      </button>
-    ))}
+    <ToggleGroup
+      onValueChange={(next) => {
+        const picked = next[0];
+        if (picked === "15") onChange(15);
+        if (picked === "30") onChange(30);
+      }}
+      value={[String(value)]}
+      variant="chip"
+    >
+      {([15, 30] as const).map((choice) => (
+        <ToggleGroupItem
+          className="min-w-16 text-center tabular-nums"
+          key={choice}
+          value={String(choice)}
+        >
+          {choice} min
+        </ToggleGroupItem>
+      ))}
+    </ToggleGroup>
   </fieldset>
 );

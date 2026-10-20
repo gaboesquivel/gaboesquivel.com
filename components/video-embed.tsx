@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "components/ui/button";
 import { useState } from "react";
 
 interface VideoEmbedProps {
@@ -39,11 +40,12 @@ export function VideoEmbed({
 
   if (!active) {
     return (
-      <button
-        type="button"
-        className="group relative aspect-video w-full overflow-hidden rounded-lg bg-neutral-900"
+      <Button
         aria-label={`Play video: ${title}`}
+        className="group relative aspect-video h-auto w-full overflow-hidden rounded-lg bg-neutral-900 p-0 hover:bg-neutral-900"
         onClick={() => setActive(true)}
+        type="button"
+        variant="ghost"
       >
         <img
           src={posterFor({ videoId, platform })}
@@ -60,7 +62,7 @@ export function VideoEmbed({
             ▶
           </span>
         </span>
-      </button>
+      </Button>
     );
   }
 

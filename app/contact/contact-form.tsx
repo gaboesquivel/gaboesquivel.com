@@ -1,6 +1,11 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import { siteFieldClass } from "components/shared/spacing";
+import { Button } from "components/ui/button";
+import { Field, FieldError, FieldLabel } from "components/ui/field";
+import { Input } from "components/ui/input";
+import { Textarea } from "components/ui/textarea";
 import { useRef, useState } from "react";
 
 import { submitContactForm } from "./actions";
@@ -102,107 +107,87 @@ export function ContactForm() {
       >
         <form.Field name="name">
           {(field) => (
-            <div>
-              <label
-                htmlFor={field.name}
-                className="mb-2 block text-sm font-medium"
-              >
-                Name
-              </label>
-              <input
+            <Field>
+              <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+              <Input
+                className={siteFieldClass}
+                disabled={isPending}
                 id={field.name}
                 name={field.name}
-                value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Your full name"
-                className="w-full rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none"
-                disabled={isPending}
+                value={field.state.value}
               />
               {field.state.meta.errors.length > 0 && (
-                <p className="mt-2 text-sm text-red-600">
+                <FieldError>
                   ✗ {getErrorMessage(field.state.meta.errors[0])}
-                </p>
+                </FieldError>
               )}
-            </div>
+            </Field>
           )}
         </form.Field>
 
         <form.Field name="email">
           {(field) => (
-            <div>
-              <label
-                htmlFor={field.name}
-                className="mb-2 block text-sm font-medium"
-              >
-                Email Address
-              </label>
-              <input
+            <Field>
+              <FieldLabel htmlFor={field.name}>Email Address</FieldLabel>
+              <Input
+                className={siteFieldClass}
+                disabled={isPending}
                 id={field.name}
                 name={field.name}
-                type="email"
-                value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none"
-                disabled={isPending}
+                type="email"
+                value={field.state.value}
               />
               {field.state.meta.errors.length > 0 && (
-                <p className="mt-2 text-sm text-red-600">
+                <FieldError>
                   ✗ {getErrorMessage(field.state.meta.errors[0])}
-                </p>
+                </FieldError>
               )}
-            </div>
+            </Field>
           )}
         </form.Field>
 
         <form.Field name="subject">
           {(field) => (
-            <div>
-              <label
-                htmlFor={field.name}
-                className="mb-2 block text-sm font-medium"
-              >
-                Subject
-              </label>
-              <input
+            <Field>
+              <FieldLabel htmlFor={field.name}>Subject</FieldLabel>
+              <Input
+                className={siteFieldClass}
+                disabled={isPending}
                 id={field.name}
                 name={field.name}
-                value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Email subject line"
-                className="w-full rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none"
-                disabled={isPending}
+                value={field.state.value}
               />
               {field.state.meta.errors.length > 0 && (
-                <p className="mt-2 text-sm text-red-600">
+                <FieldError>
                   ✗ {getErrorMessage(field.state.meta.errors[0])}
-                </p>
+                </FieldError>
               )}
-            </div>
+            </Field>
           )}
         </form.Field>
 
         <form.Field name="message">
           {(field) => (
-            <div>
-              <label
-                htmlFor={field.name}
-                className="mb-2 block text-sm font-medium"
-              >
-                Message
-              </label>
-              <textarea
+            <Field>
+              <FieldLabel htmlFor={field.name}>Message</FieldLabel>
+              <Textarea
+                className={`${siteFieldClass} h-60 resize-none sm:h-80`}
+                disabled={isPending}
                 id={field.name}
                 name={field.name}
-                value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Describe the product, team, and what you need help with..."
-                className="h-60 w-full resize-none rounded-lg border border-hairline bg-transparent px-4 py-3 transition-colors focus:border-transparent focus:ring-2 focus:ring-accent focus:outline-none sm:h-80"
-                disabled={isPending}
+                value={field.state.value}
               />
               <div className="mt-2 flex items-center justify-between">
                 <p className="text-sm text-gray-600">
@@ -224,18 +209,20 @@ export function ContactForm() {
                   {field.state.value.length}/5000
                 </p>
               </div>
-            </div>
+            </Field>
           )}
         </form.Field>
 
         <div className="flex justify-end">
-          <button
-            type="submit"
+          <Button
+            className="w-full"
             disabled={isPending}
-            className="focus:ring-offset w-full rounded-lg border border-accent px-6 py-2 font-medium text-accent transition-[color,background-color,border-color,transform] ease-[cubic-bezier(0.23,1,0.32,1)] focus:ring-2 focus:ring-accent focus:outline-none disabled:opacity-50 motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99]"
+            size="site"
+            type="submit"
+            variant="siteAccent"
           >
             {isPending ? "Sending..." : "Send Message"}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

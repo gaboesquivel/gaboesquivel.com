@@ -10,6 +10,15 @@ import {
 } from "@json-render/react";
 import { useEffect, useMemo, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Field, FieldLabel } from "@/components/ui/field";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { SlotState } from "@/lib/connect/compose";
 import { BOOK_SLOT_LEAD } from "@/lib/connect/copy";
 import {
@@ -27,7 +36,7 @@ import {
 import { zonedInstant } from "@/lib/connect/slots";
 import { cn } from "@/lib/utils";
 
-import { chipClass, enter } from "./chat-styles";
+import { enter } from "./chat-styles";
 import {
   ConnectEmailField,
   ConnectNameField,
@@ -86,13 +95,15 @@ const TimeButton = ({
   onPick: (input: { duration: 15 | 30; start: string }) => void;
   timeZone: string;
 }) => (
-  <button
-    className={cn(chipClass, "tabular-nums")}
+  <Button
+    className="tabular-nums"
     onClick={() => onPick({ duration, start: iso })}
+    size="site"
     type="button"
+    variant="siteQuiet"
   >
     {formatTime({ iso, timeZone })}
-  </button>
+  </Button>
 );
 
 const BookingScheduler = ({
@@ -266,20 +277,30 @@ const BookingScheduler = ({
         }}
         value={duration}
       />
-      <label className="flex flex-col gap-2 text-sm">
-        <span className="text-neutral-400">Times shown in</span>
-        <select
-          className="min-h-11 rounded-lg border border-hairline bg-transparent px-3 text-white focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-          onChange={(event) => changeZone(event.currentTarget.value)}
+      <Field>
+        <FieldLabel htmlFor="connect-timezone">Times shown in</FieldLabel>
+        <Select
+          onValueChange={(zone) => {
+            if (zone) changeZone(zone);
+          }}
           value={displayZone}
         >
-          {timeZoneOptions(storedZone).map((zone) => (
-            <option key={zone} value={zone}>
-              {zone.replace(/_/g, " ")}
-            </option>
-          ))}
-        </select>
-      </label>
+          <SelectTrigger
+            className="min-h-11 w-full px-3"
+            id="connect-timezone"
+            size="default"
+          >
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {timeZoneOptions(storedZone).map((zone) => (
+              <SelectItem key={zone} value={zone}>
+                {zone.replace(/_/g, " ")}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </Field>
 
       {expanded ? (
         <>
@@ -313,20 +334,21 @@ const BookingScheduler = ({
                 timeZone: displayZone,
               }).length;
               return (
-                <button
+                <Button
                   aria-pressed={activeDay === day}
                   className={cn(
-                    chipClass,
                     activeDay === day && "border-accent text-accent",
                     count === 0 && "opacity-40"
                   )}
                   disabled={count === 0}
                   key={day}
                   onClick={() => setSelectedDay(day)}
+                  size="site"
                   type="button"
+                  variant="siteQuiet"
                 >
                   {formatDayChip({ date: day, timeZone: displayZone })}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -369,15 +391,17 @@ const BookingScheduler = ({
               <ConnectHint>No open times for this duration.</ConnectHint>
             ) : (
               compact.map((item) => (
-                <button
-                  className={cn(chipClass, "tabular-nums")}
+                <Button
+                  className="tabular-nums"
                   key={item.start}
                   onClick={() => pickTime(item)}
+                  size="site"
                   type="button"
+                  variant="siteQuiet"
                 >
                   {formatDayShort({ iso: item.start, timeZone: displayZone })}{" "}
                   {formatTime({ iso: item.start, timeZone: displayZone })}
-                </button>
+                </Button>
               ))
             )}
           </div>

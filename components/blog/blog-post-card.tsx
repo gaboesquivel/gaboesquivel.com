@@ -1,11 +1,11 @@
-import { cardLink, proseClass } from "components/shared/spacing";
+import { SiteCardLink } from "components/shared/site-card-link";
+import { proseClass } from "components/shared/spacing";
 import type { Blog } from "lib/blog";
 import { cn, formatDate } from "lib/utils";
-import Link from "next/link";
 
 export function BlogPostCard({ post }: { post: Blog }) {
   return (
-    <Link href={`/blog/${post.slug}`} className={cardLink}>
+    <SiteCardLink href={`/blog/${post.slug}`}>
       <h3 className="mb-1 font-medium">{post.title}</h3>
       {post.publishedAt && (
         <p className="mb-2 text-sm text-neutral-600 dark:text-neutral-400">
@@ -17,6 +17,6 @@ export function BlogPostCard({ post }: { post: Blog }) {
           {post.summary}
         </p>
       )}
-    </Link>
+    </SiteCardLink>
   );
 }

@@ -1,4 +1,5 @@
-import { cardLink, proseClass } from "components/shared/spacing";
+import { SiteCardAnchor } from "components/shared/site-card-link";
+import { proseClass } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import Image from "next/image";
@@ -9,9 +10,9 @@ export function ProjectMedia({ project }: { project: Project }) {
   const label = `${project.title} (opens in a new tab)`;
 
   return (
-    <a
+    <SiteCardAnchor
       aria-label={label}
-      className={cn(cardLink, "flex-row items-stretch gap-3 p-3")}
+      cardClassName="flex-row items-stretch gap-3 p-3"
       href={href}
       rel="noopener noreferrer"
       target="_blank"
@@ -29,7 +30,7 @@ export function ProjectMedia({ project }: { project: Project }) {
           {project.description}
         </p>
       </div>
-    </a>
+    </SiteCardAnchor>
   );
 }
 

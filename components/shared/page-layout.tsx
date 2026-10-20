@@ -1,3 +1,4 @@
+import { Button } from "components/ui/button";
 import { cn } from "lib/utils";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
@@ -129,19 +130,21 @@ export function FilterNav({
   return (
     <nav aria-label={label} className="flex flex-wrap gap-2 md:gap-4">
       {items.map((item) => (
-        <Link
+        <Button
           key={item.id}
-          href={item.href}
+          nativeButton={false}
+          render={<Link href={item.href} />}
           aria-current={current === item.id ? "page" : undefined}
+          variant="ghost"
           className={cn(
-            "rounded-md bg-neutral-200 px-2 py-2 dark:bg-neutral-800",
+            "h-auto rounded-md bg-neutral-200 px-2 py-2 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-800",
             current === item.id
               ? "text-accent"
               : "text-neutral-200 dark:text-neutral-200"
           )}
         >
           {item.label}
-        </Link>
+        </Button>
       ))}
     </nav>
   );

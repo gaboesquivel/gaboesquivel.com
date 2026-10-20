@@ -1,8 +1,11 @@
 import { FileText } from "lucide-react";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
 import type { CvDownloadPayload } from "../../lib/connect/cv-download";
-import { accentButton, enter, quietButton } from "./chat-styles";
+import { enter } from "./chat-styles";
 
 export const CvDownloadCard = ({
   filename,
@@ -10,23 +13,33 @@ export const CvDownloadCard = ({
   pdfUrl,
   title,
 }: CvDownloadPayload) => (
-  <section className={`rounded-lg border border-hairline p-4 ${enter}`}>
+  <Card className={`gap-3 p-4 ${enter}`}>
     <p className="font-medium text-foreground">{title}</p>
-    <div className="mt-3 flex flex-wrap items-center gap-2">
-      <a
-        className={`inline-flex items-center gap-2 ${accentButton}`}
-        download={filename}
-        href={pdfUrl}
+    <div className="flex flex-wrap items-center gap-2">
+      <Button
+        className="inline-flex items-center gap-2"
+        nativeButton={false}
+        render={
+          <a aria-label="Download PDF" download={filename} href={pdfUrl} />
+        }
+        size="site"
+        variant="siteAccent"
       >
         Download PDF
         <FileText aria-hidden className="h-3.5 w-3.5" />
-      </a>
-      <Link
-        className={quietButton}
-        href={pageUrl.replace("https://gaboesquivel.com", "") || "/cv"}
+      </Button>
+      <Button
+        nativeButton={false}
+        render={
+          <Link
+            href={pageUrl.replace("https://gaboesquivel.com", "") || "/cv"}
+          />
+        }
+        size="site"
+        variant="siteQuiet"
       >
         View online
-      </Link>
+      </Button>
     </div>
-  </section>
+  </Card>
 );

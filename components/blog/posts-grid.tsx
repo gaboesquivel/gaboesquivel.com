@@ -1,7 +1,7 @@
 import { PageSection } from "components/shared/page-layout";
-import { cardLink, twoColGrid } from "components/shared/spacing";
+import { SiteCardLink } from "components/shared/site-card-link";
+import { twoColGrid } from "components/shared/spacing";
 import { formatDate } from "lib/utils";
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 export function PostGrid({
@@ -26,12 +26,14 @@ export function PostGrid({
       <ul className={twoColGrid}>
         {posts.map((post) => (
           <li key={post.slug}>
-            <Link href={`/blog/${post.slug}`} className={cardLink}>
+            <SiteCardLink href={`/blog/${post.slug}`}>
               <h3 className="mb-1 font-medium">{post.title}</h3>
               {post.publishedAt && (
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">{`${formatDate(post.publishedAt)}`}</p>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  {formatDate(post.publishedAt)}
+                </p>
               )}
-            </Link>
+            </SiteCardLink>
           </li>
         ))}
       </ul>
