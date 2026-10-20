@@ -1,3 +1,9 @@
+import {
+  blogCardClassName,
+  blogCardDateClassName,
+  blogCardSummaryClassName,
+  blogCardTitleClassName,
+} from "components/blog/blog-post-card";
 import { PageSection } from "components/shared/page-layout";
 import { SiteCardLink } from "components/shared/site-card-link";
 import { twoColGrid } from "components/shared/spacing";
@@ -31,18 +37,17 @@ export function PostGrid({
       <ul className={cn(twoColGrid, "[&_a]:h-full!")}>
         {posts.map((post) => (
           <li key={post.slug} className="h-full">
-            <SiteCardLink cardClassName="h-full" href={`/blog/${post.slug}`}>
-              <h3 className="text-base leading-snug font-medium text-white">
-                {post.title}
-              </h3>
+            <SiteCardLink
+              cardClassName={blogCardClassName}
+              href={`/blog/${post.slug}`}
+            >
+              <h3 className={blogCardTitleClassName}>{post.title}</h3>
               {post.summary ? (
-                <span className="block text-sm leading-relaxed text-neutral-300">
-                  {post.summary}
-                </span>
+                <span className={blogCardSummaryClassName}>{post.summary}</span>
               ) : null}
               {post.publishedAt ? (
                 <time
-                  className="mt-1 block text-xs leading-normal text-neutral-400"
+                  className={blogCardDateClassName}
                   dateTime={post.publishedAt}
                 >
                   {formatDate(post.publishedAt)}

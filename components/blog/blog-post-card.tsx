@@ -2,25 +2,36 @@ import { SiteCardLink } from "components/shared/site-card-link";
 import type { Blog } from "lib/blog";
 import { formatDate } from "lib/utils";
 
+const blogCardClassName = "flex h-full min-h-48 w-full flex-col gap-2";
+
+const blogCardTitleClassName =
+  "line-clamp-2 min-h-11 text-base leading-snug font-medium text-white";
+
+const blogCardSummaryClassName =
+  "line-clamp-3 min-h-[4.5rem] text-sm leading-relaxed text-neutral-300";
+
+const blogCardDateClassName =
+  "mt-auto block pt-2 text-xs leading-normal text-neutral-400 tabular-nums";
+
 export function BlogPostCard({ post }: { post: Blog }) {
   return (
-    <SiteCardLink cardClassName="h-full w-full" href={`/blog/${post.slug}`}>
-      <h3 className="text-base leading-snug font-medium text-white">
-        {post.title}
-      </h3>
+    <SiteCardLink cardClassName={blogCardClassName} href={`/blog/${post.slug}`}>
+      <h3 className={blogCardTitleClassName}>{post.title}</h3>
       {post.summary ? (
-        <span className="block text-sm leading-relaxed text-neutral-300">
-          {post.summary}
-        </span>
+        <span className={blogCardSummaryClassName}>{post.summary}</span>
       ) : null}
       {post.publishedAt ? (
-        <time
-          className="mt-1 block text-xs leading-normal text-neutral-400"
-          dateTime={post.publishedAt}
-        >
+        <time className={blogCardDateClassName} dateTime={post.publishedAt}>
           {formatDate(post.publishedAt)}
         </time>
       ) : null}
     </SiteCardLink>
   );
 }
+
+export {
+  blogCardClassName,
+  blogCardDateClassName,
+  blogCardSummaryClassName,
+  blogCardTitleClassName,
+};
