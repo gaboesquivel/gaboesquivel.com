@@ -11,11 +11,11 @@ import Navbar from "../components/layout/navbar";
 
 export const metadata: Metadata = {
   description:
-    "I build useful and delightful software products across AI, Web3, and full-stack applications.",
+    "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
   metadataBase: new URL("https://gaboesquivel.com"),
   openGraph: {
     description:
-      "I build useful and delightful software products across AI, Web3, and full-stack applications.",
+      "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
     locale: "en_US",
     siteName: "Gabo Esquivel",
     title: "Gabo Esquivel | Agentic Product Engineer",

@@ -16,34 +16,33 @@ export default function AIExperiencePage() {
     <section>
       <PageTitle>AI product engineering</PageTitle>
       <Prose>
-        I build AI products that pair intuitive user experiences with reliable,
-        efficient, and secure agentic systems. My work spans chat, voice, and
-        generative UI, exploring new ways for people to interact with AI and get
-        things done.
+        I build AI products where the experience matters as much as the model:
+        voice and chat assistants, retrieval-backed workflows, and interfaces
+        that help people understand what an agent is doing.
       </Prose>
       <Prose>
-        Behind those experiences, I design the tools, context, and controls
-        agents need to automate repetitive tasks and operational workflows. I
-        focus on clear boundaries between model decisions and application logic,
-        and on improving software delivery pipelines so teams can ship and
-        maintain AI products with confidence.
+        That takes work across product, design, and architecture. I shape the
+        tools and context a model receives, the decisions it can make, and the
+        controls teams need to inspect, adjust, and operate the system after
+        launch. I also explore generative interfaces as a way to move beyond
+        chat when a task calls for a clearer interaction.
       </Prose>
 
       <PageImage alt="AI product engineering" src={aiImg} />
 
       <PageSection title="LegalAgent: voice, chat, and retrieval">
         <Prose>
-          LegalAgent already had a React Native app, and I added voice and chat
-          for case context, documents, and procedures, in Spanish or English. I
-          put OpenAI&apos;s Realtime API behind bilingual voice, used the AI SDK
-          for chat, and built RAG over case context, document summaries, and
-          procedural guidance. After attorney sessions I adjusted the
-          assistant&apos;s persona and tool calling in the Expo client.
+          For LegalAgent, I added Spanish and English voice and chat to an
+          existing React Native app for legal professionals. I used
+          OpenAI&apos;s Realtime API for voice, the AI SDK for chat, and
+          retrieval over case context, documents, and procedures. Sessions with
+          attorneys led me to adjust the assistant&apos;s persona and tool
+          calling.
         </Prose>
         <Prose>
-          Running the assistant was a separate problem. I built a TanStack Start
-          admin with Microsoft SSO where the team manages documents and system
-          prompts, and sets the categories that decide what retrieval can reach.
+          To make the system manageable after launch, I built a TanStack Start
+          administration interface with Microsoft SSO, document management,
+          prompt controls, and retrieval categories.
         </Prose>
 
         <ProjectEvidence slugs={["legal-agent"]} columns={1} />
@@ -51,24 +50,26 @@ export default function AIExperiencePage() {
 
       <PageSection title="Domain-specific assistants">
         <Prose>
-          Masterbots is a platform of domain-specific assistants. I built a
-          separate interface for each one and integrated the AI SDK for
-          internationalization automation.
+          At Masterbots, I built interfaces for domain-specific assistants and
+          integrated AI SDK tooling, including automation for multilingual
+          content.
         </Prose>
         <Prose>
-          At Bitlauncher I built the bitlauncher.ai RAG chatbot, with tools for
-          current news and video content, Masterbots prompting, and AI-assisted
-          internationalization.
+          At Bitlauncher, I built a retrieval-backed assistant with tools for
+          news and video content, plus AI-assisted internationalization. The
+          assistant could explain product information while bids, balances,
+          contracts, and transactions remained grounded in deterministic
+          application data.
         </Prose>
 
         <Prose>
+          Earlier,{" "}
           <Link href="/project/wizard-world" className="prose-link">
             Wizard World
           </Link>{" "}
-          was a progressive web app we built with collaborators at bitcashorg
-          for the February 2023 Flow Hackathon. A user could generate an image
-          with OpenAI&apos;s models and mint it as an NFT on Flow through
-          Niftory, and I worked on both the generation and the minting flow.
+          combined OpenAI image generation with NFT minting on Flow through
+          Niftory. It was an experiment in connecting generative experiences to
+          blockchain transactions.
         </Prose>
 
         <ProjectEvidence slugs={["masterbots", "bitlauncher"]} />
@@ -77,11 +78,12 @@ export default function AIExperiencePage() {
       <LatestPosts
         title="Writing about AI products"
         category="Artificial Intelligence"
+        limit={4}
       />
 
       <PageSection title="Work together">
         <Prose>
-          The roles and dates behind this work are on the{" "}
+          The roles and dates behind this work are in my{" "}
           <Link href="/cv?focus=ai" className="prose-link">
             AI CV
           </Link>
@@ -95,7 +97,13 @@ export default function AIExperiencePage() {
 
 export const metadata = pageMetadata({
   description:
-    "AI product engineering for LegalAgent's voice and chat, retrieval over case context and documents, and an admin for prompts and retrieval categories.",
+    "AI product engineering by Gabo Esquivel: voice and chat assistants, retrieval, agentic workflows, and production tools built for teams to operate.",
+  images: [
+    {
+      url: "/images/work/legalagent.png",
+      alt: "LegalAgent AI assistant interface",
+    },
+  ],
   path: "/ai",
   title: "AI Product Engineering | Gabo Esquivel",
 });

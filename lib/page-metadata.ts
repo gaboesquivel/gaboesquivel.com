@@ -23,6 +23,7 @@ export const pageMetadata = ({
   ...(path
     ? {
         alternates: {
+          canonical: path,
           types: { "text/markdown": markdownSiblingPath(path) },
         },
       }
@@ -31,6 +32,7 @@ export const pageMetadata = ({
     description,
     title,
     type: "website",
+    ...(path ? { url: path } : {}),
     ...(images ? { images } : {}),
   },
   twitter: {

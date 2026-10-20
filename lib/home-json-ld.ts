@@ -1,7 +1,7 @@
 const siteUrl = "https://gaboesquivel.com";
 
 const description =
-  "I build useful and delightful software products across AI, Web3, and full-stack applications.";
+  "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.";
 
 export const homeJsonLd = () => [
   {

@@ -37,9 +37,9 @@ export default function HomePage() {
       </PageTitle>
       <Prose>
         I build useful and delightful software products, designed for humans and
-        agents alike. I work across product, design, and architecture to create
-        intuitive human experiences, agent-friendly interfaces, and efficient
-        operational workflows.
+        agents alike. I bring product thinking, careful design, and software
+        architecture together to make complex systems intuitive to use and
+        dependable to operate.
       </Prose>
 
       <Prose>
@@ -71,14 +71,14 @@ export default function HomePage() {
             <PathLink
               href="/ai"
               title="Agentic AI products"
-              note="AI agents and generative interfaces that help people get things done, with tools and workflows your team can refine as the product evolves."
+              note="Voice, chat, retrieval, and agentic interfaces designed around how people work—and the controls teams need to improve them."
             />
           </li>
           <li className="h-full">
             <PathLink
               href="/web3"
               title="Onchain finance"
-              note="Wallets, stablecoin payments, and trading products that make complex financial interactions intuitive, with clear information about what people are signing."
+              note="Wallets, onchain transactions, and trading experiences that make balances, signatures, and financial decisions understandable."
             />
           </li>
         </ul>
@@ -90,14 +90,14 @@ export default function HomePage() {
             <PathLink
               href="/bio"
               title="Career story"
-              note="The experiences, decisions, and lessons that shaped how I approach building software."
+              note="How building web interfaces led me into banking, Web3, and AI—and shaped the way I approach products."
             />
           </li>
           <li className="h-full">
             <PathLink
               href="/cv"
               title="Résumé / CV"
-              note="My professional history, roles, responsibilities, and selected achievements."
+              note="Roles, dates, responsibilities, and selected technical achievements."
             />
           </li>
         </ul>
@@ -126,10 +126,10 @@ export const metadata: Metadata = {
     types: { "text/markdown": "/index.md" },
   },
   description:
-    "I build useful and delightful software products across AI, Web3, and full-stack applications.",
+    "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
   openGraph: {
     description:
-      "I build useful and delightful software products across AI, Web3, and full-stack applications.",
+      "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
     title: "Gabo Esquivel | Agentic Product Engineer",
     type: "website",
   },
