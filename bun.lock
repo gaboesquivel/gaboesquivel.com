@@ -25,7 +25,7 @@
         "date-fns": "^4.4.0",
         "embla-carousel-react": "^8.6.0",
         "eve": "^0.80.1",
-        "gaboesquivel": "7.2.1",
+        "gaboesquivel": "8",
         "input-otp": "^1.5.0",
         "lucide-react": "1.59.0",
         "motion": "^14.3.0",
@@ -1099,7 +1099,7 @@
 
     "fuzzysort": ["fuzzysort@3.1.0", "", {}, "sha512-sR9BNCjBg6LNgwvxlBd0sBABvQitkLzoVY9MYYROQVX/FvfJ4Mai9LsGhDgd8qYdds0bY77VzYd5iuB+v5rwQQ=="],
 
-    "gaboesquivel": ["gaboesquivel@7.2.1", "", { "dependencies": { "chalk": "^6.0.1", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-46653RhDVv/ynSritTcW/bUlA7QB9e4OP32SEauxNHm9J8Kx3tgrsFG6a0L+APezdcUQRxu2m3LkZ7m/atCpUw=="],
+    "gaboesquivel": ["gaboesquivel@8.0.0", "", { "dependencies": { "chalk": "^6.0.1", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-d5MZTptRtuti8bfO0BqNl5Ipy+cHL/FvsOo6kS/oyAKFv+O8rPTt3zmshMfi440PQkIbfN1um63TGWslSg52Ew=="],
 
     "gensync": ["gensync@1.0.0-beta.2", "", {}, "sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg=="],
 
