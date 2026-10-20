@@ -49,7 +49,7 @@ export default function HomePage() {
       </Prose>
 
       <PageSection
-        title="Work portfolio"
+        title="Selected work"
         action={
           <Link href="/work" className={sectionAction}>
             More work
