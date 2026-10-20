@@ -2,7 +2,6 @@ import { LatestPosts } from "components/blog/latest-posts";
 import { LetsConnect } from "components/shared/lets-connect";
 import {
   blockGrid,
-  PageImage,
   PageSection,
   PageTitle,
   Prose,
@@ -13,9 +12,9 @@ import { PathLink } from "components/shared/path-link";
 import { ProjectCard } from "components/work/project-card";
 import { projects } from "gaboesquivel";
 import { homeJsonLd } from "lib/home-json-ld";
+import { cn } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
-import workshop from "public/images/gabo-workshop.jpg";
 
 const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
 const selectedProjects = selectedProjectSlugs.flatMap((slug) =>
@@ -48,8 +47,6 @@ export default function HomePage() {
         products for startups and growth-stage teams across FinTech, Web3, and
         AI.
       </Prose>
-
-      <PageImage alt="Gabo Esquivel giving a workshop in 2019" src={workshop} />
 
       <PageSection
         title="Work portfolio"
@@ -88,39 +85,26 @@ export default function HomePage() {
       </PageSection>
 
       <PageSection title="Career">
-        <ul className={twoColGrid}>
+        <ul className={cn(twoColGrid, "[&_a]:h-full!")}>
           <li className="h-full">
             <PathLink
               href="/bio"
               title="Career story"
-              note="From Costa Rica's JavaScript community to a neobank, Web3, and production AI."
+              note="The experiences, decisions, and lessons that shaped how I approach building software."
             />
           </li>
           <li className="h-full">
             <PathLink
               href="/cv"
-              title="Employment record"
-              note="Titles, dates, and a printable PDF."
-            />
-          </li>
-          <li className="h-full">
-            <PathLink
-              href="/lead"
-              title="Technical leadership"
-              note="Forming teams and owning architecture while staying close enough to the code to answer for what ships."
-            />
-          </li>
-          <li className="h-full">
-            <PathLink
-              href="/startups"
-              title="Startup product engineering"
-              note="0→1 products built before there was a stack to build them on: a neobank, a launchpad, a virtual world."
+              title="Résumé / CV"
+              note="My professional history, roles, responsibilities, and selected achievements."
             />
           </li>
         </ul>
       </PageSection>
 
       <LatestPosts
+        limit={4}
         title="Writing"
         action={
           <Link href="/blog" className={sectionAction}>

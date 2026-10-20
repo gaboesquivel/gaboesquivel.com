@@ -223,12 +223,12 @@ describe("llms export helpers", () => {
 
   test("homepage corpus includes focus and bio preview", () => {
     const home = loadNarrativePages().find((page) => page.path === "/");
-    expect(home?.body).toContain("/startups");
     expect(home?.body).toContain("/ai");
     expect(home?.body).toContain("/web3");
     expect(home?.body).toContain("/bio");
     expect(home?.body).toContain("/cv");
-    expect(home?.body).toContain("/lead");
+    expect(home?.body).not.toContain("/startups");
+    expect(home?.body).not.toContain("/lead");
   });
 
   test("llms-full.txt omits archive blog post sections", () => {

@@ -5,18 +5,26 @@ import { cn, formatDate } from "lib/utils";
 
 export function BlogPostCard({ post }: { post: Blog }) {
   return (
-    <SiteCardLink href={`/blog/${post.slug}`}>
+    <SiteCardLink
+      cardClassName="flex h-full w-full flex-col"
+      href={`/blog/${post.slug}`}
+    >
       <h3 className="mb-1 font-medium">{post.title}</h3>
-      {post.publishedAt && (
-        <p className="mb-2 text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.publishedAt)}
-        </p>
-      )}
-      {post.summary && (
-        <p className={cn(proseClass, "line-clamp-2 flex-grow text-sm")}>
+      {post.summary ? (
+        <p
+          className={cn(
+            proseClass,
+            "line-clamp-none flex-grow text-sm md:line-clamp-3"
+          )}
+        >
           {post.summary}
         </p>
-      )}
+      ) : null}
+      {post.publishedAt ? (
+        <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-400">
+          {formatDate(post.publishedAt)}
+        </p>
+      ) : null}
     </SiteCardLink>
   );
 }
