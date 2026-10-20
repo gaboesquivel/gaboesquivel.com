@@ -199,8 +199,8 @@ describe("llms export helpers", () => {
     );
     const ai = loadNarrativePages().find((page) => page.path === "/ai");
     expect(ask?.body).toContain("Cannot work under W-2");
-    expect(contact?.body).toContain("Cannot work under W-2");
-    expect(ai?.body).not.toContain("Cannot work under W-2");
+    expect(contact?.body).toContain("can't work under W-2");
+    expect(ai?.body).not.toContain("work under W-2");
   });
 
   test("llms index includes when-to-use guidance", () => {

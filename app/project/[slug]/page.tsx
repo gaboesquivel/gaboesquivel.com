@@ -1,8 +1,8 @@
 import { ProjectDetails } from "components/work/project";
 import { getProjectBySlug, projects } from "gaboesquivel";
-import { metadataWithMarkdownAlternate } from "lib/page-metadata";
+import { pageMetadata } from "lib/page-metadata";
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -17,7 +17,7 @@ export default async function ProjectPage({
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    redirect("/");
+    notFound();
   }
 
   return <ProjectDetails project={project} full={true} />;
@@ -32,19 +32,15 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    redirect("/");
+    notFound();
   }
 
-  return metadataWithMarkdownAlternate({
-    metadata: {
-      description: project.description.split("\n")[0],
-      openGraph: {
-        description: project.description.split("\n")[0],
-        images: [project.image],
-        title: project.title,
-      },
-      title: project.title,
-    },
+  const imagePath = project.image.replace("https://gaboesquivel.com", "");
+
+  return pageMetadata({
+    description: project.description,
+    images: [{ url: imagePath, alt: project.title }],
     path: `/project/${slug}`,
+    title: `${project.title} | Gabo Esquivel`,
   });
 }

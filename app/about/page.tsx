@@ -8,41 +8,40 @@ export default function AboutPage() {
     <section>
       <PageTitle>About Gabo Esquivel</PageTitle>
       <Prose>
-        Gabo Esquivel is an agentic product engineer based in Costa Rica,
-        aligned with US Mountain Time. He builds useful and delightful software
-        products across AI, Web3, and full-stack applications, with fifteen
-        years shipping software and more than twelve leading 0→1 product work
-        for startups and growth-stage teams.
+        Gabo Esquivel is a product engineer based in Costa Rica. His work spans
+        AI assistants, mobile banking, blockchain systems, and the interfaces
+        that connect them. He works across product decisions, design,
+        architecture, and implementation.
       </Prose>
       <Prose>
-        His public role on this site is product engineer across product,
-        interface, and systems — not a second résumé page. The full career
-        narrative lives on{" "}
+        For examples of that work, explore the selected projects on{" "}
+        <Link href="/work" className="prose-link">
+          /work
+        </Link>
+        . The longer career story is on{" "}
         <Link href="/bio" className="prose-link">
           /bio
         </Link>
-        ; selected implementation evidence lives on{" "}
-        <Link href="/work" className="prose-link">
-          /work
-        </Link>{" "}
-        and the project pages. AI agents and tools can read{" "}
-        <Link href="/llms.txt" className="prose-link">
-          llms.txt
-        </Link>{" "}
-        for a plain-text index of the same facts, or the{" "}
-        <Link href="/docs" className="prose-link">
-          Gabo Esquivel MCP
-        </Link>{" "}
-        developer documentation to call the site agent at{" "}
-        <Link href="/mcp" className="prose-link">
-          /mcp
+        , and the roles, dates, and technical skills are documented in{" "}
+        <Link href="/cv" className="prose-link">
+          /cv
         </Link>
         .
       </Prose>
       <Prose>
-        Gabo is open to long-term and short-term work: direct hire,
-        international hire, or contracting through Blockmatic Labs LLC. He
-        cannot work under W-2. For hire terms or to send a message, use{" "}
+        This site also makes its published information available to AI tools.
+        Read{" "}
+        <Link href="/llms.txt" className="prose-link">
+          llms.txt
+        </Link>{" "}
+        for the text index, or visit{" "}
+        <Link href="/docs" className="prose-link">
+          /docs
+        </Link>{" "}
+        for the MCP and Site API documentation.
+      </Prose>
+      <Prose>
+        For hiring, contracting, or a project conversation, use{" "}
         <Link href="/contact" className="prose-link">
           /contact
         </Link>
@@ -84,7 +83,7 @@ export default function AboutPage() {
 
 export const metadata = pageMetadata({
   description:
-    "Agentic product engineer in Costa Rica (US Mountain Time). Open to direct hire, international hire, or contracting through Blockmatic Labs LLC.",
+    "Background and public information for Gabo Esquivel, with links to selected software projects, career history, CV, and agent-readable resources.",
   path: "/about",
   title: "About Gabo Esquivel",
 });

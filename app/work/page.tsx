@@ -1,32 +1,44 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { Projects } from "components/work/projects";
-import { projects } from "gaboesquivel";
-import type { Metadata } from "next";
+import { getProjectBySlug } from "gaboesquivel";
+import { pageMetadata } from "lib/page-metadata";
+
+const featuredProjectSlugs = [
+  "legal-agent",
+  "wink",
+  "ztx",
+  "bitlauncher",
+  "opyn",
+  "eos-costa-rica",
+] as const;
+
+const workIntro =
+  "A selection of products and systems I've built, from AI assistants and mobile banking to wallets, trading interfaces, and blockchain infrastructure.";
 
 export default function WorkPage() {
   const type = "featured";
-  const filteredProjects = projects.filter((project) =>
-    project.type.includes(type)
-  );
+  const filteredProjects = featuredProjectSlugs
+    .map((slug) => getProjectBySlug(slug))
+    .filter((project): project is NonNullable<typeof project> =>
+      Boolean(project)
+    );
+
   return (
     <>
-      <Projects projects={filteredProjects} type={type} />
+      <Projects
+        projects={filteredProjects}
+        type={type}
+        intro={workIntro}
+        preserveOrder={true}
+      />
       <LatestPosts />
     </>
   );
 }
 
-export const metadata: Metadata = {
-  alternates: {
-    types: { "text/markdown": "/work.md" },
-  },
+export const metadata = pageMetadata({
   description:
-    "Selected projects across AI, Web3, fintech, and full-stack product engineering.",
-  openGraph: {
-    description:
-      "Selected projects across AI, Web3, fintech, and full-stack product engineering.",
-    title: "Work & Projects | Gabo Esquivel",
-    type: "website",
-  },
-  title: "Work & Projects | Gabo Esquivel",
-};
+    "Explore software projects across AI assistants, mobile banking, trading interfaces, wallets, and blockchain infrastructure, with implementation details for each.",
+  path: "/work",
+  title: "Selected Software Projects | Gabo Esquivel",
+});

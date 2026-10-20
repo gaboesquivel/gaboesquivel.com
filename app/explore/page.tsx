@@ -18,9 +18,8 @@ export default function ExplorePage() {
       <PageTitle>Explore</PageTitle>
 
       <Prose>
-        Every page on the site, grouped by domain, engineering capability, and
-        career context. Pick whichever one matches what you came here to find
-        out.
+        Browse the main pages by project work, engineering capability, and
+        career context.
       </Prose>
 
       <PageSection title="Start here">

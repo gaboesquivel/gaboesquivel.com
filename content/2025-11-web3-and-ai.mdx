@@ -60,9 +60,9 @@ Data economics follow from that. A contributor binds examples to a wallet, a con
 
 ## How the primitives compose
 
-The posts I have written this year describe layers of one stack: stablecoins as payment rails, intent-based execution so an agent does not have to know which bridge is healthy today, agentic finance for wallets and mandates, decentralized marketplaces for models, data, and GPUs, and Model Context Protocol for tools, memory, and logs that are not glued to one vendor SDK.
+The posts I have written this year describe layers of one stack: stablecoins as payment rails, intent-based execution so an agent does not have to know which bridge is healthy today, agentic finance for wallets and mandates, and decentralized marketplaces for models, data, and GPUs. Model Context Protocol supplies an interoperability layer for exposing tools and resources to AI applications. The application still owns memory persistence, logging, authorization, and the rules that govern execution.
 
-One flow I keep seeing in designs reads market data from a decentralized feed, expresses a cross-chain intent, lets UniswapX or Across compete to fill it, settles in a GENIUS-compliant stablecoin, and writes the receipt into MCP-shaped memory. None of those steps needs a custom bridge UI, and every one of them needs constraints the agent cannot silently widen.
+One flow I keep seeing in designs reads market data from a decentralized feed, expresses a cross-chain intent, lets UniswapX or Across compete to fill it, settles in a GENIUS-compliant stablecoin, and stores the receipt in the application's audit record. None of those steps needs a custom bridge UI, and every one of them needs constraints the agent cannot silently widen.
 
 That is how I approached product work at [Bitlauncher](/project/bitlauncher) too, where the AI tools and the token sale were parts of one piece of open infrastructure for AI startups.
 

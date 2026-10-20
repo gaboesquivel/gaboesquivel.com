@@ -27,5 +27,12 @@ export default async function BlogPage({
     notFound();
   }
 
-  return <BlogPosts category="all" heading="Writing" page={parsedPage} />;
+  return (
+    <BlogPosts
+      category="all"
+      heading="Writing"
+      intro="Notes on product decisions, interfaces, and the systems behind them. Some come from projects I've shipped; others are questions I'm working through."
+      page={parsedPage}
+    />
+  );
 }

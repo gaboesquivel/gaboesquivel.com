@@ -21,6 +21,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+const categoryDescriptions = {
+  ai: "AI technologies used in shipped assistants and applications, including voice, retrieval, prompting, and tool integration.",
+  all: "An index of technologies found in Gabo Esquivel's software projects, linked to implementation examples.",
+  backend:
+    "Backend technologies used for APIs, databases, realtime services, indexers, and application infrastructure.",
+  "cloud-devops":
+    "Cloud and infrastructure tools used across application hosting, backend services, blockchain systems, and deployment.",
+  featured: "Selected technologies from Gabo Esquivel's software projects.",
+  frontend:
+    "Frontend technologies used in interactive products, trading applications, and mobile and web interfaces.",
+  web3: "Web3 technologies used in software projects, from smart contracts and wallets to blockchain indexing and data access.",
+} as const;
+
 const capabilityLinkLabel: Record<string, string> = {
   ai: "AI product engineering",
   backend: "backend engineering",
@@ -104,7 +117,7 @@ export async function generateMetadata({
       category === "all"
         ? "All technologies | Gabo Esquivel"
         : `${label} technologies | Gabo Esquivel`;
-    const description = `${label} technologies used across project work, with related evidence and writing.`;
+    const description = categoryDescriptions[category];
 
     return pageMetadata({ description, path: `/tech/${category}`, title });
   }

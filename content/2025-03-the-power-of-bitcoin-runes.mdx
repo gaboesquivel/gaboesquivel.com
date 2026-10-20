@@ -1,13 +1,13 @@
 ---
 title: The Power of Bitcoin Runes
 publishedAt: 2025-03-02
-summary: How Bitcoin Runes tracks tokens in Bitcoin's UTXO model instead of inscriptions, and the applications being built on it a year after launch.
+summary: How Runes represents fungible tokens through Bitcoin's UTXO model, and what its design does and does not provide.
 image: /images/2025/03/bitcoin-runes.webp
 category: ['Web3', 'DeFi', 'Backend']
 tech: ['JavaScript', 'Blockchain']
 ---
 
-Bitcoin Runes launched over a year ago as a UTXO-native way to do [tokenization](/web3) on Bitcoin, and because it uses Bitcoin's UTXO model instead of inscriptions, it has become a more sustainable alternative to earlier token standards like BRC-20. A year of use is enough to evaluate its impact and look at what projects are building on it.
+Bitcoin Runes activated on April 20, 2024, alongside Bitcoin's fourth halving. It introduced a UTXO-based way to represent fungible tokens without using BRC-20's inscription-based accounting. This article looks at the design during its first year, what makes it different, and which capabilities still depend on application infrastructure outside Bitcoin's base consensus rules.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
@@ -36,38 +36,18 @@ Because Runes follows Bitcoin's transaction model, it improves on BRC-20 in five
 
 Those advantages make the network more usable for both ordinary payments and tokenized assets.
 
-## Applications built on Runes
+## Applications and limitations
 
-Runes now supports applications across several sectors.
+Runes offers a way to issue and transfer fungible assets using Bitcoin transactions. Its early applications included community-issued tokens and experiments with Bitcoin-native assets.
 
-### Community tokens and memecoins
+The token representation is only one layer of a usable application. Marketplaces, wallet interfaces, indexing, custody, and more complex financial workflows still need supporting software.
 
-Community tokens and memecoins were the first wave, and they showed how new tokens can be deployed directly on Bitcoin without off-chain dependencies.
-
-### Real-world asset tokenization
-
-The framework supports tokenizing traditional assets like securities, real estate, and commodities, with fractional ownership that improves liquidity for previously illiquid assets and access that does not depend on traditional financial gatekeepers.
-
-### Bitcoin-native DeFi
-
-[Ethereum](/tech/ethereum) has dominated decentralized finance, and Runes supports financial applications directly on Bitcoin:
-
-- Native stablecoins that don't require Ethereum or wrapped BTC.
-- DEXs for peer-to-peer token exchange without intermediaries.
-- Collateralized lending that uses Runes-based UTXOs as loan security.
-
-### Gaming and digital collectibles
-
-Game developers use Runes for in-game items that players own and can transfer across platforms, verifiable scarcity and provenance for collectibles, and Bitcoin's security for valuable virtual assets.
-
-### Digital art
-
-Artists can tokenize their work with provenance that does not depend on a centralized marketplace, and sell it directly onchain.
+That distinction matters when discussing potential uses such as financial assets or programmable applications. A token standard doesn't automatically supply legal ownership, liquidity, lending, or application-level execution rules.
 
 ## Security as Bitcoin evolves
 
-Runes' onchain design keeps the security model close to Bitcoin's while staying adaptable. Every transaction that carries a rune is an ordinary Bitcoin transaction that full nodes validate, the design could interoperate with emerging Bitcoin smart contract work like covenants and BitVM, and applications built on it carry few external dependencies.
+Rune transfers are carried inside Bitcoin transactions, and Bitcoin nodes validate the underlying transactions. Rune issuance and balance semantics still require Runes-aware interpretation; ordinary Bitcoin consensus does not independently validate every application-level rule associated with a token. Indexers and wallet software therefore remain important parts of the system.
 
 ## What I would watch next
 
-After a year in production, Runes has shown that efficient tokenization on Bitcoin works, and the next things I would watch are more capable financial applications, better developer tooling, and deeper integration with covenants and BitVM. Bitcoin remains the most secure and decentralized chain in practice, and Runes is a strong candidate for tokenized assets and financial infrastructure on it.
+During its first year, Runes demonstrated a compact way to represent fungible assets within Bitcoin's transaction model. What remains interesting is how developers build reliable indexing, wallets, and applications around that model without confusing Bitcoin's base-layer guarantees with the guarantees of the surrounding software.

@@ -9,32 +9,30 @@ export default function ContactPage() {
     <section>
       <PageTitle>Contact Gabo Esquivel</PageTitle>
       <Prose>
-        Open to direct hire, international hire, or{" "}
+        I&apos;m available for direct hire, international hire, and contracts
+        through{" "}
         <Link href="/blog/2025-11-1099-contracting" className="prose-link">
-          contracting through Blockmatic Labs LLC
+          Blockmatic Labs LLC
         </Link>
-        . Cannot work under W-2. Based in Costa Rica, working US Mountain Time.
-        Fluent in English, Spanish, Portuguese, and Italian.
+        . I can&apos;t work under W-2. I&apos;m based in Costa Rica and work on
+        US Mountain Time. I speak English, Spanish, Portuguese, and Italian.
       </Prose>
       <Prose>
-        I work with founders and technical or product leaders on agentic AI,
-        onchain finance, and full-stack product work — usually where the product
-        has to earn trust under regulation, real money, or production load. Tell
-        me what you are building, where it is stuck, and whether you are hiring
-        directly, hiring internationally, or contracting through Blockmatic Labs
-        LLC. You can send a note below, book time at{" "}
-        <Link href="/cal" className="prose-link">
-          gaboesquivel.com/cal
-        </Link>
-        , email{" "}
+        Tell me what you&apos;re building, the challenge you&apos;re working
+        through, and how you&apos;d like to collaborate. Use the form below,
+        email{" "}
         <Link href="mailto:contact@gaboesquivel.com" className="prose-link">
           contact@gaboesquivel.com
         </Link>
-        , or read the{" "}
+        , or{" "}
+        <Link href="/cal" className="prose-link">
+          book a call
+        </Link>
+        . If you&apos;d like to see examples first, browse my{" "}
         <Link href="/work" className="prose-link">
-          work portfolio
-        </Link>{" "}
-        first.
+          selected work
+        </Link>
+        .
       </Prose>
 
       <div className={blockSpacing}>
@@ -46,7 +44,7 @@ export default function ContactPage() {
 
 export const metadata = pageMetadata({
   description:
-    "Contact Gabo Esquivel: direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2. Based in Costa Rica, working US Mountain Time.",
+    "Contact Gabo Esquivel about AI, Web3, or full-stack product engineering. Direct and international hiring or contracting through Blockmatic Labs LLC.",
   path: "/contact",
   title: "Contact Gabo Esquivel",
 });

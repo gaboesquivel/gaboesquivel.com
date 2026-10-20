@@ -1,6 +1,6 @@
 import { BlogPagination } from "components/blog/blog-pagination";
 import { BlogPostsMasonry } from "components/blog/blog-posts-masonry";
-import { FilterNav, IndexHeading } from "components/shared/page-layout";
+import { FilterNav, IndexHeading, Prose } from "components/shared/page-layout";
 import { getFilteredBlogPosts } from "lib/blog-filter";
 import { paginateBlogPosts } from "lib/blog-pagination";
 import {
@@ -35,10 +35,12 @@ const getUniqueCategories = () => {
 export function BlogPosts({
   category,
   heading,
+  intro,
   page = 1,
 }: {
   category?: string;
   heading?: string;
+  intro?: string;
   page?: number;
 }) {
   const categories = getUniqueCategories();
@@ -49,6 +51,8 @@ export function BlogPosts({
   return (
     <section>
       {heading ? <IndexHeading>{heading}</IndexHeading> : null}
+
+      {intro ? <Prose className="mt-0 mb-6">{intro}</Prose> : null}
 
       <FilterNav
         label="Writing categories"

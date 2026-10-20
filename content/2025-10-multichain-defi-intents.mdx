@@ -7,9 +7,9 @@ category: ['Web3', 'DeFi', 'Solana', 'Cosmos', 'Fullstack', 'Backend']
 tech: ['Ethereum']
 ---
 
-I have been building across EVM, Solana, and Cosmos since 2021, when cross-chain meant bridge, wait, swap, and hope you still had gas and pool depth on the far side. Intent-based architecture is the replacement I ship against now: the user signs a desired outcome plus constraints, and solver networks compete to fulfill it.
+Cross-chain DeFi has a persistent product problem: people must choose networks, move assets, account for transaction fees, and wait for separate systems to agree on the result. Intent-based execution moves more of that coordination into a network of participants that can fulfill an agreed outcome within stated constraints.
 
-The volume is already in production. CoW Protocol has posted $10B+ in monthly volume multiple times this year, UniswapX processes billions in gasless, MEV-protected swaps on Ethereum and L2s, Across fills thousands of cross-chain orders a day with sub-minute latency, and Jupiter on Solana routes $2B+ per day through competing market makers. Every ecosystem has converged on the same shape, where the user states an outcome instead of executing a checklist of transactions.
+Protocols approach this in different ways, including auctions, solver networks, and relayers. Their common design question is how to separate the result a user authorizes from the route a system takes to achieve it. This article compares the architecture and tradeoffs rather than treating any one execution model as universal.
 
 {/* Prevent CLS with responsive aspect ratio */}
 <div className="image-container">
@@ -38,13 +38,13 @@ On EVM, for same-chain swaps, I look at three.
 
 UniswapX runs a Dutch auction in which users sign an intent and fillers compete on a descending price curve. It is gasless for the user and MEV-protected, draws liquidity from Uniswap, RFQ, and private inventory, and runs on Mainnet, Arbitrum, Polygon, and Base.
 
-CoW Protocol batches intents, and solvers search for the settlement that maximizes surplus across the batch, which is why it shows up on large trades and toxic flow and why it has posted $10B+ months more than once this year.
+CoW Protocol batches intents, and solvers compete to find settlements across those orders. The useful design distinction is shared execution rather than a particular volume figure.
 
 1inch Fusion+ is resolver-based, with gasless swaps, partial fills, and cross-chain routing over 1inch aggregation plus private sources.
 
 For cross-chain on EVM, Across is the spoke-pool design I trust for L2-to-L2 transfers: relayers front destination liquidity and are reimbursed through canonical bridges, which keeps spreads tight and fills under a minute. Wormhole's Era 3 composable intents handle any-to-any messages with one signature and settlement across EVM, Solana, Cosmos, and the rest of their connected set, and Socket and LI.FI sit above that as orchestration, with one API over many solvers and bridges.
 
-Solana's global state and ~400ms slots make the same idea easier, since there is no public mempool to snipe from the way there is on EVM. Jupiter is the aggregator there, with competing routers and market makers over AMMs, RFQ, and private inventory at $2B+ a day, and Mayan Swift fills Solana ↔ EVM orders through auction matching and Wormhole settlement, for example USDC on Arbitrum to SOL on Solana in under a minute.
+Solana's global state and ~400ms slots make the same idea easier, since there is no public mempool to snipe from the way there is on EVM. Jupiter aggregates routes across Solana liquidity sources, while other systems connect execution across networks. Mayan Swift fills Solana ↔ EVM orders through auction matching and Wormhole settlement, for example USDC on Arbitrum to SOL on Solana in under a minute.
 
 Cosmos IBC already moved packets, but users still had to understand channels and hops. Skip Protocol turns that into one signed message and a solver path that includes gas, and Axelar plus Squid is the EVM ↔ Cosmos liquidity version, where solvers front funds, Axelar proves the transfer, and Squid is the intent layer.
 
@@ -78,7 +78,7 @@ Intents are also the execution model [agentic finance](/blog/2025-09-agentic-fin
 
 The open questions I am tracking are whether ERC-7683 is the format L2s and wallets keep, whether compacts carry real volume, whether solver networks consolidate or specialize, how fast agent products move onto intents, and whether encrypted intent pools become normal for size.
 
-When I wire this into an app, I standardize on ERC-7683 and EIP-712, pick an execution model (Dutch auction, batch, resolver, or relayer), use ERC-6909 when the fill is cross-chain and capital-tight, route sensitive flow through SUAVE or Anoma, and support ERC-4337 and ERC-7702 wallets so gasless is not a special case. OIF SDKs exist, so I do not start from a custom settlement contract.
+For a new application, I would evaluate the intent format, authorization boundary, execution guarantees, failure handling, and available infrastructure before selecting a protocol. The interface should explain the requested outcome and the conditions under which it can complete.
 
 ## Videos and docs
 

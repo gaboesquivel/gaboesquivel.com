@@ -38,7 +38,7 @@ export function ProjectCard({
                 preload={priority}
                 fetchPriority={priority ? "high" : undefined}
                 sizes="(max-width: 768px) 100vw, 896px"
-                className="h-auto w-full transition-transform duration-500 group-hover:scale-110"
+                className="h-auto w-full motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
                 style={{ height: "auto", width: "100%" }}
               />
             </div>
@@ -51,7 +51,7 @@ export function ProjectCard({
                 preload={priority}
                 fetchPriority={priority ? "high" : undefined}
                 sizes="(max-width: 768px) 100vw, 448px"
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
               />
             </div>
           )

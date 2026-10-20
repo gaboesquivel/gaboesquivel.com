@@ -1,17 +1,17 @@
 ---
-title: useMemo and useCallback Are (Mostly) Obsolete
+title: When React Compiler Replaces Manual Memoization
 publishedAt: 2025-01-17
-summary: What the React Compiler changes about memoization, why most components need fewer hooks, and when profiling still matters.
+summary: Why React Compiler reduces the need for useMemo, useCallback, and memo—and when those APIs still matter.
 image: /images/2025/01/use-memo-use-callback-obsolete.webp
 category: ['Engineering', 'Frontend']
 tech: ['ReactJS', 'TypeScript', 'NextJS']
 ---
 
-For years, `useMemo` and `useCallback` were the default tools for [React developers](/frontend) optimizing performance by avoiding repeated computations and function re-creation. With recent React that habit is mostly outdated, and this post covers why the hooks are redundant in most apps and the cases where I still reach for them.
+React developers have long used `useMemo` and `useCallback` to avoid expensive recalculations and preserve stable references. React Compiler changes that default by applying many optimizations at build time—but only in code where the compiler is enabled and able to optimize. The useful question is no longer whether to memoize everything, but when manual control still improves the result.
 
 {/* Prevent CLS by setting a minimum height */}
 <div style={{ minHeight: '300px' }}>
-![React Fractal compoundnents](/images/2025/01/use-memo-use-callback-obsolete.webp)
+![React memoization hooks](/images/2025/01/use-memo-use-callback-obsolete.webp)
 </div>
 
 ## The original use case: preventing unnecessary renders
@@ -25,12 +25,13 @@ That made sense when React re-rendered more aggressively and components often re
 
 ## Why most components no longer need them
 
-### React now does more of the optimization
+### React Compiler changes the default when it's enabled
 
-React 18's concurrent rendering and automatic batching, together with the React Compiler (formerly React Forget), have made React much better at avoiding unnecessary re-renders on its own:
+React Compiler is a build-time optimizer. When configured for an application, it can automatically memoize values, functions, and component output, reducing the need for manual hooks.
 
-- The React Compiler memoizes components and values automatically, which removes the need for `useMemo` and `useCallback` in most cases.
-- Render scheduling and priority management mean a recomputation that does happen is less likely to block the interface.
+React's automatic batching is a separate feature. Batching state updates does not replace memoization, and upgrading React alone does not mean the compiler is running.
+
+For existing applications, I would leave working memoization in place until testing and profiling justify changing it. Removing hooks can change compilation output and performance characteristics.
 
 ### Memoization holds memory
 
@@ -40,22 +41,11 @@ React 18's concurrent rendering and automatic batching, together with the React 
 
 Many developers add `useCallback` out of habit, believing it prevents re-renders, when modern JavaScript engines already handle inline functions efficiently. V8 allocates and collects short-lived functions declared inside a component cheaply, and a stable function reference only matters when something downstream actually compares it.
 
-### React.memo usually solves the real problem
+### Measure before adding memoization
 
-Wrapping the expensive child in `React.memo` is often more effective and more concise than memoizing every function the parent passes down:
+`React.memo` can skip rendering a child when its props are unchanged. It doesn't make unstable props stable, and it doesn't fix every expensive render.
 
-```tsx
-const ExpensiveComponent = React.memo(({ value }) => {
-  console.log("Rendering...");
-  return <div>{value}</div>;
-});
-
-export default function Parent({ count }) {
-  return <ExpensiveComponent value={count} />;
-}
-```
-
-`React.memo` re-renders `ExpensiveComponent` only when `value` changes, with no `useCallback` involved.
+With React Compiler enabled, much of this optimization can happen automatically. Without the compiler, `memo`, `useMemo`, and `useCallback` remain useful when a measured performance problem calls for them. I would start by keeping state local, avoiding unnecessary effects, and profiling the interaction that feels slow.
 
 ## When I still use `useMemo` or `useCallback`
 
@@ -84,4 +74,4 @@ The hooks still have a place in a few specific situations:
 
 5. **A visible UX problem.** I start without either hook and add one when I see lag, stuttering animations, or slow renders in a complex component, after profiling shows where the bottleneck is.
 
-In modern [React](/tech/reactjs) apps I default to leaving `useMemo` and `useCallback` out, because overusing them adds complexity and memory and sometimes makes performance worse, and I add them back only where a profile shows a real bottleneck.
+My default is to keep React code clear and let the compiler handle the optimizations it can. I still use manual memoization when I need precise control or when profiling shows a real benefit. The hooks aren't obsolete; they're becoming more deliberate tools.

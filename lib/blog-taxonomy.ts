@@ -84,14 +84,14 @@ export const postMatchesBrowseCategory = ({
 }) => categories?.some((category) => categoryMap[category] === slug) ?? false;
 
 export const categoryDescriptions: Record<BrowseCategory, string> = {
-  ai: "Posts tagged AI: dated notes from implementation work.",
+  ai: "Writing on AI systems, agents, retrieval, multimodal interfaces, and the engineering work around them.",
   community:
-    "Community building, contracting setup, and the Costa Rica software ecosystem.",
-  defi: "Posts on AMMs, liquidity, token standards, risk, and the engineering behind decentralized finance.",
+    "Notes on developer communities, open-source collaboration, and working across Costa Rica and international teams.",
+  defi: "Engineering notes on liquidity, trading mechanisms, token standards, stablecoins, and DeFi risks.",
   engineering:
-    "Notes on architecture, tooling, and shipping software — patterns, tradeoffs, and what held up in production.",
+    "Writing about software architecture, technical decisions, tooling, reliability, and building products.",
   product:
-    "Posts tagged Product: dated notes on product decisions, scope, and interface work.",
-  ux: "How AI and product interfaces are shifting — from chat to agents, streaming, and higher-agency workflows.",
-  web3: "Posts tagged Web3: dated notes from implementation work.",
+    "Essays on product engineering, design decisions, iteration, and what teams need to ship useful software.",
+  ux: "Notes on interface design, AI interactions, user control, and making complex workflows understandable.",
+  web3: "Writing about blockchain engineering, wallets, onchain data, and connected financial systems.",
 };

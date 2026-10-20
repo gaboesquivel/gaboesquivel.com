@@ -1,8 +1,8 @@
 import {
   IndexHeading,
+  PageSection,
   Prose,
   projectMedia,
-  subHeadingSm,
 } from "components/shared/page-layout";
 import { blockSpacing } from "components/shared/spacing";
 import { VimeoPlayer } from "components/vimeo";
@@ -18,6 +18,29 @@ import React from "react";
 import { LatestPosts } from "../blog/latest-posts";
 import { PostGrid } from "../blog/posts-grid";
 
+const capabilityTypeMap: Record<
+  string,
+  { display: string; url: string } | undefined
+> = {
+  ai: { display: "AI", url: "/ai" },
+  backend: { display: "Backend", url: "/backend" },
+  frontend: { display: "Frontend", url: "/frontend" },
+  fullstack: { display: "Fullstack", url: "/fullstack" },
+  mobile: { display: "React Native", url: "/mobile" },
+  web3: { display: "Web3", url: "/web3" },
+};
+
+const ProjectImage = ({ project, src }: { project: Project; src: string }) => (
+  <div className={projectMedia}>
+    <Image
+      src={src}
+      alt={project.title}
+      fill={true}
+      style={{ objectFit: "cover" }}
+    />
+  </div>
+);
+
 export function ProjectDetails({
   project,
   full = false,
@@ -25,6 +48,15 @@ export function ProjectDetails({
   project: Project;
   full?: boolean;
 }) {
+  const primarySrc = project.image.replace("https://gaboesquivel.com", "");
+  const validExperienceTypes = (project.type ?? [])
+    .map((type) => capabilityTypeMap[type])
+    .filter(Boolean) as { display: string; url: string }[];
+
+  const hasProjectLinks =
+    full &&
+    Boolean(project.repo || (project.link && project.link !== project.repo));
+
   return (
     <div className="mb-10">
       <IndexHeading>{project.title}</IndexHeading>
@@ -37,47 +69,33 @@ export function ProjectDetails({
       ))}
 
       {full && !project.link ? (
-        <div className={projectMedia}>
-          <Image
-            src={project.image.replace("https://gaboesquivel.com", "")}
-            alt={`${project.title} Image`}
-            fill={true}
-            style={{ objectFit: "cover" }}
-          />
-        </div>
+        <ProjectImage project={project} src={primarySrc} />
       ) : full && project.link ? (
-        <Link href={project.link} target="_blank" rel="noopener noreferrer">
-          <div className={projectMedia}>
-            <Image
-              src={project.image.replace("https://gaboesquivel.com", "")}
-              alt={`${project.title} Image`}
-              fill={true}
-              style={{ objectFit: "cover" }}
-            />
-          </div>
+        <Link
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${project.title} website`}
+        >
+          <ProjectImage project={project} src={primarySrc} />
         </Link>
       ) : (
         <Link href={`/project/${project.slug}`}>
-          <div className={projectMedia}>
-            <Image
-              src={project.image.replace("https://gaboesquivel.com", "")}
-              alt={`${project.title} Image`}
-              fill={true}
-              style={{ objectFit: "cover" }}
-            />
-          </div>
+          <ProjectImage project={project} src={primarySrc} />
         </Link>
       )}
 
-      {full && project.story && project.story.length > 0 && (
-        <div className="mb-4">
-          {project.story.map((achievement) => (
-            <p key={`${project.slug}-story-${achievement}`}>{achievement}</p>
+      {full && project.story && project.story.length > 0 ? (
+        <PageSection title="Implementation">
+          {project.story.map((paragraph) => (
+            <Prose key={`${project.slug}-story-${paragraph}`} className="mt-4">
+              {paragraph}
+            </Prose>
           ))}
-        </div>
-      )}
+        </PageSection>
+      ) : null}
 
-      {full && project.video && (
+      {full && project.video ? (
         <div className={projectMedia}>
           {project.video.includes("youtube") ? (
             <YouTubePlayer title={project.title} url={project.video} />
@@ -85,12 +103,11 @@ export function ProjectDetails({
             <VimeoPlayer title={project.title} url={project.video} />
           ) : null}
         </div>
-      )}
+      ) : null}
 
-      {full && project.achievements && project.achievements.length > 0 && (
-        <>
-          <h3 className={subHeadingSm}>Achievements</h3>
-          <ol className="mb-4 list-inside list-disc space-y-4">
+      {full && project.achievements && project.achievements.length > 0 ? (
+        <PageSection title="Selected contributions">
+          <ol className="list-inside list-disc space-y-4">
             {project.achievements.map((achievement) => (
               <li
                 key={`${project.slug}-achievement-${achievement}`}
@@ -100,107 +117,91 @@ export function ProjectDetails({
               </li>
             ))}
           </ol>
-        </>
-      )}
+        </PageSection>
+      ) : null}
 
-      {full && project.images && project.images.length > 0 && (
+      {full && project.images && project.images.length > 0 ? (
         <div className="mb-4">
           {project.images.map((image) => (
-            <div key={`${image}`} className={projectMedia}>
+            <div key={image} className={projectMedia}>
               <Image
                 src={image.replace("https://gaboesquivel.com", "")}
-                alt={`${project.title} Image`}
+                alt={project.title}
                 fill={true}
                 style={{ objectFit: "cover" }}
               />
             </div>
           ))}
         </div>
-      )}
+      ) : null}
 
-      {full && project.link && project.link !== project.repo && (
-        <p className={cn(blockSpacing, "text-sm")}>
-          <span className="font-bold">Link:</span>{" "}
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="break-all"
-          >
-            {project.link}
-          </a>
-        </p>
-      )}
-      <p className="text-sm">
-        {" "}
-        <span className="font-bold">Stack:</span>{" "}
-        {project.tech.map((tech) => {
-          const techItem = getTechStackByTag(tech as Tag);
-          if (!techItem) {
-            return null;
-          }
-          return (
-            <Link
-              href={`/tech/${techItem?.slug}`}
-              key={`${project.slug}-${techItem.slug}`}
-            >
-              <span>
-                {techItem.name}
-                {tech === project.tech.at(-1) ? "" : ", "}
-              </span>
-            </Link>
-          );
-        })}
-      </p>
+      {hasProjectLinks ? (
+        <PageSection title="Project links">
+          {project.link && project.link !== project.repo ? (
+            <p className={cn(blockSpacing, "text-sm")}>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="break-all"
+              >
+                {project.link}
+              </a>
+            </p>
+          ) : null}
+          {project.repo ? (
+            <p className="text-sm">
+              <a
+                href={project.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="break-all"
+              >
+                {project.repo}
+              </a>
+            </p>
+          ) : null}
+        </PageSection>
+      ) : null}
 
-      {project.type && project.type.length > 0 && (
-        <p className="mt-1 text-sm">
-          <span className="font-bold">Experience:</span>{" "}
-          {(() => {
-            // Map of types to their display names and URLs
-            const typeMap: Record<
-              string,
-              { display: string; url: string } | undefined
-            > = {
-              ai: { display: "AI", url: "/ai" },
-              backend: { display: "Backend", url: "/backend" },
-              frontend: { display: "Frontend", url: "/frontend" },
-              fullstack: { display: "Fullstack", url: "/fullstack" },
-              mobile: { display: "React Native", url: "/mobile" },
-              web3: { display: "Web3", url: "/web3" },
-            };
+      {full ? (
+        <PageSection title="Technologies">
+          <p className="text-sm">
+            {project.tech.map((tech) => {
+              const techItem = getTechStackByTag(tech as Tag);
+              if (!techItem) {
+                return null;
+              }
+              return (
+                <Link
+                  href={`/tech/${techItem.slug}`}
+                  key={`${project.slug}-${techItem.slug}`}
+                >
+                  <span>
+                    {techItem.name}
+                    {tech === project.tech.at(-1) ? "" : ", "}
+                  </span>
+                </Link>
+              );
+            })}
+          </p>
+        </PageSection>
+      ) : null}
 
-            // Filter types that have entries in the map
-            const validTypes = project.type
-              .map((type) => typeMap[type])
-              .filter(Boolean) as { display: string; url: string }[];
-
-            // Return the links
-            return validTypes.map((item) => (
+      {full && validExperienceTypes.length > 0 ? (
+        <PageSection title="Experience">
+          <p className="text-sm">
+            {validExperienceTypes.map((item) => (
               <React.Fragment key={`${project.slug}-type-${item.url}`}>
                 <Link href={item.url}>
                   <span>{item.display}</span>
                 </Link>
-                {item === validTypes.at(-1) ? "" : ", "}
+                {item === validExperienceTypes.at(-1) ? "" : ", "}
               </React.Fragment>
-            ));
-          })()}
-        </p>
-      )}
-
-      {full && project.repo && (
-        <p className="text-sm">
-          <span className="font-bold">Repo:</span>{" "}
-          <a
-            href={project.repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="break-all"
-          >
-            {project.repo}
-          </a>
-        </p>
-      )}
+            ))}
+          </p>
+        </PageSection>
+      ) : null}
 
       {full &&
         (project.related && project.related.length > 0 ? (
@@ -212,7 +213,7 @@ export function ProjectDetails({
                 slug: post.url,
                 title: post.title,
               }))}
-            title="Related Posts"
+            title="Related writing"
           />
         ) : (
           <LatestPosts />

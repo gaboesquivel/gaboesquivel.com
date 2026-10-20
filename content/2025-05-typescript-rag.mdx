@@ -6,16 +6,16 @@ category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 ---
 
-A language model can only answer from what it saw in training, so an assistant that has to cite a firm's documents or this week's data needs those sources in the prompt. Retrieval-augmented generation (RAG) is the standard architecture for [LLM-powered applications](/ai) that do this: it fetches relevant text from an external knowledge base and hands it to the model at query time, which improves accuracy and lets answers include current or proprietary data.
+A language model can use information supplied with a request, but it doesn't automatically have access to a team's internal documents or recently changed facts. [Retrieval-augmented generation (RAG)](/ai) connects the model to an external knowledge source. The application retrieves relevant information, passes it into the model's context, and uses the result to produce an answer that can reference those sources.
 
 ## How RAG works
 
-A RAG system runs in two steps:
+A retrieval system has two parts: preparing information for search and finding the relevant material when a question arrives.
 
-1. **Retrieval** fetches relevant information from a knowledge base. Documents are chunked and converted into vector embeddings with a model like [OpenAI](/tech/openai)'s `text-embedding-3-small` or an open-source option like `sentence-transformers`, and the embeddings are stored in a vector database.
-2. **Generation** embeds the incoming query into the same vector space, runs a similarity search for the closest chunks, and passes them as context to a language model like GPT-4, which writes the answer.
+1. **Indexing.** Extract text from documents, divide it into useful passages, attach source metadata, and build a searchable index. Embeddings can capture semantic similarity, while keyword indexes preserve precise names and terms. The index can change without retraining the language model.
+2. **Retrieval and generation.** When a question arrives, search the index for relevant passages. Depending on the application, combine semantic and keyword retrieval, filter results by the user's permissions, and rerank candidates before passing selected evidence to the model. The model generates an answer from the supplied context.
 
-Because the model and the data are decoupled, you can change the knowledge base without retraining anything, which suits domain-specific applications whose sources change often.
+RAG can improve factual grounding and expose current or private information, but retrieval alone doesn't guarantee a correct answer. The application still needs to consider source quality, access control, conflicting documents, and how the answer is evaluated.
 
 ## Similarity search
 

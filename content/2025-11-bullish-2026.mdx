@@ -36,15 +36,11 @@ Latin America doesn't need to rebuild correspondent banking networks or payment 
 
 ## Tokenized venues running in parallel
 
-Traditional financial institutions are launching tokenized trading venues as production infrastructure with regulatory approval rather than as pilots. The NYSE is building parallel digital venues that run 24/7, settle instantly, and use stablecoin rails, and those venues are new markets built on different assumptions rather than retrofits of the existing ones.
+I expect institutional tokenization to develop alongside traditional market infrastructure rather than replace it in one move. A new settlement system needs brokers, custodians, issuers, and regulators to agree on more than the technology recording ownership.
 
-The transition strategy is to run both systems side by side, legacy markets with T+1 settlement and limited hours next to digital venues with instant settlement and continuous operation, and let capital choose its rails. What makes the digital side work is programmable ownership combined with settlement that happens at the same moment as the trade, so there is no counterparty window and no wait for banks to clear wires.
+What interests me is the possibility of securities whose ownership and transfer rules can be represented programmatically. The potential benefits include clearer settlement records, more flexible operational workflows, and interoperability with financial applications. Those outcomes still depend on regulation, custody, and functioning markets.
 
-Custody moves too, from central clearing houses toward wallets. On Bitcash I built WebAuthn key management for in-browser signing and added EOS contract multisig, and on Bitlauncher the wallet showed EVM and EOS balances together across a token bridge; those same primitives apply to tokenized equities, where custody becomes something developers build on instead of a service that requires institutional relationships.
-
-Compliance follows the same path, with transfer restrictions enforced in the smart contract, KYC attached to wallet credentials, and accreditation checked before a transaction executes. The regulations stay, and enforcement becomes code instead of manual process. Once assets sit in a wallet and settle in stablecoins, participants no longer need correspondent banking relationships, although securities law still applies to them.
-
-That opens composability between tokenized securities and DeFi: securities as collateral in lending protocols, automated market makers for equity liquidity, and cross-chain bridges for portability, all built from primitives that already work for crypto assets.
+On Bitcash I worked on WebAuthn-based signing, and on Bitlauncher I built wallet and token flows across blockchain systems. That experience makes the interfaces around signing, permissions, and transaction state particularly interesting to me. It doesn't establish that institutional tokenized-securities infrastructure has already reached production.
 
 ## Wallet signing without seed phrases
 
@@ -60,4 +56,4 @@ I treat DeFi as the backend layer for the rest of this stack, because AI agents 
 
 ## What I'm building toward in 2026
 
-Each of those layers reached production on its own in 2025: agents that run multi-step workflows, stablecoins with regulatory clarity, tokenized venues with institutional backing, wallets that keep self-custody usable, and audited DeFi protocols. In 2026 I expect to spend most of my time on the boundaries between them, meaning who signs, which rails settle, and what an agent is allowed to execute on a user's behalf.
+In 2025, production AI assistants, stablecoin infrastructure, and wallet tooling gave me practical components to build with. Institutional tokenized securities remained a development direction, not a completed transition. For 2026, I'm most interested in the boundaries between those systems: who authorizes an action, how settlement is recorded, and what an agent is permitted to execute.

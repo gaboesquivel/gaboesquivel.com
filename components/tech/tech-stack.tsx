@@ -40,7 +40,7 @@ export default function TechStack({
       <LatestPosts title="Related posts" tech={tech.tag} />
 
       {tech.link ? (
-        <p className="mt-6 text-sm text-neutral-500">
+        <p className="mt-6 text-sm text-neutral-400">
           <a
             href={tech.link}
             target="_blank"

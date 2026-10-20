@@ -13,9 +13,15 @@ export default function AskPage() {
   return <ConnectPageContent />;
 }
 
-export const metadata = pageMetadata({
-  description:
-    "A site agent for a note or a 15- or 30-minute call. Direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2.",
-  path: "/ask",
-  title: "Work with Gabo Esquivel",
-});
+export const metadata = {
+  ...pageMetadata({
+    description:
+      "A site agent for a note or a 15- or 30-minute call. Direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2.",
+    path: "/ask",
+    title: "Work with Gabo Esquivel",
+  }),
+  robots: {
+    follow: true,
+    index: false,
+  },
+};

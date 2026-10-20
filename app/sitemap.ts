@@ -2,6 +2,7 @@ import { techCategoryIds } from "components/tech/categories";
 import { projects, techStack } from "gaboesquivel";
 import { allBlogs } from "lib/blog";
 import { browseCategories, isArchivePost } from "lib/blog-taxonomy";
+import { visibleTechStack } from "lib/tech-evidence";
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -82,7 +83,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/tech/${category}`,
     }));
 
-  const techUrls = techStack.map((tech) => ({
+  const techUrls = visibleTechStack(techStack).map((tech) => ({
     changeFrequency: "monthly" as const,
     priority: 0.7,
     url: `${baseUrl}/tech/${tech.slug}`,

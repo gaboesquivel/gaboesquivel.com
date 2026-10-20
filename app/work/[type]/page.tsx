@@ -4,6 +4,9 @@ import { projects } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
 import { isWorkType, workTypeCopy, workTypeOptions } from "lib/work-types";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return workTypeOptions
@@ -18,6 +21,11 @@ export default async function WorkPage({
 }) {
   const { type: rawType } = await params;
   const type = rawType || "featured";
+
+  if (!isWorkType(type)) {
+    notFound();
+  }
+
   const filteredProjects =
     type === "all"
       ? projects
@@ -37,12 +45,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { type: rawType } = await params;
   const type = rawType || "featured";
-  const copy = isWorkType(type)
-    ? workTypeCopy[type]
-    : {
-        description: `Projects tagged ${type} in the work library.`,
-        heading: `${type} projects`,
-      };
+
+  if (!isWorkType(type)) {
+    notFound();
+  }
+
+  const copy = workTypeCopy[type];
 
   return pageMetadata({
     description: copy.description,

@@ -16,36 +16,43 @@ export const workTypeCopy: Record<
   { heading: string; description: string }
 > = {
   ai: {
-    description: "Projects tagged AI in the work library.",
+    description:
+      "AI projects involving voice assistants, retrieval, specialized interfaces, and research tools.",
     heading: "AI projects",
   },
   all: {
-    description: "The full project library.",
+    description:
+      "The complete project archive, from early web applications to mobile banking, AI assistants, and blockchain systems.",
     heading: "All projects",
   },
   contract: {
-    description: "Contract projects from the work library.",
+    description:
+      "Engineering projects delivered through contract engagements, with application, systems, and technology details.",
     heading: "Contract projects",
   },
   featured: {
     description:
-      "Selected software projects across AI, Web3, fintech, and full-stack work.",
+      "Selected software projects across AI, banking, interactive products, and blockchain infrastructure.",
     heading: "Selected software projects",
   },
   "full-time": {
-    description: "Full-time projects from the work library.",
+    description:
+      "Software projects built in full-time roles across financial products, AI applications, and blockchain infrastructure.",
     heading: "Full-time projects",
   },
   lead: {
-    description: "Projects tagged lead in the work library.",
+    description:
+      "Projects involving technical leadership, product direction, architecture, and engineering delivery.",
     heading: "Leadership projects",
   },
   oss: {
-    description: "Open-source projects from the work library.",
+    description:
+      "Open-source tools and contributions spanning blockchain infrastructure and developer-facing applications.",
     heading: "Open-source projects",
   },
   web3: {
-    description: "Projects tagged Web3 in the work library.",
+    description:
+      "Blockchain projects involving wallets, trading interfaces, token systems, and indexed chain data.",
     heading: "Web3 projects",
   },
 };

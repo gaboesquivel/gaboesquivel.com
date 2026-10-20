@@ -5,3 +5,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - postcss@8.5.31
   - react-resizable-panels@4.14.7
+  - gaboesquivel@8.0.1

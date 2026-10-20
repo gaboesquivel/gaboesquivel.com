@@ -1,4 +1,4 @@
-import { FilterNav, IndexHeading } from "components/shared/page-layout";
+import { FilterNav, IndexHeading, Prose } from "components/shared/page-layout";
 import { ProjectsMasonry } from "components/work/projects-masonry";
 import type { Project } from "gaboesquivel";
 import {
@@ -12,10 +12,14 @@ export function Projects({
   projects,
   type,
   heading,
+  intro,
+  preserveOrder = false,
 }: {
   projects: Project[];
   type?: string;
   heading?: string;
+  intro?: string;
+  preserveOrder?: boolean;
 }) {
   return (
     <section>
@@ -27,6 +31,8 @@ export function Projects({
               : `Projects: ${type}`)}
         </IndexHeading>
       ) : null}
+
+      {intro ? <Prose>{intro}</Prose> : null}
 
       {type ? (
         <FilterNav
@@ -40,7 +46,11 @@ export function Projects({
         />
       ) : null}
 
-      <ProjectsMasonry projects={projects} identifier={type} />
+      <ProjectsMasonry
+        projects={projects}
+        identifier={type}
+        preserveOrder={preserveOrder}
+      />
     </section>
   );
 }

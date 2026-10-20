@@ -1,79 +1,72 @@
 ---
-title: Tokenization
+title: Tokenized Securities at the NYSE
 publishedAt: 2026-01-20
-summary: Exchanges like the NYSE are launching tokenized venues that run 24/7, settle instantly, and fund with stablecoins, next to the markets they already operate.
+summary: The NYSE is developing a tokenized-securities platform for 24/7 trading and onchain settlement, subject to regulatory approval.
 image: /images/2026/01/nyse-tokenization.webp
 category: ['Web3', 'Finance', 'Stablecoins', 'Tokenization', 'Institutions']
 tech: ['Blockchain']
 ---
 
-The NYSE and other financial institutions are launching tokenized trading venues that run 24/7, settle instantly, and take stablecoin funding, and they are building them as new venues rather than adding blockchain to back-office systems or retrofitting the markets they already run.
+On January 19, 2026, the New York Stock Exchange announced that it was developing a platform for trading and settling tokenized securities. The proposed platform is designed for continuous trading, immediate settlement, fractional shares, and stablecoin-based funding.
 
-These venues launch with regulatory approval for tokens issued natively as digital securities and for tokenized shares that are fungible with traditionally issued ones. I've followed [Web3 infrastructure](/web3) for years, and that fungibility is the detail that matters most to me, because it lets the same capital sit on either rail while the two systems coexist.
+The important distinction is its status: **this is a platform under development, subject to regulatory approval**, not an already operating tokenized stock exchange.
 
-{/* Prevent CLS with responsive aspect ratio */}
+The [NYSE announcement](https://ir.theice.com/press/news-details/2026/The-New-York-Stock-Exchange-Develops-Tokenized-Securities-Platform/default.aspx) interests me because it brings questions I've worked on in blockchain applications into traditional market infrastructure: what represents ownership, who can authorize a transfer, and which systems can be trusted to keep the account and settlement state consistent.
+
 <div className="image-container">
 ![Tokenization](/images/2026/01/tokenization.webp)
 </div>
 
-## Parallel venues next to legacy markets
+## A parallel market structure
 
-The transition strategy is to run both systems in parallel: traditional markets with limited hours, T+1 settlement, and bank wire funding, next to digital venues with continuous operation, instant settlement, and stablecoin rails. Infrastructure transitions tend to work this way, with the alternative built alongside what already works and capital left to choose its rails.
+The NYSE proposal combines its Pillar matching technology with blockchain-based post-trade systems. Its stated design includes tokenized shares that are fungible with traditionally issued securities, as well as securities issued natively in digital form.
 
-Exchanges like the NYSE are positioning themselves differently from infrastructure providers that tokenize existing assets. When the same operator builds both the venue and the issuance layer, the securities are digital from issuance instead of representations of off-chain assets, and the open question becomes how fast capital migrates to the programmable side.
+That raises an architectural question. How do a traditional security and its tokenized representation maintain a consistent record of ownership, entitlement, and transfer restrictions?
 
-## What instant settlement changes
+Running a digital venue alongside existing market infrastructure may offer a path toward adoption without requiring every participant and system to migrate at once. It also creates integration work: brokers, custodians, clearing infrastructure, market-data providers, and regulators must agree on what each record means.
 
-T+1 sounds fast until you notice it is still measured in days. Instant settlement means the trade and the ownership transfer happen at the same moment, with finality, so there is no settlement window, no counterparty exposure during it, and no wait for cash to clear across banking rails.
+## What faster settlement changes
 
-Stablecoin funding is what makes that possible, because settlement no longer has to wait for banks to open and can run onchain around the clock. Shorter settlement lowers risk, frees capital that would otherwise sit waiting, and admits participants who could not operate on T+1 rails.
+Traditional US equities generally settle on a T+1 schedule. The NYSE's proposed platform is designed to support immediate settlement through tokenized capital.
 
-Once assets and payments settle together, you can build products that settlement delays used to rule out, including automated market making, programmatic collateral management, and cross-market arbitrage.
+Shorter settlement can reduce the time between a trade and the movement of the asset and payment. That can change capital requirements, reconciliation, and the experience of transferring ownership.
 
-## Custody in wallets
+It doesn't remove every form of risk. Finality depends on the settlement system, the legal framework, and the connections between participants. Operational failures, custody problems, and reconciliation errors remain possible even when a ledger updates quickly.
 
-If settlement happens onchain, custody follows it. Tokenized venues assume digital securities live in wallets rather than with central custodians, which removes the clearing house from the middle and opens a layer of custody primitives: self-custody, multisig wallets, institutional custody providers, and smart contract escrow.
+For an engineer, the question is how the interface and backend represent an action while its different kinds of confirmation are still in progress.
 
-Onchain custody means programmable access control, onchain verification, delegation, and recovery, on top of key storage. I've built parts of that layer: WebAuthn key management for in-browser signing and EOS contract multisig on Bitcash, and wallet and bridge flows across EVM and EOS on Bitlauncher. The same questions about how assets are held, who may sign, and how actions stay auditable apply to tokenized equities.
+## Custody and authorization
 
-That change reaches clearing, margin rules, and broker economics, well beyond the interface an investor sees.
+Tokenized securities still require an ownership and custody model. A blockchain record does not imply that every investor will hold securities in a self-custodied wallet.
 
-## Programmable compliance
+Institutional custodians, brokers, regulated intermediaries, and programmable wallets may have different responsibilities. The product needs to make those responsibilities clear.
 
-Compliance has been one of the largest blockers for tokenized securities, and securities regulation still applies once an asset moves onchain. What changes is enforcement: transfer restrictions can live in the smart contract, KYC can be attached to wallet credentials, and accreditation can be checked before a transaction executes.
+I've worked on related technical problems in [Bitcash](/project/bitcashbank), where WebAuthn supported browser-based transaction signing, and [Bitlauncher](/project/bitlauncher), where wallets, token flows, and indexed transactions needed to remain consistent.
 
-Those compliant markets need onchain identity, transfer restrictions, and regulatory hooks, and exchanges launching with regulatory approval show the path exists. What remains open is which compliance layers get built on those primitives and how well they adapt to different asset types and jurisdictions.
+Those projects are not tokenized-equities venues. The relevant experience is designing signing, data, and transaction interfaces where the system must be clear about what an action changes.
 
-Markets that run 24/7 need compliance monitoring that runs 24/7, which raises the bar on who can operate a venue while also allowing automation that manual compliance workflows could not support.
+## Compliance remains part of the system
 
-## Global access without correspondent banking
+Putting securities onchain doesn't remove securities regulation. A digital venue still needs the rules, permissions, records, and controls appropriate to its market and participants.
 
-T+1 settlement assumes correspondent banking, and stablecoin settlement does not, so participants can reach tokenized markets without a traditional bank account, international wires, or forex spreads and delays.
+Smart contracts may help enforce transfer restrictions or define permitted operations. Identity checks, legal ownership, corporate actions, dispute resolution, and reporting still require systems and institutions outside a token contract.
 
-The regulations stay the same, and the infrastructure requirement is what changes. If you can custody assets in a wallet and settle in stablecoins, you no longer need the banking relationships legacy markets require, which opens those markets to retail investors, international institutions, and participants in emerging markets who were previously shut out. Securities law remains the limit on who may participate.
+That boundary is important. Programmable rules are valuable when they express a well-understood requirement, but code alone does not establish regulatory compliance.
 
-## Tokenized securities as DeFi primitives
+## What the interface needs to explain
 
-When securities settle instantly and custody is programmable, you can compose them: tokenized equities as collateral in DeFi protocols, shares fractionalized programmatically, automated market makers providing liquidity for securities, and bridges moving tokenized assets between ecosystems.
+A useful product should not require someone to understand a settlement protocol before they can understand their position.
 
-The DeFi patterns for market making, liquidity pools, and yield optimization carry over once financial assets are programmable primitives, and that design space is the part of tokenization I most want to build in. With traditional institutions launching venues, how fast that composability arrives depends on when the infrastructure goes live.
+I would prioritize clear distinctions between an order, an execution, settlement, and available holdings. Each state has a different meaning, and the UI should make that meaning visible.
 
-## Onboarding decides adoption
+The same applies to custody. People need to understand who holds the asset, what authority they have, and what happens when a transaction fails or requires support.
 
-With compliance possible and custody primitives maturing, onboarding is the bottleneck. Traditional investors need a way into tokenized markets, retail users need wallets that don't feel like a new operating system, and institutions need tokenized assets inside their existing portfolio and risk systems.
+For institutions, the experience also extends beyond the trading screen into reconciliation, reporting, permissions, and existing operational systems.
 
-I would build the interface to look like a brokerage account, with better settlement, lower fees, and 24/7 access, and keep wallets, keys, and onchain transactions out of the user's way. The stack underneath can be completely different as long as the workflow feels familiar, because institutions adopt what fits the way they already work, and a venue that demands new workflows first will be adopted slowly.
+## What remains open
 
-## Trust mechanisms
+The NYSE announcement describes a direction and a proposed architecture. Regulatory approval, production readiness, market participation, settlement interoperability, and custody arrangements will determine what the eventual service can support.
 
-Once real money moves onchain, the product is trust, delivered through custody guarantees, settlement finality, regulatory compliance, operational resilience, and clear recourse when something goes wrong.
+I see the opportunity less as putting a conventional interface on a blockchain and more as designing a financial system whose records and workflows remain understandable across traditional and programmable infrastructure.
 
-In my post on agentic commerce I argued that high-agency systems work only when users keep visibility and control. Tokenized markets are high-agency by design, since assets move programmatically and settle instantly, and they fail if users don't trust the custody model, can't follow the compliance layer, or can't verify that settlement happened.
-
-Traditional institutions bring brand recognition, regulatory relationships, and operating history that crypto-native platforms lack, and they still need the mechanisms: transparent onchain settlement, auditable custody, programmatic compliance, and a fast human override.
-
-## Why this is happening now
-
-Stablecoin infrastructure has matured, regulatory paths are clearer, and exchanges are launching tokenized venues with approvals and institutional backing, which puts tokenization on a near-term timeline that is moving faster than most people expected.
-
-Each layer feeds the next one: faster settlement allows composable products, stablecoin rails widen participation, programmable compliance supports new asset types, and wallet custody makes self-sovereign ownership practical. The engineering I expect to do is at those joins, in custody flows, compliance hooks, and onboarding that hides the wallet.
+The most interesting engineering work is at those boundaries. The platform's real contribution will become clearer as its technical and regulatory design moves from announcement to operation.
