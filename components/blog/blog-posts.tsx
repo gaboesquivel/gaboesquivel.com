@@ -1,7 +1,8 @@
+import { BlogPagination } from "components/blog/blog-pagination";
 import { BlogPostsMasonry } from "components/blog/blog-posts-masonry";
 import { FilterNav, IndexHeading } from "components/shared/page-layout";
-import { allBlogs } from "lib/blog";
-import { comparePublishedAtDesc } from "lib/blog-order";
+import { getFilteredBlogPosts } from "lib/blog-filter";
+import { paginateBlogPosts } from "lib/blog-pagination";
 import {
   browseCategories,
   categoryDisplayNames,
@@ -12,7 +13,7 @@ import type { BrowseCategory } from "lib/blog-taxonomy";
 const getUniqueCategories = () => {
   const categoryCounts = new Map<BrowseCategory, number>();
 
-  for (const post of allBlogs) {
+  for (const post of getFilteredBlogPosts()) {
     if (!post.category) {
       continue;
     }
@@ -31,50 +32,19 @@ const getUniqueCategories = () => {
   return browseCategories.filter((slug) => categoryCounts.has(slug));
 };
 
-const normalizeCategoryForComparison = (category: string) =>
-  category.toLowerCase().replaceAll(/[-\s]+/g, " ");
-
-const mapCategoryToSlug = (category: string) => {
-  if (browseCategories.includes(category as BrowseCategory)) {
-    return category;
-  }
-
-  const normalized = normalizeCategoryForComparison(category);
-  for (const [displayName, slug] of Object.entries(categoryMap)) {
-    if (normalizeCategoryForComparison(displayName) === normalized) {
-      return slug;
-    }
-  }
-
-  return category;
-};
-
-const getFilteredPosts = (category?: string) => {
-  let filtered = [...allBlogs];
-
-  if (category && category !== "all") {
-    const categorySlug = mapCategoryToSlug(category);
-    filtered = filtered.filter((post) => {
-      if (!post.category) {
-        return false;
-      }
-      return post.category.some((cat) => categoryMap[cat] === categorySlug);
-    });
-  }
-
-  return filtered.sort(comparePublishedAtDesc);
-};
-
 export function BlogPosts({
   category,
   heading,
+  page = 1,
 }: {
   category?: string;
   heading?: string;
+  page?: number;
 }) {
   const categories = getUniqueCategories();
-  const filteredPosts = getFilteredPosts(category);
+  const filteredPosts = getFilteredBlogPosts(category);
   const currentCategory = category ?? "all";
+  const paginatedPosts = paginateBlogPosts(filteredPosts, page);
 
   return (
     <section>
@@ -93,7 +63,12 @@ export function BlogPosts({
         ]}
       />
 
-      <BlogPostsMasonry posts={filteredPosts} identifier={currentCategory} />
+      <BlogPostsMasonry posts={paginatedPosts} identifier={currentCategory} />
+      <BlogPagination
+        category={currentCategory}
+        page={page}
+        totalItems={filteredPosts.length}
+      />
     </section>
   );
 }

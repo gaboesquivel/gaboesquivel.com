@@ -31,18 +31,22 @@ export function PostGrid({
       <ul className={cn(twoColGrid, "[&_a]:h-full!")}>
         {posts.map((post) => (
           <li key={post.slug} className="h-full">
-            <SiteCardLink
-              cardClassName="flex h-full flex-col"
-              href={`/blog/${post.slug}`}
-            >
-              <h3 className="font-medium">{post.title}</h3>
+            <SiteCardLink cardClassName="h-full" href={`/blog/${post.slug}`}>
+              <h3 className="text-base leading-snug font-medium text-white">
+                {post.title}
+              </h3>
               {post.summary ? (
-                <p className="text-sm md:line-clamp-3">{post.summary}</p>
+                <span className="block text-sm leading-relaxed text-neutral-300">
+                  {post.summary}
+                </span>
               ) : null}
               {post.publishedAt ? (
-                <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                <time
+                  className="mt-1 block text-xs leading-normal text-neutral-400"
+                  dateTime={post.publishedAt}
+                >
                   {formatDate(post.publishedAt)}
-                </p>
+                </time>
               ) : null}
             </SiteCardLink>
           </li>

@@ -1,4 +1,6 @@
 import { BlogPosts } from "components/blog/blog-posts";
+import { getFilteredBlogPosts } from "lib/blog-filter";
+import { isBlogPageInRange, parseBlogPageParam } from "lib/blog-pagination";
 import {
   browseCategories,
   categoryDescriptions,
@@ -13,11 +15,24 @@ export const dynamicParams = false;
 
 export default async function BlogCategoryPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ category: string }>;
+  searchParams?: Promise<{ page?: string | string[] }>;
 }) {
   const { category } = await params;
   if (!isBrowseCategory(category)) {
+    notFound();
+  }
+
+  const resolved = await searchParams;
+  const parsedPage = parseBlogPageParam(resolved?.page);
+  if (parsedPage === "invalid") {
+    notFound();
+  }
+
+  const totalItems = getFilteredBlogPosts(category).length;
+  if (!isBlogPageInRange({ page: parsedPage, totalItems })) {
     notFound();
   }
 
@@ -25,6 +40,7 @@ export default async function BlogCategoryPage({
     <BlogPosts
       category={category}
       heading={`Writing: ${categoryDisplayNames[category]}`}
+      page={parsedPage}
     />
   );
 }
