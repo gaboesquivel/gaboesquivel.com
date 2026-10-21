@@ -1,15 +1,10 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { LetsConnect } from "components/shared/lets-connect";
-import {
-  PageImage,
-  PageSection,
-  PageTitle,
-  Prose,
-} from "components/shared/page-layout";
+import { PageSection, PageTitle, Prose } from "components/shared/page-layout";
 import { ProjectEvidence } from "components/work/project-evidence";
+import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
-import aiImg from "public/images/ai/ai.webp";
 
 export default function AIExperiencePage() {
   return (
@@ -27,8 +22,6 @@ export default function AIExperiencePage() {
         launch. I also explore generative interfaces as a way to move beyond
         chat when a task calls for a clearer interaction.
       </Prose>
-
-      <PageImage alt="AI Engineering" src={aiImg} />
 
       <PageSection title="LegalAgent: voice, chat, and retrieval">
         <Prose>
@@ -84,7 +77,7 @@ export default function AIExperiencePage() {
       <PageSection title="Work together">
         <Prose>
           The roles and dates behind this work are in my{" "}
-          <Link href="/cv?focus=ai" className="prose-link">
+          <Link href={cvPath({ key: "ai" })} className="prose-link">
             AI CV
           </Link>
           .

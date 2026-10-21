@@ -7,6 +7,7 @@ import {
 } from "components/shared/page-layout";
 import { blockSpacing } from "components/shared/spacing";
 import { featuredLandingPages, landingPageGroups } from "lib/landing-pages";
+import { markdownSiblingPath } from "lib/markdown-sibling";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
 
@@ -58,7 +59,7 @@ export default function ExplorePage() {
 
 export const metadata: Metadata = {
   alternates: {
-    types: { "text/markdown": "/explore.md" },
+    types: { "text/markdown": markdownSiblingPath("/explore") },
   },
   description:
     "Every page on the site, grouped by domain, engineering capability, and career context.",

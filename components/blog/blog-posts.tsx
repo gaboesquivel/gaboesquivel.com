@@ -2,7 +2,7 @@ import { BlogPagination } from "components/blog/blog-pagination";
 import { BlogPostsMasonry } from "components/blog/blog-posts-masonry";
 import { FilterNav, IndexHeading, Prose } from "components/shared/page-layout";
 import { getFilteredBlogPosts } from "lib/blog-filter";
-import { paginateBlogPosts } from "lib/blog-pagination";
+import { blogListingHref, paginateBlogPosts } from "lib/blog-pagination";
 import {
   browseCategories,
   categoryDisplayNames,
@@ -58,9 +58,13 @@ export function BlogPosts({
         label="Writing categories"
         current={currentCategory}
         items={[
-          { href: "/blog", id: "all", label: "all" },
+          {
+            href: blogListingHref({ category: "all", page: 1 }),
+            id: "all",
+            label: "all",
+          },
           ...categories.map((cat) => ({
-            href: `/blog/category/${cat}`,
+            href: blogListingHref({ category: cat, page: 1 }),
             id: cat,
             label: categoryDisplayNames[cat].toLowerCase(),
           })),

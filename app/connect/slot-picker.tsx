@@ -23,14 +23,13 @@ import type { SlotState } from "@/lib/connect/compose";
 import { BOOK_SLOT_LEAD } from "@/lib/connect/copy";
 import {
   addCalendarDays,
+  filterFutureStarts,
   formatSlotSelectionLine,
-  isOpenStart,
   rebucketSlots,
-  slotsForDay,
   sortedDays,
   startOfWeek,
   timeZoneOptions,
-  upcomingAppointments,
+  visitorDayKey,
   weekDayRange,
 } from "@/lib/connect/slot-display";
 import { zonedInstant } from "@/lib/connect/slots";
@@ -162,27 +161,44 @@ const BookingScheduler = ({
     [displayZone, rawSlots]
   );
 
+  const durationBucket = duration === 30 ? "30" : "15";
+
   const days = sortedDays(slots, duration);
   const activeDay =
     selectedDay && days.includes(selectedDay) ? selectedDay : (days[0] ?? null);
 
-  const compact = upcomingAppointments({
-    duration,
-    limit: 5,
-    now,
-    slots,
-    timeZone: displayZone,
-  });
+  const futureByDay = useMemo(() => {
+    const byDay: Record<string, string[]> = {};
+    for (const day of Object.keys(slots[durationBucket])) {
+      byDay[day] = filterFutureStarts({
+        now,
+        starts: slots[durationBucket][day] ?? [],
+      });
+    }
+    return byDay;
+  }, [durationBucket, now, slots]);
 
-  const weekDays = weekDayRange({ timeZone: displayZone, weekStart });
-  const weekSlots = weekDays.flatMap((day) =>
-    slotsForDay({
-      day,
-      duration,
-      now,
-      slots,
-      timeZone: displayZone,
-    }).map((start) => ({ day, start }))
+  const compact = useMemo(
+    () =>
+      Object.values(futureByDay)
+        .flat()
+        .sort((a, b) => Date.parse(a) - Date.parse(b))
+        .slice(0, 5)
+        .map((start) => ({ duration, start })),
+    [duration, futureByDay]
+  );
+
+  const weekDays = useMemo(
+    () => weekDayRange({ timeZone: displayZone, weekStart }),
+    [displayZone, weekStart]
+  );
+
+  const weekSlots = useMemo(
+    () =>
+      weekDays.flatMap((day) =>
+        (futureByDay[day] ?? []).map((start) => ({ day, start }))
+      ),
+    [futureByDay, weekDays]
   );
 
   const pickTime = (input: { duration: 15 | 30; start: string }) => {
@@ -197,13 +213,11 @@ const BookingScheduler = ({
 
   const slotStillOpen =
     selection &&
-    isOpenStart({
-      duration: selection.duration,
-      now,
-      slots,
-      start: selection.start,
-      timeZone: displayZone,
-    });
+    (
+      futureByDay[
+        visitorDayKey({ iso: selection.start, timeZone: displayZone })
+      ] ?? []
+    ).includes(selection.start);
 
   const detailsValid =
     selection && contactValid({ description, email, name }) && slotStillOpen;
@@ -326,13 +340,7 @@ const BookingScheduler = ({
             role="group"
           >
             {weekDays.map((day) => {
-              const count = slotsForDay({
-                day,
-                duration,
-                now,
-                slots,
-                timeZone: displayZone,
-              }).length;
+              const count = (futureByDay[day] ?? []).length;
               return (
                 <Button
                   aria-pressed={activeDay === day}
@@ -358,13 +366,7 @@ const BookingScheduler = ({
             role="group"
           >
             {(activeDay
-              ? slotsForDay({
-                  day: activeDay,
-                  duration,
-                  now,
-                  slots,
-                  timeZone: displayZone,
-                })
+              ? (futureByDay[activeDay] ?? [])
               : weekSlots.map((item) => item.start)
             ).map((start) => (
               <TimeButton

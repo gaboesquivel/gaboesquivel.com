@@ -10,6 +10,7 @@ import {
   sectionTitle,
   titleSpacing,
 } from "components/shared/page-layout";
+import { markdownSiblingPath } from "lib/markdown-sibling";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
 
@@ -184,7 +185,7 @@ export async function generateMetadata({
   return {
     alternates: {
       canonical: "/cv",
-      types: { "text/markdown": "/cv.md" },
+      types: { "text/markdown": markdownSiblingPath("/cv") },
     },
     description: variant.metadata.description,
     keywords: variant.metadata.keywords,

@@ -1,13 +1,13 @@
 import { markdownResponseHeaders } from "lib/accept-markdown";
-import { canonicalizePath } from "lib/canonical-path";
+import {
+  getPublishedPageMarkdown,
+  resolvePageRouteKey,
+} from "lib/api/markdown-corpus";
 import { markdownApiRewritePath } from "lib/markdown-api-path";
 import { markdownNotFoundBody } from "lib/markdown-not-found";
 
-import corpus from "../../../../generated/markdown-routes.json";
-
 export const runtime = "nodejs";
 
-const routes = corpus as Record<string, string>;
 const prefix = "/api/markdown";
 
 const pagePathFromApiPathname = (pathname: string) =>
@@ -51,18 +51,18 @@ const resolveRequestTarget = (req: Request) => {
   };
 };
 
-const routeKey = (pathname: string, search: string) => {
-  const path = pathname === "" ? "/" : canonicalizePath(pathname);
-  if (!search) {
-    return path;
-  }
-  return `${path}?${new URLSearchParams(search).toString()}`;
-};
+const pageSegments = (pagePath: string) =>
+  pagePath === "/" || pagePath === ""
+    ? ["_root"]
+    : pagePath.slice(1).split("/").filter(Boolean);
 
 export const GET = async (req: Request) => {
   const { pagePath, search } = resolveRequestTarget(req);
-  const key = routeKey(pagePath, search);
-  const body = routes[key];
+  const key = resolvePageRouteKey({
+    search,
+    segments: pageSegments(pagePath),
+  });
+  const body = getPublishedPageMarkdown(key)?.markdown;
 
   if (!body) {
     return new Response(markdownNotFoundBody, {

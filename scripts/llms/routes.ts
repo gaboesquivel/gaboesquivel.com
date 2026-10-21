@@ -1,13 +1,18 @@
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 
-import { projects, techStack } from "gaboesquivel";
+import { cvKeys, projects, techStack } from "gaboesquivel";
 
-import { techCategoryIds } from "../../components/tech/categories";
+import {
+  techCategoryIds,
+  techCategoryHref,
+} from "../../components/tech/categories";
 import { browseCategories } from "../../lib/blog-taxonomy";
 import { canonicalizePath } from "../../lib/canonical-path";
+import { cvPath } from "../../lib/cv-paths";
 import { visibleTechStack } from "../../lib/tech-evidence";
-import { workTypeOptions } from "../../lib/work-types";
+import { workTypeHref, workTypeOptions } from "../../lib/work-types";
+import { absoluteUrl } from "./format";
 
 export { canonicalizePath };
 
@@ -28,9 +33,7 @@ export const buildRouteManifest = () => {
     "/lead",
     "/ask",
     "/cv",
-    "/cv?focus=ai",
-    "/cv?focus=web3",
-    "/cv?focus=fullstack",
+    ...cvKeys.filter((key) => key !== "full").map((key) => cvPath({ key })),
     "/work",
     "/tech",
     "/blog",
@@ -59,11 +62,11 @@ export const buildRouteManifest = () => {
   }
 
   for (const type of workTypeOptions) {
-    paths.add(type === "featured" ? "/work" : `/work/${type}`);
+    paths.add(workTypeHref({ type }));
   }
 
   for (const id of techCategoryIds) {
-    if (id !== "featured") paths.add(`/tech/${id}`);
+    if (id !== "featured") paths.add(techCategoryHref(id));
   }
 
   return paths;
@@ -78,6 +81,5 @@ export const rewriteInternalPaths = (text: string, manifest: Set<string>) =>
     if (!manifest.has(canonical)) {
       return match;
     }
-    const url = `https://gaboesquivel.com${canonical}`;
-    return `[${label}](${url})`;
+    return `[${label}](${absoluteUrl(canonical)})`;
   });

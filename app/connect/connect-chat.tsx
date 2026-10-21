@@ -22,6 +22,7 @@ import { Suggestion } from "@/components/ai-elements/suggestion";
 import {
   affirmativeBookingReply,
   assistantOfferedCall,
+  browserTimeZone,
   channelMessage,
   noteOpener,
   typedNoteIntent,
@@ -96,7 +97,7 @@ export function ConnectChat() {
         .catch(() => null);
       return;
     }
-    const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const zone = browserTimeZone();
     if (bookAffirmativeTurn(trimmed)) {
       setMode("book");
       trimmed = channelMessage({
@@ -126,7 +127,10 @@ export function ConnectChat() {
       return;
     }
     setDraft("");
-    apiRef.current?.send(trimmed).catch(() => null);
+    void apiRef.current?.send(trimmed).catch(() => {
+      setDraft(trimmed);
+      setComposerKey((key) => key + 1);
+    });
   };
 
   const sendSuggestion = (id: "book" | "experience" | "fit" | "note") => {

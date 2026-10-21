@@ -131,18 +131,50 @@ const buildLlmsIndex = ({
   ].join("\n");
 };
 
-const buildLlmsFull = ({
+const corpusContentSections = ({
   pages,
   projects,
   tech,
   currentPosts,
-  manifest,
 }: {
   pages: ReturnType<typeof loadNarrativePages>;
   projects: ReturnType<typeof sortProjects>;
   tech: ReturnType<typeof sortTech>;
   currentPosts: ReturnType<typeof loadBlogPosts>;
+}) => [
+  ...pages.map((page) => ({
+    body: page.body,
+    path: page.path,
+    title: page.title,
+  })),
+  ...cvExports().map((cv) => ({
+    body: renderCvMarkdown({ focus: cv.focus }),
+    path: cv.path,
+    title: cv.title,
+  })),
+  ...projects.map((project) => ({
+    body: renderProjectMarkdown(project),
+    path: `/project/${project.slug}`,
+    title: project.title,
+  })),
+  ...tech.map((item) => ({
+    body: renderTechMarkdown(item),
+    path: `/tech/${item.slug}`,
+    title: item.name,
+  })),
+  ...currentPosts.map((post: BlogPost) => ({
+    body: renderBlogMarkdown(post),
+    path: `/blog/${post.slug}`,
+    title: post.title,
+  })),
+];
+
+const buildLlmsFull = ({
+  manifest,
+  sections,
+}: {
   manifest: Set<string>;
+  sections: { body: string; path: string; title: string }[];
 }) => {
   const header = [
     "# Gabo Esquivel",
@@ -157,55 +189,15 @@ const buildLlmsFull = ({
 
   const rewrite = (body: string) => rewriteInternalPaths(body, manifest);
 
-  const pageSections = pages.map((page) =>
+  const wrapped = sections.map((section) =>
     wrapSection({
-      body: rewrite(page.body),
-      path: page.path,
-      title: page.title,
+      body: rewrite(section.body),
+      path: section.path,
+      title: section.title,
     })
   );
 
-  pageSections.push(
-    ...cvExports().map((cv) =>
-      wrapSection({
-        body: rewrite(renderCvMarkdown({ focus: cv.focus })),
-        path: cv.path,
-        title: cv.title,
-      })
-    )
-  );
-
-  const projectSections = projects.map((project) =>
-    wrapSection({
-      body: rewrite(renderProjectMarkdown(project)),
-      path: `/project/${project.slug}`,
-      title: project.title,
-    })
-  );
-
-  const techSections = tech.map((item) =>
-    wrapSection({
-      body: rewrite(renderTechMarkdown(item)),
-      path: `/tech/${item.slug}`,
-      title: item.name,
-    })
-  );
-
-  const currentBlogSections = currentPosts.map((post: BlogPost) =>
-    wrapSection({
-      body: rewrite(renderBlogMarkdown(post)),
-      path: `/blog/${post.slug}`,
-      title: post.title,
-    })
-  );
-
-  return joinSections([
-    header,
-    ...pageSections,
-    ...projectSections,
-    ...techSections,
-    ...currentBlogSections,
-  ]);
+  return joinSections([header, ...wrapped]);
 };
 
 let cached: { llmsIndex: string; llmsFull: string } | null = null;
@@ -223,36 +215,18 @@ const buildCorpusOnce = () => {
   const manifest = buildRouteManifest();
 
   const llmsIndex = buildLlmsIndex({ currentPosts, projects });
-  const llmsFull = buildLlmsFull({
+  const contentSections = corpusContentSections({
     currentPosts,
-    manifest,
     pages,
     projects,
     tech,
   });
+  const llmsFull = buildLlmsFull({ manifest, sections: contentSections });
 
-  const sectionsForValidation = [
+  validateCorpus([
     { body: llmsIndex, title: "Index" },
-    ...pages.map((page) => ({ body: page.body, title: page.title })),
-    ...cvExports().map((cv) => ({
-      body: renderCvMarkdown({ focus: cv.focus }),
-      title: cv.title,
-    })),
-    ...projects.map((project) => ({
-      body: renderProjectMarkdown(project),
-      title: project.title,
-    })),
-    ...tech.map((item) => ({
-      body: renderTechMarkdown(item),
-      title: item.name,
-    })),
-    ...currentPosts.map((post) => ({
-      body: renderBlogMarkdown(post),
-      title: post.title,
-    })),
-  ];
-
-  validateCorpus(sectionsForValidation);
+    ...contentSections.map(({ body, title }) => ({ body, title })),
+  ]);
 
   cached = { llmsFull, llmsIndex };
   return cached;

@@ -14,18 +14,6 @@ interface ThreadMessage {
   role: string;
 }
 
-export const messageHasNoteFormPayload = (message: ThreadMessage) =>
-  message.role === "user" &&
-  message.parts.some(
-    (part) => part.type === "text" && parseNoteFormPayload(part.text ?? "")
-  );
-
-export const messageHasBookFormPayload = (message: ThreadMessage) =>
-  message.role === "user" &&
-  message.parts.some(
-    (part) => part.type === "text" && parseBookFormPayload(part.text ?? "")
-  );
-
 export const bookFormPayloadFromMessage = (
   message: ThreadMessage
 ): (NoteFormState & { duration: 15 | 30; start: string }) | null => {
@@ -47,6 +35,12 @@ export const noteFormPayloadFromMessage = (
   }
   return null;
 };
+
+export const messageHasNoteFormPayload = (message: ThreadMessage) =>
+  message.role === "user" && noteFormPayloadFromMessage(message) !== null;
+
+export const messageHasBookFormPayload = (message: ThreadMessage) =>
+  message.role === "user" && bookFormPayloadFromMessage(message) !== null;
 
 const toolPartAfterMessage = (
   messages: readonly ThreadMessage[],
@@ -75,25 +69,39 @@ export const sendPartAfterMessage = (
   messageId: string
 ) => toolPartAfterMessage(messages, messageId, "send");
 
-const noteSendResult = (output: unknown) => {
+const resolveNestedToolOutput = <T>(
+  output: unknown,
+  match: (record: Record<string, unknown>) => T | null
+): T | null => {
   if (!output || typeof output !== "object") return null;
-  const record = output as {
-    message?: unknown;
-    output?: unknown;
-    sent?: unknown;
-    value?: unknown;
-  };
-  if (typeof record.sent === "boolean" || typeof record.message === "string") {
+  const record = output as Record<string, unknown>;
+  const hit = match(record);
+  if (hit) return hit;
+  if ("value" in record) {
+    const fromValue = resolveNestedToolOutput(record.value, match);
+    if (fromValue) return fromValue;
+  }
+  if ("output" in record) {
+    const fromOutput = resolveNestedToolOutput(record.output, match);
+    if (fromOutput) return fromOutput;
+  }
+  return null;
+};
+
+const noteSendResult = (output: unknown) =>
+  resolveNestedToolOutput(output, (record) => {
+    if (
+      typeof record.sent !== "boolean" &&
+      typeof record.message !== "string"
+    ) {
+      return null;
+    }
     const message = typeof record.message === "string" ? record.message : "";
     return {
       message,
       sent: record.sent === true || /^sent\b/i.test(message),
     };
-  }
-  if ("value" in record) return noteSendResult(record.value);
-  if ("output" in record) return noteSendResult(record.output);
-  return null;
-};
+  });
 
 export const threadHasNoteFormPayload = (messages: readonly ThreadMessage[]) =>
   messages.some((message) => messageHasNoteFormPayload(message));
@@ -150,24 +158,15 @@ export const assistantFollowsConnectForm = ({
   assistantFollowsFormNote({ messageId, messages }) ||
   assistantFollowsFormBook({ messageId, messages });
 
-const bookResult = (output: unknown) => {
-  if (!output || typeof output !== "object") return null;
-  const record = output as {
-    inserted?: unknown;
-    message?: unknown;
-    ok?: unknown;
-    output?: unknown;
-    value?: unknown;
-  };
-  if (typeof record.ok === "boolean" || typeof record.message === "string") {
+const bookResult = (output: unknown) =>
+  resolveNestedToolOutput(output, (record) => {
+    if (typeof record.ok !== "boolean" && typeof record.message !== "string") {
+      return null;
+    }
     const message = typeof record.message === "string" ? record.message : "";
     const inserted = record.inserted === true || /^booked\b/i.test(message);
     return { inserted, message, ok: record.ok === true };
-  }
-  if ("value" in record) return bookResult(record.value);
-  if ("output" in record) return bookResult(record.output);
-  return null;
-};
+  });
 
 export const bookReceiptStatus = ({
   fallback = "",

@@ -1,4 +1,4 @@
-import { addIsoDate, zonedInstant } from "./slots";
+import { addIsoDate, zonedDate, zonedInstant } from "./slots";
 
 const durationKey = (duration: 15 | 30) => (duration === 30 ? "30" : "15");
 
@@ -10,13 +10,7 @@ export const visitorDayKey = ({
 }: {
   iso: string;
   timeZone: string;
-}) =>
-  new Intl.DateTimeFormat("en-CA", {
-    day: "2-digit",
-    month: "2-digit",
-    timeZone,
-    year: "numeric",
-  }).format(new Date(iso));
+}) => zonedDate({ instant: new Date(iso), timeZone });
 
 export const rebucketSlots = ({
   slots,
@@ -25,13 +19,22 @@ export const rebucketSlots = ({
   slots: SlotBuckets;
   timeZone: string;
 }) => {
+  const dayFormatter = new Intl.DateTimeFormat("en-CA", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone,
+    year: "numeric",
+  });
   const next: SlotBuckets = { "15": {}, "30": {} };
   for (const duration of ["15", "30"] as const) {
     for (const starts of Object.values(slots[duration])) {
       for (const iso of starts) {
-        const day = visitorDayKey({ iso, timeZone });
+        const day = dayFormatter.format(new Date(iso));
         const bucket = next[duration][day] ?? [];
-        if (!bucket.includes(iso)) next[duration][day] = [...bucket, iso];
+        if (!bucket.includes(iso)) {
+          bucket.push(iso);
+          next[duration][day] = bucket;
+        }
       }
     }
     for (const day of Object.keys(next[duration])) {

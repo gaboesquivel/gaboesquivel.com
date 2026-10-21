@@ -1,12 +1,9 @@
-import { EXPERIENCE_QUESTION } from "./intent";
-
-export const visitorTimeZone = () =>
-  Intl.DateTimeFormat().resolvedOptions().timeZone;
+import { browserTimeZone, EXPERIENCE_QUESTION } from "./intent";
 
 export const connectSuggestionMessage = (
   kind: "book" | "experience" | "fit" | "note"
 ) => {
-  const zone = visitorTimeZone();
+  const zone = browserTimeZone();
   if (kind === "book") return `[site:book ${zone}]\nBook a call`;
   if (kind === "note") return `[site:note ${zone}]\nSend email`;
   if (kind === "fit") return `[site:ask ${zone}]\nDiscuss a project`;

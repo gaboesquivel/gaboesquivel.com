@@ -443,9 +443,7 @@ export function EveThread({
             agent.data.messages,
             message.id
           );
-          const output = bookPart?.output as
-            | { inserted?: boolean; message?: string; ok?: boolean }
-            | undefined;
+          const output = bookPart?.output;
           const timeZone =
             message.parts
               .flatMap((part) =>
@@ -478,9 +476,7 @@ export function EveThread({
             agent.data.messages,
             message.id
           );
-          const output = sendPart?.output as
-            | { message?: string; sent?: boolean }
-            | undefined;
+          const output = sendPart?.output;
           return (
             <Message from="assistant" key={message.id}>
               <NoteReceipt
@@ -507,12 +503,6 @@ export function EveThread({
                     messageId: message.id,
                     messages: agent.data.messages,
                   })
-                ) {
-                  return null;
-                }
-                if (
-                  message.role === "user" &&
-                  messageHasBookFormPayload(message)
                 ) {
                   return null;
                 }
@@ -659,7 +649,7 @@ export function EveThread({
                       noteFormMessage({ ...contact, timeZone: zone })
                     );
                   };
-                  void run().catch(() => null);
+                  void run();
                 };
                 return (
                   <section className={enter} key={part.toolCallId}>

@@ -37,7 +37,7 @@ export function ConnectApprovalForm({
     description: string;
     email: string;
     name: string;
-  }) => void;
+  }) => void | Promise<void>;
   onCancel: () => void;
   primaryLabel: string;
   secondaryLabel: string;
@@ -75,11 +75,13 @@ export function ConnectApprovalForm({
           onClick={() => {
             if (settled || !valid || bookingFieldsMissing) return;
             setSettled(true);
-            onApprove({
-              description: description.trim(),
-              email: email.trim(),
-              name: name.trim(),
-            });
+            void Promise.resolve(
+              onApprove({
+                description: description.trim(),
+                email: email.trim(),
+                name: name.trim(),
+              })
+            ).catch(() => setSettled(false));
           }}
         >
           {primaryLabel}

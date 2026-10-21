@@ -1,6 +1,7 @@
 import type { Project, TechStackItem } from "gaboesquivel";
 import {
   experience,
+  getProjectBySlug,
   getTechStackBySlug,
   projects,
   techStack,
@@ -32,9 +33,10 @@ const genericExperiencePattern =
   /aligning with the principle of user experience first|user experience first/i;
 
 export const sortProjects = () => {
-  const featured = featuredProjectSlugs.flatMap((slug) =>
-    projects.filter((project) => project.slug === slug)
-  );
+  const featured = featuredProjectSlugs.flatMap((slug) => {
+    const project = getProjectBySlug(slug);
+    return project ? [project] : [];
+  });
   const rest = projects
     .filter(
       (project) =>

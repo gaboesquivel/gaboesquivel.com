@@ -81,11 +81,6 @@ export const addIsoDate = ({ date, days }: { date: string; days: number }) => {
     .slice(0, 10);
 };
 
-const weekday = ({ date, timeZone }: { date: string; timeZone: string }) =>
-  new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" }).format(
-    zonedInstant({ date, time: "12:00", timeZone })
-  );
-
 export const overlaps = ({
   busy,
   duration,
@@ -150,21 +145,38 @@ export const listOpenSlots = ({
     "30": {},
   };
   let seen = 0;
-  const today = zonedDate({ instant: now, timeZone: DENVER });
+  const denverDayFormatter = new Intl.DateTimeFormat("en-CA", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: DENVER,
+    year: "numeric",
+  });
+  const denverWeekdayFormatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: DENVER,
+    weekday: "short",
+  });
+  const visitorDayFormatter = new Intl.DateTimeFormat("en-CA", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone,
+    year: "numeric",
+  });
+  const today = denverDayFormatter.format(now);
 
   for (let offset = 0; offset < 28 && seen < weekdays; offset += 1) {
     const date = addIsoDate({ date: today, days: offset });
-    const day = weekday({ date, timeZone: DENVER });
+    const day = denverWeekdayFormatter.format(
+      zonedInstant({ date, time: "12:00", timeZone: DENVER })
+    );
     if (day === "Sat" || day === "Sun") continue;
     seen += 1;
     for (const duration of [15, 30] as const) {
       for (const start of startsForDuration({ busy, date, duration, now })) {
-        const visitorDay = zonedDate({
-          instant: new Date(start),
-          timeZone,
-        });
+        const visitorDay = visitorDayFormatter.format(new Date(start));
         const bucket = slots[String(duration) as "15" | "30"];
-        bucket[visitorDay] = [...(bucket[visitorDay] ?? []), start];
+        const dayBucket = bucket[visitorDay] ?? [];
+        dayBucket.push(start);
+        bucket[visitorDay] = dayBucket;
       }
     }
   }

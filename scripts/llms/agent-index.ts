@@ -103,7 +103,13 @@ const section = ({
   title,
 });
 
-export const buildAgentIndex = () => {
+export const buildAgentIndex = ({
+  employment = employmentRecords(),
+  cvOverview = cvOverviewMarkdown(),
+}: {
+  cvOverview?: string;
+  employment?: ReturnType<typeof employmentRecords>;
+} = {}) => {
   const pages = loadNarrativePages().map((page) =>
     section({
       body: page.body,
@@ -159,7 +165,7 @@ export const buildAgentIndex = () => {
     })
   );
 
-  const jobs = employmentRecords().map((entry) =>
+  const jobs = employment.map((entry) =>
     section({
       body: entry.markdown,
       bodyKey: entry.bodyKey,
@@ -171,13 +177,12 @@ export const buildAgentIndex = () => {
     })
   );
 
-  const overview = cvOverviewMarkdown();
   const cv = section({
-    body: overview,
+    body: cvOverview,
     bodyKey: "#cv/overview",
     kind: "cv",
     path: "/cv",
-    summary: overview.split("\n").find((line) => line.trim()) ?? "CV",
+    summary: cvOverview.split("\n").find((line) => line.trim()) ?? "CV",
     title: "Curriculum Vitae",
   });
 

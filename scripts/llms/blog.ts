@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 import { comparePublishedAtDesc } from "../../lib/blog-order";
 import { isArchivePost } from "../../lib/blog-taxonomy";
-import { absoluteUrl } from "./format";
+import { absoluteUrl, rewriteLinks } from "./format";
 import { canonicalizePath } from "./routes";
 
 const CONTENT_DIR = join(process.cwd(), "content");
@@ -64,10 +64,6 @@ const normalizeMdxBody = (body: string) =>
         `[${title || "YouTube video"}](https://www.youtube.com/watch?v=${id})`
     )
     .replaceAll(
-      /<Vimeo\s+id="([^"]+)"(?:\s+title="([^"]*)")?\s*\/>/g,
-      (_, id, title) => `[${title || "Vimeo video"}](https://vimeo.com/${id})`
-    )
-    .replaceAll(
       /!\[([^\]]*)\]\((\/[^)]+)\)/g,
       (_, alt, path) => `![${alt}](${absoluteUrl(path)})`
     )
@@ -76,13 +72,15 @@ const normalizeMdxBody = (body: string) =>
     .trim();
 
 const rewriteBlogLinks = (text: string) =>
-  text.replaceAll(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_match, label, path) => {
-    const canonical = canonicalizePath(path);
-    if (!canonical) {
-      return label;
-    }
-    return `[${label}](${absoluteUrl(canonical)})`;
-  });
+  rewriteLinks(
+    text.replaceAll(/\[([^\]]+)\]\((\/[^)]+)\)/g, (match, label, path) => {
+      const canonical = canonicalizePath(path);
+      if (!canonical) {
+        return match;
+      }
+      return `[${label}](${canonical})`;
+    })
+  );
 
 export const loadBlogPosts = () => {
   const files = readdirSync(CONTENT_DIR).filter((file) =>

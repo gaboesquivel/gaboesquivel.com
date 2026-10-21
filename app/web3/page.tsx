@@ -8,6 +8,7 @@ import {
   sectionAction,
 } from "components/shared/page-layout";
 import { ProjectEvidence } from "components/work/project-evidence";
+import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 import ztxImg from "public/images/work/ztx.png";
@@ -116,7 +117,7 @@ export default function Web3ExperiencePage() {
       <PageSection title="Work together">
         <Prose>
           The roles and dates behind this work are in my{" "}
-          <Link href="/cv?focus=web3" className="prose-link">
+          <Link href={cvPath({ key: "web3" })} className="prose-link">
             Web3 CV
           </Link>
           .

@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 import ts from "@typescript/typescript6";
 import { getProjectBySlug, techStack } from "gaboesquivel";
+import type { CvKey } from "gaboesquivel";
 
 import { techBrowseCategories } from "../../components/tech/categories";
 import { newestPosts } from "../../lib/blog-order";
@@ -10,6 +11,7 @@ import {
   postMatchesBrowseCategory,
   toBrowseSlug,
 } from "../../lib/blog-taxonomy";
+import { cvPath } from "../../lib/cv-paths";
 import { isArchivePostFromBlog, loadBlogPosts } from "./blog";
 import { absoluteUrl, rewriteLinks } from "./format";
 
@@ -111,6 +113,16 @@ const literalValue = (node: ts.Expression | undefined): unknown => {
   }
   if (ts.isIdentifier(node) && node.text === "sections") {
     return "sections-ref";
+  }
+  if (ts.isCallExpression(node)) {
+    const callee = node.expression.getText(sourceFile);
+    if (callee === "cvPath" && node.arguments.length === 1) {
+      const arg = literalValue(node.arguments[0]);
+      if (arg && typeof arg === "object" && "key" in arg) {
+        const key = (arg as { key: CvKey }).key;
+        return cvPath({ key });
+      }
+    }
   }
   return undefined;
 };
@@ -311,31 +323,6 @@ const jsxNodeToMarkdown = (
     if (tagName === "ConnectPageContent") {
       if (pagePath === "/ask") {
         lines.push(CONNECT_PAGE_EXPORT_MARKDOWN, "");
-      }
-      return;
-    }
-
-    if (tagName === "LatestPosts") {
-      const slugs = getJsxAttributeValue(attributes, "slugs", variables) as
-        | string[]
-        | undefined;
-      const category = String(
-        getJsxAttributeValue(attributes, "category", variables) ?? ""
-      );
-      const title = String(
-        getJsxAttributeValue(attributes, "title", variables) ??
-          "Latest Articles"
-      );
-      const limit = Number(
-        getJsxAttributeValue(attributes, "limit", variables) ?? 8
-      );
-      const links = renderPostLinks({
-        category: category || undefined,
-        limit,
-        slugs,
-      });
-      if (links) {
-        lines.push(`## ${title}`, "", links, "");
       }
       return;
     }

@@ -2,7 +2,12 @@ import { LatestPosts } from "components/blog/latest-posts";
 import { Projects } from "components/work/projects";
 import { projects } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
-import { isWorkType, workTypeCopy, workTypeOptions } from "lib/work-types";
+import {
+  isWorkType,
+  workTypeCopy,
+  workTypeHref,
+  workTypeOptions,
+} from "lib/work-types";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -54,7 +59,7 @@ export async function generateMetadata({
 
   return pageMetadata({
     description: copy.description,
-    path: type === "featured" ? "/work" : `/work/${type}`,
+    path: workTypeHref({ type }),
     title: `${copy.heading} | Gabo Esquivel`,
   });
 }

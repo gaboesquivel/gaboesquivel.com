@@ -10,16 +10,18 @@ import {
 } from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
 import { ProjectCard } from "components/work/project-card";
-import { projects } from "gaboesquivel";
+import { getProjectBySlug } from "gaboesquivel";
 import { homeJsonLd } from "lib/home-json-ld";
+import { markdownSiblingPath } from "lib/markdown-sibling";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
-const selectedProjects = selectedProjectSlugs.flatMap((slug) =>
-  projects.filter((project) => project.slug === slug)
-);
+const selectedProjects = selectedProjectSlugs.flatMap((slug) => {
+  const project = getProjectBySlug(slug);
+  return project ? [project] : [];
+});
 
 export default function HomePage() {
   return (
@@ -123,7 +125,7 @@ export default function HomePage() {
 export const metadata: Metadata = {
   alternates: {
     canonical: "/",
-    types: { "text/markdown": "/index.md" },
+    types: { "text/markdown": markdownSiblingPath("/") },
   },
   description:
     "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",

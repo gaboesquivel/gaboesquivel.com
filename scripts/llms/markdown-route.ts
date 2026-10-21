@@ -18,7 +18,7 @@ import { isEmptyTech } from "../../lib/tech-evidence";
 import { isWorkType, workTypeCopy, workTypeHref } from "../../lib/work-types";
 import { loadBlogPosts, renderBlogMarkdown } from "./blog";
 import { cvExports, renderCvMarkdown } from "./cv";
-import { absoluteUrl, wrapSection } from "./format";
+import { absoluteUrl, llmsListItem, wrapSection } from "./format";
 import { loadNarrativePages } from "./pages";
 import {
   renderProjectMarkdown,
@@ -33,6 +33,14 @@ import {
 } from "./routes";
 
 export { markdownNotFoundBody } from "../../lib/markdown-not-found";
+
+export interface MarkdownRouteContext {
+  manifest: Set<string>;
+  pages: ReturnType<typeof loadNarrativePages>;
+  posts: ReturnType<typeof loadBlogPosts>;
+  projects: ReturnType<typeof sortProjects>;
+  tech: ReturnType<typeof sortTech>;
+}
 
 const projectDescriptionLine = (description: string) =>
   description.split("\n")[0].trim();
@@ -59,9 +67,12 @@ const renderWorkMarkdown = (type: string) => {
   const lines = [
     copy.description,
     "",
-    ...filtered.map(
-      (project) =>
-        `- [${project.title}](${absoluteUrl(`/project/${project.slug}`)}): ${projectDescriptionLine(project.description)}`
+    ...filtered.map((project) =>
+      llmsListItem({
+        name: project.title,
+        note: projectDescriptionLine(project.description),
+        url: absoluteUrl(`/project/${project.slug}`),
+      })
     ),
   ];
   const path = workTypeHref({ type: resolved });
@@ -72,14 +83,16 @@ const renderWorkMarkdown = (type: string) => {
   });
 };
 
-const renderBlogIndexMarkdown = () => {
-  const posts = loadBlogPosts();
+const renderBlogIndexMarkdown = (posts: ReturnType<typeof loadBlogPosts>) => {
   const lines = [
     "Notes on shipping software — AI, Web3, and engineering.",
     "",
-    ...posts.map(
-      (post) =>
-        `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)}): ${post.summary}`
+    ...posts.map((post) =>
+      llmsListItem({
+        name: post.title,
+        note: post.summary,
+        url: absoluteUrl(`/blog/${post.slug}`),
+      })
     ),
   ];
   return wrapSection({
@@ -89,14 +102,17 @@ const renderBlogIndexMarkdown = () => {
   });
 };
 
-const renderBlogCategoryMarkdown = (category: string) => {
+const renderBlogCategoryMarkdown = (
+  category: string,
+  posts: ReturnType<typeof loadBlogPosts>
+) => {
   if (
     !browseCategories.includes(category as (typeof browseCategories)[number])
   ) {
     return null;
   }
   const slug = category as (typeof browseCategories)[number];
-  const posts = loadBlogPosts().filter((post) =>
+  const filtered = posts.filter((post) =>
     postMatchesBrowseCategory({
       categories: post.category,
       slug,
@@ -106,9 +122,12 @@ const renderBlogCategoryMarkdown = (category: string) => {
   const lines = [
     categoryDescriptions[slug],
     "",
-    ...posts.map(
-      (post) =>
-        `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)}): ${post.summary}`
+    ...filtered.map((post) =>
+      llmsListItem({
+        name: post.title,
+        note: post.summary,
+        url: absoluteUrl(`/blog/${post.slug}`),
+      })
     ),
   ];
   return wrapSection({
@@ -123,16 +142,22 @@ const renderExploreMarkdown = () => {
     "Every page on the site, grouped by domain, engineering capability, and career context. Pick whichever one matches what you came here to find out.",
     "",
     "## Start here",
-    ...featuredLandingPages.map(
-      (page) =>
-        `- [${page.title}](${absoluteUrl(page.href)}): ${page.description}`
+    ...featuredLandingPages.map((page) =>
+      llmsListItem({
+        name: page.title,
+        note: page.description,
+        url: absoluteUrl(page.href),
+      })
     ),
     "",
     ...landingPageGroups.flatMap((group) => [
       `## ${group.title}`,
-      ...group.pages.map(
-        (page) =>
-          `- [${page.title}](${absoluteUrl(page.href)}): ${page.description}`
+      ...group.pages.map((page) =>
+        llmsListItem({
+          name: page.title,
+          note: page.description,
+          url: absoluteUrl(page.href),
+        })
       ),
       "",
     ]),
@@ -155,9 +180,12 @@ const renderTechCategoryMarkdown = (category: string) => {
   const lines = [
     `Technologies in the ${label} area, each linked to project evidence on the site.`,
     "",
-    ...filteredTech.map(
-      (tech) =>
-        `- [${tech.name}](${absoluteUrl(`/tech/${tech.slug}`)}): ${tech.description}`
+    ...filteredTech.map((tech) =>
+      llmsListItem({
+        name: tech.name,
+        note: tech.description,
+        url: absoluteUrl(`/tech/${tech.slug}`),
+      })
     ),
   ];
   return wrapSection({
@@ -167,36 +195,56 @@ const renderTechCategoryMarkdown = (category: string) => {
   });
 };
 
-const resolveCvMarkdown = (search: string) => {
+const resolveCvMarkdown = ({
+  context,
+  search,
+}: {
+  context: MarkdownRouteContext;
+  search: string;
+}) => {
   const focus = new URLSearchParams(search).get("focus");
-  const routeKey = focus && focus !== "full" ? `/cv?focus=${focus}` : "/cv";
-  const cv = cvExports().find((item) => item.path === routeKey);
+  const cv = cvExports().find((item) => {
+    if (!focus || focus === "full") {
+      return item.focus === undefined;
+    }
+    return item.focus === focus;
+  });
   if (!cv) {
     return null;
   }
-  const manifest = buildRouteManifest();
   const body = rewriteInternalPaths(
     renderCvMarkdown({ focus: cv.focus }),
-    manifest
+    context.manifest
   );
   return wrapSection({ body, path: cv.path, title: cv.title });
 };
 
+const defaultContext = (): MarkdownRouteContext => ({
+  manifest: buildRouteManifest(),
+  pages: loadNarrativePages(),
+  posts: loadBlogPosts(),
+  projects: sortProjects(),
+  tech: sortTech(),
+});
+
 export const getMarkdownForPath = ({
   pathname,
   search = "",
+  context,
 }: {
   pathname: string;
   search?: string;
+  context?: MarkdownRouteContext;
 }) => {
+  const ctx = context ?? defaultContext();
   const path = pathname === "" ? "/" : canonicalizePath(pathname);
-  const manifest = buildRouteManifest();
+  const { manifest } = ctx;
   const routeKey = search
     ? `${path}?${new URLSearchParams(search).toString()}`
     : path;
 
   if (path === "/cv") {
-    return resolveCvMarkdown(search);
+    return resolveCvMarkdown({ context: ctx, search });
   }
 
   if (!manifest.has(path) && !manifest.has(routeKey)) {
@@ -213,12 +261,12 @@ export const getMarkdownForPath = ({
   }
 
   if (path === "/blog") {
-    return renderBlogIndexMarkdown();
+    return renderBlogIndexMarkdown(ctx.posts);
   }
 
   if (path.startsWith("/blog/category/")) {
     const category = path.slice("/blog/category/".length);
-    return renderBlogCategoryMarkdown(category);
+    return renderBlogCategoryMarkdown(category, ctx.posts);
   }
 
   if (path === "/explore") {
@@ -227,7 +275,7 @@ export const getMarkdownForPath = ({
 
   if (path.startsWith("/project/")) {
     const slug = path.slice("/project/".length);
-    const project = sortProjects().find((item) => item.slug === slug);
+    const project = ctx.projects.find((item) => item.slug === slug);
     if (!project) {
       return null;
     }
@@ -245,7 +293,7 @@ export const getMarkdownForPath = ({
     if (categoryMarkdown) {
       return categoryMarkdown;
     }
-    const tech = sortTech().find((item) => item.slug === slug);
+    const tech = ctx.tech.find((item) => item.slug === slug);
     if (!tech) {
       return null;
     }
@@ -258,7 +306,7 @@ export const getMarkdownForPath = ({
     if (slug.startsWith("category/")) {
       return null;
     }
-    const post = loadBlogPosts().find((item) => item.slug === slug);
+    const post = ctx.posts.find((item) => item.slug === slug);
     if (!post) {
       return null;
     }
@@ -270,7 +318,7 @@ export const getMarkdownForPath = ({
     });
   }
 
-  const page = loadNarrativePages().find((item) => item.path === path);
+  const page = ctx.pages.find((item) => item.path === path);
   if (!page) {
     return null;
   }

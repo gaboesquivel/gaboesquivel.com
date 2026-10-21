@@ -21,13 +21,16 @@ const llmsIndex = getLlmsIndex();
 const llmsFull = getLlmsFull();
 const markdownCorpus = buildMarkdownCorpus();
 
-for (const entry of employmentRecords()) {
+const employment = employmentRecords();
+const cvOverview = cvOverviewMarkdown();
+
+for (const entry of employment) {
   markdownCorpus[entry.bodyKey] = entry.markdown;
 }
 
-markdownCorpus["#cv/overview"] = cvOverviewMarkdown();
+markdownCorpus["#cv/overview"] = cvOverview;
 
-const agentIndex = buildAgentIndex();
+const agentIndex = buildAgentIndex({ cvOverview, employment });
 
 const GENERATED_API_DIR = join(GENERATED_DIR, "api");
 

@@ -46,10 +46,7 @@ const busyForCalendar = ({
   calendars?: Record<string, { busy?: { end?: string; start?: string }[] }>;
   id: string;
 }) => {
-  const blocks =
-    calendars?.[id]?.busy ??
-    (id === "primary" ? calendars?.primary?.busy : undefined) ??
-    [];
+  const blocks = calendars?.[id]?.busy ?? [];
   return blocks.flatMap((block) => {
     if (!block.start || !block.end) return [];
     return [{ end: Date.parse(block.end), start: Date.parse(block.start) }];
@@ -79,7 +76,7 @@ export const googleCalendar = (): CalendarClient => {
         path: `/calendars/${calendarPath}/events?sendUpdates=all&conferenceDataVersion=1`,
       })) as { id?: string };
       if (!payload.id) throw new Error("calendar-insert");
-      return { id: payload.id || requestId };
+      return { id: payload.id };
     },
   };
 };
