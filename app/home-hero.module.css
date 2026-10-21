@@ -1,0 +1,24 @@
+.hero {
+  position: relative;
+  overflow-x: clip;
+}
+
+.heroTitle {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: none;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    background-image: url("/images/gaboesquivel-homepage.webp");
+    background-position: 100% top;
+    background-repeat: no-repeat;
+    background-size: 47% auto;
+  }
+
+  .heroCopy {
+    padding-right: 45%;
+  }
+}

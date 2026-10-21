@@ -38,6 +38,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
 - Order: positioning, proof, projects, focus, bio preview, writing, `/contact`
+- Hero: real portrait on desktop and an understated “Contact me” link to `/contact` at all widths.
 
 ### `/bio`
 

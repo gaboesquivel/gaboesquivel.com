@@ -71,7 +71,7 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - Column: `siteColumn` in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`max-w-4xl` with `px-4 sm:px-6` gutters) on nav and `main`, `h-0.5 bg-accent` top bar
 - Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
-- Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name below `md` (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up it is one line with an em dash
+- Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name at every width (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up the name is followed by an em dash
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `writing` (`components/layout/navbar.tsx`). `/ask` stays out of this nav while that experience is in progress (`PRODUCT.md`)
 - `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); header (accent bar + nav) scrolls with the page; footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
@@ -194,3 +194,11 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 
 - `muted` text (`neutral-500`) is just under AA on black. Move it to `neutral-400`, or keep `neutral-500` for non-essential labels only?
 - The `ProjectCard` image zoom (`group-hover:scale-110`) is the one image motion, but it is not behind `motion-safe:`. Gate it, or leave it as is?
+
+## Homepage portrait hero
+
+The homepage uses a single transparent WebP background composition with the real portrait, mint gradient, circle, grid, and small discipline labels. This approved homepage exception permits the subtle gradient and decorative photography in the supplied mockup; editorial image rules remain unchanged. The PNG master is `public/images/bio/gabo-hero.png`; the homepage ships the full composition as `public/images/gaboesquivel-homepage.webp` (with `gabo-hero.webp` in the same bio directory as a cropped portrait derivative). All artwork is baked into the image to preserve relative alignment.
+
+`app/home-hero.module.css` anchors the composition at the top and 20px past the hero’s right edge, with a controlled background size, and reserves right-hand space for the portrait on the copy block only—the page title spans the full reading column. Below 768px the background and reserved space are absent. The existing `max-w-4xl` column, copy, navigation, and sections remain. A plain, keyboard-focusable “Contact me” link opens `/contact` at every width. No filled hero CTA.
+
+Source: the real circular portrait preview in the supplied conversation attachment `Zight 2026-10-21 at 11.37.26 AM.jpg`. The PNG preserves source RGB pixels inside a manually traced transparency mask, with a lower-edge fade; no face generation or reconstruction. The source preview already crops the hair and shoulders and limits image detail. WebP is a compressed delivery derivative. A full-resolution original can replace this source later.

@@ -14,8 +14,11 @@ import { getProjectBySlug } from "gaboesquivel";
 import { homeJsonLd } from "lib/home-json-ld";
 import { markdownSiblingPath } from "lib/markdown-sibling";
 import { cn } from "lib/utils";
+import { ArrowUpRight, MessageSquare } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+
+import styles from "./home-hero.module.css";
 
 const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
 const selectedProjects = selectedProjectSlugs.flatMap((slug) => {
@@ -31,24 +34,40 @@ export default function HomePage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
-      <PageTitle className="leading-tight">
+      <PageTitle className={cn(styles.heroTitle, "leading-tight")}>
         Gabo Esquivel
         <span className="max-md:hidden"> — </span>
-        <br className="md:hidden" />
         Agentic Product Engineer
       </PageTitle>
-      <Prose>
-        I build useful and delightful software products, designed for humans and
-        agents alike. I bring product thinking, careful design, and software
-        architecture together to make complex systems intuitive to use and
-        dependable to operate.
-      </Prose>
+      <div className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <Prose>
+            I build useful and delightful software products, designed for humans
+            and agents alike. I bring product thinking, careful design, and
+            software architecture together to make complex systems intuitive to
+            use and dependable to operate.
+          </Prose>
 
-      <Prose>
-        15+ years of shipping software, including 12+ years building 0→1
-        products for startups and growth-stage teams across FinTech, Web3, and
-        AI.
-      </Prose>
+          <Prose>
+            15+ years of shipping software, including 12+ years building 0→1
+            products for startups and growth-stage teams across FinTech, Web3,
+            and AI.
+          </Prose>
+
+          <Link
+            href="/contact"
+            className="mt-4 inline-flex min-h-11 items-center gap-3 rounded-sm text-sm text-neutral-200 underline decoration-neutral-600 underline-offset-4 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          >
+            <MessageSquare
+              aria-hidden="true"
+              className="size-6 text-accent"
+              strokeWidth={1.5}
+            />
+            Contact me
+            <ArrowUpRight aria-hidden="true" className="size-4" />
+          </Link>
+        </div>
+      </div>
 
       <PageSection
         title="Selected work"
