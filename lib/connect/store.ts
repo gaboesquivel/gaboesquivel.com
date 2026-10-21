@@ -3,9 +3,13 @@ import { Redis } from "@upstash/redis";
 import { memoryCapStore } from "./caps";
 import type { CapStore } from "./caps";
 
-const DAY_SECONDS = 60 * 60 * 48;
+// Cap keys roll on Denver calendar days; keep Redis TTL at ~48h past midnight edges.
+const CAP_REDIS_TTL_SECONDS = 60 * 60 * 48;
 
 let memory: CapStore | undefined;
+let cachedRedis:
+  | { config: { token: string; url: string }; store: CapStore }
+  | undefined;
 
 const redisStore = ({
   token,
@@ -18,7 +22,7 @@ const redisStore = ({
   return {
     claim: async (key) => {
       const result = await redis.set(key, "pending", {
-        ex: DAY_SECONDS,
+        ex: CAP_REDIS_TTL_SECONDS,
         nx: true,
       });
       return result === "OK";
@@ -34,11 +38,11 @@ const redisStore = ({
     },
     incr: async (key) => {
       const count = await redis.incr(key);
-      await redis.expire(key, DAY_SECONDS);
+      await redis.expire(key, CAP_REDIS_TTL_SECONDS);
       return count;
     },
     set: async (key, value) => {
-      await redis.set(key, value, { ex: DAY_SECONDS });
+      await redis.set(key, value, { ex: CAP_REDIS_TTL_SECONDS });
     },
   };
 };
@@ -61,7 +65,17 @@ export const restRedisEnv = () => {
 
 export const liveCapStore = (): CapStore | null => {
   const config = restRedisEnv();
-  if (config) return redisStore(config);
+  if (config) {
+    if (
+      cachedRedis?.config.url === config.url &&
+      cachedRedis?.config.token === config.token
+    ) {
+      return cachedRedis.store;
+    }
+    cachedRedis = { config, store: redisStore(config) };
+    return cachedRedis.store;
+  }
+  cachedRedis = undefined;
   const hosted =
     process.env.VERCEL_ENV === "production" ||
     process.env.VERCEL_ENV === "preview";

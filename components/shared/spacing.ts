@@ -17,7 +17,14 @@ export const sectionHeadingRow = cn(
   sectionHeadingSpacing,
   "flex items-baseline justify-between gap-4"
 );
-export const sectionAction = "cta-link text-sm";
+
+export const ctaLink =
+  "inline-block text-accent no-underline transition-colors";
+
+export const proseLink =
+  "underline decoration-neutral-400 underline-offset-2 transition-colors dark:decoration-neutral-600";
+
+export const sectionAction = cn(ctaLink, "text-sm");
 
 export const pageTitle = cn(
   titleSpacing,
@@ -48,14 +55,11 @@ export const siteCardSurface =
 export const siteCardInteractive =
   "transition-[color,background-color,transform] ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99] hover:bg-neutral-100 hover:text-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:hover:bg-neutral-800 dark:hover:text-white";
 
-export const cardLink = cn(
-  siteCardSurface,
-  siteCardInteractive,
-  "h-full w-full p-4"
-);
+export const cardArrow =
+  "shrink-0 text-neutral-400 group-hover:text-accent motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out motion-safe:group-hover:translate-x-0.5";
 
 export const siteFieldClass =
-  "min-h-11 w-full rounded-lg border border-hairline bg-transparent px-4 py-3 text-white scheme-dark focus-visible:border-transparent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0 focus-visible:outline-none disabled:opacity-50";
+  "h-auto min-h-11 px-4 py-3 text-white scheme-dark focus-visible:ring-offset-0";
 
 export const projectMedia =
   "relative mb-6 aspect-[16/9] h-auto w-full max-h-[400px]";

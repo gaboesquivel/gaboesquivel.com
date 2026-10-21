@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 
 import { CHAT_CAP, STORE_UNAVAILABLE_CHAT } from "./copy";
+import { isMcpChannel } from "./intent";
 import { DENVER, zonedDate } from "./slots";
 
 export interface CapStore {
@@ -88,7 +89,40 @@ export const admitChatOnce = ({
 }) => {
   const existing = inflight.get(key);
   if (existing) return existing;
-  const promise = admitChat({ enforce, ip, now, store });
+  const promise = admitChat({ enforce, ip, now, store }).finally(() => {
+    inflight.delete(key);
+  });
   inflight.set(key, promise);
   return promise;
+};
+
+export const admitMcpTurn = async ({
+  channelKind,
+  conversationChannelKind,
+  enforce = true,
+  ip,
+  messageCount,
+  now,
+  sessionId,
+  store,
+}: {
+  channelKind?: string;
+  conversationChannelKind?: string;
+  enforce?: boolean;
+  ip: string;
+  messageCount: number;
+  now: Date;
+  sessionId: string;
+  store: CapStore | null;
+}) => {
+  const mcp =
+    isMcpChannel(channelKind) || isMcpChannel(conversationChannelKind);
+  if (!mcp) return { message: "", ok: true };
+  return admitChatOnce({
+    enforce,
+    ip,
+    key: `${sessionId}:${messageCount}`,
+    now,
+    store,
+  });
 };

@@ -49,14 +49,13 @@ const toolPartAfterMessage = (
 ) => {
   const index = messages.findIndex((message) => message.id === messageId);
   if (index === -1) return null;
-  let found: ThreadMessage["parts"][number] | null = null;
   for (let i = index; i < messages.length; i++) {
     for (const part of messages[i].parts) {
       if (part.type === "dynamic-tool" && part.toolName === toolName)
-        found = part;
+        return part;
     }
   }
-  return found;
+  return null;
 };
 
 export const bookPartAfterMessage = (
@@ -168,6 +167,18 @@ const bookResult = (output: unknown) =>
     return { inserted, message, ok: record.ok === true };
   });
 
+const toolPartFinished = ({
+  settled,
+  state,
+}: {
+  settled: boolean;
+  state: string;
+}) =>
+  settled ||
+  state === "output-available" ||
+  state === "output-error" ||
+  state === "output-denied";
+
 export const bookReceiptStatus = ({
   fallback = "",
   output,
@@ -184,12 +195,8 @@ export const bookReceiptStatus = ({
     return { error: false, text: "Booked. See you then." };
   if (result?.message === ALREADY_BOOKED && result.ok)
     return { error: false, text: ALREADY_BOOKED };
-  const finished =
-    settled ||
-    state === "output-available" ||
-    state === "output-error" ||
-    state === "output-denied";
-  if (!finished) return { error: false, text: "Booking the call." };
+  if (!toolPartFinished({ settled, state }))
+    return { error: false, text: "Booking the call." };
   const message = result?.message || fallback || BUSY_SLOT;
   return { error: !result?.ok, text: message };
 };
@@ -207,12 +214,8 @@ export const noteReceiptStatus = ({
 }) => {
   const result = noteSendResult(output);
   if (result?.sent) return { error: false, text: "Sent." };
-  const finished =
-    settled ||
-    state === "output-available" ||
-    state === "output-error" ||
-    state === "output-denied";
-  if (!finished) return { error: false, text: "Sending the note." };
+  if (!toolPartFinished({ settled, state }))
+    return { error: false, text: "Sending the note." };
   return {
     error: true,
     text:

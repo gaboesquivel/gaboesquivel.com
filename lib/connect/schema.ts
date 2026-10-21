@@ -10,6 +10,7 @@ export const cleanText = (value: string) =>
 const name = z
   .string()
   .transform(cleanText)
+  .transform((value) => value.replace(/[\r\n]+/g, " ").trim())
   .pipe(z.string().min(1, "Name is missing."));
 
 const email = z.string().trim().email("Email is missing or invalid.");

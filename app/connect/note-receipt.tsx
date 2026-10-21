@@ -1,5 +1,6 @@
 "use client";
 
+import { proseLink } from "components/shared/spacing";
 import { siteOrigin, siteRelativePath } from "lib/site-path";
 import Link from "next/link";
 
@@ -13,12 +14,12 @@ const NoteLink = ({ href, label }: { href: string; label: string }) => {
   const path = siteRelativePath(href) || "/";
   if (internal)
     return (
-      <Link className="prose-link" href={path}>
+      <Link className={proseLink} href={path}>
         {label}
       </Link>
     );
   return (
-    <a className="prose-link" href={href} rel="noreferrer" target="_blank">
+    <a className={proseLink} href={href} rel="noreferrer" target="_blank">
       {label}
     </a>
   );

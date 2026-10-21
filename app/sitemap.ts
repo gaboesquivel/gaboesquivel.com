@@ -2,11 +2,12 @@ import { techCategoryIds } from "components/tech/categories";
 import { projects, techStack } from "gaboesquivel";
 import { allBlogs } from "lib/blog";
 import { browseCategories, isArchivePost } from "lib/blog-taxonomy";
+import { siteOrigin } from "lib/site-path";
 import { visibleTechStack } from "lib/tech-evidence";
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://gaboesquivel.com";
+  const baseUrl = siteOrigin;
 
   const primaryRoutes = [""].map((route) => ({
     changeFrequency: "daily" as const,

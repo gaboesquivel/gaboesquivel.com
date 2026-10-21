@@ -47,14 +47,14 @@ Voice and identity facts live in the installed `gabo` skill. UI microcopy: sente
 | --- | --- | --- |
 | Canvas / primary | `#000000` (`bg-black`) | Page background |
 | Text / secondary | `#ffffff` (`text-white`) | Body and headings |
-| Accent / tertiary | `#54e8b3` (`accent`, `text-accent`, `bg-accent`) | Top bar, active nav, `.cta-link`, focus rings |
+| Accent / tertiary | `#54e8b3` (`accent`, `text-accent`, `bg-accent`) | Top bar, active nav, `ctaLink`, focus rings |
 | Muted | Tailwind `neutral-400` / `neutral-500` | Meta, URLs, secondary labels |
 | Hairline / border | `rgba(255, 255, 255, 0.14)` (`hairline`, `border-hairline`) | Cards, form fields, code blocks |
 | Hover fill | `neutral-100` / `neutral-800` (`#262626`) | Card and path-link hover |
 
 One accent only. Hairline is the surface border. Prefer `neutral-*` over `zinc-*`, `gray-*`, or `slate-*` for new classes.
 
-`<html>` always has the `dark` class (`app/layout.tsx`), and `dark:` is class-based (`app/global.css`), so on screen the `dark:` value of a light/dark pair is the one that renders: borders are `border-hairline`, hover fill is `neutral-800`. A light half, when a pair still has one, is `border-neutral-200`. `/cv` print has its own black-on-white styles. The active nav item stays `text-accent`, along with the top bar and `.cta-link`.
+`<html>` always has the `dark` class (`app/layout.tsx`), and `dark:` is class-based (`app/global.css`), so on screen the `dark:` value of a light/dark pair is the one that renders: borders are `border-hairline`, hover fill is `neutral-800`. A light half, when a pair still has one, is `border-neutral-200`. `/cv` print has its own black-on-white styles. The active nav item stays `text-accent`, along with the top bar and `ctaLink`.
 
 ## Typography
 
@@ -89,7 +89,7 @@ Choose the visual structure from the content:
 - Engineering perspective: a comparison, tradeoff, progression, or feedback loop.
 - Personal reflection: a concrete visual metaphor grounded in the author's account. Do not turn personal experience into a scientific causal claim.
 
-Use image generation for conceptual artwork. Construct exact diagrams, arrows, labels, and factual relationships with SVG or another controlled layout tool. Add any typography after generation; never rely on generated text. In-article diagrams in `public/images/diagrams/` use this palette and the site monospace, and the page shows them at their intrinsic size, scrolling horizontally when the column is narrower, so labels stay readable. Hero images do not contain the article title, logos, or a signature. No new triangle mark or monogram is approved. Social assets may use the author's name or domain as typeset attribution.
+Use image generation for conceptual artwork. Construct exact diagrams, arrows, labels, and factual relationships with SVG or another controlled layout tool. Add any typography after generation; never rely on generated text. In-article diagrams in `public/images/diagrams/` use this palette and the site monospace, and the page scales them to the content column width so they stay readable without horizontal scroll. Hero images do not contain the article title, logos, or a signature. No new triangle mark or monogram is approved. Social assets may use the author's name or domain as typeset attribution.
 
 A **hero image** is the optional editorial raster for a blog post (`image` in MDX frontmatter). Posts may ship without one; listings and Open Graph fall back to the site default when `image` is omitted. In-article diagrams stay SVG or evidence imagery and are not hero images.
 
@@ -113,27 +113,27 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 
 | Job | Primitive | Source |
 | --- | --- | --- |
-| Primary nav | `NavigationMenu` + `NavigationMenuLink` | `components/layout/navbar.tsx`, `components/ui/navigation-menu.tsx` |
+| Primary nav | `<nav>` of `Link` rows (wrap, lowercase, `aria-current`) | `components/layout/navbar.tsx` |
 | Page h1 | `PageTitle` / `IndexHeading` | `components/shared/page-layout.tsx` |
 | Section | `PageSection` | `components/shared/page-layout.tsx` |
 | Body paragraph | `Prose` | `components/shared/page-layout.tsx` |
 | Photo | `PageImage` (requires `alt`) | `components/shared/page-layout.tsx` |
 | Filter | `FilterNav` (`Button` as `Link`) | `components/shared/page-layout.tsx`, `components/ui/button.tsx` |
 | Text / route card | `PageCard` / `SiteCardLink` on `Card` | `components/shared/page-card.tsx`, `components/shared/site-card-link.tsx` |
-| Project with image | `ProjectCard` on `Card` | `components/work/project-card.tsx` |
+| Project with image | `ProjectCard` on `SiteCardLink` | `components/work/project-card.tsx` |
 | Chat project row | `ProjectMedia` / `ProjectMediaStack` on `Card` | `components/work/project-media.tsx` |
 | Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
-| Section CTA | `.cta-link` / `sectionAction` | `app/global.css`, `spacing.ts` |
-| In-prose link | `.prose-link` | `app/global.css` |
+| Section CTA | `ctaLink` / `sectionAction` | `components/shared/spacing.ts` |
+| In-prose link | `proseLink` | `components/shared/spacing.ts` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
 | Forms | `Field`, `Input`, `Textarea`; hairline + mint focus via `siteFieldClass` | `components/ui/field.tsx`, `app/contact/contact-form.tsx`, `app/connect/connect-fields.tsx` |
 | Connect generative cards | `ConnectCard` (`Card`), `Button` (`siteAccent` / `siteQuiet`), `ToggleGroup` chips | `app/connect/connect-gen-ui.tsx` |
 
-`PathLink` uses the same `Card` + `siteCardInteractive` treatment as `PageCard`.
+`PathLink` and `PageCard` use `SiteCardLink` and share the `cardArrow` nudge in `spacing.ts`.
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status, approval card, and connect generative cards (`starting:` fade + scale via `enter`), connect starter, Send, Stop, and approval `:active` scale, and `cardLink` `:active` scale. The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:`, connect status, approval card, and connect generative cards (`starting:` fade + scale via `enter` in `components/shared/motion.ts`), connect starter, Send, Stop, and approval `:active` scale, and `siteCardInteractive` `:active` scale (`press` in the same file). The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## `/ask` generative UI
 
@@ -155,10 +155,10 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 ## Accessibility
 
 - Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under. Inactive nav items use `neutral-400` (`navbar.tsx`). Some meta text still uses `neutral-500`. See Open questions.
-- Focus: `cardLink` cards and `/ask` fields draw an accent ring; other links (nav, `PathLink`, `ProjectCard`) keep the browser's default outline. Do not remove an outline without adding the accent ring.
+- Focus: `SiteCardLink` surfaces (`PageCard`, `PathLink`, `ProjectCard`, blog cards) and `/ask` fields draw an accent ring via `siteCardInteractive` or field primitives. Primary nav links keep the browser's default outline.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
 - Images: `PageImage` requires `alt`; describe what the photo shows.
-- Reduced motion: the `PathLink` arrow nudge, connect status, approval card, slot picker, starter and send press, and `cardLink` press use `motion-safe:` / `motion-reduce:` (gentler scale or opacity-only, not off). The `ProjectCard` image zoom runs regardless.
+- Reduced motion: the `cardArrow` nudge, connect status, approval card, slot picker, starter and send press, and `siteCardInteractive` press use `motion-safe:` / `motion-reduce:` (gentler scale or opacity-only, not off). The `ProjectCard` image zoom runs regardless.
 - Print: the top bar, nav, and footer are `print:hidden`.
 
 ## Do's and Don'ts
@@ -199,6 +199,6 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 
 The homepage uses a single transparent WebP background composition with the real portrait, mint gradient, circle, grid, and small discipline labels. This approved homepage exception permits the subtle gradient and decorative photography in the supplied mockup; editorial image rules remain unchanged. The PNG master is `public/images/bio/gabo-hero.png`; the homepage ships the full composition as `public/images/gaboesquivel-homepage.webp` (with `gabo-hero.webp` in the same bio directory as a cropped portrait derivative). All artwork is baked into the image to preserve relative alignment.
 
-`app/home-hero.module.css` anchors the composition at the top and 20px past the hero’s right edge, with a controlled background size, and reserves right-hand space for the portrait on the copy block only—the page title spans the full reading column. Below 768px the background and reserved space are absent; the same WebP renders as a full-width image directly under the page title, then the copy block follows. The existing `max-w-4xl` column, copy, navigation, and sections remain. A plain, keyboard-focusable “Contact me” link opens `/contact` at every width. No filled hero CTA.
+[`app/page.tsx`](app/page.tsx) lays out the hero with Tailwind utilities: the title spans the full reading column (`relative z-[1] w-full max-w-none`); from `md` up the portrait is a right-aligned background (`md:bg-[url('/images/gaboesquivel-homepage.webp')]`, `md:bg-size-[47%_auto]`, `md:bg-position-[100%_top]`) and the copy block keeps `md:pr-[45%]`. Below `md`, the background and inset are absent; the same WebP renders as a full-width image (`md:hidden`) directly under the page title, then the copy block follows. The existing `max-w-4xl` column, copy, navigation, and sections remain. A plain, keyboard-focusable “Contact me” link opens `/contact` at every width. No filled hero CTA.
 
 Source: the real circular portrait preview in the supplied conversation attachment `Zight 2026-10-21 at 11.37.26 AM.jpg`. The PNG preserves source RGB pixels inside a manually traced transparency mask, with a lower-edge fade; no face generation or reconstruction. The source preview already crops the hair and shoulders and limits image detail. WebP is a compressed delivery derivative. A full-resolution original can replace this source later.

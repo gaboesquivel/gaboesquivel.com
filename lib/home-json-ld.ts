@@ -1,4 +1,6 @@
-const siteUrl = "https://gaboesquivel.com";
+import { siteOrigin } from "lib/site-path";
+
+const siteUrl = siteOrigin;
 
 const description =
   "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.";

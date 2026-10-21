@@ -44,12 +44,11 @@ On chain, wagmi is React Query with Ethereum types. A `useReadContract` is the s
 
 Writes still go through the wallet: the user signs, the app waits for the receipt, and then it invalidates the query keys the transaction made stale. Reads stay queries and writes stay mutations, because mixing them in a custom store is how the UI desyncs from the block.
 
-<figure className="mx-auto max-w-2xl">
+<figure className="mx-auto max-w-3xl">
 ![Separate cached read path and wallet write path with query invalidation](/images/diagrams/2024-10-modern-nextjs-web3-architecture.svg)
 
 <figcaption>Route state identifies the view, query caches supply reads, and confirmed wallet writes invalidate affected data.</figcaption>
 </figure>
-
 
 ## AHA instead of a framework-in-the-app
 

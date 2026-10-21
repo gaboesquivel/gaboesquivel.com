@@ -1,4 +1,6 @@
-export const BASE_URL = "https://gaboesquivel.com";
+import { siteOrigin } from "../../lib/site-path";
+
+export const BASE_URL = siteOrigin;
 
 export const absoluteUrl = (href: string) => {
   if (href.startsWith("http://") || href.startsWith("https://")) {

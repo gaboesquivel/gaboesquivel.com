@@ -15,7 +15,7 @@ A post **hero image** is optional editorial raster art referenced by MDX frontma
 - Keep meaningful content inside an 80px inset on all sides. Leave at least one third of the canvas empty. Separate unrelated elements by at least 40px. Use a front-facing, flat view with no perspective or simulated depth.
 - One focal relationship per hero image, at most five principal objects or groups. Mint highlights that relationship or the subject; it is not an overall color wash. White carries primary structure; gray carries supporting detail.
 - No text, article titles, numbers, logos, watermarks, signature, or full-bleed decorative grid in generated hero artwork. No humans, robots, brains, cityscapes, floating dashboards, photorealism, 3D objects, shadows, bloom, grain, gradients, or extra accent colors.
-- Exact diagrams use SVG or controlled layout, with manually specified connections and labels. Use the site's monospace stack for SVG text. In-article diagrams live in `public/images/diagrams/` and display at intrinsic size, with horizontal scroll on a narrow column, not as 16:9 cover crops. Raster typography must use one explicitly selected installed monospace face consistently across the batch. Never ask the image model to typeset labels.
+- Exact diagrams use SVG or controlled layout, with manually specified connections and labels. Use the site's monospace stack for SVG text. In-article diagrams live in `public/images/diagrams/` and scale to the content column width (no horizontal scroll), not as 16:9 cover crops. Raster typography must use one explicitly selected installed monospace face consistently across the batch. Never ask the image model to typeset labels.
 - Preserve source artwork when available. Deliver WebP hero images at the paths referenced by frontmatter `image`, targeting at most 300 KB without visibly damaged edges. PNG may be used as an intermediate. Inspect the output; do not merely rename another format to `.webp`.
 
 ## Fixed generation instruction
@@ -38,7 +38,7 @@ Meaning: the harness selects useful material for the model's current context; av
 
 Composition: three small outlined document sheets form one source group at x=200–450, y=280–620. The top and bottom sheets are gray; the middle sheet is white. Each sheet has two short abstract horizontal strokes, no writing. A large white outlined rounded rectangle occupies x=650–1120, y=250–650 and represents the working context. Inside it, draw two small white document sheets neatly aligned. A single mint path runs from the middle source sheet through a mint opening in the rectangle's left boundary and ends at the first internal sheet. The unused source sheets have no connections. Leave the rightmost portion of the canvas empty. No arrows, additional nodes, or implied model-to-tool connections.
 
-Do not change the existing in-article `context-harness.svg` diagram.
+Do not change the existing in-article harness diagram (`public/images/diagrams/2026-09-context-harness.svg`).
 
 ### 2. Agentic Domain-Driven Design
 

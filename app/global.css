@@ -81,18 +81,23 @@ html {
   height: auto;
 }
 
-/* Diagrams keep their drawing size so labels stay 16px. Narrow columns scroll. */
+/* Diagrams scale to the content column (no horizontal scroll on narrow viewports). */
 .prose .diagram-frame {
   display: block;
+  width: 100%;
   max-width: 100%;
-  overflow-x: auto;
 }
 
 .prose img.diagram {
-  width: auto;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   margin-inline: auto;
+}
+
+.prose figure:has(.diagram-frame) {
+  overflow-x: visible;
+  max-width: 100%;
 }
 
 .prose figcaption {
@@ -210,14 +215,6 @@ p {
 
 a {
   @apply !decoration-0 hover:text-accent;
-}
-
-.cta-link {
-  @apply inline-block text-accent no-underline transition-colors;
-}
-
-.prose-link {
-  @apply underline decoration-neutral-400 underline-offset-2 transition-colors dark:decoration-neutral-600;
 }
 
 /* Print styles - ensure all text is black when printing */

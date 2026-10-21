@@ -1,5 +1,10 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { PageSection, PageTitle, Prose } from "components/shared/page-layout";
+import {
+  PageSection,
+  PageTitle,
+  proseLink,
+  Prose,
+} from "components/shared/page-layout";
 import { ProjectsMasonry } from "components/work/projects-masonry";
 import type { TechStackItemWithProjects } from "gaboesquivel";
 import { sortProjectsForTech } from "lib/tech-evidence";
@@ -55,7 +60,7 @@ export default function TechStack({
       <PageSection title="See the work">
         <Prose>
           Explore the{" "}
-          <Link href="/work" className="prose-link">
+          <Link href="/work" className={proseLink}>
             project portfolio
           </Link>{" "}
           for implementation details, systems, and technology.

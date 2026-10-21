@@ -84,10 +84,7 @@ export const bookFormMessage = ({
 }) =>
   `[site:book ${timeZone}]\nName: ${name.trim()}\nEmail: ${email.trim()}\nDiscuss: ${description.trim()}\nBook ${duration} minutes starting ${start}.`;
 
-export const parseNoteFormPayload = (text: string): NoteFormState | null => {
-  const marker = text.match(/\[site:note\s+[^\]]+\]\n?/);
-  if (!marker) return null;
-  const lines = text.slice(marker[0].length).split("\n");
+const parseContactLines = (lines: string[]): NoteFormState | null => {
   if (lines.length < 3) return null;
   const nameMatch = lines[0]?.match(/^Name:\s*(.+)$/);
   const emailMatch = lines[1]?.match(/^Email:\s*(.+)$/);
@@ -106,6 +103,12 @@ export const parseNoteFormPayload = (text: string): NoteFormState | null => {
   };
 };
 
+export const parseNoteFormPayload = (text: string): NoteFormState | null => {
+  const marker = text.match(/\[site:note\s+[^\]]+\]\n?/);
+  if (!marker) return null;
+  return parseContactLines(text.slice(marker[0].length).split("\n"));
+};
+
 export const parseBookTimeZone = (text: string) => {
   const match = text.match(/\[site:book\s+([^\]]+)\]/);
   return match?.[1]?.trim() ?? "UTC";
@@ -118,27 +121,14 @@ export const parseBookFormPayload = (
   if (!marker) return null;
   const lines = text.slice(marker[0].length).split("\n");
   if (lines.length < 4) return null;
-  const nameMatch = lines[0]?.match(/^Name:\s*(.+)$/);
-  const emailMatch = lines[1]?.match(/^Email:\s*(.+)$/);
   const tail = lines.at(-1)?.trim() ?? "";
   const bookMatch = tail.match(bookTailPattern);
-  if (!nameMatch || !emailMatch || !bookMatch) return null;
+  if (!bookMatch) return null;
   const duration = Number(bookMatch[1]);
   if (duration !== 15 && duration !== 30) return null;
-  const contentLines = lines.slice(2, -1);
-  const discussLine = contentLines[0];
-  if (!discussLine?.startsWith("Discuss: ")) return null;
-  const description = [
-    discussLine.slice("Discuss: ".length),
-    ...contentLines.slice(1),
-  ].join("\n");
-  return {
-    description: description.trim(),
-    duration,
-    email: emailMatch[1].trim(),
-    name: nameMatch[1].trim(),
-    start: bookMatch[2].trim(),
-  };
+  const contact = parseContactLines(lines.slice(0, -1));
+  if (!contact) return null;
+  return { ...contact, duration, start: bookMatch[2].trim() };
 };
 
 export const noteFormVisible = ({

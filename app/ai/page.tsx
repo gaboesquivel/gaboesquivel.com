@@ -1,6 +1,11 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { LetsConnect } from "components/shared/lets-connect";
-import { PageSection, PageTitle, Prose } from "components/shared/page-layout";
+import {
+  PageSection,
+  PageTitle,
+  proseLink,
+  Prose,
+} from "components/shared/page-layout";
 import { ProjectEvidence } from "components/work/project-evidence";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
@@ -57,7 +62,7 @@ export default function AIExperiencePage() {
 
         <Prose>
           Earlier,{" "}
-          <Link href="/project/wizard-world" className="prose-link">
+          <Link href="/project/wizard-world" className={proseLink}>
             Wizard World
           </Link>{" "}
           combined OpenAI image generation with NFT minting on Flow through
@@ -77,7 +82,7 @@ export default function AIExperiencePage() {
       <PageSection title="Work together">
         <Prose>
           The roles and dates behind this work are in my{" "}
-          <Link href={cvPath({ key: "ai" })} className="prose-link">
+          <Link href={cvPath({ key: "ai" })} className={proseLink}>
             AI CV
           </Link>
           .

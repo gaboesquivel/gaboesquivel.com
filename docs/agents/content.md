@@ -16,6 +16,8 @@ Start with the brief, the `gabo` skill's relevant guidance, and PRODUCT's blog c
 
 **Hero image (optional).** The editorial 16:9 artwork for a post is its hero image. Set it with optional frontmatter `image` (path under `public/images/`, usually WebP). Omit `image` when the post has no hero yet; publishing does not require one. In-article SVG diagrams and screenshots are separate assets and do not substitute for a hero. Production rules live in [DESIGN.md](../../DESIGN.md#editorial-images) and [images.md](images.md). Do not generate or block shipping on a hero unless the task explicitly asks for one.
 
+**In-article diagrams.** Store explanatory SVGs under `public/images/diagrams/`. In MDX, wrap each diagram in `<figure className="mx-auto max-w-3xl">` with a `<figcaption>`, one blank line before and after the figure block, and no `overflow-x-auto`. The post scales diagrams to the content column; see [DESIGN.md](../../DESIGN.md#editorial-images).
+
 For a draft-only request, deliver the draft. When adding MDX to the repository, inspect the content schema or one existing post only as needed for publishing conventions, then run the applicable checks in [checks.md](checks.md). Read framework code, design guidance, or export implementations only when the task changes their behavior.
 
 Done when the edit serves that page's job, archive posts are untouched unless the task named them, and a published post has passed the content checks.

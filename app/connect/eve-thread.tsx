@@ -1,6 +1,7 @@
 "use client";
 
 import type { Spec } from "@json-render/core";
+import { proseLink } from "components/shared/spacing";
 import { openConversationInputs, useEveAgent } from "eve/react";
 import { siteOrigin, siteRelativePath } from "lib/site-path";
 import dynamic from "next/dynamic";
@@ -26,6 +27,7 @@ import type { NoteFormState } from "../../lib/connect/compose";
 import { STREAM_FAILED } from "../../lib/connect/copy";
 import type { CvDownloadPayload } from "../../lib/connect/cv-download";
 import {
+  assistantOfferedCall,
   browserTimeZone,
   channelMessage,
   stripMarker,
@@ -77,6 +79,7 @@ const ConnectApprovalForm = dynamic(
 const EMPTY_NEXT: ("book" | "pass" | "send")[] = [];
 
 export interface ThreadApi {
+  assistantOfferedBooking: () => boolean;
   cancel: () => Promise<void>;
   reset: () => void;
   respond: (input: { optionId: string; requestId: string }) => Promise<void>;
@@ -121,13 +124,13 @@ const renderText = (text: string) => {
     const href = siteRelativePath(node.href) || "/";
     if (internal) {
       return (
-        <Link className="prose-link" href={href} key={index}>
+        <Link className={proseLink} href={href} key={index}>
           {node.label}
         </Link>
       );
     }
     return (
-      <a className="prose-link" href={node.href} key={index} rel="noreferrer">
+      <a className={proseLink} href={node.href} key={index} rel="noreferrer">
         {node.label}
       </a>
     );
@@ -236,6 +239,18 @@ export function EveThread({
     onStateRef.current = onState;
     onInitialSendFailedRef.current = onInitialSendFailed;
     apiRef.current = {
+      assistantOfferedBooking: () => {
+        const assistant = [...agentRef.current.data.messages]
+          .toReversed()
+          .find((message) => message.role === "assistant");
+        const text =
+          assistant?.parts
+            .flatMap((part) => (part.type === "text" ? [part.text] : []))
+            .join("\n") ?? "";
+        return assistantOfferedCall(
+          visitorFacingAssistantText(splitNext(text).text)
+        );
+      },
       cancel: async () => {
         await agentRef.current.cancel();
       },

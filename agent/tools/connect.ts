@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { bookCall } from "../../lib/connect/book";
 import { googleCalendar } from "../../lib/connect/calendar";
-import { admitChatOnce } from "../../lib/connect/caps";
+import { admitMcpTurn } from "../../lib/connect/caps";
 import { fixedSpec, parseNoteFormPayload } from "../../lib/connect/compose";
 import type { SlotState } from "../../lib/connect/compose";
 import {
@@ -40,19 +40,20 @@ export default defineDynamic({
   events: {
     "turn.started": async (_event, ctx) => {
       const texts = userTexts(ctx.messages);
+      const admitted = await admitMcpTurn({
+        channelKind: ctx.channel.kind,
+        conversationChannelKind: ctx.conversation?.channel.kind,
+        enforce: sessionCapsEnforced(ctx.session.auth.current?.attributes),
+        ip: sessionIp(ctx.session.auth.current?.attributes),
+        messageCount: ctx.messages.length,
+        now: new Date(),
+        sessionId: ctx.session.id,
+        store: liveCapStore(),
+      });
+      if (!admitted.ok) return null;
       const mcp =
         isMcpChannel(ctx.channel.kind) ||
         isMcpChannel(ctx.conversation?.channel.kind);
-      if (mcp) {
-        const admitted = await admitChatOnce({
-          enforce: sessionCapsEnforced(ctx.session.auth.current?.attributes),
-          ip: sessionIp(ctx.session.auth.current?.attributes),
-          key: `${ctx.session.id}:${ctx.messages.length}`,
-          now: new Date(),
-          store: liveCapStore(),
-        });
-        if (!admitted.ok) return null;
-      }
       const turnTools = toolsForTurn({
         assistantTexts: assistantTexts(ctx.messages),
         texts,

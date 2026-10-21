@@ -4,6 +4,7 @@ import {
   PageImage,
   PageSection,
   PageTitle,
+  proseLink,
   Prose,
 } from "components/shared/page-layout";
 import { ProjectEvidence } from "components/work/project-evidence";
@@ -32,7 +33,7 @@ export default function BioPage() {
         </Prose>
         <Prose>
           I also founded{" "}
-          <Link href="/project/costa-rica-js" className="prose-link">
+          <Link href="/project/costa-rica-js" className={proseLink}>
             Costa Rica JS
           </Link>{" "}
           in 2010. It grew into a community of more than 2,000 developers
@@ -103,7 +104,7 @@ export default function BioPage() {
         <Prose>
           By 2024, I was building specialized AI assistants at Masterbots and
           Bitlauncher. In 2025, I worked on{" "}
-          <Link href="/project/legal-agent" className="prose-link">
+          <Link href="/project/legal-agent" className={proseLink}>
             LegalAgent
           </Link>
           , combining voice, chat, retrieval, and the controls a team needs to
@@ -116,11 +117,12 @@ export default function BioPage() {
 
       <LatestPosts title="Writing" limit={4} />
 
-      <PageSection title="The work now">
+      <PageSection title="What I’m focused on">
         <Prose>
-          Today I work across product, design, and architecture, building AI
-          products, full-stack applications, and financial systems. I work in
-          English, Spanish, Portuguese, and Italian.
+          My focus today is agentic AI and onchain finance. I help teams turn
+          ideas into working products, from the experience people use to the
+          systems behind it. I collaborate in English, Spanish, Portuguese, and
+          Italian.
         </Prose>
 
         <LetsConnect />

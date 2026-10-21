@@ -1,4 +1,6 @@
-const BASE_URL = "https://gaboesquivel.com";
+import { siteOrigin } from "lib/site-path";
+
+const BASE_URL = siteOrigin;
 
 export type ApiErrorCode = "not_found" | "method_not_allowed" | "invalid_path";
 

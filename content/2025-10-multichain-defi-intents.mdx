@@ -28,12 +28,11 @@ Same-chain fills can be atomic against a settlement contract, while cross-chain 
 
 The architecture moves computation offchain and keeps verification onchain. Users used to broadcast executable calldata, and now solvers do the search privately and only the winning path reaches the chain.
 
-<figure className="mx-auto max-w-2xl">
+<figure className="mx-auto max-w-3xl">
 ![Intent fulfillment swimlanes from signed outcome through solvers, chains, verification, and settlement](/images/diagrams/2025-10-multichain-defi-intents.svg)
 
 <figcaption>The user authorizes the desired result; solvers handle route selection and fulfillment, subject to the protocol's settlement rules.</figcaption>
 </figure>
-
 
 ## Production protocols
 

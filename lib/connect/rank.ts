@@ -43,8 +43,8 @@ const stackCategory = (question: string) => {
 };
 
 const categoriesFor = (section: RankSection) => {
-  if (section.categories.length > 0) return section.categories;
-  if (section.kind !== "tech") return section.categories;
+  if (section.kind !== "tech" || section.categories.length > 0)
+    return section.categories;
   const slug = section.path.split("/").at(-1) ?? "";
   const item = techStack.find((tech) => tech.slug === slug);
   return item ? [...getTechCategories(item)] : section.categories;

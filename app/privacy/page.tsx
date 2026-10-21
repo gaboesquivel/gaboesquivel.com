@@ -1,4 +1,4 @@
-import { PageTitle, Prose } from "components/shared/page-layout";
+import { PageTitle, proseLink, Prose } from "components/shared/page-layout";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       </Prose>
       <Prose>
         The contact form on{" "}
-        <Link href="/contact" className="prose-link">
+        <Link href="/contact" className={proseLink}>
           /contact
         </Link>{" "}
         sends your name, email address, subject, and message to
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       </Prose>
       <Prose>
         The site agent on{" "}
-        <Link href="/ask" className="prose-link">
+        <Link href="/ask" className={proseLink}>
           /ask
         </Link>{" "}
         and the task endpoint at /mcp can take a question about published work,
@@ -49,12 +49,12 @@ export default function PrivacyPage() {
       </Prose>
       <Prose>
         Public pages, CV PDFs, and the llms corpus at{" "}
-        <Link href="/llms.txt" className="prose-link">
+        <Link href="/llms.txt" className={proseLink}>
           /llms.txt
         </Link>{" "}
         are meant to be read by people and by AI tools. If you need a record
         removed or corrected, email{" "}
-        <Link href="mailto:contact@gaboesquivel.com" className="prose-link">
+        <Link href="mailto:contact@gaboesquivel.com" className={proseLink}>
           contact@gaboesquivel.com
         </Link>
         .

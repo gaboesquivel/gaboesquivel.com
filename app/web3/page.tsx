@@ -4,6 +4,7 @@ import {
   PageImage,
   PageSection,
   PageTitle,
+  proseLink,
   Prose,
   sectionAction,
 } from "components/shared/page-layout";
@@ -88,7 +89,7 @@ export default function Web3ExperiencePage() {
       <PageSection title="Protocols and infrastructure">
         <Prose>
           My earlier Web3 work began closer to the infrastructure. At{" "}
-          <Link href="/project/knowledge-io" className="prose-link">
+          <Link href="/project/knowledge-io" className={proseLink}>
             Knowledge
           </Link>
           , I built ERC-20 token contracts, serverless AWS services, and a React
@@ -98,7 +99,7 @@ export default function Web3ExperiencePage() {
           At EOS Costa Rica, I helped launch the EOS mainnet and operate
           validators, then built a private EOSIO chain for Grant Thornton&apos;s
           intercompany transactions and tax workflows. I also started{" "}
-          <Link href="/project/chaingraph" className="prose-link">
+          <Link href="/project/chaingraph" className={proseLink}>
             ChainGraph
           </Link>
           , an open-source GraphQL toolkit for querying and streaming EOSIO and
@@ -117,7 +118,7 @@ export default function Web3ExperiencePage() {
       <PageSection title="Work together">
         <Prose>
           The roles and dates behind this work are in my{" "}
-          <Link href={cvPath({ key: "web3" })} className="prose-link">
+          <Link href={cvPath({ key: "web3" })} className={proseLink}>
             Web3 CV
           </Link>
           .

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 import { headerColumnPadding, siteColumn } from "@/components/shared/spacing";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { siteOrigin } from "@/lib/site-path";
 import { cn } from "@/lib/utils";
 
 import { DeferredAnalytics } from "../components/layout/deferred-analytics";
@@ -12,7 +13,7 @@ import Navbar from "../components/layout/navbar";
 export const metadata: Metadata = {
   description:
     "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
-  metadataBase: new URL("https://gaboesquivel.com"),
+  metadataBase: new URL(siteOrigin),
   openGraph: {
     description:
       "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "Gabo Esquivel",
     title: "Gabo Esquivel | Agentic Product Engineer",
     type: "website",
-    url: "https://gaboesquivel.com",
+    url: siteOrigin,
   },
   robots: {
     follow: true,

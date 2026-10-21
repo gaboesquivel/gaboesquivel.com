@@ -18,8 +18,6 @@ import { ArrowUpRight, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import styles from "./home-hero.module.css";
-
 const homeHeroImage = {
   alt: "Gabo Esquivel — Agentic Product Engineer",
   height: 1098,
@@ -41,7 +39,9 @@ export default function HomePage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
-      <PageTitle className={cn(styles.heroTitle, "leading-normal")}>
+      <PageTitle
+        className={cn("relative z-[1] w-full max-w-none", "leading-normal")}
+      >
         Gabo Esquivel
         <br className="md:hidden" />
         <span className="max-md:hidden"> — </span>
@@ -49,15 +49,15 @@ export default function HomePage() {
       </PageTitle>
       <Image
         alt={homeHeroImage.alt}
-        className={styles.heroImageMobile}
+        className="block h-auto w-full md:hidden"
         height={homeHeroImage.height}
         preload
         sizes="100vw"
         src={homeHeroImage.src}
         width={homeHeroImage.width}
       />
-      <div className={styles.hero}>
-        <div className={styles.heroCopy}>
+      <div className="relative overflow-x-clip md:bg-[url('/images/gaboesquivel-homepage.webp')] md:bg-size-[47%_auto] md:bg-position-[100%_top] md:bg-no-repeat">
+        <div className="md:pr-[45%]">
           <Prose>
             I build useful and delightful software products, designed for humans
             and agents alike. I bring product thinking, careful design, and

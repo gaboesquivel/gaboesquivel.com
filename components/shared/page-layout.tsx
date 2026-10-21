@@ -18,8 +18,10 @@ import {
 export {
   blockGrid,
   blockSpacing,
-  cardLink,
+  cardArrow,
+  ctaLink,
   headingSpacing,
+  proseLink,
   indexTitle,
   pageTitle,
   projectMedia,

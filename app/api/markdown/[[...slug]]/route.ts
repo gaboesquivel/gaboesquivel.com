@@ -5,6 +5,7 @@ import {
 } from "lib/api/markdown-corpus";
 import { markdownApiRewritePath } from "lib/markdown-api-path";
 import { markdownNotFoundBody } from "lib/markdown-not-found";
+import { siteOrigin } from "lib/site-path";
 
 export const runtime = "nodejs";
 
@@ -16,15 +17,6 @@ const pagePathFromApiPathname = (pathname: string) =>
     : pathname.slice(prefix.length) || "/";
 
 const resolveRequestTarget = (req: Request) => {
-  const rewrite = req.headers.get("x-middleware-rewrite");
-  if (rewrite) {
-    const { pathname, search } = new URL(rewrite, "https://gaboesquivel.com");
-    return {
-      pagePath: pagePathFromApiPathname(pathname),
-      search: search.replace(/^\?/, ""),
-    };
-  }
-
   const { pathname, search } = new URL(req.url);
   if (pathname.startsWith(prefix)) {
     return {
@@ -33,11 +25,23 @@ const resolveRequestTarget = (req: Request) => {
     };
   }
 
+  const rewrite = req.headers.get("x-middleware-rewrite");
+  if (rewrite) {
+    const { pathname: rewritePath, search: rewriteSearch } = new URL(
+      rewrite,
+      siteOrigin
+    );
+    return {
+      pagePath: pagePathFromApiPathname(rewritePath),
+      search: rewriteSearch.replace(/^\?/, ""),
+    };
+  }
+
   if (pathname.endsWith(".md")) {
     const apiPath = markdownApiRewritePath(pathname);
     const { pathname: apiPathname, search: apiSearch } = new URL(
       apiPath,
-      "https://gaboesquivel.com"
+      siteOrigin
     );
     return {
       pagePath: pagePathFromApiPathname(apiPathname),

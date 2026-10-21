@@ -1,3 +1,4 @@
+import { ctaLink } from "components/shared/spacing";
 import Link from "next/link";
 
 const footerLink = "text-neutral-300 transition-colors hover:text-white";
@@ -95,7 +96,7 @@ export function Footer() {
             </li>
             <li className="text-neutral-300">Have something in mind?</li>
             <li>
-              <Link href="/contact" className="cta-link">
+              <Link href="/contact" className={ctaLink}>
                 Let’s talk
               </Link>
             </li>

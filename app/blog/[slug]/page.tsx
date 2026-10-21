@@ -7,6 +7,7 @@ import { blogJsonLd } from "lib/blog-json-ld";
 import { getRelatedPosts } from "lib/blog-related";
 import { isArchivePost } from "lib/blog-taxonomy";
 import { metadataWithMarkdownAlternate } from "lib/page-metadata";
+import { siteOrigin } from "lib/site-path";
 import { cn, formatDate } from "lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -33,7 +34,7 @@ export async function generateMetadata({
     image,
     slug: postSlug,
   } = post;
-  const ogImage = image ? `https://gaboesquivel.com${image}` : undefined;
+  const ogImage = image ? `${siteOrigin}${image}` : undefined;
 
   return metadataWithMarkdownAlternate({
     metadata: {
@@ -43,7 +44,7 @@ export async function generateMetadata({
         publishedTime,
         title,
         type: "article",
-        url: `https://gaboesquivel.com/blog/${postSlug}`,
+        url: `${siteOrigin}/blog/${postSlug}`,
         ...(ogImage ? { images: [{ url: ogImage }] } : {}),
       },
       title,

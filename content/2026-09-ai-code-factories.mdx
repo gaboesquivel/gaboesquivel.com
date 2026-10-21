@@ -28,12 +28,11 @@ The work then moves through specification, implementation, verification, release
 - Release produces an observable change in the running product.
 - Production feedback shows whether duplicate records stopped and whether the change introduced another problem.
 
-<figure className="mx-auto max-w-3xl overflow-x-auto">
+<figure className="mx-auto max-w-3xl">
 ![Delivery pipeline from specification through implementation, verification, review, release, and production feedback](/images/diagrams/2026-09-ai-code-factories.svg)
 
 <figcaption>A coding factory coordinates implementation, evidence, decisions, and production feedback rather than treating generated code as the finished product.</figcaption>
 </figure>
-
 
 The transitions are as important as the stages. A failed check should return useful evidence to the implementation step. An unresolved product question should go back to a person who can answer it. Neither should become an endless retry loop.
 

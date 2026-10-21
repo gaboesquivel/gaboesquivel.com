@@ -29,6 +29,7 @@ import {
   sortedDays,
   startOfWeek,
   timeZoneOptions,
+  upcomingAppointments,
   visitorDayKey,
   weekDayRange,
 } from "@/lib/connect/slot-display";
@@ -61,27 +62,13 @@ const formatTime = ({ iso, timeZone }: { iso: string; timeZone: string }) =>
     timeZone,
   }).format(new Date(iso));
 
-const formatDayShort = ({ iso, timeZone }: { iso: string; timeZone: string }) =>
+const formatDayLabel = ({ date, timeZone }: { date: Date; timeZone: string }) =>
   new Intl.DateTimeFormat("en-US", {
     day: "numeric",
     month: "short",
     timeZone,
     weekday: "short",
-  }).format(new Date(iso));
-
-const formatDayChip = ({
-  date,
-  timeZone,
-}: {
-  date: string;
-  timeZone: string;
-}) =>
-  new Intl.DateTimeFormat("en-US", {
-    day: "numeric",
-    month: "short",
-    timeZone,
-    weekday: "short",
-  }).format(zonedInstant({ date, time: "12:00", timeZone }));
+  }).format(date);
 
 const TimeButton = ({
   duration,
@@ -180,12 +167,14 @@ const BookingScheduler = ({
 
   const compact = useMemo(
     () =>
-      Object.values(futureByDay)
-        .flat()
-        .sort((a, b) => Date.parse(a) - Date.parse(b))
-        .slice(0, 5)
-        .map((start) => ({ duration, start })),
-    [duration, futureByDay]
+      upcomingAppointments({
+        duration,
+        limit: 5,
+        now,
+        slots: rawSlots ?? EMPTY_SLOTS,
+        timeZone: displayZone,
+      }),
+    [displayZone, duration, now, rawSlots]
   );
 
   const weekDays = useMemo(
@@ -355,7 +344,14 @@ const BookingScheduler = ({
                   type="button"
                   variant="siteQuiet"
                 >
-                  {formatDayChip({ date: day, timeZone: displayZone })}
+                  {formatDayLabel({
+                    date: zonedInstant({
+                      date: day,
+                      time: "12:00",
+                      timeZone: displayZone,
+                    }),
+                    timeZone: displayZone,
+                  })}
                 </Button>
               );
             })}
@@ -401,7 +397,10 @@ const BookingScheduler = ({
                   type="button"
                   variant="siteQuiet"
                 >
-                  {formatDayShort({ iso: item.start, timeZone: displayZone })}{" "}
+                  {formatDayLabel({
+                    date: new Date(item.start),
+                    timeZone: displayZone,
+                  })}{" "}
                   {formatTime({ iso: item.start, timeZone: displayZone })}
                 </Button>
               ))

@@ -1,5 +1,10 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { PageSection, PageTitle, Prose } from "components/shared/page-layout";
+import {
+  PageSection,
+  PageTitle,
+  proseLink,
+  Prose,
+} from "components/shared/page-layout";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -45,7 +50,7 @@ export function CapabilityPage({
       <PageSection title="See the work">
         <Prose>
           Browse the full{" "}
-          <Link href="/work" className="prose-link">
+          <Link href="/work" className={proseLink}>
             project archive
           </Link>{" "}
           for implementation details and technology choices.

@@ -1,3 +1,5 @@
+import { siteOrigin } from "lib/site-path";
+
 export default function robots() {
   return {
     rules: [
@@ -5,8 +7,8 @@ export default function robots() {
         userAgent: "*",
       },
     ],
-    sitemap: "https://gaboesquivel.com/sitemap.xml",
-    host: "https://gaboesquivel.com",
+    sitemap: `${siteOrigin}/sitemap.xml`,
+    host: siteOrigin,
     // LLM index: https://gaboesquivel.com/llms.txt
   };
 }

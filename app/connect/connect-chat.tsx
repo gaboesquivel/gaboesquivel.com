@@ -1,6 +1,6 @@
 "use client";
 
-import { pageTitle } from "components/shared/spacing";
+import { PageTitle } from "components/shared/page-layout";
 import { cn } from "lib/utils";
 import dynamic from "next/dynamic";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -42,8 +42,8 @@ const EveThread = dynamic(
 
 const APPROVE = /^(yes|book it|send it|that works)[.!]?$/i;
 
-const chipButton =
-  "h-11 min-h-11 rounded-md border-hairline bg-transparent px-3 text-base font-normal whitespace-normal text-white hover:bg-neutral-800 active:translate-y-0";
+const chipClass =
+  "h-11 rounded-md px-3 text-base font-normal whitespace-normal text-white active:translate-y-0";
 
 const emptyHeading = "What would you like to build?";
 const emptyLead =
@@ -83,7 +83,10 @@ export function ConnectChat() {
 
   const bookAffirmativeTurn = (trimmed: string) =>
     affirmativeBookingReply(trimmed) &&
-    (next.includes("book") || assistantOfferedCall(assistantReply));
+    (mode === "book" ||
+      next.includes("book") ||
+      assistantOfferedCall(assistantReply) ||
+      apiRef.current?.assistantOfferedBooking() === true);
 
   const beginTurn = (text: string) => {
     let trimmed = text.trim();
@@ -189,7 +192,10 @@ export function ConnectChat() {
         rows={1}
       />
       <PromptInputSubmit
-        className={`absolute right-1.5 bottom-1.5 size-11 rounded-lg bg-accent text-black hover:bg-accent/80 ${press}`}
+        className={cn(
+          "absolute right-1.5 bottom-1.5 size-11 rounded-lg bg-accent text-black hover:bg-accent/80",
+          press
+        )}
         disabled={resuming}
         onStop={() => apiRef.current?.cancel().catch(() => null)}
         status={isBusy && !hasInputText ? "streaming" : "ready"}
@@ -207,19 +213,21 @@ export function ConnectChat() {
           {showStarters ? (
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <h1 className={cn(pageTitle, "mb-0 text-balance")}>
+                <PageTitle className="mb-0 text-balance">
                   {emptyHeading}
-                </h1>
+                </PageTitle>
                 <p className="text-sm text-neutral-400">{emptyLead}</p>
               </div>
               <div className="flex flex-wrap gap-2 md:justify-center">
                 {CONNECT_SUGGESTIONS.map((item) => (
                   <Suggestion
-                    className={`${chipButton} ${press}`}
+                    className={cn(chipClass, press)}
                     key={item.id}
                     onClick={() => sendSuggestion(item.id)}
+                    size="site"
                     suggestion={item.label}
                     type="button"
+                    variant="siteQuiet"
                   >
                     {item.label}
                   </Suggestion>
@@ -232,11 +240,13 @@ export function ConnectChat() {
             <div className="flex flex-wrap gap-2">
               {followUpChips.map((chip) => (
                 <Suggestion
-                  className={`${chipButton} ${press}`}
+                  className={cn(chipClass, press)}
                   key={chip.label}
                   onClick={() => sendSuggestion(chip.id)}
+                  size="site"
                   suggestion={chip.label}
                   type="button"
+                  variant="siteQuiet"
                 >
                   {chip.label}
                 </Suggestion>

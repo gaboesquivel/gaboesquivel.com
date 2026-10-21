@@ -1,5 +1,5 @@
 import { BlogPostsMasonry } from "components/blog/blog-posts-masonry";
-import { PageSection, Prose } from "components/shared/page-layout";
+import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import {
   isTechCategoryId,
   techCategoryFrame,
@@ -69,7 +69,7 @@ export default async function TechCategoryPage({
         {frame ? (
           <Prose>
             {frame.line}{" "}
-            <Link href={frame.capabilityHref} className="prose-link">
+            <Link href={frame.capabilityHref} className={proseLink}>
               {capabilityLinkLabel[category]}
             </Link>{" "}
             goes deeper on the work.

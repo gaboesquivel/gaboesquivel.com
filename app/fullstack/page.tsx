@@ -1,4 +1,4 @@
-import { Prose } from "components/shared/page-layout";
+import { proseLink, Prose } from "components/shared/page-layout";
 import { CapabilityPage } from "components/work/capability-page";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
@@ -47,7 +47,7 @@ export default function FullstackExperiencePage() {
     >
       <Prose>
         The roles and dates behind this work are on the{" "}
-        <Link href={cvPath({ key: "fullstack" })} className="prose-link">
+        <Link href={cvPath({ key: "fullstack" })} className={proseLink}>
           full-stack CV
         </Link>
         .

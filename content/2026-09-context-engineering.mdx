@@ -33,8 +33,8 @@ Harrison Chase's [conversation on long-horizon agents](https://sequoiacap.com/po
 
 It helps to separate three responsibilities. The **model** interprets the available context and produces a response or tool request. The **harness** coordinates the loop and the information moving through it. The **runtime** is the environment where actions execute, with the access controls those actions require.
 
-<figure id="harness-diagram" className="mx-auto max-w-lg">
-![The harness selects task context, recalls and writes memory, calls the model, and dispatches tools. Tool results return to the harness for the next model call.](/images/2026/09/context-harness.svg)
+<figure id="harness-diagram" className="mx-auto max-w-3xl">
+![The harness selects task context, recalls and writes memory, calls the model, and dispatches tools. Tool results return to the harness for the next model call.](/images/diagrams/2026-09-context-harness.svg)
 
 <figcaption>The loop repeats as the agent works. Memory can carry information into later sessions; tool results update the current one. This is a conceptual view, not a required deployment layout.</figcaption>
 </figure>

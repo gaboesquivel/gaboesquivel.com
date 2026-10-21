@@ -1,5 +1,5 @@
 import { SiteCardLink } from "components/shared/site-card-link";
-import { proseClass } from "components/shared/spacing";
+import { cardArrow, proseClass } from "components/shared/spacing";
 import { cn } from "lib/utils";
 
 export function PageCard({
@@ -28,10 +28,7 @@ export function PageCard({
         >
           {title}
         </h3>
-        <span
-          aria-hidden
-          className="shrink-0 text-neutral-400 transition-transform group-hover:translate-x-0.5"
-        >
+        <span aria-hidden className={cardArrow}>
           →
         </span>
       </div>

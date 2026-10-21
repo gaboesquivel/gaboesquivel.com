@@ -58,13 +58,19 @@ export function ProjectDetails({
   full?: boolean;
 }) {
   const primarySrc = siteRelativePath(project.image);
-  const validExperienceTypes = (project.type ?? [])
-    .map((type) => capabilityTypeMap[type])
-    .filter(Boolean) as { display: string; url: string }[];
+  const validExperienceTypes = (project.type ?? []).flatMap((type) => {
+    const mapped = capabilityTypeMap[type];
+    return mapped ? [mapped] : [];
+  });
 
   const hasProjectLinks =
     full &&
     Boolean(project.repo || (project.link && project.link !== project.repo));
+
+  const primaryImage = <ProjectImage project={project} src={primarySrc} />;
+  const primaryImageHref = full
+    ? (project.link ?? null)
+    : `/project/${project.slug}`;
 
   return (
     <div className="mb-10">
@@ -77,21 +83,21 @@ export function ProjectDetails({
         </Prose>
       ))}
 
-      {full && !project.link ? (
-        <ProjectImage project={project} src={primarySrc} />
-      ) : full && project.link ? (
+      {primaryImageHref ? (
         <Link
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Open ${project.title} website`}
+          href={primaryImageHref}
+          {...(full && project.link
+            ? {
+                "aria-label": `Open ${project.title} website`,
+                rel: "noopener noreferrer",
+                target: "_blank",
+              }
+            : {})}
         >
-          <ProjectImage project={project} src={primarySrc} />
+          {primaryImage}
         </Link>
       ) : (
-        <Link href={`/project/${project.slug}`}>
-          <ProjectImage project={project} src={primarySrc} />
-        </Link>
+        primaryImage
       )}
 
       {full && project.story && project.story.length > 0 ? (

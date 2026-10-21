@@ -1,9 +1,15 @@
-import { PageSection, PageTitle, Prose } from "components/shared/page-layout";
+import {
+  PageSection,
+  PageTitle,
+  proseLink,
+  Prose,
+} from "components/shared/page-layout";
 import { pageMetadata } from "lib/page-metadata";
+import { siteOrigin } from "lib/site-path";
 import Link from "next/link";
 
-const endpoint = "https://gaboesquivel.com/mcp";
-const cvAppEndpoint = "https://gaboesquivel.com/mcp/cv";
+const endpoint = `${siteOrigin}/mcp`;
+const cvAppEndpoint = `${siteOrigin}/mcp/cv`;
 
 export default function DocsPage() {
   return (
@@ -14,7 +20,7 @@ export default function DocsPage() {
       <Prose>
         The Gabo Esquivel MCP server is how another agent reaches the same site
         agent as{" "}
-        <Link href="/ask" className="prose-link">
+        <Link href="/ask" className={proseLink}>
           /ask
         </Link>
         : ask about published work on gaboesquivel.com, leave a note, or request
@@ -25,33 +31,33 @@ export default function DocsPage() {
       <PageSection title="Gabo Esquivel MCP developer resources">
         <Prose>
           Canonical documentation lives at{" "}
-          <Link href="/docs" className="prose-link">
+          <Link href="/docs" className={proseLink}>
             gaboesquivel.com/docs
           </Link>
           . Predictable aliases:{" "}
-          <Link href="/developers" className="prose-link">
+          <Link href="/developers" className={proseLink}>
             /developers
           </Link>
           ,{" "}
-          <Link href="/mcp/docs" className="prose-link">
+          <Link href="/mcp/docs" className={proseLink}>
             /mcp/docs
           </Link>
           . The Streamable HTTP server is at{" "}
-          <Link href="/mcp" className="prose-link">
+          <Link href="/mcp" className={proseLink}>
             gaboesquivel.com/mcp
           </Link>
           . For read-only JSON (profile and Markdown page exports), use the{" "}
-          <Link href="/openapi.json" className="prose-link">
+          <Link href="/openapi.json" className={proseLink}>
             Gabo Esquivel Site API
           </Link>{" "}
           OpenAPI description at{" "}
-          <Link href="/openapi.json" className="prose-link">
+          <Link href="/openapi.json" className={proseLink}>
             /openapi.json
           </Link>
           . Task execution is not on that REST surface — use the MCP{" "}
           <code className="text-neutral-200">agent_*</code> tools documented
           below. For a plain-text corpus index, use{" "}
-          <Link href="/llms.txt" className="prose-link">
+          <Link href="/llms.txt" className={proseLink}>
             llms.txt
           </Link>
           .
@@ -61,7 +67,7 @@ export default function DocsPage() {
       <PageSection title="Gabo Esquivel MCP server endpoint">
         <Prose>
           Connect a Streamable HTTP MCP client to{" "}
-          <Link href="/mcp" className="prose-link">
+          <Link href="/mcp" className={proseLink}>
             {endpoint}
           </Link>
           . The route registers GET, POST, and DELETE. Access rules and
@@ -137,7 +143,7 @@ export default function DocsPage() {
         <Prose>
           For MCP Apps hosts (ChatGPT and similar), connect a separate
           Streamable HTTP server at{" "}
-          <Link href="/mcp/cv" className="prose-link">
+          <Link href="/mcp/cv" className={proseLink}>
             {cvAppEndpoint}
           </Link>
           . It exposes the same <code className="text-neutral-200">cv</code>{" "}
@@ -163,18 +169,18 @@ export default function DocsPage() {
           zone, and what you want to discuss. Open weekday slots are 9:00–17:00
           America/Denver. When two bookings are already on the calendar for that
           Denver day, the agent points to{" "}
-          <Link href="/cal" className="prose-link">
+          <Link href="/cal" className={proseLink}>
             gaboesquivel.com/cal
           </Link>
           .
         </Prose>
         <Prose>
           Hire terms and human-facing context live on{" "}
-          <Link href="/ask" className="prose-link">
+          <Link href="/ask" className={proseLink}>
             /ask
           </Link>
           . Data handling for chat, notes, and bookings is in{" "}
-          <Link href="/privacy" className="prose-link">
+          <Link href="/privacy" className={proseLink}>
             /privacy
           </Link>
           .
@@ -209,7 +215,7 @@ export default function DocsPage() {
           <code className="text-neutral-200">agent_*</code> and{" "}
           <code className="text-neutral-200">cv</code>. For a plain-text index
           of site facts, use{" "}
-          <Link href="/llms.txt" className="prose-link">
+          <Link href="/llms.txt" className={proseLink}>
             llms.txt
           </Link>
           .

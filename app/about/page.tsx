@@ -1,4 +1,9 @@
-import { blockGrid, PageTitle, Prose } from "components/shared/page-layout";
+import {
+  blockGrid,
+  PageTitle,
+  proseLink,
+  Prose,
+} from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
@@ -15,15 +20,15 @@ export default function AboutPage() {
       </Prose>
       <Prose>
         For examples of that work, explore the selected projects on{" "}
-        <Link href="/work" className="prose-link">
+        <Link href="/work" className={proseLink}>
           /work
         </Link>
         . The longer career story is on{" "}
-        <Link href="/bio" className="prose-link">
+        <Link href="/bio" className={proseLink}>
           /bio
         </Link>
         , and the roles, dates, and technical skills are documented in{" "}
-        <Link href="/cv" className="prose-link">
+        <Link href="/cv" className={proseLink}>
           /cv
         </Link>
         .
@@ -31,18 +36,18 @@ export default function AboutPage() {
       <Prose>
         This site also makes its published information available to AI tools.
         Read{" "}
-        <Link href="/llms.txt" className="prose-link">
+        <Link href="/llms.txt" className={proseLink}>
           llms.txt
         </Link>{" "}
         for the text index, or visit{" "}
-        <Link href="/docs" className="prose-link">
+        <Link href="/docs" className={proseLink}>
           /docs
         </Link>{" "}
         for the MCP and Site API documentation.
       </Prose>
       <Prose>
         For hiring, contracting, or a project conversation, use{" "}
-        <Link href="/contact" className="prose-link">
+        <Link href="/contact" className={proseLink}>
           /contact
         </Link>
         .

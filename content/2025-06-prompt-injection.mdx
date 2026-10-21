@@ -20,12 +20,11 @@ The attack comes in three forms:
 2. **Indirect prompt injection:** an external source such as a website or document contains hidden instructions that the LLM ingests without sanitization.
 3. **Tool response injection:** when the LLM calls tools such as web search or APIs, adversarial tool output enters the model's context and influences its next responses.
 
-<figure className="mx-auto max-w-2xl">
+<figure className="mx-auto max-w-3xl">
 ![Trust boundaries between trusted instructions, untrusted content, model context, and authorization before external execution](/images/diagrams/2025-06-prompt-injection.svg)
 
 <figcaption>Prompt injection crosses an instruction/data trust boundary. Application-enforced permissions limit the impact of malicious model behavior.</figcaption>
 </figure>
-
 
 ## What an injection can do
 

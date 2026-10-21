@@ -1,4 +1,9 @@
-import { blockSpacing, PageTitle, Prose } from "components/shared/page-layout";
+import {
+  blockSpacing,
+  PageTitle,
+  proseLink,
+  Prose,
+} from "components/shared/page-layout";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 
@@ -11,7 +16,7 @@ export default function ContactPage() {
       <Prose>
         I&apos;m available for direct hire, international hire, and contracts
         through{" "}
-        <Link href="/blog/2025-11-1099-contracting" className="prose-link">
+        <Link href="/blog/2025-11-1099-contracting" className={proseLink}>
           Blockmatic Labs LLC
         </Link>
         . I can&apos;t work under W-2. I&apos;m based in Costa Rica and work on
@@ -21,15 +26,15 @@ export default function ContactPage() {
         Tell me what you&apos;re building, the challenge you&apos;re working
         through, and how you&apos;d like to collaborate. Use the form below,
         email{" "}
-        <Link href="mailto:contact@gaboesquivel.com" className="prose-link">
+        <Link href="mailto:contact@gaboesquivel.com" className={proseLink}>
           contact@gaboesquivel.com
         </Link>
         , or{" "}
-        <Link href="/cal" className="prose-link">
+        <Link href="/cal" className={proseLink}>
           book a call
         </Link>
         . If you&apos;d like to see examples first, browse my{" "}
-        <Link href="/work" className="prose-link">
+        <Link href="/work" className={proseLink}>
           selected work
         </Link>
         .

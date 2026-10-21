@@ -1,9 +1,8 @@
 import { defineDynamic, defineInstructions } from "eve/instructions";
 
-import { admitChatOnce } from "../../lib/connect/caps";
+import { admitMcpTurn } from "../../lib/connect/caps";
 import { parseNoteFormPayload } from "../../lib/connect/compose";
 import {
-  isMcpChannel,
   sessionCapsEnforced,
   sessionIp,
   userTexts,
@@ -15,23 +14,21 @@ export default defineDynamic({
   events: {
     "turn.started": async (_event, ctx) => {
       const texts = userTexts(ctx.messages);
-      const mcp =
-        isMcpChannel(ctx.channel.kind) ||
-        isMcpChannel(ctx.conversation?.channel.kind);
-      if (mcp) {
-        const admitted = await admitChatOnce({
-          enforce: sessionCapsEnforced(ctx.session.auth.current?.attributes),
-          ip: sessionIp(ctx.session.auth.current?.attributes),
-          key: `${ctx.session.id}:${ctx.messages.length}`,
-          now: new Date(),
-          store: liveCapStore(),
+      const admitted = await admitMcpTurn({
+        channelKind: ctx.channel.kind,
+        conversationChannelKind: ctx.conversation?.channel.kind,
+        enforce: sessionCapsEnforced(ctx.session.auth.current?.attributes),
+        ip: sessionIp(ctx.session.auth.current?.attributes),
+        messageCount: ctx.messages.length,
+        now: new Date(),
+        sessionId: ctx.session.id,
+        store: liveCapStore(),
+      });
+      if (!admitted.ok) {
+        return defineInstructions({
+          content: `${admitted.message}\nReply with only that sentence.`,
+          role: "user",
         });
-        if (!admitted.ok) {
-          return defineInstructions({
-            content: `${admitted.message}\nReply with only that sentence.`,
-            role: "user",
-          });
-        }
       }
 
       const zone = visitorZone(texts);

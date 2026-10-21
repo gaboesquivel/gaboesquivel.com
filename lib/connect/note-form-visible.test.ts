@@ -203,6 +203,67 @@ describe("note form", () => {
     expect(sendPart?.state).toBe("output-available");
   });
 
+  test("sendPartAfterMessage pairs the first send tool after each form note", () => {
+    const firstNote = noteFormMessage({
+      description: "First note.",
+      email: "ada@example.com",
+      name: "Ada",
+      timeZone: "America/Denver",
+    });
+    const secondNote = noteFormMessage({
+      description: "Second note.",
+      email: "ada@example.com",
+      name: "Ada",
+      timeZone: "America/Denver",
+    });
+    const messages = [
+      {
+        id: "user-1",
+        parts: [{ text: firstNote, type: "text" }],
+        role: "user",
+      },
+      {
+        id: "assistant-1",
+        parts: [
+          {
+            output: { sent: true },
+            state: "output-available",
+            toolName: "send",
+            type: "dynamic-tool",
+          },
+        ],
+        role: "assistant",
+      },
+      {
+        id: "user-2",
+        parts: [{ text: secondNote, type: "text" }],
+        role: "user",
+      },
+      {
+        id: "assistant-2",
+        parts: [
+          {
+            output: {
+              sent: false,
+              message: "5 notes today. Nothing was sent.",
+            },
+            state: "output-available",
+            toolName: "send",
+            type: "dynamic-tool",
+          },
+        ],
+        role: "assistant",
+      },
+    ];
+    expect(sendPartAfterMessage(messages, "user-1")?.output).toEqual({
+      sent: true,
+    });
+    expect(sendPartAfterMessage(messages, "user-2")?.output).toEqual({
+      message: "5 notes today. Nothing was sent.",
+      sent: false,
+    });
+  });
+
   test("noteFormVisible shows on note turns without send approval", () => {
     expect(noteFormVisible({ hasSendApproval: false, mode: "note" })).toBe(
       true

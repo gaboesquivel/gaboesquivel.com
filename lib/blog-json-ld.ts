@@ -1,3 +1,5 @@
+import { siteOrigin } from "lib/site-path";
+
 interface BlogPost {
   title: string;
   publishedAt: string;
@@ -8,7 +10,7 @@ interface BlogPost {
   tech?: string[];
 }
 
-const siteUrl = "https://gaboesquivel.com";
+const siteUrl = siteOrigin;
 
 export const blogJsonLd = (post: BlogPost) => ({
   "@context": "https://schema.org",
