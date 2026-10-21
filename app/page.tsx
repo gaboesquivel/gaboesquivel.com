@@ -12,10 +12,9 @@ import { PathLink } from "components/shared/path-link";
 import { ProjectCard } from "components/work/project-card";
 import { getProjectBySlug } from "gaboesquivel";
 import { homeJsonLd } from "lib/home-json-ld";
-import { markdownSiblingPath } from "lib/markdown-sibling";
+import { pageMetadata } from "lib/page-metadata";
 import { cn } from "lib/utils";
 import { ArrowUpRight, MessageSquare } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import styles from "./home-hero.module.css";
@@ -36,6 +35,7 @@ export default function HomePage() {
       />
       <PageTitle className={cn(styles.heroTitle, "leading-tight")}>
         Gabo Esquivel
+        <br className="md:hidden" />
         <span className="max-md:hidden"> — </span>
         Agentic Product Engineer
       </PageTitle>
@@ -141,18 +141,17 @@ export default function HomePage() {
   );
 }
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: "/",
-    types: { "text/markdown": markdownSiblingPath("/") },
-  },
+export const metadata = pageMetadata({
   description:
     "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
-  openGraph: {
-    description:
-      "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
-    title: "Gabo Esquivel | Agentic Product Engineer",
-    type: "website",
-  },
+  images: [
+    {
+      url: "/images/gaboesquivel-homepage.webp",
+      width: 1433,
+      height: 1098,
+      alt: "Gabo Esquivel — Agentic Product Engineer",
+    },
+  ],
+  path: "/",
   title: "Gabo Esquivel | Agentic Product Engineer",
-};
+});

@@ -71,7 +71,7 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - Column: `siteColumn` in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`max-w-4xl` with `px-4 sm:px-6` gutters) on nav and `main`, `h-0.5 bg-accent` top bar
 - Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
-- Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name at every width (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up the name is followed by an em dash
+- Page titles step up one size at `sm` (`pageTitle`). On `/`, the `h1` breaks after the name below `md` (`Gabo Esquivel` / `Agentic Product Engineer`); from `md` up it stays one line with an em dash (`Gabo Esquivel — Agentic Product Engineer`)
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `writing` (`components/layout/navbar.tsx`). `/ask` stays out of this nav while that experience is in progress (`PRODUCT.md`)
 - `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); header (accent bar + nav) scrolls with the page; footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
