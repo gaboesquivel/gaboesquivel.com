@@ -26,9 +26,14 @@ const blogTechRedirects = techStack.flatMap((tech) => [
   },
 ]);
 
+const emptyModule = path.join(__dirname, "lib/empty-module.js");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   allowedDevOrigins: ["gaboesquivel.localhost", "*.gaboesquivel.localhost"],
+  images: {
+    imageSizes: [32, 48, 64, 96, 128, 256, 384, 448],
+  },
   ...(isGaboesquivelLinked && {
     outputFileTracingRoot: path.join(__dirname, ".."),
     transpilePackages: ["gaboesquivel"],
@@ -103,6 +108,25 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "@tanstack/react-form"],
+  },
+  turbopack: {
+    rules: {
+      "*": {
+        as: "*.js",
+        condition: { path: /[/\\]polyfill-module\.js$/ },
+        loaders: [path.join(__dirname, "lib/empty-polyfill-loader.js")],
+      },
+    },
+  },
+  webpack: (config, { isServer, webpack }) => {
+    if (isServer) return config;
+    config.plugins.push(
+      new webpack.NormalModuleReplacementPlugin(
+        /next[/\\]dist[/\\]build[/\\]polyfills[/\\]polyfill-module/,
+        emptyModule
+      )
+    );
+    return config;
   },
 };
 

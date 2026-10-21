@@ -15,8 +15,9 @@ import { homeJsonLd } from "lib/home-json-ld";
 import { pageMetadata } from "lib/page-metadata";
 import { cn } from "lib/utils";
 import { ArrowUpRight, MessageSquare } from "lucide-react";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
+import { preload } from "react-dom";
 
 const homeHeroAlt = "Gabo Esquivel — Agentic Product Engineer";
 
@@ -32,6 +33,12 @@ const homeHeroDesktop = {
   width: 700,
 } as const;
 
+const homeHeroMobileSizes =
+  "(max-width: 639px) calc(100vw - 2rem), calc(100vw - 3rem)";
+
+const homeHeroDesktopSizes =
+  "(min-width: 768px) calc((min(100vw, 56rem) - 3rem) * 0.47)";
+
 const defaultOgImage = {
   alt: homeHeroAlt,
   height: 630,
@@ -45,7 +52,47 @@ const selectedProjects = selectedProjectSlugs.flatMap((slug) => {
   return project ? [project] : [];
 });
 
+const homeHero = () => {
+  const {
+    props: { src: desktopSrc, srcSet: desktopSrcSet },
+  } = getImageProps({
+    alt: "",
+    fetchPriority: "high",
+    height: homeHeroDesktop.height,
+    loading: "eager",
+    sizes: homeHeroDesktopSizes,
+    src: homeHeroDesktop.src,
+    width: homeHeroDesktop.width,
+  });
+  const { props: mobile } = getImageProps({
+    alt: homeHeroAlt,
+    fetchPriority: "high",
+    height: homeHeroMobile.height,
+    loading: "eager",
+    sizes: homeHeroMobileSizes,
+    src: homeHeroMobile.src,
+    width: homeHeroMobile.width,
+  });
+  return { desktopSrc, desktopSrcSet, mobile };
+};
+
 export default function HomePage() {
+  const { desktopSrc, desktopSrcSet, mobile } = homeHero();
+  preload(mobile.src, {
+    as: "image",
+    fetchPriority: "high",
+    imageSizes: mobile.sizes,
+    imageSrcSet: mobile.srcSet,
+    media: "(max-width: 767px)",
+  });
+  preload(desktopSrc, {
+    as: "image",
+    fetchPriority: "high",
+    imageSizes: homeHeroDesktopSizes,
+    imageSrcSet: desktopSrcSet,
+    media: "(min-width: 768px)",
+  });
+
   return (
     <section>
       <script
@@ -62,25 +109,18 @@ export default function HomePage() {
         Agentic Product Engineer
       </PageTitle>
       <div className="relative overflow-x-clip">
-        <Image
-          alt={homeHeroAlt}
-          className="block h-auto w-full md:hidden"
-          height={homeHeroMobile.height}
-          preload
-          sizes="(max-width: 768px) 100vw, 896px"
-          src={homeHeroMobile.src}
-          width={homeHeroMobile.width}
-        />
-        <Image
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute top-0 right-0 hidden h-auto w-[47%] max-w-none md:block"
-          height={homeHeroDesktop.height}
-          loading="lazy"
-          sizes="(min-width: 768px) 47vw, 0px"
-          src={homeHeroDesktop.src}
-          width={homeHeroDesktop.width}
-        />
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            sizes={homeHeroDesktopSizes}
+            srcSet={desktopSrcSet}
+          />
+          <img
+            {...mobile}
+            alt={homeHeroAlt}
+            className="block h-auto w-full md:pointer-events-none md:absolute md:top-0 md:right-0 md:h-auto md:w-[47%] md:max-w-none"
+          />
+        </picture>
         <div className="relative md:pr-[45%]">
           <Prose>
             I build useful and delightful software products, designed for humans

@@ -6,6 +6,12 @@ import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
 import Image from "next/image";
 
+const projectCardSizes =
+  "(max-width: 639px) calc(100vw - 2rem), (max-width: 767px) calc(100vw - 3rem), (max-width: 896px) calc((100vw - 3rem - 1rem) / 2), 416px";
+
+const wideProjectCardSizes =
+  "(max-width: 639px) calc(100vw - 2rem), (max-width: 767px) calc(100vw - 3rem), calc(min(100vw, 56rem) - 3rem)";
+
 export function ProjectCard({
   project,
   priority = false,
@@ -35,7 +41,7 @@ export function ProjectCard({
               height={1067}
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
-              sizes="(max-width: 768px) 100vw, 896px"
+              sizes={wideProjectCardSizes}
               className="h-auto w-full motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
             />
           </div>
@@ -47,7 +53,7 @@ export function ProjectCard({
               fill
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
-              sizes="(max-width: 768px) 100vw, 448px"
+              sizes={projectCardSizes}
               className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
             />
           </div>
