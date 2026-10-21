@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="407" viewBox="0 0 600 407" role="img" aria-labelledby="title desc">
+  <title id="title">USDT0 lock and mint</title>
+  <desc id="desc">USDT locks on Ethereum, USDT0 mints on the destination, and the return path burns USDT0 to unlock USDT.</desc>
+  <defs>
+    <marker id="arrow-mint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#54e8b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="arrow-white" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect width="600" height="407" fill="#000000"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+    
+    <path d="M300 88L300 140" fill="none" stroke="#54e8b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-mint)"/><path d="M300 212L300 260" fill="none" stroke="#54e8b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-mint)"/><path d="M300 332V388H40V60H140" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-gray)"/>
+    <g class="node"><rect x="140" y="32" width="320" height="56" rx="8" fill="#111111" stroke="#555555" stroke-width="1.5"/><text x="300" y="60" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">Canonical USDT on Ethereum</text></g><g class="node"><rect x="175" y="140" width="250" height="72" rx="8" fill="#111111" stroke="#555555" stroke-width="1.5"/><text x="300" y="164" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">LayerZero OFT</text><text x="300" y="188" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#a3a3a3">Cross-chain message</text></g><g class="node"><rect x="165" y="260" width="270" height="72" rx="8" fill="#111111" stroke="#54e8b3" stroke-width="2"/><text x="300" y="284" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">USDT0 on destination</text><text x="300" y="308" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#a3a3a3">Minted 1:1</text></g>
+    <g class="chip"><rect x="349" y="97" width="82" height="22" rx="4" fill="#000000"/><text x="390" y="108" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#a3a3a3">Lock USDT</text></g><g class="chip"><rect x="355.5" y="221" width="89" height="22" rx="4" fill="#000000"/><text x="400" y="232" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#a3a3a3">Mint USDT0</text></g><g class="chip"><rect x="108.5" y="357" width="183" height="22" rx="4" fill="#000000"/><text x="200" y="368" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#a3a3a3">Burn USDT0, unlock USDT</text></g>
+  </g>
+</svg>

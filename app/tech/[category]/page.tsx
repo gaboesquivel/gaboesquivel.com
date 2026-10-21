@@ -35,7 +35,7 @@ const categoryDescriptions = {
 } as const;
 
 const capabilityLinkLabel: Record<string, string> = {
-  ai: "AI product engineering",
+  ai: "AI engineering",
   backend: "backend engineering",
   frontend: "frontend engineering",
   web3: "Web3 engineering",

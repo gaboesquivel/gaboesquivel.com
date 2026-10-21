@@ -2,27 +2,31 @@
 
 Read [DESIGN.md](../../DESIGN.md#editorial-images) for the canonical direction. Read the complete target article before making its image. This guide governs production, not article copy or page layout.
 
+## Hero images (blog)
+
+A post **hero image** is optional editorial raster art referenced by MDX frontmatter `image`. Omit `image` when there is no hero yet; do not treat hero production as a prerequisite for adding or shipping a post. **In-article diagrams** (SVG under `public/images/diagrams/`, screenshots, and similar) explain the article and follow the diagram rules below; they are not hero images.
+
 ## Fixed production specification
 
-- Blog master: 1600 × 900, opaque sRGB, pure black `#000000` background, no outer frame or baked corner radius.
+- Hero master: 1600 × 900, opaque sRGB, pure black `#000000` background, no outer frame or baked corner radius.
 - OG export: 1200 × 630. Recompose from the master; preserve all meaningful objects. Social post variants may be square or portrait when requested. Profile banners require their own platform-specific layout and avatar-safe area.
 - Artwork colors: white `#ffffff`, gray `#a3a3a3`, dark gray `#404040`, and mint `#54e8b3`. Antialiasing may introduce intermediate edge pixels. No other intentional colors.
 - At 1600 × 900: 4px primary strokes, 2px secondary strokes, round caps and joins, 12px radius for rectangular containers. Scale these proportionally for other exports. Generated approximations must be visually consistent; use controlled vector construction when exact geometry is required.
 - Keep meaningful content inside an 80px inset on all sides. Leave at least one third of the canvas empty. Separate unrelated elements by at least 40px. Use a front-facing, flat view with no perspective or simulated depth.
-- One focal relationship per cover, at most five principal objects or groups. Mint highlights that relationship or the subject; it is not an overall color wash. White carries primary structure; gray carries supporting detail.
-- No text, article titles, numbers, logos, watermarks, signature, or full-bleed decorative grid in generated cover artwork. No humans, robots, brains, cityscapes, floating dashboards, photorealism, 3D objects, shadows, bloom, grain, gradients, or extra accent colors.
-- Exact diagrams use SVG or controlled layout, with manually specified connections and labels. Use the site's monospace stack for SVG text. Raster typography must use one explicitly selected installed monospace face consistently across the batch. Never ask the image model to typeset labels.
-- Preserve source artwork when available. Deliver WebP covers at the existing article image paths, targeting at most 300 KB without visibly damaged edges. PNG may be used as an intermediate. Inspect the output; do not merely rename another format to `.webp`.
+- One focal relationship per hero image, at most five principal objects or groups. Mint highlights that relationship or the subject; it is not an overall color wash. White carries primary structure; gray carries supporting detail.
+- No text, article titles, numbers, logos, watermarks, signature, or full-bleed decorative grid in generated hero artwork. No humans, robots, brains, cityscapes, floating dashboards, photorealism, 3D objects, shadows, bloom, grain, gradients, or extra accent colors.
+- Exact diagrams use SVG or controlled layout, with manually specified connections and labels. Use the site's monospace stack for SVG text. In-article diagrams live in `public/images/diagrams/` and display at intrinsic size, with horizontal scroll on a narrow column, not as 16:9 cover crops. Raster typography must use one explicitly selected installed monospace face consistently across the batch. Never ask the image model to typeset labels.
+- Preserve source artwork when available. Deliver WebP hero images at the paths referenced by frontmatter `image`, targeting at most 300 KB without visibly damaged edges. PNG may be used as an intermediate. Inspect the output; do not merely rename another format to `.webp`.
 
 ## Fixed generation instruction
 
-Use this instruction unchanged, followed by exactly one approved composition below. Attach the first accepted cover as a style reference for subsequent covers; do not use the older cinematic covers as style references.
+Use this instruction unchanged, followed by exactly one approved composition below. Attach the first accepted hero image as a style reference for subsequent hero images; do not use the older cinematic hero artwork as style references.
 
 > Create a flat editorial illustration for Gabo Esquivel's website. Landscape 16:9, target 1600 × 900. Pure black background. Use only white, neutral gray, dark gray, and mint #54e8b3. Clean vector-like outlines, consistent round-ended strokes, sparse flat shapes, no perspective, no depth effects. At the target size use 4px primary strokes and 2px secondary strokes. Leave an 80px outer safe area and at least one third of the canvas empty. Mint identifies the main relationship or subject. Follow the supplied composition exactly. Draw only the specified objects. No text, letters, numbers, titles, logos, watermarks, people, robots, brains, cityscapes, dashboards, decorative code, grids, photography, 3D rendering, shadows, glow, glass, grain, gradients, or additional colors. Do not invent supporting objects or change the composition.
 
 These are text-free editorial metaphors, not substitutes for explanatory diagrams. Generation must not fabricate technical connections. If a requested image requires accurate labels or topology, build that portion deterministically.
 
-## First batch: three covers
+## First batch: three hero images
 
 Generate in this order. Coordinates refer to the 1600 × 900 master. They specify object placement, not text to render. Keep the same stroke treatment and visual density across all three.
 
@@ -58,8 +62,8 @@ The sunrise and trail come from the author's morning hike. Do not imply a medica
 
 ## Review and integration
 
-1. Check each cover against its article and exact composition. Reject invented objects, misleading relationships, incorrect palette, inconsistent strokes, clutter, and any generated text.
-2. Inspect all three together at full size and at 320 × 180. Objects and the principal relationship must remain recognizable; the three covers must feel related without becoming interchangeable.
+1. Check each hero image against its article and exact composition. Reject invented objects, misleading relationships, incorrect palette, inconsistent strokes, clutter, and any generated text.
+2. Inspect all three together at full size and at 320 × 180. Objects and the principal relationship must remain recognizable; the three hero images must feel related without becoming interchangeable.
 3. Produce a 1200 × 630 OG crop preview for each, keeping every meaningful object visible. This preview verifies crop safety; do not add new metadata fields or exports to the site during this batch.
 4. Replace only the three destination WebP files after review. Their existing frontmatter and inline references already point to those paths. Leave article text, diagrams, dates, metadata, routes, and listing components unchanged.
 5. Follow [checks.md](checks.md) and [verify.md](verify.md) for the affected pages. Confirm image dimensions, format, size, browser rendering, and social crop previews. Report actual checks and any unavailable generation or browser capability; do not claim generation or visual verification succeeded without evidence.
@@ -68,7 +72,7 @@ This batch establishes the first reusable visual references. Profile banners, lo
 
 ## Homepage/default OG
 
-Approved composition for the site default social image (not article covers).
+Approved composition for the site default social image (not per-post hero images).
 
 **Copy (exact, unwrapped):**
 

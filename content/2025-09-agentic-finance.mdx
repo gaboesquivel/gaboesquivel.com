@@ -11,37 +11,6 @@ Google's AP2 and the x402 work Coinbase announced with Google give [AI agents](/
 
 > **Protocol note (2026):** This post is a snapshot from September 2025. AP2 is an authorization layer, not a stablecoin-payment spec by itself. x402 is a settlement primitive, not an implementation of AP2. OpenAI's commerce work is usually discussed as **ACP** (Agentic Commerce Protocol), separate from Google's **UCP** (Universal Commerce Protocol).
 
-{/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![Agentic Finance](/images/2025/09/agentic-finance.webp)
-</div>
-
-## What agentic finance requires
-
-Agentic finance is the onchain economy where AI agents execute financial actions with real assets, real liquidity, and verifiable outcomes. It depends on three capabilities:
-
-1. Autonomous reasoning: agents plan, adapt, and decide without a human approving every step.
-2. Non-custodial execution under constraints: user intent becomes action without giving up safety or transparency.
-3. Unified liquidity access: agents operate across fragmented DeFi ecosystems and chains without losing composability.
-
-## Protocols that define agent payments
-
-Three launches set the early standards:
-
-* [Google AP2](https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol): a protocol for AI agents to transact using stablecoins with safety controls and cryptographic verification.
-
-* [x402 (Google + Coinbase)](https://www.coinbase.com/developer-platform/discover/launches/google_x402): Coinbase's stablecoin rails combined with Google's AI infrastructure, connecting web2 and web3 for agent payments.
-
-* [Agentic Commerce (OpenAI)](https://openai.com/research/agentic-commerce): a framework for agent-driven commerce with agent-to-agent transactions, negotiation, and settlement over standardized payment protocols.
-
-Together they describe how an agent receives delegated intent, how its execution is verified, and how the user keeps cryptographic control over what it may spend.
-
-These two videos show agentic payments working end to end, with mandates, agent negotiation, settlement, and feedback loops that are easier to follow in motion than in a diagram:
-
-<YouTube id="vtB9YyC73yc" title="Agentic Finance Video 1" />
-
-<div className="my-4"></div>
-
 <YouTube id="C6qcZdtIv54" title="Agentic Finance Video 2" />
 
 ## Why stablecoins are the settlement layer
@@ -54,6 +23,12 @@ Stablecoins combine the programmability of crypto with the price stability comme
 2. **Composable primitives**: standards like AP2 can integrate with any blockchain that supports the required verification methods.
 3. **Permissionless deployment**: new agent capabilities ship without a central gatekeeper approving them.
 4. **Programmable constraints**: smart contracts enforce the boundaries an agent can operate within.
+
+<figure className="mx-auto max-w-3xl overflow-x-auto">
+![Agentic finance flow from user mandate through agent, payment request, settlement, and receipt](/images/diagrams/2025-09-agentic-finance.svg)
+
+<figcaption>An agent can act within a defined mandate, with payment authorization and settlement handled by separate mechanisms.</figcaption>
+</figure>
 
 Payments come first, and agent-led trading comes after them, as mandates and session keys evolve into trade instructions that let an agent execute swaps, manage risk, and settle positions inside boundaries you define. That is where I want to take the specialized agent interfaces I built on [Masterbots](/project/masterbots), from commerce toward capital operations.
 

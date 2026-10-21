@@ -13,10 +13,6 @@ That system determines much of the experience people have with the agent. Does i
 
 Those are infrastructure questions. Model quality matters, but putting an agent into a product also means taking responsibility for its state, tools, permissions, and failures. That is what I mean by agents becoming infrastructure.
 
-<div className="image-container">
-![Managed AI Agents](/images/2026/05/ai-agents.webp)
-</div>
-
 ## The model is one part of the system
 
 A language model interprets the context it receives and generates output. An agent combines that capability with a loop that can choose tools, inspect their results, and continue working. The application supplies the product-specific information and controls what those tools can do.
@@ -29,6 +25,13 @@ In [Engineering in the AI Era](/blog/2026-02-engineering-ai-era), I described th
 - **Permissions** determine which actions are allowed for a particular user.
 - **Execution and recovery** determine how work runs, pauses, retries, and resumes.
 - **Observability** gives the team a record of what happened.
+
+<figure className="mx-auto max-w-2xl">
+![Agent harness coordinates the model and runtime; a permission gate controls external tool execution](/images/diagrams/2026-05-ai-agents.svg)
+
+<figcaption>Model behavior is coordinated by the harness; the runtime enforces which actions may actually execute.</figcaption>
+</figure>
+
 
 A small feature may handle all of this within an existing application. The important step is to identify the responsibilities before choosing how much infrastructure to add.
 

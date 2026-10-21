@@ -10,10 +10,6 @@ tech: ['ReactJS', 'TypeScript', 'NextJS']
 React developers have long used `useMemo` and `useCallback` to avoid expensive recalculations and preserve stable references. React Compiler changes that default by applying many optimizations at build time—but only in code where the compiler is enabled and able to optimize. The useful question is no longer whether to memoize everything, but when manual control still improves the result.
 
 {/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![React memoization hooks](/images/2025/01/use-memo-use-callback-obsolete.webp)
-</div>
-
 ## The original use case: preventing unnecessary renders
 
 React's reconciliation is efficient, but unnecessary re-renders can still cost performance in complex applications. The two hooks addressed that from different sides:

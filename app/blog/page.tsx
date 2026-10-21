@@ -31,7 +31,7 @@ export default async function BlogPage({
     <BlogPosts
       category="all"
       heading="Writing"
-      intro="Notes on product decisions, interfaces, and the systems behind them. Some come from projects I've shipped; others are questions I'm working through."
+      intro="Insights on emerging technologies, industry trends, and the engineering practices shaping modern software products, informed by hands-on experience building and shipping."
       page={parsedPage}
     />
   );

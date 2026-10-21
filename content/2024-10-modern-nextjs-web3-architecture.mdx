@@ -12,10 +12,6 @@ I build [Web3](/web3) product surfaces in [Next.js](/tech/nextjs), where the cha
 The principles I keep on those apps: put shareable state in the URL, collocate by feature, one data subscription per route, cache reads through React Query, talk to the EVM through [viem](/tech/viem) and [wagmi](/tech/wagmi), and delay abstractions until the third copy.
 
 {/* Prevent CLS with responsive aspect ratio */}
-<div className="image-container">
-![Next.js Web3 Architecture](/images/2024/10/nextjs-web3-architecture.webp)
-</div>
-
 ## Collocation
 
 I organize by feature, not by file type. The dashboard's hook, types, tests, and pieces sit in the dashboard folder. I do not keep a global `hooks/` dumping ground for something only one route uses.
@@ -47,6 +43,13 @@ I keep keys boring and complete: `['vault', chainId, address]`, not `'vault'` pl
 On chain, wagmi is React Query with Ethereum types. A `useReadContract` is the same mental model as `useQuery` against an indexer. viem is the client underneath: actions, encoding, transports. I do not wrap a second cache around it.
 
 Writes still go through the wallet: the user signs, the app waits for the receipt, and then it invalidates the query keys the transaction made stale. Reads stay queries and writes stay mutations, because mixing them in a custom store is how the UI desyncs from the block.
+
+<figure className="mx-auto max-w-2xl">
+![Separate cached read path and wallet write path with query invalidation](/images/diagrams/2024-10-modern-nextjs-web3-architecture.svg)
+
+<figcaption>Route state identifies the view, query caches supply reads, and confirmed wallet writes invalidate affected data.</figcaption>
+</figure>
+
 
 ## AHA instead of a framework-in-the-app
 

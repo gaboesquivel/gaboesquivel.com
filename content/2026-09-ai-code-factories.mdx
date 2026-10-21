@@ -12,10 +12,6 @@ A coding agent can edit files, run tests, and open a pull request. Turning those
 That is what I mean by an **AI coding factory**: an engineering workflow in which agents carry work through defined stages, with explicit criteria for advancing, retrying, or asking for help. You can build one with existing models and coding tools, without owning the infrastructure that trains them.
 
 {/* Prevent CLS with responsive aspect ratio */}
-<div className="image-container">
-![AI coding factory](/images/2026/09/ai-coding-factory.webp)
-</div>
-
 Paul Iusztin's [Inside a Software Factory](https://www.oreilly.com/radar/inside-a-software-factory/) describes that broader lifecycle, from intake through release and production feedback. He also writes about an initial version that became so elaborate he stopped using it. That detail matters: the process has to make delivery easier for the people using it.
 
 ## Follow one change through delivery
@@ -31,6 +27,13 @@ The work then moves through specification, implementation, verification, release
 - Verification produces evidence that the change meets the specification.
 - Release produces an observable change in the running product.
 - Production feedback shows whether duplicate records stopped and whether the change introduced another problem.
+
+<figure className="mx-auto max-w-3xl overflow-x-auto">
+![Delivery pipeline from specification through implementation, verification, review, release, and production feedback](/images/diagrams/2026-09-ai-code-factories.svg)
+
+<figcaption>A coding factory coordinates implementation, evidence, decisions, and production feedback rather than treating generated code as the finished product.</figcaption>
+</figure>
+
 
 The transitions are as important as the stages. A failed check should return useful evidence to the implementation step. An unresolved product question should go back to a person who can answer it. Neither should become an endless retry loop.
 

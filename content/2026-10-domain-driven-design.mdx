@@ -27,6 +27,13 @@ The second is a **bounded context**: a boundary within which a particular model 
 
 In a hypothetical commerce system, an account might mean a person's login in identity management and a billable organization in billing. Both meanings can be useful. Trouble begins when code silently treats them as interchangeable. Naming the boundary tells engineers and agents which meaning applies and where a translation is needed.
 
+<figure className="mx-auto max-w-2xl">
+![Identity and billing bounded contexts with explicit translation between different meanings of account](/images/diagrams/2026-10-domain-driven-design.svg)
+
+<figcaption>The same word can represent different concepts in different bounded contexts. Integrations must translate between those meanings explicitly.</figcaption>
+</figure>
+
+
 This takes more than choosing better names. The team has to decide which concepts exist, how they relate, and what rules govern them. The vocabulary expresses that understanding.
 
 ## Give the agent a definition it can reuse

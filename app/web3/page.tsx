@@ -15,7 +15,7 @@ import ztxImg from "public/images/work/ztx.png";
 export default function Web3ExperiencePage() {
   return (
     <section>
-      <PageTitle>Web3 product engineering</PageTitle>
+      <PageTitle>Web3 Engineering</PageTitle>
       <Prose>
         I build the product layer around blockchain systems: wallets, signing,
         exchanges, trading interfaces, auctions, and the data that keeps them in
@@ -137,5 +137,5 @@ export const metadata = pageMetadata({
     },
   ],
   path: "/web3",
-  title: "Web3 Product Engineering | Gabo Esquivel",
+  title: "Web3 Engineering | Gabo Esquivel",
 });

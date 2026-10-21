@@ -12,10 +12,6 @@ In July 2024 I wrote a [snapshot of AI and Web3](/blog/2024-07-ai-and-web3) whil
 I still ship at this intersection, and what changed in the year is that a few primitives now compose: programmable stablecoins, intent-based execution, non-custodial agent wallets, and off-chain inference with on-chain verification.
 
 {/* Prevent CLS with responsive aspect ratio */}
-<div className="image-container">
-![AI Web3](/images/2025/11/web3-ai.webp)
-</div>
-
 ## Stablecoins after the GENIUS Act
 
 In July 2025 the United States enacted the GENIUS Act (Guiding and Establishing National Innovation for U.S. Stablecoins Act). The statute covers stablecoins and says nothing about AI, and it still changes how I design agent payments.
@@ -61,6 +57,13 @@ Data economics follow from that. A contributor binds examples to a wallet, a con
 ## How the primitives compose
 
 The posts I have written this year describe layers of one stack: stablecoins as payment rails, intent-based execution so an agent does not have to know which bridge is healthy today, agentic finance for wallets and mandates, and decentralized marketplaces for models, data, and GPUs. Model Context Protocol supplies an interoperability layer for exposing tools and resources to AI applications. The application still owns memory persistence, logging, authorization, and the rules that govern execution.
+
+<figure className="mx-auto max-w-2xl">
+![Agent transaction flow from user intent through authorization to stablecoin settlement and onchain record](/images/diagrams/2025-11-web3-and-ai.svg)
+
+<figcaption>AI supplies interpretation and coordination; Web3 can supply authorization, payment, and shared settlement infrastructure.</figcaption>
+</figure>
+
 
 One flow I keep seeing in designs reads market data from a decentralized feed, expresses a cross-chain intent, lets UniswapX or Across compete to fill it, settles in a GENIUS-compliant stablecoin, and stores the receipt in the application's audit record. None of those steps needs a custom bridge UI, and every one of them needs constraints the agent cannot silently widen.
 

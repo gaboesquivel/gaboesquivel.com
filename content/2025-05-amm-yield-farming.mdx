@@ -10,10 +10,6 @@ tech: ['Ethereum', 'Solidity']
 Every swap on Uniswap, Curve, or Raydium is priced by a smart contract instead of a matching engine, and that contract is an Automated Market Maker (AMM). AMMs changed how trading works in [DeFi](/web3) by removing centralized order books and intermediaries, and they rely on liquidity pools to keep trading permissionless and always available.
 
 {/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![AMMs and Yield Farming](/images/2025/05/amms-yield-farming.webp)
-</div>
-
 ## How AMMs price trades
 
 An AMM replaces order matching with algorithmic pricing. Users trade against a liquidity pool, a smart contract that holds a pair of tokens, and the pool sets the price from its current ratio using a formula such as the constant product (x \* y = k).
@@ -51,6 +47,13 @@ Five strategies show how the same mechanics look on different chains:
 ## How the pieces feed each other
 
 AMMs need liquidity, LPs supply it in exchange for yield, and yield farming amplifies that exchange with incentives that drive user activity, capital flow, and protocol growth, which is why these systems develop dynamics of their own.
+
+<figure className="mx-auto max-w-2xl">
+![Liquidity providers, traders, pool reserves, swap fees, and optional farming incentives](/images/diagrams/2025-05-amm-yield-farming.svg)
+
+<figcaption>Liquidity providers supply reserves, traders exchange against them, and fees can compensate providers for their exposure.</figcaption>
+</figure>
+
 
 The same mechanics now run across [EVM](/tech/ethereum)-compatible chains, high-throughput networks like Solana, interoperable hubs like Cosmos, and zk-rollups, and each ecosystem both extends DeFi and fragments its liquidity further.
 

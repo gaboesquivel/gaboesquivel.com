@@ -9,6 +9,7 @@ import { VimeoPlayer } from "components/vimeo";
 import { YouTubePlayer } from "components/youtube";
 import { getTechStackByTag } from "gaboesquivel";
 import type { Project, Tag } from "gaboesquivel";
+import { allBlogs } from "lib/blog";
 import { comparePublishedAtDesc } from "lib/blog-order";
 import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
@@ -32,6 +33,10 @@ const capabilityTypeMap: Record<
 };
 
 const projectImageSizes = "(max-width: 768px) 100vw, 896px";
+
+const blogSummaryBySlug = new Map(
+  allBlogs.map((post) => [post.slug, post.summary])
+);
 
 const ProjectImage = ({ project, src }: { project: Project; src: string }) => (
   <div className={projectMedia}>
@@ -216,6 +221,7 @@ export function ProjectDetails({
               .map((post) => ({
                 publishedAt: post.publishedAt,
                 slug: post.url,
+                summary: blogSummaryBySlug.get(post.url),
                 title: post.title,
               }))}
             title="Related writing"

@@ -15,6 +15,13 @@ A retrieval system has two parts: preparing information for search and finding t
 1. **Indexing.** Extract text from documents, divide it into useful passages, attach source metadata, and build a searchable index. Embeddings can capture semantic similarity, while keyword indexes preserve precise names and terms. The index can change without retraining the language model.
 2. **Retrieval and generation.** When a question arrives, search the index for relevant passages. Depending on the application, combine semantic and keyword retrieval, filter results by the user's permissions, and rerank candidates before passing selected evidence to the model. The model generates an answer from the supplied context.
 
+<figure className="mx-auto max-w-3xl overflow-x-auto">
+![Separate RAG indexing and query pipelines connected through a search index](/images/diagrams/2025-05-typescript-rag.svg)
+
+<figcaption>RAG prepares searchable knowledge ahead of time, then retrieves relevant authorized context when answering a question.</figcaption>
+</figure>
+
+
 RAG can improve factual grounding and expose current or private information, but retrieval alone doesn't guarantee a correct answer. The application still needs to consider source quality, access control, conflicting documents, and how the answer is evaluated.
 
 ## Similarity search

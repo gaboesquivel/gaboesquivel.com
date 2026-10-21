@@ -14,7 +14,7 @@ import aiImg from "public/images/ai/ai.webp";
 export default function AIExperiencePage() {
   return (
     <section>
-      <PageTitle>AI product engineering</PageTitle>
+      <PageTitle>AI Engineering</PageTitle>
       <Prose>
         I build AI products where the experience matters as much as the model:
         voice and chat assistants, retrieval-backed workflows, and interfaces
@@ -28,7 +28,7 @@ export default function AIExperiencePage() {
         chat when a task calls for a clearer interaction.
       </Prose>
 
-      <PageImage alt="AI product engineering" src={aiImg} />
+      <PageImage alt="AI Engineering" src={aiImg} />
 
       <PageSection title="LegalAgent: voice, chat, and retrieval">
         <Prose>
@@ -97,7 +97,7 @@ export default function AIExperiencePage() {
 
 export const metadata = pageMetadata({
   description:
-    "AI product engineering by Gabo Esquivel: voice and chat assistants, retrieval, agentic workflows, and production tools built for teams to operate.",
+    "AI engineering by Gabo Esquivel: voice and chat assistants, retrieval, agentic workflows, and production tools built for teams to operate.",
   images: [
     {
       url: "/images/work/legalagent.png",
@@ -105,5 +105,5 @@ export const metadata = pageMetadata({
     },
   ],
   path: "/ai",
-  title: "AI Product Engineering | Gabo Esquivel",
+  title: "AI Engineering | Gabo Esquivel",
 });

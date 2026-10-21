@@ -38,6 +38,13 @@ I pair that with **[Redis](/tech/redis)** or **Kafka** to coordinate presence, r
 
 In a multi-instance setup, the WebSocket servers need to talk to each other, because a user connected to node A and a friend connected to node B can only chat if the message crosses nodes. Publishing to a central broker solves that, and I default to **Redis Pub/Sub** for its speed and small operational footprint, moving to Kafka when the messages need durability or streaming.
 
+<figure className="mx-auto max-w-2xl">
+![WebSocket clients connected through TLS load balancer to nodes sharing Redis pub/sub](/images/diagrams/2025-05-scaling-securing-websockets.svg)
+
+<figcaption>Each client maintains a connection to its server node; pub/sub distributes messages across nodes.</figcaption>
+</figure>
+
+
 ## Bun WebSocket as a performance baseline
 
 If you build with [Bun](https://bun.sh/), you get its native WebSocket implementation, which handles thousands of concurrent connections with low memory overhead. With it you can:

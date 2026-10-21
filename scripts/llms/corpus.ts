@@ -21,8 +21,8 @@ import { validateCorpus } from "./validate";
 const canonicalRoutes = [
   { label: "Home", path: "/" },
   { label: "Career story", path: "/bio" },
-  { label: "AI product engineering", path: "/ai" },
-  { label: "Web3 product engineering", path: "/web3" },
+  { label: "AI engineering", path: "/ai" },
+  { label: "Web3 engineering", path: "/web3" },
   { label: "Full-stack product engineering", path: "/fullstack" },
   { label: "Frontend engineering", path: "/frontend" },
   { label: "Backend engineering", path: "/backend" },

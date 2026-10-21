@@ -10,13 +10,16 @@ tech: ['JavaScript', 'TypeScript']
 Architecture decisions get lost when someone leaves or a Slack thread scrolls away, and six months later the team re-litigates a choice that already had a good reason. Architecture Decision Records (ADRs) write that reason down as context, options, decision, and consequences, which matters most when requirements keep moving.
 
 {/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![Architecture Decision Records](/images/2024/07/adr.webp)
-</div>
-
 ## What an ADR contains
 
 An ADR is a short document that captures one significant architectural decision with its context and consequences: the reasoning, the alternatives considered, and why the final choice won. The collection of ADRs for a project is its Architecture Decision Log (ADL), which is part of what the literature calls Architecture Knowledge Management (AKM).
+
+<figure className="mx-auto max-w-3xl overflow-x-auto">
+![ADR lifecycle from problem through alternatives, decision, consequences, and review](/images/diagrams/2024-07-adrs-in-software-teams.svg)
+
+<figcaption>An ADR preserves the context behind a decision and provides a record future teams can review or supersede.</figcaption>
+</figure>
+
 
 ## What ADRs change on a team
 

@@ -75,7 +75,7 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `writing` (`components/layout/navbar.tsx`). `/ask` stays out of this nav while that experience is in progress (`PRODUCT.md`)
 - `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); header (accent bar + nav) scrolls with the page; footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
-- Page and project media: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`. Editorial covers and social exports follow the image rules below; do not bake rounded corners into image files.
+- Page and project media: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
 
 ## Editorial images
 
@@ -89,11 +89,13 @@ Choose the visual structure from the content:
 - Engineering perspective: a comparison, tradeoff, progression, or feedback loop.
 - Personal reflection: a concrete visual metaphor grounded in the author's account. Do not turn personal experience into a scientific causal claim.
 
-Use image generation for conceptual artwork. Construct exact diagrams, arrows, labels, and factual relationships with SVG or another controlled layout tool. Add any typography after generation; never rely on generated text. Covers do not contain the article title, logos, or a signature. No new triangle mark or monogram is approved. Social assets may use the author's name or domain as typeset attribution.
+Use image generation for conceptual artwork. Construct exact diagrams, arrows, labels, and factual relationships with SVG or another controlled layout tool. Add any typography after generation; never rely on generated text. In-article diagrams in `public/images/diagrams/` use this palette and the site monospace, and the page shows them at their intrinsic size, scrolling horizontally when the column is narrower, so labels stay readable. Hero images do not contain the article title, logos, or a signature. No new triangle mark or monogram is approved. Social assets may use the author's name or domain as typeset attribution.
 
-Produce blog covers at 1600 × 900 and OG compositions at 1200 × 630. Recompose for other formats; do not stretch or blindly crop. The palette and geometry stay consistent across the website, LinkedIn, and X. Existing assets are not automatically approved references, and this policy does not authorize a bulk replacement of older images or changes to listing layouts.
+A **hero image** is the optional editorial raster for a blog post (`image` in MDX frontmatter). Posts may ship without one; listings and Open Graph fall back to the site default when `image` is omitted. In-article diagrams stay SVG or evidence imagery and are not hero images.
 
-Production specifications, the fixed generation brief, and the first three cover briefs live in [docs/agents/images.md](docs/agents/images.md). This is the current direction for new editorial imagery; existing assets migrate only in explicitly scoped tasks.
+Produce blog hero images at 1600 × 900 and OG compositions at 1200 × 630. Recompose for other formats; do not stretch or blindly crop. The palette and geometry stay consistent across the website, LinkedIn, and X. Existing assets are not automatically approved references, and this policy does not authorize a bulk replacement of older images or changes to listing layouts.
+
+Production specifications, the fixed generation brief, and the first three hero-image briefs live in [docs/agents/images.md](docs/agents/images.md). This is the current direction for new editorial imagery; existing assets migrate only in explicitly scoped tasks.
 
 ## Elevation & Depth
 

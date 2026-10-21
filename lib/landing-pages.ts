@@ -9,13 +9,13 @@ export const featuredLandingPages = [
     description:
       "Voice, chat, retrieval, and the controls teams need to run AI products after launch.",
     href: "/ai",
-    title: "AI Product Engineering",
+    title: "AI Engineering",
   },
   {
     description:
       "Wallets, indexers, token flows, and trading interfaces built around protocol state.",
     href: "/web3",
-    title: "Web3 Product Engineering",
+    title: "Web3 Engineering",
   },
 ] as const;
 

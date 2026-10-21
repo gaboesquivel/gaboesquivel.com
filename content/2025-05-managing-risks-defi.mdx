@@ -9,10 +9,6 @@ tech: ['Ethereum', 'Solidity']
 AMMs, liquidity pools, and yield farming on [EVM](/tech/ethereum) chains, Solana, and Cosmos each come with a matching set of ways to lose money, and the incidents of the last few years sort into four groups: technical risks in contracts, programs, and [frontends](/frontend), economic risks like impermanent loss and liquidations, systemic risks in bridges and oracles, and operational risks in governance and regulation. This post covers how each risk works, the real incidents behind it, and how I assess a protocol before using or building on it.
 
 {/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![Managing Risks in DeFi](/images/2025/05/defi-risk-management.webp)
-</div>
-
 ## Technical risks
 
 ### Smart contract exploits
@@ -86,6 +82,13 @@ Regulation keeps changing across jurisdictions, and SEC actions against DeFi pro
 MEV (Maximal Extractable Value) bots sandwich DEX trades by buying before the victim's transaction and selling after it, profiting from the price impact. The attack is most common on EVM chains and possible on Solana and Cosmos, it can cost users 0.5–2% per trade, and one 2021 Uniswap trade lost \$1.2M to it. DEX aggregators, private transactions, and anti-MEV designs like CowSwap's batch auctions protect against it.
 
 ## How I assess a protocol
+
+<figure className="mx-auto max-w-2xl">
+![Conceptual dependency graph showing risk propagation from oracle through lending to depositors](/images/diagrams/2025-05-managing-risks-defi.svg)
+
+<figcaption>Protocol risk can propagate through shared infrastructure; assessing an application's own contracts is not enough.</figcaption>
+</figure>
+
 
 ### Risk assessment frameworks
 

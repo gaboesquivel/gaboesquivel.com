@@ -2,7 +2,6 @@
 title: AI Model Context Protocol (MCP)
 publishedAt: 2025-06-08
 summary: What the Model Context Protocol standardizes about connecting models to tools and data, and how I structure MCP-style tools, composition, and memory in TypeScript.
-image: /images/ai/ai.webp
 category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 ---
@@ -10,14 +9,6 @@ tech: ['NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 Anthropic proposed the Model Context Protocol (MCP) in 2024 as a standard for connecting [AI models](/ai) to external data, tools, and services, and it has become the interface most agent tooling now targets. MCP defines how a model reaches tools and data through a consistent, modular structure, and this post covers what that means in practice and how I implement it with [TypeScript](/tech/typescript) and current AI tooling.
 
 {/* Prevent Cumulative Layout Shift (CLS) */}
-<div className="min-h-[300px]">
-  <img 
-    src="/images/ai/ai.webp"
-    alt="Illustration of MCP's role in AI model integration"
-    className="w-full"
-  />
-</div>
-
 ## What MCP standardizes
 
 MCP is a specification for how AI models interact with external APIs, databases, and tools. Because it defines context, tools, and workflows explicitly, it gives agentic systems a structure beyond prompting, and it lets developers:
@@ -25,6 +16,12 @@ MCP is a specification for how AI models interact with external APIs, databases,
 * Declare the tools and capabilities a model can use.
 * Share memory and execution logs across calls.
 * Keep model logic separate from business logic.
+
+<figure className="mx-auto max-w-2xl">
+![MCP host with model and client connecting to servers that expose tools and resources](/images/diagrams/2025-05-model-context-protocol.svg)
+
+<figcaption>MCP standardizes how a host application connects to servers that expose tools, resources, and prompts.</figcaption>
+</figure>
 
 ## Why a protocol is needed now
 

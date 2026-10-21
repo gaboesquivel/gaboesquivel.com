@@ -1,0 +1,74 @@
+---
+title: Generative Interfaces
+publishedAt: 2026-10-21
+summary: User intent can drive how software is composed and distributed, from declarative UI specs and MCP Apps in assistants to design systems machines can reason about at runtime.
+image: /images/2026/10/generative-interfaces.webp
+category: ['Product', 'Artificial Intelligence', 'UX', 'Frontend', 'Engineering']
+tech: []
+---
+
+For decades, software has asked people to learn its structure. Menus, dashboards, filters, and settings encode how the product is organized. As capabilities accumulate, more of the work becomes finding the right screen.
+
+Generative interfaces start from the request. A person describes the outcome. The system interprets that intent, retrieves the relevant data, and assembles an interface for the task. Conversation carries the intent. Charts, tables, and controls carry the understanding and the action. A date picker is still a better way to pick a date than a sentence.
+
+In [Evolution of AI UX](/blog/2026-01-evolution-ai-ux) I argued that high-agency systems need visibility and control. The same standard applies here. A graphical interface earns its place when it is the one the task needs.
+
+<div className="image-container">
+![A selected component connects into an assembled interface while unused components stay apart](/images/2026/10/generative-interfaces.webp)
+</div>
+
+A project manager who wants to know why a release is late can ask what is blocking it this week, who owns the critical tasks, and how it compares with the last release. The answer can be a short explanation, a dependency timeline, and controls to inspect or reassign work, with confirmation before a change is applied. The system assembles that view around the problem.
+
+## How much freedom the model should have
+
+The useful distinction is how much of the interface the model is allowed to decide. I use three levels: selecting a known interface, composing one from approved parts, and generating more freely. They describe a range of freedom, and a product can use all three.
+
+<figure className="mx-auto max-w-3xl overflow-x-auto">
+![Three levels of generative interface freedom, from selecting a known screen to composing approved parts to generating a new structure, each rendered by trusted application code](/images/diagrams/2026-10-generative-interfaces.svg)
+
+<figcaption>Selecting, composing, and generating give the model different amounts of freedom. In each case the interface still renders through trusted application code.</figcaption>
+</figure>
+
+**Selecting a known interface.** The team designs the layout, components, and actions. The agent decides which experience fits and supplies the data. A hotel comparison, with photos, prices, and a booking action, can be one of those experiences. The model chooses the moment. The screen stays familiar, which suits payments, bookings, and sign-in.
+
+**Composing from approved components.** The team defines components, properties, valid relationships, bindings, and actions. The model writes a specification, and a renderer turns it into real components. The renderer keeps responsibility for accessibility, styling, and which actions exist. A revenue question can become a line chart, a few metrics, and a date range. A retention question can become a cohort view and a comparison table. Same system, different arrangement. [JSON Render](https://github.com/vercel-labs/json-render) and [OpenUI Lang](https://www.openui.com/docs/openui-lang) are two ways to express that specification. Composites extend the idea. The model arranges known patterns, such as a metric row above a chart.
+
+**Generating more freely.** Some requests have no prepared screen. A one-off view of an unusual dataset may need markup or components produced for that question. That freedom needs validation, a restricted runtime, and attention to accessibility, performance, and visual consistency. A control the team has already designed is often the better choice when the interaction should stay predictable.
+
+A payment step can stay fixed while an analysis workspace is composed and a rare chart is generated. The amount of freedom should match the cost of being wrong.
+
+## Embedding is a separate problem
+
+The [Model Context Protocol](/blog/2025-05-model-context-protocol) lets an assistant call tools and read data. Many results are fine as text. A hotel search, a portfolio chart, and a calendar are clearer as interfaces.
+
+[MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview), introduced as an official MCP extension in January 2026, lets a tool return a result the model can read and, in a compatible host, an interface a person can operate. The interface runs in isolation and talks to the host through a bridge. MCP Apps is how that interface is embedded. Selection, composition, or open generation can supply what appears inside it. Host support, authentication, and distribution still decide whether a published server is reachable.
+
+The tools around this split the same way. JSON Render and OpenUI specify an interface for a renderer. [A2UI](https://a2ui.org/) aims at a description that different clients can render without receiving executable UI code. [AG-UI](https://docs.ag-ui.com/introduction) carries events and shared state between an agent and a frontend. Connectivity, embedding, composition, and rendering can sit together because they solve different problems.
+
+Distribution changes along with the interface. A capability can appear inside an assistant the person already uses, at the moment they state a relevant intent. The website and the native app remain where the customer relationship, the brand, and the stable workflows live. An assistant in the middle also puts the platform between the product and its customers.
+
+## Design knowledge has to be readable by the model
+
+A catalog of charts, tables, and buttons leaves out when each one belongs, which combinations hold together, and how to rank what matters. Reliable composition needs that judgment in a form the system can apply: what a component means, which relationships are valid, which actions are available, and which accessibility and interaction constraints hold.
+
+[SAP's Compositional Design System](https://www.sap.com/design-system/compositional-design-system/get-started) separates coded primitives, declarative composites, and the rules for assembling them, including meaning and accessibility. In Joule Work, a Space can be composed around the task. Someone handling customer returns can ask for the records, views, and actions that belong together. A traditional design system standardizes what people build. A compositional one also guides what a machine may assemble.
+
+The effort shifts toward trustworthy components, data contracts, and those rules. The generated experience depends on that system as much as on the model.
+
+## A rendered tree can still miss the task
+
+A component tree can render and still be the wrong view of the task. The chart can be numerically correct and emphasize the wrong comparison. The action that mattered can be missing.
+
+Accessibility belongs to the whole arrangement. Heading order, names, focus, and hierarchy can fail after every individual component has passed its own checks.
+
+Authorization stays outside the generated tree. Authentication, permissions, and validation apply to the operation itself. The interface can offer an action. A trusted service decides whether it runs.
+
+Performance has a similar boundary. Calling a model for every click makes the product slow and unpredictable. Use the model to interpret intent and compose the interface, then let ordinary state and queries handle routine interaction. OpenUI's split between the initial specification and later reactive updates is one way to keep the result feeling like normal software.
+
+People also need continuity. An interface that reorganizes itself on every turn has to be relearned. Adaptation should remove steps.
+
+## Build capabilities, constraints, and parts
+
+Development moves toward capabilities, constraints, and building blocks. Services need contracts a machine can call. Data stays authoritative. Components need meaning as well as style. A product with those pieces can appear inside an assistant and still keep a deliberately designed application for workflows that benefit from one.
+
+The protocols and frameworks will keep changing. The direction is steadier. Someone states a goal, an agent reaches the capabilities that can serve it, and the interface supplies the information and controls for that task. The test I use is whether the person can finish the work without first learning the whole product.

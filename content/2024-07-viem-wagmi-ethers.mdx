@@ -10,10 +10,6 @@ tech: ['TypeScript', 'Viem', 'Wagmi', 'Ethers', 'Ethereum']
 Picking an [Ethereum](/tech/ethereum) client library sets real constraints on bundle size, TypeScript types, and how you talk to the chain from React. Ethers.[js](/tech/javascript) and Viem with Wagmi are the two I keep comparing, and this post covers how they differ and how we use Viem at [Bitlauncher](/project/bitlauncher).
 
 {/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![Ethers.js, viem, and wagmi](/images/2024/07/viem-ethers.webp)
-</div>
-
 ## Where Viem runs at Bitlauncher
 
 At [bitlauncher.ai](https://bitlauncher.ai) we use Viem in three places where performance and modularity matter:
@@ -37,6 +33,13 @@ Viem is modular, so you import only the parts you use, and its "actions" give ea
 ### React integration
 
 Wagmi is built around Viem specifically for React, with hooks for connecting to providers and managing chain state. Ethers.js works in React too, but it usually needs more boilerplate to reach the same result.
+
+<figure className="mx-auto max-w-3xl overflow-x-auto">
+![Alternative integration paths for wagmi with viem versus ethers.js to RPC](/images/diagrams/2024-07-viem-wagmi-ethers.svg)
+
+<figcaption>Wagmi supplies React-facing integrations built on viem; Ethers.js offers an alternative provider and contract interaction model.</figcaption>
+</figure>
+
 
 ### Stability
 

@@ -81,6 +81,26 @@ html {
   height: auto;
 }
 
+/* Diagrams keep their drawing size so labels stay 16px. Narrow columns scroll. */
+.prose .diagram-frame {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.prose img.diagram {
+  width: auto;
+  max-width: none;
+  height: auto;
+  margin-inline: auto;
+}
+
+.prose figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
 /* Responsive image container to prevent CLS */
 .prose .image-container {
   aspect-ratio: 16 / 9;

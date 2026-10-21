@@ -12,10 +12,6 @@ Cross-chain DeFi has a persistent product problem: people must choose networks, 
 Protocols approach this in different ways, including auctions, solver networks, and relayers. Their common design question is how to separate the result a user authorizes from the route a system takes to achieve it. This article compares the architecture and tradeoffs rather than treating any one execution model as universal.
 
 {/* Prevent CLS with responsive aspect ratio */}
-<div className="image-container">
-![Intent-Based Multichain DeFi](/images/2025/10/multichain-defi-intents.webp)
-</div>
-
 ## The coordination problem
 
 A user holds 1 ETH on Arbitrum and wants yield-bearing USDC on Base. The instruction-shaped path is three transactions: a bridge (wait, pay gas), a swap (slippage, sandwich risk), and a deposit (gas again). If they are missing gas on Base they are stuck, and if liquidity moves between steps, the quote they saw is gone.
@@ -31,6 +27,13 @@ Solvers, meaning market makers and relayers, compete on that statement. They sea
 Same-chain fills can be atomic against a settlement contract, while cross-chain fills need a proof: message passing (Wormhole, Axelar, LayerZero), optimistic fulfillment where the solver fronts funds and waits for proof, or reusable compact-style commitments (ERC-6909). Across, Wormhole Composable Intents, and deBridge DLN are the production-hardened versions, often with sub-minute finality and no bridge UI in the flow.
 
 The architecture moves computation offchain and keeps verification onchain. Users used to broadcast executable calldata, and now solvers do the search privately and only the winning path reaches the chain.
+
+<figure className="mx-auto max-w-2xl">
+![Intent fulfillment swimlanes from signed outcome through solvers, chains, verification, and settlement](/images/diagrams/2025-10-multichain-defi-intents.svg)
+
+<figcaption>The user authorizes the desired result; solvers handle route selection and fulfillment, subject to the protocol's settlement rules.</figcaption>
+</figure>
+
 
 ## Production protocols
 

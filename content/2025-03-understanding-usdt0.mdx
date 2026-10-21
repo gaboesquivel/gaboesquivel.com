@@ -12,10 +12,6 @@ USDT is one of the main ways value moves through [DeFi](/web3), and moving it be
 Many bridges rely on wrapped assets like wUSDT or USDT.e, which can lose their peg or run short of liquidity, and others depend on centralized multisig custodians, which have been prime targets for hacks such as the $600M Ronin Bridge attack and the $320M Wormhole exploit. USDT0, built on LayerZero's Omnichain Fungible Token (OFT) standard, addresses those problems with a more direct way to move USDT across blockchains.
 
 {/* Prevent CLS by setting a minimum height */}
-<div style={{ minHeight: '300px' }}>
-![USDT Bridge](/images/2025/03/usdt0.webp)
-</div>
-
 ## How USDT0 moves between chains
 
 USDT0 is a bridged version of USDT that moves across chains without wrapping or fragmenting liquidity. Instead of relying on external liquidity providers, it uses lock-and-mint:
@@ -25,6 +21,13 @@ USDT0 is a bridged version of USDT that moves across chains without wrapping or 
 3. When USDT0 is sent back, it is burned and the USDT is unlocked.
 
 Unlike versions Tether issues directly, such as native USDT on Solana or Tron, USDT0 is managed by Everdawn Labs and moves through LayerZero's OFT standard.
+
+<figure className="mx-auto max-w-2xl">
+![USDT0 lock and mint movement between canonical backing and cross-chain representations](/images/diagrams/2025-03-understanding-usdt0.svg)
+
+<figcaption>USDT0 connects canonical backing to cross-chain token movement without requiring a new wrapped-token representation for every route.</figcaption>
+</figure>
+
 
 ## What changes for users and protocols
 

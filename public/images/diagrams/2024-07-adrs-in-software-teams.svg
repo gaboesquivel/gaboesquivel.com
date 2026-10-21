@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="532" viewBox="0 0 480 532" role="img" aria-labelledby="title desc">
+  <title id="title">ADR lifecycle</title>
+  <desc id="desc">An ADR records the path from problem and alternatives to a decision, its consequences, and later review or supersession.</desc>
+  <defs>
+    <marker id="arrow-mint" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#54e8b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="arrow-white" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect width="480" height="532" fill="#000000"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">
+    
+    <path d="M240 84L240 112" fill="none" stroke="#54e8b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-mint)"/><path d="M240 168L240 196" fill="none" stroke="#54e8b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-mint)"/><path d="M240 252L240 280" fill="none" stroke="#54e8b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-mint)"/><path d="M240 336L240 364" fill="none" stroke="#54e8b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-mint)"/><path d="M240 420L240 448" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-gray)"/>
+    <g class="node"><rect x="110" y="28" width="260" height="56" rx="8" fill="#111111" stroke="#555555" stroke-width="1.5"/><text x="240" y="56" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">Problem / context</text></g><g class="node"><rect x="110" y="112" width="260" height="56" rx="8" fill="#111111" stroke="#555555" stroke-width="1.5"/><text x="240" y="140" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">Alternatives</text></g><g class="node"><rect x="110" y="196" width="260" height="56" rx="8" fill="#111111" stroke="#555555" stroke-width="1.5"/><text x="240" y="224" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">Decision</text></g><g class="node"><rect x="110" y="280" width="260" height="56" rx="8" fill="#111111" stroke="#555555" stroke-width="1.5"/><text x="240" y="308" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">Consequences</text></g><g class="node"><rect x="110" y="364" width="260" height="56" rx="8" fill="#111111" stroke="#555555" stroke-width="1.5"/><text x="240" y="392" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">Review</text></g><g class="node"><rect x="100" y="448" width="280" height="56" rx="8" fill="#111111" stroke="#404040" stroke-width="1.5"/><text x="240" y="476" text-anchor="middle" dominant-baseline="central" font-size="16" fill="#ffffff">Superseded by new ADR</text></g>
+    
+  </g>
+</svg>

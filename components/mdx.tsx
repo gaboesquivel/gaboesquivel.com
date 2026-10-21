@@ -32,11 +32,29 @@ function BlogImage({
   src,
   alt,
   priority,
+  width,
+  height,
 }: {
   src: string;
   alt?: string;
   priority?: boolean;
+  width?: string | number;
+  height?: string | number;
 }) {
+  if (src.startsWith("/images/diagrams/"))
+    return (
+      <span className="diagram-frame">
+        <img
+          alt={alt ?? ""}
+          className="diagram"
+          decoding="async"
+          height={height}
+          src={src}
+          width={width}
+        />
+      </span>
+    );
+
   return (
     <Image
       alt={alt ?? ""}
