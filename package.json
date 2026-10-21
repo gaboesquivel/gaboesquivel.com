@@ -22,7 +22,8 @@
     "hooks:pre-commit": "bun run qa && bun run hooks:cvs-if-needed && git update-index --again",
     "prepare": "simple-git-hooks",
     "skills:install": "bunx skills@latest experimental_install",
-    "skills:update": "bunx skills@latest update -p -y"
+    "skills:update": "bunx skills@latest update -p -y",
+    "og:generate": "bun scripts/generate-home-og.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -81,12 +82,14 @@
     "@types/react-dom": "^19.3.0",
     "@typescript/typescript6": "^6.0.2",
     "concurrently": "^10.0.6",
+    "opentype.js": "^2.0.0",
     "oxfmt": "^0.71.0",
     "oxlint": "^1.86.0",
     "playwright-core": "^1.64.1",
     "portless": "^0.15.8",
     "postcss": "^8.5.31",
     "remark-parse": "^11.0.0",
+    "sharp": "^0.35.5",
     "simple-git-hooks": "2.14.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",

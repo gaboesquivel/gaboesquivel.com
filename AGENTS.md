@@ -37,7 +37,7 @@ Explore, Specify, and Plan stay in the conversation until a decision or an accep
 Read the matching document before editing:
 
 - **Product** — page jobs, routes, metadata, blog links, keyword owners, or discoverability: [PRODUCT.md](PRODUCT.md).
-- **Design** — visual design, layout, motion, or components: [DESIGN.md](DESIGN.md).
+- **Design** — visual design, layout, motion, components, editorial images, social assets, or OG images: [DESIGN.md](DESIGN.md). For image production, also read [docs/agents/images.md](docs/agents/images.md).
 - **Architecture** — data flow, integrations, generated outputs, or system boundaries: [ARCHITECTURE.md](ARCHITECTURE.md).
 - **Glossary** — a project term's meaning is unclear: [GLOSSARY.md](GLOSSARY.md).
 - **Content** — editing copy, a landing page, or a blog post: [docs/agents/content.md](docs/agents/content.md).

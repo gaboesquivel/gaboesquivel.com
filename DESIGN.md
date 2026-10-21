@@ -75,7 +75,25 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `writing` (`components/layout/navbar.tsx`). `/ask` stays out of this nav while that experience is in progress (`PRODUCT.md`)
 - `/ask` is the chat. Same `siteColumn` as every page (no inner max-width); header (accent bar + nav) scrolls with the page; footer hidden on that route only via `body:has([data-connect])`; viewport-locked body so the transcript scrolls and the composer stays at the bottom; suggestions wrap
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
-- Images: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`
+- Page and project media: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`. Editorial covers and social exports follow the image rules below; do not bake rounded corners into image files.
+
+## Editorial images
+
+Every editorial image communicates a specific idea from its article. Technical images show meaningful structures and relationships. Reflective images express the central experience through a clear visual metaphor. Both use the same palette, drawing style, spacing, and compositional discipline.
+
+The approved direction is flat, diagram-like editorial illustration: pure black canvas, white and neutral-gray shapes and lines, and mint `#54e8b3` marking the important relationship or subject. Use sparse, recognizable objects, clear boundaries, generous negative space, and consistent strokes. No dimensional rendering, shadows, glow, glass, grain, gradients, futuristic offices, robots, decorative code, or technology-logo collages. Organic subjects such as grass and trails use the same simplified drawing language. Photography and real project screenshots remain evidence and retain their original character.
+
+Choose the visual structure from the content:
+
+- Technical explanation: components, boundaries, connections, or flow.
+- Engineering perspective: a comparison, tradeoff, progression, or feedback loop.
+- Personal reflection: a concrete visual metaphor grounded in the author's account. Do not turn personal experience into a scientific causal claim.
+
+Use image generation for conceptual artwork. Construct exact diagrams, arrows, labels, and factual relationships with SVG or another controlled layout tool. Add any typography after generation; never rely on generated text. Covers do not contain the article title, logos, or a signature. No new triangle mark or monogram is approved. Social assets may use the author's name or domain as typeset attribution.
+
+Produce blog covers at 1600 × 900 and OG compositions at 1200 × 630. Recompose for other formats; do not stretch or blindly crop. The palette and geometry stay consistent across the website, LinkedIn, and X. Existing assets are not automatically approved references, and this policy does not authorize a bulk replacement of older images or changes to listing layouts.
+
+Production specifications, the fixed generation brief, and the first three cover briefs live in [docs/agents/images.md](docs/agents/images.md). This is the current direction for new editorial imagery; existing assets migrate only in explicitly scoped tasks.
 
 ## Elevation & Depth
 

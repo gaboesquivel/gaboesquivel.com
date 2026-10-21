@@ -78,6 +78,8 @@ Development runs the export once at startup, alongside a continuing Velite watch
 
 HTML routes live in `app/`; PRODUCT.md owns their jobs and discoverability. Dynamic project, technology, and blog routes derive their evidence from package or content data. Navigation, sitemap, discovery pages, and export route definitions are separate consumers, not one inferred sitemap.
 
+Default social images use `app/opengraph-image.png` (file-based Open Graph metadata) and the same bytes at `/og` (`app/og/route.tsx`). Article and project routes override with their own covers. Generation is documented in [docs/agents/images.md](docs/agents/images.md).
+
 `proxy.ts` negotiates public page representations. Requests preferring `text/markdown`, and explicit `.md` siblings, rewrite to `app/api/markdown/[[...slug]]/route.ts`. That handler reads the generated corpus, preserves supported query variants, and returns a Markdown 404 for missing entries. HTML responses advertise Markdown alternates; negotiation varies on `Accept`.
 
 The read-only JSON surface is `/api/v1/profile`, `/api/v1/pages`, and `/api/v1/pages/[...path]`. Its contract lives in `lib/api/openapi.ts`, with response and error helpers in `lib/api/`. `/openapi.json` exposes the generated specification. `app/api/[[...slug]]/route.ts` handles unknown API routes; it is not the Eve transport.
