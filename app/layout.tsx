@@ -2,7 +2,6 @@ import "./global.css";
 import type { Metadata } from "next";
 
 import { headerColumnPadding, siteColumn } from "@/components/shared/spacing";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { siteOrigin } from "@/lib/site-path";
 import { cn } from "@/lib/utils";
 
@@ -67,26 +66,24 @@ export default function RootLayout({
         />
       </head>
       <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
-        <TooltipProvider>
-          <div className="flex min-h-0 flex-1 flex-col">
-            <header className="bg-black print:hidden preview-print:hidden">
-              <div className="h-0.5 w-full bg-accent" />
-              <div className={cn(siteColumn, headerColumnPadding)}>
-                <Navbar />
-              </div>
-            </header>
-            <main
-              className={cn(
-                siteColumn,
-                "flex min-h-0 flex-1 flex-col print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
-              )}
-            >
-              {children}
-              <Footer />
-              <DeferredAnalytics />
-            </main>
-          </div>
-        </TooltipProvider>
+        <div className="flex min-h-0 flex-1 flex-col">
+          <header className="bg-black print:hidden preview-print:hidden">
+            <div className="h-0.5 w-full bg-accent" />
+            <div className={cn(siteColumn, headerColumnPadding)}>
+              <Navbar />
+            </div>
+          </header>
+          <main
+            className={cn(
+              siteColumn,
+              "flex min-h-0 flex-1 flex-col print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
+            )}
+          >
+            {children}
+            <Footer />
+            <DeferredAnalytics />
+          </main>
+        </div>
       </body>
     </html>
   );

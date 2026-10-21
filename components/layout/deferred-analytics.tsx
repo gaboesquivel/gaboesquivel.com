@@ -7,6 +7,19 @@ const Analytics = dynamic(
   { ssr: false }
 );
 
+const SpeedInsights = dynamic(
+  () =>
+    import("@vercel/speed-insights/next").then(
+      ({ SpeedInsights }) => SpeedInsights
+    ),
+  { ssr: false }
+);
+
 export function DeferredAnalytics() {
-  return <Analytics />;
+  return (
+    <>
+      <Analytics />
+      <SpeedInsights />
+    </>
+  );
 }

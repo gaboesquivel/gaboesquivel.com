@@ -23,7 +23,8 @@
     "prepare": "simple-git-hooks",
     "skills:install": "bunx skills@latest experimental_install",
     "skills:update": "bunx skills@latest update -p -y",
-    "og:generate": "bun scripts/generate-home-og.ts"
+    "og:generate": "bun scripts/generate-home-og.ts",
+    "hero:optimize": "bun scripts/optimize-home-hero.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -39,6 +40,7 @@
     "@upstash/redis": "^1.39.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/edge-config": "^1.5.1",
+    "@vercel/speed-insights": "^2.0.0",
     "ai": "^7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

@@ -18,11 +18,25 @@ import { ArrowUpRight, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const homeHeroImage = {
-  alt: "Gabo Esquivel — Agentic Product Engineer",
-  height: 1098,
-  src: "/images/gaboesquivel-homepage.webp",
-  width: 1433,
+const homeHeroAlt = "Gabo Esquivel — Agentic Product Engineer";
+
+const homeHeroMobile = {
+  height: 687,
+  src: "/images/gaboesquivel-homepage-mobile.webp",
+  width: 896,
+} as const;
+
+const homeHeroDesktop = {
+  height: 536,
+  src: "/images/gaboesquivel-homepage-desktop.webp",
+  width: 700,
+} as const;
+
+const defaultOgImage = {
+  alt: homeHeroAlt,
+  height: 630,
+  url: "/og",
+  width: 1200,
 } as const;
 
 const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
@@ -47,17 +61,26 @@ export default function HomePage() {
         <span className="max-md:hidden"> — </span>
         Agentic Product Engineer
       </PageTitle>
-      <Image
-        alt={homeHeroImage.alt}
-        className="block h-auto w-full md:hidden"
-        height={homeHeroImage.height}
-        preload
-        sizes="100vw"
-        src={homeHeroImage.src}
-        width={homeHeroImage.width}
-      />
-      <div className="relative overflow-x-clip md:bg-[url('/images/gaboesquivel-homepage.webp')] md:bg-size-[47%_auto] md:bg-position-[100%_top] md:bg-no-repeat">
-        <div className="md:pr-[45%]">
+      <div className="relative overflow-x-clip">
+        <Image
+          alt={homeHeroAlt}
+          className="block h-auto w-full md:hidden"
+          height={homeHeroMobile.height}
+          preload
+          sizes="(max-width: 768px) 100vw, 896px"
+          src={homeHeroMobile.src}
+          width={homeHeroMobile.width}
+        />
+        <Image
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute top-0 right-0 hidden h-auto w-[47%] max-w-none md:block"
+          height={homeHeroDesktop.height}
+          sizes="(min-width: 768px) 47vw, 0px"
+          src={homeHeroDesktop.src}
+          width={homeHeroDesktop.width}
+        />
+        <div className="relative md:pr-[45%]">
           <Prose>
             I build useful and delightful software products, designed for humans
             and agents alike. I bring product thinking, careful design, and
@@ -161,14 +184,7 @@ export default function HomePage() {
 export const metadata = pageMetadata({
   description:
     "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
-  images: [
-    {
-      url: homeHeroImage.src,
-      width: homeHeroImage.width,
-      height: homeHeroImage.height,
-      alt: homeHeroImage.alt,
-    },
-  ],
+  images: [defaultOgImage],
   path: "/",
   title: "Gabo Esquivel | Agentic Product Engineer",
 });
