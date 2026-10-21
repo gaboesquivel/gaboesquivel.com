@@ -1,7 +1,10 @@
 import { cvKeys, resolveCv as resolveCvBase } from "gaboesquivel";
 import type { CvExperience, CvKey } from "gaboesquivel";
+import { cvPath, cvPdfFile } from "lib/cv-paths";
 
 import { cvPageBreaks } from "./page-breaks";
+
+export { cvPath, cvPdfFile };
 
 export type CvEntry = CvExperience & { pageBreak?: boolean };
 
@@ -34,9 +37,3 @@ export const resolveCv = ({ focus }: { focus?: string | string[] }) => {
     }),
   };
 };
-
-export const cvPath = ({ key }: { key: CvKey }) =>
-  key === "full" ? "/cv" : `/cv?focus=${key}`;
-
-export const cvPdfFile = ({ key }: { key: CvKey }) =>
-  key === "full" ? "gaboesquivel-cv.pdf" : `gaboesquivel-cv-${key}.pdf`;

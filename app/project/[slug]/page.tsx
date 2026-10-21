@@ -1,6 +1,7 @@
 import { ProjectDetails } from "components/work/project";
 import { getProjectBySlug, projects } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
+import { siteRelativePath } from "lib/site-path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -35,7 +36,7 @@ export async function generateMetadata({
     notFound();
   }
 
-  const imagePath = project.image.replace("https://gaboesquivel.com", "");
+  const imagePath = siteRelativePath(project.image);
 
   return pageMetadata({
     description: project.description,

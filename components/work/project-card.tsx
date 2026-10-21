@@ -1,6 +1,7 @@
 import { proseClass, siteCardInteractive } from "components/shared/spacing";
 import { Card } from "components/ui/card";
 import type { Project } from "gaboesquivel";
+import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +17,7 @@ export function ProjectCard({
   showRole?: boolean;
   wide?: boolean;
 }) {
-  const src = project.image?.replace("https://gaboesquivel.com", "");
+  const src = project.image ? siteRelativePath(project.image) : undefined;
 
   return (
     <Link

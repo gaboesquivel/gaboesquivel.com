@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const cleanText = (value: string) =>
+export const cleanText = (value: string) =>
   value
     .replace(/<[^>]*>/g, "")
     .replace(/javascript:/gi, "")

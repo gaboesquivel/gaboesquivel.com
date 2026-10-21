@@ -1,3 +1,4 @@
+import { siteRelativePath } from "lib/site-path";
 import { FileText } from "lucide-react";
 import Link from "next/link";
 
@@ -30,11 +31,7 @@ export const CvDownloadCard = ({
       </Button>
       <Button
         nativeButton={false}
-        render={
-          <Link
-            href={pageUrl.replace("https://gaboesquivel.com", "") || "/cv"}
-          />
-        }
+        render={<Link href={siteRelativePath(pageUrl) || "/cv"} />}
         size="site"
         variant="siteQuiet"
       >

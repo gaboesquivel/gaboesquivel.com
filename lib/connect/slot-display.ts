@@ -1,4 +1,6 @@
-import { zonedInstant } from "./slots";
+import { addIsoDate, zonedInstant } from "./slots";
+
+const durationKey = (duration: 15 | 30) => (duration === 30 ? "30" : "15");
 
 export type SlotBuckets = Record<"15" | "30", Record<string, string[]>>;
 
@@ -47,12 +49,12 @@ export const filterFutureStarts = ({
   starts: string[];
 }) => starts.filter((iso) => Date.parse(iso) > now.getTime());
 
-export const sortedDays = (slots: SlotBuckets, duration: 15 | 30) =>
-  Object.keys(slots[String(duration) as "15" | "30"])
-    .filter(
-      (day) => (slots[String(duration) as "15" | "30"][day]?.length ?? 0) > 0
-    )
+export const sortedDays = (slots: SlotBuckets, duration: 15 | 30) => {
+  const key = durationKey(duration);
+  return Object.keys(slots[key])
+    .filter((day) => (slots[key][day]?.length ?? 0) > 0)
     .sort();
+};
 
 export const upcomingAppointments = ({
   duration,
@@ -68,7 +70,7 @@ export const upcomingAppointments = ({
   timeZone: string;
 }) => {
   const bucketed = rebucketSlots({ slots, timeZone });
-  const key = String(duration) as "15" | "30";
+  const key = durationKey(duration);
   const flat = Object.values(bucketed[key]).flat();
   return filterFutureStarts({ now, starts: flat })
     .sort((a, b) => Date.parse(a) - Date.parse(b))
@@ -76,37 +78,13 @@ export const upcomingAppointments = ({
     .map((start) => ({ duration, start }));
 };
 
-export const parseIsoDate = (isoDate: string) => {
-  const [year, month, day] = isoDate.split("-").map(Number);
-  return { day: day ?? 1, month: month ?? 1, year: year ?? 1970 };
-};
-
-export const formatIsoDate = ({
-  day,
-  month,
-  year,
-}: {
-  day: number;
-  month: number;
-  year: number;
-}) =>
-  `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-
 export const addCalendarDays = ({
   date,
   days,
 }: {
   date: string;
   days: number;
-}) => {
-  const { day, month, year } = parseIsoDate(date);
-  const next = new Date(Date.UTC(year, month - 1, day + days));
-  return formatIsoDate({
-    day: next.getUTCDate(),
-    month: next.getUTCMonth() + 1,
-    year: next.getUTCFullYear(),
-  });
-};
+}) => addIsoDate({ date, days });
 
 const weekdayIndex = ({
   date,
@@ -229,7 +207,7 @@ export const slotsForDay = ({
   timeZone: string;
 }) => {
   const bucketed = rebucketSlots({ slots, timeZone });
-  const key = String(duration) as "15" | "30";
+  const key = durationKey(duration);
   return filterFutureStarts({
     now,
     starts: bucketed[key][day] ?? [],

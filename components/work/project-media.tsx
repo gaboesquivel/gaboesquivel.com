@@ -1,11 +1,12 @@
 import { SiteCardAnchor } from "components/shared/site-card-link";
 import { proseClass } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
+import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
 import Image from "next/image";
 
 export function ProjectMedia({ project }: { project: Project }) {
-  const src = project.image?.replace("https://gaboesquivel.com", "");
+  const src = project.image ? siteRelativePath(project.image) : undefined;
   const href = `/project/${project.slug}`;
   const label = `${project.title} (opens in a new tab)`;
 

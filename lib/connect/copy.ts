@@ -39,14 +39,6 @@ export const SLOTS_FAILED =
 export const slotsMessageForError = (error: unknown) => {
   const message = error instanceof Error ? error.message : "";
   if (message === "calendar-unconfigured") return CALENDAR_UNCONNECTED;
-  if (
-    message === "calendar-token" ||
-    message.startsWith("calendar-token:") ||
-    message === "calendar-request" ||
-    message.startsWith("calendar-request:")
-  ) {
-    return SLOTS_FAILED;
-  }
   return SLOTS_FAILED;
 };
 

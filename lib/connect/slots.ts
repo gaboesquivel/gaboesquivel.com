@@ -86,7 +86,7 @@ const weekday = ({ date, timeZone }: { date: string; timeZone: string }) =>
     zonedInstant({ date, time: "12:00", timeZone })
   );
 
-const overlaps = ({
+export const overlaps = ({
   busy,
   duration,
   start,

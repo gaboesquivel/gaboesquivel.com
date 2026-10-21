@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "components/ui/navigation-menu";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,31 +21,29 @@ export default function Navbar() {
       aria-label="Primary navigation"
       className="navbar -ml-[8px] tracking-tight print:hidden preview-print:hidden"
     >
-      <NavigationMenu className="max-w-none flex-1 justify-start" align="start">
-        <NavigationMenuList className="flex flex-row flex-wrap justify-start gap-0">
-          {navItems.map(({ path, name }) => {
-            const isActive =
-              path === "/"
-                ? pathname === "/"
-                : pathname === path || pathname.startsWith(`${path}/`);
+      <ul className="flex flex-row flex-wrap justify-start gap-0">
+        {navItems.map(({ path, name }) => {
+          const isActive =
+            path === "/"
+              ? pathname === "/"
+              : pathname === path || pathname.startsWith(`${path}/`);
 
-            return (
-              <NavigationMenuItem key={path}>
-                <NavigationMenuLink
-                  render={<Link href={path} />}
-                  aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    "align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent",
-                    isActive ? "text-accent" : "text-neutral-400"
-                  )}
-                >
-                  {name}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            );
-          })}
-        </NavigationMenuList>
-      </NavigationMenu>
+          return (
+            <li key={path}>
+              <Link
+                href={path}
+                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  "inline-flex h-9 items-center justify-center rounded-lg px-2.5 py-1.5 align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent",
+                  isActive ? "text-accent" : "text-neutral-400"
+                )}
+              >
+                {name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }

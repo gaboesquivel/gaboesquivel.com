@@ -11,19 +11,7 @@ import {
   STORE_UNAVAILABLE_BOOK,
 } from "./copy";
 import { bookSchema } from "./schema";
-
-const overlaps = ({
-  busy,
-  duration,
-  start,
-}: {
-  busy: { end: number; start: number }[];
-  duration: number;
-  start: number;
-}) => {
-  const end = start + duration * 60_000;
-  return busy.some((block) => start < block.end && end > block.start);
-};
+import { overlaps } from "./slots";
 
 export const bookCall = async ({
   calendar,

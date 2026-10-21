@@ -1,19 +1,9 @@
 import { cvKeys } from "gaboesquivel";
 import type { CvKey } from "gaboesquivel";
+import { cvPath, cvPdfFile, cvSectionTitles } from "lib/cv-paths";
+import { siteOrigin } from "lib/site-path";
 
-const SITE = "https://gaboesquivel.com";
-
-export const cvSectionTitles: Record<CvKey, string> = {
-  ai: "AI Product Engineering CV",
-  full: "Curriculum Vitae",
-  fullstack: "Full-Stack Product Engineering CV",
-  web3: "Web3 Product Engineering CV",
-};
-
-const cvPath = (key: CvKey) => (key === "full" ? "/cv" : `/cv?focus=${key}`);
-
-const cvPdfFile = (key: CvKey) =>
-  key === "full" ? "gaboesquivel-cv.pdf" : `gaboesquivel-cv-${key}.pdf`;
+export { cvSectionTitles };
 
 export const normalizeCvFocus = (focus?: string | null) => {
   if (!focus || focus === "full") return "full" satisfies CvKey;
@@ -35,12 +25,12 @@ export const cvDownloadPayload = ({
   focus?: string | null;
 } = {}): CvDownloadPayload => {
   const variant = normalizeCvFocus(focus);
-  const filename = cvPdfFile(variant);
-  const path = cvPath(variant);
+  const filename = cvPdfFile({ key: variant });
+  const path = cvPath({ key: variant });
   return {
     filename,
-    pageUrl: `${SITE}${path}`,
-    pdfUrl: `${SITE}/${filename}`,
+    pageUrl: `${siteOrigin}${path}`,
+    pdfUrl: `${siteOrigin}/${filename}`,
     title: cvSectionTitles[variant],
     variant,
   };

@@ -1,24 +1,16 @@
 import type { Project } from "gaboesquivel";
 import { experience, getProjectBySlug, projects } from "gaboesquivel";
+import { featuredProjectSlugs } from "lib/work-types";
 
 import {
   EXPERIENCE_QUESTION,
   markerIntent,
   stripMarker,
+  typedBookingIntent,
   typedNoteIntent,
 } from "./intent";
 
-export const FEATURED_WORK_CARD_SLUGS = [
-  "legal-agent",
-  "wink",
-  "ztx",
-  "bitlauncher",
-  "opyn",
-  "eos-costa-rica",
-] as const;
-
-const bookPattern =
-  /\b(book|booking|calendar|schedule|time slot|weekdays|15[-\s]?minutes?|30[-\s]?minutes?)\b/i;
+export const FEATURED_WORK_CARD_SLUGS = featuredProjectSlugs;
 
 const broadExperiencePattern =
   /\b(what have you shipped|where did you lead|your experience|your work|explore my work|portfolio|past projects|what did you build|show me your work|tell me about your work)\b/i;
@@ -27,7 +19,7 @@ const wantsBookOrNote = (text: string) => {
   const marker = markerIntent(text);
   if (marker === "book" || marker === "note") return true;
   const cleaned = stripMarker(text);
-  return bookPattern.test(cleaned) || typedNoteIntent(cleaned);
+  return typedBookingIntent(cleaned) || typedNoteIntent(cleaned);
 };
 
 const namesSpecificTarget = (question: string) => {

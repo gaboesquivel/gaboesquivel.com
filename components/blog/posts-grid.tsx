@@ -1,13 +1,7 @@
-import {
-  blogCardClassName,
-  blogCardDateClassName,
-  blogCardSummaryClassName,
-  blogCardTitleClassName,
-} from "components/blog/blog-post-card";
+import { BlogPostCard } from "components/blog/blog-post-card";
 import { PageSection } from "components/shared/page-layout";
-import { SiteCardLink } from "components/shared/site-card-link";
 import { twoColGrid } from "components/shared/spacing";
-import { cn, formatDate } from "lib/utils";
+import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
 export function PostGrid({
@@ -37,23 +31,7 @@ export function PostGrid({
       <ul className={cn(twoColGrid, "[&_a]:h-full!")}>
         {posts.map((post) => (
           <li key={post.slug} className="h-full">
-            <SiteCardLink
-              cardClassName={blogCardClassName}
-              href={`/blog/${post.slug}`}
-            >
-              <h3 className={blogCardTitleClassName}>{post.title}</h3>
-              {post.summary ? (
-                <span className={blogCardSummaryClassName}>{post.summary}</span>
-              ) : null}
-              {post.publishedAt ? (
-                <time
-                  className={blogCardDateClassName}
-                  dateTime={post.publishedAt}
-                >
-                  {formatDate(post.publishedAt)}
-                </time>
-              ) : null}
-            </SiteCardLink>
+            <BlogPostCard post={post} />
           </li>
         ))}
       </ul>

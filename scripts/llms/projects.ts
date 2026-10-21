@@ -12,21 +12,13 @@ import {
   sortProjectsForTech,
   visibleTechStack,
 } from "../../lib/tech-evidence";
+import { featuredProjectSlugs } from "../../lib/work-types";
 import {
   absoluteUrl,
   blogSlugFromRelatedUrl,
   isValidProjectLink,
 } from "./format";
 import { displayTagName, displayTechList } from "./names";
-
-const featuredProjectSlugs = [
-  "legal-agent",
-  "wink",
-  "ztx",
-  "bitlauncher",
-  "opyn",
-  "eos-costa-rica",
-];
 
 const indexEvidenceSlugs = [...featuredProjectSlugs];
 
@@ -44,7 +36,10 @@ export const sortProjects = () => {
     projects.filter((project) => project.slug === slug)
   );
   const rest = projects
-    .filter((project) => !featuredProjectSlugs.includes(project.slug))
+    .filter(
+      (project) =>
+        !(featuredProjectSlugs as readonly string[]).includes(project.slug)
+    )
     .sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
 
   return [...featured, ...rest];

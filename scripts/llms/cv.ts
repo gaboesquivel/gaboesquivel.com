@@ -1,16 +1,11 @@
 import { cvKeys, resolveCv } from "gaboesquivel";
 
-const cvSectionTitles: Record<(typeof cvKeys)[number], string> = {
-  ai: "AI Product Engineering CV",
-  full: "Curriculum Vitae",
-  fullstack: "Full-Stack Product Engineering CV",
-  web3: "Web3 Product Engineering CV",
-};
+import { cvPath, cvSectionTitles } from "../../lib/cv-paths";
 
 export const cvExports = () =>
   cvKeys.map((key) => ({
     focus: key === "full" ? undefined : key,
-    path: key === "full" ? "/cv" : `/cv?focus=${key}`,
+    path: cvPath({ key }),
     title: cvSectionTitles[key],
   }));
 

@@ -2,15 +2,7 @@ import { LatestPosts } from "components/blog/latest-posts";
 import { Projects } from "components/work/projects";
 import { getProjectBySlug } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
-
-const featuredProjectSlugs = [
-  "legal-agent",
-  "wink",
-  "ztx",
-  "bitlauncher",
-  "opyn",
-  "eos-costa-rica",
-] as const;
+import { featuredProjectSlugs } from "lib/work-types";
 
 const workIntro =
   "A selection of products and systems I've built, from AI assistants and mobile banking to wallets, trading interfaces, and blockchain infrastructure.";

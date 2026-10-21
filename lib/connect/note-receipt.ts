@@ -48,37 +48,32 @@ export const noteFormPayloadFromMessage = (
   return null;
 };
 
-export const bookPartAfterMessage = (
+const toolPartAfterMessage = (
   messages: readonly ThreadMessage[],
-  messageId: string
+  messageId: string,
+  toolName: "book" | "send"
 ) => {
   const index = messages.findIndex((message) => message.id === messageId);
   if (index === -1) return null;
   let found: ThreadMessage["parts"][number] | null = null;
   for (let i = index; i < messages.length; i++) {
     for (const part of messages[i].parts) {
-      if (part.type === "dynamic-tool" && part.toolName === "book")
+      if (part.type === "dynamic-tool" && part.toolName === toolName)
         found = part;
     }
   }
   return found;
 };
 
+export const bookPartAfterMessage = (
+  messages: readonly ThreadMessage[],
+  messageId: string
+) => toolPartAfterMessage(messages, messageId, "book");
+
 export const sendPartAfterMessage = (
   messages: readonly ThreadMessage[],
   messageId: string
-) => {
-  const index = messages.findIndex((message) => message.id === messageId);
-  if (index === -1) return null;
-  let found: ThreadMessage["parts"][number] | null = null;
-  for (let i = index; i < messages.length; i++) {
-    for (const part of messages[i].parts) {
-      if (part.type === "dynamic-tool" && part.toolName === "send")
-        found = part;
-    }
-  }
-  return found;
-};
+) => toolPartAfterMessage(messages, messageId, "send");
 
 const noteSendResult = (output: unknown) => {
   if (!output || typeof output !== "object") return null;
@@ -103,10 +98,12 @@ const noteSendResult = (output: unknown) => {
 export const threadHasNoteFormPayload = (messages: readonly ThreadMessage[]) =>
   messages.some((message) => messageHasNoteFormPayload(message));
 
-export const assistantFollowsFormNote = ({
+const assistantFollowsForm = ({
+  hasFormPayload,
   messageId,
   messages,
 }: {
+  hasFormPayload: (message: ThreadMessage) => boolean;
   messageId: string;
   messages: readonly ThreadMessage[];
 }) => {
@@ -114,8 +111,21 @@ export const assistantFollowsFormNote = ({
   if (index <= 0) return false;
   const message = messages[index];
   if (message.role !== "assistant") return false;
-  return messageHasNoteFormPayload(messages[index - 1]);
+  return hasFormPayload(messages[index - 1]);
 };
+
+export const assistantFollowsFormNote = ({
+  messageId,
+  messages,
+}: {
+  messageId: string;
+  messages: readonly ThreadMessage[];
+}) =>
+  assistantFollowsForm({
+    hasFormPayload: messageHasNoteFormPayload,
+    messageId,
+    messages,
+  });
 
 export const assistantFollowsFormBook = ({
   messageId,
@@ -123,13 +133,12 @@ export const assistantFollowsFormBook = ({
 }: {
   messageId: string;
   messages: readonly ThreadMessage[];
-}) => {
-  const index = messages.findIndex((message) => message.id === messageId);
-  if (index <= 0) return false;
-  const message = messages[index];
-  if (message.role !== "assistant") return false;
-  return messageHasBookFormPayload(messages[index - 1]);
-};
+}) =>
+  assistantFollowsForm({
+    hasFormPayload: messageHasBookFormPayload,
+    messageId,
+    messages,
+  });
 
 export const assistantFollowsConnectForm = ({
   messageId,

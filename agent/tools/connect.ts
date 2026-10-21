@@ -4,7 +4,7 @@ import { z } from "zod";
 import { bookCall } from "../../lib/connect/book";
 import { googleCalendar } from "../../lib/connect/calendar";
 import { admitChatOnce } from "../../lib/connect/caps";
-import { composeSlots, parseNoteFormPayload } from "../../lib/connect/compose";
+import { fixedSpec, parseNoteFormPayload } from "../../lib/connect/compose";
 import type { SlotState } from "../../lib/connect/compose";
 import {
   NO_SLOTS,
@@ -116,7 +116,7 @@ export default defineDynamic({
               day: open.days[0] ?? null,
               duration,
             };
-            const spec = await composeSlots({ duration, state });
+            const spec = fixedSpec(state);
             return {
               duration,
               message: "Open times are in the picker.",

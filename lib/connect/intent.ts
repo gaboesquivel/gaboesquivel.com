@@ -11,6 +11,8 @@ const bookPattern =
   /\b(book|booking|calendar|schedule|time slot|weekdays|15[-\s]?minutes?|30[-\s]?minutes?)\b/i;
 const notePattern = /\b(note|email|pass along|contact@)\b/i;
 
+export const typedBookingIntent = (text: string) => bookPattern.test(text);
+
 export const typedNoteIntent = (text: string) => notePattern.test(text.trim());
 
 export const noteOpener = (text: string) =>
@@ -106,10 +108,10 @@ export const toolsForTurn = ({
     })
   );
   const latest = cleaned.at(-1) ?? "";
-  let wantsBook = latestMarker === "book" || bookPattern.test(latest);
+  let wantsBook = latestMarker === "book" || typedBookingIntent(latest);
   let wantsNote = latestMarker === "note" || notePattern.test(latest);
   if (continuationPattern.test(latest)) {
-    if (earlierMarkers.has("book") || bookPattern.test(earlier))
+    if (earlierMarkers.has("book") || typedBookingIntent(earlier))
       wantsBook = true;
     if (earlierMarkers.has("note") || notePattern.test(earlier))
       wantsNote = true;

@@ -1,5 +1,6 @@
 "use client";
 
+import { siteOrigin, siteRelativePath } from "lib/site-path";
 import Link from "next/link";
 
 import { Shimmer } from "@/components/ai-elements/shimmer";
@@ -8,9 +9,8 @@ import { noteMessageLines, noteSubject } from "../../lib/connect/note-present";
 import { ConnectCard } from "./connect-gen-ui";
 
 const NoteLink = ({ href, label }: { href: string; label: string }) => {
-  const internal =
-    href.startsWith("/") || href.startsWith("https://gaboesquivel.com");
-  const path = href.replace("https://gaboesquivel.com", "") || "/";
+  const internal = href.startsWith("/") || href.startsWith(siteOrigin);
+  const path = siteRelativePath(href) || "/";
   if (internal)
     return (
       <Link className="prose-link" href={path}>

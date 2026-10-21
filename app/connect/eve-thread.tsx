@@ -2,6 +2,7 @@
 
 import type { Spec } from "@json-render/core";
 import { openConversationInputs, useEveAgent } from "eve/react";
+import { siteOrigin, siteRelativePath } from "lib/site-path";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -116,9 +117,8 @@ const renderText = (text: string) => {
   return nodes.map((node, index) => {
     if (typeof node === "string") return node;
     const internal =
-      node.href.startsWith("/") ||
-      node.href.startsWith("https://gaboesquivel.com");
-    const href = node.href.replace("https://gaboesquivel.com", "") || "/";
+      node.href.startsWith("/") || node.href.startsWith(siteOrigin);
+    const href = siteRelativePath(node.href) || "/";
     if (internal) {
       return (
         <Link className="prose-link" href={href} key={index}>

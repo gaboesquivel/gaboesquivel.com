@@ -1,6 +1,12 @@
 import { SiteCardLink } from "components/shared/site-card-link";
-import type { Blog } from "lib/blog";
 import { formatDate } from "lib/utils";
+
+export interface BlogCardPost {
+  slug: string;
+  title: string;
+  summary?: string;
+  publishedAt: string;
+}
 
 const blogCardClassName = "flex h-full min-h-48 w-full flex-col gap-2";
 
@@ -13,7 +19,7 @@ const blogCardSummaryClassName =
 const blogCardDateClassName =
   "mt-auto block pt-2 text-xs leading-normal text-neutral-400 tabular-nums";
 
-export function BlogPostCard({ post }: { post: Blog }) {
+export function BlogPostCard({ post }: { post: BlogCardPost }) {
   return (
     <SiteCardLink cardClassName={blogCardClassName} href={`/blog/${post.slug}`}>
       <h3 className={blogCardTitleClassName}>{post.title}</h3>

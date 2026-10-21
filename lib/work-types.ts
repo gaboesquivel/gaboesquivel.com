@@ -1,3 +1,12 @@
+export const featuredProjectSlugs = [
+  "legal-agent",
+  "wink",
+  "ztx",
+  "bitlauncher",
+  "opyn",
+  "eos-costa-rica",
+] as const;
+
 export const workTypeOptions = [
   "featured",
   "full-time",

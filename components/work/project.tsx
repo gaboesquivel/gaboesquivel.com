@@ -10,6 +10,7 @@ import { YouTubePlayer } from "components/youtube";
 import { getTechStackByTag } from "gaboesquivel";
 import type { Project, Tag } from "gaboesquivel";
 import { comparePublishedAtDesc } from "lib/blog-order";
+import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,12 +31,15 @@ const capabilityTypeMap: Record<
   web3: { display: "Web3", url: "/web3" },
 };
 
+const projectImageSizes = "(max-width: 768px) 100vw, 896px";
+
 const ProjectImage = ({ project, src }: { project: Project; src: string }) => (
   <div className={projectMedia}>
     <Image
       src={src}
       alt={project.title}
       fill={true}
+      sizes={projectImageSizes}
       style={{ objectFit: "cover" }}
     />
   </div>
@@ -48,7 +52,7 @@ export function ProjectDetails({
   project: Project;
   full?: boolean;
 }) {
-  const primarySrc = project.image.replace("https://gaboesquivel.com", "");
+  const primarySrc = siteRelativePath(project.image);
   const validExperienceTypes = (project.type ?? [])
     .map((type) => capabilityTypeMap[type])
     .filter(Boolean) as { display: string; url: string }[];
@@ -125,9 +129,10 @@ export function ProjectDetails({
           {project.images.map((image) => (
             <div key={image} className={projectMedia}>
               <Image
-                src={image.replace("https://gaboesquivel.com", "")}
+                src={siteRelativePath(image)}
                 alt={project.title}
                 fill={true}
+                sizes={projectImageSizes}
                 style={{ objectFit: "cover" }}
               />
             </div>

@@ -1,8 +1,11 @@
-"use client";
-import { useState } from "react";
+const getVideoId = (video: string) => {
+  const url = new URL(video);
+  const params = new URLSearchParams(url.search);
+  return params.get("v");
+};
 
 export function YouTubePlayer({ url, title }: { url: string; title: string }) {
-  const [videoId] = useState(getVideoId(url));
+  const videoId = getVideoId(url);
 
   if (!videoId) {
     return null;
@@ -18,11 +21,4 @@ export function YouTubePlayer({ url, title }: { url: string; title: string }) {
       allowFullScreen
     />
   );
-}
-
-function getVideoId(video: string) {
-  const url = new URL(video);
-  const params = new URLSearchParams(url.search);
-  const videoId = params.get("v");
-  return videoId;
 }
