@@ -13,7 +13,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        accent: "#54e8b3",
+        accent: "#5cded6",
         hairline: "rgba(255, 255, 255, 0.14)",
       },
       fontFamily: {

@@ -21,7 +21,7 @@ const colors = {
   white: "#ffffff",
   gray: "#a3a3a3",
   darkGray: "#404040",
-  mint: "#54e8b3",
+  accent: "#5cded6",
 } as const;
 
 const textLines = [
@@ -47,7 +47,7 @@ const textLines = [
     top: 496,
     fontSize: 20,
     lineHeight: 28,
-    fill: colors.mint,
+    fill: colors.accent,
   },
 ] as const;
 
@@ -141,7 +141,7 @@ const buildSvg = () => {
 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
   <rect width="${width}" height="${height}" fill="${colors.black}"/>
   <path d="M904 350 H964 V380 H1024" fill="none" stroke="${colors.gray}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M904 284 H964 V250 H1024" fill="none" stroke="${colors.mint}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M904 284 H964 V250 H1024" fill="none" stroke="${colors.accent}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
   ${roundedRect({ x: 720, y: 194, w: 184, h: 228, radius: 12, fill: colors.black, stroke: colors.white, strokeWidth: 3 })}
   ${line({ x1: 720, y1: 238, x2: 904, y2: 238, stroke: colors.gray, strokeWidth: 2 })}
   ${line({ x1: 740, y1: 216, x2: 790, y2: 216, stroke: colors.gray, strokeWidth: 2 })}
@@ -154,8 +154,8 @@ const buildSvg = () => {
   ${roundedRect({ x: 1024, y: 340, w: 80, h: 80, radius: 12, fill: colors.black, stroke: colors.gray, strokeWidth: 3 })}
   ${innerSquare(1024 + 40, 210 + 40)}
   ${innerSquare(1024 + 40, 340 + 40)}
-  <circle cx="904" cy="284" r="4" fill="${colors.mint}"/>
-  <circle cx="1024" cy="250" r="4" fill="${colors.mint}"/>
+  <circle cx="904" cy="284" r="4" fill="${colors.accent}"/>
+  <circle cx="1024" cy="250" r="4" fill="${colors.accent}"/>
   ${textPaths}
 </svg>
 `;

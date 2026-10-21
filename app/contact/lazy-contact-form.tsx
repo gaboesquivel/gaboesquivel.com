@@ -1,19 +1,52 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { startTransition, useEffect, useRef, useState } from "react";
 
-export const LazyContactForm = dynamic(
+const ContactForm = dynamic(
   () => import("./contact-form").then((mod) => mod.ContactForm),
-  {
-    loading: () => (
-      <div
-        aria-busy="true"
-        className="min-h-[28rem] w-full rounded-lg border border-hairline bg-neutral-950/50"
-        role="status"
-      >
-        <span className="sr-only">Loading contact form</span>
-      </div>
-    ),
-    ssr: false,
-  }
+  { ssr: false }
 );
+
+const ContactFormPlaceholder = () => (
+  <div
+    aria-busy="true"
+    className="min-h-64 w-full rounded-lg border border-hairline bg-neutral-950/50"
+    role="status"
+  >
+    <span className="sr-only">Loading contact form</span>
+  </div>
+);
+
+export const LazyContactForm = () => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const node = rootRef.current;
+    if (!node) return;
+
+    if (!("IntersectionObserver" in window)) {
+      startTransition(() => setShouldLoad(true));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        startTransition(() => setShouldLoad(true));
+        observer.disconnect();
+      },
+      { rootMargin: "240px 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={rootRef}>
+      {shouldLoad ? <ContactForm /> : <ContactFormPlaceholder />}
+    </div>
+  );
+};

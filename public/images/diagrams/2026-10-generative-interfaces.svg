@@ -15,7 +15,7 @@
       <text x="132" y="84" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="16">Known screen</text>
       <text x="132" y="106" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="13">model chooses</text>
       <path d="M132 124V152" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arrow-gray)"/>
-      <rect x="36" y="160" width="192" height="72" rx="8" fill="#111111" stroke="#54e8b3" stroke-width="2"/>
+      <rect x="36" y="160" width="192" height="72" rx="8" fill="#111111" stroke="#5cded6" stroke-width="2"/>
       <text x="132" y="186" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="16">Fixed interface</text>
       <text x="132" y="208" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="13">already designed</text>
       <text x="132" y="256" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="12">Least freedom</text>
@@ -27,7 +27,7 @@
       <text x="380" y="84" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="16">Approved parts</text>
       <text x="380" y="106" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="13">model specifies</text>
       <path d="M380 124V152" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arrow-gray)"/>
-      <rect x="284" y="160" width="192" height="72" rx="8" fill="#111111" stroke="#54e8b3" stroke-width="2"/>
+      <rect x="284" y="160" width="192" height="72" rx="8" fill="#111111" stroke="#5cded6" stroke-width="2"/>
       <text x="380" y="186" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="16">Renderer</text>
       <text x="380" y="208" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="13">trusted components</text>
       <text x="380" y="256" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="12">Bounded freedom</text>
@@ -39,7 +39,7 @@
       <text x="628" y="84" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="16">New structure</text>
       <text x="628" y="106" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="13">model produces</text>
       <path d="M628 124V152" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arrow-gray)"/>
-      <rect x="532" y="160" width="192" height="72" rx="8" fill="#111111" stroke="#54e8b3" stroke-width="2"/>
+      <rect x="532" y="160" width="192" height="72" rx="8" fill="#111111" stroke="#5cded6" stroke-width="2"/>
       <text x="628" y="186" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-size="16">Checked output</text>
       <text x="628" y="208" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="13">then rendered</text>
       <text x="628" y="256" text-anchor="middle" dominant-baseline="central" fill="#a3a3a3" font-size="12">Most freedom</text>

@@ -76,6 +76,7 @@ export default function HomePage() {
           aria-hidden
           className="pointer-events-none absolute top-0 right-0 hidden h-auto w-[47%] max-w-none md:block"
           height={homeHeroDesktop.height}
+          loading="lazy"
           sizes="(min-width: 768px) 47vw, 0px"
           src={homeHeroDesktop.src}
           width={homeHeroDesktop.width}

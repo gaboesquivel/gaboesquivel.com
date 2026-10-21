@@ -4,7 +4,7 @@ description: Dark reading column for a product-engineer portfolio. Agents must r
 colors:
   primary: "#000000"
   secondary: "#ffffff"
-  tertiary: "#54e8b3"
+  tertiary: "#5cded6"
   muted: "#737373"
   border: "rgba(255, 255, 255, 0.14)"
   hover-fill: "#262626"
@@ -37,7 +37,7 @@ spacing:
 
 ## Overview
 
-Dark reading column, not a marketing landing kit. Black canvas, white type, one mint accent (`#54e8b3`), 2px accent top bar, lowercase mono nav, `max-w-4xl` content. Photography is evidence (real workshop/project shots), not decoration. Feel: precise, thoughtful, quietly playful — whitespace and hierarchy over chrome.
+Dark reading column, not a marketing landing kit. Black canvas, white type, one turquoise accent (`#5cded6`), 2px accent top bar, lowercase mono nav, `max-w-4xl` content. Photography is evidence (real workshop/project shots), not decoration. Feel: precise, thoughtful, quietly playful — whitespace and hierarchy over chrome.
 
 Voice and identity facts live in the installed `gabo` skill. UI microcopy: sentence case, plain verbs, no marketing CTAs. Do not duplicate biography or hire terms here.
 
@@ -47,10 +47,12 @@ Voice and identity facts live in the installed `gabo` skill. UI microcopy: sente
 | --- | --- | --- |
 | Canvas / primary | `#000000` (`bg-black`) | Page background |
 | Text / secondary | `#ffffff` (`text-white`) | Body and headings |
-| Accent / tertiary | `#54e8b3` (`accent`, `text-accent`, `bg-accent`) | Top bar, active nav, `ctaLink`, focus rings |
+| Accent / tertiary | `#5cded6` (`accent`, `text-accent`, `bg-accent`) | Top bar, active nav, `ctaLink`, focus rings |
 | Muted | Tailwind `neutral-400` / `neutral-500` | Meta, URLs, secondary labels |
 | Hairline / border | `rgba(255, 255, 255, 0.14)` (`hairline`, `border-hairline`) | Cards, form fields, code blocks |
 | Hover fill | `neutral-100` / `neutral-800` (`#262626`) | Card and path-link hover |
+
+The turquoise accent is chosen to match the homepage portrait’s linework, keeping the interface, diagrams, and social artwork visually consistent.
 
 One accent only. Hairline is the surface border. Prefer `neutral-*` over `zinc-*`, `gray-*`, or `slate-*` for new classes.
 
@@ -62,7 +64,7 @@ Live face is system mono at normal weight: `html` uses `font-mono font-normal` i
 
 `tailwind.config.mts` maps `font-sans` to `var(--font-graphik)`, but Graphik is **not loaded** in source. Do not “restore” Graphik, pair a display serif, or invent a second typeface unless the task explicitly loads a font.
 
-Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`pageTitle`, `sectionTitle`, `proseClass`, `blockSpacing`, `sectionSpacing`, grids). Theme colors live in [`tailwind.config.mts`](tailwind.config.mts): `accent` is `#54e8b3`, `hairline` is `rgba(255, 255, 255, 0.14)`. Nav: lowercase mono, `tracking-tight`; no all-caps or display face.
+Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts) (`pageTitle`, `sectionTitle`, `proseClass`, `blockSpacing`, `sectionSpacing`, grids). Theme colors live in [`tailwind.config.mts`](tailwind.config.mts): `accent` is `#5cded6`, `hairline` is `rgba(255, 255, 255, 0.14)`. Nav: lowercase mono, `tracking-tight`; no all-caps or display face.
 
 ## Layout and responsive behavior
 
@@ -81,7 +83,7 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 
 Every editorial image communicates a specific idea from its article. Technical images show meaningful structures and relationships. Reflective images express the central experience through a clear visual metaphor. Both use the same palette, drawing style, spacing, and compositional discipline.
 
-The approved direction is flat, diagram-like editorial illustration: pure black canvas, white and neutral-gray shapes and lines, and mint `#54e8b3` marking the important relationship or subject. Use sparse, recognizable objects, clear boundaries, generous negative space, and consistent strokes. No dimensional rendering, shadows, glow, glass, grain, gradients, futuristic offices, robots, decorative code, or technology-logo collages. Organic subjects such as grass and trails use the same simplified drawing language. Photography and real project screenshots remain evidence and retain their original character.
+The approved direction is flat, diagram-like editorial illustration: pure black canvas, white and neutral-gray shapes and lines, and turquoise `#5cded6` marking the important relationship or subject. Use sparse, recognizable objects, clear boundaries, generous negative space, and consistent strokes. No dimensional rendering, shadows, glow, glass, grain, gradients, futuristic offices, robots, decorative code, or technology-logo collages. Organic subjects such as grass and trails use the same simplified drawing language. Photography and real project screenshots remain evidence and retain their original character.
 
 Choose the visual structure from the content:
 
@@ -126,7 +128,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Section CTA | `ctaLink` / `sectionAction` | `components/shared/spacing.ts` |
 | In-prose link | `proseLink` | `components/shared/spacing.ts` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
-| Forms | `Field`, `Input`, `Textarea`; hairline + mint focus via `siteFieldClass` | `components/ui/field.tsx`, `app/contact/contact-form.tsx`, `app/connect/connect-fields.tsx` |
+| Forms | `Field`, `Input`, `Textarea`; hairline + turquoise focus via `siteFieldClass` | `components/ui/field.tsx`, `app/contact/contact-form.tsx`, `app/connect/connect-fields.tsx` |
 | Connect generative cards | `ConnectCard` (`Card`), `Button` (`siteAccent` / `siteQuiet`), `ToggleGroup` chips | `app/connect/connect-gen-ui.tsx` |
 
 `PathLink` and `PageCard` use `SiteCardLink` and share the `cardArrow` nudge in `spacing.ts`.
@@ -141,7 +143,7 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 
 **Principles**
 
-- One card surface per workflow step: shadcn `Card`, hairline border, `rounded-lg`, `p-4`, `max-w-md`, `gap-3`, mono type, mint focus rings — see `ConnectCard` in `app/connect/connect-gen-ui.tsx`.
+- One card surface per workflow step: shadcn `Card`, hairline border, `rounded-lg`, `p-4`, `max-w-md`, `gap-3`, mono type, turquoise focus rings — see `ConnectCard` in `app/connect/connect-gen-ui.tsx`.
 - Progressive disclosure: booking shows duration, visitor time zone, and the next few starts before an in-place expand for week navigation and a responsive time grid (`app/connect/slot-picker.tsx`, logic in `lib/connect/slot-display.ts`).
 - Stateful flows: availability → details → approval → receipt. Contact fields persist when the visitor changes time. The discussion field is never prefilled from chat history.
 - Shared fields and actions: `connect-fields.tsx`, `ConnectPrimaryButton` / `ConnectSecondaryButton`, `DurationToggle` chips with `aria-pressed` and accent border when selected.
@@ -176,7 +178,7 @@ Which routes may be restyled, and in which passes, is in [docs/agents/content.md
 
 - Invent a new palette, type pairing, or “signature” element
 - Gradient blobs, numbered 01/02/03 markers, eyebrow labels, icon feature rows, stat strips, second accent
-- Display serif, cream/terracotta defaults, broadsheet chrome, or acid-green redesigns of the mint bar
+- Display serif, cream/terracotta defaults, broadsheet chrome, or acid-green redesigns of the turquoise bar
 
 **Skills**
 
@@ -197,7 +199,7 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 
 ## Homepage portrait hero
 
-The homepage uses a single transparent WebP composition with the real portrait, mint gradient, circle, grid, and small discipline labels. This approved homepage exception permits the subtle gradient and decorative photography in the supplied mockup; editorial image rules remain unchanged. The lossless master lives at `assets/homepage/gaboesquivel-homepage-master.webp`; shipped derivatives are `public/images/gaboesquivel-homepage-mobile.webp` (896px wide) and `public/images/gaboesquivel-homepage-desktop.webp` (700px wide), produced by `bun run hero:optimize`. All artwork is baked into the image to preserve relative alignment.
+The homepage uses a single transparent WebP composition with the real portrait, turquoise gradient, circle, grid, and small discipline labels. This approved homepage exception permits the subtle gradient and decorative photography in the supplied mockup; editorial image rules remain unchanged. The lossless master lives at `assets/homepage/gaboesquivel-homepage-master.webp`; shipped derivatives are `public/images/gaboesquivel-homepage-mobile.webp` (896px wide) and `public/images/gaboesquivel-homepage-desktop.webp` (700px wide), produced by `bun run hero:optimize`. All artwork is baked into the image to preserve relative alignment.
 
 [`app/page.tsx`](app/page.tsx) lays out the hero with `next/image` and Tailwind utilities: the title spans the full reading column (`relative z-[1] w-full max-w-none`); below `md`, the mobile WebP is full width under the title with `preload`. From `md` up, the desktop WebP is an absolutely positioned right column (`w-[47%]`, `object-contain` alignment via width/height) and the copy block keeps `md:pr-[45%]`. Default Open Graph and Twitter images use `/og` (`app/opengraph-image.png`), not the hero composition. The existing `max-w-4xl` column, copy, navigation, and sections remain. A plain, keyboard-focusable “Contact me” link opens `/contact` at every width. No filled hero CTA.
 

@@ -42,6 +42,13 @@ const nextConfig = {
     const connectRedirects = [
       { destination: "/contact", permanent: true, source: "/connect" },
     ];
+    const legacyAssetRedirects = [
+      {
+        destination: "/images/gaboesquivel-homepage-mobile.webp",
+        permanent: true,
+        source: "/images/gaboesquivel-homepage.webp",
+      },
+    ];
     const mcpDocsRedirects = [
       { destination: "/docs", permanent: true, source: "/developers" },
       { destination: "/docs", permanent: true, source: "/developer" },
@@ -53,6 +60,7 @@ const nextConfig = {
       return [
         calRedirect,
         ...connectRedirects,
+        ...legacyAssetRedirects,
         ...mcpDocsRedirects,
         ...blogTechRedirects,
         ...(edgeRedirects ?? []),
@@ -61,6 +69,7 @@ const nextConfig = {
       return [
         calRedirect,
         ...connectRedirects,
+        ...legacyAssetRedirects,
         ...mcpDocsRedirects,
         ...blogTechRedirects,
       ];

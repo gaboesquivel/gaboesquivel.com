@@ -429,18 +429,18 @@ a {
   --card-foreground: #ffffff;
   --popover: #171717;
   --popover-foreground: #ffffff;
-  --primary: #54e8b3;
+  --primary: #5cded6;
   --primary-foreground: #000000;
   --secondary: #262626;
   --secondary-foreground: #ffffff;
   --muted: #262626;
   --muted-foreground: #a3a3a3;
-  --accent: #54e8b3;
+  --accent: #5cded6;
   --accent-foreground: #000000;
   --destructive: oklch(0.704 0.191 22.216);
   --border: rgba(255, 255, 255, 0.14);
   --input: rgba(255, 255, 255, 0.14);
-  --ring: #54e8b3;
+  --ring: #5cded6;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -494,8 +494,8 @@ body:has([data-connect]) [data-slot="input-group"] {
 }
 
 body:has([data-connect]) [data-slot="input-group"]:focus-within {
-  border-color: #54e8b3;
-  box-shadow: 0 0 0 2px #54e8b3;
+  border-color: #5cded6;
+  box-shadow: 0 0 0 2px #5cded6;
 }
 
 body:has([data-connect]) [data-slot="input-group"] textarea {
