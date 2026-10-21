@@ -5,7 +5,7 @@ import path from "node:path";
 import { parse as parseFont } from "opentype.js";
 import sharp from "sharp";
 
-const root = path.join(import.meta.dirname, "..");
+const root = path.join(import.meta.dir, "..");
 const fontPath = path.join(
   root,
   "assets/fonts/ibm-plex-mono/IBMPlexMono-Regular.otf"
@@ -53,23 +53,6 @@ const textLines = [
 
 const font = parseFont(readFileSync(fontPath));
 
-const baselineFromTop = ({
-  top,
-  fontSize,
-  lineHeight,
-}: {
-  top: number;
-  fontSize: number;
-  lineHeight: number;
-}) => {
-  const scale = fontSize / font.unitsPerEm;
-  const ascent = font.ascender * scale;
-  const descent = Math.abs(font.descender * scale);
-  const contentHeight = ascent + descent;
-  const leading = lineHeight - contentHeight;
-  return top + leading / 2 + ascent;
-};
-
 const textToPath = ({
   text,
   x,
@@ -82,10 +65,15 @@ const textToPath = ({
   top: number;
   fontSize: number;
   lineHeight: number;
-}) =>
-  font
-    .getPath(text, x, baselineFromTop({ top, fontSize, lineHeight }), fontSize)
-    .toPathData(2);
+}) => {
+  const scale = fontSize / font.unitsPerEm;
+  const ascent = font.ascender * scale;
+  const descent = Math.abs(font.descender * scale);
+  const leading = lineHeight - (ascent + descent);
+  const baseline = top + leading / 2 + ascent;
+
+  return font.getPath(text, x, baseline, fontSize).toPathData(2);
+};
 
 const line = ({
   x1,
@@ -149,9 +137,6 @@ const buildSvg = () => {
     });
   };
 
-  const upperCenter = { x: 1024 + 40, y: 210 + 40 };
-  const lowerCenter = { x: 1024 + 40, y: 340 + 40 };
-
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
   <rect width="${width}" height="${height}" fill="${colors.black}"/>
@@ -167,8 +152,8 @@ const buildSvg = () => {
   ${line({ x1: 740, y1: 370, x2: 818, y2: 370, stroke: colors.gray, strokeWidth: 2 })}
   ${roundedRect({ x: 1024, y: 210, w: 80, h: 80, radius: 12, fill: colors.black, stroke: colors.gray, strokeWidth: 3 })}
   ${roundedRect({ x: 1024, y: 340, w: 80, h: 80, radius: 12, fill: colors.black, stroke: colors.gray, strokeWidth: 3 })}
-  ${innerSquare(upperCenter.x, upperCenter.y)}
-  ${innerSquare(lowerCenter.x, lowerCenter.y)}
+  ${innerSquare(1024 + 40, 210 + 40)}
+  ${innerSquare(1024 + 40, 340 + 40)}
   <circle cx="904" cy="284" r="4" fill="${colors.mint}"/>
   <circle cx="1024" cy="250" r="4" fill="${colors.mint}"/>
   ${textPaths}

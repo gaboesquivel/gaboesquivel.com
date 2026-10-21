@@ -92,4 +92,4 @@ Right-side artwork: product-interface panel, two system component squares, mint 
 
 **Generation:** `bun run og:generate` (`scripts/generate-home-og.ts`). Reproduces the SVG and PNG offline. Not part of `build` or content export.
 
-**Serving:** Next.js file-based metadata uses `app/opengraph-image.png`. `app/og/route.tsx` returns the same PNG bytes at `/og` for Twitter default (`summary_large_image`) without remote fetch or secondary rendering.
+**Serving:** Next.js file-based metadata uses `app/opengraph-image.png`. `app/og/route.ts` returns the same PNG bytes at `/og` for Twitter default (`summary_large_image`) without remote fetch or secondary rendering.
