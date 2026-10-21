@@ -15,9 +15,17 @@ import { homeJsonLd } from "lib/home-json-ld";
 import { pageMetadata } from "lib/page-metadata";
 import { cn } from "lib/utils";
 import { ArrowUpRight, MessageSquare } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./home-hero.module.css";
+
+const homeHeroImage = {
+  alt: "Gabo Esquivel — Agentic Product Engineer",
+  height: 1098,
+  src: "/images/gaboesquivel-homepage.webp",
+  width: 1433,
+} as const;
 
 const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
 const selectedProjects = selectedProjectSlugs.flatMap((slug) => {
@@ -33,12 +41,21 @@ export default function HomePage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
-      <PageTitle className={cn(styles.heroTitle, "leading-tight")}>
+      <PageTitle className={cn(styles.heroTitle, "leading-normal")}>
         Gabo Esquivel
         <br className="md:hidden" />
         <span className="max-md:hidden"> — </span>
         Agentic Product Engineer
       </PageTitle>
+      <Image
+        alt={homeHeroImage.alt}
+        className={styles.heroImageMobile}
+        height={homeHeroImage.height}
+        preload
+        sizes="100vw"
+        src={homeHeroImage.src}
+        width={homeHeroImage.width}
+      />
       <div className={styles.hero}>
         <div className={styles.heroCopy}>
           <Prose>
@@ -146,10 +163,10 @@ export const metadata = pageMetadata({
     "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
   images: [
     {
-      url: "/images/gaboesquivel-homepage.webp",
-      width: 1433,
-      height: 1098,
-      alt: "Gabo Esquivel — Agentic Product Engineer",
+      url: homeHeroImage.src,
+      width: homeHeroImage.width,
+      height: homeHeroImage.height,
+      alt: homeHeroImage.alt,
     },
   ],
   path: "/",
