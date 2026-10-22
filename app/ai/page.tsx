@@ -1,11 +1,8 @@
 import { LatestPosts } from "components/blog/latest-posts";
+import { AiSystemDiagram } from "components/diagrams/ai-system";
+import { InnerPageHero } from "components/shared/inner-page-hero";
 import { LetsConnect } from "components/shared/lets-connect";
-import {
-  PageSection,
-  PageTitle,
-  proseLink,
-  Prose,
-} from "components/shared/page-layout";
+import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import { ProjectEvidence } from "components/work/project-evidence";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
@@ -14,12 +11,10 @@ import Link from "next/link";
 export default function AIExperiencePage() {
   return (
     <section>
-      <PageTitle>AI Engineering</PageTitle>
-      <Prose>
-        I build AI products where the experience matters as much as the model:
-        voice and chat assistants, retrieval-backed workflows, and interfaces
-        that help people understand what an agent is doing.
-      </Prose>
+      <InnerPageHero
+        description="I build AI products where the experience matters as much as the model: voice and chat assistants, retrieval-backed workflows, and interfaces that help people understand what an agent is doing."
+        title="AI Engineering"
+      />
       <Prose>
         That takes work across product, design, and architecture. I shape the
         tools and context a model receives, the decisions it can make, and the
@@ -27,6 +22,8 @@ export default function AIExperiencePage() {
         launch. I also explore generative interfaces as a way to move beyond
         chat when a task calls for a clearer interaction.
       </Prose>
+
+      <AiSystemDiagram />
 
       <PageSection title="LegalAgent: voice, chat, and retrieval">
         <Prose>
@@ -43,7 +40,11 @@ export default function AIExperiencePage() {
           prompt controls, and retrieval categories.
         </Prose>
 
-        <ProjectEvidence slugs={["legal-agent"]} columns={1} />
+        <ProjectEvidence
+          columns={1}
+          presentation="registry"
+          slugs={["legal-agent"]}
+        />
       </PageSection>
 
       <PageSection title="Domain-specific assistants">
@@ -74,9 +75,10 @@ export default function AIExperiencePage() {
       </PageSection>
 
       <LatestPosts
-        title="Writing about AI products"
         category="Artificial Intelligence"
         limit={4}
+        title="Writing about AI products"
+        variant="editorial"
       />
 
       <PageSection title="Work together">

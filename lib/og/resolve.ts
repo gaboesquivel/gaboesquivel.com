@@ -1,15 +1,10 @@
 import type { Project } from "gaboesquivel";
 import type { Blog } from "lib/blog";
+import { siteOgAlt } from "lib/site-identity";
 
 import { articleOgVisualBySlug } from "./article-visuals";
 import type { ArticleOgVisualKey } from "./article-visuals";
-import {
-  ogHeight,
-  ogWidth,
-  personalOgAlt,
-  personalOgImage,
-  personalOgUrl,
-} from "./constants";
+import { ogHeight, ogWidth, personalOgImage, personalOgUrl } from "./constants";
 
 export const blogOgImagePath = (slug: string) => `/images/og/blog/${slug}.png`;
 
@@ -86,7 +81,7 @@ export const projectOgMetadataImages = ({
         url: `${siteOrigin}${personalOgUrl}`,
         width: ogWidth,
         height: ogHeight,
-        alt: personalOgAlt,
+        alt: siteOgAlt,
       },
     ];
 

@@ -1,3 +1,5 @@
+> **Research only — not current product direction.** See [PRODUCT.md](../../PRODUCT.md) and [docs/specs/homepage-genui/](../specs/homepage-genui/) for shipped or active specs.
+
 # Generative Interfaces and Agent-First Systems
 
 **Technology landscape, design-system concepts, interoperability, and research findings**  

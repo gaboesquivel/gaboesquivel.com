@@ -1,3 +1,6 @@
+import { hireTermsPlainIndexLine } from "../../lib/hire-terms";
+import { siteLlmsBlurb } from "../../lib/site-identity";
+import { featuredProjectSlugs } from "../../lib/work-types";
 import { LLMS_PREAMBLE_FULL, LLMS_PREAMBLE_INDEX } from "./authority";
 import type { BlogPost } from "./blog";
 import {
@@ -9,7 +12,6 @@ import { cvExports, renderCvMarkdown } from "./cv";
 import { BASE_URL, joinSections, llmsListItem, wrapSection } from "./format";
 import { loadNarrativePages } from "./pages";
 import {
-  indexEvidenceSlugs,
   renderProjectMarkdown,
   renderTechMarkdown,
   sortProjects,
@@ -49,7 +51,7 @@ const buildLlmsIndex = ({
   projects: ReturnType<typeof sortProjects>;
   currentPosts: ReturnType<typeof loadBlogPosts>;
 }) => {
-  const evidenceLines = indexEvidenceSlugs.flatMap((slug) => {
+  const evidenceLines = featuredProjectSlugs.flatMap((slug) => {
     const project = projects.find((item) => item.slug === slug);
     return project
       ? [
@@ -108,9 +110,9 @@ const buildLlmsIndex = ({
   return [
     "# Gabo Esquivel",
     "",
-    "> I build useful and delightful software products. Product engineer based in Costa Rica, working US Mountain Time.",
+    siteLlmsBlurb,
     "",
-    "Open to direct hire, international hire, or contracting through Blockmatic Labs LLC. Cannot work under W-2. Fluent in English, Spanish, Portuguese, and Italian.",
+    hireTermsPlainIndexLine,
     "",
     LLMS_PREAMBLE_INDEX,
     "",
@@ -179,7 +181,7 @@ const buildLlmsFull = ({
   const header = [
     "# Gabo Esquivel",
     "",
-    "> I build useful and delightful software products. Product engineer based in Costa Rica, working US Mountain Time.",
+    siteLlmsBlurb,
     "",
     `Canonical index: ${BASE_URL}/llms.txt`,
     "",

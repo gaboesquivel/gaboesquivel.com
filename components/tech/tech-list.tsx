@@ -1,4 +1,11 @@
-import { FilterNav, IndexHeading } from "components/shared/page-layout";
+import { InnerPageHero } from "components/shared/inner-page-hero";
+import {
+  FilterNav,
+  Prose,
+  sectionHeadingSpacing,
+  sectionTitle,
+} from "components/shared/page-layout";
+import type { PageTrailSegment } from "components/shared/page-trail";
 import {
   techCategoryHref,
   techCategoryIds,
@@ -12,19 +19,27 @@ import {
 } from "gaboesquivel";
 import { isEmptyTech } from "lib/tech-evidence";
 import { cn } from "lib/utils";
+import type { ReactNode } from "react";
 
 export function TechList({
   category,
   heading,
+  intro,
+  note,
+  trail,
   showNavigation = true,
   className,
 }: {
   category?: string;
   heading?: string;
+  intro?: string;
+  note?: ReactNode;
+  trail?: PageTrailSegment[];
   showNavigation?: boolean;
   className?: string;
 }) {
   const currentCategory = category ?? "featured";
+  const hasTrail = Boolean(trail?.length);
   const filteredTech = filterTechByCategory(techStack, currentCategory).filter(
     (tech) => !isEmptyTech(tech)
   );
@@ -49,7 +64,24 @@ export function TechList({
 
   return (
     <section className={cn(className)}>
-      {heading ? <IndexHeading>{heading}</IndexHeading> : null}
+      {hasTrail ? (
+        <InnerPageHero
+          compact
+          description={intro}
+          title={heading ?? "Technologies"}
+          trail={trail}
+        />
+      ) : (
+        <>
+          {heading ? (
+            <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
+              {heading}
+            </h2>
+          ) : null}
+          {intro ? <Prose className="mt-0">{intro}</Prose> : null}
+        </>
+      )}
+      {note}
 
       {showNavigation ? (
         <FilterNav

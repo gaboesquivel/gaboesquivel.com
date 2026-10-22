@@ -1,4 +1,5 @@
 import { LatestPosts } from "components/blog/latest-posts";
+import { sectionAction } from "components/shared/spacing";
 import { Projects } from "components/work/projects";
 import { projects } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
@@ -9,6 +10,7 @@ import {
   workTypeOptions,
 } from "lib/work-types";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamicParams = false;
@@ -37,8 +39,17 @@ export default async function WorkPage({
       : projects.filter((project) => project.type.includes(type));
   return (
     <>
-      <Projects projects={filteredProjects} type={type} />
-      <LatestPosts />
+      <Projects projects={filteredProjects} type={type} preserveOrder={false} />
+      <LatestPosts
+        limit={3}
+        title="Writing"
+        variant="editorial"
+        action={
+          <Link href="/blog" className={sectionAction}>
+            More writing
+          </Link>
+        }
+      />
     </>
   );
 }

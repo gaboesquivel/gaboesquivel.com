@@ -1,3 +1,5 @@
+import { siteBrandRole } from "lib/site-identity";
+
 import { ogColors, ogHeight, ogWidth } from "./constants";
 import { textToPath } from "./typography";
 
@@ -11,7 +13,7 @@ export const personalCopy = [
     fill: ogColors.white,
   },
   {
-    text: "Agentic Product Engineer",
+    text: siteBrandRole,
     x: 72,
     top: 256,
     fontSize: 24,

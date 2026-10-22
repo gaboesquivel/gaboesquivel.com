@@ -2,7 +2,9 @@
 
 ## Approved positioning
 
-Title: Gabo Esquivel — Agentic Product Engineer
+Site headline title (gaboesquivel.com pages, metadata, Open Graph): Gabo Esquivel — Agentic Software Engineer
+
+CV and off-site title (package CV, GitHub/npm profile, LinkedIn-style copy): Gabo Esquivel — Agentic Product Engineer
 
 Central philosophy:
 

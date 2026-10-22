@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "legal-agent",
+    "source": "public/images/work/legalagent.png",
+    "output": "public/images/work/covers/legal-agent.webp",
+    "sha256": "4bb4925b70c937a0ac3ff04de1e65d878ee962779d7e6ba13d6f32ffa76885e1",
+    "transform": "trim near-background mat, center on 1600×900 #000 canvas, no UI retouch",
+    "provenance": "Existing portfolio project evidence supplied in repository",
+    "status": "Existing product imagery"
+  },
+  {
+    "slug": "wink",
+    "source": "public/images/work/wink2.png",
+    "output": "public/images/work/covers/wink.webp",
+    "sha256": "4a8d75c0d437ee877a5a51082c1c28c881d31e3295fa21a3a8b553229775fa86",
+    "transform": "trim white field, center phones on 1600×900 #000 canvas, no UI retouch",
+    "provenance": "Existing portfolio project evidence supplied in repository",
+    "status": "Existing product imagery"
+  },
+  {
+    "slug": "ztx",
+    "source": "public/images/work/ztx.png",
+    "output": "public/images/work/covers/ztx.webp",
+    "sha256": "9616a99c36b7ceb217bbed73957d8465e77e5840d9659065953a52ce0a13fcc2",
+    "transform": "contain centered, 1600×900 black canvas, no source retouch",
+    "provenance": "Existing portfolio project evidence supplied in repository",
+    "status": "Truthful fallback; approved purple character source pending"
+  },
+  {
+    "slug": "bitlauncher",
+    "source": "public/images/work/bitlauncher.png",
+    "output": "public/images/work/covers/bitlauncher.webp",
+    "sha256": "8a42b1351ca0947cc9f327d1e3bc317a754ea24990b8fa5d3eac159dbb92f1a2",
+    "transform": "contain centered, 1600×900 black canvas, no source retouch",
+    "provenance": "Existing portfolio project evidence supplied in repository",
+    "status": "Existing product imagery"
+  }
+]

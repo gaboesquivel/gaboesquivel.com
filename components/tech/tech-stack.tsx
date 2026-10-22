@@ -1,10 +1,6 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import {
-  PageSection,
-  PageTitle,
-  proseLink,
-  Prose,
-} from "components/shared/page-layout";
+import { InnerPageHero } from "components/shared/inner-page-hero";
+import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import { ProjectsMasonry } from "components/work/projects-masonry";
 import type { TechStackItemWithProjects } from "gaboesquivel";
 import { sortProjectsForTech } from "lib/tech-evidence";
@@ -25,8 +21,12 @@ export default function TechStack({
 
   return (
     <section>
-      <PageTitle>{tech.name}</PageTitle>
-      <Prose>{tech.description}</Prose>
+      <InnerPageHero
+        compact
+        description={tech.description}
+        title={tech.name}
+        trail={[{ href: "/tech", label: "tech" }, { label: tech.name }]}
+      />
 
       {tech.experience.length > 0 ? (
         <PageSection title="Implementation">
@@ -37,12 +37,13 @@ export default function TechStack({
       ) : null}
 
       <ProjectsMasonry
-        projects={projects}
         identifier={tech.slug}
         preserveOrder
+        projects={projects}
+        variant="editorial"
       />
 
-      <LatestPosts title="Related posts" tech={tech.tag} />
+      <LatestPosts tech={tech.tag} title="Related posts" variant="editorial" />
 
       {tech.link ? (
         <p className="mt-6 text-sm text-neutral-400">

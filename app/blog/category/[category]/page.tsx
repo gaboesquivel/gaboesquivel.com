@@ -40,6 +40,7 @@ export default async function BlogCategoryPage({
     <BlogPosts
       category={category}
       heading={`Writing: ${categoryDisplayNames[category]}`}
+      intro={categoryDescriptions[category]}
       page={parsedPage}
     />
   );

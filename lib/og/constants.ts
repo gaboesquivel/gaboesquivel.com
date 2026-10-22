@@ -1,3 +1,5 @@
+import { siteOgAlt } from "lib/site-identity";
+
 export const ogWidth = 1200;
 export const ogHeight = 630;
 export const ogAspect = ogWidth / ogHeight;
@@ -14,10 +16,9 @@ export const personalPortraitPath =
   "assets/homepage/gaboesquivel-homepage-master.webp";
 
 export const personalOgUrl = "/og";
-export const personalOgAlt = "Gabo Esquivel — Agentic Product Engineer";
 
 export const personalOgImage = {
-  alt: personalOgAlt,
+  alt: siteOgAlt,
   height: ogHeight,
   url: personalOgUrl,
   width: ogWidth,

@@ -190,22 +190,22 @@ export function ContactForm() {
                 value={field.state.value}
               />
               <div className="mt-2 flex items-center justify-between">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-neutral-400">
                   {field.state.meta.errors.length > 0 ? (
-                    <span className="text-red-600">
+                    <span className="text-red-400">
                       ✗ {getErrorMessage(field.state.meta.errors[0])}
                     </span>
                   ) : field.state.value.length >= 10 ? (
-                    <span className="text-green-600">
+                    <span className="text-accent">
                       ✓ Message length is good
                     </span>
                   ) : (
-                    <span className="text-gray-500">
+                    <span className="text-neutral-500">
                       {10 - field.state.value.length} more characters needed
                     </span>
                   )}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-neutral-500">
                   {field.state.value.length}/5000
                 </p>
               </div>
@@ -221,7 +221,7 @@ export function ContactForm() {
             type="submit"
             variant="siteAccent"
           >
-            {isPending ? "Sending..." : "Send Message"}
+            {isPending ? "Sending..." : "Send message"}
           </Button>
         </div>
       </form>

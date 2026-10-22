@@ -1,3 +1,4 @@
+import { siteBrandRole, siteTagline } from "lib/site-identity";
 import { siteOrigin } from "lib/site-path";
 
 const BASE_URL = siteOrigin;
@@ -14,9 +15,8 @@ export const siteProfile = () => ({
   },
   location: "Costa Rica",
   name: "Gabo Esquivel",
-  role: "Agentic Product Engineer",
-  tagline:
-    "I build useful and delightful software products across AI, Web3, and full-stack applications.",
+  role: siteBrandRole,
+  tagline: siteTagline,
   timeZone: "America/Denver",
   timeZoneLabel: "US Mountain Time",
   url: BASE_URL,

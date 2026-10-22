@@ -14,6 +14,10 @@ Narrative site. Voice, identity, and claims: installed `gabo` skill, which outra
 
 Prefer a CLI to interact with a product or service. Use MCP when no CLI covers the operation.
 
+## `__dev`
+
+`__dev/` is a local bucket for temporary files only. Do not reference it from application or library code, imports, routes, or anything that ships. Do not commit its contents (it is gitignored). Do not treat paths under `__dev/` as source of truth for the site.
+
 ## Decisions
 
 If a proposed change conflicts with or modifies an established documented decision, request approval before implementing it. Otherwise, proceed autonomously.
@@ -37,6 +41,8 @@ Explore, Specify, and Plan stay in the conversation until a decision or an accep
 Save feature specifications in `docs/specs/<feature-slug>/`, with the capability map and all module specs together. For homepage GenUI, use `docs/specs/homepage-genui/`. Keep stable module IDs and `SPEC-<module-id>.md` filenames; the capability map indexes the module specs. This repository convention overrides skills that place specifications at the project root. Early idea drafts remain in `docs/ideas/`. Plan and task locations continue to follow the applicable planning workflow.
 
 ## Context
+
+Where each kind of fact lives across this site, the `gaboesquivel` package, and `gaboesquivel-skills`: [docs/agents/ownership.md](docs/agents/ownership.md).
 
 Read the matching document before editing:
 

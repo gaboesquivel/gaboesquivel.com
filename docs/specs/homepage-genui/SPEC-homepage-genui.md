@@ -2,6 +2,8 @@
 
 Module: `homepage-genui`. Status: draft, awaiting approval. Depends on: `composition-runtime`. Index: [capability map](CAPABILITIES-homepage-genui.md).
 
+The Design System v2 SSR baseline is implemented separately: full-width local search and editorial grid. This draft still owns future sticky replacement behavior; the current search does not invoke the composition runtime. Global chat currently opens a navigation sheet linking to `/ask`, not a migrated conversation.
+
 ## Objective
 
 Let founders, leads and recruiters ask for relevant work, writing, profile, CV, contact or booking experiences from `/`. Retain the existing portfolio for visitors who simply load and browse. The result area is a replaceable document, with no chat transcript.

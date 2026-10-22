@@ -1,16 +1,15 @@
 import { SiteCardLink } from "components/shared/site-card-link";
 import { proseClass } from "components/shared/spacing";
-import { Card } from "components/ui/card";
 import type { Project } from "gaboesquivel";
 import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
 import Image from "next/image";
 
-const projectCardSizes =
-  "(max-width: 639px) calc(100vw - 2rem), (max-width: 767px) calc(100vw - 3rem), (max-width: 896px) calc((100vw - 3rem - 1rem) / 2), 416px";
+export const projectCardSizes =
+  "(max-width: 639px) calc(100vw - 2rem), (max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) calc((100vw - 4rem) / 2), (max-width: 1151px) calc((100vw - 5rem) / 2), 536px";
 
-const wideProjectCardSizes =
-  "(max-width: 639px) calc(100vw - 2rem), (max-width: 767px) calc(100vw - 3rem), calc(min(100vw, 56rem) - 3rem)";
+export const wideProjectCardSizes =
+  "(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(100vw - 3rem), calc(min(100vw, 72rem) - 4rem)";
 
 export function ProjectCard({
   project,

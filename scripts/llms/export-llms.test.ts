@@ -9,7 +9,6 @@ import { blogSlugFromRelatedUrl, isValidProjectLink } from "./format";
 import { loadNarrativePages } from "./pages";
 import {
   featuredProjectSlugs,
-  indexEvidenceSlugs,
   renderProjectMarkdown,
   renderTechMarkdown,
 } from "./projects";
@@ -136,13 +135,13 @@ describe("llms export helpers", () => {
     ]);
   });
 
-  test("indexEvidenceSlugs lists six featured projects", () => {
+  test("featuredProjectSlugs lists six featured projects", () => {
     const featured = projects
       .filter((project) => project.type.includes("featured"))
       .map((project) => project.slug)
       .sort();
-    expect(indexEvidenceSlugs).toHaveLength(6);
-    expect(indexEvidenceSlugs).toEqual([
+    expect(featuredProjectSlugs).toHaveLength(6);
+    expect(featuredProjectSlugs).toEqual([
       "legal-agent",
       "wink",
       "ztx",
@@ -150,7 +149,6 @@ describe("llms export helpers", () => {
       "opyn",
       "eos-costa-rica",
     ]);
-    expect(indexEvidenceSlugs).toEqual(featuredProjectSlugs);
     expect([...featuredProjectSlugs].sort()).toEqual(featured);
   });
 

@@ -1,4 +1,5 @@
 import { SiteCardLink } from "components/shared/site-card-link";
+import { cardArrow } from "components/shared/spacing";
 import { formatDate } from "lib/utils";
 
 export interface BlogCardPost {
@@ -21,8 +22,17 @@ const blogCardDateClassName =
 
 export function BlogPostCard({ post }: { post: BlogCardPost }) {
   return (
-    <SiteCardLink cardClassName={blogCardClassName} href={`/blog/${post.slug}`}>
-      <h3 className={blogCardTitleClassName}>{post.title}</h3>
+    <SiteCardLink
+      cardClassName={blogCardClassName}
+      className="group"
+      href={`/blog/${post.slug}`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <h3 className={blogCardTitleClassName}>{post.title}</h3>
+        <span aria-hidden className={cardArrow}>
+          →
+        </span>
+      </div>
       {post.summary ? (
         <span className={blogCardSummaryClassName}>{post.summary}</span>
       ) : null}

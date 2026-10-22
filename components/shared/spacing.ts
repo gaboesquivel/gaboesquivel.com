@@ -1,7 +1,14 @@
 import { cn } from "lib/utils";
 
-/** Reading column: nav, page body, and /ask chat share this width and gutters. */
-export const siteColumn = "mx-auto w-full max-w-4xl min-w-0 px-4 sm:px-6";
+/**
+ * Shared shell for nav, main, and footer. Same measure and gutters as the homepage.
+ * Long-form copy uses `readingMeasure` inside this shell.
+ */
+export const siteColumn =
+  "mx-auto w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8";
+
+/** Narrative text inside the shell. Project stories, bios, posts, and docs share it. */
+export const readingMeasure = "max-w-[65ch]";
 
 /** Sticky header: tight under accent bar; room below nav matches block cadence (2rem). */
 export const headerColumnPadding = "pt-4 pb-8";
@@ -63,3 +70,17 @@ export const siteFieldClass =
 
 export const projectMedia =
   "relative mb-6 aspect-[16/9] h-auto w-full max-h-[400px]";
+
+/** Homepage shell. Alias of `siteColumn` so `/` and every other route share one width. */
+export const homeColumn = siteColumn;
+export const homeSection = "mt-16 lg:mt-24";
+/** Named container. Column count lives on a child via `editorialGrid`, because a container cannot query itself. */
+export const editorialContainer = "@container/editorial";
+export const editorialGrid =
+  "grid grid-cols-1 gap-x-6 gap-y-12 @min-[48rem]/editorial:grid-cols-2";
+export const editorialLink =
+  "rounded-sm transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
+export const heroTitle =
+  "text-[clamp(2rem,4vw,3.25rem)] sm:text-[clamp(2.5rem,4vw,3.25rem)] font-bold leading-[1.12] tracking-[-0.045em] text-white";
+export const heroPitch =
+  "mt-6 max-w-[45ch] text-base leading-relaxed text-neutral-300 lg:text-lg";

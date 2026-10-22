@@ -4,6 +4,9 @@ import { cn } from "lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { ChatSidebar } from "./chat-sidebar";
+import { SiteSearchTrigger } from "./site-search-trigger";
+
 const navItems = [
   { name: "gabo", path: "/" },
   { name: "work", path: "/work" },
@@ -19,7 +22,7 @@ export default function Navbar() {
   return (
     <nav
       aria-label="Primary navigation"
-      className="navbar -ml-[8px] tracking-tight print:hidden preview-print:hidden"
+      className="navbar -ml-[8px] flex items-start justify-between gap-2 tracking-tight print:hidden preview-print:hidden"
     >
       <ul className="flex flex-row flex-wrap justify-start gap-0">
         {navItems.map(({ path, name }) => {
@@ -44,6 +47,10 @@ export default function Navbar() {
           );
         })}
       </ul>
+      <div className="flex shrink-0 items-start gap-0">
+        <SiteSearchTrigger />
+        <ChatSidebar />
+      </div>
     </nav>
   );
 }

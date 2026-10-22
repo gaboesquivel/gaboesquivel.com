@@ -1,17 +1,15 @@
+import { siteBrandRole, sitePublicDescription } from "lib/site-identity";
 import { siteOrigin } from "lib/site-path";
 
 const siteUrl = siteOrigin;
-
-const description =
-  "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.";
 
 export const homeJsonLd = () => [
   {
     "@context": "https://schema.org",
     "@type": "Person",
-    description,
+    description: sitePublicDescription,
     email: "contact@gaboesquivel.com",
-    jobTitle: "Agentic Product Engineer",
+    jobTitle: siteBrandRole,
     name: "Gabo Esquivel",
     sameAs: [
       "https://github.com/gaboesquivel",

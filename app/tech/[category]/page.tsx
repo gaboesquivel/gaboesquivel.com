@@ -66,22 +66,33 @@ export default async function TechCategoryPage({
 
     return (
       <>
-        {frame ? (
-          <Prose>
-            {frame.line}{" "}
-            <Link href={frame.capabilityHref} className={proseLink}>
-              {capabilityLinkLabel[category]}
-            </Link>{" "}
-            goes deeper on the work.
-          </Prose>
-        ) : null}
         <TechList
           category={category}
           heading={`${techCategoryLabels[category]} technologies`}
+          intro={categoryDescriptions[category]}
+          note={
+            frame ? (
+              <Prose className="mt-0">
+                {frame.line}{" "}
+                <Link href={frame.capabilityHref} className={proseLink}>
+                  {capabilityLinkLabel[category]}
+                </Link>{" "}
+                goes deeper on the work.
+              </Prose>
+            ) : undefined
+          }
+          trail={[
+            { label: "tech", href: "/tech" },
+            { label: techCategoryLabels[category].toLowerCase() },
+          ]}
         />
         {filteredPosts.length > 0 ? (
           <PageSection title={`Writing about ${techCategoryLabels[category]}`}>
-            <BlogPostsMasonry posts={filteredPosts} identifier={category} />
+            <BlogPostsMasonry
+              identifier={category}
+              posts={filteredPosts}
+              variant="editorial"
+            />
           </PageSection>
         ) : null}
       </>

@@ -7,14 +7,16 @@ import { getMarkdownForPath } from "./markdown-route";
 describe("markdown corpus", () => {
   test("homepage and project pages render", () => {
     const home = getMarkdownForPath({ pathname: "/" });
-    expect(home).toContain("# Gabo Esquivel");
+    expect(home).toContain("# Software for humans and agents.");
+    expect(home).toContain("Agentic Software Engineer");
+    expect(home).toContain("## Writing");
     const project = getMarkdownForPath({ pathname: "/project/legal-agent" });
     expect(project).toContain("LegalAgent");
   });
 
   test("list pages and CV focus variant render", () => {
     expect(getMarkdownForPath({ pathname: "/work" })).toContain(
-      "Selected software projects"
+      "Software that ships."
     );
     expect(getMarkdownForPath({ pathname: "/blog" })).toContain("# Writing");
     expect(getMarkdownForPath({ pathname: "/explore" })).toContain("# Explore");

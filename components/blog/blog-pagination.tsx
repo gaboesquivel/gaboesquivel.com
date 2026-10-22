@@ -1,5 +1,10 @@
+import { editorialLink } from "components/shared/spacing";
 import { blogListingHref, getBlogPageCount } from "lib/blog-pagination";
+import { cn } from "lib/utils";
 import Link from "next/link";
+
+const pageLink =
+  "inline-flex min-h-11 items-center text-accent underline-offset-4 hover:underline";
 
 export function BlogPagination({
   category,
@@ -31,7 +36,7 @@ export function BlogPagination({
             Previous
           </span>
         ) : (
-          <Link className="text-accent" href={previousHref}>
+          <Link className={cn(editorialLink, pageLink)} href={previousHref}>
             Previous
           </Link>
         )}
@@ -45,7 +50,7 @@ export function BlogPagination({
             Next
           </span>
         ) : (
-          <Link className="text-accent" href={nextHref}>
+          <Link className={cn(editorialLink, pageLink)} href={nextHref}>
             Next
           </Link>
         )}

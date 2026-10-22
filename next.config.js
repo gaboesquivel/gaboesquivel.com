@@ -30,7 +30,7 @@ const blogTechRedirects = techStack.flatMap((tech) => [
 const nextConfig = {
   allowedDevOrigins: ["gaboesquivel.localhost", "*.gaboesquivel.localhost"],
   images: {
-    imageSizes: [32, 48, 64, 96, 128, 256, 384, 448],
+    imageSizes: [32, 48, 64, 96, 128, 256, 384, 448, 512],
   },
   ...(isGaboesquivelLinked && {
     outputFileTracingRoot: path.join(__dirname, ".."),

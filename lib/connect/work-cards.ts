@@ -10,8 +10,6 @@ import {
   typedNoteIntent,
 } from "./intent";
 
-export const FEATURED_WORK_CARD_SLUGS = featuredProjectSlugs;
-
 const broadExperiencePattern =
   /\b(what have you shipped|where did you lead|your experience|your work|explore my work|portfolio|past projects|what did you build|show me your work|tell me about your work)\b/i;
 
@@ -52,7 +50,7 @@ export const shouldShowWorkCards = (text: string) => {
 };
 
 export const featuredWorkCardProjects = (): Project[] =>
-  FEATURED_WORK_CARD_SLUGS.flatMap((slug) => {
+  featuredProjectSlugs.flatMap((slug) => {
     const project = getProjectBySlug(slug);
     if (!project?.image) return [];
     return [project];

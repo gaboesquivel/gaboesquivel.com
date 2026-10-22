@@ -58,6 +58,12 @@ The HTML narrative and its machine-readable representation share facts but inclu
 
 Coding-agent skills in `.agents/skills/` guide repository work. The skills in `agent/skills/` belong to the application's Eve runtime. Their consumers and installation paths are different; changing development guidance does not require changing the runtime agent.
 
+## Design System v2 presentation
+
+`components/layout/site-width.tsx` applies the homepage `max-w-6xl` shell on every route. `app/page.tsx` remains a Server Component reading package projects and Velite posts. `HomePrompt` receives a bounded public index and performs local matching only; it has no model, MCP or OpenUI imports and does not replace server content. `ChatSidebar` is a dialog navigation shell linking explicitly to `/ask`; conversation/session migration remains separate.
+
+`lib/work/project-cover.ts` owns presentation-only cover paths and alt text; facts stay in the package. `EditorialProjectCard` and `EditorialProjectList` are Server Components. The list receives resolved project records and does not call `getProjectBySlug`. `lib/genui/experience-contract.ts` names the eight future experiences and imports no components. `scripts/prepare-home-assets.ts` produces source-backed WebPs and provenance manifests. The pristine portrait is versioned separately from the existing OG master. Project hero/OG sources are unchanged.
+
 ## Content and build flow
 
 `velite.config.ts` defines the blog schema. Velite compiles `content/*.mdx` into `.velite`, validating technology tags against the package and categories against `lib/blog-taxonomy.ts`. `lib/blog.ts` exposes this compiled collection; blog routes render it through `components/mdx.tsx`.

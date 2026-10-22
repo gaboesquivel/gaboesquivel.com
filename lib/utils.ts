@@ -6,18 +6,26 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: string) {
-  let dateObj: Date;
+const parseDateInput = (date: string) => {
   if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     const [year, month, day] = date.split("-").map(Number);
-    dateObj = new Date(year, month - 1, day);
-  } else {
-    dateObj = new Date(date);
+    return new Date(year, month - 1, day);
   }
+  return new Date(date);
+};
 
-  return dateObj.toLocaleDateString("en-US", {
+export function formatDate(date: string) {
+  return parseDateInput(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 }
+
+export const formatBlogListDate = (date: string) =>
+  parseDateInput(date).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+    day: "numeric",
+    timeZone: "UTC",
+  });

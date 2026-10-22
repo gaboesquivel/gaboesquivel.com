@@ -1,9 +1,10 @@
 import { LatestPosts } from "components/blog/latest-posts";
+import { Web3BoundaryDiagram } from "components/diagrams/web3-boundary";
+import { InnerPageHero } from "components/shared/inner-page-hero";
 import { LetsConnect } from "components/shared/lets-connect";
 import {
   PageImage,
   PageSection,
-  PageTitle,
   proseLink,
   Prose,
   sectionAction,
@@ -11,18 +12,18 @@ import {
 import { ProjectEvidence } from "components/work/project-evidence";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
+import { projectCover } from "lib/work/project-cover";
 import Link from "next/link";
-import ztxImg from "public/images/work/ztx.png";
+
+const ztxCover = projectCover("ztx");
 
 export default function Web3ExperiencePage() {
   return (
     <section>
-      <PageTitle>Web3 Engineering</PageTitle>
-      <Prose>
-        I build the product layer around blockchain systems: wallets, signing,
-        exchanges, trading interfaces, auctions, and the data that keeps them in
-        sync.
-      </Prose>
+      <InnerPageHero
+        description="I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync."
+        title="Web3 Engineering"
+      />
       <Prose>
         My focus is the point where complex protocols become usable products.
         People need to understand what they own, what will happen when they
@@ -35,13 +36,15 @@ export default function Web3ExperiencePage() {
         identity, security, and moving money.
       </Prose>
 
+      <Web3BoundaryDiagram />
+
       <PageSection
-        title="ZTX: a wallet inside a virtual world"
         action={
           <Link href="/project/ztx" className={sectionAction}>
             View ZTX
           </Link>
         }
+        title="ZTX: a wallet inside a virtual world"
       >
         <Prose>
           ZTX was a Web3 virtual world where a wallet needed to work inside a
@@ -50,11 +53,13 @@ export default function Web3ExperiencePage() {
           and trade NFTs without leaving the experience.
         </Prose>
 
-        <PageImage
-          alt="ZTX virtual world experience"
-          src={ztxImg}
-          objectClassName="object-contain"
-        />
+        {ztxCover ? (
+          <PageImage
+            alt={ztxCover.alt}
+            objectClassName="object-contain"
+            src={ztxCover.src}
+          />
+        ) : null}
       </PageSection>
 
       <PageSection title="Trading and financial products">
@@ -110,9 +115,10 @@ export default function Web3ExperiencePage() {
       </PageSection>
 
       <LatestPosts
-        title="Writing about Web3 systems"
         category="Web3"
         limit={4}
+        title="Writing about Web3 systems"
+        variant="editorial"
       />
 
       <PageSection title="Work together">

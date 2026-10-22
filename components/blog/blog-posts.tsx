@@ -1,6 +1,7 @@
 import { BlogPagination } from "components/blog/blog-pagination";
 import { BlogPostsMasonry } from "components/blog/blog-posts-masonry";
-import { FilterNav, IndexHeading, Prose } from "components/shared/page-layout";
+import { InnerPageHero } from "components/shared/inner-page-hero";
+import { FilterNav } from "components/shared/page-layout";
 import { getFilteredBlogPosts } from "lib/blog-filter";
 import { blogListingHref, paginateBlogPosts } from "lib/blog-pagination";
 import {
@@ -47,12 +48,30 @@ export function BlogPosts({
   const filteredPosts = getFilteredBlogPosts(category);
   const currentCategory = category ?? "all";
   const paginatedPosts = paginateBlogPosts(filteredPosts, page);
+  const trail =
+    currentCategory === "all"
+      ? undefined
+      : [
+          { label: "writing", href: "/blog" },
+          {
+            label:
+              categoryDisplayNames[
+                currentCategory as BrowseCategory
+              ].toLowerCase(),
+          },
+        ];
+  const hasTrail = Boolean(trail?.length);
 
   return (
     <section>
-      {heading ? <IndexHeading>{heading}</IndexHeading> : null}
-
-      {intro ? <Prose className="mt-0 mb-6">{intro}</Prose> : null}
+      {heading ? (
+        <InnerPageHero
+          compact={hasTrail}
+          description={intro}
+          title={heading}
+          trail={trail}
+        />
+      ) : null}
 
       <FilterNav
         label="Writing categories"
@@ -71,7 +90,11 @@ export function BlogPosts({
         ]}
       />
 
-      <BlogPostsMasonry posts={paginatedPosts} identifier={currentCategory} />
+      <BlogPostsMasonry
+        posts={paginatedPosts}
+        identifier={currentCategory}
+        variant="editorial"
+      />
       <BlogPagination
         category={currentCategory}
         page={page}

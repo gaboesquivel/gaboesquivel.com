@@ -40,6 +40,16 @@ html {
   overflow-wrap: break-word;
 }
 
+/* The `.prose` rule above fills the shell. Narrative measure has to win after it. */
+.prose.max-w-\[65ch\] {
+  max-width: 65ch;
+}
+
+/* Posts fill the shell. Words stay on the reading measure. Figures and code use the shell. */
+.blog-content > :where(p, ul, ol, blockquote, h2, h3, h4) {
+  max-width: 65ch;
+}
+
 .prose li {
   @apply mb-4 leading-[1.75];
 }
@@ -117,11 +127,6 @@ html {
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-.blog-content h2,
-.blog-content h3 {
-  text-transform: capitalize;
 }
 
 .prose > :first-child {
@@ -512,5 +517,14 @@ body:has([data-connect]) [data-slot="input-group"] textarea {
 
   body:has([data-connect]) main {
     overflow: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
   }
 }

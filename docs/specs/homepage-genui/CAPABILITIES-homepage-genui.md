@@ -45,7 +45,7 @@ The user approved the module boundaries, not every policy below. These proposals
 
 ## Source baseline and ownership
 
-[PRODUCT.md](../../../PRODUCT.md), [DESIGN.md](../../../DESIGN.md), and [ARCHITECTURE.md](../../../ARCHITECTURE.md) describe today's implementation. They have not been rewritten to imply this feature exists. `app/page.tsx` currently renders the portrait, Contact me link, selected work, focus, career, writing and work-together sections. `/mcp` currently reaches Eve through rewrites and deployment routing patches in `next.config.js`; `/mcp/cv` is a separate handler.
+[PRODUCT.md](../../../PRODUCT.md), [DESIGN.md](../../../DESIGN.md), and [ARCHITECTURE.md](../../../ARCHITECTURE.md) describe today's implementation. They have not been rewritten to imply this feature exists. `app/page.tsx` now renders the approved Design System v2 split portrait hero, local search fallback, editorial selected work, focus, writing, career and work-together sections. This visual baseline is separate from the unimplemented generative runtime. `/mcp` currently reaches Eve through rewrites and deployment routing patches in `next.config.js`; `/mcp/cv` is a separate handler.
 
 Manifest ranges, not resolved installed versions: Next `^16.4.2`, React `^19.3.1`, Eve `^0.80.1`, AI SDK `^7`, Base UI `^1.9.0`, Zod `^4.6.7`; JSON Render is `0.21.1`, and the existing MCP SDK is `^1.32.1`. [package.json](../../../package.json) and the lockfile remain authoritative. OpenUI is not yet a declared dependency. Source config selects `anthropic/claude-sonnet-5.5`; that proves configuration, not provider availability.
 

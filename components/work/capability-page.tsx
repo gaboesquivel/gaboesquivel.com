@@ -1,10 +1,6 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import {
-  PageSection,
-  PageTitle,
-  proseLink,
-  Prose,
-} from "components/shared/page-layout";
+import { InnerPageHero } from "components/shared/inner-page-hero";
+import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -31,8 +27,8 @@ export function CapabilityPage({
 }) {
   return (
     <section>
-      <PageTitle>{title}</PageTitle>
-      {intro.map((paragraph) => (
+      <InnerPageHero description={intro[0]} title={title} />
+      {intro.slice(1).map((paragraph) => (
         <Prose key={paragraph}>{paragraph}</Prose>
       ))}
 
@@ -41,11 +37,11 @@ export function CapabilityPage({
           {paragraphs.map((paragraph) => (
             <Prose key={paragraph}>{paragraph}</Prose>
           ))}
-          <ProjectEvidence slugs={projectSlugs} />
+          <ProjectEvidence presentation="registry" slugs={projectSlugs} />
         </PageSection>
       ))}
 
-      <LatestPosts title={writingTitle} slugs={postSlugs} />
+      <LatestPosts slugs={postSlugs} title={writingTitle} variant="editorial" />
 
       <PageSection title="See the work">
         <Prose>

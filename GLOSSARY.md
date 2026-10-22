@@ -14,6 +14,10 @@ The search phrase a page may use in its title and description. Each phrase has o
 
 The external [`gaboesquivel`](https://www.npmjs.com/package/gaboesquivel) package. It owns project, technology, employment, and CV facts. This site owns narrative, routes, presentation, and print layout. Boundaries are in [ARCHITECTURE.md](ARCHITECTURE.md); edits follow [docs/agents/package.md](docs/agents/package.md).
 
+## Skills catalog
+
+The [`gaboesquivel-skills`](https://github.com/gaboesquivel/gaboesquivel-skills) repository. It owns the `gabo` skill: voice, approved wording, and standing identity claims. Installs land in `.agents/skills/` via `skills-lock.json`. Site runtime copy lives under `agent/skills/` for Eve only. See [docs/agents/skills.md](docs/agents/skills.md).
+
 ## Connect
 
 `app/connect/` is the chat implementation. The public chat route is `/ask`. `/contact` is the human outreach page and form. `/connect` redirects to `/contact`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the `/ask` and `/contact` jobs in [PRODUCT.md](PRODUCT.md).

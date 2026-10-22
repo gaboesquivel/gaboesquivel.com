@@ -1,92 +1,36 @@
 import { LatestPosts } from "components/blog/latest-posts";
+import { HomePrompt } from "components/home/home-prompt";
+import { PortraitMedia } from "components/home/portrait-media";
 import { LetsConnect } from "components/shared/lets-connect";
+import { PageTitle, PageSection } from "components/shared/page-layout";
 import {
-  blockGrid,
-  PageSection,
-  PageTitle,
-  Prose,
+  editorialLink,
+  heroTitle,
+  heroPitch,
+  homeSection,
   sectionAction,
-  twoColGrid,
-} from "components/shared/page-layout";
-import { PathLink } from "components/shared/path-link";
-import { ProjectCard } from "components/work/project-card";
+} from "components/shared/spacing";
+import { EditorialProjectList } from "components/work/editorial-project-list";
 import { getProjectBySlug } from "gaboesquivel";
 import { homeJsonLd } from "lib/home-json-ld";
 import { personalOgImage } from "lib/og/constants";
 import { pageMetadata } from "lib/page-metadata";
+import {
+  siteBrandRole,
+  siteHeroPitch,
+  siteMetadataTitle,
+  sitePublicDescription,
+} from "lib/site-identity";
 import { cn } from "lib/utils";
-import { ArrowUpRight, MessageSquare } from "lucide-react";
-import { getImageProps } from "next/image";
+import { homepageEditorialSlugs } from "lib/work/project-cover";
 import Link from "next/link";
-import { preload } from "react-dom";
 
-const homeHeroAlt = "Gabo Esquivel — Agentic Product Engineer";
-
-const homeHeroMobile = {
-  height: 672,
-  src: "/images/gaboesquivel-homepage-mobile.webp",
-  width: 896,
-} as const;
-
-const homeHeroDesktop = {
-  height: 525,
-  src: "/images/gaboesquivel-homepage-desktop.webp",
-  width: 700,
-} as const;
-
-const homeHeroMobileSizes =
-  "(max-width: 639px) calc(100vw - 2rem), calc(100vw - 3rem)";
-
-const homeHeroDesktopSizes =
-  "(min-width: 768px) calc((min(100vw, 56rem) - 3rem) * 0.5)";
-
-const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
-const selectedProjects = selectedProjectSlugs.flatMap((slug) => {
+const selectedProjects = homepageEditorialSlugs.flatMap((slug) => {
   const project = getProjectBySlug(slug);
   return project ? [project] : [];
 });
 
-const homeHero = () => {
-  const {
-    props: { src: desktopSrc, srcSet: desktopSrcSet },
-  } = getImageProps({
-    alt: "",
-    fetchPriority: "high",
-    height: homeHeroDesktop.height,
-    loading: "eager",
-    sizes: homeHeroDesktopSizes,
-    src: homeHeroDesktop.src,
-    width: homeHeroDesktop.width,
-  });
-  const { props: mobile } = getImageProps({
-    alt: homeHeroAlt,
-    fetchPriority: "high",
-    height: homeHeroMobile.height,
-    loading: "eager",
-    sizes: homeHeroMobileSizes,
-    src: homeHeroMobile.src,
-    width: homeHeroMobile.width,
-  });
-  return { desktopSrc, desktopSrcSet, mobile };
-};
-
 export default function HomePage() {
-  const { desktopSrc, desktopSrcSet, mobile } = homeHero();
-  preload(mobile.src, {
-    as: "image",
-    fetchPriority: "high",
-    imageSizes: mobile.sizes,
-    imageSrcSet: mobile.srcSet,
-    media: "(max-width: 767px)",
-  });
-  preload(desktopSrc, {
-    as: "image",
-    fetchPriority: "high",
-    imageSizes: homeHeroDesktopSizes,
-    imageSrcSet: desktopSrcSet,
-    media: "(min-width: 768px)",
-  });
-
   return (
     <section>
       <script
@@ -94,132 +38,95 @@ export default function HomePage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
-      <PageTitle
-        className={cn("relative z-[1] w-full max-w-none", "leading-normal")}
-      >
-        Gabo Esquivel
-        <br className="md:hidden" />
-        <span className="max-md:hidden"> — </span>
-        Agentic Product Engineer
-      </PageTitle>
-      <div className="relative">
-        <picture>
-          <source
-            media="(min-width: 768px)"
-            sizes={homeHeroDesktopSizes}
-            srcSet={desktopSrcSet}
-          />
-          <img
-            {...mobile}
-            alt={homeHeroAlt}
-            className="block h-auto w-full md:pointer-events-none md:absolute md:top-0 md:-right-[17px] md:h-auto md:w-1/2 md:max-w-none"
-          />
-        </picture>
-        <div className="relative md:pr-[45%]">
-          <Prose>
-            I build useful and delightful software products, designed for humans
-            and agents alike. I bring product thinking, careful design, and
-            software architecture together to make complex systems intuitive to
-            use and dependable to operate.
-          </Prose>
-
-          <Prose>
-            15+ years of shipping software, including 12+ years building 0→1
-            products for startups and growth-stage teams across FinTech, Web3,
-            and AI.
-          </Prose>
-
-          <Link
-            href="/contact"
-            className="mt-4 inline-flex min-h-11 items-center gap-3 rounded-sm text-sm text-neutral-200 underline decoration-neutral-600 underline-offset-4 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-          >
-            <MessageSquare
-              aria-hidden="true"
-              className="size-6 text-accent"
-              strokeWidth={1.5}
-            />
-            Contact me
-            <ArrowUpRight aria-hidden="true" className="size-4" />
-          </Link>
+      <div className="grid items-center gap-6 lg:grid-cols-[1.08fr_1fr] lg:gap-0">
+        <div className="relative z-10 py-6 lg:py-12">
+          <PageTitle className={cn(heroTitle, "mb-0 max-w-none")}>
+            Software for
+            <br />
+            humans and agents.
+          </PageTitle>
+          <p className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-2 text-sm leading-relaxed">
+            <span className="text-neutral-400">GABO ESQUIVEL</span>
+            <span aria-hidden="true" className="text-neutral-400">
+              /
+            </span>
+            <span className="text-accent">{siteBrandRole}</span>
+          </p>
+          <p className={heroPitch}>{siteHeroPitch}</p>
         </div>
+        <PortraitMedia />
       </div>
-
+      <HomePrompt />
       <PageSection
         title="Selected work"
+        className={homeSection}
         action={
           <Link href="/work" className={sectionAction}>
-            More work
+            View all work
           </Link>
         }
       >
-        <ul className={blockGrid}>
-          {selectedProjects.map((project) => (
-            <li key={project.slug}>
-              <ProjectCard project={project} showRole />
-            </li>
-          ))}
-        </ul>
+        <EditorialProjectList projects={selectedProjects} />
       </PageSection>
-
-      <PageSection title="Focus">
-        <ul className={blockGrid}>
-          <li className="h-full">
-            <PathLink
-              href="/ai"
-              title="Agentic AI products"
-              note="Voice, chat, retrieval, and agentic interfaces designed around how people work—and the controls teams need to improve them."
-            />
-          </li>
-          <li className="h-full">
-            <PathLink
-              href="/web3"
-              title="Onchain finance"
-              note="Wallets, onchain transactions, and trading experiences that make balances, signatures, and financial decisions understandable."
-            />
-          </li>
-        </ul>
+      <PageSection title="Focus" className={homeSection}>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <Link
+            href="/ai"
+            className={cn(editorialLink, "block border-t border-hairline pt-6")}
+          >
+            <h3 className="text-xl font-semibold">Agentic AI products</h3>
+            <p className="mt-3 text-base leading-relaxed text-neutral-400">
+              Voice, chat, retrieval, and agentic interfaces designed around how
+              people work—and the controls teams need to improve them.
+            </p>
+          </Link>
+          <Link
+            href="/web3"
+            className={cn(editorialLink, "block border-t border-hairline pt-6")}
+          >
+            <h3 className="text-xl font-semibold">Onchain finance</h3>
+            <p className="mt-3 text-base leading-relaxed text-neutral-400">
+              Wallets, onchain transactions, and trading experiences that make
+              balances, signatures, and financial decisions understandable.
+            </p>
+          </Link>
+        </div>
       </PageSection>
-
-      <PageSection title="Career">
-        <ul className={cn(twoColGrid, "[&_a]:h-full!")}>
-          <li className="h-full">
-            <PathLink
-              href="/bio"
-              title="Career story"
-              note="How building web interfaces led me into banking, Web3, and AI—and shaped the way I approach products."
-            />
-          </li>
-          <li className="h-full">
-            <PathLink
-              href="/cv"
-              title="Résumé / CV"
-              note="Roles, dates, responsibilities, and selected technical achievements."
-            />
-          </li>
-        </ul>
-      </PageSection>
-
       <LatestPosts
         limit={4}
         title="Writing"
+        variant="editorial"
         action={
           <Link href="/blog" className={sectionAction}>
             More writing
           </Link>
         }
       />
-
-      <PageSection title="Work together">
+      <PageSection title="Career" className={homeSection}>
+        <div className="flex flex-wrap gap-x-12 gap-y-4">
+          <Link
+            href="/bio"
+            className={cn(editorialLink, "inline-flex min-h-11 items-center")}
+          >
+            Career story
+          </Link>
+          <Link
+            href="/cv"
+            className={cn(editorialLink, "inline-flex min-h-11 items-center")}
+          >
+            Résumé / CV
+          </Link>
+        </div>
+      </PageSection>
+      <PageSection title="Work together" className={homeSection}>
         <LetsConnect />
       </PageSection>
     </section>
   );
 }
-
 export const metadata = pageMetadata({
-  description:
-    "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
+  description: sitePublicDescription,
   images: [personalOgImage],
   path: "/",
-  title: "Gabo Esquivel | Agentic Product Engineer",
+  title: siteMetadataTitle,
 });

@@ -1,9 +1,5 @@
-import {
-  blockGrid,
-  PageTitle,
-  proseLink,
-  Prose,
-} from "components/shared/page-layout";
+import { InnerPageHero } from "components/shared/inner-page-hero";
+import { blockGrid, proseLink, Prose } from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
 import { personalOgImage } from "lib/og/constants";
 import { pageMetadata } from "lib/page-metadata";
@@ -12,13 +8,10 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <section>
-      <PageTitle>About Gabo Esquivel</PageTitle>
-      <Prose>
-        Gabo Esquivel is a product engineer based in Costa Rica. His work spans
-        AI assistants, mobile banking, blockchain systems, and the interfaces
-        that connect them. He works across product decisions, design,
-        architecture, and implementation.
-      </Prose>
+      <InnerPageHero
+        description="Gabo Esquivel is a product engineer based in Costa Rica. His work spans AI assistants, mobile banking, blockchain systems, and the interfaces that connect them. He works across product decisions, design, architecture, and implementation."
+        title="About Gabo Esquivel"
+      />
       <Prose>
         For examples of that work, explore the selected projects on{" "}
         <Link href="/work" className={proseLink}>

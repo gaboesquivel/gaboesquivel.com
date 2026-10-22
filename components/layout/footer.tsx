@@ -1,4 +1,5 @@
 import { ctaLink } from "components/shared/spacing";
+import { hireContractBlogPath } from "lib/hire-terms";
 import Link from "next/link";
 
 const footerLink = "text-neutral-300 transition-colors hover:text-white";
@@ -84,10 +85,7 @@ export function Footer() {
           <ul className="space-y-2">
             <li className="text-neutral-300">
               Open to direct hire, international hire, or{" "}
-              <Link
-                href="/blog/2025-11-1099-contracting"
-                className={footerLink}
-              >
+              <Link href={hireContractBlogPath} className={footerLink}>
                 contracting through Blockmatic Labs LLC
               </Link>
               .

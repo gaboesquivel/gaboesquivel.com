@@ -42,7 +42,7 @@ export function VideoEmbed({
     return (
       <Button
         aria-label={`Play video: ${title}`}
-        className="group relative aspect-video h-auto w-full overflow-hidden rounded-lg bg-neutral-900 p-0 hover:bg-neutral-900"
+        className="group relative aspect-video h-auto w-full overflow-hidden rounded-lg bg-neutral-900 p-0 hover:bg-neutral-900 active:translate-y-0"
         onClick={() => setActive(true)}
         type="button"
         variant="ghost"
@@ -58,7 +58,7 @@ export function VideoEmbed({
           className="absolute inset-0 flex items-center justify-center bg-black/40 transition-colors group-hover:bg-black/50"
           aria-hidden
         >
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-lg text-black">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-lg text-black motion-safe:transition-transform motion-safe:duration-150 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:group-active:scale-[0.97] motion-reduce:transition-none">
             ▶
           </span>
         </span>

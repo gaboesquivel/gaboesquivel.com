@@ -77,7 +77,7 @@ Approved composition for the site default social image (not per-post hero images
 **Copy (exact, unwrapped):**
 
 - `Gabo Esquivel` — primary name, white
-- `Agentic Product Engineer` — role, gray
+- `Agentic Software Engineer` — role, gray
 - `gaboesquivel.com` — URL, turquoise
 
 Right-side artwork: the homepage portrait master (`assets/homepage/gaboesquivel-homepage-master.webp`), scaled uniformly and placed on the right, clear of the left type. The portrait keeps its proportions and embedded linework; the SVG does not redraw those labels. Left-side copy unchanged. Flat editorial palette on the type (`#000000`, `#ffffff`, `#a3a3a3`, `#5cded6`).
@@ -101,3 +101,7 @@ Right-side artwork: the homepage portrait master (`assets/homepage/gaboesquivel-
 ## Homepage portrait hero
 
 Photographic hero composition (exception to flat editorial hero rules). Master: `assets/homepage/gaboesquivel-homepage-master.webp` (1448×1086). Shipped WebPs: `public/images/gaboesquivel-homepage-mobile.webp` (896×672) and `public/images/gaboesquivel-homepage-desktop.webp` (700×525). Regenerate with `bun run hero:optimize` after editing the master. The personal OG image composites this master, not the mobile derivative. Layout and delivery: [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). Legacy URL `/images/gaboesquivel-homepage.webp` redirects to the mobile derivative.
+
+## Design System v2 homepage assets
+
+The homepage now uses the pristine v2 source and geometry described in [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). Run `bun run assets:home` (`scripts/prepare-home-assets.ts`) after changing portrait or cover sources; it is not part of `bun run build`. LegalAgent and Wink covers trim their legacy mats and center on a black 1600×900 canvas; ZTX and Bitlauncher use contain on black. The older `hero:optimize` outputs and master remain available for legacy consumers and the personal OG. Cover source hashes, transforms and the ZTX character-source gap are recorded under `assets/work/covers/manifest.json`.

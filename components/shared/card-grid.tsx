@@ -7,11 +7,13 @@ export function CardGrid<T>({
   identifier,
   getKey,
   renderItem,
+  contentVisibility = true,
 }: {
   items: T[];
   identifier: string;
   getKey: (item: T) => string;
   renderItem: (item: T, index: number) => ReactNode;
+  contentVisibility?: boolean;
 }) {
   return (
     <ul
@@ -27,7 +29,8 @@ export function CardGrid<T>({
           key={getKey(item)}
           className={cn(
             "flex h-full w-full",
-            index >= 2 &&
+            contentVisibility &&
+              index >= 2 &&
               "max-md:[contain-intrinsic-size:auto_10rem] max-md:[content-visibility:auto]"
           )}
         >

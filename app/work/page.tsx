@@ -1,11 +1,13 @@
 import { LatestPosts } from "components/blog/latest-posts";
+import { sectionAction } from "components/shared/spacing";
 import { Projects } from "components/work/projects";
 import { getProjectBySlug } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
 import { featuredProjectSlugs } from "lib/work-types";
+import Link from "next/link";
 
 const workIntro =
-  "A selection of products and systems I've built, from AI assistants and mobile banking to wallets, trading interfaces, and blockchain infrastructure.";
+  "Selected products and systems across AI, banking, Web3, and infrastructure.";
 
 export default function WorkPage() {
   const type = "featured";
@@ -20,10 +22,24 @@ export default function WorkPage() {
       <Projects
         projects={filteredProjects}
         type={type}
-        intro={workIntro}
         preserveOrder={true}
+        layout="featured-gallery"
+        hero={{
+          trail: [{ label: "work" }, { label: "selected projects" }],
+          title: "Software that ships.",
+          description: workIntro,
+        }}
       />
-      <LatestPosts />
+      <LatestPosts
+        limit={3}
+        title="Writing"
+        variant="editorial"
+        action={
+          <Link href="/blog" className={sectionAction}>
+            More writing
+          </Link>
+        }
+      />
     </>
   );
 }

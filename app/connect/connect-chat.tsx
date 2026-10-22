@@ -204,7 +204,7 @@ export function ConnectChat() {
   );
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col text-foreground">
+    <div className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col text-foreground">
       <Conversation className="relative min-h-0 flex-1 [scrollbar-gutter:stable] overflow-y-auto overscroll-contain">
         <ConversationContent className="w-full min-w-0 gap-6 px-0 pe-1 pb-4">
           {showStarters ? null : (
@@ -289,7 +289,12 @@ export function ConnectChat() {
             />
           ) : null}
         </ConversationContent>
-        <ConversationScrollButton className="bottom-3 rounded-lg border-hairline bg-black text-white hover:bg-neutral-800" />
+        <ConversationScrollButton
+          className={cn(
+            press,
+            "bottom-3 rounded-lg border-hairline bg-black text-white hover:bg-neutral-800"
+          )}
+        />
       </Conversation>
 
       <div

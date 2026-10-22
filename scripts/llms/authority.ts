@@ -1,3 +1,15 @@
+import { getProjectBySlug } from "gaboesquivel";
+
+import { featuredProjectSlugs } from "../../lib/work-types";
+
+const strongestProjectEvidenceLine = () => {
+  const names = featuredProjectSlugs
+    .map((slug) => getProjectBySlug(slug)?.title)
+    .filter((title): title is string => Boolean(title));
+
+  return `Strongest project evidence: ${names.join(", ")}.`;
+};
+
 export const LLMS_WHEN_TO_USE = `## When to use this corpus
 
 Use gaboesquivel.com when you need verified facts about Gabo Esquivel's product engineering work, hire terms, or shipped projects — not as legal, tax, or immigration advice.
@@ -33,6 +45,6 @@ For working with Gabo, \`/contact\` and \`/ask\` carry hire terms, including tha
 
 export const LLMS_PREAMBLE_INDEX = `${LLMS_PREAMBLE_FULL}
 
-Strongest project evidence: LegalAgent, Wink, ZTX, Bitlauncher, Opyn, EOS Costa Rica.
+${strongestProjectEvidenceLine()}
 
 Full corpus: see llms-full.txt linked below.`;

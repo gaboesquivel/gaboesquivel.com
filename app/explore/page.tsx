@@ -1,10 +1,6 @@
+import { InnerPageHero } from "components/shared/inner-page-hero";
 import { PageCard } from "components/shared/page-card";
-import {
-  blockGrid,
-  PageSection,
-  PageTitle,
-  Prose,
-} from "components/shared/page-layout";
+import { blockGrid, PageSection } from "components/shared/page-layout";
 import { blockSpacing } from "components/shared/spacing";
 import { featuredLandingPages, landingPageGroups } from "lib/landing-pages";
 import { markdownSiblingPath } from "lib/markdown-sibling";
@@ -16,12 +12,10 @@ const featuredGrid = cn(blockSpacing, "grid grid-cols-1 gap-4 md:grid-cols-3");
 export default function ExplorePage() {
   return (
     <section>
-      <PageTitle>Explore</PageTitle>
-
-      <Prose>
-        Browse the main pages by project work, engineering capability, and
-        career context.
-      </Prose>
+      <InnerPageHero
+        description="Browse the main pages by project work, engineering capability, and career context."
+        title="Explore"
+      />
 
       <PageSection title="Start here">
         <ul className={featuredGrid}>

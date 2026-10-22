@@ -1,3 +1,4 @@
+import { hireTermsLanguages, hireTermsLocationLine } from "lib/hire-terms";
 import { Calendar, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 
@@ -43,8 +44,8 @@ export function ContactInfo({ hidden = true }) {
         <div className="cv-contact-lede">
           <p className="prose prose-neutral dark:prose-invert">
             Open to direct hire, international hire, or contracting through
-            Blockmatic Labs LLC. Based in Costa Rica and working US Mountain
-            Time.
+            Blockmatic Labs LLC. Cannot work under W-2. {hireTermsLocationLine}{" "}
+            Fluent in {hireTermsLanguages}.
           </p>
         </div>
 

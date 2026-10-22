@@ -1,0 +1,8 @@
+{
+  "source": "assets/homepage/v2/portrait-source.png",
+  "sha256": "bfde3bb096fc097cfb29141552c8400e5e1129904b54d4512f15a4f5ac740439",
+  "output": "public/images/home/portrait-v2-1213.webp",
+  "outputDimensions": "1213×1098",
+  "transform": "Crop 220px empty left background; WebP quality 92; face not retouched",
+  "geometry": "components/home/portrait-media.tsx: vector elements restricted to empty background, no face overlay"
+}

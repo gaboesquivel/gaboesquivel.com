@@ -61,7 +61,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
   return (
     <section
-      className="cv-content cv-print m-0 p-0 print:block print:w-full print:max-w-none"
+      className="cv-content cv-print m-0 w-full max-w-4xl p-0 print:block print:w-full print:max-w-none preview-print:max-w-none"
       {...(isPreviewPrint ? { "data-cv-preview": "print" } : {})}
     >
       {/* Bundlers ignore `@import … print`; load print tokens via real media attr */}
@@ -78,17 +78,17 @@ export default async function CVPage({ searchParams }: CvPageProps) {
             "print:mb-0 preview-print:mb-0"
           )}
         >
-          <PageTitle className="mb-0 flex items-baseline justify-between leading-none">
-            <span>Gabo Esquivel</span>
+          <div className="mb-0 flex items-baseline justify-between gap-4 leading-none">
+            <PageTitle className="mb-0">Gabo Esquivel</PageTitle>
             <PrintButton file={cvPdfFile({ key })} />
-          </PageTitle>
+          </div>
           <p className="cv-print-professional-title mt-0 mb-0 font-medium tracking-tight text-neutral-400">
             {variant.professionalTitle}
           </p>
         </header>
 
         <div className="cv-summary">
-          <Prose className="cv-content">{variant.summary}</Prose>
+          <Prose className="cv-content max-w-none">{variant.summary}</Prose>
         </div>
         <PageSection
           className="print:mt-0 preview-print:mt-0"
@@ -164,7 +164,9 @@ export default async function CVPage({ searchParams }: CvPageProps) {
             className="print:mt-0 preview-print:mt-0"
             title="Additional experience"
           >
-            <Prose className="cv-content cv-also">{variant.also}</Prose>
+            <Prose className="cv-content cv-also max-w-none">
+              {variant.also}
+            </Prose>
           </PageSection>
         </div>
       ) : null}
@@ -195,7 +197,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
       </div>
 
       <div className="print:hidden preview-print:hidden">
-        <LatestPosts />
+        <LatestPosts variant="editorial" />
       </div>
     </section>
   );

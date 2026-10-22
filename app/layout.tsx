@@ -1,24 +1,31 @@
 import "./global.css";
+import { SiteSearchShell } from "components/search/site-search-shell";
+import { getSiteSearchRecords } from "lib/site-search-records";
 import type { Metadata } from "next";
 
-import { headerColumnPadding, siteColumn } from "@/components/shared/spacing";
+import { SiteWidth } from "@/components/layout/site-width";
+import { headerColumnPadding } from "@/components/shared/spacing";
+import {
+  siteMetadataTitle,
+  sitePublicDescription,
+  siteOgAlt,
+} from "@/lib/site-identity";
 import { siteOrigin } from "@/lib/site-path";
-import { cn } from "@/lib/utils";
 
 import { DeferredAnalytics } from "../components/layout/deferred-analytics";
 import { Footer } from "../components/layout/footer";
 import Navbar from "../components/layout/navbar";
 
+const siteSearchRecords = getSiteSearchRecords();
+
 export const metadata: Metadata = {
-  description:
-    "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
+  description: sitePublicDescription,
   metadataBase: new URL(siteOrigin),
   openGraph: {
-    description:
-      "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
+    description: sitePublicDescription,
     locale: "en_US",
     siteName: "Gabo Esquivel",
-    title: "Gabo Esquivel | Agentic Product Engineer",
+    title: siteMetadataTitle,
     type: "website",
     url: siteOrigin,
   },
@@ -34,14 +41,14 @@ export const metadata: Metadata = {
     index: true,
   },
   title: {
-    default: "Gabo Esquivel | Agentic Product Engineer",
+    default: siteMetadataTitle,
     template: "%s",
   },
   twitter: {
     card: "summary_large_image",
     images: {
       url: "/og",
-      alt: "Gabo Esquivel — Agentic Product Engineer",
+      alt: siteOgAlt,
     },
   },
   verification: {
@@ -66,24 +73,24 @@ export default function RootLayout({
         />
       </head>
       <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
-        <div className="flex min-h-0 flex-1 flex-col">
-          <header className="bg-black print:hidden preview-print:hidden">
-            <div className="h-0.5 w-full bg-accent" />
-            <div className={cn(siteColumn, headerColumnPadding)}>
-              <Navbar />
-            </div>
-          </header>
-          <main
-            className={cn(
-              siteColumn,
-              "flex min-h-0 flex-1 flex-col print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
-            )}
-          >
-            {children}
-            <Footer />
-            <DeferredAnalytics />
-          </main>
-        </div>
+        <SiteSearchShell records={siteSearchRecords}>
+          <div className="flex min-h-0 flex-1 flex-col">
+            <header className="bg-black print:hidden preview-print:hidden">
+              <div className="h-0.5 w-full bg-accent" />
+              <SiteWidth className={headerColumnPadding}>
+                <Navbar />
+              </SiteWidth>
+            </header>
+            <SiteWidth
+              as="main"
+              className="flex min-h-0 flex-1 flex-col print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
+            >
+              {children}
+              <Footer />
+              <DeferredAnalytics />
+            </SiteWidth>
+          </div>
+        </SiteSearchShell>
       </body>
     </html>
   );

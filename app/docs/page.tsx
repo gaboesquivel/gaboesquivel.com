@@ -1,6 +1,6 @@
 import {
+  IndexHeading,
   PageSection,
-  PageTitle,
   proseLink,
   Prose,
 } from "components/shared/page-layout";
@@ -14,9 +14,9 @@ const cvAppEndpoint = `${siteOrigin}/mcp/cv`;
 export default function DocsPage() {
   return (
     <section>
-      <PageTitle>
+      <IndexHeading>
         Gabo Esquivel MCP and Site API — developer documentation
-      </PageTitle>
+      </IndexHeading>
       <Prose>
         The Gabo Esquivel MCP server is how another agent reaches the same site
         agent as{" "}

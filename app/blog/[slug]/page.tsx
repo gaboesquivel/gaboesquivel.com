@@ -1,11 +1,13 @@
 import { BlogPostChips } from "components/blog/blog-post-chips";
-import { PostGrid } from "components/blog/posts-grid";
+import { LatestPosts } from "components/blog/latest-posts";
 import { Mdx } from "components/mdx";
 import { indexTitle } from "components/shared/page-layout";
+import { PageTrail } from "components/shared/page-trail";
 import { allBlogs } from "lib/blog";
 import { blogJsonLd } from "lib/blog-json-ld";
 import { getRelatedPosts } from "lib/blog-related";
-import { isArchivePost } from "lib/blog-taxonomy";
+import { categoryDisplayNames, isArchivePost } from "lib/blog-taxonomy";
+import { primaryBrowseCategory } from "lib/blog-trail";
 import { blogOgMetadataImages } from "lib/og/resolve";
 import { metadataWithMarkdownAlternate } from "lib/page-metadata";
 import { siteOrigin } from "lib/site-path";
@@ -81,6 +83,19 @@ export default async function Blog({
 
   const relatedPosts = getRelatedPosts({ allPosts: allBlogs, post });
   const archived = isArchivePost(post.publishedAt);
+  const browseCategory = primaryBrowseCategory({ categories: post.category });
+  const trail = [
+    { label: "writing", href: "/blog" },
+    ...(browseCategory
+      ? [
+          {
+            label: categoryDisplayNames[browseCategory].toLowerCase(),
+            href: `/blog/category/${browseCategory}`,
+          },
+        ]
+      : []),
+    { label: post.title },
+  ];
 
   return (
     <section>
@@ -91,7 +106,8 @@ export default async function Blog({
           __html: JSON.stringify(blogJsonLd(post)),
         }}
       />
-      <h1 className={cn(indexTitle, "mb-2 text-balance")}>{post.title}</h1>
+      <PageTrail segments={trail} />
+      <h1 className={cn(indexTitle, "mt-4 mb-2 text-balance")}>{post.title}</h1>
       <p
         className={cn(
           "max-w-[650px] text-sm text-neutral-600 dark:text-neutral-400",
@@ -108,9 +124,11 @@ export default async function Blog({
       <Mdx code={post.body} />
       <BlogPostChips categories={post.category} />
       {relatedPosts.length > 0 ? (
-        <div className="[contain-intrinsic-size:auto_24rem] [content-visibility:auto]">
-          <PostGrid posts={relatedPosts} title="Related writing" />
-        </div>
+        <LatestPosts
+          slugs={relatedPosts.map((post) => post.slug)}
+          title="Related writing"
+          variant="editorial"
+        />
       ) : null}
     </section>
   );

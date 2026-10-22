@@ -21,8 +21,6 @@ import {
 } from "./format";
 import { displayTagName, displayTechList } from "./names";
 
-const indexEvidenceSlugs = [...featuredProjectSlugs];
-
 type ProjectWithExperience = Project & { experienceCompany?: string };
 
 const experienceByCompany = new Map(
@@ -162,4 +160,4 @@ export const renderTechMarkdown = (tech: TechStackItem) => {
   return lines.join("\n").trim();
 };
 
-export { featuredProjectSlugs, indexEvidenceSlugs, projects, techStack };
+export { featuredProjectSlugs, projects, techStack };

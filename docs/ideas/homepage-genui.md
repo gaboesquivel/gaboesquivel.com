@@ -1,3 +1,5 @@
+> **Background only.** Current homepage direction is in [PRODUCT.md](../../PRODUCT.md) (`/`) and [DESIGN.md](../../DESIGN.md). Executable specs live under [docs/specs/homepage-genui/](../specs/homepage-genui/).
+
 # Generative Homepage and MCP App — Architecture Spec Draft
 
 ## Architectural decisions

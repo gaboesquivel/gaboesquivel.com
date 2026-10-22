@@ -10,6 +10,6 @@ Use each skill's name as it appears in the lock. Do not invent a `-vN` folder.
 
 Basilic `/w-*` playbooks are not installed.
 
-`.agents/skills/` is for repository work and changes through the lock. `agent/skills/` is the Eve runtime. Edit that tree only when the task is about the running agent. The boundary is in [ARCHITECTURE.md](../../ARCHITECTURE.md).
+`.agents/skills/` is for repository work and changes through the lock. `agent/skills/` is the Eve runtime (`SKILL.md` and `references/` only). Do not copy catalog evals into `agent/skills/`. Edit that tree only when the task is about the running agent. The boundary is in [ARCHITECTURE.md](../../ARCHITECTURE.md).
 
 Done when `skills-lock.json` and `.agents/skills/` name the same development skills, and `agent/skills/` changed only when the task was about the runtime agent.

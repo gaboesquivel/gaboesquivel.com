@@ -41,8 +41,8 @@ export const workTypeCopy: Record<
   },
   featured: {
     description:
-      "Selected software projects across AI, banking, interactive products, and blockchain infrastructure.",
-    heading: "Selected software projects",
+      "Selected products and systems across AI, banking, Web3, and infrastructure.",
+    heading: "Software that ships.",
   },
   "full-time": {
     description:

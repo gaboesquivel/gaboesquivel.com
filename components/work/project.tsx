@@ -1,10 +1,15 @@
+import { InnerPageHero } from "components/shared/inner-page-hero";
 import {
-  IndexHeading,
   PageSection,
+  proseLink,
   Prose,
   projectMedia,
 } from "components/shared/page-layout";
-import { blockSpacing } from "components/shared/spacing";
+import {
+  blockSpacing,
+  editorialLink,
+  readingMeasure,
+} from "components/shared/spacing";
 import { VimeoPlayer } from "components/vimeo";
 import { YouTubePlayer } from "components/youtube";
 import { getTechStackByTag } from "gaboesquivel";
@@ -13,12 +18,13 @@ import { allBlogs } from "lib/blog";
 import { comparePublishedAtDesc } from "lib/blog-order";
 import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
+import { workCoverSizes } from "lib/work/project-cover";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 import { LatestPosts } from "../blog/latest-posts";
-import { PostGrid } from "../blog/posts-grid";
+import { ProjectHero } from "./project-hero";
 
 const capabilityTypeMap: Record<
   string,
@@ -32,22 +38,8 @@ const capabilityTypeMap: Record<
   web3: { display: "Web3", url: "/web3" },
 };
 
-const projectImageSizes = "(max-width: 768px) 100vw, 896px";
-
 const blogSummaryBySlug = new Map(
   allBlogs.map((post) => [post.slug, post.summary])
-);
-
-const ProjectImage = ({ project, src }: { project: Project; src: string }) => (
-  <div className={projectMedia}>
-    <Image
-      src={src}
-      alt={project.title}
-      fill={true}
-      sizes={projectImageSizes}
-      style={{ objectFit: "cover" }}
-    />
-  </div>
 );
 
 export function ProjectDetails({
@@ -57,7 +49,6 @@ export function ProjectDetails({
   project: Project;
   full?: boolean;
 }) {
-  const primarySrc = siteRelativePath(project.image);
   const validExperienceTypes = (project.type ?? []).flatMap((type) => {
     const mapped = capabilityTypeMap[type];
     return mapped ? [mapped] : [];
@@ -67,51 +58,54 @@ export function ProjectDetails({
     full &&
     Boolean(project.repo || (project.link && project.link !== project.repo));
 
-  const primaryImage = <ProjectImage project={project} src={primarySrc} />;
   const primaryImageHref = full
     ? (project.link ?? null)
     : `/project/${project.slug}`;
 
+  const relatedSlugs =
+    full && project.related && project.related.length > 0
+      ? [...project.related]
+          .sort(comparePublishedAtDesc)
+          .map((post) => post.url)
+      : undefined;
+
   return (
     <div className="mb-10">
-      <IndexHeading>{project.title}</IndexHeading>
+      <InnerPageHero
+        className={full && project.role ? "mb-4" : undefined}
+        compact
+        description={project.description.replaceAll("\n", " ")}
+        title={project.title}
+        trail={[{ href: "/work", label: "work" }, { label: project.title }]}
+      />
 
-      {project.description.split("\n").map((item) => (
-        <Prose key={`${project.slug}-${item}`}>
-          {item}
-          <br />
-        </Prose>
-      ))}
+      {full && project.role ? (
+        <p className={cn(readingMeasure, "text-sm text-neutral-400")}>
+          {project.role}
+        </p>
+      ) : null}
 
-      {primaryImageHref ? (
-        <Link
-          href={primaryImageHref}
-          {...(full && project.link
-            ? {
-                "aria-label": `Open ${project.title} website`,
-                rel: "noopener noreferrer",
-                target: "_blank",
-              }
-            : {})}
-        >
-          {primaryImage}
-        </Link>
-      ) : (
-        primaryImage
-      )}
+      <div className="mt-8">
+        <ProjectHero href={primaryImageHref} preload={full} project={project} />
+      </div>
 
       {full && project.story && project.story.length > 0 ? (
-        <PageSection title="Implementation">
-          {project.story.map((paragraph) => (
-            <Prose key={`${project.slug}-story-${paragraph}`} className="mt-4">
-              {paragraph}
-            </Prose>
-          ))}
-        </PageSection>
+        <div className={cn(readingMeasure, "mt-12")}>
+          <PageSection title="Implementation">
+            {project.story.map((paragraph) => (
+              <Prose
+                key={`${project.slug}-story-${paragraph}`}
+                className="mt-4"
+              >
+                {paragraph}
+              </Prose>
+            ))}
+          </PageSection>
+        </div>
       ) : null}
 
       {full && project.video ? (
-        <div className={projectMedia}>
+        <div className={cn(projectMedia, "mt-8")}>
           {project.video.includes("youtube") ? (
             <YouTubePlayer title={project.title} url={project.video} />
           ) : project.video.includes("vimeo") ? (
@@ -121,30 +115,35 @@ export function ProjectDetails({
       ) : null}
 
       {full && project.achievements && project.achievements.length > 0 ? (
-        <PageSection title="Selected contributions">
-          <ol className="list-inside list-disc space-y-4">
-            {project.achievements.map((achievement) => (
-              <li
-                key={`${project.slug}-achievement-${achievement}`}
-                className="text-base"
-              >
-                {achievement}
-              </li>
-            ))}
-          </ol>
-        </PageSection>
+        <div className={cn(readingMeasure, "mt-12")}>
+          <PageSection title="Selected contributions">
+            <ol className="list-inside list-disc space-y-4">
+              {project.achievements.map((achievement) => (
+                <li
+                  key={`${project.slug}-achievement-${achievement}`}
+                  className="text-base"
+                >
+                  {achievement}
+                </li>
+              ))}
+            </ol>
+          </PageSection>
+        </div>
       ) : null}
 
       {full && project.images && project.images.length > 0 ? (
-        <div className="mb-4">
+        <div className="mt-8 space-y-6">
           {project.images.map((image) => (
-            <div key={image} className={projectMedia}>
+            <div
+              key={image}
+              className="relative aspect-video overflow-hidden rounded-lg bg-black"
+            >
               <Image
                 src={siteRelativePath(image)}
                 alt={project.title}
-                fill={true}
-                sizes={projectImageSizes}
-                style={{ objectFit: "cover" }}
+                fill
+                sizes={workCoverSizes}
+                className="object-contain"
               />
             </div>
           ))}
@@ -152,88 +151,86 @@ export function ProjectDetails({
       ) : null}
 
       {hasProjectLinks ? (
-        <PageSection title="Project links">
-          {project.link && project.link !== project.repo ? (
-            <p className={cn(blockSpacing, "text-sm")}>
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="break-all"
-              >
-                {project.link}
-              </a>
-            </p>
-          ) : null}
-          {project.repo ? (
-            <p className="text-sm">
-              <a
-                href={project.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="break-all"
-              >
-                {project.repo}
-              </a>
-            </p>
-          ) : null}
-        </PageSection>
+        <div className={cn(readingMeasure, "mt-12")}>
+          <PageSection title="Project links">
+            {project.link && project.link !== project.repo ? (
+              <p className={cn(blockSpacing, "text-sm")}>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(proseLink, "break-all")}
+                >
+                  {project.link}
+                </a>
+              </p>
+            ) : null}
+            {project.repo ? (
+              <p className="text-sm">
+                <a
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(proseLink, "break-all")}
+                >
+                  {project.repo}
+                </a>
+              </p>
+            ) : null}
+          </PageSection>
+        </div>
       ) : null}
 
       {full ? (
-        <PageSection title="Technologies">
-          <p className="text-sm">
-            {project.tech.map((tech) => {
-              const techItem = getTechStackByTag(tech as Tag);
-              if (!techItem) {
-                return null;
-              }
-              return (
-                <Link
-                  href={`/tech/${techItem.slug}`}
-                  key={`${project.slug}-${techItem.slug}`}
-                >
-                  <span>
-                    {techItem.name}
-                    {tech === project.tech.at(-1) ? "" : ", "}
-                  </span>
-                </Link>
-              );
-            })}
-          </p>
-        </PageSection>
+        <div className={cn(readingMeasure, "mt-12")}>
+          <PageSection title="Technologies">
+            <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              {project.tech.map((tech) => {
+                const techItem = getTechStackByTag(tech as Tag);
+                if (!techItem) {
+                  return null;
+                }
+                return (
+                  <li key={`${project.slug}-${techItem.slug}`}>
+                    <Link
+                      href={`/tech/${techItem.slug}`}
+                      className={editorialLink}
+                    >
+                      {techItem.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </PageSection>
+        </div>
       ) : null}
 
       {full && validExperienceTypes.length > 0 ? (
-        <PageSection title="Experience">
-          <p className="text-sm">
-            {validExperienceTypes.map((item) => (
-              <React.Fragment key={`${project.slug}-type-${item.url}`}>
-                <Link href={item.url}>
-                  <span>{item.display}</span>
-                </Link>
-                {item === validExperienceTypes.at(-1) ? "" : ", "}
-              </React.Fragment>
-            ))}
-          </p>
-        </PageSection>
+        <div className={cn(readingMeasure, "mt-12")}>
+          <PageSection title="Experience">
+            <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              {validExperienceTypes.map((item) => (
+                <li key={`${project.slug}-type-${item.url}`}>
+                  <Link href={item.url} className={editorialLink}>
+                    {item.display}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </PageSection>
+        </div>
       ) : null}
 
       {full &&
-        (project.related && project.related.length > 0 ? (
-          <PostGrid
-            posts={[...project.related]
-              .sort(comparePublishedAtDesc)
-              .map((post) => ({
-                publishedAt: post.publishedAt,
-                slug: post.url,
-                summary: blogSummaryBySlug.get(post.url),
-                title: post.title,
-              }))}
+        (relatedSlugs && relatedSlugs.length > 0 ? (
+          <LatestPosts
+            slugs={relatedSlugs}
             title="Related writing"
+            variant="editorial"
           />
         ) : (
-          <LatestPosts />
+          <LatestPosts variant="editorial" />
         ))}
     </div>
   );

@@ -4,8 +4,9 @@ import "./global.css";
 import { Analytics } from "@vercel/analytics/react";
 import { Footer } from "components/layout/footer";
 import Navbar from "components/layout/navbar";
+import { SiteWidth } from "components/layout/site-width";
 import { RecoveryPage } from "components/shared/recovery-page";
-import { headerColumnPadding, siteColumn } from "components/shared/spacing";
+import { headerColumnPadding } from "components/shared/spacing";
 import { useEffect } from "react";
 
 export default function GlobalError({
@@ -32,17 +33,17 @@ export default function GlobalError({
       <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
         <header className="bg-black">
           <div className="h-0.5 w-full bg-accent" />
-          <div className={`${siteColumn} ${headerColumnPadding}`}>
+          <SiteWidth className={headerColumnPadding}>
             <Navbar />
-          </div>
+          </SiteWidth>
         </header>
-        <main className={`${siteColumn} flex min-h-0 flex-1 flex-col`}>
+        <SiteWidth as="main" className="flex min-h-0 flex-1 flex-col">
           <RecoveryPage title="This page didn't load" onRetry={retry}>
             This page failed while loading. Try again, or go to home or explore.
           </RecoveryPage>
           <Footer />
           <Analytics />
-        </main>
+        </SiteWidth>
       </body>
     </html>
   );

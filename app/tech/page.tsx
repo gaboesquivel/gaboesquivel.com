@@ -1,36 +1,40 @@
+import { InnerPageHero } from "components/shared/inner-page-hero";
 import {
   blockGrid,
   PageSection,
-  PageTitle,
-  Prose,
   sectionSpacing,
 } from "components/shared/page-layout";
+import { SiteCardLink } from "components/shared/site-card-link";
+import { cardArrow } from "components/shared/spacing";
 import { techBrowseCategories } from "components/tech/categories";
 import { TechList } from "components/tech/tech-list";
 import { pageMetadata } from "lib/page-metadata";
-import Link from "next/link";
 
 export default function TechStackPage() {
   return (
     <section>
-      <PageTitle>Technology stack</PageTitle>
-      <Prose>
-        I group the stack by area so you can scan what shows up in shipped
-        products, then follow each technology to projects and writing that back
-        it up.
-      </Prose>
+      <InnerPageHero
+        description="I group the stack by area so you can scan what shows up in shipped products, then follow each technology to projects and writing that back it up."
+        title="Technology stack"
+      />
 
       <PageSection title="Browse by area">
         <div className={blockGrid}>
           {techBrowseCategories.map(({ href, name, description }) => (
-            <Link
-              key={href}
+            <SiteCardLink
+              cardClassName="gap-2 p-4"
+              className="group"
               href={href}
-              className="rounded-lg border border-neutral-200 p-4 dark:border-hairline"
+              key={href}
             >
-              <h3 className="font-semibold">{name}</h3>
-              <p className="mt-2 text-sm text-neutral-400">{description}</p>
-            </Link>
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="font-semibold">{name}</h3>
+                <span aria-hidden className={cardArrow}>
+                  →
+                </span>
+              </div>
+              <p className="text-sm text-neutral-400">{description}</p>
+            </SiteCardLink>
           ))}
         </div>
       </PageSection>

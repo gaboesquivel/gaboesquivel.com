@@ -12,10 +12,22 @@ import {
   toBrowseSlug,
 } from "../../lib/blog-taxonomy";
 import { cvPath } from "../../lib/cv-paths";
+import {
+  hireContractBlogPath,
+  hireTermsMarkdownCore,
+  hireTermsMarkdownWithLanguages,
+} from "../../lib/hire-terms";
+import { siteBrandRole, siteHeroPitch } from "../../lib/site-identity";
+import { homepageEditorialSlugs } from "../../lib/work/project-cover";
 import { isArchivePostFromBlog, loadBlogPosts } from "./blog";
 import { absoluteUrl, rewriteLinks } from "./format";
 
 const APP_DIR = join(process.cwd(), "app");
+
+const siteIdentityExports: Record<string, string> = {
+  siteBrandRole,
+  siteHeroPitch,
+};
 
 const SKIP_COMPONENTS = new Set([
   "PageImage",
@@ -29,13 +41,15 @@ const SKIP_COMPONENTS = new Set([
   "ProjectCard",
 ]);
 
-const LETS_CONNECT_MARKDOWN = `Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time.
+const contractHref = absoluteUrl(hireContractBlogPath);
+
+const LETS_CONNECT_MARKDOWN = `${hireTermsMarkdownCore({ contractHref })}
 
 Tell me what you're building and where it's stuck. [Start a conversation](${absoluteUrl("/contact")}).`;
 
 const CONNECT_PAGE_EXPORT_MARKDOWN = `A site agent for my published work, a note, or a 15- or 30-minute call.
 
-Open to direct hire, international hire, or [contracting through Blockmatic Labs LLC](${absoluteUrl("/blog/2025-11-1099-contracting")}). Cannot work under W-2. Based in Costa Rica, working US Mountain Time. Fluent in English, Spanish, Portuguese, and Italian.
+${hireTermsMarkdownWithLanguages({ contractHref })}
 
 I work with founders and technical or product leaders on agentic AI, onchain finance, and full-stack product work — usually where the product has to earn trust under regulation, real money, or production load. Tell me what you are building, where it is stuck, and whether you are hiring directly, hiring internationally, or contracting through Blockmatic Labs LLC. You can send email on this page, book a 15- or 30-minute call here, use [gaboesquivel.com/cal](${absoluteUrl("/cal")}) when the day is full, or read the [work portfolio](${absoluteUrl("/work")}) first.`;
 
@@ -247,6 +261,33 @@ const jsxChildrenToText = (
       continue;
     }
 
+    if (ts.isJsxExpression(child) && child.expression) {
+      if (ts.isIdentifier(child.expression)) {
+        const name = child.expression.text;
+        const fromPage = variables.get(name);
+        if (typeof fromPage === "string") {
+          parts.push(fromPage);
+          continue;
+        }
+        const fromSite = siteIdentityExports[name];
+        if (fromSite) {
+          parts.push(fromSite);
+          continue;
+        }
+      }
+      if (
+        child.expression.kind === ts.SyntaxKind.TrueKeyword ||
+        child.expression.kind === ts.SyntaxKind.FalseKeyword
+      ) {
+        continue;
+      }
+      const literal = literalValue(child.expression);
+      if (typeof literal === "string") {
+        parts.push(literal);
+      }
+      continue;
+    }
+
     if (!ts.isJsxElement(child) && !ts.isJsxSelfClosingElement(child)) {
       continue;
     }
@@ -304,6 +345,31 @@ const jsxNodeToMarkdown = (
     const tagName = ts.isJsxElement(node)
       ? node.openingElement.tagName.getText(sourceFile)
       : node.tagName.getText(sourceFile);
+
+    if (pagePath === "/" && tagName === "LatestPosts") {
+      lines.push("## Writing", "", renderPostLinks({ limit: 4 }), "");
+      return;
+    }
+
+    if (pagePath === "/" && tagName === "HomePrompt") {
+      return;
+    }
+
+    if (pagePath === "/" && tagName === "PortraitMedia") {
+      return;
+    }
+
+    if (pagePath === "/" && tagName === "Link" && ts.isJsxElement(node)) {
+      const href = getJsxAttributeValue(
+        node.openingElement.attributes,
+        "href",
+        variables
+      );
+      const text = jsxChildrenToText(node.children, variables);
+      if (typeof href === "string" && text)
+        lines.push(`- [${text}](${absoluteUrl(href)})`, "");
+      return;
+    }
 
     if (SKIP_COMPONENTS.has(tagName)) {
       return;
@@ -370,6 +436,25 @@ const jsxNodeToMarkdown = (
 
     if (tagName === "PageTitle" && ts.isJsxElement(node)) {
       lines.push(`# ${jsxChildrenToText(node.children, variables)}`, "");
+      if (pagePath === "/") {
+        lines.push(`GABO ESQUIVEL / ${siteBrandRole}`, "", siteHeroPitch, "");
+      }
+      return;
+    }
+
+    if (tagName === "InnerPageHero") {
+      const title = getJsxAttributeValue(attributes, "title", variables);
+      const description = getJsxAttributeValue(
+        attributes,
+        "description",
+        variables
+      );
+      if (typeof title === "string" && title) {
+        lines.push(`# ${title}`, "");
+      }
+      if (typeof description === "string" && description) {
+        lines.push(description, "");
+      }
       return;
     }
 
@@ -387,10 +472,13 @@ const jsxNodeToMarkdown = (
       jsxNodesToMarkdown(node.children, variables, lines, pagePath);
 
       if (title === "Selected work") {
-        const slugs = variables.get("selectedProjectSlugs") as
+        const slugs = (variables.get("selectedProjectSlugs") as
           | string[]
-          | undefined;
-        if (slugs?.length) {
+          | undefined) ??
+          (variables.get("homepageEditorialSlugs") as string[] | undefined) ?? [
+            ...homepageEditorialSlugs,
+          ];
+        if (slugs.length) {
           const links = renderProjectLinks(slugs);
           if (links) {
             lines.push(links, "");

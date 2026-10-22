@@ -12,6 +12,8 @@ Gabo Esquivel's personal site. It shows founders and technical or product leader
 
 Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
+The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav chat button opens a right-hand sheet with an explicit link to the existing `/ask` conversation; inline conversation migration is deferred.
+
 ## Implemented surfaces
 
 - Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “writing”)
@@ -37,8 +39,8 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Question: who is Gabo, and is the work real?
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
-- Order: positioning, proof, projects, focus, bio preview, writing, `/contact`
-- Hero: real portrait on desktop and an understated “Contact me” link to `/contact` at all widths.
+- Order: split hero, full-width search, selected work, focus, writing, career links, work together
+- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search on the homepage (and the same UI via Cmd/Ctrl+K or nav Search site-wide) submits on Enter; generative replacement remains deferred.
 
 ### `/bio`
 
@@ -153,7 +155,7 @@ Metadata must describe the page's actual job and verified evidence.
 
 Keyword owners:
 
-- `/`: Gabo Esquivel, agentic product engineer
+- `/`: Gabo Esquivel, agentic software engineer
 - `/ai`: AI engineering
 - `/web3`: Web3 engineering
 - `/fullstack`: full-stack product engineering
@@ -203,4 +205,4 @@ Link to the most useful next step: a related blog post, domain capability (`/ai`
 
 ## Open questions
 
-- `/cv` keyword owner is “Senior Product Engineer CV”, but the live title comes from the package's `content/cv/full.md` metadata: “Gabo Esquivel - Curriculum Vitae”. Decide which is intended; the fix lives in the package.
+- `/cv` keyword owner is “Senior Product Engineer CV”. Package `content/cv/full.md` metadata title is “Gabo Esquivel — Product Engineering CV”. Align keyword owner with that metadata in a dedicated SEO pass if needed.

@@ -1,19 +1,18 @@
 import { describe, expect, test } from "bun:test";
 
+import { featuredProjectSlugs } from "lib/work-types";
+
 import { EXPERIENCE_QUESTION } from "./intent";
-import {
-  FEATURED_WORK_CARD_SLUGS,
-  workCardSlugsForUserText,
-} from "./work-cards";
+import { workCardSlugsForUserText } from "./work-cards";
 
 describe("connect work cards", () => {
   test("shows featured projects for the experience chip and broad shipped-work asks", () => {
     expect(workCardSlugsForUserText(EXPERIENCE_QUESTION)).toEqual([
-      ...FEATURED_WORK_CARD_SLUGS,
+      ...featuredProjectSlugs,
     ]);
     expect(
       workCardSlugsForUserText("What have you shipped in your career?")
-    ).toEqual([...FEATURED_WORK_CARD_SLUGS]);
+    ).toEqual([...featuredProjectSlugs]);
   });
 
   test("hides cards for book, note, and named-company questions", () => {

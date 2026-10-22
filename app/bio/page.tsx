@@ -1,9 +1,10 @@
+import { BioChapter } from "components/bio/bio-chapter";
 import { LatestPosts } from "components/blog/latest-posts";
+import { InnerPageHero } from "components/shared/inner-page-hero";
 import { LetsConnect } from "components/shared/lets-connect";
 import {
   PageImage,
   PageSection,
-  PageTitle,
   proseLink,
   Prose,
 } from "components/shared/page-layout";
@@ -15,15 +16,15 @@ import gabocoding from "public/images/bio/gabo-coding.jpg";
 export default function BioPage() {
   return (
     <section>
-      <PageTitle>Career story</PageTitle>
+      <InnerPageHero
+        description="I started with web interfaces in 2010. The work grew into complete products, then financial and blockchain systems, and now intelligent interfaces. This is how those stages shaped the way I build."
+        title="Career story"
+      />
 
-      <Prose>
-        I started with web interfaces in 2010. The work grew into complete
-        products, then financial and blockchain systems, and now intelligent
-        interfaces. This is how those stages shaped the way I build.
-      </Prose>
-
-      <PageSection title="Interfaces and a JavaScript community">
+      <BioChapter
+        title="Interfaces and a JavaScript community"
+        year="2010 — interfaces"
+      >
         <Prose>
           At American Express, I worked on credit-card interfaces inside an
           established financial company. From 2010 to 2012, I built interactive
@@ -48,10 +49,17 @@ export default function BioPage() {
           flight-information display for ARINC.
         </Prose>
 
-        <ProjectEvidence slugs={["costa-rica-js"]} columns={1} />
-      </PageSection>
+        <ProjectEvidence
+          columns={1}
+          presentation="editorial"
+          slugs={["costa-rica-js"]}
+        />
+      </BioChapter>
 
-      <PageSection title="From interfaces to a banking product">
+      <BioChapter
+        title="From interfaces to a banking product"
+        year="2015 — product"
+      >
         <Prose>
           Wink changed the scale of the work. Costa Rica&apos;s first neobank
           needed to make banking available from a phone, without a branch visit.
@@ -70,10 +78,17 @@ export default function BioPage() {
           being able to open a bank account without visiting a branch.
         </Prose>
 
-        <ProjectEvidence slugs={["wink"]} columns={1} />
-      </PageSection>
+        <ProjectEvidence
+          columns={1}
+          presentation="editorial"
+          slugs={["wink"]}
+        />
+      </BioChapter>
 
-      <PageSection title="Complex financial and blockchain systems">
+      <BioChapter
+        title="Complex financial and blockchain systems"
+        year="2017 — systems"
+      >
         <Prose>
           Building financial products led me toward blockchain infrastructure
           and the interfaces around it. From 2017 onward, I worked on tokens,
@@ -93,14 +108,17 @@ export default function BioPage() {
 
         <PageImage
           alt="Gabo Esquivel coding"
-          src={gabocoding}
           objectClassName="object-top"
+          src={gabocoding}
         />
 
-        <ProjectEvidence slugs={["eos-costa-rica", "ztx"]} />
-      </PageSection>
+        <ProjectEvidence
+          presentation="editorial"
+          slugs={["eos-costa-rica", "ztx"]}
+        />
+      </BioChapter>
 
-      <PageSection title="Intelligent interfaces">
+      <BioChapter title="Intelligent interfaces" year="2024 — agents">
         <Prose>
           By 2024, I was building specialized AI assistants at Masterbots and
           Bitlauncher. In 2025, I worked on{" "}
@@ -112,17 +130,25 @@ export default function BioPage() {
           a complex system becomes usable—now extends to agents.
         </Prose>
 
-        <ProjectEvidence slugs={["legal-agent"]} columns={1} />
-      </PageSection>
+        <ProjectEvidence
+          columns={1}
+          presentation="editorial"
+          slugs={["legal-agent"]}
+        />
+      </BioChapter>
 
-      <LatestPosts title="Writing" limit={4} />
+      <LatestPosts limit={4} title="Writing" variant="editorial" />
 
       <PageSection title="What I’m focused on">
         <Prose>
           My focus today is agentic AI and onchain finance. I help teams turn
           ideas into working products, from the experience people use to the
           systems behind it. I collaborate in English, Spanish, Portuguese, and
-          Italian.
+          Italian. For dates and roles, see my{" "}
+          <Link href="/cv" className={proseLink}>
+            résumé
+          </Link>
+          .
         </Prose>
 
         <LetsConnect />
