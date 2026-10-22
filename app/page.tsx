@@ -12,6 +12,7 @@ import { PathLink } from "components/shared/path-link";
 import { ProjectCard } from "components/work/project-card";
 import { getProjectBySlug } from "gaboesquivel";
 import { homeJsonLd } from "lib/home-json-ld";
+import { personalOgImage } from "lib/og/constants";
 import { pageMetadata } from "lib/page-metadata";
 import { cn } from "lib/utils";
 import { ArrowUpRight, MessageSquare } from "lucide-react";
@@ -22,13 +23,13 @@ import { preload } from "react-dom";
 const homeHeroAlt = "Gabo Esquivel — Agentic Product Engineer";
 
 const homeHeroMobile = {
-  height: 687,
+  height: 672,
   src: "/images/gaboesquivel-homepage-mobile.webp",
   width: 896,
 } as const;
 
 const homeHeroDesktop = {
-  height: 536,
+  height: 525,
   src: "/images/gaboesquivel-homepage-desktop.webp",
   width: 700,
 } as const;
@@ -38,13 +39,6 @@ const homeHeroMobileSizes =
 
 const homeHeroDesktopSizes =
   "(min-width: 768px) calc((min(100vw, 56rem) - 3rem) * 0.47)";
-
-const defaultOgImage = {
-  alt: homeHeroAlt,
-  height: 630,
-  url: "/og",
-  width: 1200,
-} as const;
 
 const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
 const selectedProjects = selectedProjectSlugs.flatMap((slug) => {
@@ -225,7 +219,7 @@ export default function HomePage() {
 export const metadata = pageMetadata({
   description:
     "Gabo Esquivel builds useful, delightful software for humans and agents, connecting product, careful design, and architecture across AI, Web3, and finance.",
-  images: [defaultOgImage],
+  images: [personalOgImage],
   path: "/",
   title: "Gabo Esquivel | Agentic Product Engineer",
 });

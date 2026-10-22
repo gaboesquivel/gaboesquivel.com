@@ -1,7 +1,8 @@
 import { ProjectDetails } from "components/work/project";
 import { getProjectBySlug, projects } from "gaboesquivel";
+import { projectOgMetadataImages } from "lib/og/resolve";
 import { pageMetadata } from "lib/page-metadata";
-import { siteRelativePath } from "lib/site-path";
+import { siteOrigin } from "lib/site-path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -36,11 +37,15 @@ export async function generateMetadata({
     notFound();
   }
 
-  const imagePath = siteRelativePath(project.image);
+  const images = projectOgMetadataImages({
+    image: project.image,
+    siteOrigin,
+    slug: project.slug,
+  }).map((img) => ({ ...img, alt: project.title }));
 
   return pageMetadata({
     description: project.description,
-    images: [{ url: imagePath, alt: project.title }],
+    images,
     path: `/project/${slug}`,
     title: `${project.title} | Gabo Esquivel`,
   });

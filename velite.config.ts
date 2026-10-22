@@ -13,6 +13,7 @@ const blogs = defineCollection({
       body: s.mdx(),
       category: s.array(s.string()).optional(),
       image: s.string().optional(),
+      ogImage: s.string().optional(),
       publishedAt: s.string(),
       slug: s.path(),
       summary: s.string(),

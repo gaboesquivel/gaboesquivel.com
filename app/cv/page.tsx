@@ -15,6 +15,7 @@ import {
 import { resolveCv as resolveCvBase } from "gaboesquivel";
 import { cvPdfFile } from "lib/cv-paths";
 import { markdownSiblingPath } from "lib/markdown-sibling";
+import { personalOgImage } from "lib/og/constants";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
 import { cache } from "react";
@@ -217,9 +218,16 @@ export async function generateMetadata({
     keywords: variant.metadata.keywords,
     openGraph: {
       ...variant.metadata.openGraph,
+      images: [personalOgImage],
       type: "profile",
     },
     title: variant.metadata.title,
+    twitter: {
+      card: "summary_large_image",
+      description: variant.metadata.description,
+      images: [personalOgImage.url],
+      title: variant.metadata.title,
+    },
     ...(isPreviewPrint ? { robots: { follow: false, index: false } } : {}),
   };
 }

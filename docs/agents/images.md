@@ -80,7 +80,7 @@ Approved composition for the site default social image (not per-post hero images
 - `Agentic Product Engineer` — role, gray
 - `gaboesquivel.com` — URL, turquoise
 
-Right-side artwork: product-interface panel, two system component squares, turquoise and gray connector paths with two turquoise ports. Conceptual product engineering across interfaces and systems; flat editorial palette only (`#000000`, `#ffffff`, `#a3a3a3`, `#404040`, `#5cded6`). No gradients, glow, or extra symbols.
+Right-side artwork: the homepage portrait master (`assets/homepage/gaboesquivel-homepage-master.webp`), scaled uniformly and placed on the right, clear of the left type. The portrait keeps its proportions and embedded linework; the SVG does not redraw those labels. Left-side copy unchanged. Flat editorial palette on the type (`#000000`, `#ffffff`, `#a3a3a3`, `#5cded6`).
 
 **Assets**
 
@@ -94,10 +94,10 @@ Right-side artwork: product-interface panel, two system component squares, turqu
 
 **Font:** IBM Plex Mono Regular in `assets/fonts/ibm-plex-mono/` (SIL Open Font License in `LICENSE.txt`). Text is converted to outlines in the SVG; generation does not request remote fonts.
 
-**Generation:** `bun run og:generate` (`scripts/generate-home-og.ts`). Reproduces the SVG and PNG offline. Not part of `build` or content export.
+**Generation:** `bun run og:generate` (`scripts/generate-og.ts`). Reproduces the personal SVG/PNG, per-post editorial blog OG images under `public/images/og/blog/`, and project OG derivatives under `public/images/og/projects/`. Also runs in `bun run build` after Velite.
 
 **Serving:** Next.js file-based metadata uses `app/opengraph-image.png`. `app/og/route.ts` returns the same PNG bytes at `/og` for Twitter default (`summary_large_image`) without remote fetch or secondary rendering.
 
 ## Homepage portrait hero
 
-Photographic hero composition (exception to flat editorial hero rules). Master: `assets/homepage/gaboesquivel-homepage-master.webp`. Shipped WebPs: `public/images/gaboesquivel-homepage-mobile.webp` (896px) and `public/images/gaboesquivel-homepage-desktop.webp` (700px). Regenerate with `bun run hero:optimize` after editing the master. Layout and delivery: [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). Legacy URL `/images/gaboesquivel-homepage.webp` redirects to the mobile derivative.
+Photographic hero composition (exception to flat editorial hero rules). Master: `assets/homepage/gaboesquivel-homepage-master.webp` (1448×1086). Shipped WebPs: `public/images/gaboesquivel-homepage-mobile.webp` (896×672) and `public/images/gaboesquivel-homepage-desktop.webp` (700×525). Regenerate with `bun run hero:optimize` after editing the master. The personal OG image composites this master, not the mobile derivative. Layout and delivery: [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). Legacy URL `/images/gaboesquivel-homepage.webp` redirects to the mobile derivative.

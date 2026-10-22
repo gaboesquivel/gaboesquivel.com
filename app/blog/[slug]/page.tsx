@@ -6,6 +6,7 @@ import { allBlogs } from "lib/blog";
 import { blogJsonLd } from "lib/blog-json-ld";
 import { getRelatedPosts } from "lib/blog-related";
 import { isArchivePost } from "lib/blog-taxonomy";
+import { blogOgMetadataImages } from "lib/og/resolve";
 import { metadataWithMarkdownAlternate } from "lib/page-metadata";
 import { siteOrigin } from "lib/site-path";
 import { cn, formatDate } from "lib/utils";
@@ -31,10 +32,17 @@ export async function generateMetadata({
     title,
     publishedAt: publishedTime,
     summary: description,
-    image,
+    ogImage,
     slug: postSlug,
   } = post;
-  const ogImage = image ? `${siteOrigin}${image}` : undefined;
+  const images = blogOgMetadataImages({
+    ogImage,
+    siteOrigin,
+    slug: postSlug,
+  });
+  const twitterImages = images.map((img) =>
+    img.url.startsWith("http") ? img.url : `${siteOrigin}${img.url}`
+  );
 
   return metadataWithMarkdownAlternate({
     metadata: {
@@ -45,14 +53,14 @@ export async function generateMetadata({
         title,
         type: "article",
         url: `${siteOrigin}/blog/${postSlug}`,
-        ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+        images,
       },
       title,
       twitter: {
         card: "summary_large_image",
         description,
         title,
-        ...(ogImage ? { images: [ogImage] } : {}),
+        images: twitterImages,
       },
     },
     path: `/blog/${postSlug}`,
