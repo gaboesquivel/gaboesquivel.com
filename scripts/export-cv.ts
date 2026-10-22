@@ -8,7 +8,7 @@ import type { CvKey } from "gaboesquivel";
 import { chromium } from "playwright-core";
 import type { Page } from "playwright-core";
 
-import { cvPath, cvPdfFile } from "../app/cv/variants";
+import { cvPath, cvPdfFile } from "../lib/cv-paths";
 import {
   A4_CONTENT_WIDTH_PX,
   assertPrintBlocksFit,

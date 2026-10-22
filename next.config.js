@@ -37,45 +37,29 @@ const nextConfig = {
     transpilePackages: ["gaboesquivel"],
   }),
   async redirects() {
-    const calRedirect = {
-      destination: "https://calendly.com/gaboesquivel/30min",
-      permanent: true,
-      source: "/cal",
-    };
-    const connectRedirects = [
+    const baseRedirects = [
+      {
+        destination: "https://calendly.com/gaboesquivel/30min",
+        permanent: true,
+        source: "/cal",
+      },
       { destination: "/contact", permanent: true, source: "/connect" },
-    ];
-    const legacyAssetRedirects = [
       {
         destination: "/images/gaboesquivel-homepage-mobile.webp",
         permanent: true,
         source: "/images/gaboesquivel-homepage.webp",
       },
-    ];
-    const mcpDocsRedirects = [
       { destination: "/docs", permanent: true, source: "/developers" },
       { destination: "/docs", permanent: true, source: "/developer" },
       { destination: "/docs", permanent: true, source: "/mcp/docs" },
       { destination: "/docs", permanent: true, source: "/docs/mcp" },
+      ...blogTechRedirects,
     ];
     try {
       const edgeRedirects = await get("redirects");
-      return [
-        calRedirect,
-        ...connectRedirects,
-        ...legacyAssetRedirects,
-        ...mcpDocsRedirects,
-        ...blogTechRedirects,
-        ...(edgeRedirects ?? []),
-      ];
+      return [...baseRedirects, ...(edgeRedirects ?? [])];
     } catch {
-      return [
-        calRedirect,
-        ...connectRedirects,
-        ...legacyAssetRedirects,
-        ...mcpDocsRedirects,
-        ...blogTechRedirects,
-      ];
+      return baseRedirects;
     }
   },
   headers() {

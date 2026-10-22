@@ -121,7 +121,7 @@ Booking rechecks availability before inserting an event and uses Redis to coordi
 
 ## CV and print outputs
 
-The package owns CV content and variants. `app/cv/variants.ts` adds site PDF paths and print metadata; `app/cv/` owns rendering and print layout. `scripts/export-cv.ts` prints with local Chrome through `playwright-core`, computes page breaks, and writes PDFs plus supporting print artifacts. This use of Playwright is a PDF export implementation, separate from interactive browser verification.
+The package owns CV content and variants. `lib/cv-paths.ts` owns PDF filenames and section titles; `app/cv/page-breaks.ts` holds measured print breaks; `app/cv/` owns rendering and print layout. `scripts/export-cv.ts` prints with local Chrome through `playwright-core`, computes page breaks, and writes PDFs plus supporting print artifacts. This use of Playwright is a PDF export implementation, separate from interactive browser verification.
 
 The pre-commit hook regenerates and stages CV outputs when the specified CV, global stylesheet, or contact-info sources are staged. See `scripts/hooks/cvs-if-needed.sh` for the trigger paths. Changes to package facts still belong in the package repository even when they affect the rendered CV.
 

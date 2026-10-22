@@ -96,8 +96,9 @@ describe("choosePageBreaks", () => {
         web3: ["skills"],
       },
     });
-    expect(source).toContain("full: ['Bitlauncher']");
-    expect(source).toContain("web3: ['skills']");
+    expect(source).toContain('full: ["Bitlauncher"]');
+    expect(source).toContain('web3: ["skills"]');
+    expect(source).toContain('import type { CvKey } from "gaboesquivel";');
   });
 
   test("countPdfPages prefers the Pages Count", () => {

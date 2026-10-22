@@ -125,11 +125,12 @@ export const assertPrintBlocksFit = ({
 };
 
 export const countPdfPages = ({ pdf }: { pdf: Buffer }) => {
-  const count = pdf.toString("latin1").match(/\/Count\s+(\d+)/);
+  const latin1 = pdf.toString("latin1");
+  const count = latin1.match(/\/Count\s+(\d+)/);
   if (count) {
     return Number(count[1]);
   }
-  return (pdf.toString("latin1").match(/\/Type\s*\/Page\b/g) ?? []).length;
+  return (latin1.match(/\/Type\s*\/Page\b/g) ?? []).length;
 };
 
 export const serializeCvPageBreaks = ({
@@ -139,16 +140,16 @@ export const serializeCvPageBreaks = ({
 }) => {
   const body = cvKeys
     .map((key) => {
-      const ids = breaks[key].map((id) => `'${id}'`).join(", ");
+      const ids = breaks[key].map((id) => `"${id}"`).join(", ");
       return `  ${key}: [${ids}],`;
     })
     .join("\n");
 
-  return `import type { CvKey } from 'gaboesquivel'
+  return `import type { CvKey } from "gaboesquivel";
 
 export const cvPageBreaks: Record<CvKey, string[]> = {
 ${body}
-}
+};
 `;
 };
 

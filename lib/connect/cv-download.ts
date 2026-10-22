@@ -1,15 +1,13 @@
-import { cvKeys } from "gaboesquivel";
+import { resolveCv } from "gaboesquivel";
 import type { CvKey } from "gaboesquivel";
 import { cvPath, cvPdfFile, cvSectionTitles } from "lib/cv-paths";
 import { siteOrigin } from "lib/site-path";
 
-export { cvSectionTitles };
-
-export const normalizeCvFocus = (focus?: string | null) => {
-  if (!focus || focus === "full") return "full" satisfies CvKey;
-  if ((cvKeys as readonly string[]).includes(focus)) return focus as CvKey;
-  return "full" satisfies CvKey;
-};
+export const normalizeCvFocus = (focus?: string | null): CvKey =>
+  resolveCv({
+    focus:
+      focus === null || focus === undefined || focus === "" ? undefined : focus,
+  }).key;
 
 export interface CvDownloadPayload {
   filename: string;

@@ -1,5 +1,7 @@
 import "./cv.css";
 import { LatestPosts } from "components/blog/latest-posts";
+import { PrintButton } from "components/print-button";
+import { ContactInfo } from "components/shared/contact-info";
 import {
   PageSection,
   PageTitle,
@@ -10,13 +12,14 @@ import {
   sectionTitle,
   titleSpacing,
 } from "components/shared/page-layout";
+import { resolveCv as resolveCvBase } from "gaboesquivel";
+import { cvPdfFile } from "lib/cv-paths";
 import { markdownSiblingPath } from "lib/markdown-sibling";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
+import { cache } from "react";
 
-import { PrintButton } from "../../components/print-button";
-import { ContactInfo } from "../../components/shared/contact-info";
-import { cvPdfFile, cvSectionBreak, resolveCv } from "./variants";
+import { cvSectionBreak } from "./page-breaks";
 
 interface CvPageProps {
   searchParams?: Promise<{
@@ -33,9 +36,25 @@ const bulletListClass = cn(proseClass, "mb-0 list-none pl-0");
 const previewParam = ({ preview }: { preview?: string | string[] }) =>
   Array.isArray(preview) ? preview[0] : preview;
 
+const focusCacheKey = (focus?: string | string[]) => {
+  if (focus === undefined) return "";
+  return Array.isArray(focus) ? focus.join("\0") : focus;
+};
+
+const resolveCv = cache((key: string) =>
+  resolveCvBase({
+    focus: key === "" ? undefined : key.includes("\0") ? key.split("\0") : key,
+  })
+);
+
+const resolveCvForRequest = ({ focus }: { focus?: string | string[] }) =>
+  resolveCv(focusCacheKey(focus));
+
 export default async function CVPage({ searchParams }: CvPageProps) {
   const resolved = await searchParams;
-  const { key, variant, entries } = resolveCv({ focus: resolved?.focus });
+  const { key, variant, entries } = resolveCvForRequest({
+    focus: resolved?.focus,
+  });
   const isPreviewPrint =
     previewParam({ preview: resolved?.preview }) === "print";
 
@@ -89,7 +108,11 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           <div
             key={exp.company}
             data-cv-block={exp.company}
-            className={`${exp.pageBreak ? "page-break-before " : ""}cv-entry-group no-break-inside${index === 0 ? ` ${sectionSpacing} print:mt-0 preview-print:mt-0` : ""}`}
+            className={cn(
+              cvSectionBreak({ id: exp.company, key }),
+              "cv-entry-group no-break-inside",
+              index === 0 && `${sectionSpacing} print:mt-0 preview-print:mt-0`
+            )}
           >
             {index === 0 ? (
               <div className={sectionHeadingRow}>
@@ -134,7 +157,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
       {variant.also ? (
         <div
           data-cv-block="also"
-          className={`${cvSectionBreak({ id: "also", key })}no-break-inside`}
+          className={cn(cvSectionBreak({ id: "also", key }), "no-break-inside")}
         >
           <PageSection
             className="print:mt-0 preview-print:mt-0"
@@ -147,7 +170,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
       <div
         data-cv-block="skills"
-        className={`${cvSectionBreak({ id: "skills", key })}no-break-inside`}
+        className={cn(cvSectionBreak({ id: "skills", key }), "no-break-inside")}
       >
         <PageSection className="print:mt-0 preview-print:mt-0" title="Skills">
           <ul className={bulletListClass}>
@@ -162,7 +185,10 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
       <div
         data-cv-block="contact"
-        className={`${cvSectionBreak({ id: "contact", key })}no-break-inside`}
+        className={cn(
+          cvSectionBreak({ id: "contact", key }),
+          "no-break-inside"
+        )}
       >
         <ContactInfo />
       </div>
@@ -178,7 +204,7 @@ export async function generateMetadata({
   searchParams,
 }: CvPageProps): Promise<Metadata> {
   const resolved = await searchParams;
-  const { variant } = resolveCv({ focus: resolved?.focus });
+  const { variant } = resolveCvForRequest({ focus: resolved?.focus });
   const isPreviewPrint =
     previewParam({ preview: resolved?.preview }) === "print";
 

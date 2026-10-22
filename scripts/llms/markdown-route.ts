@@ -32,8 +32,6 @@ import {
   rewriteInternalPaths,
 } from "./routes";
 
-export { markdownNotFoundBody } from "../../lib/markdown-not-found";
-
 export interface MarkdownRouteContext {
   manifest: Set<string>;
   pages: ReturnType<typeof loadNarrativePages>;
