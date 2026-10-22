@@ -26,8 +26,6 @@ const blogTechRedirects = techStack.flatMap((tech) => [
   },
 ]);
 
-const emptyModule = path.join(__dirname, "lib/empty-module.js");
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   allowedDevOrigins: ["gaboesquivel.localhost", "*.gaboesquivel.localhost"],
@@ -108,25 +106,6 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "@tanstack/react-form"],
-  },
-  turbopack: {
-    rules: {
-      "*": {
-        as: "*.js",
-        condition: { path: /[/\\]polyfill-module\.js$/ },
-        loaders: [path.join(__dirname, "lib/empty-polyfill-loader.js")],
-      },
-    },
-  },
-  webpack: (config, { isServer, webpack }) => {
-    if (isServer) return config;
-    config.plugins.push(
-      new webpack.NormalModuleReplacementPlugin(
-        /next[/\\]dist[/\\]build[/\\]polyfills[/\\]polyfill-module/,
-        emptyModule
-      )
-    );
-    return config;
   },
 };
 
