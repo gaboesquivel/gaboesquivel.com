@@ -6,3 +6,6 @@ export const cvPageBreaks: Record<CvKey, string[]> = {
   web3: ["RareMint"],
   fullstack: ["Wink"],
 };
+
+export const cvSectionBreak = ({ key, id }: { key: CvKey; id: string }) =>
+  cvPageBreaks[key].includes(id) ? "page-break-before " : "";

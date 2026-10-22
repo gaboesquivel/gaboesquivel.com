@@ -150,6 +150,9 @@ export const serializeCvPageBreaks = ({
 export const cvPageBreaks: Record<CvKey, string[]> = {
 ${body}
 };
+
+export const cvSectionBreak = ({ key, id }: { key: CvKey; id: string }) =>
+  cvPageBreaks[key].includes(id) ? "page-break-before " : "";
 `;
 };
 
