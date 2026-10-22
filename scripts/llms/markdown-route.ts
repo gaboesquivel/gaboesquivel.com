@@ -1,4 +1,5 @@
 import { filterTechByCategory, projects, techStack } from "gaboesquivel";
+import { blogIndexDescription } from "lib/blog-index";
 
 import {
   isTechCategoryId,
@@ -83,7 +84,7 @@ const renderWorkMarkdown = (type: string) => {
 
 const renderBlogIndexMarkdown = (posts: ReturnType<typeof loadBlogPosts>) => {
   const lines = [
-    "Notes on shipping software — AI, Web3, and engineering.",
+    blogIndexDescription,
     "",
     ...posts.map((post) =>
       llmsListItem({

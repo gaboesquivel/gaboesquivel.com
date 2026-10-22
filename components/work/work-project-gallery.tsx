@@ -19,14 +19,12 @@ export function WorkProjectGallery({ projects }: { projects: Project[] }) {
         <EditorialProjectList projects={[pairA, pairB]} />
       ) : null}
       {wide ? (
-        <div className="mt-12 lg:mt-16">
-          <EditorialProjectCard
-            project={wide}
-            showRole
-            frame="wide"
-            sizes={workCoverSizes}
-          />
-        </div>
+        <EditorialProjectCard
+          project={wide}
+          showRole
+          frame="wide"
+          sizes={workCoverSizes}
+        />
       ) : null}
       {pairC && pairD ? (
         <EditorialProjectList projects={[pairC, pairD]} />

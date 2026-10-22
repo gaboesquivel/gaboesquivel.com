@@ -84,3 +84,11 @@ export const heroTitle =
   "text-[clamp(2rem,4vw,3.25rem)] sm:text-[clamp(2.5rem,4vw,3.25rem)] font-bold leading-[1.12] tracking-[-0.045em] text-white";
 export const heroPitch =
   "mt-6 max-w-[45ch] text-base leading-relaxed text-neutral-300 lg:text-lg";
+
+export const diagramScroll =
+  "mt-8 w-full overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]";
+/** Match capability diagram viewBox width (720). */
+export const diagramSvg = "min-w-[720px] w-full max-w-none";
+
+export const projectRole = "text-sm text-accent";
+export const projectRoleInCard = cn(projectRole, "mt-2");

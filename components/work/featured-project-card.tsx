@@ -1,4 +1,8 @@
-import { cardArrow, editorialLink } from "components/shared/spacing";
+import {
+  cardArrow,
+  editorialLink,
+  projectRoleInCard,
+} from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { resolveProjectImage, workCoverSizes } from "lib/work/project-cover";
@@ -40,7 +44,7 @@ export function FeaturedProjectCard({
               {project.title}
             </h2>
             {project.role ? (
-              <p className="mt-2 text-sm text-neutral-400">{project.role}</p>
+              <p className={projectRoleInCard}>{project.role}</p>
             ) : null}
             <p className="mt-4 max-w-[60ch] text-base leading-relaxed text-neutral-300 lg:text-lg">
               {project.description}

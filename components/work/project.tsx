@@ -8,6 +8,7 @@ import {
 import {
   blockSpacing,
   editorialLink,
+  projectRole,
   readingMeasure,
 } from "components/shared/spacing";
 import { VimeoPlayer } from "components/vimeo";
@@ -80,9 +81,7 @@ export function ProjectDetails({
       />
 
       {full && project.role ? (
-        <p className={cn(readingMeasure, "text-sm text-neutral-400")}>
-          {project.role}
-        </p>
+        <p className={cn(readingMeasure, projectRole)}>{project.role}</p>
       ) : null}
 
       <div className="mt-8">

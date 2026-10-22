@@ -34,17 +34,18 @@ export default function AIExperiencePage() {
           attorneys led me to adjust the assistant&apos;s persona and tool
           calling.
         </Prose>
-        <Prose>
-          To make the system manageable after launch, I built a TanStack Start
-          administration interface with Microsoft SSO, document management,
-          prompt controls, and retrieval categories.
-        </Prose>
 
         <ProjectEvidence
           columns={1}
           presentation="registry"
           slugs={["legal-agent"]}
         />
+
+        <Prose>
+          To make the system manageable after launch, I built a TanStack Start
+          administration interface with Microsoft SSO, document management,
+          prompt controls, and retrieval categories.
+        </Prose>
       </PageSection>
 
       <PageSection title="Domain-specific assistants">

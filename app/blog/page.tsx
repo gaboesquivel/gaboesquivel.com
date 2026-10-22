@@ -1,12 +1,12 @@
 import { BlogPosts } from "components/blog/blog-posts";
 import { getFilteredBlogPosts } from "lib/blog-filter";
+import { blogIndexDescription } from "lib/blog-index";
 import { isBlogPageInRange, parseBlogPageParam } from "lib/blog-pagination";
 import { pageMetadata } from "lib/page-metadata";
 import { notFound } from "next/navigation";
 
 export const metadata = pageMetadata({
-  description:
-    "Notes on shipping software — AI, Web3, and engineering. Recent writing on agents, DeFi, architecture, and what held up in production.",
+  description: blogIndexDescription,
   path: "/blog",
   title: "Writing | Gabo Esquivel",
 });
@@ -31,7 +31,7 @@ export default async function BlogPage({
     <BlogPosts
       category="all"
       heading="Writing"
-      intro="Insights on emerging technologies, industry trends, and the engineering practices shaping modern software products, informed by hands-on experience building and shipping."
+      intro={blogIndexDescription}
       page={parsedPage}
     />
   );

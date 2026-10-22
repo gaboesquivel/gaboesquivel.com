@@ -25,9 +25,13 @@ export function BioChapter({
         className
       )}
     >
-      <p className="mb-4 text-sm text-accent">{year}</p>
-      <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>{title}</h2>
-      {children}
+      <div className="grid gap-6 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-x-10 lg:gap-x-12">
+        <p className="text-sm text-accent md:pt-1">{year}</p>
+        <div className="min-w-0">
+          <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>{title}</h2>
+          {children}
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { editorialLink } from "components/shared/spacing";
+import { editorialLink, projectRoleInCard } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { resolveProjectImage } from "lib/work/project-cover";
@@ -53,7 +53,7 @@ export function EditorialProjectCard({
         {project.title}
       </h3>
       {showRole && project.role ? (
-        <p className="mt-2 text-sm text-neutral-400">{project.role}</p>
+        <p className={projectRoleInCard}>{project.role}</p>
       ) : null}
       <p className="mt-3 text-base leading-relaxed text-neutral-300">
         {project.description}
