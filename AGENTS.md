@@ -32,6 +32,10 @@ Explore, Specify, and Plan stay in the conversation until a decision or an accep
 4. Run the checks in [docs/agents/checks.md](docs/agents/checks.md) that match the changed behavior. For UI, layout, or interaction changes, complete [docs/agents/verify.md](docs/agents/verify.md). Fix failures and recheck the affected behavior.
 5. Report what changed, the checks actually run and their results, and any remaining blockers or unverified behavior. A proposed check is not verification evidence. The task is done when the owning documents match the change and that report names the commands and results.
 
+## Specification storage
+
+Save feature specifications in `docs/specs/<feature-slug>/`, with the capability map and all module specs together. For homepage GenUI, use `docs/specs/homepage-genui/`. Keep stable module IDs and `SPEC-<module-id>.md` filenames; the capability map indexes the module specs. This repository convention overrides skills that place specifications at the project root. Early idea drafts remain in `docs/ideas/`. Plan and task locations continue to follow the applicable planning workflow.
+
 ## Context
 
 Read the matching document before editing:
