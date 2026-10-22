@@ -8,8 +8,9 @@ const muted = "rgba(255, 255, 255, 0.64)";
 
 export function AiSystemDiagram() {
   return (
-    <DiagramScroll>
+    <DiagramScroll labelledBy="ai-system-title">
       <svg
+        aria-describedby="ai-system-desc"
         aria-labelledby="ai-system-title"
         className={diagramSvg}
         role="img"
@@ -19,6 +20,10 @@ export function AiSystemDiagram() {
           LegalAgent: voice and chat, retrieval over case context, and admin
           controls feeding the assistant
         </title>
+        <desc id="ai-system-desc">
+          Three labeled stages in a row: voice and chat, retrieval, and admin
+          controls. A return line underneath is labeled operate after launch.
+        </desc>
         <rect
           fill="none"
           height="140"

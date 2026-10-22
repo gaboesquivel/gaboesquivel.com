@@ -10,8 +10,10 @@ export interface CalendarClient {
     timeMax: string;
     timeMin: string;
   }) => Promise<BusyInterval[]>;
+  get: (input: { eventId: string }) => Promise<{ id: string } | null>;
   insert: (input: {
     event: Record<string, unknown>;
+    eventId?: string;
     requestId: string;
   }) => Promise<{ id: string }>;
 }
@@ -70,9 +72,27 @@ export const googleCalendar = (): CalendarClient => {
       };
       return busyForCalendar({ calendars: payload.calendars, id });
     },
-    insert: async ({ event, requestId }) => {
+    get: async ({ eventId }) => {
+      try {
+        const token = await googleAccessToken();
+        const response = await fetch(
+          `https://www.googleapis.com/calendar/v3/calendars/${calendarPath}/events/${encodeURIComponent(eventId)}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            method: "GET",
+          }
+        );
+        if (response.status === 404) return null;
+        if (!response.ok) throw new Error("calendar-get");
+        const payload = (await response.json()) as { id?: string };
+        return payload.id ? { id: payload.id } : null;
+      } catch {
+        return null;
+      }
+    },
+    insert: async ({ event, eventId }) => {
       const payload = (await googleFetch({
-        body: event,
+        body: eventId ? { ...event, id: eventId } : event,
         path: `/calendars/${calendarPath}/events?sendUpdates=all&conferenceDataVersion=1`,
       })) as { id?: string };
       if (!payload.id) throw new Error("calendar-insert");

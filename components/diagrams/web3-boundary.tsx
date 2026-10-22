@@ -8,8 +8,9 @@ const muted = "rgba(255, 255, 255, 0.64)";
 
 export function Web3BoundaryDiagram() {
   return (
-    <DiagramScroll>
+    <DiagramScroll labelledBy="web3-boundary-title">
       <svg
+        aria-describedby="web3-boundary-desc"
         aria-labelledby="web3-boundary-title"
         className={diagramSvg}
         role="img"
@@ -18,6 +19,11 @@ export function Web3BoundaryDiagram() {
         <title id="web3-boundary-title">
           Product surface, signing boundary, and indexed chain data
         </title>
+        <desc id="web3-boundary-desc">
+          The product surface connects to signing, and signing connects to chain
+          and index. Signing is labeled as the boundary between the product and
+          the chain.
+        </desc>
         <rect
           fill="none"
           height="120"

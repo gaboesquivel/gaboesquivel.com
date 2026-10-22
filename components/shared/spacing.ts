@@ -86,7 +86,7 @@ export const heroPitch =
   "mt-6 max-w-[45ch] text-base leading-relaxed text-neutral-300 lg:text-lg";
 
 export const diagramScroll =
-  "mt-8 w-full overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]";
+  "diagram-scroll w-full overflow-x-auto overscroll-x-contain pb-2 [-webkit-overflow-scrolling:touch] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 /** Match capability diagram viewBox width (720). */
 export const diagramSvg = "min-w-[720px] w-full max-w-none";
 

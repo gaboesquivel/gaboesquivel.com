@@ -4,7 +4,6 @@ import { cn } from "lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { ChatSidebar } from "./chat-sidebar";
 import { SiteSearchTrigger } from "./site-search-trigger";
 
 const navItems = [
@@ -49,7 +48,6 @@ export default function Navbar() {
       </ul>
       <div className="flex shrink-0 items-start gap-0">
         <SiteSearchTrigger />
-        <ChatSidebar />
       </div>
     </nav>
   );

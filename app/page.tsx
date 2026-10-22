@@ -1,5 +1,5 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { HomePrompt } from "components/home/home-prompt";
+import { HomepageGenUiShell } from "components/genui/homepage-shell";
 import { PortraitMedia } from "components/home/portrait-media";
 import { LetsConnect } from "components/shared/lets-connect";
 import { PageTitle, PageSection } from "components/shared/page-layout";
@@ -56,71 +56,78 @@ export default function HomePage() {
         </div>
         <PortraitMedia />
       </div>
-      <HomePrompt />
-      <PageSection
-        title="Selected work"
-        className={homeSection}
-        action={
-          <Link href="/work" className={sectionAction}>
-            View all work
-          </Link>
-        }
-      >
-        <EditorialProjectList projects={selectedProjects} />
-      </PageSection>
-      <PageSection title="Focus" className={homeSection}>
-        <div className="grid gap-8 lg:grid-cols-2">
-          <Link
-            href="/ai"
-            className={cn(editorialLink, "block border-t border-hairline pt-6")}
-          >
-            <h3 className="text-xl font-semibold">Agentic AI products</h3>
-            <p className="mt-3 text-base leading-relaxed text-neutral-400">
-              Voice, chat, retrieval, and agentic interfaces designed around how
-              people work—and the controls teams need to improve them.
-            </p>
-          </Link>
-          <Link
-            href="/web3"
-            className={cn(editorialLink, "block border-t border-hairline pt-6")}
-          >
-            <h3 className="text-xl font-semibold">Onchain finance</h3>
-            <p className="mt-3 text-base leading-relaxed text-neutral-400">
-              Wallets, onchain transactions, and trading experiences that make
-              balances, signatures, and financial decisions understandable.
-            </p>
-          </Link>
-        </div>
-      </PageSection>
-      <LatestPosts
-        limit={4}
-        title="Writing"
-        variant="editorial"
-        action={
-          <Link href="/blog" className={sectionAction}>
-            More writing
-          </Link>
-        }
-      />
-      <PageSection title="Career" className={homeSection}>
-        <div className="flex flex-wrap gap-x-12 gap-y-4">
-          <Link
-            href="/bio"
-            className={cn(editorialLink, "inline-flex min-h-11 items-center")}
-          >
-            Career story
-          </Link>
-          <Link
-            href="/cv"
-            className={cn(editorialLink, "inline-flex min-h-11 items-center")}
-          >
-            Résumé / CV
-          </Link>
-        </div>
-      </PageSection>
-      <PageSection title="Work together" className={homeSection}>
-        <LetsConnect />
-      </PageSection>
+      <HomepageGenUiShell>
+        <PageSection
+          title="Selected work"
+          className={homeSection}
+          action={
+            <Link href="/work" className={sectionAction}>
+              View all work
+            </Link>
+          }
+        >
+          <EditorialProjectList projects={selectedProjects} />
+        </PageSection>
+        <PageSection title="Focus" className={homeSection}>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <Link
+              href="/ai"
+              className={cn(
+                editorialLink,
+                "block border-t border-hairline pt-6"
+              )}
+            >
+              <h3 className="text-xl font-semibold">Agentic AI products</h3>
+              <p className="mt-3 text-base leading-relaxed text-neutral-400">
+                Voice, chat, retrieval, and agentic interfaces designed around
+                how people work—and the controls teams need to improve them.
+              </p>
+            </Link>
+            <Link
+              href="/web3"
+              className={cn(
+                editorialLink,
+                "block border-t border-hairline pt-6"
+              )}
+            >
+              <h3 className="text-xl font-semibold">Onchain finance</h3>
+              <p className="mt-3 text-base leading-relaxed text-neutral-400">
+                Wallets, onchain transactions, and trading experiences that make
+                balances, signatures, and financial decisions understandable.
+              </p>
+            </Link>
+          </div>
+        </PageSection>
+        <LatestPosts
+          limit={4}
+          title="Writing"
+          variant="editorial"
+          action={
+            <Link href="/blog" className={sectionAction}>
+              More writing
+            </Link>
+          }
+        />
+        <PageSection title="Career" className={homeSection}>
+          <div className="flex flex-wrap gap-x-12 gap-y-4">
+            <Link
+              href="/bio"
+              className={cn(editorialLink, "inline-flex min-h-11 items-center")}
+            >
+              Career story
+            </Link>
+            <Link
+              href="/cv"
+              className={cn(editorialLink, "inline-flex min-h-11 items-center")}
+            >
+              Résumé / CV
+            </Link>
+          </div>
+        </PageSection>
+        <PageSection title="Work together" className={homeSection}>
+          <LetsConnect />
+        </PageSection>
+      </HomepageGenUiShell>
     </section>
   );
 }

@@ -9,6 +9,7 @@ import {
   blockSpacing,
   editorialLink,
   projectRole,
+  proseClass,
   readingMeasure,
 } from "components/shared/spacing";
 import { VimeoPlayer } from "components/vimeo";
@@ -73,15 +74,24 @@ export function ProjectDetails({
   return (
     <div className="mb-10">
       <InnerPageHero
-        className={full && project.role ? "mb-4" : undefined}
+        className={full && project.role ? "mb-3" : undefined}
         compact
-        description={project.description.replaceAll("\n", " ")}
+        description={
+          full && project.role
+            ? undefined
+            : project.description.replaceAll("\n", " ")
+        }
         title={project.title}
         trail={[{ href: "/work", label: "work" }, { label: project.title }]}
       />
 
       {full && project.role ? (
-        <p className={cn(readingMeasure, projectRole)}>{project.role}</p>
+        <>
+          <p className={cn(readingMeasure, projectRole)}>{project.role}</p>
+          <p className={cn(proseClass, "mt-4 max-w-[55ch] text-neutral-300")}>
+            {project.description.replaceAll("\n", " ")}
+          </p>
+        </>
       ) : null}
 
       <div className="mt-8">
@@ -116,16 +126,16 @@ export function ProjectDetails({
       {full && project.achievements && project.achievements.length > 0 ? (
         <div className={cn(readingMeasure, "mt-12")}>
           <PageSection title="Selected contributions">
-            <ol className="list-inside list-disc space-y-4">
+            <ul className="list-disc space-y-4 pl-5">
               {project.achievements.map((achievement) => (
                 <li
                   key={`${project.slug}-achievement-${achievement}`}
-                  className="text-base"
+                  className="text-base leading-relaxed"
                 >
                   {achievement}
                 </li>
               ))}
-            </ol>
+            </ul>
           </PageSection>
         </div>
       ) : null}

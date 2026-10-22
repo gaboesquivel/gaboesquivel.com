@@ -8,28 +8,30 @@ import {
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 
-import { LazyContactForm } from "./lazy-contact-form";
+import { ContactForm } from "./contact-form";
 
 export default function ContactPage() {
   return (
-    <section className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-x-16">
-      <div className="min-w-0">
-        <InnerPageHero className="mb-0" title="Contact Gabo Esquivel" />
-        <div className="mt-6">
-          <Prose>
+    <section>
+      <InnerPageHero
+        className="mb-8 lg:mb-10 [&_h1]:text-balance"
+        title="Contact Gabo Esquivel"
+      />
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(16rem,26rem)] lg:items-start lg:gap-x-16 xl:gap-x-20">
+        <div className="min-w-0">
+          <Prose className="mt-0">
             I&apos;m available for direct hire, international hire, and
             contracts through{" "}
             <Link href={hireContractBlogPath} className={proseLink}>
               Blockmatic Labs LLC
             </Link>
-            . I can&apos;t work under W-2. {hireTermsLocationLine} I speak{" "}
-            {hireTermsLanguages}.
+            . I can&apos;t work under{" "}
+            <span className="whitespace-nowrap">W-2</span>.{" "}
+            {hireTermsLocationLine} I speak {hireTermsLanguages}.
           </Prose>
           <Prose>
-            Tell me what you&apos;re building, the challenge you&apos;re working
-            through, and how you&apos;d like to collaborate — direct hire,
-            international hire, or a contract through Blockmatic Labs LLC. Use
-            the form, email{" "}
+            Tell me what you&apos;re building and where it&apos;s stuck. Use the
+            form, email{" "}
             <Link href="mailto:contact@gaboesquivel.com" className={proseLink}>
               contact@gaboesquivel.com
             </Link>
@@ -48,10 +50,9 @@ export default function ContactPage() {
             .
           </Prose>
         </div>
-      </div>
-
-      <div className="mt-8 min-w-0 lg:mt-0 lg:pt-2">
-        <LazyContactForm />
+        <div className="mt-10 min-w-0 lg:mt-0">
+          <ContactForm />
+        </div>
       </div>
     </section>
   );

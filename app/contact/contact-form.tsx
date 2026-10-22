@@ -180,7 +180,7 @@ export function ContactForm() {
             <Field>
               <FieldLabel htmlFor={field.name}>Message</FieldLabel>
               <Textarea
-                className={`${siteFieldClass} h-60 resize-none sm:h-80`}
+                className={`${siteFieldClass} h-44 resize-none sm:h-52`}
                 disabled={isPending}
                 id={field.name}
                 name={field.name}

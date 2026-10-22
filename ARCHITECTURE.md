@@ -60,7 +60,7 @@ Coding-agent skills in `.agents/skills/` guide repository work. The skills in `a
 
 ## Design System v2 presentation
 
-`components/layout/site-width.tsx` applies the homepage `max-w-6xl` shell on every route. `app/page.tsx` remains a Server Component reading package projects and Velite posts. `HomePrompt` receives a bounded public index and performs local matching only; it has no model, MCP or OpenUI imports and does not replace server content. `ChatSidebar` is a dialog navigation shell linking explicitly to `/ask`; conversation/session migration remains separate.
+`components/layout/site-width.tsx` applies the homepage `max-w-6xl` shell on every route. `app/page.tsx` remains a Server Component reading package projects and Velite posts, wrapped by `HomepageGenUiShell` for generative search. The OpenUI renderer loads only after submit via `/api/genui/compose`; first paint does not initialize Eve, MCP, or the renderer. Public reads and writes flow through `lib/capabilities/` and `/api/capabilities`. `/mcp` is served by `app/mcp/route.ts` (nine registry tools); Eve no longer intercepts that path. `/ask` redirects to `/`.
 
 `lib/work/project-cover.ts` owns presentation-only cover paths and alt text; facts stay in the package. `EditorialProjectCard` and `EditorialProjectList` are Server Components. The list receives resolved project records and does not call `getProjectBySlug`. `lib/genui/experience-contract.ts` names the eight future experiences and imports no components. `scripts/prepare-home-assets.ts` produces source-backed WebPs and provenance manifests. The pristine portrait is versioned separately from the existing OG master. Project hero/OG sources are unchanged.
 

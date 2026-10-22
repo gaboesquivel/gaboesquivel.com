@@ -18,6 +18,7 @@ describe("sendNote", () => {
       ip: "127.0.0.1",
       mailer: async () => {
         called = true;
+        return {};
       },
       now: new Date("2026-10-19T12:00:00.000Z"),
       store: null,
@@ -37,6 +38,7 @@ describe("sendNote", () => {
       ip: "127.0.0.1",
       mailer: async () => {
         called = true;
+        return {};
       },
       now: new Date("2026-10-19T12:00:00.000Z"),
       store: memoryCapStore(),
@@ -55,7 +57,7 @@ describe("sendNote", () => {
           description: `${noteInput.description} ${index}`,
         },
         ip: "127.0.0.1",
-        mailer: async () => {},
+        mailer: async () => ({}),
         now,
         store,
       });
@@ -89,7 +91,7 @@ describe("sendNote", () => {
           description: `${noteInput.description} free ${index}`,
         },
         ip: "127.0.0.1",
-        mailer: async () => {},
+        mailer: async () => ({}),
         now,
         store,
       });

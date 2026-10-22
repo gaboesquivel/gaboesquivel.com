@@ -33,7 +33,6 @@ const SKIP_COMPONENTS = new Set([
   "PageImage",
   "LatestPosts",
   "ContactForm",
-  "LazyContactForm",
   "PrintButton",
   "FilterNav",
   "ContactInfo",

@@ -91,7 +91,22 @@ html {
   height: auto;
 }
 
-/* Diagrams scale to the content column (no horizontal scroll on narrow viewports). */
+/* Capability SVGs stay at a readable width and scroll inside the page. */
+.diagram-scroll {
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  scrollbar-width: thin;
+}
+
+.diagram-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.diagram-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 4px;
+}
+
+/* In-article diagrams scale to the content column (no horizontal scroll). */
 .prose .diagram-frame {
   display: block;
   width: 100%;
