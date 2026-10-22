@@ -38,7 +38,7 @@ const homeHeroMobileSizes =
   "(max-width: 639px) calc(100vw - 2rem), calc(100vw - 3rem)";
 
 const homeHeroDesktopSizes =
-  "(min-width: 768px) calc((min(100vw, 56rem) - 3rem) * 0.47)";
+  "(min-width: 768px) calc((min(100vw, 56rem) - 3rem) * 0.5)";
 
 const selectedProjectSlugs = ["legal-agent", "wink", "ztx", "bitlauncher"];
 const selectedProjects = selectedProjectSlugs.flatMap((slug) => {
@@ -102,7 +102,7 @@ export default function HomePage() {
         <span className="max-md:hidden"> — </span>
         Agentic Product Engineer
       </PageTitle>
-      <div className="relative overflow-x-clip">
+      <div className="relative">
         <picture>
           <source
             media="(min-width: 768px)"
@@ -112,7 +112,7 @@ export default function HomePage() {
           <img
             {...mobile}
             alt={homeHeroAlt}
-            className="block h-auto w-full md:pointer-events-none md:absolute md:top-0 md:right-0 md:h-auto md:w-[47%] md:max-w-none"
+            className="block h-auto w-full md:pointer-events-none md:absolute md:top-0 md:-right-[17px] md:h-auto md:w-1/2 md:max-w-none"
           />
         </picture>
         <div className="relative md:pr-[45%]">
