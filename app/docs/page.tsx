@@ -1,3 +1,4 @@
+import { ReadingPageShell } from "components/interior/reading-page-shell";
 import {
   IndexHeading,
   PageSection,
@@ -13,7 +14,7 @@ const cvAppEndpoint = `${siteOrigin}/mcp/cv`;
 
 export default function DocsPage() {
   return (
-    <section>
+    <ReadingPageShell className="max-w-none">
       <IndexHeading>
         Gabo Esquivel MCP and Site API — developer documentation
       </IndexHeading>
@@ -221,7 +222,7 @@ export default function DocsPage() {
           .
         </Prose>
       </PageSection>
-    </section>
+    </ReadingPageShell>
   );
 }
 

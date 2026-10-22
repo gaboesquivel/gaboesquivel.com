@@ -1,7 +1,10 @@
 import { BlogPagination } from "components/blog/blog-pagination";
 import { BlogPostsMasonry } from "components/blog/blog-posts-masonry";
-import { InnerPageHero } from "components/shared/inner-page-hero";
+import { WritingIndex } from "components/blog/writing-index";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import { FilterNav } from "components/shared/page-layout";
+import { blockSpacing } from "components/shared/spacing";
 import { getFilteredBlogPosts } from "lib/blog-filter";
 import { blogListingHref, paginateBlogPosts } from "lib/blog-pagination";
 import {
@@ -60,15 +63,23 @@ export function BlogPosts({
               ].toLowerCase(),
           },
         ];
-  const hasTrail = Boolean(trail?.length);
+  const showPublicationIndex =
+    currentCategory === "all" && page === 1 && paginatedPosts.length > 0;
+
+  const pageTitle =
+    heading ??
+    (trail
+      ? categoryDisplayNames[currentCategory as BrowseCategory]
+      : "Writing");
 
   return (
-    <section>
-      {heading ? (
-        <InnerPageHero
-          compact={hasTrail}
+    <InteriorPageShell>
+      {heading || trail ? (
+        <PageIntro
+          compact={Boolean(trail?.length)}
           description={intro}
-          title={heading}
+          eyebrow={trail ? undefined : "Writing"}
+          title={pageTitle}
           trail={trail}
         />
       ) : null}
@@ -90,16 +101,21 @@ export function BlogPosts({
         ]}
       />
 
-      <BlogPostsMasonry
-        posts={paginatedPosts}
-        identifier={currentCategory}
-        variant="editorial"
-      />
+      {showPublicationIndex ? (
+        <WritingIndex posts={paginatedPosts} showFeatured />
+      ) : (
+        <BlogPostsMasonry
+          className={blockSpacing}
+          posts={paginatedPosts}
+          identifier={currentCategory}
+          variant="editorial"
+        />
+      )}
       <BlogPagination
         category={currentCategory}
         page={page}
         totalItems={filteredPosts.length}
       />
-    </section>
+    </InteriorPageShell>
   );
 }

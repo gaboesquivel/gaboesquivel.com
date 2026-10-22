@@ -1,6 +1,7 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { Web3BoundaryDiagram } from "components/diagrams/web3-boundary";
-import { InnerPageHero } from "components/shared/inner-page-hero";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import { LetsConnect } from "components/shared/lets-connect";
 import {
   PageImage,
@@ -19,9 +20,10 @@ const ztxCover = projectCover("ztx");
 
 export default function Web3ExperiencePage() {
   return (
-    <section>
-      <InnerPageHero
+    <InteriorPageShell>
+      <PageIntro
         description="I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync."
+        eyebrow="Capabilities"
         title="Web3 Engineering"
       />
       <Prose>
@@ -131,7 +133,7 @@ export default function Web3ExperiencePage() {
         </Prose>
         <LetsConnect />
       </PageSection>
-    </section>
+    </InteriorPageShell>
   );
 }
 

@@ -24,6 +24,43 @@ html:has([data-cv-preview="print"]) body {
 html {
   width: 100%;
   max-width: 100vw;
+  --header-offset: 5.5rem;
+}
+
+.article-layout-with-toc {
+  display: grid;
+  align-items: start;
+  column-gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 52rem)
+    minmax(14rem, 17rem);
+}
+
+.article-layout-with-toc .article-layout-main {
+  grid-column: 2;
+}
+
+.article-toc-rail {
+  position: sticky;
+  top: var(--header-offset);
+  grid-column: 3;
+  max-height: calc(100dvh - var(--header-offset) - 2rem);
+  overflow-y: auto;
+}
+
+@media (max-width: 1279px) {
+  .article-layout-with-toc {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-layout-with-toc .article-layout-main {
+    grid-column: 1;
+  }
+}
+
+.blog-content :where(h2, h3, h4) {
+  scroll-margin-top: var(--header-offset);
 }
 
 .prose .anchor {
@@ -48,6 +85,27 @@ html {
 /* Posts fill the shell. Words stay on the reading measure. Figures and code use the shell. */
 .blog-content > :where(p, ul, ol, blockquote, h2, h3, h4) {
   max-width: 65ch;
+}
+
+.blog-content figure {
+  max-width: 65ch;
+}
+
+.blog-content figure.blog-media-wide,
+.blog-content figure.max-w-3xl {
+  max-width: min(48rem, 100%);
+}
+
+.blog-content figure.blog-media-breakout {
+  max-width: min(72rem, 100%);
+}
+
+.blog-content figure.blog-media-wide img,
+.blog-content figure.blog-media-breakout img,
+.blog-content figure.max-w-3xl img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
 }
 
 .prose li {

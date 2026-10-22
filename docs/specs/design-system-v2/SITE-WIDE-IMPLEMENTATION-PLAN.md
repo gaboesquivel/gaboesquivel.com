@@ -252,9 +252,9 @@ Each implementation phase should be one commit when requested, leave `bun run bu
 
 ---
 
-### P5 — Writing shell (blocked)
+### P5 — Writing shell
 
-Wide outer canvas and sticky ToC require explicit product approval and a PDR under `docs/pdr/` before code. Prose in [components/mdx.tsx](../../../components/mdx.tsx) and [app/blog/[slug]/page.tsx](../../../app/blog/[slug]/page.tsx) title measure stay. See [docs/agents/content.md](../../agents/content.md).
+**Status:** Shipped via interior editorial rollout — [docs/pdr/interior-editorial-layout.md](../../pdr/interior-editorial-layout.md). Article grid, build-time TOC (`post.toc` from Velite), sticky rail at `xl+`, inline TOC below `xl`. Prose measure unchanged (~52rem / 65ch rules in `global.css`).
 
 **Not a gate for P1–P4 or P6.**
 

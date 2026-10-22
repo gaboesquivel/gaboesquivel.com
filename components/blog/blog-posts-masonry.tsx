@@ -8,14 +8,20 @@ export function BlogPostsMasonry({
   posts,
   identifier = "posts",
   variant = "card",
+  className,
 }: {
   posts: Blog[];
   identifier?: string;
   variant?: "card" | "editorial";
+  className?: string;
 }) {
   if (variant === "editorial") {
     return (
-      <EditorialBlogList posts={posts} showArrow className={blockSpacing} />
+      <EditorialBlogList
+        posts={posts}
+        showArrow
+        className={className ?? blockSpacing}
+      />
     );
   }
 

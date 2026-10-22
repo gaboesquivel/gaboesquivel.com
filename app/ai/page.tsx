@@ -1,6 +1,7 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { AiSystemDiagram } from "components/diagrams/ai-system";
-import { InnerPageHero } from "components/shared/inner-page-hero";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import { LetsConnect } from "components/shared/lets-connect";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import { ProjectEvidence } from "components/work/project-evidence";
@@ -10,9 +11,10 @@ import Link from "next/link";
 
 export default function AIExperiencePage() {
   return (
-    <section>
-      <InnerPageHero
+    <InteriorPageShell>
+      <PageIntro
         description="I build AI products where the experience matters as much as the model: voice and chat assistants, retrieval-backed workflows, and interfaces that help people understand what an agent is doing."
+        eyebrow="Capabilities"
         title="AI Engineering"
       />
       <Prose>
@@ -92,7 +94,7 @@ export default function AIExperiencePage() {
         </Prose>
         <LetsConnect />
       </PageSection>
-    </section>
+    </InteriorPageShell>
   );
 }
 

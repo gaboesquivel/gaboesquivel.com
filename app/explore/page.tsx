@@ -1,4 +1,5 @@
-import { InnerPageHero } from "components/shared/inner-page-hero";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import { PageCard } from "components/shared/page-card";
 import { blockGrid, PageSection } from "components/shared/page-layout";
 import { blockSpacing } from "components/shared/spacing";
@@ -11,8 +12,8 @@ const featuredGrid = cn(blockSpacing, "grid grid-cols-1 gap-4 md:grid-cols-3");
 
 export default function ExplorePage() {
   return (
-    <section>
-      <InnerPageHero
+    <InteriorPageShell>
+      <PageIntro
         description="Browse the main pages by project work, engineering capability, and career context."
         title="Explore"
       />
@@ -47,7 +48,7 @@ export default function ExplorePage() {
           </ul>
         </PageSection>
       ))}
-    </section>
+    </InteriorPageShell>
   );
 }
 

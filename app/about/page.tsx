@@ -1,4 +1,5 @@
-import { InnerPageHero } from "components/shared/inner-page-hero";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import { blockGrid, proseLink, Prose } from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
 import { personalOgImage } from "lib/og/constants";
@@ -7,8 +8,8 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <section>
-      <InnerPageHero
+    <InteriorPageShell>
+      <PageIntro
         description="Gabo Esquivel is a product engineer based in Costa Rica. His work spans AI assistants, mobile banking, blockchain systems, and the interfaces that connect them. He works across product decisions, design, architecture, and implementation."
         title="About Gabo Esquivel"
       />
@@ -76,7 +77,7 @@ export default function AboutPage() {
           />
         </li>
       </ul>
-    </section>
+    </InteriorPageShell>
   );
 }
 

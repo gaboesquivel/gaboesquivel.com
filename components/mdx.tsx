@@ -1,3 +1,4 @@
+import { cn } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
@@ -32,19 +33,27 @@ const CustomLink = ({
 function BlogImage({
   src,
   alt,
+  layout = "prose",
   priority,
   width,
   height,
 }: {
   src: string;
   alt?: string;
+  layout?: "prose" | "wide" | "breakout";
   priority?: boolean;
   width?: string | number;
   height?: string | number;
 }) {
   if (src.startsWith("/images/diagrams/"))
     return (
-      <span className="diagram-frame">
+      <figure
+        className={cn(
+          "diagram-frame my-8",
+          layout === "wide" && "blog-media-wide",
+          layout === "breakout" && "blog-media-breakout"
+        )}
+      >
         <img
           alt={alt ?? ""}
           className="diagram"
@@ -53,20 +62,35 @@ function BlogImage({
           src={src}
           width={width}
         />
-      </span>
+      </figure>
     );
 
+  const sizes =
+    layout === "breakout"
+      ? "(max-width: 768px) 100vw, min(90rem, 92vw)"
+      : layout === "wide"
+        ? "(max-width: 768px) 100vw, min(48rem, 90vw)"
+        : "(max-width: 768px) 100vw, min(100vw, 650px)";
+
   return (
-    <Image
-      alt={alt ?? ""}
-      src={src}
-      width={1200}
-      height={675}
-      sizes="(max-width: 768px) 100vw, min(100vw, 650px)"
-      preload={priority}
-      fetchPriority={priority ? "high" : undefined}
-      className="rounded-lg"
-    />
+    <figure
+      className={cn(
+        "my-8",
+        layout === "wide" && "blog-media-wide",
+        layout === "breakout" && "blog-media-breakout"
+      )}
+    >
+      <Image
+        alt={alt ?? ""}
+        className="rounded-lg"
+        fetchPriority={priority ? "high" : undefined}
+        height={675}
+        preload={priority}
+        sizes={sizes}
+        src={src}
+        width={1200}
+      />
+    </figure>
   );
 }
 

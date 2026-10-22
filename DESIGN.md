@@ -70,7 +70,7 @@ Type scale and spacing tokens live in [`components/shared/spacing.ts`](component
 
 Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](components/shared/spacing.ts).
 
-- Column: `SiteWidth` applies `homeColumn` (`max-w-6xl`, `px-4 sm:px-6 lg:px-8`) on every route, including nav and `main`. `siteColumn` is the same shell. Long-form copy uses `readingMeasure` (`max-w-[65ch]`) inside that shell: bios, docs, capability prose, and project stories. Post paragraphs use that measure; figures and code in a post fill the shell. Hire lines in `LetsConnect` stay full shell, matching the homepage. The résumé document stays `max-w-4xl` on screen. `h-0.5 bg-accent` top bar. CV print stays `print:max-w-none`.
+- Column: `SiteWidth` applies `homeColumn` (`max-w-6xl`, `px-4 sm:px-6 lg:px-8`) on every route, including nav and `main`. `siteColumn` is the same shell. Long-form copy uses `readingMeasure` (`max-w-[65ch]`) inside that shell: docs, utility pages, and narrative blocks inside editorial layouts. **Interior routes** (`/bio`, capability pages, blog posts) opt into `InteriorPageShell` (`interiorBreakout` in `spacing.ts`): a breakout canvas up to `100rem` inside the shell so composition can use a 12-column grid without changing nav/footer width. Post paragraphs stay on ~52rem (`articleProseColumn` / `.blog-content` rules); figures and code may use the shell. Hire lines in `LetsConnect` stay full shell, matching the homepage. The résumé document stays `max-w-4xl` on screen. `h-0.5 bg-accent` top bar. CV print stays `print:max-w-none`.
 - Mobile first: one column below `md`. Default card grids go two-up at `md` (`twoColGrid` / `blockGrid`, `md:grid-cols-2`) — not bento
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
 - Homepage H1: all-white “Software for humans and agents.”, display scale in `heroTitle`; signature immediately beneath, name muted and current role turquoise. Do not restyle that hero. `/work`, `/ai`, `/web3`, `/bio`, `/blog`, capability routes, `/explore`, `/tech`, `/about`, and `/contact` open with `InnerPageHero` at the same display scale and `heroPitch`. Filtered work, writing categories, technology pages, and project pages use the compact `pageTitle` form. `/ask`, `/cv`, `/docs`, and `/privacy` keep their own title treatments.
@@ -129,6 +129,14 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Work featured gallery | `WorkProjectGallery` | `components/work/work-project-gallery.tsx` |
 | Chat project row | `ProjectMedia` / `ProjectMediaStack` on `Card` | `components/work/project-media.tsx` |
 | Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
+| Interior breakout shell | `InteriorPageShell` | `components/interior/interior-page-shell.tsx` |
+| Editorial intro (eyebrow + hero) | `PageIntro` | `components/interior/page-intro.tsx` |
+| Text/media split (12-col) | `SplitSection` + `SplitSectionContent` / `SplitSectionMedia` | `components/interior/split-section.tsx` |
+| Article + sticky TOC | `ArticleShell`, `ArticleTocNav`, `ArticleTocInline` | `components/interior/article-shell.tsx` |
+| Utility / legal reading | `ReadingPageShell` | `components/interior/reading-page-shell.tsx` |
+| Writing index | `WritingIndex`, `WritingFeaturedPost`, `WritingRecentList` | `components/blog/writing-*.tsx` |
+| Project case study | `ProjectCaseStudy` | `components/work/project-case-study.tsx` |
+| In-post image width | `BlogImage` `layout="prose" \| "wide" \| "breakout"` | `components/mdx.tsx`, `app/global.css` |
 | Section CTA | `ctaLink` / `sectionAction` | `components/shared/spacing.ts` |
 | In-prose link | `proseLink` | `components/shared/spacing.ts` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |

@@ -1,27 +1,59 @@
 import { BioChapter } from "components/bio/bio-chapter";
 import { LatestPosts } from "components/blog/latest-posts";
-import { InnerPageHero } from "components/shared/inner-page-hero";
-import { LetsConnect } from "components/shared/lets-connect";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { MediaBlock } from "components/interior/media-block";
+import { PageIntro } from "components/interior/page-intro";
 import {
-  PageImage,
-  PageSection,
-  proseLink,
-  Prose,
-} from "components/shared/page-layout";
+  SplitSection,
+  SplitSectionContent,
+  SplitSectionMedia,
+} from "components/interior/split-section";
+import { LetsConnect } from "components/shared/lets-connect";
+import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import { ProjectEvidence } from "components/work/project-evidence";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 import gabocoding from "public/images/bio/gabo-coding.jpg";
+import nodeschool from "public/images/bio/nodeschool-costa-rica.jpg";
 
 export default function BioPage() {
   return (
-    <section>
-      <InnerPageHero
+    <InteriorPageShell>
+      <PageIntro
         description="I started with web interfaces in 2010. The work grew into complete products, then financial and blockchain systems, and now intelligent interfaces. This is how those stages shaped the way I build."
+        eyebrow="Biography"
         title="Career story"
       />
 
+      <SplitSection className="mt-12 lg:mt-16">
+        <SplitSectionContent mediaPosition="right" span={5}>
+          <Prose className="mt-0">
+            The through-line is interfaces: where complex systems become
+            understandable, usable, and worth trusting — from community meetups
+            in Costa Rica to neobank apps, onchain products, and agents.
+          </Prose>
+        </SplitSectionContent>
+        <SplitSectionMedia mediaPosition="right" span={6}>
+          <MediaBlock
+            alt="NodeSchool Costa Rica community session"
+            aspect="landscape"
+            objectClassName="object-cover"
+            src={nodeschool}
+          />
+        </SplitSectionMedia>
+      </SplitSection>
+
       <BioChapter
+        layout="split-media-right"
+        media={
+          <ProjectEvidence
+            columns={1}
+            presentation="editorial"
+            slugs={["costa-rica-js"]}
+          />
+        }
+        mediaSpan={6}
+        textSpan={5}
         title="Interfaces and a JavaScript community"
         year="2010 — interfaces"
       >
@@ -48,15 +80,19 @@ export default function BioPage() {
           period, I built a fantasy-tennis strategy game and a realtime
           flight-information display for ARINC.
         </Prose>
-
-        <ProjectEvidence
-          columns={1}
-          presentation="editorial"
-          slugs={["costa-rica-js"]}
-        />
       </BioChapter>
 
       <BioChapter
+        layout="split-media-left"
+        media={
+          <ProjectEvidence
+            columns={1}
+            presentation="editorial"
+            slugs={["wink"]}
+          />
+        }
+        mediaSpan={7}
+        textSpan={4}
         title="From interfaces to a banking product"
         year="2015 — product"
       >
@@ -77,15 +113,19 @@ export default function BioPage() {
           expand access rather than create new gatekeepers. There, that meant
           being able to open a bank account without visiting a branch.
         </Prose>
-
-        <ProjectEvidence
-          columns={1}
-          presentation="editorial"
-          slugs={["wink"]}
-        />
       </BioChapter>
 
       <BioChapter
+        layout="split-media-right"
+        media={
+          <MediaBlock
+            alt="Gabo Esquivel coding"
+            objectClassName="object-top object-cover"
+            src={gabocoding}
+          />
+        }
+        mediaSpan={6}
+        textSpan={5}
         title="Complex financial and blockchain systems"
         year="2017 — systems"
       >
@@ -105,20 +145,17 @@ export default function BioPage() {
           interface. Each involved a different part of the same challenge:
           connecting complex systems to understandable interactions.
         </Prose>
-
-        <PageImage
-          alt="Gabo Esquivel coding"
-          objectClassName="object-top"
-          src={gabocoding}
-        />
-
         <ProjectEvidence
           presentation="editorial"
           slugs={["eos-costa-rica", "ztx"]}
         />
       </BioChapter>
 
-      <BioChapter title="Intelligent interfaces" year="2024 — agents">
+      <BioChapter
+        layout="wide"
+        title="Intelligent interfaces"
+        year="2024 — agents"
+      >
         <Prose>
           By 2024, I was building specialized AI assistants at Masterbots and
           Bitlauncher. In 2025, I worked on{" "}
@@ -129,7 +166,6 @@ export default function BioPage() {
           operate an AI product. The same interest in interfaces—the point where
           a complex system becomes usable—now extends to agents.
         </Prose>
-
         <ProjectEvidence
           columns={1}
           presentation="editorial"
@@ -153,7 +189,7 @@ export default function BioPage() {
 
         <LetsConnect />
       </PageSection>
-    </section>
+    </InteriorPageShell>
   );
 }
 

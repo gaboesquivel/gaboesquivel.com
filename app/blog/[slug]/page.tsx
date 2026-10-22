@@ -1,9 +1,12 @@
 import { BlogPostChips } from "components/blog/blog-post-chips";
 import { LatestPosts } from "components/blog/latest-posts";
+import { ArticleShell } from "components/interior/article-shell";
+import { ArticleTocInline } from "components/interior/article-toc-inline";
 import { Mdx } from "components/mdx";
 import { indexTitle } from "components/shared/page-layout";
 import { PageTrail } from "components/shared/page-trail";
 import { allBlogs } from "lib/blog";
+import { showBlogToc } from "lib/blog-headings";
 import { blogJsonLd } from "lib/blog-json-ld";
 import { getRelatedPosts } from "lib/blog-related";
 import { categoryDisplayNames, isArchivePost } from "lib/blog-taxonomy";
@@ -97,6 +100,9 @@ export default async function Blog({
     { label: post.title },
   ];
 
+  const toc = post.toc ?? [];
+  const hasToc = showBlogToc(toc);
+
   return (
     <section>
       <script
@@ -106,23 +112,36 @@ export default async function Blog({
           __html: JSON.stringify(blogJsonLd(post)),
         }}
       />
-      <PageTrail segments={trail} />
-      <h1 className={cn(indexTitle, "mt-4 mb-2 text-balance")}>{post.title}</h1>
-      <p
-        className={cn(
-          "max-w-[650px] text-sm text-neutral-600 dark:text-neutral-400",
-          archived ? "mb-2" : "mb-6"
-        )}
+      <ArticleShell
+        toc={toc}
+        header={
+          <>
+            <PageTrail segments={trail} />
+            <h1 className={cn(indexTitle, "mt-4 mb-2 max-w-none text-balance")}>
+              {post.title}
+            </h1>
+            <p
+              className={cn(
+                "text-sm text-neutral-600 dark:text-neutral-400",
+                archived ? "mb-2" : "mb-6"
+              )}
+            >
+              <time dateTime={post.publishedAt}>
+                {formatDate(post.publishedAt)}
+              </time>
+            </p>
+            {archived ? (
+              <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-500">
+                Historical post — views and technology at time of publication.
+              </p>
+            ) : null}
+            {hasToc ? <ArticleTocInline items={toc} /> : null}
+          </>
+        }
       >
-        <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-      </p>
-      {archived ? (
-        <p className="mb-6 max-w-[650px] text-sm text-neutral-500 dark:text-neutral-500">
-          Historical post — views and technology at time of publication.
-        </p>
-      ) : null}
-      <Mdx code={post.body} />
-      <BlogPostChips categories={post.category} />
+        <Mdx code={post.body} />
+        <BlogPostChips categories={post.category} />
+      </ArticleShell>
       {relatedPosts.length > 0 ? (
         <LatestPosts
           slugs={relatedPosts.map((post) => post.slug)}

@@ -1,4 +1,7 @@
+import { readFileSync } from "node:fs";
+
 import { techStack } from "gaboesquivel";
+import { extractBlogToc } from "lib/blog-headings";
 import { isKnownCategory, knownCategories } from "lib/blog-taxonomy";
 import { rehypePlugins, remarkPlugins } from "lib/velite-mdx-plugins";
 import { defineCollection, defineConfig, s } from "velite";
@@ -19,6 +22,15 @@ const blogs = defineCollection({
       summary: s.string(),
       tech: s.array(s.string()).optional(),
       title: s.string(),
+      toc: s
+        .array(
+          s.object({
+            id: s.string(),
+            level: s.union([s.literal(2), s.literal(3)]),
+            text: s.string(),
+          })
+        )
+        .default([]),
     })
     .transform((data, { meta }) => {
       if (data.tech?.length) {
@@ -41,7 +53,8 @@ const blogs = defineCollection({
           );
         }
       }
-      return data;
+      const toc = extractBlogToc(readFileSync(meta.path, "utf-8"));
+      return { ...data, toc };
     }),
 });
 

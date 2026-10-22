@@ -1,10 +1,11 @@
+import { ReadingPageShell } from "components/interior/reading-page-shell";
 import { PageTitle, proseLink, Prose } from "components/shared/page-layout";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 
 export default function PrivacyPage() {
   return (
-    <section>
+    <ReadingPageShell>
       <PageTitle>Privacy</PageTitle>
       <Prose>
         This site is gaboesquivel.com, a public portfolio and writing site
@@ -59,7 +60,7 @@ export default function PrivacyPage() {
         </Link>
         .
       </Prose>
-    </section>
+    </ReadingPageShell>
   );
 }
 

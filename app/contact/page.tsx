@@ -1,4 +1,5 @@
-import { InnerPageHero } from "components/shared/inner-page-hero";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import { proseLink, Prose } from "components/shared/page-layout";
 import {
   hireContractBlogPath,
@@ -12,8 +13,8 @@ import { ContactForm } from "./contact-form";
 
 export default function ContactPage() {
   return (
-    <section>
-      <InnerPageHero
+    <InteriorPageShell>
+      <PageIntro
         className="mb-8 lg:mb-10 [&_h1]:text-balance"
         title="Contact Gabo Esquivel"
       />
@@ -54,7 +55,7 @@ export default function ContactPage() {
           <ContactForm />
         </div>
       </div>
-    </section>
+    </InteriorPageShell>
   );
 }
 

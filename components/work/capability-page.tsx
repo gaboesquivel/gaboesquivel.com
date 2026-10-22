@@ -1,10 +1,31 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { InnerPageHero } from "components/shared/inner-page-hero";
+import { EditorialSection } from "components/interior/editorial-section";
+import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
+import {
+  SplitSection,
+  SplitSectionContent,
+  SplitSectionMedia,
+} from "components/interior/split-section";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { ProjectEvidence } from "./project-evidence";
+
+interface ChapterLayout {
+  mediaPosition: "left" | "right";
+  textSpan: 4 | 5 | 6;
+  mediaSpan: 5 | 6 | 7;
+}
+
+const chapterLayouts: ChapterLayout[] = [
+  { mediaPosition: "right", textSpan: 5, mediaSpan: 6 },
+  { mediaPosition: "left", textSpan: 4, mediaSpan: 7 },
+  { mediaPosition: "right", textSpan: 6, mediaSpan: 5 },
+  { mediaPosition: "left", textSpan: 5, mediaSpan: 6 },
+  { mediaPosition: "right", textSpan: 4, mediaSpan: 7 },
+];
 
 export function CapabilityPage({
   title,
@@ -26,20 +47,43 @@ export function CapabilityPage({
   children?: ReactNode;
 }) {
   return (
-    <section>
-      <InnerPageHero description={intro[0]} title={title} />
+    <InteriorPageShell>
+      <PageIntro description={intro[0]} eyebrow="Capabilities" title={title} />
       {intro.slice(1).map((paragraph) => (
         <Prose key={paragraph}>{paragraph}</Prose>
       ))}
 
-      {sections.map(({ heading, paragraphs, projectSlugs }) => (
-        <PageSection key={heading} title={heading}>
-          {paragraphs.map((paragraph) => (
-            <Prose key={paragraph}>{paragraph}</Prose>
-          ))}
-          <ProjectEvidence presentation="registry" slugs={projectSlugs} />
-        </PageSection>
-      ))}
+      {sections.map(({ heading, paragraphs, projectSlugs }, index) => {
+        const layout = chapterLayouts[index % chapterLayouts.length];
+        const chapterNumber = String(index + 1).padStart(2, "0");
+
+        return (
+          <EditorialSection key={heading} label={chapterNumber} title={heading}>
+            <SplitSection>
+              <SplitSectionContent
+                mediaPosition={layout.mediaPosition}
+                span={layout.textSpan}
+              >
+                {paragraphs.map((paragraph) => (
+                  <Prose key={paragraph} className="first:mt-0">
+                    {paragraph}
+                  </Prose>
+                ))}
+              </SplitSectionContent>
+              <SplitSectionMedia
+                mediaPosition={layout.mediaPosition}
+                span={layout.mediaSpan}
+              >
+                <ProjectEvidence
+                  columns={1}
+                  presentation="registry"
+                  slugs={projectSlugs}
+                />
+              </SplitSectionMedia>
+            </SplitSection>
+          </EditorialSection>
+        );
+      })}
 
       <LatestPosts slugs={postSlugs} title={writingTitle} variant="editorial" />
 
@@ -53,6 +97,6 @@ export function CapabilityPage({
         </Prose>
         {children}
       </PageSection>
-    </section>
+    </InteriorPageShell>
   );
 }
