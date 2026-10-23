@@ -9,8 +9,6 @@ export const homepageEditorialSlugs = [
   "bitlauncher",
 ] as const;
 
-export type HomepageEditorialSlug = (typeof homepageEditorialSlugs)[number];
-
 export const resolveProjectImage = ({
   project,
 }: {

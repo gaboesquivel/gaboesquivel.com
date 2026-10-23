@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "portless",
-    "dev:app": "sh -c 'ulimit -n 10240 2>/dev/null; bun scripts/export-llms.ts; exec bunx concurrently -k \"velite --watch\" \"next dev -p 3099\"'",
+    "dev:app": "sh -c 'ulimit -n 10240 2>/dev/null; rm -rf .next; bun scripts/export-llms.ts; exec bunx concurrently -k \"velite --watch\" \"next dev -p 3099\"'",
     "setup:portless": "portless trust && portless proxy start",
     "content:build": "velite",
     "content:watch": "velite --watch",
@@ -70,7 +70,7 @@
     "date-fns": "^4.4.0",
     "embla-carousel-react": "^8.6.0",
     "eve": "^0.80.1",
-    "gaboesquivel": "8.0.2",
+    "gaboesquivel": "8.0.3",
     "github-slugger": "^2.0.0",
     "input-otp": "^1.5.0",
     "lucide-react": "1.59.0",

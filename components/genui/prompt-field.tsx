@@ -1,5 +1,6 @@
 "use client";
 
+import { GenuiSearchBetaBadge } from "components/genui/genui-search-beta-badge";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import { useRef, useSyncExternalStore } from "react";
@@ -31,30 +32,35 @@ export const PromptField = ({
       }}
     >
       <label className="sr-only" htmlFor="homepage-genui-search">
-        Search Gabo&apos;s work, writing, and career
+        Search Gabo&apos;s work, writing, and career (beta)
       </label>
-      <input
-        className={cn(
-          "w-full rounded-md border border-hairline bg-black px-4 py-3 text-base text-white",
-          "placeholder:text-neutral-500 focus-visible:outline-2 focus-visible:outline-accent"
-        )}
-        id="homepage-genui-search"
-        onChange={(event) => onChange(event.target.value)}
-        onCompositionEnd={() => {
-          composing.current = false;
-        }}
-        onCompositionStart={() => {
-          composing.current = true;
-        }}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" && composing.current) {
-            event.preventDefault();
-          }
-        }}
-        placeholder="Ask about my work, writing, CV, or booking…"
-        type="search"
-        value={value}
-      />
+      <div className="relative">
+        <div className="pointer-events-none absolute top-3 right-3 z-10">
+          <GenuiSearchBetaBadge />
+        </div>
+        <input
+          className={cn(
+            "w-full rounded-md border border-hairline bg-black py-3 pr-20 pl-4 text-base text-white",
+            "placeholder:text-neutral-500 focus-visible:outline-2 focus-visible:outline-accent"
+          )}
+          id="homepage-genui-search"
+          onChange={(event) => onChange(event.target.value)}
+          onCompositionEnd={() => {
+            composing.current = false;
+          }}
+          onCompositionStart={() => {
+            composing.current = true;
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && composing.current) {
+              event.preventDefault();
+            }
+          }}
+          placeholder="Ask about my work, writing, CV, or booking…"
+          type="search"
+          value={value}
+        />
+      </div>
       {hydrated ? (
         <p className="mt-2 text-xs text-neutral-500">
           Press Enter to search. Results replace the sections below.

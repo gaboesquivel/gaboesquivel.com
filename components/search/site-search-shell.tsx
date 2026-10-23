@@ -83,7 +83,8 @@ export function SiteSearchShell({
           <DialogHeader className="sr-only">
             <DialogTitle>Search this site</DialogTitle>
             <DialogDescription>
-              Keyword search over projects, writing, career, and contact.
+              Generative search (beta) over projects, writing, career, and
+              contact.
             </DialogDescription>
           </DialogHeader>
           {open ? (

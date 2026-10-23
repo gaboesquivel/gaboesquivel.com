@@ -12,6 +12,7 @@ test.describe("homepage GenUI shell", () => {
     await input.scrollIntoViewIfNeeded();
     await expect(input).toBeVisible();
     await expect(input).toHaveAttribute("type", "search");
+    await expect(page.getByLabel("Beta")).toBeVisible();
     const form = page.locator("form").filter({ has: input });
     await expect(
       form.getByRole("button", { name: /submit|search/i })

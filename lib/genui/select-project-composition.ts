@@ -15,7 +15,6 @@ export const selectProjectComposition = ({
   projects: Project[];
 }): CompositeName => {
   const count = projects.length;
-  const mediaCount = mediaBackedProjectCount(projects);
 
   if (intent === "compare-projects" && count >= 2 && count <= 3) {
     return "project-comparison";
@@ -23,6 +22,7 @@ export const selectProjectComposition = ({
   if (intent === "project-detail" || count === 1) {
     return "case-study";
   }
+  const mediaCount = mediaBackedProjectCount(projects);
   if (mediaCount < 2) {
     return "project-compact-list";
   }

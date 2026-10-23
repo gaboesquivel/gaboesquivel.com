@@ -27,11 +27,8 @@ describe("resolveProjectImage", () => {
 });
 
 describe("evidenceUsesEditorial", () => {
-  test("defaults to card presentation", () => {
+  test("card presentation ignores slugs", () => {
     expect(evidenceUsesEditorial({ slugs: ["legal-agent"] })).toBe(false);
-  });
-
-  test("card presentation is false for covered slugs", () => {
     expect(
       evidenceUsesEditorial({
         presentation: "card",
@@ -41,15 +38,6 @@ describe("evidenceUsesEditorial", () => {
   });
 
   test("registry with slugs uses editorial layout", () => {
-    expect(
-      evidenceUsesEditorial({
-        presentation: "registry",
-        slugs: ["legal-agent"],
-      })
-    ).toBe(true);
-  });
-
-  test("registry with multiple slugs uses editorial layout", () => {
     expect(
       evidenceUsesEditorial({
         presentation: "registry",

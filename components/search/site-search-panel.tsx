@@ -92,6 +92,7 @@ export function SiteSearchPanel({
           query={query}
           disabled={!hydrated}
           showShortcutHint={variant === "home"}
+          showGenuiBetaBadge={variant === "dialog"}
           autoFocus={variant === "dialog"}
           describedById={scopeId}
           composingRef={composing}

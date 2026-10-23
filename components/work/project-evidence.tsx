@@ -27,9 +27,7 @@ export function ProjectEvidence({
     return project ? [project] : [];
   });
   const twoColumn = columns === 2 && evidence.length > 1;
-  const editorial =
-    presentation === "editorial" ||
-    evidenceUsesEditorial({ presentation, slugs });
+  const editorial = evidenceUsesEditorial({ presentation, slugs });
 
   const editorialSizes =
     imageSizes ??

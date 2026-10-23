@@ -1,12 +1,12 @@
 import { SiteCardAnchor } from "components/shared/site-card-link";
 import { proseClass } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
-import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
+import { resolveProjectImage } from "lib/work/project-cover";
 import Image from "next/image";
 
 export function ProjectMedia({ project }: { project: Project }) {
-  const src = project.image ? siteRelativePath(project.image) : undefined;
+  const image = resolveProjectImage({ project });
   const href = `/project/${project.slug}`;
   const label = `${project.title} (opens in a new tab)`;
 
@@ -18,9 +18,15 @@ export function ProjectMedia({ project }: { project: Project }) {
       rel="noopener noreferrer"
       target="_blank"
     >
-      {src ? (
+      {image ? (
         <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-lg">
-          <Image alt="" className="object-cover" fill sizes="112px" src={src} />
+          <Image
+            alt=""
+            className="object-cover"
+            fill
+            sizes="112px"
+            src={image.src}
+          />
         </div>
       ) : null}
       <div className="min-w-0 flex-1 py-0.5">

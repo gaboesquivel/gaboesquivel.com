@@ -1,5 +1,6 @@
 "use client";
 
+import { GenuiSearchBetaBadge } from "components/genui/genui-search-beta-badge";
 import {
   searchHint,
   searchLabel,
@@ -33,6 +34,7 @@ export function SiteSearchField({
   query,
   disabled,
   showShortcutHint,
+  showGenuiBetaBadge,
   autoFocus,
   describedById,
   composingRef,
@@ -44,6 +46,7 @@ export function SiteSearchField({
   query: string;
   disabled?: boolean;
   showShortcutHint?: boolean;
+  showGenuiBetaBadge?: boolean;
   autoFocus?: boolean;
   describedById: string;
   composingRef: RefObject<boolean>;
@@ -101,6 +104,11 @@ export function SiteSearchField({
           className="min-h-16 py-4 text-base text-white placeholder:text-neutral-400"
           aria-describedby={describedById}
         />
+        {showGenuiBetaBadge ? (
+          <InputGroupAddon align="inline-end" className="pr-0">
+            <GenuiSearchBetaBadge />
+          </InputGroupAddon>
+        ) : null}
         {showKbd ? (
           <InputGroupAddon align="inline-end" className="pr-0">
             <KbdGroup aria-hidden="true">

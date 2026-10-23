@@ -4,15 +4,14 @@ import {
   projectRoleInCard,
 } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
-import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
+import { resolveProjectImage, workCoverSizes } from "lib/work/project-cover";
 import Image from "next/image";
 
 export const projectCardSizes =
   "(max-width: 639px) calc(100vw - 2rem), (max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) calc((100vw - 4rem) / 2), (max-width: 1151px) calc((100vw - 5rem) / 2), 536px";
 
-export const wideProjectCardSizes =
-  "(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(100vw - 3rem), calc(min(100vw, 72rem) - 4rem)";
+export const wideProjectCardSizes = workCoverSizes;
 
 export function ProjectCard({
   project,
@@ -25,7 +24,7 @@ export function ProjectCard({
   showRole?: boolean;
   wide?: boolean;
 }) {
-  const src = project.image ? siteRelativePath(project.image) : undefined;
+  const image = resolveProjectImage({ project });
 
   return (
     <SiteCardLink
@@ -33,12 +32,12 @@ export function ProjectCard({
       className="group overflow-hidden"
       href={`/project/${project.slug}`}
     >
-      {src ? (
+      {image ? (
         wide ? (
           <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[21/9]">
             <Image
-              src={src}
-              alt={project.title}
+              src={image.src}
+              alt={image.alt}
               fill
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
@@ -49,8 +48,8 @@ export function ProjectCard({
         ) : (
           <div className="relative aspect-video overflow-hidden">
             <Image
-              src={src}
-              alt={project.title}
+              src={image.src}
+              alt={image.alt}
               fill
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
