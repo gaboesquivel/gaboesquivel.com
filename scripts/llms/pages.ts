@@ -31,7 +31,6 @@ const siteIdentityExports: Record<string, string> = {
 
 const SKIP_COMPONENTS = new Set([
   "PageImage",
-  "LatestPosts",
   "ContactForm",
   "PrintButton",
   "FilterNav",
@@ -471,6 +470,100 @@ const jsxNodeToMarkdown = (
       return;
     }
 
+    if (tagName === "PageIntro") {
+      const narrative = getJsxAttributeValue(
+        attributes,
+        "narrative",
+        variables
+      );
+      if (narrative === true) {
+        const title = getJsxAttributeValue(attributes, "title", variables);
+        const description = getJsxAttributeValue(
+          attributes,
+          "description",
+          variables
+        );
+        if (typeof title === "string" && title) {
+          lines.push(`# ${title}`, "");
+        }
+        if (typeof description === "string" && description) {
+          lines.push(description, "");
+        }
+        if (ts.isJsxElement(node)) {
+          jsxNodesToMarkdown(node.children, variables, lines, pagePath);
+        }
+        return;
+      }
+    }
+
+    if (tagName === "LatestPosts") {
+      const limitValue = getJsxAttributeValue(attributes, "limit", variables);
+      const title = getJsxAttributeValue(attributes, "title", variables);
+      const category = getJsxAttributeValue(attributes, "category", variables);
+      const limit = typeof limitValue === "number" ? limitValue : 4;
+      const heading =
+        typeof title === "string" && title ? title : "Latest Articles";
+      lines.push(`## ${heading}`, "");
+      const links = renderPostLinks({
+        category: typeof category === "string" ? category : undefined,
+        limit,
+      });
+      if (links) {
+        lines.push(links, "");
+      }
+      return;
+    }
+
+    if (tagName === "EditorialWorkCard") {
+      const slug = getJsxAttributeValue(attributes, "slug", variables);
+      const title = getJsxAttributeValue(attributes, "title", variables);
+      const description = getJsxAttributeValue(
+        attributes,
+        "description",
+        variables
+      );
+      const supporting = getJsxAttributeValue(
+        attributes,
+        "supporting",
+        variables
+      );
+      const action = getJsxAttributeValue(attributes, "action", variables);
+      const layout = getJsxAttributeValue(attributes, "layout", variables);
+      const level = layout === "feature" ? "##" : "###";
+      if (typeof title === "string" && title) {
+        lines.push(`${level} ${title}`, "");
+      }
+      if (typeof description === "string" && description) {
+        lines.push(description, "");
+      }
+      if (typeof supporting === "string" && supporting) {
+        lines.push(supporting, "");
+      }
+      if (typeof slug === "string") {
+        const label =
+          typeof action === "string"
+            ? action
+            : typeof title === "string"
+              ? title
+              : getProjectBySlug(slug)?.title;
+        if (label) {
+          lines.push(`[${label}](${absoluteUrl(`/project/${slug}`)})`, "");
+        }
+      }
+      return;
+    }
+
+    if (tagName === "ProjectTextRow" && ts.isJsxElement(node)) {
+      const href = getJsxAttributeValue(attributes, "href", variables);
+      const title = getJsxAttributeValue(attributes, "title", variables);
+      const text = jsxChildrenToText(node.children, variables);
+      if (typeof href === "string" && typeof title === "string") {
+        const detail = text ? `: ${text}` : "";
+        lines.push(`- [${title}](${absoluteUrl(href)})${detail}`, "");
+      }
+      return;
+    }
+
     if (tagName === "PageSection" && ts.isJsxElement(node)) {
       const title = String(
         getJsxAttributeValue(attributes, "title", variables) ?? ""
@@ -510,10 +603,14 @@ const jsxNodeToMarkdown = (
       return;
     }
 
-    if (tagName === "h3" && ts.isJsxElement(node)) {
+    if (
+      (tagName === "h1" || tagName === "h2" || tagName === "h3") &&
+      ts.isJsxElement(node)
+    ) {
       const text = jsxChildrenToText(node.children, variables);
       if (text) {
-        lines.push(`### ${text}`, "");
+        const level = tagName === "h1" ? "#" : tagName === "h2" ? "##" : "###";
+        lines.push(`${level} ${text}`, "");
       }
       return;
     }

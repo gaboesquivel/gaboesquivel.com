@@ -70,7 +70,7 @@ Type scale and spacing tokens live in [`components/shared/spacing.ts`](component
 
 Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](components/shared/spacing.ts).
 
-- Column: `SiteWidth` applies `homeColumn` (`max-w-6xl`, `px-4 sm:px-6 lg:px-8`) on every route, including nav and `main`. `siteColumn` is the same shell. Long-form copy uses `readingMeasure` (`max-w-[65ch]`) inside that shell for narrative blocks inside editorial layouts. **Interior layout families** (homepage stays locked; do not widen nav/footer):
+- Column: `SiteWidth` applies `homeColumn` (`max-w-6xl`, `px-4 sm:px-6 lg:px-8`) on every route, including nav and `main`. `siteColumn` is the same shell. Long-form copy uses `readingMeasure` (`max-w-[65ch]`) inside that shell for narrative blocks inside editorial layouts. `/ai`, `/web3`, and `/bio` keep that shell and set narrative copy to `editorialMeasure` (`max-w-[72ch]`); project panels and photography use the full shell. **Interior layout families** (homepage stays locked; do not widen nav/footer):
   - **Family A — Index:** `/`, `/work`, `/work/[type]`, `/tech`, and similar listings stay on `siteColumn` only.
   - **Family B — Editorial:** `/bio`, capability routes, `/project/[slug]`, `/ai`, `/web3`, writing index, contact, explore. Opt in via `InteriorPageShell` for shared section spacing and 12-column splits (`SplitSection`); content stays inside the same `siteColumn` shell as home—no viewport breakout.
   - **Family C — Articles:** `/blog/[slug]` uses `ArticleShell`: `articleLayoutRegion` (`max-w-6xl`) with a **two-track** grid (prose up to `52rem` + TOC `14–17rem` at `xl` / 1280px). No ghost left column. Below `xl`, desktop TOC hides (`ArticleTocNav`), inline TOC shows (`ArticleTocInline`, collapsed by default). Paragraphs stay ~`65ch` (`.blog-content`); `BlogImage` modes `prose` / `wide` / `breakout` in `app/global.css`.
@@ -87,11 +87,13 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 
 ## AI, Web3, and biography pages
 
-**Editorial capability and biography pages:** `/ai`, `/web3`, and `/bio` establish credibility through typography, narrative copy, authentic photography, and real project imagery—not architecture diagrams, decorative system visualizations, flowcharts, `DiagramScroll` wrappers, or diagram substitutes. This applies to imported components and image assets alike. Layouts prioritize editorial hierarchy, text/media composition, responsive behavior, and shipped-work evidence. Blog diagram guidance below does not apply to these three routes; diagrams remain appropriate in technical articles when they explain something text alone cannot.
+The `/ai`, `/web3`, and `/bio` pages are editorial portfolio narratives, not diagram pages. They use coherent prose introductions, selected project evidence, authentic photography, and deliberate image/text compositions. Diagrams, decorative flowcharts, repetitive timeline widgets, and diagram substitutes are not used on these routes. Featured projects may use large horizontal compositions aligned with the homepage design system. Long-form career content should not be forced into repeated two-column grids. Project media is sourced from the canonical project image registry, so asset updates do not require page-specific changes. Blog diagram guidance below does not apply to these three routes; diagrams remain appropriate in technical articles when they explain something text alone cannot.
 
-Use the approved homepage's shell, monochrome typography, turquoise links, and existing image treatment. Keep narrative copy in readable columns; pair a selected project screenshot or real photograph with the passage it supports. Use `ProjectFigure` for linked project evidence beside prose, without repeating a project-card description. Do not turn every project mention into a visual.
+Use the homepage shell, monochrome type, turquoise links, hairline borders, and `rounded-lg` media. Introductions are one left-aligned block (`PageIntro` `narrative`): `heroTitle`, then `narrativeLead`, then supporting `narrativeCopy`. No second text column and no intro image. The first section uses `narrativeIntroGap` (56px mobile, 80px desktop). Later sections use `narrativeSectionGap` (64px mobile, 96px desktop). Whitespace separates chapters. Do not rule every chapter.
 
-AI and Web3 introductions use two complementary text columns on desktop and a single reading order on mobile. Biography follows its chronological chapters; one image per chapter is enough. A reversed composition is appropriate for a distinct chapter, not as an automatic alternating pattern. Nested splits must disable their own section spacing. Keep text before media in mobile and DOM order. Preserve the strong live editorial copy and edit only repetition or unclear transitions.
+`/ai` and `/web3` present LegalAgent and ZTX with `EditorialWorkCard` `layout="feature"` (about 40% copy and 60% media, full shell width). Masterbots, Bitlauncher, Bitcash, Opyn, and RareMint use `layout="landscape"` in a two-up grid. `/web3` protocols are `ProjectTextRow` links, not image cards. The editorial description lives in the card. Do not repeat it beside a thumbnail. `/bio` uses `BioChapter` only for section spacing. NodeSchool is a full-width photograph at its real aspect ratio. Wink is media-left, about 55–58% of the row. The 2017 chapter is text-left with `gabo-coding.jpg` on the right. The 2024 chapter ends with `layout="banner"`, quieter than the `/ai` feature. Covers come from `resolveProjectImage`. Use `object-cover` and adjust focal position when a frame would letterbox; do not edit the asset.
+
+End these pages with résumé and conversation links. Do not repeat `LetsConnect` above the footer. Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
 
 ## Editorial images
 
@@ -140,12 +142,15 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Text / route card | `PageCard` / `SiteCardLink` on `Card` | `components/shared/page-card.tsx`, `components/shared/site-card-link.tsx` |
 | Project with image | `EditorialProjectCard` (cover frame) or bordered `ProjectCard` | `components/work/editorial-project-card.tsx`, `components/work/project-card.tsx` |
 | Narrative project evidence | `ProjectFigure` (caption link, no card description) | `components/work/project-figure.tsx` |
+| Editorial feature, landscape, and banner | `EditorialWorkCard` | `components/work/editorial-work-card.tsx` |
+| Registry cover frame | `ProjectCover` | `components/work/editorial-work-card.tsx` |
+| Text-first project row | `ProjectTextRow` | `components/interior/project-text-row.tsx` |
 | Work flagship | `FeaturedProjectCard` | `components/work/featured-project-card.tsx` |
 | Work featured gallery | `WorkProjectGallery` | `components/work/work-project-gallery.tsx` |
 | Chat project row | `ProjectMedia` / `ProjectMediaStack` on `Card` | `components/work/project-media.tsx` |
 | Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
 | Interior editorial shell | `InteriorPageShell` | `components/interior/interior-page-shell.tsx` |
-| Editorial intro (eyebrow + hero) | `PageIntro` | `components/interior/page-intro.tsx` |
+| Editorial intro | `PageIntro` (`narrative` on `/ai`, `/web3`, `/bio`) | `components/interior/page-intro.tsx` |
 | Text/media split (12-col) | `SplitSection` + `SplitSectionContent` / `SplitSectionMedia` | `components/interior/split-section.tsx` |
 | Article + sticky TOC | `ArticleShell`, `ArticleTocNav`, `ArticleTocInline` | `components/interior/article-shell.tsx` |
 | Utility / legal reading | `ReadingPageShell` | `components/interior/reading-page-shell.tsx` |
@@ -270,7 +275,7 @@ Featured work is six package slugs in fixed order: LegalAgent flagship (`Feature
 
 Filtered `/work/[type]` pages use the same editorial masonry as `/tech` project lists (`EditorialProjectList` / `EditorialProjectCard`) and the compact hero. Bordered `ProjectCard` remains for capability evidence when `ProjectEvidence` uses `presentation="card"`.
 
-Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` (editorial only when every slug has a `projectCover` entry), or `presentation="editorial"` (editorial contain with package image fallback). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. `/ai`, `/web3`, and `/bio` are **not** diagram pages; they use `ProjectFigure`, photography, and narrative splits instead of `AiSystemDiagram`, `Web3BoundaryDiagram`, or `ProjectEvidence` grids. Registry and package art both sit in a black 16:9 `ProjectFigure` frame with `object-contain` by default; pass `objectClassName` when a cover needs a tighter crop (for example ZTX on `/web3`). Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
+Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` (editorial only when every slug has a `projectCover` entry), or `presentation="editorial"` (editorial contain with package image fallback). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. Do not use `ProjectEvidence` or `ProjectFigure` for the `/ai`, `/web3`, and `/bio` narratives; those routes use `EditorialWorkCard`, `ProjectCover`, and `ProjectTextRow` as described above. Homepage and `/work` cards keep `object-contain`. Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
 
 ## Contact (`/contact`)
 
@@ -278,4 +283,4 @@ Capability routes that still use `CapabilityPage` share the same shell and `read
 
 ## Career story (`/bio`)
 
-`/bio` stays on `siteColumn`. Chapters use `BioChapter` splits and `ProjectFigure` / `MediaBlock` for evidence—not `ProjectEvidence` grids or capability diagrams. Do not route `/bio` through `CapabilityPage`.
+`/bio` stays on `siteColumn` and does not use the `/ai` or `/web3` card sequence. `BioChapter` only supplies section spacing. It does not draw a rule or force a split. The 2010 chapter is prose, then the NodeSchool photograph at full shell width and its real ratio. The 2015 chapter places the Wink registry cover on the left. The 2017 chapter places `gabo-coding.jpg` on the right. The 2024 chapter ends with one LegalAgent banner. Do not route `/bio` through `CapabilityPage` or add a second project gallery inside a chapter.

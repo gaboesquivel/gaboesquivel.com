@@ -12,9 +12,9 @@ When researching, one agent writes. Other agents, spawned read-only and in paral
 
 ## AI, Web3, and biography
 
-`/ai`, `/web3`, and `/bio` are diagram-free editorial pages. Do not add diagrams through components, SVGs, images, or embedded content. Use real photography and project screenshots only where they support the nearby narrative; see [DESIGN.md](../../DESIGN.md#ai-web3-and-biography-pages).
+`/ai`, `/web3`, and `/bio` are editorial portfolio narratives. Do not add diagrams through components, SVGs, images, or embedded content. Do not restore two-column introductions, a split on every biography chapter, thumbnail captions, or a hire paragraph above the footer. Approved copy for this pass lives in the page files. If one fact conflicts with the `gaboesquivel` package, correct that fact only. Project images come from the registry. See [DESIGN.md](../../DESIGN.md#ai-web3-and-biography-pages).
 
-Preserve substantive approved/live copy during layout work. Avoid repeating the same project description in prose and a card. `/bio` owns chronology and worldview; `/ai` and `/web3` explain their respective capabilities through verified work.
+`/bio` owns chronology and worldview. `/ai` and `/web3` explain their capabilities through the work in the cards. Do not repeat a card description in a paragraph beside it.
 
 ## Single blog post
 

@@ -10,6 +10,20 @@ export const siteColumn =
 /** Narrative text inside the shell. Project stories, bios, posts, and docs share it. */
 export const readingMeasure = "max-w-[65ch]";
 
+/** `/ai`, `/web3`, and `/bio` ledes. Wider than `readingMeasure`, still one column. */
+export const editorialMeasure = "max-w-[72ch]";
+
+/** First section after an editorial introduction: 56px mobile, 80px desktop. */
+export const narrativeIntroGap = "mt-14 lg:mt-20";
+
+/** Later sections on those routes: 64px mobile, 96px desktop. */
+export const narrativeSectionGap = "mt-16 lg:mt-24";
+
+export const narrativeLead =
+  "mt-6 text-base leading-[1.65] text-neutral-300 lg:text-lg";
+
+export const narrativeCopy = "text-base leading-[1.75] text-neutral-300";
+
 /** Blog article region: aligns with `siteColumn` while fitting prose + TOC rail. */
 export const articleLayoutRegion = "w-full max-w-6xl";
 

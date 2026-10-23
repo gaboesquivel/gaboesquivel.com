@@ -16,14 +16,54 @@ describe("markdown corpus", () => {
 
   test("narrative pages retain linked project figures", () => {
     for (const [pathname, slugs] of [
-      ["/ai", ["legal-agent", "masterbots", "bitlauncher"]],
-      ["/web3", ["ztx", "bitcashbank", "bitlauncher"]],
+      ["/ai", ["legal-agent", "masterbots", "bitlauncher", "wizard-world"]],
+      [
+        "/web3",
+        [
+          "ztx",
+          "bitcashbank",
+          "bitlauncher",
+          "opyn",
+          "raremint",
+          "knowledge-io",
+          "eos-costa-rica",
+          "chaingraph",
+        ],
+      ],
     ] as const) {
       const markdown = getMarkdownForPath({ pathname });
       for (const slug of slugs) {
         expect(markdown).toContain(`https://gaboesquivel.com/project/${slug}`);
       }
     }
+  });
+
+  test("editorial portfolio pages keep narrative copy without hire boilerplate", () => {
+    const ai = getMarkdownForPath({ pathname: "/ai" });
+    expect(ai).toContain("# AI Engineering");
+    expect(ai).toContain("## LegalAgent");
+    expect(ai).toContain("## Domain-specific assistants");
+    expect(ai).toContain("## Writing about AI products");
+    expect(ai).not.toContain("Work together");
+    expect(ai).not.toContain("work under W-2");
+
+    const web3 = getMarkdownForPath({ pathname: "/web3" });
+    expect(web3).toContain("# Web3 Engineering");
+    expect(web3).toContain("## ZTX");
+    expect(web3).toContain("## Trading and financial products");
+    expect(web3).toContain("[Knowledge](");
+    expect(web3).not.toContain("Work together");
+
+    const bio = getMarkdownForPath({ pathname: "/bio" });
+    expect(bio).toContain("# Career story");
+    expect(bio).toContain("## Interfaces and a JavaScript community");
+    expect(bio).toContain("https://gaboesquivel.com/project/costa-rica-js");
+    expect(bio).toContain("https://gaboesquivel.com/project/wink");
+    expect(bio).toContain("From 2012, I also helped organize");
+    expect(bio).not.toContain("founded Costa Rica JS");
+    expect(bio).not.toContain("Grant Thornton");
+    expect(bio).toContain("## Selected writing");
+    expect(bio).not.toContain("Work together");
   });
 
   test("list pages and CV focus variant render", () => {

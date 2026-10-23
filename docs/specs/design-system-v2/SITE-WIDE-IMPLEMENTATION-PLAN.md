@@ -4,7 +4,7 @@
 **Baseline:** [IMPLEMENTATION.md](./IMPLEMENTATION.md) (homepage DS v2 complete).  
 **Planning source:** [SITE-WIDE-PLAN-HANDOFF.md](./SITE-WIDE-PLAN-HANDOFF.md).
 
-**Canonical visual rules:** [DESIGN.md](../../../DESIGN.md) wins when this document disagrees (for example `/work` featured gallery, `homeColumn` on work/project routes, `ProjectHero`, `presentation="editorial"`). This file keeps phase history, verification gates, and contracts agents must not break.
+**Canonical visual rules:** [DESIGN.md](../../../DESIGN.md) wins when this document disagrees (for example `/work` featured gallery, `homeColumn` on work/project routes, `ProjectHero`, `presentation="editorial"`). `/ai`, `/web3`, and `/bio` composition is the editorial portfolio section in DESIGN.md. P3 lines that require `ProjectEvidence`, `ProjectFigure`, or `object-contain` on those three routes are history and do not override it. This file keeps phase history, verification gates, and contracts agents must not break.
 
 This document is the executable plan for extending Design System v2 beyond `/`. It does not authorize homepage GenUI work; see [docs/specs/homepage-genui/CAPABILITIES-homepage-genui.md](../homepage-genui/CAPABILITIES-homepage-genui.md). Active module planning for GenUI stays in [tasks/plan.md](../../../tasks/plan.md) (`public-capabilities`); do not overwrite that file for this rollout.
 

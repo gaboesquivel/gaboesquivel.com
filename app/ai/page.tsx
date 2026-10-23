@@ -1,121 +1,119 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { EditorialSection } from "components/interior/editorial-section";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
 import {
-  SplitSection,
-  SplitSectionContent,
-  SplitSectionMedia,
-} from "components/interior/split-section";
-import { LetsConnect } from "components/shared/lets-connect";
-import { PageSection, proseLink, Prose } from "components/shared/page-layout";
-import { sectionTitle } from "components/shared/spacing";
-import { ProjectFigure } from "components/work/project-figure";
+  ctaLink,
+  editorialLink,
+  editorialMeasure,
+  narrativeCopy,
+  narrativeIntroGap,
+  narrativeSectionGap,
+  proseLink,
+  sectionHeadingSpacing,
+  sectionTitle,
+} from "components/shared/spacing";
+import { EditorialWorkCard } from "components/work/editorial-work-card";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
+import { cn } from "lib/utils";
 import Link from "next/link";
+
+const actionLink = cn(ctaLink, editorialLink, "text-sm");
 
 export default function AIExperiencePage() {
   return (
     <InteriorPageShell>
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
-        <PageIntro
-          description="I build AI products where the experience matters as much as the model: voice and chat assistants, retrieval-backed workflows, and interfaces that help people understand what an agent is doing."
-          titleClassName="mb-0 lg:mb-0"
-          title="AI Engineering"
+      <PageIntro
+        narrative
+        description="I build AI products where the experience matters as much as the model. Voice and chat assistants, retrieval-backed workflows, and generative interfaces all serve the same goal: making intelligent systems useful and understandable."
+        title="AI Engineering"
+      >
+        <p>
+          That work spans product, design, and engineering. I shape the context
+          and tools a model receives, the actions it can take, and the controls
+          teams need to evaluate, adjust, and operate the system after launch.
+        </p>
+      </PageIntro>
+
+      <section className={narrativeIntroGap}>
+        <EditorialWorkCard
+          priority
+          action="View LegalAgent"
+          description="For LegalAgent, I added bilingual voice and chat to a React Native app for legal professionals. I used OpenAI's Realtime API, the AI SDK, and retrieval over case context, documents, and procedures. Feedback from attorneys helped refine the assistant's behavior and tool use."
+          layout="feature"
+          slug="legal-agent"
+          supporting="I also built a TanStack Start administration interface with Microsoft SSO, document management, prompt controls, and retrieval configuration."
+          title="LegalAgent"
         />
-        <div className="lg:pt-20">
-          <Prose className="mt-6 first:mt-0">
-            That takes work across product, design, and architecture. I shape
-            the tools and context a model receives, the decisions it can make,
-            and the controls teams need to inspect, adjust, and operate the
-            system after launch. I also explore generative interfaces as a way
-            to move beyond chat when a task calls for a clearer interaction.
-          </Prose>
-        </div>
-      </div>
+      </section>
 
-      <EditorialSection>
-        <SplitSection sectionSpacing={false}>
-          <SplitSectionContent mediaPosition="right" span={6}>
-            <h2 className={sectionTitle}>
-              LegalAgent: voice, chat, and retrieval
-            </h2>
-            <Prose className="mt-6">
-              For LegalAgent, I added Spanish and English voice and chat to an
-              existing React Native app for legal professionals. I used
-              OpenAI&apos;s Realtime API for voice, the AI SDK for chat, and
-              retrieval over case context, documents, and procedures. Sessions
-              with attorneys led me to adjust the assistant&apos;s persona and
-              tool calling.
-            </Prose>
-            <Prose>
-              To make the system manageable after launch, I built a TanStack
-              Start administration interface with Microsoft SSO, document
-              management, prompt controls, and retrieval categories.
-            </Prose>
-          </SplitSectionContent>
-          <SplitSectionMedia mediaPosition="right" span={5}>
-            <ProjectFigure slug="legal-agent" priority />
-          </SplitSectionMedia>
-        </SplitSection>
-      </EditorialSection>
-
-      <EditorialSection title="Domain-specific assistants">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
-          <div className="flex flex-col">
-            <h3 className="text-xl font-semibold">Masterbots</h3>
-            <Prose className="mt-6">
-              At Masterbots, I built interfaces for domain-specific assistants
-              and integrated AI SDK tooling, including automation for
-              multilingual content.
-            </Prose>
-            <div className="mt-auto pt-8">
-              <ProjectFigure slug="masterbots" />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-xl font-semibold">Bitlauncher</h3>
-            <Prose className="mt-6">
-              At Bitlauncher, I built a retrieval-backed assistant with tools
-              for news and video content, plus AI-assisted internationalization.
-              The assistant could explain product information while bids,
-              balances, contracts, and transactions remained grounded in
-              deterministic application data.
-            </Prose>
-            <div className="mt-auto pt-8">
-              <ProjectFigure slug="bitlauncher" />
-            </div>
-          </div>
-        </div>
-        <Prose className="mt-10 lg:mt-12">
+      <section className={narrativeSectionGap}>
+        <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
+          Domain-specific assistants
+        </h2>
+        <p className={cn(editorialMeasure, narrativeCopy)}>
+          Different products call for different kinds of assistance. At
+          Masterbots and Bitlauncher, I worked on specialized assistants
+          connected to real application workflows and data.
+        </p>
+        <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          <li className="h-full min-w-0">
+            <EditorialWorkCard
+              action="View Masterbots"
+              description="I built interfaces for specialized AI assistants and integrated AI SDK tooling, including workflows for multilingual content."
+              layout="landscape"
+              objectClassName="object-top"
+              slug="masterbots"
+              title="Masterbots"
+            />
+          </li>
+          <li className="h-full min-w-0">
+            <EditorialWorkCard
+              action="View Bitlauncher"
+              description="I built a retrieval-backed assistant for project research, news, and video content, with AI-assisted internationalization. Financial and transaction data remained grounded in the application's deterministic systems."
+              layout="landscape"
+              slug="bitlauncher"
+              title="Bitlauncher"
+            />
+          </li>
+        </ul>
+        <p className={cn(editorialMeasure, narrativeCopy, "mt-8 lg:mt-10")}>
           Earlier,{" "}
-          <Link href="/project/wizard-world" className={proseLink}>
+          <Link className={proseLink} href="/project/wizard-world">
             Wizard World
           </Link>{" "}
-          combined OpenAI image generation with NFT minting on Flow through
-          Niftory. It was an experiment in connecting generative experiences to
+          connected OpenAI image generation with NFT minting on Flow through
+          Niftory—an experiment in bringing generative experiences into
           blockchain transactions.
-        </Prose>
-      </EditorialSection>
+        </p>
+      </section>
 
       <LatestPosts
+        arrow
         category="Artificial Intelligence"
+        className={narrativeSectionGap}
         limit={4}
         title="Writing about AI products"
         variant="editorial"
       />
 
-      <PageSection title="Work together">
-        <Prose>
-          The roles and dates behind this work are in my{" "}
-          <Link href={cvPath({ key: "ai" })} className={proseLink}>
-            AI CV
-          </Link>
-          .
-        </Prose>
-        <LetsConnect />
-      </PageSection>
+      <section className={narrativeSectionGap}>
+        <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
+          Explore more
+        </h2>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
+          <p className="m-0">
+            <Link className={actionLink} href={cvPath({ key: "ai" })}>
+              AI résumé / CV →
+            </Link>
+          </p>
+          <p className="m-0">
+            <Link className={actionLink} href="/contact">
+              Start a conversation →
+            </Link>
+          </p>
+        </div>
+      </section>
     </InteriorPageShell>
   );
 }

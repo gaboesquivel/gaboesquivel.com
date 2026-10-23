@@ -39,3 +39,11 @@ Introduce a shared **interior composition layer** (`components/interior/`) with 
 - **Decision:** `/ai`, `/web3`, and `/bio` prohibit diagrams in any format. Retain the homepage design tokens and live narrative copy; use selected project figures and real photography beside readable prose.
 - **Rationale:** evidence and typography should carry these pages; system explanations belong in relevant writing or project details.
 - **Consequences:** project links remain available through figure captions and contextual links. Nested biography splits disable their own spacing. Blog illustration rules and the homepage remain unchanged.
+
+### Refinement (2026-10-22, portfolio compositions)
+
+- **Status:** accepted. Replaces the two-column introductions and repeated biography splits from the narrative-pages refinement above.
+- **Context:** those pages still read as narrow text beside small images, with the same split on every biography chapter.
+- **Decision:** one left-aligned introduction inside `siteColumn`. `/ai` and `/web3` use a full-width featured panel and two-up landscape cards. `/web3` protocols stay text rows. `/bio` is long-form, with NodeSchool at full width, one Wink split, one photograph, and a quieter LegalAgent banner. No diagrams, timeline widgets, or footer hire copy repeated above the footer. Media comes from `resolveProjectImage` and the existing biography photographs.
+- **Rationale:** the homepage already shows how selected work should occupy the shell. These routes needed that confidence without becoming a second homepage or a diagram page.
+- **Consequences:** [DESIGN.md](../../DESIGN.md) is the current composition. `EditorialWorkCard` does not change `FeaturedProjectCard`. Package facts still win when a sentence conflicts; Costa Rica JS is organized from 2012, and the EOS private chain is described as a global accounting firm's innovation labs.

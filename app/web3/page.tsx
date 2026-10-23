@@ -1,170 +1,155 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { EditorialSection } from "components/interior/editorial-section";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
+import { ProjectTextRow } from "components/interior/project-text-row";
 import {
-  SplitSection,
-  SplitSectionContent,
-  SplitSectionMedia,
-} from "components/interior/split-section";
-import { LetsConnect } from "components/shared/lets-connect";
-import { PageSection, proseLink, Prose } from "components/shared/page-layout";
-import { sectionTitle } from "components/shared/spacing";
-import { ProjectFigure } from "components/work/project-figure";
+  ctaLink,
+  editorialLink,
+  editorialMeasure,
+  narrativeCopy,
+  narrativeIntroGap,
+  narrativeSectionGap,
+  sectionHeadingSpacing,
+  sectionTitle,
+} from "components/shared/spacing";
+import { EditorialWorkCard } from "components/work/editorial-work-card";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
+import { cn } from "lib/utils";
 import Link from "next/link";
+
+const actionLink = cn(ctaLink, editorialLink, "text-sm");
 
 export default function Web3ExperiencePage() {
   return (
     <InteriorPageShell>
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
-        <PageIntro
-          description="I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync."
-          titleClassName="mb-0 lg:mb-0"
-          title="Web3 Engineering"
+      <PageIntro
+        narrative
+        description="I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync."
+        title="Web3 Engineering"
+      >
+        <p>
+          My focus is where complex protocols become usable products. People
+          need to understand what they own, what happens when they sign, and the
+          state of a transaction—not the complexity of the infrastructure behind
+          it. My earlier work in financial products, including Wink, still
+          shapes how I approach identity, security, and moving money.
+        </p>
+      </PageIntro>
+
+      <section className={narrativeIntroGap}>
+        <EditorialWorkCard
+          priority
+          action="View ZTX"
+          description="At ZTX, I built wallet connectivity inside a WebGL virtual world. Using MetaMask, Ethers.js, and a custom JavaScript event system, I connected the experience to EVM transactions so users could sign and trade NFTs without leaving the world."
+          layout="feature"
+          slug="ztx"
+          title="ZTX"
         />
-        <div className="lg:pt-20">
-          <Prose className="mt-6 first:mt-0">
-            My focus is the point where complex protocols become usable
-            products. People need to understand what they own, what will happen
-            when they sign, and what state a transaction is in—not how many
-            networks or services sit behind the screen.
-          </Prose>
-          <Prose className="mt-6 first:mt-0">
-            I came to this work through financial products, including Wink,
-            Costa Rica&apos;s first neobank. That experience still shapes how I
-            approach identity, security, and moving money.
-          </Prose>
-        </div>
-      </div>
+      </section>
 
-      <EditorialSection>
-        <SplitSection sectionSpacing={false}>
-          <SplitSectionContent mediaPosition="right" span={6}>
-            <h2 className={sectionTitle}>
-              ZTX: a wallet inside a virtual world
-            </h2>
-            <Prose className="mt-6">
-              ZTX was a Web3 virtual world where a wallet needed to work inside
-              a WebGL session. I built an EVM connector using MetaMask,
-              Ethers.js, and a custom JavaScript event system, so people could
-              sign transactions and trade NFTs without leaving the experience.
-            </Prose>
-          </SplitSectionContent>
-          <SplitSectionMedia mediaPosition="right" span={5}>
-            <ProjectFigure
-              slug="ztx"
-              priority
-              objectClassName="object-cover object-center"
+      <section className={narrativeSectionGap}>
+        <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
+          Trading and financial products
+        </h2>
+        <p className={cn(editorialMeasure, narrativeCopy)}>
+          From browser-based signing to onchain trading, these products required
+          complex transactions to feel clear, responsive, and trustworthy.
+        </p>
+        <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          <li className="h-full min-w-0">
+            <EditorialWorkCard
+              action="View Bitcash"
+              description="I worked on peer-to-peer exchange flows, WebAuthn key management, and QR-based transaction signing directly in the browser."
+              layout="landscape"
+              objectClassName="object-top"
+              slug="bitcashbank"
+              title="Bitcash"
             />
-          </SplitSectionMedia>
-        </SplitSection>
-      </EditorialSection>
+          </li>
+          <li className="h-full min-w-0">
+            <EditorialWorkCard
+              action="View Bitlauncher"
+              description="I built token auction interfaces, wallet interactions, and transaction data integration across EOS EVM and EOS, including Gnosis auction contracts."
+              layout="landscape"
+              slug="bitlauncher"
+              title="Bitlauncher"
+            />
+          </li>
+          <li className="h-full min-w-0">
+            <EditorialWorkCard
+              action="View Opyn"
+              description="I built the trading interface for a perpetuals protocol on Arbitrum, integrating wallet actions and indexed onchain market data."
+              layout="landscape"
+              objectClassName="object-top"
+              slug="opyn"
+              title="Opyn"
+            />
+          </li>
+          <li className="h-full min-w-0">
+            <EditorialWorkCard
+              action="View RareMint"
+              description="I integrated WalletConnect into a Polygon collectibles marketplace, enabling participation in auctions and NFT transactions."
+              layout="landscape"
+              objectClassName="object-top"
+              slug="raremint"
+              title="RareMint"
+            />
+          </li>
+        </ul>
+      </section>
 
-      <EditorialSection title="Trading and financial products">
-        <div className="grid gap-x-10 gap-y-12 lg:grid-cols-2">
-          <div className="flex flex-col">
-            <h3 className="text-xl font-semibold">
-              Bitcash: signing in the browser
-            </h3>
-            <Prose className="mt-6">
-              At Bitcash, I worked on a peer-to-peer exchange where people could
-              trade and sign transactions directly in the browser. I built
-              WebAuthn key management and QR signature requests so signing did
-              not require a separate wallet.
-            </Prose>
-            <div className="mt-auto pt-8">
-              <ProjectFigure slug="bitcashbank" />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-xl font-semibold">
-              Bitlauncher: token auctions
-            </h3>
-            <Prose className="mt-6">
-              At Bitlauncher, I built the product around token auctions, wallet
-              balances, and transactions across EOS EVM and EOS. I deployed
-              Gnosis auction contracts, integrated wallet interactions with viem
-              and wagmi, and indexed transaction activity for the interface.
-            </Prose>
-            <div className="mt-auto pt-8">
-              <ProjectFigure slug="bitlauncher" />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-xl font-semibold">Opyn: onchain trading</h3>
-            <Prose className="mt-6">
-              At Opyn, I worked on the trading interface for a perpetuals
-              protocol on Arbitrum, integrating protocol interactions with viem
-              and wagmi and connecting the interface to indexed onchain data.
-            </Prose>
-            <div className="mt-auto pt-8">
-              <ProjectFigure slug="opyn" />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-xl font-semibold">
-              RareMint: collectibles and auctions
-            </h3>
-            <Prose className="mt-6">
-              For RareMint, I integrated WalletConnect into a Polygon
-              collectibles marketplace so users could participate in auctions
-              without leaving the marketplace.
-            </Prose>
-            <div className="mt-auto pt-8">
-              <ProjectFigure slug="raremint" />
-            </div>
-          </div>
-        </div>
-      </EditorialSection>
-
-      <EditorialSection title="Protocols and infrastructure">
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
-          <Prose className="mt-0">
-            My earlier Web3 work began closer to the infrastructure. At{" "}
-            <Link href="/project/knowledge-io" className={proseLink}>
-              Knowledge
-            </Link>
-            , I built ERC-20 token contracts, serverless AWS services, and a
-            React and Web3.js marketplace with a wallet dashboard.
-          </Prose>
-          <div>
-            <Prose className="mt-0">
-              At{" "}
-              <Link href="/project/eos-costa-rica" className={proseLink}>
-                EOS Costa Rica
-              </Link>
-              , I helped launch the EOS mainnet and operate validators, then
-              built a private EOSIO chain for Grant Thornton&apos;s intercompany
-              transactions and tax workflows. I also started{" "}
-              <Link href="/project/chaingraph" className={proseLink}>
-                ChainGraph
-              </Link>
-              , an open-source GraphQL toolkit for querying and streaming EOSIO
-              and Antelope blockchain data.
-            </Prose>
-          </div>
-        </div>
-      </EditorialSection>
+      <section className={narrativeSectionGap}>
+        <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
+          Protocols and infrastructure
+        </h2>
+        <p className={cn(editorialMeasure, narrativeCopy)}>
+          My earlier blockchain work was closer to the underlying networks and
+          applications. It gave me a deeper understanding of the systems that
+          later informed my work on wallets, markets, and onchain interfaces.
+        </p>
+        <ul className="mt-8 divide-y divide-hairline border-y border-hairline">
+          <ProjectTextRow href="/project/knowledge-io" title="Knowledge">
+            ERC-20 contracts, serverless AWS services, and a React/Web3.js
+            marketplace with a wallet dashboard.
+          </ProjectTextRow>
+          <ProjectTextRow href="/project/eos-costa-rica" title="EOS Costa Rica">
+            EOS mainnet infrastructure, validators, and a private EOSIO network
+            for enterprise transaction workflows.
+          </ProjectTextRow>
+          <ProjectTextRow href="/project/chaingraph" title="ChainGraph">
+            An open-source GraphQL toolkit for querying and streaming EOSIO and
+            Antelope blockchain data.
+          </ProjectTextRow>
+        </ul>
+      </section>
 
       <LatestPosts
+        arrow
         category="Web3"
+        className={narrativeSectionGap}
         limit={4}
         title="Writing about Web3 systems"
         variant="editorial"
       />
 
-      <PageSection title="Work together">
-        <Prose>
-          The roles and dates behind this work are in my{" "}
-          <Link href={cvPath({ key: "web3" })} className={proseLink}>
-            Web3 CV
-          </Link>
-          .
-        </Prose>
-        <LetsConnect />
-      </PageSection>
+      <section className={narrativeSectionGap}>
+        <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
+          Explore more
+        </h2>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
+          <p className="m-0">
+            <Link className={actionLink} href={cvPath({ key: "web3" })}>
+              Web3 résumé / CV →
+            </Link>
+          </p>
+          <p className="m-0">
+            <Link className={actionLink} href="/contact">
+              Start a conversation →
+            </Link>
+          </p>
+        </div>
+      </section>
     </InteriorPageShell>
   );
 }

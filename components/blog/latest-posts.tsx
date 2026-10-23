@@ -16,6 +16,7 @@ export function LatestPosts({
   action,
   variant = "cards",
   className,
+  arrow = false,
 }: {
   limit?: number;
   title?: string;
@@ -26,6 +27,7 @@ export function LatestPosts({
   action?: ReactNode;
   variant?: "cards" | "editorial";
   className?: string;
+  arrow?: boolean;
 }) {
   const latestPosts = getLatestPosts({
     category,
@@ -42,6 +44,7 @@ export function LatestPosts({
   if (variant === "editorial") {
     return (
       <WritingPostsSection
+        arrow={arrow}
         posts={latestPosts}
         title={title}
         action={action}
