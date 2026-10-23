@@ -1,7 +1,7 @@
 "use client";
 
 import type { PublicRecord } from "lib/genui/envelope";
-import { createContext, useCallback, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
 
 const GenuiRecordContext = createContext<PublicRecord[] | null>(null);
@@ -24,20 +24,4 @@ export const GenuiRecordProvider = ({
 export const useGenuiRecords = () => {
   const records = useContext(GenuiRecordContext);
   return records ?? [];
-};
-
-export const resolveGenuiRecord = ({
-  id,
-  records,
-}: {
-  id: string;
-  records: PublicRecord[];
-}) => records.find((record) => record.id === id);
-
-export const useResolveGenuiRecord = (id: string) => {
-  const records = useGenuiRecords();
-  return useCallback(
-    () => resolveGenuiRecord({ id, records }),
-    [id, records]
-  )();
 };

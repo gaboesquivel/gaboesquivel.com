@@ -1,6 +1,7 @@
 import type { Project } from "gaboesquivel";
-import { experience, getProjectBySlug, projects } from "gaboesquivel";
+import { experience, projects } from "gaboesquivel";
 import { featuredProjectSlugs } from "lib/work-types";
+import { projectsFromSlugs } from "lib/work/projects-from-slugs";
 
 import {
   EXPERIENCE_QUESTION,
@@ -50,11 +51,7 @@ export const shouldShowWorkCards = (text: string) => {
 };
 
 export const featuredWorkCardProjects = (): Project[] =>
-  featuredProjectSlugs.flatMap((slug) => {
-    const project = getProjectBySlug(slug);
-    if (!project?.image) return [];
-    return [project];
-  });
+  projectsFromSlugs(featuredProjectSlugs).filter((project) => project.image);
 
 export const workCardSlugsForUserText = (text: string) =>
   shouldShowWorkCards(text)

@@ -14,6 +14,7 @@ import {
   visibleTechStack,
 } from "../../lib/tech-evidence";
 import { featuredProjectSlugs } from "../../lib/work-types";
+import { projectsFromSlugs } from "../../lib/work/projects-from-slugs";
 import {
   absoluteUrl,
   blogSlugFromRelatedUrl,
@@ -31,10 +32,7 @@ const genericExperiencePattern =
   /aligning with the principle of user experience first|user experience first/i;
 
 export const sortProjects = () => {
-  const featured = featuredProjectSlugs.flatMap((slug) => {
-    const project = getProjectBySlug(slug);
-    return project ? [project] : [];
-  });
+  const featured = projectsFromSlugs(featuredProjectSlugs);
   const rest = projects
     .filter(
       (project) =>

@@ -11,7 +11,6 @@ import {
   sectionAction,
 } from "components/shared/spacing";
 import { EditorialProjectList } from "components/work/editorial-project-list";
-import { getProjectBySlug } from "gaboesquivel";
 import { homeJsonLd } from "lib/home-json-ld";
 import { personalOgImage } from "lib/og/constants";
 import { pageMetadata } from "lib/page-metadata";
@@ -23,12 +22,10 @@ import {
 } from "lib/site-identity";
 import { cn } from "lib/utils";
 import { homepageEditorialSlugs } from "lib/work/project-cover";
+import { projectsFromSlugs } from "lib/work/projects-from-slugs";
 import Link from "next/link";
 
-const selectedProjects = homepageEditorialSlugs.flatMap((slug) => {
-  const project = getProjectBySlug(slug);
-  return project ? [project] : [];
-});
+const selectedProjects = projectsFromSlugs(homepageEditorialSlugs);
 
 export default function HomePage() {
   return (

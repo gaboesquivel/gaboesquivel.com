@@ -1,7 +1,7 @@
 import { blockSpacing, singleColGrid } from "components/shared/spacing";
-import { getProjectBySlug } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { evidenceUsesEditorial } from "lib/work/project-cover";
+import { projectsFromSlugs } from "lib/work/projects-from-slugs";
 
 import { EditorialProjectCard } from "./editorial-project-card";
 import {
@@ -21,11 +21,7 @@ export function ProjectEvidence({
   presentation?: "card" | "registry" | "editorial";
   imageSizes?: string;
 }) {
-  const evidence = slugs.flatMap((slug) => {
-    const project = getProjectBySlug(slug);
-
-    return project ? [project] : [];
-  });
+  const evidence = projectsFromSlugs(slugs);
   const twoColumn = columns === 2 && evidence.length > 1;
   const editorial = evidenceUsesEditorial({ presentation, slugs });
 
