@@ -1,5 +1,4 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { Web3BoundaryDiagram } from "components/diagrams/web3-boundary";
 import { EditorialSection } from "components/interior/editorial-section";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
@@ -9,121 +8,145 @@ import {
   SplitSectionMedia,
 } from "components/interior/split-section";
 import { LetsConnect } from "components/shared/lets-connect";
-import {
-  PageImage,
-  PageSection,
-  proseLink,
-  Prose,
-  sectionAction,
-} from "components/shared/page-layout";
-import { ProjectEvidence } from "components/work/project-evidence";
+import { PageSection, proseLink, Prose } from "components/shared/page-layout";
+import { sectionTitle } from "components/shared/spacing";
+import { ProjectFigure } from "components/work/project-figure";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
-import { projectCover } from "lib/work/project-cover";
 import Link from "next/link";
-
-const ztxCover = projectCover("ztx");
 
 export default function Web3ExperiencePage() {
   return (
     <InteriorPageShell>
-      <PageIntro
-        description="I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync."
-        eyebrow="Capabilities"
-        title="Web3 Engineering"
-      />
-      <Prose>
-        My focus is the point where complex protocols become usable products.
-        People need to understand what they own, what will happen when they
-        sign, and what state a transaction is in—not how many networks or
-        services sit behind the screen.
-      </Prose>
-      <Prose>
-        I came to this work through financial products, including Wink, Costa
-        Rica&apos;s first neobank. That experience still shapes how I approach
-        identity, security, and moving money.
-      </Prose>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
+        <PageIntro
+          description="I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync."
+          titleClassName="mb-0 lg:mb-0"
+          title="Web3 Engineering"
+        />
+        <div className="lg:pt-20">
+          <Prose className="mt-6 first:mt-0">
+            My focus is the point where complex protocols become usable
+            products. People need to understand what they own, what will happen
+            when they sign, and what state a transaction is in—not how many
+            networks or services sit behind the screen.
+          </Prose>
+          <Prose className="mt-6 first:mt-0">
+            I came to this work through financial products, including Wink,
+            Costa Rica&apos;s first neobank. That experience still shapes how I
+            approach identity, security, and moving money.
+          </Prose>
+        </div>
+      </div>
 
-      <Web3BoundaryDiagram />
-
-      <EditorialSection title="ZTX: a wallet inside a virtual world">
+      <EditorialSection>
         <SplitSection sectionSpacing={false}>
-          <SplitSectionContent mediaPosition="right" span={5}>
-            <Prose className="mt-0">
+          <SplitSectionContent mediaPosition="right" span={6}>
+            <h2 className={sectionTitle}>
+              ZTX: a wallet inside a virtual world
+            </h2>
+            <Prose className="mt-6">
               ZTX was a Web3 virtual world where a wallet needed to work inside
               a WebGL session. I built an EVM connector using MetaMask,
               Ethers.js, and a custom JavaScript event system, so people could
               sign transactions and trade NFTs without leaving the experience.
             </Prose>
-            <p className="mt-6">
-              <Link href="/project/ztx" className={sectionAction}>
-                View ZTX
-              </Link>
-            </p>
           </SplitSectionContent>
-          {ztxCover ? (
-            <SplitSectionMedia mediaPosition="right" span={6}>
-              <PageImage
-                alt={ztxCover.alt}
-                objectClassName="object-contain"
-                src={ztxCover.src}
-              />
-            </SplitSectionMedia>
-          ) : null}
+          <SplitSectionMedia mediaPosition="right" span={5}>
+            <ProjectFigure
+              slug="ztx"
+              priority
+              objectClassName="object-cover object-center"
+            />
+          </SplitSectionMedia>
         </SplitSection>
       </EditorialSection>
 
-      <PageSection title="Trading and financial products">
-        <Prose>
-          At Bitcash, I worked on a peer-to-peer exchange where people could
-          trade and sign transactions directly in the browser. I built WebAuthn
-          key management and QR signature requests so signing did not require a
-          separate wallet.
-        </Prose>
-        <Prose>
-          At Bitlauncher, I built the product around token auctions, wallet
-          balances, and transactions across EOS EVM and EOS. I deployed Gnosis
-          auction contracts, integrated wallet interactions with viem and wagmi,
-          and indexed transaction activity for the interface.
-        </Prose>
-        <Prose>
-          At Opyn, I worked on the trading interface for a perpetuals protocol
-          on Arbitrum, integrating protocol interactions with viem and wagmi and
-          connecting the interface to indexed onchain data.
-        </Prose>
-        <Prose>
-          For RareMint, I integrated WalletConnect into a Polygon collectibles
-          marketplace so users could participate in auctions without leaving the
-          marketplace.
-        </Prose>
+      <EditorialSection title="Trading and financial products">
+        <div className="grid gap-x-10 gap-y-12 lg:grid-cols-2">
+          <div className="flex flex-col">
+            <h3 className="text-xl font-semibold">
+              Bitcash: signing in the browser
+            </h3>
+            <Prose className="mt-6">
+              At Bitcash, I worked on a peer-to-peer exchange where people could
+              trade and sign transactions directly in the browser. I built
+              WebAuthn key management and QR signature requests so signing did
+              not require a separate wallet.
+            </Prose>
+            <div className="mt-auto pt-8">
+              <ProjectFigure slug="bitcashbank" />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <h3 className="text-xl font-semibold">
+              Bitlauncher: token auctions
+            </h3>
+            <Prose className="mt-6">
+              At Bitlauncher, I built the product around token auctions, wallet
+              balances, and transactions across EOS EVM and EOS. I deployed
+              Gnosis auction contracts, integrated wallet interactions with viem
+              and wagmi, and indexed transaction activity for the interface.
+            </Prose>
+            <div className="mt-auto pt-8">
+              <ProjectFigure slug="bitlauncher" />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <h3 className="text-xl font-semibold">Opyn: onchain trading</h3>
+            <Prose className="mt-6">
+              At Opyn, I worked on the trading interface for a perpetuals
+              protocol on Arbitrum, integrating protocol interactions with viem
+              and wagmi and connecting the interface to indexed onchain data.
+            </Prose>
+            <div className="mt-auto pt-8">
+              <ProjectFigure slug="opyn" />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <h3 className="text-xl font-semibold">
+              RareMint: collectibles and auctions
+            </h3>
+            <Prose className="mt-6">
+              For RareMint, I integrated WalletConnect into a Polygon
+              collectibles marketplace so users could participate in auctions
+              without leaving the marketplace.
+            </Prose>
+            <div className="mt-auto pt-8">
+              <ProjectFigure slug="raremint" />
+            </div>
+          </div>
+        </div>
+      </EditorialSection>
 
-        <ProjectEvidence
-          slugs={["bitcashbank", "bitlauncher", "opyn", "raremint"]}
-        />
-      </PageSection>
-
-      <PageSection title="Protocols and infrastructure">
-        <Prose>
-          My earlier Web3 work began closer to the infrastructure. At{" "}
-          <Link href="/project/knowledge-io" className={proseLink}>
-            Knowledge
-          </Link>
-          , I built ERC-20 token contracts, serverless AWS services, and a React
-          and Web3.js marketplace with a wallet dashboard.
-        </Prose>
-        <Prose>
-          At EOS Costa Rica, I helped launch the EOS mainnet and operate
-          validators, then built a private EOSIO chain for Grant Thornton&apos;s
-          intercompany transactions and tax workflows. I also started{" "}
-          <Link href="/project/chaingraph" className={proseLink}>
-            ChainGraph
-          </Link>
-          , an open-source GraphQL toolkit for querying and streaming EOSIO and
-          Antelope blockchain data.
-        </Prose>
-
-        <ProjectEvidence slugs={["eos-costa-rica", "chaingraph"]} />
-      </PageSection>
+      <EditorialSection title="Protocols and infrastructure">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+          <Prose className="mt-0">
+            My earlier Web3 work began closer to the infrastructure. At{" "}
+            <Link href="/project/knowledge-io" className={proseLink}>
+              Knowledge
+            </Link>
+            , I built ERC-20 token contracts, serverless AWS services, and a
+            React and Web3.js marketplace with a wallet dashboard.
+          </Prose>
+          <div>
+            <Prose className="mt-0">
+              At{" "}
+              <Link href="/project/eos-costa-rica" className={proseLink}>
+                EOS Costa Rica
+              </Link>
+              , I helped launch the EOS mainnet and operate validators, then
+              built a private EOSIO chain for Grant Thornton&apos;s intercompany
+              transactions and tax workflows. I also started{" "}
+              <Link href="/project/chaingraph" className={proseLink}>
+                ChainGraph
+              </Link>
+              , an open-source GraphQL toolkit for querying and streaming EOSIO
+              and Antelope blockchain data.
+            </Prose>
+          </div>
+        </div>
+      </EditorialSection>
 
       <LatestPosts
         category="Web3"

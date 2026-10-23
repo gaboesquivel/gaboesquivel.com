@@ -409,6 +409,20 @@ const jsxNodeToMarkdown = (
       return;
     }
 
+    if (tagName === "ProjectFigure") {
+      const slug = getJsxAttributeValue(attributes, "slug", variables);
+      if (typeof slug === "string") {
+        const project = getProjectBySlug(slug);
+        if (project) {
+          lines.push(
+            `[Explore ${project.title}](${absoluteUrl(`/project/${slug}`)})`,
+            ""
+          );
+        }
+      }
+      return;
+    }
+
     if (tagName === "ProjectEvidence") {
       const slugs = (getJsxAttributeValue(attributes, "slugs", variables) ??
         []) as string[];

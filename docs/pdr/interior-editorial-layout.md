@@ -31,3 +31,11 @@ Introduce a shared **interior composition layer** (`components/interior/`) with 
 - [SITE-WIDE-IMPLEMENTATION-PLAN.md](../specs/design-system-v2/SITE-WIDE-IMPLEMENTATION-PLAN.md) P5 “blocked” is superseded for TOC by this PDR.
 - Velite blog schema gains a `toc` field computed at content build.
 - Interior shell applies to biography, capabilities, writing index, project case studies, contact/explore, and AI/Web3 narratives. Utility reading (`/docs`, `/privacy`, `/about`) uses `ReadingPageShell` only. `/`, `/ask`, and `/cv` stay on their existing shells.
+
+### Refinement (2026-10-22, narrative pages)
+
+- **Status:** accepted, explicitly requested in the AI/Web3/bio layout correction.
+- **Context:** repeated project-card copy, narrow prose columns, and doubled nested spacing interrupted these narratives. Diagrams added visual weight without improving their page jobs.
+- **Decision:** `/ai`, `/web3`, and `/bio` prohibit diagrams in any format. Retain the homepage design tokens and live narrative copy; use selected project figures and real photography beside readable prose.
+- **Rationale:** evidence and typography should carry these pages; system explanations belong in relevant writing or project details.
+- **Consequences:** project links remain available through figure captions and contextual links. Nested biography splits disable their own spacing. Blog illustration rules and the homepage remain unchanged.

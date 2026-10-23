@@ -10,6 +10,12 @@ Read [PRODUCT.md](../../PRODUCT.md) for the page's job before editing copy. Voic
 
 When researching, one agent writes. Other agents, spawned read-only and in parallel, look up facts. They do not write, rewrite, outline, or search for a better voice.
 
+## AI, Web3, and biography
+
+`/ai`, `/web3`, and `/bio` are diagram-free editorial pages. Do not add diagrams through components, SVGs, images, or embedded content. Use real photography and project screenshots only where they support the nearby narrative; see [DESIGN.md](../../DESIGN.md#ai-web3-and-biography-pages).
+
+Preserve substantive approved/live copy during layout work. Avoid repeating the same project description in prose and a card. `/bio` owns chronology and worldview; `/ai` and `/web3` explain their respective capabilities through verified work.
+
 ## Single blog post
 
 Start with the brief, the `gabo` skill's relevant guidance, and PRODUCT's blog conventions and internal linking rules. Draft once the article's claims are supported. Look up only specific missing facts. For related posts, search titles, descriptions, or topic keywords and read only promising matches, stopping when useful links are supported. A single article does not require a whole-site scan.

@@ -1,5 +1,4 @@
 import { LatestPosts } from "components/blog/latest-posts";
-import { AiSystemDiagram } from "components/diagrams/ai-system";
 import { EditorialSection } from "components/interior/editorial-section";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
@@ -10,7 +9,8 @@ import {
 } from "components/interior/split-section";
 import { LetsConnect } from "components/shared/lets-connect";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
-import { ProjectEvidence } from "components/work/project-evidence";
+import { sectionTitle } from "components/shared/spacing";
+import { ProjectFigure } from "components/work/project-figure";
 import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
@@ -18,25 +18,30 @@ import Link from "next/link";
 export default function AIExperiencePage() {
   return (
     <InteriorPageShell>
-      <PageIntro
-        description="I build AI products where the experience matters as much as the model: voice and chat assistants, retrieval-backed workflows, and interfaces that help people understand what an agent is doing."
-        eyebrow="Capabilities"
-        title="AI Engineering"
-      />
-      <Prose>
-        That takes work across product, design, and architecture. I shape the
-        tools and context a model receives, the decisions it can make, and the
-        controls teams need to inspect, adjust, and operate the system after
-        launch. I also explore generative interfaces as a way to move beyond
-        chat when a task calls for a clearer interaction.
-      </Prose>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
+        <PageIntro
+          description="I build AI products where the experience matters as much as the model: voice and chat assistants, retrieval-backed workflows, and interfaces that help people understand what an agent is doing."
+          titleClassName="mb-0 lg:mb-0"
+          title="AI Engineering"
+        />
+        <div className="lg:pt-20">
+          <Prose className="mt-6 first:mt-0">
+            That takes work across product, design, and architecture. I shape
+            the tools and context a model receives, the decisions it can make,
+            and the controls teams need to inspect, adjust, and operate the
+            system after launch. I also explore generative interfaces as a way
+            to move beyond chat when a task calls for a clearer interaction.
+          </Prose>
+        </div>
+      </div>
 
-      <AiSystemDiagram />
-
-      <EditorialSection title="LegalAgent: voice, chat, and retrieval">
+      <EditorialSection>
         <SplitSection sectionSpacing={false}>
-          <SplitSectionContent mediaPosition="right" span={5}>
-            <Prose className="mt-0">
+          <SplitSectionContent mediaPosition="right" span={6}>
+            <h2 className={sectionTitle}>
+              LegalAgent: voice, chat, and retrieval
+            </h2>
+            <Prose className="mt-6">
               For LegalAgent, I added Spanish and English voice and chat to an
               existing React Native app for legal professionals. I used
               OpenAI&apos;s Realtime API for voice, the AI SDK for chat, and
@@ -50,31 +55,40 @@ export default function AIExperiencePage() {
               management, prompt controls, and retrieval categories.
             </Prose>
           </SplitSectionContent>
-          <SplitSectionMedia mediaPosition="right" span={6}>
-            <ProjectEvidence
-              columns={1}
-              presentation="registry"
-              slugs={["legal-agent"]}
-            />
+          <SplitSectionMedia mediaPosition="right" span={5}>
+            <ProjectFigure slug="legal-agent" priority />
           </SplitSectionMedia>
         </SplitSection>
       </EditorialSection>
 
-      <PageSection title="Domain-specific assistants">
-        <Prose>
-          At Masterbots, I built interfaces for domain-specific assistants and
-          integrated AI SDK tooling, including automation for multilingual
-          content.
-        </Prose>
-        <Prose>
-          At Bitlauncher, I built a retrieval-backed assistant with tools for
-          news and video content, plus AI-assisted internationalization. The
-          assistant could explain product information while bids, balances,
-          contracts, and transactions remained grounded in deterministic
-          application data.
-        </Prose>
-
-        <Prose>
+      <EditorialSection title="Domain-specific assistants">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
+          <div className="flex flex-col">
+            <h3 className="text-xl font-semibold">Masterbots</h3>
+            <Prose className="mt-6">
+              At Masterbots, I built interfaces for domain-specific assistants
+              and integrated AI SDK tooling, including automation for
+              multilingual content.
+            </Prose>
+            <div className="mt-auto pt-8">
+              <ProjectFigure slug="masterbots" />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <h3 className="text-xl font-semibold">Bitlauncher</h3>
+            <Prose className="mt-6">
+              At Bitlauncher, I built a retrieval-backed assistant with tools
+              for news and video content, plus AI-assisted internationalization.
+              The assistant could explain product information while bids,
+              balances, contracts, and transactions remained grounded in
+              deterministic application data.
+            </Prose>
+            <div className="mt-auto pt-8">
+              <ProjectFigure slug="bitlauncher" />
+            </div>
+          </div>
+        </div>
+        <Prose className="mt-10 lg:mt-12">
           Earlier,{" "}
           <Link href="/project/wizard-world" className={proseLink}>
             Wizard World
@@ -83,9 +97,7 @@ export default function AIExperiencePage() {
           Niftory. It was an experiment in connecting generative experiences to
           blockchain transactions.
         </Prose>
-
-        <ProjectEvidence slugs={["masterbots", "bitlauncher"]} />
-      </PageSection>
+      </EditorialSection>
 
       <LatestPosts
         category="Artificial Intelligence"

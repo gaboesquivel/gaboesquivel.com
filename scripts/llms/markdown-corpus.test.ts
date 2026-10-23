@@ -14,6 +14,18 @@ describe("markdown corpus", () => {
     expect(project).toContain("LegalAgent");
   });
 
+  test("narrative pages retain linked project figures", () => {
+    for (const [pathname, slugs] of [
+      ["/ai", ["legal-agent", "masterbots", "bitlauncher"]],
+      ["/web3", ["ztx", "bitcashbank", "bitlauncher"]],
+    ] as const) {
+      const markdown = getMarkdownForPath({ pathname });
+      for (const slug of slugs) {
+        expect(markdown).toContain(`https://gaboesquivel.com/project/${slug}`);
+      }
+    }
+  });
+
   test("list pages and CV focus variant render", () => {
     expect(getMarkdownForPath({ pathname: "/work" })).toContain(
       "Software that ships."

@@ -46,7 +46,9 @@ export function BioChapter({
           className
         )}
       >
-        <SectionLabel className="mb-3">{year}</SectionLabel>
+        <SectionLabel className="mb-3 tracking-normal normal-case">
+          {year}
+        </SectionLabel>
         <h2 className={cn(sectionTitle, sectionHeadingSpacing, "max-w-5xl")}>
           {title}
         </h2>
@@ -66,9 +68,11 @@ export function BioChapter({
           className
         )}
       >
-        <SplitSection>
+        <SplitSection sectionSpacing={false}>
           <SplitSectionContent mediaPosition={mediaPosition} span={textSpan}>
-            <SectionLabel className="mb-3">{year}</SectionLabel>
+            <SectionLabel className="mb-3 tracking-normal normal-case">
+              {year}
+            </SectionLabel>
             <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>{title}</h2>
             {children}
           </SplitSectionContent>

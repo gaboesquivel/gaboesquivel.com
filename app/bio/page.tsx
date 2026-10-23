@@ -3,14 +3,9 @@ import { LatestPosts } from "components/blog/latest-posts";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { MediaBlock } from "components/interior/media-block";
 import { PageIntro } from "components/interior/page-intro";
-import {
-  SplitSection,
-  SplitSectionContent,
-  SplitSectionMedia,
-} from "components/interior/split-section";
 import { LetsConnect } from "components/shared/lets-connect";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
-import { ProjectEvidence } from "components/work/project-evidence";
+import { ProjectFigure } from "components/work/project-figure";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 import gabocoding from "public/images/bio/gabo-coding.jpg";
@@ -21,39 +16,26 @@ export default function BioPage() {
     <InteriorPageShell>
       <PageIntro
         description="I started with web interfaces in 2010. The work grew into complete products, then financial and blockchain systems, and now intelligent interfaces. This is how those stages shaped the way I build."
-        eyebrow="Biography"
         title="Career story"
       />
-
-      <SplitSection className="mt-12 lg:mt-16">
-        <SplitSectionContent mediaPosition="right" span={5}>
-          <Prose className="mt-0">
-            The through-line is interfaces: where complex systems become
-            understandable, usable, and worth trusting — from community meetups
-            in Costa Rica to neobank apps, onchain products, and agents.
-          </Prose>
-        </SplitSectionContent>
-        <SplitSectionMedia mediaPosition="right" span={6}>
-          <MediaBlock
-            alt="NodeSchool Costa Rica community session"
-            aspect="landscape"
-            objectClassName="object-cover"
-            src={nodeschool}
-          />
-        </SplitSectionMedia>
-      </SplitSection>
 
       <BioChapter
         layout="split-media-right"
         media={
-          <ProjectEvidence
-            columns={1}
-            presentation="editorial"
-            slugs={["costa-rica-js"]}
-          />
+          <figure>
+            <MediaBlock
+              className="mt-0"
+              priority
+              alt="Developers at a NodeSchool Costa Rica workshop"
+              src={nodeschool}
+            />
+            <figcaption className="mt-4 text-sm text-neutral-400">
+              Learning together at NodeSchool Costa Rica.
+            </figcaption>
+          </figure>
         }
-        mediaSpan={6}
-        textSpan={5}
+        mediaSpan={5}
+        textSpan={6}
         title="Interfaces and a JavaScript community"
         year="2010 — interfaces"
       >
@@ -84,15 +66,9 @@ export default function BioPage() {
 
       <BioChapter
         layout="split-media-left"
-        media={
-          <ProjectEvidence
-            columns={1}
-            presentation="editorial"
-            slugs={["wink"]}
-          />
-        }
-        mediaSpan={7}
-        textSpan={4}
+        media={<ProjectFigure slug="wink" />}
+        mediaSpan={5}
+        textSpan={6}
         title="From interfaces to a banking product"
         year="2015 — product"
       >
@@ -119,13 +95,14 @@ export default function BioPage() {
         layout="split-media-right"
         media={
           <MediaBlock
+            className="mt-0"
             alt="Gabo Esquivel coding"
             objectClassName="object-top object-cover"
             src={gabocoding}
           />
         }
-        mediaSpan={6}
-        textSpan={5}
+        mediaSpan={5}
+        textSpan={6}
         title="Complex financial and blockchain systems"
         year="2017 — systems"
       >
@@ -145,14 +122,21 @@ export default function BioPage() {
           interface. Each involved a different part of the same challenge:
           connecting complex systems to understandable interactions.
         </Prose>
-        <ProjectEvidence
-          presentation="editorial"
-          slugs={["eos-costa-rica", "ztx"]}
-        />
+        <p className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+          <Link href="/project/eos-costa-rica" className={proseLink}>
+            EOS Costa Rica
+          </Link>
+          <Link href="/project/ztx" className={proseLink}>
+            ZTX
+          </Link>
+        </p>
       </BioChapter>
 
       <BioChapter
-        layout="wide"
+        layout="split-media-right"
+        media={<ProjectFigure slug="legal-agent" />}
+        textSpan={6}
+        mediaSpan={5}
         title="Intelligent interfaces"
         year="2024 — agents"
       >
@@ -166,11 +150,6 @@ export default function BioPage() {
           operate an AI product. The same interest in interfaces—the point where
           a complex system becomes usable—now extends to agents.
         </Prose>
-        <ProjectEvidence
-          columns={1}
-          presentation="editorial"
-          slugs={["legal-agent"]}
-        />
       </BioChapter>
 
       <LatestPosts limit={4} title="Writing" variant="editorial" />

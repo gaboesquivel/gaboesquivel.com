@@ -85,6 +85,14 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
 - Page and project media: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
 
+## AI, Web3, and biography pages
+
+**Editorial capability and biography pages:** `/ai`, `/web3`, and `/bio` establish credibility through typography, narrative copy, authentic photography, and real project imagery—not architecture diagrams, decorative system visualizations, flowcharts, `DiagramScroll` wrappers, or diagram substitutes. This applies to imported components and image assets alike. Layouts prioritize editorial hierarchy, text/media composition, responsive behavior, and shipped-work evidence. Blog diagram guidance below does not apply to these three routes; diagrams remain appropriate in technical articles when they explain something text alone cannot.
+
+Use the approved homepage's shell, monochrome typography, turquoise links, and existing image treatment. Keep narrative copy in readable columns; pair a selected project screenshot or real photograph with the passage it supports. Use `ProjectFigure` for linked project evidence beside prose, without repeating a project-card description. Do not turn every project mention into a visual.
+
+AI and Web3 introductions use two complementary text columns on desktop and a single reading order on mobile. Biography follows its chronological chapters; one image per chapter is enough. A reversed composition is appropriate for a distinct chapter, not as an automatic alternating pattern. Nested splits must disable their own section spacing. Keep text before media in mobile and DOM order. Preserve the strong live editorial copy and edit only repetition or unclear transitions.
+
 ## Editorial images
 
 Every editorial image communicates a specific idea from its article. Technical images show meaningful structures and relationships. Reflective images express the central experience through a clear visual metaphor. Both use the same palette, drawing style, spacing, and compositional discipline.
@@ -131,6 +139,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Filter | `FilterNav` (`Button` as `Link`) | `components/shared/page-layout.tsx`, `components/ui/button.tsx` |
 | Text / route card | `PageCard` / `SiteCardLink` on `Card` | `components/shared/page-card.tsx`, `components/shared/site-card-link.tsx` |
 | Project with image | `EditorialProjectCard` (cover frame) or bordered `ProjectCard` | `components/work/editorial-project-card.tsx`, `components/work/project-card.tsx` |
+| Narrative project evidence | `ProjectFigure` (caption link, no card description) | `components/work/project-figure.tsx` |
 | Work flagship | `FeaturedProjectCard` | `components/work/featured-project-card.tsx` |
 | Work featured gallery | `WorkProjectGallery` | `components/work/work-project-gallery.tsx` |
 | Chat project row | `ProjectMedia` / `ProjectMediaStack` on `Card` | `components/work/project-media.tsx` |
@@ -261,7 +270,7 @@ Featured work is six package slugs in fixed order: LegalAgent flagship (`Feature
 
 Filtered `/work/[type]` pages use the same editorial masonry as `/tech` project lists (`EditorialProjectList` / `EditorialProjectCard`) and the compact hero. Bordered `ProjectCard` remains for capability evidence when `ProjectEvidence` uses `presentation="card"`.
 
-Capability routes (`/ai`, `/web3`, and the rest) use the same shell. Narrative paragraphs use `readingMeasure`. `AiSystemDiagram` and `Web3BoundaryDiagram` keep a 720px minimum inside `DiagramScroll`, so narrow viewports scroll that region without widening the page. Below the `md` breakpoint a one-line hint and left/right controls scroll it from the keyboard. The SVG title and description name the relationship in text; turquoise marks that same relationship. `ProjectEvidence` fills the shell. It uses `presentation="card"` (bordered), `presentation="registry"` (editorial only when every slug has a `projectCover` entry), or `presentation="editorial"` (editorial contain with package image fallback). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. `CapabilityPage` passes `presentation="registry"` so mixed slug lists stay bordered cards. On `/ai`, the LegalAgent list alone uses `presentation="registry"` until that page opts into full editorial restyle. In-page ZTX on `/web3` uses the registry WebP and alt from `projectCover`; Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
+Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` (editorial only when every slug has a `projectCover` entry), or `presentation="editorial"` (editorial contain with package image fallback). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. `/ai`, `/web3`, and `/bio` are **not** diagram pages; they use `ProjectFigure`, photography, and narrative splits instead of `AiSystemDiagram`, `Web3BoundaryDiagram`, or `ProjectEvidence` grids. Registry and package art both sit in a black 16:9 `ProjectFigure` frame with `object-contain` by default; pass `objectClassName` when a cover needs a tighter crop (for example ZTX on `/web3`). Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
 
 ## Contact (`/contact`)
 
@@ -269,4 +278,4 @@ Capability routes (`/ai`, `/web3`, and the rest) use the same shell. Narrative p
 
 ## Career story (`/bio`)
 
-`/bio` stays on `siteColumn`. Chapter evidence is narrative, not a capability grid: each `ProjectEvidence` block uses `presentation="editorial"` so projects read as story beats with `object-contain` imagery (registry WebP when defined, otherwise package art). Do not route `/bio` through `CapabilityPage` or `presentation="registry"`; mixed slug lists in a chapter may combine covered and uncovered projects in one editorial list when the copy requires it.
+`/bio` stays on `siteColumn`. Chapters use `BioChapter` splits and `ProjectFigure` / `MediaBlock` for evidence—not `ProjectEvidence` grids or capability diagrams. Do not route `/bio` through `CapabilityPage`.
