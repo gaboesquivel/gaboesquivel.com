@@ -11,6 +11,11 @@ export const projectComposites: readonly CompositeName[] = [
   "wide-lead",
   "evidence-grid",
   "case-study",
+  "project-bento",
+  "project-feature-grid",
+  "project-asymmetric-closing",
+  "project-compact-list",
+  "project-comparison",
 ];
 
 export const writingComposites: readonly CompositeName[] = [

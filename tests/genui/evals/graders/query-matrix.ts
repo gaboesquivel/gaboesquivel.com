@@ -72,6 +72,27 @@ export const gradeQueryMatrixFixture = ({
     };
   }
 
+  for (const forbiddenRoot of fixture.forbiddenRootExperiences ?? []) {
+    if (experience === forbiddenRoot) {
+      return {
+        grade: "FAIL",
+        reason: `forbidden root experience: ${forbiddenRoot}`,
+      };
+    }
+  }
+
+  if (fixture.requiredComposite) {
+    const compositeMatch = envelope.openuiText.match(
+      /ProjectExperience\("([^"]+)"/
+    )?.[1];
+    if (compositeMatch !== fixture.requiredComposite) {
+      return {
+        grade: "FAIL",
+        reason: `expected composite ${fixture.requiredComposite}, got ${compositeMatch ?? "none"}`,
+      };
+    }
+  }
+
   for (const forbidden of fixture.forbiddenContent ?? []) {
     const hay = `${envelope.openuiText}\n${envelope.fallbackText}`;
     if (hay.includes(forbidden)) {

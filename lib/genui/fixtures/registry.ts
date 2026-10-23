@@ -17,6 +17,8 @@ export type GenuiFixtureId =
   | "cv-full"
   | "project-gallery"
   | "project-case-study"
+  | "project-bento"
+  | "project-asymmetric-closing"
   | "writing-dated"
   | "contact-hire"
   | "booking-hire"
@@ -75,6 +77,48 @@ export const genuiFixtures: Record<GenuiFixtureId, GenuiFixtureDefinition> = {
       requestId,
     }),
     id: "project-gallery",
+  },
+  "project-bento": {
+    envelope: projectDocument({
+      composite: "project-bento",
+      domain: "ai",
+      projectIds: [
+        "/project/legal-agent",
+        "/project/masterbots",
+        "/project/bitlauncher",
+        "/project/wizard-world",
+      ],
+      records: [
+        sampleProjectRecord("legal-agent", "LegalAgent"),
+        sampleProjectRecord("masterbots", "Masterbots"),
+        sampleProjectRecord("bitlauncher", "Bitlauncher"),
+        sampleProjectRecord("wizard-world", "Wizard World"),
+      ],
+      requestId,
+    }),
+    id: "project-bento",
+  },
+  "project-asymmetric-closing": {
+    envelope: projectDocument({
+      composite: "project-asymmetric-closing",
+      domain: "ai",
+      projectIds: [
+        "/project/legal-agent",
+        "/project/masterbots",
+        "/project/bitlauncher",
+        "/project/wizard-world",
+        "/project/wink",
+      ],
+      records: [
+        sampleProjectRecord("legal-agent", "LegalAgent"),
+        sampleProjectRecord("masterbots", "Masterbots"),
+        sampleProjectRecord("bitlauncher", "Bitlauncher"),
+        sampleProjectRecord("wizard-world", "Wizard World"),
+        sampleProjectRecord("wink", "Wink"),
+      ],
+      requestId,
+    }),
+    id: "project-asymmetric-closing",
   },
   "writing-dated": {
     envelope: writingDocument({

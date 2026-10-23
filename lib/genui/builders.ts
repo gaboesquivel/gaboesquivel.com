@@ -59,21 +59,28 @@ export const answerDocument = ({
 
 export const projectDocument = ({
   composite,
+  domain,
   projectIds,
   records,
   requestId,
 }: {
   composite: CompositeName;
+  domain?: "ai" | "web3" | "all";
   projectIds: string[];
   records: PublicRecord[];
   requestId: string;
-}) =>
-  envelope({
+}) => {
+  let domainArg = "";
+  if (domain) {
+    domainArg = `, ${openUiStringLiteral(domain)}`;
+  }
+  return envelope({
     fallbackText: "Selected projects",
-    openuiText: `root = ProjectExperience(${openUiStringLiteral(composite)}, ${openUiStringList(projectIds)})`,
+    openuiText: `root = ProjectExperience(${openUiStringLiteral(composite)}, ${openUiStringList(projectIds)}${domainArg})`,
     records,
     requestId,
   });
+};
 
 export const writingDocument = ({
   composite,

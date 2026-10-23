@@ -18,6 +18,8 @@ export interface QueryMatrixFixture {
   query: string;
   expectedIntent?: string;
   expectedCompositeFamilies: CompositeFamily[];
+  requiredComposite?: string;
+  forbiddenRootExperiences?: string[];
   allowedAlternativeCompositions?: CompositeFamily[];
   requiredContent?: string[];
   forbiddenContent?: string[];

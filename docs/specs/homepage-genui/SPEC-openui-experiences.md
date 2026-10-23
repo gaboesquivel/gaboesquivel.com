@@ -14,7 +14,7 @@ React, existing Base UI controls and Tailwind tokens, plus a compatible pinned `
 
 A versioned composition envelope carries a request ID, library version, OpenUI text, plain-text fallback, and a bounded set of validated public records. Experiences reference those records by stable ID; the renderer rejects fabricated or unavailable IDs. Capability DTOs come from [public-capabilities](SPEC-public-capabilities.md). No arbitrary JavaScript, HTML, CSS, component name, endpoint URL or tool name is executable from generated text.
 
-Expose `Answer`, `AboutExperience`, `ProjectExperience`, `WritingExperience`, `ContactExperience`, `BookingExperience`, `CVExperience`, and `ExperienceStack`. Keep typography, generic layout and form primitives internal. `Answer` permits safe prose and source references, not arbitrary HTML. Sources resolve to known public records and safe URLs. Export one library definition, generated model instructions, deterministic builders, a validator, and a renderer entry point for both consumers.
+Expose `Answer`, `AboutExperience`, `ProjectExperience`, `WritingExperience`, `ContactExperience`, `BookingExperience`, `CVExperience`, and `ExperienceStack`. `ProjectExperience` accepts an optional semantic `domain` (`ai` | `web3` | `all`) and an approved `composite` recipe; layout coordinates are not model-generated. Keep typography, generic layout and form primitives internal. `Answer` permits safe prose and source references, not arbitrary HTML. Sources resolve to known public records and safe URLs. Export one library definition, generated model instructions, deterministic builders, a validator, and a renderer entry point for both consumers.
 
 | Experience | Wide container | Narrow container |
 | --- | --- | --- |

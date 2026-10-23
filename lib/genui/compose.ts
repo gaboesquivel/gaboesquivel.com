@@ -4,15 +4,19 @@ import { nanoid } from "nanoid";
 import type { CapabilityContext } from "../capabilities/types";
 import { cvDownloadPayload } from "../connect/cv-download";
 import { contactDocument, cvDocument, projectDocument } from "./builders";
+import type { ComposeResultMetadata } from "./compose-metadata";
+import { metadataFromEnvelope } from "./compose-metadata";
 import { composeSearchSections } from "./compose-search";
 import { chooseProjectComposite } from "./composites";
+import type { JevDecision } from "./decisions";
 import { evaluateWithJev } from "./decisions";
 import { buildSearchDocument, tierZeroDocument } from "./deterministic";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
-import { composeIntentDocument } from "./query-intent";
+import { browseProjectsDocument, composeIntentDocument } from "./query-intent";
 import { sectionToRecord } from "./search-records";
 import { generateSemanticDocument } from "./semantic";
+import { classifyTaskIntent } from "./task-intent";
 import { validateCompositionEnvelope } from "./validate-envelope";
 
 const MAX_QUERY_CODE_POINTS = 2000;
@@ -40,9 +44,26 @@ const documentFromDecision = ({
   decision,
   requestId,
 }: {
-  decision: { domain?: string; intents: string[] };
+  decision: JevDecision;
   requestId: string;
 }): CompositionEnvelope | null => {
+  if (
+    decision.taskIntent === "explain-experience" ||
+    decision.taskIntent === "explain-architecture"
+  ) {
+    return null;
+  }
+  if (decision.taskIntent === "browse-projects") {
+    const domain =
+      decision.domain === "ai" || decision.domain === "web3"
+        ? decision.domain
+        : "all";
+    return browseProjectsDocument({
+      domain,
+      intent: "browse-projects",
+      requestId,
+    });
+  }
   if (decision.intents.includes("projects") || decision.domain === "projects") {
     const records = featuredProjectRecords();
     const projectIds = records.map((record) => record.id);
@@ -84,6 +105,20 @@ const documentFromDecision = ({
   return null;
 };
 
+const lastEnvelope = (events: ComposeStreamEvent[]) => {
+  for (let index = events.length - 1; index >= 0; index -= 1) {
+    const event = events[index];
+    if (
+      event &&
+      (event.type === "complete" || event.type === "partial") &&
+      "envelope" in event
+    ) {
+      return event.envelope;
+    }
+  }
+  return null;
+};
+
 export const composeQuery = async ({
   context,
   input,
@@ -97,6 +132,7 @@ export const composeQuery = async ({
 }): Promise<{
   events: ComposeStreamEvent[];
   jevCalls: number;
+  metadata: ComposeResultMetadata;
   modelCalls: number;
   parseErrors: number;
   tier: 0 | 1 | 2;
@@ -106,6 +142,7 @@ export const composeQuery = async ({
     throw new Error("invalid-query");
   }
   const requestId = context.correlationId || nanoid();
+  const taskIntent = classifyTaskIntent(query);
   let sequence = 0;
   const events: ComposeStreamEvent[] = [];
   const emit = (event: ComposeStreamEvent) => {
@@ -147,37 +184,107 @@ export const composeQuery = async ({
   const exact = tierZeroDocument({ query, requestId });
   if (exact) {
     emitValidated({ envelope: exact, type: "complete" });
-    return { events, jevCalls, modelCalls, parseErrors, tier };
+    return {
+      events,
+      jevCalls,
+      metadata: metadataFromEnvelope({ envelope: exact, query }),
+      modelCalls,
+      parseErrors,
+      tier,
+    };
   }
 
   const intent = composeIntentDocument({ query, requestId });
   if (intent) {
     tier = 1;
     emitValidated({ envelope: intent, type: "complete" });
-    return { events, jevCalls, modelCalls, parseErrors, tier };
+    return {
+      events,
+      jevCalls,
+      metadata: metadataFromEnvelope({ envelope: intent, query }),
+      modelCalls,
+      parseErrors,
+      tier,
+    };
   }
 
   tier = 1;
   const decision = await evaluateWithJev({ query, signal });
   if (decision) jevCalls += 1;
   if (signal?.aborted) {
-    return { events, jevCalls, modelCalls, parseErrors, tier };
+    return {
+      events,
+      jevCalls,
+      metadata: metadataFromEnvelope({ envelope: null, query }),
+      modelCalls,
+      parseErrors,
+      tier,
+    };
   }
   if (decision && !decision.needsSynthesis) {
     const doc = documentFromDecision({ decision, requestId });
     if (doc) {
       emitValidated({ envelope: doc, type: "complete" });
-      return { events, jevCalls, modelCalls, parseErrors, tier };
+      return {
+        events,
+        jevCalls,
+        metadata: metadataFromEnvelope({ envelope: doc, query }),
+        modelCalls,
+        parseErrors,
+        tier,
+      };
     }
   }
 
   tier = 2;
-  const searched = buildSearchDocument({ query, requestId });
+  const resolvedTaskIntent = decision?.taskIntent ?? taskIntent;
+  if (resolvedTaskIntent === "explain-experience") {
+    const evidenceRecords = composeSearchSections({ limit: 6, query }).flatMap(
+      (item) => {
+        const record = sectionToRecord(item);
+        return record ? [record] : [];
+      }
+    );
+    const semantic = await generateSemanticDocument({
+      query,
+      records: evidenceRecords,
+      requestId,
+      signal,
+    });
+    if (semantic) {
+      modelCalls += semantic.modelCalls;
+      emitValidated({ envelope: semantic.envelope, type: "complete" });
+      return {
+        events,
+        jevCalls,
+        metadata: metadataFromEnvelope({
+          envelope: semantic.envelope,
+          query,
+        }),
+        modelCalls,
+        parseErrors,
+        tier,
+      };
+    }
+  }
+
+  const searched = buildSearchDocument({
+    query,
+    requestId,
+    taskIntent: resolvedTaskIntent,
+  });
   if (searched) {
     if (emitValidated({ envelope: searched, type: "partial" })) {
       emitValidated({ envelope: searched, type: "complete" });
     }
-    return { events, jevCalls, modelCalls, parseErrors, tier };
+    return {
+      events,
+      jevCalls,
+      metadata: metadataFromEnvelope({ envelope: searched, query }),
+      modelCalls,
+      parseErrors,
+      tier,
+    };
   }
 
   const evidenceRecords = composeSearchSections({ limit: 6, query }).flatMap(
@@ -195,7 +302,14 @@ export const composeQuery = async ({
   if (semantic) {
     modelCalls += semantic.modelCalls;
     emitValidated({ envelope: semantic.envelope, type: "complete" });
-    return { events, jevCalls, modelCalls, parseErrors, tier };
+    return {
+      events,
+      jevCalls,
+      metadata: metadataFromEnvelope({ envelope: semantic.envelope, query }),
+      modelCalls,
+      parseErrors,
+      tier,
+    };
   }
 
   emit({
@@ -204,5 +318,16 @@ export const composeQuery = async ({
     sequence: sequence++,
     type: "error",
   });
-  return { events, jevCalls, modelCalls, parseErrors, tier };
+  return {
+    events,
+    jevCalls,
+    metadata: metadataFromEnvelope({
+      envelope: lastEnvelope(events),
+      query,
+      validationOk: false,
+    }),
+    modelCalls,
+    parseErrors,
+    tier,
+  };
 };

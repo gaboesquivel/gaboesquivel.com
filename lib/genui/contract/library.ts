@@ -30,7 +30,8 @@ const AboutExperience = defineComponent({
 
 const ProjectExperience = defineComponent({
   component: noop,
-  description: "Project cards from canonical records.",
+  description:
+    "Editorial project compositions (bento, feature grid, comparison) from canonical records.",
   name: "ProjectExperience",
   props: projectExperiencePropsSchema,
 });

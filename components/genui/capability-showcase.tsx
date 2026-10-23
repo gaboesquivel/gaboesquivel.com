@@ -12,13 +12,21 @@ export const CapabilityShowcase = ({
   domain,
   projects,
   records,
+  showDiagram = true,
 }: {
   domain: "ai" | "web3";
   projects: Project[];
   records: PublicRecord[];
+  showDiagram?: boolean;
 }) => (
   <div className="space-y-12">
-    {domain === "ai" ? <AiSystemDiagram /> : <Web3BoundaryDiagram />}
+    {showDiagram ? (
+      domain === "ai" ? (
+        <AiSystemDiagram />
+      ) : (
+        <Web3BoundaryDiagram />
+      )
+    ) : null}
     <ProjectEvidence
       columns={2}
       presentation="card"

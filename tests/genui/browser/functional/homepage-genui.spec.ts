@@ -37,6 +37,46 @@ test.describe("homepage GenUI shell", () => {
     expect(composeCalls).toBe(0);
   });
 
+  test("mocked AI project bento replaces homepage sections", async ({
+    page,
+  }) => {
+    const fixture = genuiFixtures["project-bento"];
+    await page.route("**/api/genui/compose", async (route) => {
+      const events = [
+        { requestId: "pw-bento", sequence: 0, type: "start" },
+        {
+          envelope: fixture.envelope,
+          requestId: "pw-bento",
+          sequence: 1,
+          type: "complete",
+        },
+      ];
+      await route.fulfill({
+        body: `${events.map((event) => JSON.stringify(event)).join("\n")}\n`,
+        contentType: "application/x-ndjson",
+        status: 200,
+      });
+    });
+    await page.goto("/");
+    const input = page.locator("#homepage-genui-search");
+    await input.scrollIntoViewIfNeeded();
+    await input.fill("Show me your AI projects");
+    await input.press("Enter");
+    await expect(page.getByRole("status")).toContainText("Results ready.", {
+      timeout: 15_000,
+    });
+    await expect(page.getByText("SELECTED AI WORK")).toBeVisible();
+    await expect(page.getByText("operate after launch")).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /View project/i })).toHaveCount(
+      4
+    );
+    await input.fill("Can I see your CV?");
+    await input.press("Enter");
+    await expect(page.getByRole("status")).toContainText("Results ready.", {
+      timeout: 15_000,
+    });
+  });
+
   test("mocked compose replaces homepage sections", async ({ page }) => {
     const fixture = genuiFixtures["project-gallery"];
     await page.route("**/api/genui/compose", async (route) => {

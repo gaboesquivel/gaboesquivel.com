@@ -13,6 +13,7 @@ import { genuiContractLibrary, genuiLibraryJsonSchema } from "./library";
 import {
   validateCompositeForExperience,
   validateExperiencePropsPolicy,
+  validateProjectRecipeCardinality,
   validatePublicRecords,
   validateRecordReferences,
 } from "./validation";
@@ -151,6 +152,14 @@ export const compileExperience = ({
   });
   if (!compositeCheck.ok) {
     return { ok: false, code: compositeCheck.code };
+  }
+
+  const recipeCheck = validateProjectRecipeCardinality({
+    experience: policy.name,
+    props,
+  });
+  if (!recipeCheck.ok) {
+    return { ok: false, code: recipeCheck.code };
   }
 
   const refs = validateRecordReferences({

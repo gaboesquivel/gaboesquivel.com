@@ -14,6 +14,8 @@ export type CompileErrorCode =
   | "unsupported_experience"
   | "missing_record"
   | "duplicate_record_id"
+  | "duplicate_project_ids"
+  | "invalid_recipe_cardinality"
   | "record_kind_mismatch"
   | "forbidden_property"
   | "forbidden_value"

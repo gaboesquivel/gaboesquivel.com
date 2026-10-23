@@ -1,10 +1,14 @@
 import { setTimeout as sleep } from "node:timers/promises";
 
+import type { GenuiTaskIntent } from "./task-intent";
+
 export interface JevDecision {
   domain?: string;
   domainConfidence?: number;
   intents: string[];
   needsSynthesis: boolean;
+  taskIntent?: GenuiTaskIntent;
+  taskIntentConfidence?: number;
 }
 
 const YES = 0.82;
@@ -17,21 +21,35 @@ export const decisionFromScores = ({
   domainConfidence,
   intent,
   intentProbability,
+  taskIntent,
+  taskIntentConfidence,
 }: {
   domain?: string;
   domainConfidence?: number;
   intent: string;
   intentProbability: number;
+  taskIntent?: GenuiTaskIntent;
+  taskIntentConfidence?: number;
 }): JevDecision => {
   if (intentProbability <= NO || intentProbability >= YES) {
     const selected = intentProbability >= YES ? [intent] : ([] as string[]);
     const domainOk =
       !domain || (domainConfidence !== undefined && domainConfidence >= YES);
+    const taskOk =
+      !taskIntent ||
+      (taskIntentConfidence !== undefined && taskIntentConfidence >= YES);
     return {
       domain,
       domainConfidence,
       intents: selected,
-      needsSynthesis: !domainOk || selected.length === 0,
+      needsSynthesis: !domainOk || !taskOk || selected.length === 0,
+      taskIntent:
+        taskOk &&
+        taskIntentConfidence !== undefined &&
+        taskIntentConfidence >= YES
+          ? taskIntent
+          : undefined,
+      taskIntentConfidence,
     };
   }
   return {
@@ -39,6 +57,8 @@ export const decisionFromScores = ({
     domainConfidence,
     intents: [],
     needsSynthesis: true,
+    taskIntent,
+    taskIntentConfidence,
   };
 };
 
@@ -79,22 +99,59 @@ export const evaluateWithJev = async ({
               projects: null,
               writing: null,
             }),
-            wantsProjects: noul(
-              "Is the visitor asking about shipped projects?"
+            taskArchitecture: noul(
+              "Is the visitor asking to inspect architecture or a system diagram?"
+            ),
+            taskBrowseProjects: noul(
+              "Is the visitor asking to browse or list shipped projects?"
+            ),
+            taskExplain: noul(
+              "Is the visitor asking for an evidence-backed explanation of experience?"
             ),
           },
           state: { query },
         }),
     });
     if (!response) return null;
-    const projects = response.answers.wantsProjects?.noul ?? 0;
+    const browse = response.answers.taskBrowseProjects?.noul ?? 0;
+    const explain = response.answers.taskExplain?.noul ?? 0;
+    const architecture = response.answers.taskArchitecture?.noul ?? 0;
     const domain = response.answers.domain?.choice ?? undefined;
     const domainConfidence = response.answers.domain?.confidence;
+
+    let taskIntent: GenuiTaskIntent = "unknown";
+    let taskIntentConfidence = browse;
+    let legacyIntent = "projects";
+    let legacyProbability = browse;
+
+    if (
+      architecture >= browse &&
+      architecture >= explain &&
+      architecture >= YES
+    ) {
+      taskIntent = "explain-architecture";
+      taskIntentConfidence = architecture;
+      legacyIntent = "architecture";
+      legacyProbability = architecture;
+    } else if (explain >= browse && explain >= YES) {
+      taskIntent = "explain-experience";
+      taskIntentConfidence = explain;
+      legacyIntent = "explain";
+      legacyProbability = explain;
+    } else if (browse >= YES) {
+      taskIntent = "browse-projects";
+      taskIntentConfidence = browse;
+      legacyIntent = "projects";
+      legacyProbability = browse;
+    }
+
     return decisionFromScores({
       domain,
       domainConfidence,
-      intent: "projects",
-      intentProbability: projects,
+      intent: legacyIntent,
+      intentProbability: legacyProbability,
+      taskIntent,
+      taskIntentConfidence,
     });
   } catch {
     return null;

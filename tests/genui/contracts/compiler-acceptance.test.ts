@@ -166,6 +166,50 @@ describe("compileExperience acceptance", () => {
     expect(result.ok).toBe(false);
   });
 
+  test("accepts project-bento with four projects", () => {
+    const records = [
+      sampleProjectRecord("legal-agent", "LegalAgent"),
+      sampleProjectRecord("masterbots", "Masterbots"),
+      sampleProjectRecord("bitlauncher", "Bitlauncher"),
+      sampleProjectRecord("wizard-world", "Wizard World"),
+    ];
+    const envelope = projectDocument({
+      composite: "project-bento",
+      domain: "ai",
+      projectIds: records.map((record) => record.id),
+      records,
+      requestId: "r1",
+    });
+    expect(compileEnvelope(envelope).ok).toBe(true);
+  });
+
+  test("rejects project-bento with wrong count", () => {
+    const records = [sampleProjectRecord("wink", "Wink")];
+    const envelope = projectDocument({
+      composite: "project-bento",
+      projectIds: [records[0].id],
+      records,
+      requestId: "r1",
+    });
+    const result = compileEnvelope(envelope);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.code).toBe("invalid_recipe_cardinality");
+    }
+  });
+
+  test("rejects duplicate project ids in bento", () => {
+    const record = sampleProjectRecord("wink", "Wink");
+    const envelope = projectDocument({
+      composite: "project-bento",
+      projectIds: [record.id, record.id, record.id, record.id],
+      records: [record],
+      requestId: "r1",
+    });
+    const result = compileEnvelope(envelope);
+    expect(result.ok).toBe(false);
+  });
+
   test("rejects unsupported library version", () => {
     const envelope = cvDocument({ record: sampleCvRecord, requestId: "r1" });
     const result = compileExperience({

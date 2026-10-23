@@ -15,6 +15,14 @@ import {
 } from "./builders";
 import { chooseProjectComposite, chooseWritingComposite } from "./composites";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import { orderBrowseProjects } from "./project-browse";
+import { selectProjectComposition } from "./select-project-composition";
+import {
+  classifyTaskIntent,
+  wantsArchitectureIntent,
+  wantsBrowseProjects,
+  wantsProjectsLanguage,
+} from "./task-intent";
 
 const normalize = (query: string) =>
   query.trim().toLowerCase().replace(/\s+/g, " ");
@@ -76,6 +84,17 @@ const findProjectByName = (query: string) => {
   );
 };
 
+const findComparedProjects = (query: string) => {
+  const normalized = normalize(query);
+  const matched = projects.filter(
+    (project) =>
+      normalized.includes(project.slug.replace(/-/g, " ")) ||
+      normalized.includes(project.title.toLowerCase()) ||
+      normalized.includes(project.slug)
+  );
+  return matched.slice(0, 3);
+};
+
 const wantsCv = (query: string) =>
   /\b(cv|curriculum|curr[ií]culum|r[eé]sum[eé]|resume)\b/i.test(query);
 
@@ -96,9 +115,6 @@ const wantsContact = (query: string) =>
 const wantsWriting = (query: string) =>
   /\b(article|articles|blog|post|posts|writing|publication)\b/i.test(query) ||
   /\blatest\b/i.test(query);
-
-const wantsProjects = (query: string) =>
-  /\b(project|projects|work|portfolio|built)\b/i.test(query);
 
 const domainFromQuery = (query: string): "ai" | "web3" | "all" | null => {
   if (
@@ -147,7 +163,7 @@ const wantsQuantum = (query: string) => /\bquantum computing\b/i.test(query);
 const wantsTypeScriptOnly = (query: string) =>
   /\btypescript\b/i.test(query) &&
   /\bonly\b/i.test(query) &&
-  wantsProjects(query);
+  wantsProjectsLanguage(query);
 
 const wantsCompensation = (query: string) =>
   /\bcompensation\b/i.test(query) && /\baccept\b/i.test(query);
@@ -161,6 +177,30 @@ const wantsFabrication = (query: string) =>
   /\beven if you only have\b/i.test(query) ||
   /\bfive ai projects\b/i.test(query);
 
+export const browseProjectsDocument = ({
+  domain,
+  intent,
+  requestId,
+}: {
+  domain: "ai" | "web3" | "all";
+  intent: ReturnType<typeof classifyTaskIntent>;
+  requestId: string;
+}) => {
+  const filtered = filterProjectsByDomain(domain);
+  if (!filtered.length) return null;
+  const ordered = orderBrowseProjects({ domain, projects: filtered });
+  const records = ordered.map(projectRecord);
+  const projectIds = records.map((record) => record.id);
+  const composite = selectProjectComposition({ intent, projects: ordered });
+  return projectDocument({
+    composite,
+    domain: domain === "all" ? undefined : domain,
+    projectIds,
+    records,
+    requestId,
+  });
+};
+
 export const composeIntentDocument = ({
   query,
   requestId,
@@ -170,6 +210,8 @@ export const composeIntentDocument = ({
 }): CompositionEnvelope | null => {
   const trimmed = query.trim();
   if (!trimmed) return null;
+
+  const taskIntent = classifyTaskIntent(trimmed);
 
   if (isAdversarialOrUnsafe(trimmed) || isOutOfScopeRealtime(trimmed)) {
     const body = isOutOfScopeRealtime(trimmed)
@@ -242,7 +284,7 @@ export const composeIntentDocument = ({
 
   if (
     wantsContact(trimmed) &&
-    (!wantsProjects(trimmed) || /\binquiry\b/i.test(trimmed))
+    (!wantsProjectsLanguage(trimmed) || /\binquiry\b/i.test(trimmed))
   ) {
     return contactDocument({
       records: [
@@ -255,8 +297,37 @@ export const composeIntentDocument = ({
     });
   }
 
+  if (taskIntent === "explain-experience" || taskIntent === "profile") {
+    return null;
+  }
+
+  if (taskIntent === "compare-projects") {
+    const compared = findComparedProjects(trimmed);
+    if (compared.length >= 2 && compared.length <= 3) {
+      const records = compared.map(projectRecord);
+      const projectIds = records.map((record) => record.id);
+      const composite = selectProjectComposition({
+        intent: "compare-projects",
+        projects: compared,
+      });
+      const domain = domainFromQuery(trimmed);
+      return projectDocument({
+        composite,
+        domain: domain === "ai" || domain === "web3" ? domain : undefined,
+        projectIds,
+        records,
+        requestId,
+      });
+    }
+    return null;
+  }
+
   const named = findProjectByName(trimmed);
-  if (named && /\b(show|tell|about|project)\b/i.test(trimmed)) {
+  if (
+    named &&
+    (taskIntent === "project-detail" ||
+      /\b(show|tell|about|project)\b/i.test(trimmed))
+  ) {
     const record = projectRecord(named);
     return projectDocument({
       composite: "case-study",
@@ -313,29 +384,16 @@ export const composeIntentDocument = ({
   }
 
   if (
-    /\b(muestra|muéstrame|mostre)\b/i.test(trimmed) &&
-    domainFromQuery(trimmed) === "ai"
+    taskIntent === "explain-architecture" ||
+    wantsArchitectureIntent(trimmed)
   ) {
-    const filtered = filterProjectsByDomain("ai");
-    if (filtered.length) {
-      const records = filtered.map(projectRecord);
-      const projectIds = records.map((record) => record.id);
-      return capabilityShowcaseDocument({
-        domain: "ai",
-        projectIds,
-        records,
-        requestId,
-      });
-    }
-  }
-
-  const domain = domainFromQuery(trimmed);
-  if (domain && (wantsProjects(trimmed) || /\bproyectos\b/i.test(trimmed))) {
-    const filtered = filterProjectsByDomain(domain);
-    if (filtered.length) {
-      const records = filtered.map(projectRecord);
-      const projectIds = records.map((record) => record.id);
-      if (domain === "ai" || domain === "web3") {
+    const domain = domainFromQuery(trimmed) ?? "ai";
+    if (domain === "ai" || domain === "web3") {
+      const filtered = filterProjectsByDomain(domain);
+      if (filtered.length) {
+        const ordered = orderBrowseProjects({ domain, projects: filtered });
+        const records = ordered.map(projectRecord);
+        const projectIds = records.map((record) => record.id);
         return capabilityShowcaseDocument({
           domain,
           projectIds,
@@ -343,13 +401,20 @@ export const composeIntentDocument = ({
           requestId,
         });
       }
-      return projectDocument({
-        composite: chooseProjectComposite({ projectIds }),
-        projectIds,
-        records,
-        requestId,
-      });
     }
+    return null;
+  }
+
+  const domain = domainFromQuery(trimmed);
+  if (
+    domain &&
+    (taskIntent === "browse-projects" || wantsBrowseProjects(trimmed))
+  ) {
+    return browseProjectsDocument({
+      domain,
+      intent: "browse-projects",
+      requestId,
+    });
   }
 
   if (wantsWriting(trimmed)) {
@@ -383,20 +448,6 @@ export const composeIntentDocument = ({
     )
   ) {
     return null;
-  }
-
-  if (wantsProjects(trimmed) && (domain === "ai" || domain === "web3")) {
-    const filtered = filterProjectsByDomain(domain);
-    if (filtered.length) {
-      const records = filtered.map(projectRecord);
-      const projectIds = records.map((record) => record.id);
-      return capabilityShowcaseDocument({
-        domain,
-        projectIds,
-        records,
-        requestId,
-      });
-    }
   }
 
   return null;

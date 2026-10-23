@@ -1,10 +1,10 @@
+import { getProjectBySlug } from "gaboesquivel";
 import { allBlogs } from "lib/blog";
 import { siteOrigin } from "lib/site-path";
 
 import { cvDownloadPayload } from "../connect/cv-download";
 import {
   bookingDocument,
-  capabilityShowcaseDocument,
   contactDocument,
   cvDocument,
   projectDocument,
@@ -14,7 +14,11 @@ import { composeSearchSections } from "./compose-search";
 import { chooseProjectComposite, chooseWritingComposite } from "./composites";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
+import { orderBrowseProjects } from "./project-browse";
 import { sectionToRecord } from "./search-records";
+import { selectProjectComposition } from "./select-project-composition";
+import type { GenuiTaskIntent } from "./task-intent";
+import { classifyTaskIntent } from "./task-intent";
 
 const normalize = (query: string) =>
   query.trim().toLowerCase().replace(/\s+/g, " ");
@@ -79,13 +83,27 @@ export const tierZeroDocument = ({
   requestId: string;
 }) => exactMap[normalize(query)]?.({ requestId }) ?? null;
 
+const domainFromQuery = (query: string): "ai" | "web3" | "all" | null => {
+  if (
+    /\b(web3|blockchain|wallet|smart contract|onchain|on-chain)\b/i.test(query)
+  )
+    return "web3";
+  if (/\b(ai|artificial intelligence|agent|agentic)\b/i.test(query))
+    return "ai";
+  if (/\b(all your work|show me all|all projects)\b/i.test(query)) return "all";
+  return null;
+};
+
 export const buildSearchDocument = ({
   query,
   requestId,
+  taskIntent,
 }: {
   query: string;
   requestId: string;
+  taskIntent?: GenuiTaskIntent;
 }) => {
+  const resolvedIntent = taskIntent ?? classifyTaskIntent(query);
   const sections = composeSearchSections({ limit: 6, query });
   const records = sections.flatMap((item) => {
     const record = sectionToRecord(item);
@@ -93,36 +111,58 @@ export const buildSearchDocument = ({
   });
   if (!records.length) return null;
 
-  const lower = query.toLowerCase();
-  if (
-    (lower.includes("ai") || lower.includes("agent")) &&
-    !lower.includes("web3")
-  ) {
-    const projectIds = records
-      .filter((record) => record.kind === "project")
-      .map((record) => record.id);
-    if (projectIds.length) {
-      return capabilityShowcaseDocument({
-        domain: "ai",
-        projectIds,
-        records,
+  if (resolvedIntent === "explain-experience") {
+    return null;
+  }
+
+  const projectRecords = records.filter((record) => record.kind === "project");
+  const projectIds = projectRecords.map((record) => record.id);
+
+  if (resolvedIntent === "browse-projects" && projectIds.length) {
+    const projects = projectIds.flatMap((id) => {
+      const slug = id.replace(/^\/project\//, "");
+      const project = getProjectBySlug(slug);
+      return project ? [project] : [];
+    });
+    if (projects.length) {
+      const domain = domainFromQuery(query) ?? "all";
+      const ordered = orderBrowseProjects({ domain, projects });
+      const orderedRecords = ordered.flatMap((project) => {
+        const existing = projectRecords.find(
+          (record) => record.slug === project.slug
+        );
+        return existing ? [existing] : [];
+      });
+      const orderedIds = orderedRecords.map((record) => record.id);
+      const composite = selectProjectComposition({
+        intent: "browse-projects",
+        projects: ordered,
+      });
+      return projectDocument({
+        composite,
+        domain: domain === "ai" || domain === "web3" ? domain : undefined,
+        projectIds: orderedIds,
+        records: orderedRecords,
         requestId,
       });
     }
   }
-  if (
-    lower.includes("web3") ||
-    lower.includes("wallet") ||
-    lower.includes("onchain")
-  ) {
-    const projectIds = records
-      .filter((record) => record.kind === "project")
-      .map((record) => record.id);
-    if (projectIds.length) {
-      return capabilityShowcaseDocument({
-        domain: "web3",
-        projectIds,
-        records,
+
+  if (resolvedIntent === "compare-projects" && projectIds.length >= 2) {
+    const projects = projectIds.slice(0, 3).flatMap((id) => {
+      const slug = id.replace(/^\/project\//, "");
+      const project = getProjectBySlug(slug);
+      return project ? [project] : [];
+    });
+    if (projects.length >= 2) {
+      const composite = selectProjectComposition({
+        intent: "compare-projects",
+        projects,
+      });
+      return projectDocument({
+        composite,
+        projectIds: projects.map((project) => `/project/${project.slug}`),
+        records: projectRecords.slice(0, projects.length),
         requestId,
       });
     }
@@ -144,15 +184,27 @@ export const buildSearchDocument = ({
   }
 
   const projectSections = sections.filter((item) => item.kind === "project");
-  const projectIds = projectSections.map((item) => item.id);
-  if (projectIds.length) {
+  const searchProjectIds = projectSections.map((item) => item.id);
+  if (searchProjectIds.length) {
     const weakSingle =
       projectSections.length === 1 && (projectSections[0]?.score ?? 0) < 2;
     if (weakSingle) return null;
+    const projects = searchProjectIds.flatMap((id) => {
+      const slug = id.replace(/^\/project\//, "");
+      const project = getProjectBySlug(slug);
+      return project ? [project] : [];
+    });
+    const composite =
+      projects.length > 0
+        ? selectProjectComposition({
+            intent: resolvedIntent,
+            projects,
+          })
+        : chooseProjectComposite({ projectIds: searchProjectIds });
     return projectDocument({
-      composite: chooseProjectComposite({ projectIds }),
-      projectIds,
-      records: records.filter((record) => record.kind === "project"),
+      composite,
+      projectIds: searchProjectIds,
+      records: projectRecords,
       requestId,
     });
   }

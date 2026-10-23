@@ -1,5 +1,7 @@
 "use client";
 
+import { GeneratedRegion } from "components/genui/generated-region";
+import { useGenuiComposition } from "components/genui/use-genui-composition";
 import { filterSearchRecords } from "components/search/filter-records";
 import {
   dialogSearchInputId,
@@ -10,7 +12,7 @@ import { SiteSearchField } from "components/search/site-search-field";
 import type { SearchRecord } from "components/search/types";
 import { useHydrated } from "hooks/use-hydrated";
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 function SearchBrowseLinks() {
   return (
@@ -43,6 +45,8 @@ export function SiteSearchPanel({
   const composing = useRef(false);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
+  const genui = useGenuiComposition();
+  const { reset: resetGenui } = genui;
   const matches = useMemo(
     () => filterSearchRecords(records, submitted),
     [records, submitted]
@@ -51,13 +55,36 @@ export function SiteSearchPanel({
   const scopeId =
     variant === "home" ? "search-scope" : "site-search-dialog-scope";
 
+  useEffect(() => {
+    if (variant !== "dialog") return;
+    return () => {
+      resetGenui();
+    };
+  }, [resetGenui, variant]);
+
+  const showGenui =
+    variant === "dialog" &&
+    (genui.active || genui.isStreaming || genui.envelope || genui.error);
+
+  const showKeywordFallback =
+    variant === "dialog" &&
+    genui.complete &&
+    genui.error &&
+    submitted.length > 0;
+
   return (
     <>
       <form
         role="search"
         onSubmit={(event) => {
           event.preventDefault();
-          if (!composing.current && query.trim()) setSubmitted(query.trim());
+          if (!composing.current && query.trim()) {
+            const trimmed = query.trim();
+            setSubmitted(trimmed);
+            if (variant === "dialog") {
+              genui.runQuery(trimmed).catch(() => {});
+            }
+          }
         }}
       >
         <SiteSearchField
@@ -70,7 +97,10 @@ export function SiteSearchPanel({
           composingRef={composing}
           onQueryChange={(value) => {
             setQuery(value);
-            if (!value) setSubmitted("");
+            if (!value) {
+              setSubmitted("");
+              if (variant === "dialog") genui.reset();
+            }
           }}
           onCompositionStart={() => {
             composing.current = true;
@@ -89,14 +119,50 @@ export function SiteSearchPanel({
           </p>
         </noscript>
       ) : null}
-      <p role="status" className="sr-only">
-        {submitted ? `${matches.length} results for ${submitted}` : ""}
-      </p>
-      <SearchResults
-        matches={matches}
-        submitted={submitted}
-        onNavigate={onNavigate}
-      />
+      {variant === "home" ? (
+        <>
+          <p role="status" className="sr-only">
+            {submitted ? `${matches.length} results for ${submitted}` : ""}
+          </p>
+          <SearchResults
+            matches={matches}
+            submitted={submitted}
+            onNavigate={onNavigate}
+          />
+        </>
+      ) : null}
+      {showGenui ? (
+        <div className="mt-4 max-h-[min(70dvh,40rem)] overflow-x-hidden overflow-y-auto">
+          <GeneratedRegion
+            complete={genui.complete}
+            envelope={genui.envelope}
+            error={showKeywordFallback ? null : genui.error}
+            isStreaming={genui.isStreaming}
+            onRetry={() => {
+              if (query.trim()) genui.runQuery(query.trim()).catch(() => {});
+            }}
+          />
+        </div>
+      ) : null}
+      {showKeywordFallback ? (
+        <div className="mt-4 border-t border-hairline pt-4">
+          <p className="mb-3 text-sm text-neutral-400">
+            Keyword matches for your query:
+          </p>
+          <SearchResults
+            matches={matches}
+            submitted={submitted}
+            onNavigate={onNavigate}
+          />
+        </div>
+      ) : null}
+      {variant === "dialog" && !showGenui && submitted ? (
+        <SearchResults
+          matches={matches}
+          submitted={submitted}
+          onNavigate={onNavigate}
+        />
+      ) : null}
     </>
   );
 }

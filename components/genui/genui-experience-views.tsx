@@ -98,9 +98,11 @@ export const CvExperienceView = ({
 
 export const ProjectExperienceView = ({
   composite,
+  domain,
   projectIds,
 }: {
   composite: string;
+  domain?: "ai" | "web3" | "all";
   projectIds: string[];
 }) => {
   const records = useGenuiRecords();
@@ -114,7 +116,12 @@ export const ProjectExperienceView = ({
     return project ? [project] : [];
   });
   return (
-    <ProjectCompositeView composite={resolvedComposite} projects={projects} />
+    <ProjectCompositeView
+      composite={resolvedComposite}
+      domain={domain}
+      projectIds={projectIds}
+      projects={projects}
+    />
   );
 };
 

@@ -47,10 +47,12 @@ const ProjectExperience = defineComponent({
   component: ({ props }) => (
     <ProjectExperienceView
       composite={props.composite}
+      domain={props.domain}
       projectIds={props.projectIds}
     />
   ),
-  description: "Project cards from canonical records.",
+  description:
+    "Editorial project compositions (bento, feature grid, comparison) from canonical records.",
   name: "ProjectExperience",
   props: projectExperiencePropsSchema,
 });

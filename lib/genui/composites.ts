@@ -16,6 +16,11 @@ export const compositeNames = [
   "hire-split",
   "cv-document",
   "capability-showcase",
+  "project-bento",
+  "project-feature-grid",
+  "project-asymmetric-closing",
+  "project-compact-list",
+  "project-comparison",
 ] as const;
 
 export type CompositeName = (typeof compositeNames)[number];

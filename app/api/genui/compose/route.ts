@@ -78,12 +78,20 @@ export async function POST(request: Request) {
         parseErrors = result.parseErrors;
         logComposeTelemetry({
           cancellation: abortController.signal.aborted ? "aborted" : undefined,
+          composite: result.metadata.composite,
           correlationId: context.correlationId,
+          domain: result.metadata.domain,
+          experience: result.metadata.experience,
+          fallbackReason: result.metadata.fallbackReason,
           jevCalls,
+          mediaBackedProjectCount: result.metadata.mediaBackedProjectCount,
           modelCalls,
           parseErrors,
+          projectCount: result.metadata.projectCount,
+          taskIntent: result.metadata.taskIntent,
           tier,
           timingMs: Date.now() - started,
+          validationOutcome: result.metadata.validationOutcome,
         });
       } catch {
         controller.enqueue(

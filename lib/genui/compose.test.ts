@@ -37,6 +37,32 @@ describe("composeQuery", () => {
     expect(result.events.at(-1)?.type).toBe("complete");
   });
 
+  test("tier 1 Show me your AI projects uses project-bento without model calls", async () => {
+    const result = await composeQuery({
+      context: context(),
+      input: {
+        clientRequestId: "c-ai",
+        query: "Show me your AI projects",
+        version: 1,
+      },
+    });
+    expect(result.tier).toBe(1);
+    expect(result.modelCalls).toBe(0);
+    expect(result.jevCalls).toBe(0);
+    const complete = result.events.find((event) => event.type === "complete");
+    expect(complete?.type).toBe("complete");
+    if (complete?.type === "complete") {
+      expect(complete.envelope.openuiText).toContain("ProjectExperience");
+      expect(complete.envelope.openuiText).toContain("project-bento");
+      expect(complete.envelope.openuiText).not.toContain(
+        "CapabilityShowcaseExperience"
+      );
+    }
+    expect(result.metadata.experience).toBe("ProjectExperience");
+    expect(result.metadata.composite).toBe("project-bento");
+    expect(result.metadata.taskIntent).toBe("browse-projects");
+  });
+
   test("tier 0 explore my work uses work-gallery composite", async () => {
     const result = await composeQuery({
       context: context(),

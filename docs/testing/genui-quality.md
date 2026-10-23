@@ -30,7 +30,7 @@ Authoritative definitions: `package.json`. Summary:
 
 ## Fixture lab
 
-Local-only route: `/__genui__/fixtures/[fixtureId]` (rewritten to `app/genui-lab/fixtures/…` because App Router ignores `_`-prefixed segments) when `GENUI_FIXTURE_LAB=1` and not on Vercel. Fixture IDs are defined in `lib/genui/fixtures/registry.ts` (no query-parameter documents).
+Local-only route: `/__genui__/fixtures/[fixtureId]` (rewritten to `app/genui-lab/fixtures/…` because App Router ignores `_`-prefixed segments) when `GENUI_FIXTURE_LAB=1` and not on Vercel. Fixture IDs are defined in `lib/genui/fixtures/registry.ts` (no query-parameter documents). Editorial project recipes (`project-bento`, `project-asymmetric-closing`) must pass compiler acceptance, fixture-lab geometry checks, and optional visual snapshots before release.
 
 Playwright starts Next on port **3199** with `GENUI_FIXTURE_LAB=1` via `scripts/genui-playwright-webserver.sh` (`playwright.config.ts`). On a machine that already has `next dev` on **3099**, that script stops 3099 first because Next allows only one dev server per project directory. Use `PLAYWRIGHT_SKIP_WEBSERVER=1` and `PLAYWRIGHT_BASE_URL` when attaching to an existing lab server.
 

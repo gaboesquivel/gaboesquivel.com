@@ -94,6 +94,12 @@ Use injected decision/model clients, fake clocks, stream fixtures and a versione
 | CR-07 | Repeat queries route afresh; no session from another query/visitor leaks into context. |
 | CR-08 | Every tier has correlated timing/call-count evidence and no sensitive metric fields. |
 
+## Task intent, domain, and composition recipes
+
+Task intent (browse, explain, compare, architecture, writing, CV, contact, booking) is classified separately from subject domain (AI, Web3, career, and so on). Domain vocabulary does not select a diagram or layout by itself.
+
+Approved project composition recipes (`project-bento`, `project-feature-grid`, `project-asymmetric-closing`, `project-compact-list`, `project-comparison`) are declared in `lib/genui/composition-plan.ts`. The compiler validates recipe cardinality and duplicate record IDs. Semantic slot roles are assigned before rendering; the React showcase layouts own responsive geometry. Diagrams (`CapabilityShowcaseExperience`) require explicit architecture intent.
+
 ## Boundaries
 
 - Always: separate decision probabilities from confidence, ground output in sources, enforce limits, record actual calls and failures.

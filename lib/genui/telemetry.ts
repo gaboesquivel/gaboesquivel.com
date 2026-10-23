@@ -39,11 +39,16 @@ export const emitComposeSpan = (event: ComposeSpanEvent) => {
 export interface ComposeTelemetry {
   cancellation?: string;
   correlationId: string;
-  experience?: string;
   composite?: string;
+  domain?: string;
+  experience?: string;
+  fallbackReason?: string;
   jevCalls: number;
+  mediaBackedProjectCount?: number;
   modelCalls: number;
   parseErrors: number;
+  projectCount?: number;
+  taskIntent?: string;
   tier: 0 | 1 | 2;
   timingMs: number;
   validationOutcome?: "ok" | "failed";
@@ -52,14 +57,19 @@ export interface ComposeTelemetry {
 export const logComposeTelemetry = (event: ComposeTelemetry) => {
   emitComposeSpan({
     attributes: {
+      composite: event.composite,
+      domain: event.domain,
+      experience: event.experience,
+      fallbackReason: event.fallbackReason,
       jevCalls: event.jevCalls,
+      mediaBackedProjectCount: event.mediaBackedProjectCount,
       modelCalls: event.modelCalls,
       parseErrors: event.parseErrors,
+      projectCount: event.projectCount,
+      taskIntent: event.taskIntent,
       tier: event.tier,
       timingMs: event.timingMs,
       validationOutcome: event.validationOutcome,
-      experience: event.experience,
-      composite: event.composite,
     },
     correlationId: event.correlationId,
     durationMs: event.timingMs,

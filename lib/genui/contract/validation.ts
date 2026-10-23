@@ -1,3 +1,7 @@
+import {
+  isProjectCompositionRecipe,
+  validateProjectCompositionRecipe,
+} from "../composition-plan";
 import type { PublicRecord } from "../envelope";
 import type { ExperienceName } from "../experience-contract";
 import {
@@ -130,6 +134,31 @@ export const validateRecordReferences = ({
     }
   }
   return { ok: true as const, referencedRecordIds: ids.filter(Boolean) };
+};
+
+export const validateProjectRecipeCardinality = ({
+  experience,
+  props,
+}: {
+  experience: ExperienceName;
+  props: Record<string, unknown>;
+}) => {
+  if (experience !== "ProjectExperience") return { ok: true as const };
+  const composite = props.composite;
+  const projectIds = Array.isArray(props.projectIds)
+    ? props.projectIds.map(String)
+    : [];
+  if (typeof composite !== "string" || !isProjectCompositionRecipe(composite)) {
+    return { ok: true as const };
+  }
+  const recipeCheck = validateProjectCompositionRecipe({
+    composite,
+    projectIds,
+  });
+  if (!recipeCheck.ok) {
+    return { ok: false as const, code: recipeCheck.code };
+  }
+  return { ok: true as const };
 };
 
 export const validateExperiencePropsPolicy = ({

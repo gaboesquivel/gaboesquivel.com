@@ -16,6 +16,7 @@ export const aboutExperiencePropsSchema = z.object({
 export const projectExperiencePropsSchema = z.object({
   composite: compositeSchema.default("editorial-grid"),
   projectIds: z.array(z.string()),
+  domain: z.enum(["ai", "web3", "all"]).optional(),
 });
 
 export const writingExperiencePropsSchema = z.object({

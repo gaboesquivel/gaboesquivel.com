@@ -2,11 +2,24 @@ import { generateText } from "ai";
 
 import { SONNET_GATEWAY_MODEL } from "../connect/sonnet-model";
 import { answerDocument } from "./builders";
+import { projectCompositionRecipes } from "./composition-plan";
 import { buildEvidencePacket } from "./context";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { validateCompositionEnvelope } from "./validate-envelope";
 
 const SEMANTIC_DEADLINE_MS = 12_000;
+
+const compositionPolicy = `Composition policy for gaboesquivel.com:
+1. Browsing projects uses ProjectExperience with an approved composite (${projectCompositionRecipes.join(", ")}), or legacy composites editorial-grid, work-gallery, featured-pair, case-study.
+2. Explaining professional experience uses Answer with sourceIds from evidence.
+3. Comparing projects uses project-comparison or Answer with sources.
+4. Architecture diagrams require explicit architecture intent; use CapabilityShowcaseExperience only then.
+5. Never output CSS, HTML, custom components, layout, presentation, variant, or frame properties.
+6. Project content must use canonical record IDs from evidence only.
+7. Missing evidence: short truthful limitation via Answer.
+8. Do not invent achievements, roles, technologies, images, or links.
+9. Do not use CapabilityShowcaseExperience for generic AI or Web3 browsing.
+Return a single line: root = ...`;
 
 export const generateSemanticDocument = async ({
   query,
@@ -44,7 +57,7 @@ export const generateSemanticDocument = async ({
   const text = await generateText({
     abortSignal,
     model: SONNET_GATEWAY_MODEL,
-    prompt: `You compose OpenUI for gaboesquivel.com. Use only Answer, ProjectExperience, WritingExperience, or CapabilityShowcaseExperience with allowed composite names. Evidence: ${JSON.stringify(packet)}. Query: ${query}. Return a single line starting with root = `,
+    prompt: `${compositionPolicy}\nEvidence: ${JSON.stringify(packet)}.\nQuery: ${query}.\nReturn a single line starting with root = `,
   })
     .then((result) => result.text)
     .catch(() => null);
