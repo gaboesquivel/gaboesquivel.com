@@ -85,6 +85,7 @@ export function Projects({
           projects={projects}
           identifier={type}
           preserveOrder={preserveOrder}
+          variant="editorial"
         />
       )}
     </section>

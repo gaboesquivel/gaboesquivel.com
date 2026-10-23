@@ -1,7 +1,7 @@
-import { interiorBreakout } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
+/** Editorial interior pages share the same `siteColumn` shell as home (via root `SiteWidth`). */
 export function InteriorPageShell({
   children,
   className,
@@ -9,5 +9,5 @@ export function InteriorPageShell({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={cn(interiorBreakout, className)}>{children}</div>;
+  return <div className={cn("w-full min-w-0", className)}>{children}</div>;
 }

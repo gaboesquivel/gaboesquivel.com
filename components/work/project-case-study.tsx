@@ -84,7 +84,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
       {storyLead ? (
         <EditorialSection label="Context">
-          <SplitSection>
+          <SplitSection sectionSpacing={false}>
             <SplitSectionContent mediaPosition="right" span={5}>
               <Prose className="mt-0">{storyLead}</Prose>
               {storyRest.map((paragraph) => (

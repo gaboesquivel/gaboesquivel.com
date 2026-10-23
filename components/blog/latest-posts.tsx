@@ -1,6 +1,4 @@
-import { EditorialBlogList } from "components/blog/editorial-blog-list";
-import { PageSection } from "components/shared/page-layout";
-import { homeSection } from "components/shared/spacing";
+import { WritingPostsSection } from "components/blog/writing-posts-section";
 import { allBlogs } from "lib/blog";
 import { newestPosts } from "lib/blog-order";
 import { postMatchesBrowseCategory, toBrowseSlug } from "lib/blog-taxonomy";
@@ -17,6 +15,7 @@ export function LatestPosts({
   excludeSlug,
   action,
   variant = "cards",
+  className,
 }: {
   limit?: number;
   title?: string;
@@ -26,6 +25,7 @@ export function LatestPosts({
   excludeSlug?: string;
   action?: ReactNode;
   variant?: "cards" | "editorial";
+  className?: string;
 }) {
   const latestPosts = getLatestPosts({
     category,
@@ -41,9 +41,12 @@ export function LatestPosts({
 
   if (variant === "editorial") {
     return (
-      <PageSection title={title} action={action} className={homeSection}>
-        <EditorialBlogList posts={latestPosts} />
-      </PageSection>
+      <WritingPostsSection
+        posts={latestPosts}
+        title={title}
+        action={action}
+        className={className}
+      />
     );
   }
   return <PostGrid posts={latestPosts} title={title} action={action} />;

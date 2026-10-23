@@ -7,7 +7,7 @@ export function ProjectsMasonry({
   projects,
   identifier = "projects",
   preserveOrder = false,
-  variant = "card",
+  variant = "editorial",
 }: {
   projects: Project[];
   identifier?: string;

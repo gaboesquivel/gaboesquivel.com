@@ -1,7 +1,13 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { Web3BoundaryDiagram } from "components/diagrams/web3-boundary";
+import { EditorialSection } from "components/interior/editorial-section";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
+import {
+  SplitSection,
+  SplitSectionContent,
+  SplitSectionMedia,
+} from "components/interior/split-section";
 import { LetsConnect } from "components/shared/lets-connect";
 import {
   PageImage,
@@ -40,29 +46,32 @@ export default function Web3ExperiencePage() {
 
       <Web3BoundaryDiagram />
 
-      <PageSection
-        action={
-          <Link href="/project/ztx" className={sectionAction}>
-            View ZTX
-          </Link>
-        }
-        title="ZTX: a wallet inside a virtual world"
-      >
-        <Prose>
-          ZTX was a Web3 virtual world where a wallet needed to work inside a
-          WebGL session. I built an EVM connector using MetaMask, Ethers.js, and
-          a custom JavaScript event system, so people could sign transactions
-          and trade NFTs without leaving the experience.
-        </Prose>
-
-        {ztxCover ? (
-          <PageImage
-            alt={ztxCover.alt}
-            objectClassName="object-contain"
-            src={ztxCover.src}
-          />
-        ) : null}
-      </PageSection>
+      <EditorialSection title="ZTX: a wallet inside a virtual world">
+        <SplitSection sectionSpacing={false}>
+          <SplitSectionContent mediaPosition="right" span={5}>
+            <Prose className="mt-0">
+              ZTX was a Web3 virtual world where a wallet needed to work inside
+              a WebGL session. I built an EVM connector using MetaMask,
+              Ethers.js, and a custom JavaScript event system, so people could
+              sign transactions and trade NFTs without leaving the experience.
+            </Prose>
+            <p className="mt-6">
+              <Link href="/project/ztx" className={sectionAction}>
+                View ZTX
+              </Link>
+            </p>
+          </SplitSectionContent>
+          {ztxCover ? (
+            <SplitSectionMedia mediaPosition="right" span={6}>
+              <PageImage
+                alt={ztxCover.alt}
+                objectClassName="object-contain"
+                src={ztxCover.src}
+              />
+            </SplitSectionMedia>
+          ) : null}
+        </SplitSection>
+      </EditorialSection>
 
       <PageSection title="Trading and financial products">
         <Prose>

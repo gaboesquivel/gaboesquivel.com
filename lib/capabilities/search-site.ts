@@ -10,6 +10,9 @@ import { searchSiteInput } from "./schemas";
 import type { CapabilityContext } from "./types";
 
 const sections = index as RankSection[];
+const sectionByPath = new Map(
+  sections.map((section) => [section.path, section])
+);
 const corpus = bodies as Record<string, string>;
 
 const toRecord = (section: RankSection) => {
@@ -52,7 +55,7 @@ export const searchSite = ({
   const matched =
     ranked.paths.length > 0
       ? ranked.paths
-          .map((path) => sections.find((section) => section.path === path))
+          .map((path) => sectionByPath.get(path))
           .filter((section): section is RankSection => Boolean(section))
       : sections.filter((section) => {
           if (section.kind === "post" && section.publishedAt < "2020") {

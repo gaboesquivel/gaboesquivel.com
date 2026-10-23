@@ -1,5 +1,5 @@
-import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
+import { ReadingPageShell } from "components/interior/reading-page-shell";
 import { blockGrid, proseLink, Prose } from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
 import { personalOgImage } from "lib/og/constants";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <InteriorPageShell>
+    <ReadingPageShell className="max-w-[75ch]">
       <PageIntro
         description="Gabo Esquivel is a product engineer based in Costa Rica. His work spans AI assistants, mobile banking, blockchain systems, and the interfaces that connect them. He works across product decisions, design, architecture, and implementation."
         title="About Gabo Esquivel"
@@ -77,7 +77,7 @@ export default function AboutPage() {
           />
         </li>
       </ul>
-    </InteriorPageShell>
+    </ReadingPageShell>
   );
 }
 

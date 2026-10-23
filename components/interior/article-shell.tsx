@@ -1,3 +1,7 @@
+import {
+  articleLayoutRegion,
+  articleProseColumn,
+} from "components/shared/spacing";
 import type { BlogTocItem } from "lib/blog-headings";
 import { showBlogToc } from "lib/blog-headings";
 import { cn } from "lib/utils";
@@ -23,9 +27,10 @@ export function ArticleShell({
     <InteriorPageShell className={className}>
       <div
         className={cn(
+          articleLayoutRegion,
           hasToc
             ? "article-layout-with-toc"
-            : "article-layout-centered mx-auto max-w-[52rem]"
+            : cn("article-layout-centered mx-auto", articleProseColumn)
         )}
       >
         <div className="article-layout-main min-w-0">

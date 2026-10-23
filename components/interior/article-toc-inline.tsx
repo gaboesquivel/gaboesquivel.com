@@ -15,7 +15,6 @@ export function ArticleTocInline({
         "mb-8 rounded-lg border border-hairline px-4 py-3 xl:hidden",
         className
       )}
-      open
     >
       <summary className="cursor-pointer text-sm font-medium text-neutral-300">
         On this page

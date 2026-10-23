@@ -1,0 +1,36 @@
+description: GenUI composition offline regression (orchestration boundary)
+
+providers:
+  - id: file://tests/genui/evals/promptfoo/provider.mjs
+    label: GenUI offline compose
+    config:
+      mode: offline
+
+prompts:
+  - "{{query}}"
+
+tests:
+  - vars:
+      query: cv
+    assert:
+      - type: javascript
+        value: |
+          const parsed = JSON.parse(output);
+          if (parsed.tier !== 0 || parsed.jevCalls !== 0 || parsed.modelCalls !== 0) {
+            return { pass: false, score: 0, reason: `tier=${parsed.tier}` };
+          }
+          return { pass: true, score: 1 };
+  - vars:
+      query: explore my work
+    assert:
+      - type: javascript
+        value: |
+          const parsed = JSON.parse(output);
+          if (parsed.tier !== 0 || parsed.jevCalls !== 0 || parsed.modelCalls !== 0) {
+            return { pass: false, score: 0, reason: `tier=${parsed.tier}` };
+          }
+          return { pass: true, score: 1 };
+
+defaultTest:
+  options:
+    provider: file://tests/genui/evals/promptfoo/provider.mjs

@@ -1,6 +1,4 @@
-import { getProjectBySlug } from "gaboesquivel";
 import { siteOrigin } from "lib/site-path";
-import { featuredProjectSlugs } from "lib/work-types";
 import { nanoid } from "nanoid";
 
 import type { CapabilityContext } from "../capabilities/types";
@@ -11,6 +9,8 @@ import { chooseProjectComposite } from "./composites";
 import { evaluateWithJev } from "./decisions";
 import { buildSearchDocument, tierZeroDocument } from "./deterministic";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import { featuredProjectRecords } from "./featured-records";
+import { sectionToRecord } from "./search-records";
 import { generateSemanticDocument } from "./semantic";
 import { validateCompositionEnvelope } from "./validate-envelope";
 
@@ -35,41 +35,6 @@ export type ComposeStreamEvent =
 
 const queryCodePoints = (query: string) => [...query].length;
 
-const sectionToRecord = (
-  item: ReturnType<typeof composeSearchSections>[number]
-): PublicRecord | null => {
-  if (item.kind === "project") {
-    const slug = item.id.replace("/project/", "");
-    return {
-      description: item.excerpt,
-      id: item.id,
-      kind: "project",
-      slug,
-      title: item.title,
-      url: item.url,
-    };
-  }
-  if (item.kind === "post") {
-    const slug = item.id.replace("/blog/", "");
-    return {
-      excerpt: item.excerpt,
-      id: item.id,
-      kind: "post",
-      publishedAt: item.publishedAt,
-      slug,
-      title: item.title,
-      url: item.url,
-    };
-  }
-  return {
-    excerpt: item.excerpt,
-    id: item.id,
-    kind: "profile",
-    title: item.title,
-    url: item.url,
-  };
-};
-
 const documentFromDecision = ({
   decision,
   requestId,
@@ -78,20 +43,7 @@ const documentFromDecision = ({
   requestId: string;
 }): CompositionEnvelope | null => {
   if (decision.intents.includes("projects") || decision.domain === "projects") {
-    const records = featuredProjectSlugs.flatMap((slug) => {
-      const project = getProjectBySlug(slug);
-      if (!project) return [];
-      return [
-        {
-          description: project.description,
-          id: `/project/${slug}`,
-          kind: "project" as const,
-          slug,
-          title: project.title,
-          url: `${siteOrigin}/project/${slug}`,
-        },
-      ];
-    });
+    const records = featuredProjectRecords();
     const projectIds = records.map((record) => record.id);
     return projectDocument({
       composite: chooseProjectComposite({ projectIds }),
@@ -160,43 +112,19 @@ export const composeQuery = async ({
     onEvent?.(event);
   };
   emit({ requestId, sequence: sequence++, type: "start" });
-  const pushValidated = ({
-    envelope,
-    requestId: eventRequestId,
-    sequence: eventSequence,
-    type,
-  }: {
-    envelope: CompositionEnvelope;
-    requestId: string;
-    sequence: number;
-    type: "partial" | "complete";
-  }) => {
-    const validated = validateCompositionEnvelope({ envelope });
-    if (!validated.ok) {
-      throw new Error("invalid-envelope");
-    }
-    emit({
-      envelope,
-      requestId: eventRequestId,
-      sequence: eventSequence,
-      type,
-    });
-  };
   let modelCalls = 0;
   let jevCalls = 0;
   let parseErrors = 0;
   let tier: 0 | 1 | 2 = 0;
-
-  const exact = tierZeroDocument({ query, requestId });
-  if (exact) {
-    try {
-      pushValidated({
-        envelope: exact,
-        requestId,
-        sequence: sequence++,
-        type: "complete",
-      });
-    } catch {
+  const emitValidated = ({
+    envelope,
+    type,
+  }: {
+    envelope: CompositionEnvelope;
+    type: "partial" | "complete";
+  }) => {
+    const validated = validateCompositionEnvelope({ envelope });
+    if (!validated.ok) {
       parseErrors += 1;
       emit({
         message: "Composition failed.",
@@ -204,7 +132,20 @@ export const composeQuery = async ({
         sequence: sequence++,
         type: "error",
       });
+      return false;
     }
+    emit({
+      envelope,
+      requestId,
+      sequence: sequence++,
+      type,
+    });
+    return true;
+  };
+
+  const exact = tierZeroDocument({ query, requestId });
+  if (exact) {
+    emitValidated({ envelope: exact, type: "complete" });
     return { events, jevCalls, modelCalls, parseErrors, tier };
   }
 
@@ -217,50 +158,16 @@ export const composeQuery = async ({
   if (decision && !decision.needsSynthesis) {
     const doc = documentFromDecision({ decision, requestId });
     if (doc) {
-      try {
-        pushValidated({
-          envelope: doc,
-          requestId,
-          sequence: sequence++,
-          type: "complete",
-        });
-      } catch {
-        parseErrors += 1;
-        emit({
-          message: "Composition failed.",
-          requestId,
-          sequence: sequence++,
-          type: "error",
-        });
-      }
+      emitValidated({ envelope: doc, type: "complete" });
       return { events, jevCalls, modelCalls, parseErrors, tier };
     }
   }
 
   tier = 2;
-  const searched = await buildSearchDocument({ context, query, requestId });
+  const searched = buildSearchDocument({ query, requestId });
   if (searched) {
-    try {
-      pushValidated({
-        envelope: searched,
-        requestId,
-        sequence: sequence++,
-        type: "partial",
-      });
-      pushValidated({
-        envelope: searched,
-        requestId,
-        sequence: sequence++,
-        type: "complete",
-      });
-    } catch {
-      parseErrors += 1;
-      emit({
-        message: "Composition failed.",
-        requestId,
-        sequence: sequence++,
-        type: "error",
-      });
+    if (emitValidated({ envelope: searched, type: "partial" })) {
+      emitValidated({ envelope: searched, type: "complete" });
     }
     return { events, jevCalls, modelCalls, parseErrors, tier };
   }
@@ -279,22 +186,7 @@ export const composeQuery = async ({
   });
   if (semantic) {
     modelCalls += semantic.modelCalls;
-    try {
-      pushValidated({
-        envelope: semantic.envelope,
-        requestId,
-        sequence: sequence++,
-        type: "complete",
-      });
-    } catch {
-      parseErrors += 1;
-      emit({
-        message: "Composition failed.",
-        requestId,
-        sequence: sequence++,
-        type: "error",
-      });
-    }
+    emitValidated({ envelope: semantic.envelope, type: "complete" });
     return { events, jevCalls, modelCalls, parseErrors, tier };
   }
 

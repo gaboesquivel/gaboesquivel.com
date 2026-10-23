@@ -10,9 +10,8 @@ export const siteColumn =
 /** Narrative text inside the shell. Project stories, bios, posts, and docs share it. */
 export const readingMeasure = "max-w-[65ch]";
 
-/** Interior routes: breakout canvas inside `siteColumn` (nav/footer unchanged). */
-export const interiorBreakout =
-  "relative left-1/2 w-screen max-w-[100rem] -translate-x-1/2 px-4 sm:px-6 lg:px-8";
+/** Blog article region: aligns with `siteColumn` while fitting prose + TOC rail. */
+export const articleLayoutRegion = "w-full max-w-6xl";
 
 export const interiorSectionGap = "mt-16 lg:mt-20";
 export const interiorMajorGap = "mt-20 lg:mt-28";
@@ -107,3 +106,7 @@ export const diagramSvg = "min-w-[720px] w-full max-w-none";
 
 export const projectRole = "text-sm text-accent";
 export const projectRoleInCard = cn(projectRole, "mt-2");
+
+/** Work listings: one measure and clamp so flagship, grid, and filtered pages align. */
+export const projectCardDescription =
+  "mt-3 line-clamp-3 text-base leading-relaxed text-neutral-300";

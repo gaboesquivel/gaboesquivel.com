@@ -57,30 +57,42 @@ export function CapabilityPage({
         const layout = chapterLayouts[index % chapterLayouts.length];
         const chapterNumber = String(index + 1).padStart(2, "0");
 
+        const hasEvidence = projectSlugs.length > 0;
+
         return (
           <EditorialSection key={heading} label={chapterNumber} title={heading}>
-            <SplitSection>
-              <SplitSectionContent
-                mediaPosition={layout.mediaPosition}
-                span={layout.textSpan}
-              >
+            {hasEvidence ? (
+              <SplitSection sectionSpacing={false}>
+                <SplitSectionContent
+                  mediaPosition={layout.mediaPosition}
+                  span={layout.textSpan}
+                >
+                  {paragraphs.map((paragraph) => (
+                    <Prose key={paragraph} className="first:mt-0">
+                      {paragraph}
+                    </Prose>
+                  ))}
+                </SplitSectionContent>
+                <SplitSectionMedia
+                  mediaPosition={layout.mediaPosition}
+                  span={layout.mediaSpan}
+                >
+                  <ProjectEvidence
+                    columns={1}
+                    presentation="registry"
+                    slugs={projectSlugs}
+                  />
+                </SplitSectionMedia>
+              </SplitSection>
+            ) : (
+              <div className="min-w-0">
                 {paragraphs.map((paragraph) => (
                   <Prose key={paragraph} className="first:mt-0">
                     {paragraph}
                   </Prose>
                 ))}
-              </SplitSectionContent>
-              <SplitSectionMedia
-                mediaPosition={layout.mediaPosition}
-                span={layout.mediaSpan}
-              >
-                <ProjectEvidence
-                  columns={1}
-                  presentation="registry"
-                  slugs={projectSlugs}
-                />
-              </SplitSectionMedia>
-            </SplitSection>
+              </div>
+            )}
           </EditorialSection>
         );
       })}

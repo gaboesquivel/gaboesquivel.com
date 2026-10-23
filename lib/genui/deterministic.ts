@@ -1,10 +1,6 @@
-import { getProjectBySlug } from "gaboesquivel";
 import { allBlogs } from "lib/blog";
 import { siteOrigin } from "lib/site-path";
-import { featuredProjectSlugs } from "lib/work-types";
 
-import { runCapability } from "../capabilities/registry";
-import type { CapabilityContext } from "../capabilities/types";
 import { cvDownloadPayload } from "../connect/cv-download";
 import {
   bookingDocument,
@@ -17,25 +13,11 @@ import {
 import { composeSearchSections } from "./compose-search";
 import { chooseProjectComposite, chooseWritingComposite } from "./composites";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import { featuredProjectRecords } from "./featured-records";
+import { sectionToRecord } from "./search-records";
 
 const normalize = (query: string) =>
   query.trim().toLowerCase().replace(/\s+/g, " ");
-
-const featuredRecords = () =>
-  featuredProjectSlugs.flatMap((slug) => {
-    const project = getProjectBySlug(slug);
-    if (!project) return [];
-    return [
-      {
-        description: project.description,
-        id: `/project/${slug}`,
-        kind: "project" as const,
-        slug,
-        title: project.title,
-        url: `${siteOrigin}/project/${slug}`,
-      },
-    ];
-  });
 
 const exactMap: Record<
   string,
@@ -79,7 +61,7 @@ const exactMap: Record<
       requestId,
     }),
   "explore my work": ({ requestId }) => {
-    const records = featuredRecords();
+    const records = featuredProjectRecords();
     return projectDocument({
       composite: "work-gallery",
       projectIds: records.map((record) => record.id),
@@ -97,47 +79,10 @@ export const tierZeroDocument = ({
   requestId: string;
 }) => exactMap[normalize(query)]?.({ requestId }) ?? null;
 
-const sectionToRecord = (
-  item: ReturnType<typeof composeSearchSections>[number]
-): PublicRecord | null => {
-  if (item.kind === "project") {
-    const slug = item.id.replace("/project/", "");
-    return {
-      description: item.excerpt,
-      id: item.id,
-      kind: "project",
-      slug,
-      title: item.title,
-      url: item.url,
-    };
-  }
-  if (item.kind === "post") {
-    const slug = item.id.replace("/blog/", "");
-    return {
-      excerpt: item.excerpt,
-      id: item.id,
-      kind: "post",
-      publishedAt: item.publishedAt,
-      slug,
-      title: item.title,
-      url: item.url,
-    };
-  }
-  return {
-    excerpt: item.excerpt,
-    id: item.id,
-    kind: "profile",
-    title: item.title,
-    url: item.url,
-  };
-};
-
-export const buildSearchDocument = async ({
-  context,
+export const buildSearchDocument = ({
   query,
   requestId,
 }: {
-  context: CapabilityContext;
   query: string;
   requestId: string;
 }) => {
@@ -146,15 +91,7 @@ export const buildSearchDocument = async ({
     const record = sectionToRecord(item);
     return record ? [record] : [];
   });
-  if (!records.length) {
-    const result = (await runCapability({
-      context,
-      input: { limit: 6, query },
-      name: "search_site",
-    })) as { status: string };
-    if (result.status === "empty") return null;
-    return null;
-  }
+  if (!records.length) return null;
 
   const lower = query.toLowerCase();
   if (

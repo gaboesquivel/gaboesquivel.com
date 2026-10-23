@@ -8,6 +8,10 @@
 
 # testing
 /coverage
+tests/genui/browser/report/
+tests/genui/browser/test-results/
+tests/genui/evals/reports/
+tests/genui/mcp-apps/vendor/
 
 # next.js
 /.next/

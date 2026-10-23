@@ -1,0 +1,64 @@
+name: GenUI quality
+
+on:
+  pull_request:
+    paths:
+      - "lib/genui/**"
+      - "components/genui/**"
+      - "app/api/genui/**"
+      - "app/genui-lab/**"
+      - "tests/genui/**"
+      - "playwright.config.ts"
+      - "promptfooconfig.yaml"
+      - "package.json"
+      - "bun.lock"
+  push:
+    branches: [develop]
+    paths:
+      - "lib/genui/**"
+      - "components/genui/**"
+      - "tests/genui/**"
+      - "playwright.config.ts"
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: bun install --frozen-lockfile
+      - run: bun run verify
+      - run: bun run test:genui:unit
+      - run: bun run test:genui:mcp-apps:protocol
+      - run: bun run eval:genui:offline
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install chromium --with-deps
+      - run: bun run test:genui:browser
+      - run: bun run test:genui:mcp-apps:host
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            tests/genui/browser/report
+            tests/genui/browser/test-results
+
+  mcp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun test lib/mcp/public-protocol.test.ts lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts

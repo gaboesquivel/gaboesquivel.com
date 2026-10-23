@@ -17,11 +17,7 @@ export function BlogPostsMasonry({
 }) {
   if (variant === "editorial") {
     return (
-      <EditorialBlogList
-        posts={posts}
-        showArrow
-        className={className ?? blockSpacing}
-      />
+      <EditorialBlogList posts={posts} className={className ?? blockSpacing} />
     );
   }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import type { CompositionEnvelope } from "lib/genui/envelope";
+import { consumeNdjsonResponse } from "lib/genui/ndjson-stream";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { GeneratedRegion } from "./generated-region";
@@ -11,30 +12,6 @@ import {
 } from "./genui-interaction-context";
 import { PromptField } from "./prompt-field";
 import { scrollPromptToViewportTop } from "./scroll-prompt";
-
-const readNdjson = async ({
-  onEvent,
-  response,
-}: {
-  onEvent: (event: Record<string, unknown>) => void;
-  response: Response;
-}) => {
-  const reader = response.body?.getReader();
-  if (!reader) return;
-  const decoder = new TextDecoder();
-  let buffer = "";
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split("\n");
-    buffer = lines.pop() ?? "";
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      onEvent(JSON.parse(line) as Record<string, unknown>);
-    }
-  }
-};
 
 const HomepageGenUiBodyContent = ({
   children,
@@ -49,7 +26,7 @@ const HomepageGenUiBodyContent = ({
   }) => void;
 }) => {
   const { clear } = useGenuiDraft();
-  const { receipt, setReceipt } = useGenuiInteraction();
+  const { receipt } = useGenuiInteraction();
   const [active, setActive] = useState(false);
   const [query, setQuery] = useState("");
   const [envelope, setEnvelope] = useState<CompositionEnvelope | null>(null);
@@ -96,10 +73,13 @@ const HomepageGenUiBodyContent = ({
         setIsStreaming(false);
         return;
       }
-      await readNdjson({
+      let sawComplete = false;
+      let sawError = false;
+      const streamResult = await consumeNdjsonResponse({
         onEvent: (event) => {
           if (id !== requestRef.current) return;
           if (event.type === "error") {
+            sawError = true;
             setError(String(event.message ?? "Composition failed."));
             setIsStreaming(false);
             return;
@@ -108,12 +88,23 @@ const HomepageGenUiBodyContent = ({
             setEnvelope(event.envelope as CompositionEnvelope);
           }
           if (event.type === "complete") {
+            sawComplete = true;
             setComplete(true);
             setIsStreaming(false);
           }
         },
         response,
       });
+      if (id !== requestRef.current) return;
+      if (!streamResult.ok) {
+        setError("Composition failed.");
+        setIsStreaming(false);
+        return;
+      }
+      if (!sawComplete && !sawError) {
+        setError("Composition failed.");
+        setIsStreaming(false);
+      }
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
       if (id !== requestRef.current) return;

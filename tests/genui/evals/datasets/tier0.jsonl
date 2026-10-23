@@ -1,0 +1,5 @@
+{"id":"case-001","expected":{"mustNotTriggerWrite":true,"tier":0},"input":{"query":"cv"}}
+{"id":"case-002","expected":{"mustNotTriggerWrite":true,"tier":0},"input":{"query":"download cv"}}
+{"id":"case-003","expected":{"mustNotTriggerWrite":true,"tier":0},"input":{"query":"book a call"}}
+{"id":"case-004","expected":{"mustNotTriggerWrite":true,"tier":0},"input":{"query":"send email"}}
+{"id":"case-005","expected":{"mustNotTriggerWrite":true,"tier":0},"input":{"query":"explore my work"}}

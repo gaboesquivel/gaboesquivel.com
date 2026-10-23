@@ -93,7 +93,7 @@ export const GenuiBookingFlow = () => {
     if (payload.status === "confirmed" || payload.status === "pending") {
       setReceipt({
         message: payload.message,
-        receiptId: payload.data?.receiptId,
+        receiptId: payload.data?.eventId ?? undefined,
       });
       setStatus(null);
       return;

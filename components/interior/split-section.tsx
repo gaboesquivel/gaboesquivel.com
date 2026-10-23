@@ -48,15 +48,18 @@ export function SplitSection({
   children,
   className,
   align = "start",
+  sectionSpacing = true,
 }: {
   children: ReactNode;
   className?: string;
   align?: "start" | "center" | "end";
+  /** When nested inside `EditorialSection`, pass `false` to avoid double major gaps. */
+  sectionSpacing?: boolean;
 }) {
   return (
     <section
       className={cn(
-        interiorSectionGap,
+        sectionSpacing && interiorSectionGap,
         editorialGrid12,
         align === "center" && "items-center",
         align === "end" && "items-end",

@@ -14,7 +14,7 @@ const cvAppEndpoint = `${siteOrigin}/mcp/cv`;
 
 export default function DocsPage() {
   return (
-    <ReadingPageShell className="max-w-none">
+    <ReadingPageShell className="max-w-[75ch]">
       <IndexHeading>
         Gabo Esquivel MCP and Site API — developer documentation
       </IndexHeading>

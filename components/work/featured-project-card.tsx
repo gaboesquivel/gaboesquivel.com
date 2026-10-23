@@ -1,6 +1,7 @@
 import {
   cardArrow,
   editorialLink,
+  projectCardDescription,
   projectRoleInCard,
 } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
@@ -46,9 +47,7 @@ export function FeaturedProjectCard({
             {project.role ? (
               <p className={projectRoleInCard}>{project.role}</p>
             ) : null}
-            <p className="mt-4 max-w-[60ch] text-base leading-relaxed text-neutral-300 lg:text-lg">
-              {project.description}
-            </p>
+            <p className={projectCardDescription}>{project.description}</p>
           </div>
           <span
             aria-hidden="true"

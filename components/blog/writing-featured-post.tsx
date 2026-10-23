@@ -21,7 +21,7 @@ export function WritingFeaturedPost({ post }: { post: Blog }) {
 
   return (
     <EditorialSection label="Featured">
-      <SplitSection>
+      <SplitSection sectionSpacing={false}>
         <SplitSectionContent mediaPosition="right" span={6}>
           <Link
             href={`/blog/${post.slug}`}

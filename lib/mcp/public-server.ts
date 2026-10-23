@@ -4,8 +4,9 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import { capabilityRegistry, runCapability } from "../capabilities/registry";
 import { capabilityContextFromRequest } from "../capabilities/server-context";
 import { readRequestIp } from "../connect/ip";
+import { PUBLIC_MCP_APP_RESOURCE_URI } from "./constants";
 
-const APP_RESOURCE_URI = "ui://gaboesquivel/app";
+const APP_RESOURCE_URI = PUBLIC_MCP_APP_RESOURCE_URI;
 
 const toolResult = (result: unknown) => {
   const payload = result as {

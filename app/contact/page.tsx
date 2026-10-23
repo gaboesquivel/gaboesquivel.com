@@ -18,7 +18,7 @@ export default function ContactPage() {
         className="mb-8 lg:mb-10 [&_h1]:text-balance"
         title="Contact Gabo Esquivel"
       />
-      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(16rem,26rem)] lg:items-start lg:gap-x-16 xl:gap-x-20">
+      <div className="mx-auto max-w-5xl lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(16rem,26rem)] lg:items-start lg:gap-x-10 xl:gap-x-14">
         <div className="min-w-0">
           <Prose className="mt-0">
             I&apos;m available for direct hire, international hire, and

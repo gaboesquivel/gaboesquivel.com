@@ -1,4 +1,5 @@
 import type { CompositeName } from "./composites";
+import { openUiStringList, openUiStringLiteral } from "./contract/serialize";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { GENUI_LIBRARY_VERSION } from "./envelope";
 
@@ -33,7 +34,7 @@ export const cvDocument = ({
 }) =>
   envelope({
     fallbackText: `CV (${focus}): ${record.kind === "cv" ? record.title : "CV"}`,
-    openuiText: `root = CVExperience("${composite}", "${focus}", "${record.id}")`,
+    openuiText: `root = CVExperience(${openUiStringLiteral(composite)}, ${openUiStringLiteral(focus)}, ${openUiStringLiteral(record.id)})`,
     records: [record],
     requestId,
   });
@@ -51,7 +52,7 @@ export const answerDocument = ({
 }) =>
   envelope({
     fallbackText: body,
-    openuiText: `root = Answer("${body.replace(/"/g, '\\"')}", [${sourceIds.map((id) => `"${id}"`).join(", ")}])`,
+    openuiText: `root = Answer(${openUiStringLiteral(body)}, ${openUiStringList(sourceIds)})`,
     records,
     requestId,
   });
@@ -69,7 +70,7 @@ export const projectDocument = ({
 }) =>
   envelope({
     fallbackText: "Selected projects",
-    openuiText: `root = ProjectExperience("${composite}", [${projectIds.map((id) => `"${id}"`).join(", ")}])`,
+    openuiText: `root = ProjectExperience(${openUiStringLiteral(composite)}, ${openUiStringList(projectIds)})`,
     records,
     requestId,
   });
@@ -87,7 +88,7 @@ export const writingDocument = ({
 }) =>
   envelope({
     fallbackText: "Writing",
-    openuiText: `root = WritingExperience("${composite}", [${postIds.map((id) => `"${id}"`).join(", ")}])`,
+    openuiText: `root = WritingExperience(${openUiStringLiteral(composite)}, ${openUiStringList(postIds)})`,
     records,
     requestId,
   });
@@ -105,7 +106,7 @@ export const capabilityShowcaseDocument = ({
 }) =>
   envelope({
     fallbackText: `${domain === "ai" ? "AI" : "Web3"} engineering evidence`,
-    openuiText: `root = CapabilityShowcaseExperience("${domain}", [${projectIds.map((id) => `"${id}"`).join(", ")}])`,
+    openuiText: `root = CapabilityShowcaseExperience(${openUiStringLiteral(domain)}, ${openUiStringList(projectIds)})`,
     records,
     requestId,
   });
@@ -119,7 +120,7 @@ export const contactDocument = ({
 }) =>
   envelope({
     fallbackText: "Contact Gabo",
-    openuiText: `root = ContactExperience("hire-split", "${records[0]?.id ?? "profile"}")`,
+    openuiText: `root = ContactExperience(${openUiStringLiteral("hire-split")}, ${openUiStringLiteral(records[0]?.id ?? "profile")})`,
     records,
     requestId,
   });
@@ -133,7 +134,7 @@ export const bookingDocument = ({
 }) =>
   envelope({
     fallbackText: "Book a call",
-    openuiText: 'root = BookingExperience("hire-split")',
+    openuiText: `root = BookingExperience(${openUiStringLiteral("hire-split")})`,
     records,
     requestId,
   });

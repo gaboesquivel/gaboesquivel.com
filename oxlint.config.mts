@@ -65,6 +65,8 @@ export default defineConfig({
     "components/ai-elements/**",
     "components/ui/**",
     ".eve/**",
+    "lib/mcp/mcp-host-timing.ts",
+    "components/mcp-apps/**",
   ],
   // Progressive migration: remove a rule as its problems are fixed.
   rules: migrationRules,

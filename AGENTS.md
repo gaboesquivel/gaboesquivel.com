@@ -54,6 +54,7 @@ Read the matching document before editing:
 - **Propagation** — adding, renaming, or re-scoping a page, or changing hire terms, identity facts, or the featured set: [docs/agents/propagation.md](docs/agents/propagation.md).
 - **Package** — project, technology, employment, or CV facts, or project-card copy: [docs/agents/package.md](docs/agents/package.md).
 - **Ask** — the Eve agent, `/ask`, Jev slots, bookings, notes, or `/mcp`: [docs/agents/ask.md](docs/agents/ask.md).
+- **GenUI / MCP quality** — contract, fixture lab, evals, protocol, or MCP Apps host tests: [docs/testing/README.md](docs/testing/README.md).
 - **Skills** — adding, updating, or removing a development skill, or changing voice: [docs/agents/skills.md](docs/agents/skills.md).
 - **Setup** — install, the dev server, or certificate trust: [README.md](README.md).
 - **Research** — background evidence in [docs/research/](docs/research/). Current direction stays in the root documents.

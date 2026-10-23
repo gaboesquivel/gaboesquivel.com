@@ -1,5 +1,8 @@
 import { SiteCardLink } from "components/shared/site-card-link";
-import { proseClass } from "components/shared/spacing";
+import {
+  projectCardDescription,
+  projectRoleInCard,
+} from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
 import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
@@ -63,11 +66,9 @@ export function ProjectCard({
           {project.title}
         </h3>
         {showRole && project.role ? (
-          <p className="mb-2 text-sm text-neutral-500 dark:text-neutral-400">
-            {project.role}
-          </p>
+          <p className={cn(projectRoleInCard, "mb-2")}>{project.role}</p>
         ) : null}
-        <p className={cn(proseClass, "line-clamp-3")}>{project.description}</p>
+        <p className={projectCardDescription}>{project.description}</p>
       </div>
     </SiteCardLink>
   );

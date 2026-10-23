@@ -1,4 +1,8 @@
-import { interiorSectionGap, sectionTitle } from "components/shared/spacing";
+import {
+  interiorSectionGap,
+  sectionHeadingSpacing,
+  sectionTitle,
+} from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
@@ -21,7 +25,14 @@ export function EditorialSection({
     <section className={cn(interiorSectionGap, className)}>
       {label ? <SectionLabel className="mb-3">{label}</SectionLabel> : null}
       {title ? (
-        <h2 className={cn(sectionTitle, "mb-8 text-balance", titleClassName)}>
+        <h2
+          className={cn(
+            sectionTitle,
+            sectionHeadingSpacing,
+            "text-balance",
+            titleClassName
+          )}
+        >
           {title}
         </h2>
       ) : null}

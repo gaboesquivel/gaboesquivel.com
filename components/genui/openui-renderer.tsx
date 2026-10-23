@@ -1,11 +1,13 @@
 "use client";
 
-import { Renderer, createParser } from "@openuidev/react-lang";
-import { experienceAllowed } from "lib/genui/envelope";
+import { Renderer } from "@openuidev/react-lang";
+import { compileExperience } from "lib/genui/contract/compiler";
 import type { PublicRecord } from "lib/genui/envelope";
-import { useEffect, useMemo } from "react";
+import { experienceAllowed, GENUI_LIBRARY_VERSION } from "lib/genui/envelope";
+import { useMemo } from "react";
 
-import { genuiLibrary, setGenuiRecords } from "./genui-library";
+import { genuiLibrary } from "./genui-library";
+import { GenuiRecordProvider } from "./genui-record-context";
 
 export const OpenUiExperienceRenderer = ({
   complete,
@@ -20,21 +22,16 @@ export const OpenUiExperienceRenderer = ({
   records: PublicRecord[];
   response: string;
 }) => {
-  useEffect(() => {
-    setGenuiRecords(records);
-  }, [records]);
-
   const contractOk = useMemo(() => {
     if (!complete || !response.trim()) return false;
-    const parser = createParser(
-      genuiLibrary.toJSONSchema(),
-      genuiLibrary.root ?? "CVExperience"
-    );
-    const parsed = parser.parse(response);
-    if (parsed.meta.errors.length > 0) return false;
-    const name = response.match(/^root\s*=\s*([A-Za-z]+)/)?.[1] ?? "";
-    return experienceAllowed(name);
-  }, [complete, response]);
+    const compiled = compileExperience({
+      document: response,
+      libraryVersion: GENUI_LIBRARY_VERSION,
+      records,
+    });
+    if (!compiled.ok) return false;
+    return experienceAllowed(compiled.experience);
+  }, [complete, records, response]);
 
   if (!response) {
     return <p className="text-neutral-400">{fallbackText || "Loading…"}</p>;
@@ -49,15 +46,17 @@ export const OpenUiExperienceRenderer = ({
   }
 
   return (
-    <Renderer
-      isStreaming={isStreaming || !complete}
-      library={genuiLibrary}
-      onError={(errors) => {
-        if (errors.length > 0) {
-          console.warn("OpenUI parse errors", errors);
-        }
-      }}
-      response={response}
-    />
+    <GenuiRecordProvider records={records}>
+      <Renderer
+        isStreaming={isStreaming || !complete}
+        library={genuiLibrary}
+        onError={(errors) => {
+          if (errors.length > 0) {
+            console.warn("OpenUI parse errors", errors);
+          }
+        }}
+        response={response}
+      />
+    </GenuiRecordProvider>
   );
 };

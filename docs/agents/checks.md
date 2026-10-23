@@ -6,6 +6,7 @@ Run the set that matches the changed behavior. Command definitions in `package.j
 - Content or page changes: run `bun run verify` and `bun run test:llms`. Add route checks when routing changes.
 - UI or interaction changes: run the relevant existing checks and [verify.md](verify.md).
 - Backend or integration changes: run the owning modules' existing tests and relevant contract checks. Report any live integration left unverified. Local tests do not prove external delivery or booking.
+- GenUI, fixture lab, OpenUI contract, or MCP Apps host changes: run the matching commands in [docs/testing/README.md](../testing/README.md) (at minimum `bun run test:genui` when touching `lib/genui`, `components/genui`, `tests/genui`, or `app/genui-lab`).
 
 Gotchas the script name does not state:
 

@@ -1,4 +1,8 @@
-import { editorialLink, projectRoleInCard } from "components/shared/spacing";
+import {
+  editorialLink,
+  projectCardDescription,
+  projectRoleInCard,
+} from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { resolveProjectImage } from "lib/work/project-cover";
@@ -10,7 +14,7 @@ import Link from "next/link";
 export function EditorialProjectCard({
   project,
   sizes,
-  showRole = false,
+  showRole = true,
   priority = false,
   frame = "video",
 }: {
@@ -55,9 +59,7 @@ export function EditorialProjectCard({
       {showRole && project.role ? (
         <p className={projectRoleInCard}>{project.role}</p>
       ) : null}
-      <p className="mt-3 text-base leading-relaxed text-neutral-300">
-        {project.description}
-      </p>
+      <p className={projectCardDescription}>{project.description}</p>
     </Link>
   );
 }
