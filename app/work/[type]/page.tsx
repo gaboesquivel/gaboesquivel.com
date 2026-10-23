@@ -1,6 +1,6 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { sectionAction } from "components/shared/spacing";
-import { Projects } from "components/work/projects";
+import { ProjectsMasonry } from "components/work/projects-masonry";
 import { projects } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
 import {
@@ -37,9 +37,15 @@ export default async function WorkPage({
     type === "all"
       ? projects
       : projects.filter((project) => project.type.includes(type));
+
   return (
     <>
-      <Projects projects={filteredProjects} type={type} preserveOrder={false} />
+      <ProjectsMasonry
+        projects={filteredProjects}
+        identifier={type}
+        preserveOrder={false}
+        variant="editorial"
+      />
       <LatestPosts
         limit={3}
         title="Writing"

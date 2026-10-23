@@ -613,11 +613,38 @@ body:has([data-connect]) [data-slot="input-group"] textarea {
   }
 }
 
+[data-work-shell] .work-hero-title {
+  min-block-size: 2lh;
+}
+
+@media (min-width: 40rem) {
+  [data-work-shell] .work-hero-title {
+    min-block-size: 1lh;
+  }
+}
+
+[data-work-shell] .work-hero-lede {
+  block-size: 2lh;
+}
+
+::view-transition-group(work-filter-indicator) {
+  animation-duration: 180ms;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(*),
   ::view-transition-new(*),
   ::view-transition-group(*) {
     animation-delay: 0s !important;
     animation-duration: 0s !important;
+  }
+
+  ::view-transition-group(work-filter-indicator) {
+    animation-duration: 0s !important;
+  }
+
+  [data-work-filter] a {
+    transition-duration: 0s !important;
   }
 }

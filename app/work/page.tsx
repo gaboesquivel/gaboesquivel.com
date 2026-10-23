@@ -1,16 +1,12 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { sectionAction } from "components/shared/spacing";
-import { Projects } from "components/work/projects";
+import { WorkProjectGallery } from "components/work/work-project-gallery";
 import { getProjectBySlug } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
 import { featuredProjectSlugs } from "lib/work-types";
 import Link from "next/link";
 
-const workIntro =
-  "Selected products and systems across AI, banking, Web3, and infrastructure.";
-
 export default function WorkPage() {
-  const type = "featured";
   const filteredProjects = featuredProjectSlugs
     .map((slug) => getProjectBySlug(slug))
     .filter((project): project is NonNullable<typeof project> =>
@@ -19,17 +15,7 @@ export default function WorkPage() {
 
   return (
     <>
-      <Projects
-        projects={filteredProjects}
-        type={type}
-        preserveOrder={true}
-        layout="featured-gallery"
-        hero={{
-          trail: [{ label: "work" }, { label: "selected projects" }],
-          title: "Software that ships.",
-          description: workIntro,
-        }}
-      />
+      <WorkProjectGallery projects={filteredProjects} />
       <LatestPosts
         limit={3}
         title="Writing"
