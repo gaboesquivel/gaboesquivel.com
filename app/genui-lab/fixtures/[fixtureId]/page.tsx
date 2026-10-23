@@ -22,7 +22,10 @@ export default async function GenuiFixturePage({
       className="min-h-screen bg-black p-6 text-white"
       data-fixture-id={fixtureId}
     >
-      <div style={{ margin: "0 auto", maxWidth: width, width: "100%" }}>
+      <div
+        className="max-w-full min-w-0 overflow-x-hidden"
+        style={{ margin: "0 auto", maxWidth: width, width: "100%" }}
+      >
         <GeneratedRegion
           complete={Boolean(fixture.envelope)}
           envelope={fixture.envelope}

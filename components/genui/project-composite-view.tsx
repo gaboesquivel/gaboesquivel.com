@@ -21,7 +21,11 @@ export const ProjectCompositeView = ({
   }
 
   if (composite === "case-study" && projects[0]) {
-    return <ProjectCaseStudy project={projects[0]} />;
+    return (
+      <div className="max-w-full min-w-0 overflow-x-hidden">
+        <ProjectCaseStudy project={projects[0]} />
+      </div>
+    );
   }
 
   if (composite === "work-gallery") {

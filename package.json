@@ -28,6 +28,7 @@
     "assets:home": "bun scripts/prepare-home-assets.ts",
     "test:genui": "bun run test:genui:unit && bun run test:genui:mcp-apps && bun run test:genui:browser",
     "test:genui:unit": "bun test lib/genui lib/mcp/public-protocol.test.ts tests/genui/contracts tests/genui/unit",
+    "eval:genui:matrix": "bun scripts/eval-genui-matrix.ts",
     "test:genui:mcp-apps": "bun run test:genui:mcp-apps:protocol && bun run test:genui:mcp-apps:host",
     "test:genui:mcp-apps:protocol": "bun test lib/mcp/public-protocol.test.ts",
     "test:genui:mcp-apps:host": "playwright test tests/genui/mcp-apps/browser/simulated-host.spec.ts",

@@ -13,7 +13,7 @@ import { ProjectCompositeView } from "./project-composite-view";
 import { WritingCompositeView } from "./writing-composite-view";
 
 const wideRail =
-  "@min-[48rem]:grid @min-[48rem]:grid-cols-[1fr_1.1fr] @min-[48rem]:gap-10";
+  "min-w-0 max-w-full @min-[48rem]:grid @min-[48rem]:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] @min-[48rem]:gap-10";
 
 export const AnswerView = ({
   body,

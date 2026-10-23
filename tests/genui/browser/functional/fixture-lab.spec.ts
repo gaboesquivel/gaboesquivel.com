@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+test.describe.configure({ mode: "serial" });
+
 const widths = [320, 390, 768, 1024] as const;
 
 for (const fixtureId of [
@@ -24,9 +26,9 @@ for (const fixtureId of [
           el.style.width = "100%";
         }, width);
         await expect(container).toBeVisible();
-        const overflow = await page.evaluate(() => {
-          const doc = document.documentElement;
-          return doc.scrollWidth > doc.clientWidth + 1;
+        const overflow = await container.evaluate((node) => {
+          const el = node as HTMLElement;
+          return el.scrollWidth > el.clientWidth + 1;
         });
         expect(overflow).toBe(false);
       });

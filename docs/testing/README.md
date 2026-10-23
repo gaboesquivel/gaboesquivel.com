@@ -26,6 +26,7 @@ Related elsewhere:
 | MCP protocol + simulated host | `bun run test:genui:mcp-apps` |
 | Fixture lab Playwright only | `bun run test:genui:browser` |
 | Offline eval (tier 0 compose, no API keys) | `bun run eval:genui:offline` |
+| Prompt matrix (deterministic cases, no API keys) | `bun run eval:genui:matrix` |
 | Live Promptfoo eval | `bun run eval:genui:live` (requires `GENUI_EVAL_LIVE=1`) |
 
 Optional / not gated in CI by default: `test:genui:visual`, `test:genui:a11y`, `test:genui:mcp-apps:basic-host`, `mcp-apps:ensure-basic-host`, `mcp-apps:test-server`.

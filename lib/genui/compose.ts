@@ -10,6 +10,7 @@ import { evaluateWithJev } from "./decisions";
 import { buildSearchDocument, tierZeroDocument } from "./deterministic";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
+import { composeIntentDocument } from "./query-intent";
 import { sectionToRecord } from "./search-records";
 import { generateSemanticDocument } from "./semantic";
 import { validateCompositionEnvelope } from "./validate-envelope";
@@ -146,6 +147,13 @@ export const composeQuery = async ({
   const exact = tierZeroDocument({ query, requestId });
   if (exact) {
     emitValidated({ envelope: exact, type: "complete" });
+    return { events, jevCalls, modelCalls, parseErrors, tier };
+  }
+
+  const intent = composeIntentDocument({ query, requestId });
+  if (intent) {
+    tier = 1;
+    emitValidated({ envelope: intent, type: "complete" });
     return { events, jevCalls, modelCalls, parseErrors, tier };
   }
 

@@ -49,6 +49,7 @@ Colocated unit tests (also picked up by `test:genui:unit` via `bun test lib/genu
 | Path | Script | Notes |
 | --- | --- | --- |
 | `functional/fixture-lab.spec.ts` | `test:genui:browser` | Declarative fixtures via `/__genui__/fixtures/:id` |
+| `functional/homepage-genui.spec.ts` | `test:genui:browser` | Homepage prompt UX + mocked `/api/genui/compose` |
 | `visual/` | `test:genui:visual` | Snapshots; baselines not required in default CI |
 | `accessibility/fixture-a11y.spec.ts` | `test:genui:a11y` | axe on fixture pages |
 
@@ -101,6 +102,8 @@ Reuses declarative GenUI fixtures only where the **future** production app will;
 
 | Path | Role |
 | --- | --- |
+| `datasets/query-matrix.ts` | Prompt matrix (R/C/L/E/P suites); deterministic cases run in `tests/genui/contracts/query-matrix.test.ts` |
+| `fixtures/catalog-ground-truth.ts` | Published projects, posts, CV, and contact URLs from package + Velite |
 | `datasets/curated-cases.ts` | Source of truth for eval cases (120 cases in dataset; offline runner filters tier) |
 | `datasets/tier0.jsonl`, `routing.jsonl` | Exported JSONL (`bun scripts/export-genui-eval-jsonl.ts`) |
 | `graders/routing.ts`, `graders/composition.ts` | Offline grading |

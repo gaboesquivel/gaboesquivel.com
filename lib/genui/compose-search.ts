@@ -7,11 +7,26 @@ import type { RankSection } from "../connect/rank";
 const sections = index as RankSection[];
 const corpus = bodies as Record<string, string>;
 
+const shortTokens = new Set([
+  "ai",
+  "cv",
+  "ui",
+  "ux",
+  "ip",
+  "id",
+  "go",
+  "js",
+  "ts",
+]);
+
 const meaningfulTokens = (query: string) =>
   query
     .toLowerCase()
     .split(/\s+/)
-    .filter((token) => token.length > 2);
+    .map((token) => token.replace(/^[^a-z0-9]+|[^a-z0-9]+$/gi, ""))
+    .filter(
+      (token) => token.length > 2 || shortTokens.has(token) || token === "web3"
+    );
 
 const scoreSection = ({
   query,
