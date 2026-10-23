@@ -25,6 +25,7 @@ export type PublicRecord =
       title: string;
       url: string;
       excerpt: string;
+      publishedAt?: string;
     }
   | {
       id: string;

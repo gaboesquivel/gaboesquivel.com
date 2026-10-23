@@ -27,11 +27,13 @@ export const GeneratedRegion = ({
   envelope,
   error,
   isStreaming,
+  onRetry,
 }: {
   complete: boolean;
   envelope: CompositionEnvelope | null;
   error: string | null;
   isStreaming: boolean;
+  onRetry?: () => void;
 }) => {
   const announced =
     error ??
@@ -45,6 +47,15 @@ export const GeneratedRegion = ({
       {error && (
         <div className="rounded-md border border-hairline p-4 text-sm text-neutral-200">
           <p>{error}</p>
+          {onRetry && (
+            <button
+              className="mt-3 text-sm text-accent hover:underline"
+              onClick={onRetry}
+              type="button"
+            >
+              Try again
+            </button>
+          )}
           <p className="mt-2 text-neutral-400">
             Try{" "}
             <Link className="text-accent" href="/work">

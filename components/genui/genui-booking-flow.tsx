@@ -1,31 +1,75 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { formatSlotSelectionLine } from "lib/connect/slot-display";
+import { useEffect, useMemo, useState } from "react";
 
 import { useGenuiDraft } from "./genui-draft-context";
+import { useGenuiInteraction } from "./genui-interaction-context";
 
 export const GenuiBookingFlow = () => {
   const { booking, setBooking } = useGenuiDraft();
+  const { setReceipt, writesEnabled } = useGenuiInteraction();
   const [slots, setSlots] = useState<string[]>([]);
   const [status, setStatus] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
+    if (!booking.duration) return;
+    let cancelled = false;
     void fetch("/api/capabilities", {
       body: JSON.stringify({
-        input: { timeZone: booking.timeZone },
+        input: {
+          duration: booking.duration,
+          timeZone: booking.timeZone,
+        },
         operation: "list_availability",
       }),
       headers: { "Content-Type": "application/json" },
       method: "POST",
     })
       .then((response) => response.json())
-      .then((payload) => setSlots(payload.data?.starts ?? []))
-      .catch(() => setSlots([]));
-  }, [booking.timeZone]);
+      .then((payload) => {
+        if (!cancelled) setSlots(payload.data?.starts ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setSlots([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [booking.duration, booking.timeZone]);
+
+  const slotOptions = useMemo(() => {
+    if (!booking.duration) return [];
+    const seen = new Set<string>();
+    return slots.flatMap((slot) => {
+      if (seen.has(slot)) return [];
+      seen.add(slot);
+      if (!booking.duration) return [];
+      return [
+        {
+          label: formatSlotSelectionLine({
+            duration: booking.duration,
+            start: slot,
+            timeZone: booking.timeZone,
+          }),
+          value: slot,
+        },
+      ];
+    });
+  }, [booking.duration, booking.timeZone, slots]);
+
+  const canConfirm =
+    writesEnabled &&
+    Boolean(booking.duration) &&
+    Boolean(booking.start) &&
+    booking.name.trim().length > 0 &&
+    booking.email.trim().length > 0 &&
+    booking.description.trim().length > 0 &&
+    booking.reviewed;
 
   const confirm = async () => {
-    if (!booking.start || !booking.duration || !booking.reviewed) return;
+    if (!canConfirm || !booking.duration) return;
     setPending(true);
     const retryIdentity = crypto.randomUUID();
     const response = await fetch("/api/capabilities", {
@@ -46,6 +90,14 @@ export const GenuiBookingFlow = () => {
     });
     const payload = await response.json();
     setPending(false);
+    if (payload.status === "confirmed" || payload.status === "pending") {
+      setReceipt({
+        message: payload.message,
+        receiptId: payload.data?.receiptId,
+      });
+      setStatus(null);
+      return;
+    }
     setStatus(payload.message);
   };
 
@@ -55,9 +107,11 @@ export const GenuiBookingFlow = () => {
         <span>Duration</span>
         <select
           className="w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled}
           onChange={(event) =>
             setBooking({
               duration: Number(event.target.value) as 15 | 30,
+              start: "",
             })
           }
           value={booking.duration ?? ""}
@@ -71,13 +125,14 @@ export const GenuiBookingFlow = () => {
         <span>Start time</span>
         <select
           className="w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled || !booking.duration}
           onChange={(event) => setBooking({ start: event.target.value })}
           value={booking.start ?? ""}
         >
           <option value="">Select a slot</option>
-          {slots.map((slot) => (
-            <option key={slot} value={slot}>
-              {slot}
+          {slotOptions.map((slot) => (
+            <option key={slot.value} value={slot.value}>
+              {slot.label}
             </option>
           ))}
         </select>
@@ -86,6 +141,7 @@ export const GenuiBookingFlow = () => {
         <span>Name</span>
         <input
           className="w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled}
           onChange={(event) => setBooking({ name: event.target.value })}
           value={booking.name}
         />
@@ -94,6 +150,7 @@ export const GenuiBookingFlow = () => {
         <span>Email</span>
         <input
           className="w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled}
           onChange={(event) => setBooking({ email: event.target.value })}
           type="email"
           value={booking.email}
@@ -103,6 +160,7 @@ export const GenuiBookingFlow = () => {
         <span>Agenda</span>
         <textarea
           className="min-h-24 w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled}
           onChange={(event) => setBooking({ description: event.target.value })}
           value={booking.description}
         />
@@ -110,6 +168,7 @@ export const GenuiBookingFlow = () => {
       <label className="flex items-center gap-2">
         <input
           checked={booking.reviewed}
+          disabled={!writesEnabled}
           onChange={(event) => setBooking({ reviewed: event.target.checked })}
           type="checkbox"
         />
@@ -117,7 +176,7 @@ export const GenuiBookingFlow = () => {
       </label>
       <button
         className="rounded-md bg-accent px-4 py-2 font-medium text-black disabled:opacity-50"
-        disabled={pending || !booking.reviewed}
+        disabled={pending || !canConfirm}
         onClick={() => {
           confirm().catch(() => {});
         }}

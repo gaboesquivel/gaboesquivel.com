@@ -3,14 +3,16 @@
 import { useState } from "react";
 
 import { useGenuiDraft } from "./genui-draft-context";
+import { useGenuiInteraction } from "./genui-interaction-context";
 
 export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
   const { note, setNote } = useGenuiDraft();
+  const { setReceipt, writesEnabled } = useGenuiInteraction();
   const [status, setStatus] = useState<string | null>(null);
-  const [receiptId, setReceiptId] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   const submit = async () => {
+    if (!writesEnabled) return;
     setPending(true);
     setStatus(null);
     const retryIdentity = crypto.randomUUID();
@@ -25,8 +27,11 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
     const payload = await response.json();
     setPending(false);
     if (payload.status === "confirmed") {
-      setReceiptId(payload.data?.receiptId ?? "sent");
-      setStatus(payload.message);
+      setReceipt({
+        message: payload.message ?? "Note sent.",
+        receiptId: payload.data?.receiptId,
+      });
+      setStatus(null);
       return;
     }
     setStatus(payload.message ?? "Could not send the note.");
@@ -45,6 +50,7 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
         <span>Name</span>
         <input
           className="w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled}
           onChange={(event) => setNote({ name: event.target.value })}
           required
           value={note.name}
@@ -54,6 +60,7 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
         <span>Email</span>
         <input
           className="w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled}
           onChange={(event) => setNote({ email: event.target.value })}
           required
           type="email"
@@ -64,6 +71,7 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
         <span>What should we discuss?</span>
         <textarea
           className="min-h-28 w-full rounded-md border border-hairline bg-black px-3 py-2"
+          disabled={!writesEnabled}
           onChange={(event) => setNote({ description: event.target.value })}
           required
           value={note.description}
@@ -71,7 +79,7 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
       </label>
       <button
         className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-black disabled:opacity-50"
-        disabled={pending}
+        disabled={pending || !writesEnabled}
         type="submit"
       >
         Send email
@@ -79,7 +87,6 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
       {status && (
         <p className="text-sm text-neutral-300" role="status">
           {status}
-          {receiptId ? ` (${receiptId})` : ""}
         </p>
       )}
     </form>

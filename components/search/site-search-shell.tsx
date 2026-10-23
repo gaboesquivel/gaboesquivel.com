@@ -1,6 +1,9 @@
 "use client";
 
-import { homeSearchInputId } from "components/search/search-copy";
+import {
+  homepageGenuiSearchInputId,
+  homeSearchInputId,
+} from "components/search/search-copy";
 import { SiteSearchProvider } from "components/search/site-search-context";
 import { SiteSearchPanel } from "components/search/site-search-panel";
 import type { SearchRecord } from "components/search/types";
@@ -25,9 +28,10 @@ const isEditableTarget = (target: EventTarget | null) => {
 };
 
 const focusHomeSearchField = () => {
-  const field = document.querySelector<HTMLInputElement>(
-    `#${homeSearchInputId}`
-  );
+  const field =
+    document.querySelector<HTMLInputElement>(
+      `#${homepageGenuiSearchInputId}`
+    ) ?? document.querySelector<HTMLInputElement>(`#${homeSearchInputId}`);
   if (!field) return;
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"

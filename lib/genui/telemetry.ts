@@ -1,6 +1,7 @@
 export interface ComposeTelemetry {
   cancellation?: string;
   correlationId: string;
+  jevCalls: number;
   modelCalls: number;
   parseErrors: number;
   tier: 0 | 1 | 2;

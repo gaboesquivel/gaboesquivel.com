@@ -33,6 +33,24 @@ describe("composeQuery", () => {
     });
     expect(result.tier).toBe(0);
     expect(result.modelCalls).toBe(0);
+    expect(result.jevCalls).toBe(0);
     expect(result.events.at(-1)?.type).toBe("complete");
+  });
+
+  test("tier 0 explore my work uses work-gallery composite", async () => {
+    const result = await composeQuery({
+      context: context(),
+      input: {
+        clientRequestId: "c2",
+        query: "explore my work",
+        version: 1,
+      },
+    });
+    expect(result.tier).toBe(0);
+    const complete = result.events.find((event) => event.type === "complete");
+    expect(complete?.type).toBe("complete");
+    if (complete?.type === "complete") {
+      expect(complete.envelope.openuiText).toContain("work-gallery");
+    }
   });
 });

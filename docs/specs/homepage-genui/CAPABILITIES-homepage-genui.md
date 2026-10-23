@@ -1,6 +1,6 @@
 # Capability map: Homepage GenUI
 
-Status: capability map approved; per-module planning requested. The public-capabilities plan is proposed for review. Remaining module specs retain their draft status; no implementation has started.
+Status: homepage GenUI composition, capabilities, and MCP v2 runtime are implemented on `/`. Historical planning notes live in [PLAN-public-capabilities.md](./PLAN-public-capabilities.md).
 
 ## Objective and scope
 

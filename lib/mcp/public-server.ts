@@ -3,6 +3,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 
 import { capabilityRegistry, runCapability } from "../capabilities/registry";
 import { capabilityContextFromRequest } from "../capabilities/server-context";
+import { readRequestIp } from "../connect/ip";
 
 const APP_RESOURCE_URI = "ui://gaboesquivel/app";
 
@@ -23,7 +24,7 @@ const toolResult = (result: unknown) => {
   };
 };
 
-export const createPublicMcpServer = () => {
+export const createPublicMcpServer = ({ ip }: { ip: string }) => {
   const server = new McpServer(
     { name: "gaboesquivel", version: "2.0.0" },
     {
@@ -56,7 +57,7 @@ export const createPublicMcpServer = () => {
         const result = await runCapability({
           context: capabilityContextFromRequest({
             correlationId,
-            ip: "mcp",
+            ip,
           }),
           input,
           name: entry.name,
@@ -73,7 +74,7 @@ export const handlePublicMcpRequest = async (request: Request) => {
   const transport = new WebStandardStreamableHTTPServerTransport({
     enableJsonResponse: true,
   });
-  const server = createPublicMcpServer();
+  const server = createPublicMcpServer({ ip: readRequestIp(request) });
   await server.connect(transport);
   return transport.handleRequest(request);
 };

@@ -1,3 +1,4 @@
+import type { CompositeName } from "./composites";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { GENUI_LIBRARY_VERSION } from "./envelope";
 
@@ -20,17 +21,19 @@ const envelope = ({
 });
 
 export const cvDocument = ({
+  composite = "cv-document",
   focus = "full",
   record,
   requestId,
 }: {
+  composite?: CompositeName;
   focus?: string;
   record: PublicRecord;
   requestId: string;
 }) =>
   envelope({
     fallbackText: `CV (${focus}): ${record.kind === "cv" ? record.title : "CV"}`,
-    openuiText: `root = CVExperience("${focus}", "${record.id}")`,
+    openuiText: `root = CVExperience("${composite}", "${focus}", "${record.id}")`,
     records: [record],
     requestId,
   });
@@ -54,17 +57,55 @@ export const answerDocument = ({
   });
 
 export const projectDocument = ({
+  composite,
   projectIds,
   records,
   requestId,
 }: {
+  composite: CompositeName;
   projectIds: string[];
   records: PublicRecord[];
   requestId: string;
 }) =>
   envelope({
     fallbackText: "Selected projects",
-    openuiText: `root = ProjectExperience([${projectIds.map((id) => `"${id}"`).join(", ")}])`,
+    openuiText: `root = ProjectExperience("${composite}", [${projectIds.map((id) => `"${id}"`).join(", ")}])`,
+    records,
+    requestId,
+  });
+
+export const writingDocument = ({
+  composite,
+  postIds,
+  records,
+  requestId,
+}: {
+  composite: CompositeName;
+  postIds: string[];
+  records: PublicRecord[];
+  requestId: string;
+}) =>
+  envelope({
+    fallbackText: "Writing",
+    openuiText: `root = WritingExperience("${composite}", [${postIds.map((id) => `"${id}"`).join(", ")}])`,
+    records,
+    requestId,
+  });
+
+export const capabilityShowcaseDocument = ({
+  domain,
+  projectIds,
+  records,
+  requestId,
+}: {
+  domain: "ai" | "web3";
+  projectIds: string[];
+  records: PublicRecord[];
+  requestId: string;
+}) =>
+  envelope({
+    fallbackText: `${domain === "ai" ? "AI" : "Web3"} engineering evidence`,
+    openuiText: `root = CapabilityShowcaseExperience("${domain}", [${projectIds.map((id) => `"${id}"`).join(", ")}])`,
     records,
     requestId,
   });
@@ -78,7 +119,7 @@ export const contactDocument = ({
 }) =>
   envelope({
     fallbackText: "Contact Gabo",
-    openuiText: `root = ContactExperience("${records[0]?.id ?? "profile"}")`,
+    openuiText: `root = ContactExperience("hire-split", "${records[0]?.id ?? "profile"}")`,
     records,
     requestId,
   });
@@ -92,7 +133,7 @@ export const bookingDocument = ({
 }) =>
   envelope({
     fallbackText: "Book a call",
-    openuiText: "root = BookingExperience()",
+    openuiText: 'root = BookingExperience("hire-split")',
     records,
     requestId,
   });

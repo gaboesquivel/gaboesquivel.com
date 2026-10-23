@@ -15,7 +15,16 @@ describe("checkExperienceDocument", () => {
     ).toEqual({ ok: true, name: "ProjectExperience" });
   });
 
-  test("rejects a component outside the eight experiences", () => {
+  test("rejects unknown composite names", () => {
+    expect(
+      checkExperienceDocument({
+        name: "ProjectExperience",
+        props: { composite: "mosaic", ids: ["/project/wink"] },
+      }).ok
+    ).toBe(false);
+  });
+
+  test("rejects a component outside the experience catalog", () => {
     expect(
       checkExperienceDocument({
         name: "Grid",

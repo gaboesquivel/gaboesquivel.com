@@ -1,8 +1,11 @@
+import { compositeNames, isCompositeName } from "./composites";
+
 export const experienceNames = [
   "Answer",
   "AboutExperience",
   "ProjectExperience",
   "WritingExperience",
+  "CapabilityShowcaseExperience",
   "ContactExperience",
   "BookingExperience",
   "CVExperience",
@@ -66,5 +69,13 @@ export const checkExperienceDocument = ({
     .map(valueReason)
     .find((item) => item !== null);
   if (reason) return { ok: false as const, reason };
+  const composite = props.composite;
+  if (
+    typeof composite === "string" &&
+    composite.length > 0 &&
+    !isCompositeName(composite)
+  ) {
+    return { ok: false as const, reason: "component" as const };
+  }
   return { ok: true as const, name: name as ExperienceName };
 };

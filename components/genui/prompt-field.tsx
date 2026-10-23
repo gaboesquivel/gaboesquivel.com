@@ -1,26 +1,31 @@
 "use client";
 
 import { cn } from "lib/utils";
-import { useRef, useState } from "react";
+import Link from "next/link";
+import { useRef, useSyncExternalStore } from "react";
 
 export const PromptField = ({
-  disabled,
+  onChange,
   onSubmit,
   value,
 }: {
-  disabled?: boolean;
+  onChange: (query: string) => void;
   onSubmit: (query: string) => void;
   value: string;
 }) => {
-  const [draft, setDraft] = useState(value);
   const composing = useRef(false);
+  const hydrated = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   return (
     <form
       className="w-full"
       onSubmit={(event) => {
         event.preventDefault();
-        const query = draft.trim();
+        const query = value.trim();
         if (!query) return;
         onSubmit(query);
       }}
@@ -33,9 +38,8 @@ export const PromptField = ({
           "w-full rounded-md border border-hairline bg-black px-4 py-3 text-base text-white",
           "placeholder:text-neutral-500 focus-visible:outline-2 focus-visible:outline-accent"
         )}
-        disabled={disabled}
         id="homepage-genui-search"
-        onChange={(event) => setDraft(event.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         onCompositionEnd={() => {
           composing.current = false;
         }}
@@ -49,11 +53,21 @@ export const PromptField = ({
         }}
         placeholder="Ask about my work, writing, CV, or booking…"
         type="search"
-        value={draft}
+        value={value}
       />
-      <p className="mt-2 text-xs text-neutral-500">
-        Press Enter to search. Results replace the sections below.
-      </p>
+      {hydrated ? (
+        <p className="mt-2 text-xs text-neutral-500">
+          Press Enter to search. Results replace the sections below.
+        </p>
+      ) : (
+        <p className="mt-2 text-xs text-neutral-500">
+          Browse the sections below, or{" "}
+          <Link className="text-accent hover:underline" href="/contact">
+            contact
+          </Link>{" "}
+          to reach out.
+        </p>
+      )}
     </form>
   );
 };

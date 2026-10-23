@@ -1,5 +1,6 @@
 import { capabilityRegistry, runCapability } from "lib/capabilities/registry";
 import { capabilityContextFromRequest } from "lib/capabilities/server-context";
+import { readRequestIp } from "lib/connect/ip";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 
@@ -18,9 +19,7 @@ export async function POST(request: Request) {
     );
   }
   const correlationId = nanoid();
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    "127.0.0.1";
+  const ip = readRequestIp(request);
   try {
     const result = await runCapability({
       context: capabilityContextFromRequest({ correlationId, ip }),

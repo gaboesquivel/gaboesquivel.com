@@ -1,11 +1,16 @@
 "use client";
 
 import type { CompositionEnvelope } from "lib/genui/envelope";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { GeneratedRegion } from "./generated-region";
 import { GenuiDraftProvider, useGenuiDraft } from "./genui-draft-context";
+import {
+  GenuiInteractionProvider,
+  useGenuiInteraction,
+} from "./genui-interaction-context";
 import { PromptField } from "./prompt-field";
+import { scrollPromptToViewportTop } from "./scroll-prompt";
 
 const readNdjson = async ({
   onEvent,
@@ -31,8 +36,20 @@ const readNdjson = async ({
   }
 };
 
-const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
+const HomepageGenUiBodyContent = ({
+  children,
+  onSessionChange,
+}: {
+  children: React.ReactNode;
+  onSessionChange: (session: {
+    active: boolean;
+    complete: boolean;
+    error: string | null;
+    isStreaming: boolean;
+  }) => void;
+}) => {
   const { clear } = useGenuiDraft();
+  const { receipt, setReceipt } = useGenuiInteraction();
   const [active, setActive] = useState(false);
   const [query, setQuery] = useState("");
   const [envelope, setEnvelope] = useState<CompositionEnvelope | null>(null);
@@ -41,6 +58,11 @@ const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
   const [complete, setComplete] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const requestRef = useRef(0);
+  const promptAnchorRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    onSessionChange({ active, complete, error, isStreaming });
+  }, [active, complete, error, isStreaming, onSessionChange]);
 
   const runQuery = useCallback(async (nextQuery: string) => {
     const id = requestRef.current + 1;
@@ -55,7 +77,7 @@ const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
     setComplete(false);
     setIsStreaming(true);
     requestAnimationFrame(() => {
-      window.scrollTo({ behavior: "smooth", top: 0 });
+      scrollPromptToViewportTop({ element: promptAnchorRef.current });
     });
     try {
       const response = await fetch("/api/genui/compose", {
@@ -68,6 +90,12 @@ const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
         method: "POST",
         signal: controller.signal,
       });
+      if (!response.ok) {
+        if (id !== requestRef.current) return;
+        setError("Composition failed.");
+        setIsStreaming(false);
+        return;
+      }
       await readNdjson({
         onEvent: (event) => {
           if (id !== requestRef.current) return;
@@ -104,6 +132,13 @@ const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
     setComplete(false);
     setIsStreaming(false);
     clear();
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    window.scrollTo({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      top: 0,
+    });
   };
 
   return (
@@ -114,9 +149,10 @@ const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
             ? "sticky top-0 z-20 border-b border-hairline bg-black/95 px-0 py-4 backdrop-blur"
             : "mt-8 lg:mt-10"
         }
+        ref={promptAnchorRef}
       >
         <PromptField
-          disabled={isStreaming}
+          onChange={setQuery}
           onSubmit={(value) => {
             runQuery(value).catch(() => {});
           }}
@@ -131,18 +167,49 @@ const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
             Back to homepage
           </button>
         )}
+        {receipt && (
+          <p className="mt-3 text-sm text-neutral-300" role="status">
+            {receipt.message}
+            {receipt.receiptId ? ` (${receipt.receiptId})` : ""}
+          </p>
+        )}
       </div>
       {active ? (
-        <GeneratedRegion
-          complete={complete}
-          envelope={envelope}
-          error={error}
-          isStreaming={isStreaming}
-        />
+        <div className="min-h-[100vh]">
+          <GeneratedRegion
+            complete={complete}
+            envelope={envelope}
+            error={error}
+            isStreaming={isStreaming}
+            onRetry={
+              query
+                ? () => {
+                    runQuery(query).catch(() => {});
+                  }
+                : undefined
+            }
+          />
+        </div>
       ) : (
         children
       )}
     </div>
+  );
+};
+
+const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
+  const [writesEnabled, setWritesEnabled] = useState(false);
+
+  return (
+    <GenuiInteractionProvider writesEnabled={writesEnabled}>
+      <HomepageGenUiBodyContent
+        onSessionChange={({ active, complete, error, isStreaming }) => {
+          setWritesEnabled(active && complete && !isStreaming && !error);
+        }}
+      >
+        {children}
+      </HomepageGenUiBodyContent>
+    </GenuiInteractionProvider>
   );
 };
 

@@ -1,10 +1,14 @@
 import { capabilityContextFromRequest } from "lib/capabilities/server-context";
+import { admitChat } from "lib/connect/caps";
+import { capsEnforced, readRequestIp, requestHost } from "lib/connect/ip";
 import { composeQuery } from "lib/genui/compose";
 import { logComposeTelemetry } from "lib/genui/telemetry";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
+
+const OVERALL_DEADLINE_MS = 15_000;
 
 export async function POST(request: Request) {
   const started = Date.now();
@@ -22,17 +26,37 @@ export async function POST(request: Request) {
     );
   }
   const correlationId = nanoid();
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    "127.0.0.1";
+  const ip = readRequestIp(request);
+  const host = requestHost(request);
   const context = capabilityContextFromRequest({ correlationId, ip });
   context.correlationId = body?.clientRequestId?.trim() || correlationId;
+
+  const admitted = await admitChat({
+    enforce: capsEnforced({ host }),
+    ip,
+    now: context.clock,
+    store: context.store,
+  });
+  if (!admitted.ok) {
+    return NextResponse.json({ message: admitted.message }, { status: 429 });
+  }
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
+      let tier: 0 | 1 | 2 = 0;
+      let jevCalls = 0;
+      let modelCalls = 0;
+      let parseErrors = 0;
       try {
-        const { events, modelCalls, tier } = await composeQuery({
+        const abortController = new AbortController();
+        const onClientAbort = () => abortController.abort();
+        request.signal.addEventListener("abort", onClientAbort);
+        const deadline = setTimeout(
+          () => abortController.abort(),
+          OVERALL_DEADLINE_MS
+        );
+        const result = await composeQuery({
           context,
           input: {
             clientRequestId: context.correlationId,
@@ -40,14 +64,24 @@ export async function POST(request: Request) {
             query,
             version: body?.version ?? 1,
           },
+          onEvent: (event) => {
+            if (abortController.signal.aborted) return;
+            controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+          },
+          signal: abortController.signal,
         });
-        for (const event of events) {
-          controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
-        }
+        clearTimeout(deadline);
+        request.signal.removeEventListener("abort", onClientAbort);
+        tier = result.tier;
+        jevCalls = result.jevCalls;
+        modelCalls = result.modelCalls;
+        parseErrors = result.parseErrors;
         logComposeTelemetry({
+          cancellation: abortController.signal.aborted ? "aborted" : undefined,
           correlationId: context.correlationId,
+          jevCalls,
           modelCalls,
-          parseErrors: 0,
+          parseErrors,
           tier,
           timingMs: Date.now() - started,
         });

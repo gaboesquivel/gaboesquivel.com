@@ -35,7 +35,7 @@ export const listWritingInput = z.object({
 export const searchSiteInput = z.object({
   cursor,
   limit,
-  query: z.string().trim().min(1).max(500),
+  query: z.string().trim().min(1).max(2000),
 });
 
 export const listAvailabilityInput = z.object({

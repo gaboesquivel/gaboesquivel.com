@@ -3,6 +3,7 @@ import { describe, expect, test } from "bun:test";
 import type { CalendarClient } from "../connect/calendar";
 import { memoryCapStore } from "../connect/caps";
 import { cvDownloadPayload } from "../connect/cv-download";
+import { listOpenSlots } from "../connect/slots";
 import { capabilityRegistry, runCapability } from "./registry";
 import type { CapabilityContext } from "./types";
 
@@ -10,6 +11,15 @@ const calendarStub: CalendarClient = {
   freeBusy: async () => [],
   get: async () => null,
   insert: async () => ({ id: "evt-1" }),
+};
+
+const firstOfferedStart = (context: CapabilityContext) => {
+  const open = listOpenSlots({
+    busy: [],
+    now: context.clock,
+    timeZone: "America/Denver",
+  });
+  return Object.values(open.slots["15"]).flat()[0];
 };
 
 const baseContext = (): CapabilityContext => ({
@@ -117,5 +127,110 @@ describe("public capabilities", () => {
       name: "send_note",
     });
     expect(changed).toMatchObject({ status: "failed" });
+  });
+
+  test("send_note fails when the cap store is unavailable", async () => {
+    const result = await runCapability({
+      context: { ...baseContext(), store: null },
+      input: {
+        description: "Discuss the lending integration and timeline.",
+        email: "ada@example.com",
+        name: "Ada",
+        retryIdentity: "retry-note-store-down",
+      },
+      name: "send_note",
+    });
+    expect(result).toMatchObject({ status: "failed", operation: "send_note" });
+  });
+
+  test("send_note returns uncertain when the provider fails after claim", async () => {
+    const context = {
+      ...baseContext(),
+      mailer: async () => {
+        throw new Error("provider-down");
+      },
+    };
+    const payload = {
+      description: "Discuss the lending integration and timeline.",
+      email: "bob@example.com",
+      name: "Bob",
+      retryIdentity: "retry-note-uncertain",
+    };
+    const result = await runCapability({
+      context,
+      input: payload,
+      name: "send_note",
+    });
+    expect(result).toMatchObject({
+      status: "uncertain",
+      operation: "send_note",
+    });
+    expect(String(result.message)).not.toContain("provider-down");
+  });
+
+  test("book_call dedupes duplicate booking keys", async () => {
+    let inserts = 0;
+    const calendar: CalendarClient = {
+      freeBusy: async () => [],
+      get: async () => null,
+      insert: async () => {
+        inserts += 1;
+        return { id: "evt-dup" };
+      },
+    };
+    const context = { ...baseContext(), calendar };
+    const start = firstOfferedStart(context);
+    const payload = {
+      description: "Intro call about the agent work and timeline.",
+      duration: 15 as const,
+      email: "carol@example.com",
+      name: "Carol",
+      retryIdentity: "retry-book-dup-1",
+      start,
+      timeZone: "America/Denver",
+    };
+    const first = await runCapability({
+      context,
+      input: payload,
+      name: "book_call",
+    });
+    const second = await runCapability({
+      context,
+      input: { ...payload, retryIdentity: "retry-book-dup-2" },
+      name: "book_call",
+    });
+    expect(first.status).toBe("confirmed");
+    expect(second).toMatchObject({ status: "confirmed" });
+    expect(inserts).toBe(1);
+  });
+
+  test("book_call returns uncertain when calendar insert fails", async () => {
+    const calendar: CalendarClient = {
+      freeBusy: async () => [],
+      get: async () => null,
+      insert: async () => {
+        throw new Error("calendar-unconfigured");
+      },
+    };
+    const context = { ...baseContext(), calendar };
+    const start = firstOfferedStart(context);
+    const result = await runCapability({
+      context,
+      input: {
+        description: "Intro call about the agent work and timeline.",
+        duration: 15 as const,
+        email: "dana@example.com",
+        name: "Dana",
+        retryIdentity: "retry-book-uncertain",
+        start,
+        timeZone: "America/Denver",
+      },
+      name: "book_call",
+    });
+    expect(result).toMatchObject({
+      status: "uncertain",
+      operation: "book_call",
+    });
+    expect(String(result.message)).not.toContain("calendar-unconfigured");
   });
 });
