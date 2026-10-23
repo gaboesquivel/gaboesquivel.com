@@ -9,6 +9,12 @@ export const answerPropsSchema = z.object({
   sourceIds: z.array(z.string()).default([]),
 });
 
+export const timelineExperiencePropsSchema = z.object({
+  composite: z.literal("chapter-stack"),
+  sourceId: z.literal("/bio"),
+  projectIds: z.array(z.string()),
+});
+
 export const aboutExperiencePropsSchema = z.object({
   sourceId: z.string(),
 });
@@ -50,6 +56,7 @@ export const experienceStackPropsSchema = z.object({
 
 export const experiencePropsByName = {
   AboutExperience: aboutExperiencePropsSchema,
+  TimelineExperience: timelineExperiencePropsSchema,
   Answer: answerPropsSchema,
   BookingExperience: bookingExperiencePropsSchema,
   CapabilityShowcaseExperience: capabilityShowcasePropsSchema,

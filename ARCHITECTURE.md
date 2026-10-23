@@ -134,3 +134,7 @@ The pre-commit hook regenerates and stages CV outputs when the specified CV, glo
 ## Maintaining this map
 
 Update this document when source ownership, system boundaries, data flow, or integrations change. Keep product decisions in [PRODUCT.md](PRODUCT.md), visual decisions in [DESIGN.md](DESIGN.md), and setup in [README.md](README.md).
+
+### GenUI career chronology
+
+`TimelineExperience("chapter-stack", "/bio", projectIds)` is registered in both OpenUI libraries and validated by the shared compiler. The biography profile and every referenced project must be present in the envelope. `timelineDocument` binds package projects to the chapter summaries in `lib/bio/career-timeline.ts`, which derive from the published `/bio` narrative; project descriptions and cover paths remain package-owned. Explicit career-story prompts select this composition deterministically before semantic synthesis. The same renderer serves homepage and MCP Apps; the fixture is `career-timeline`. Other experience questions retain the existing evidence-answer path.

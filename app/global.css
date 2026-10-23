@@ -627,6 +627,75 @@ body:has([data-connect]) [data-slot="input-group"] textarea {
   block-size: 2lh;
 }
 
+/* Connect text shimmer + UI pending shimmer utilities */
+@keyframes text-shimmer {
+  to {
+    background-position: 0% center;
+  }
+}
+
+@keyframes shimmer-sweep {
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.text-shimmer {
+  --spread: 2rem;
+  --shimmer-duration: 2s;
+  display: inline-block;
+  color: transparent;
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent calc(50% - var(--spread)),
+      var(--color-background) 50%,
+      transparent calc(50% + var(--spread))
+    ),
+    linear-gradient(
+      var(--color-muted-foreground),
+      var(--color-muted-foreground)
+    );
+  background-size:
+    250% 100%,
+    auto;
+  background-repeat: no-repeat, padding-box;
+  background-position:
+    100% center,
+    center;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: text-shimmer var(--shimmer-duration) linear infinite;
+}
+
+@utility shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-muted-foreground) 45%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-position: -200% 0;
+  animation: shimmer-sweep 2s linear infinite;
+}
+
+@utility shimmer-none {
+  animation: none;
+  background-image: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-shimmer {
+    animation: none;
+    color: var(--color-muted-foreground);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+  }
+}
+
+/* View transitions (Work filter indicator; add named groups here) */
 ::view-transition-group(work-filter-indicator) {
   animation-duration: 180ms;
   animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);

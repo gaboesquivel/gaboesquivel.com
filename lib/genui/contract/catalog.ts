@@ -32,6 +32,7 @@ export const cvComposites: readonly CompositeName[] = ["cv-document"];
 export const experienceCompositeAllowlist: Partial<
   Record<ExperienceName, readonly CompositeName[]>
 > = {
+  TimelineExperience: ["chapter-stack"],
   BookingExperience: bookingComposites,
   ContactExperience: contactComposites,
   CVExperience: cvComposites,

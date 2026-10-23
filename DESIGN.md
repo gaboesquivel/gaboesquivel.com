@@ -168,11 +168,11 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, project-card image scale, `→` nudge with `motion-safe:` (cards, path links, and the writing index), connect status, approval card, and connect generative cards (`starting:` fade + scale via `enter` in `components/shared/motion.ts`), connect starter, Send, Stop, approval, filter chips, and the CV download `:active` scale, and `siteCardInteractive` `:active` scale (`press` in the same file). The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, project-card image hover via `imageHover` in `components/shared/motion.ts` (`1.02` scale, `motion-safe:`), `→` nudge with `motion-safe:` (cards, path links, and the writing index), connect status, approval card, and connect generative cards (`starting:` fade + scale via `enter` in the same file), connect starter, Send, Stop, approval, filter chips, and the CV download `:active` scale, and `siteCardInteractive` `:active` scale (`press` in the same file). The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## Motion & View Transitions
 
-**Status (2026-10-23):** Work category navigation uses React `<ViewTransition name="work-filter-indicator">` on the active filter chip (`components/work/work-filter-nav.tsx`), with 180ms easing scoped in `app/global.css`. Project detail pages continue to use `viewTransitionName` on shared cover imagery. Elsewhere, motion stays the budget above (CSS transitions, Tailwind `starting:` / `motion-safe:`, and `components/shared/motion.ts`). No `document.startViewTransition()` or global `@view-transition { navigation: auto; }`. The site `motion` package dependency serves connect UI only.
+**Status (2026-10-23):** Work category navigation uses React `<ViewTransition name="work-filter-indicator">` on the active filter chip (`components/work/work-filter-nav.tsx`), with 180ms easing scoped in `app/global.css`. Project detail pages continue to use `viewTransitionName` on shared cover imagery. Elsewhere, motion stays the budget above (CSS transitions, Tailwind `starting:` / `motion-safe:`, and `components/shared/motion.ts`). Connect loading shimmer uses CSS in `app/global.css` (`components/ai-elements/shimmer.tsx`). No `document.startViewTransition()` or global `@view-transition { navigation: auto; }`. No runtime animation libraries in site-authored code.
 
 **Compatibility:** React `19.3.1` and Next.js App Router (`^16.4`) expose `<ViewTransition>` from `react`. Unsupported browsers keep route updates and active styling without animating the indicator. Transition types and `view-transition-class` need Chromium 125+ and recent Safari/Firefox; verify Safari when changing Work filter motion.
 
@@ -182,9 +182,9 @@ Motion budget: color/underline transitions, project-card image scale, `→` nudg
 
 **Principles when we implement:**
 
-- Prefer native browser and React APIs over imperative DOM or third-party animation libraries unless a future requirement clearly needs one.
+- Prefer native browser and React APIs over imperative DOM or third-party animation libraries unless a future requirement clearly needs one. Choose standards (CSS, View Transitions, WAAPI, other platform APIs) so behavior degrades cleanly on any supported browser and stack, not a single vendor runtime.
 - Prefer declarative `<ViewTransition>` + transition-scoped updates (`startTransition`, Suspense, `useDeferredValue`; Next navigations count) over manual lifecycle orchestration.
-- Keep simple micro-interactions on CSS where they already fit the budget.
+- Keep simple micro-interactions on modern CSS (`transition`, `animation`, `@starting-style`, Tailwind `starting:` / `motion-safe:`) where they already fit the budget; add view-transition CSS only in scoped blocks (see Work filter indicator in `app/global.css`).
 - Respect `prefers-reduced-motion`; degrade to instant updates where the API allows.
 - Preserve SSR, accessibility, performance, and SEO; do not block paint for decorative motion.
 - Use Next `Link` / `useRouter` `transitionTypes` only when directional navigation is product-approved; cross-document (MPA) transitions follow browser support and are out of scope until explicitly specified.
@@ -212,7 +212,7 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 - Focus: `SiteCardLink` surfaces (`PageCard`, `PathLink`, `ProjectCard`, blog cards) and `/ask` fields draw an accent ring via `siteCardInteractive` or field primitives. Primary nav links keep the browser's default outline.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
 - Images: `PageImage` requires `alt`; describe what the photo shows.
-- Reduced motion: the `cardArrow` nudge, connect status, approval card, slot picker, starter and send press, and `siteCardInteractive` press use `motion-safe:` / `motion-reduce:`. Editorial and flagship covers scale to `1.02` only under `motion-safe:`. The bordered `ProjectCard` image zoom (`scale-110`) still runs without that gate.
+- Reduced motion: the `cardArrow` nudge, connect status, approval card, slot picker, starter and send press, and `siteCardInteractive` press use `motion-safe:` / `motion-reduce:`. Cover imagery uses `imageHover` (`1.02` under `motion-safe:` only).
 - Print: the top bar, nav, and footer are `print:hidden`.
 
 ## Do's and Don'ts
@@ -247,7 +247,6 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 ## Open questions
 
 - `muted` text (`neutral-500`) is just under AA on black. Move it to `neutral-400`, or keep `neutral-500` for non-essential labels only?
-- The `ProjectCard` image zoom (`group-hover:scale-110`) is the one image motion, but it is not behind `motion-safe:`. Gate it, or leave it as is?
 
 ## Homepage portrait hero
 
@@ -269,7 +268,7 @@ Alternative project arrangements are documented in [the v2 implementation scope]
 
 ## Work index (`/work`)
 
-`/work` shares the homepage shell width (`homeColumn` via `SiteWidth`). A nested `app/work/layout.tsx` wraps every Work route in `WorkPageChrome`: stable `WorkIndexHero` (`heroTitle`, explicit two-line desktop/mobile lede from `lib/work-types.ts`, `PageTrail`), sticky `WorkFilterNav` (hairline rounded shell, turquoise active label, `ViewTransition` indicator), and `#work-results` for route-specific listings. Hero geometry and filter position are identical across all eight categories; copy resolves from the URL via `workTypeFromPathname`. Filter clicks use Next.js client navigation with `scroll={false}` and a scoped smooth scroll to top (instant when `prefers-reduced-motion`). The global navbar is not sticky.
+`/work` shares the homepage shell width (`homeColumn` via `SiteWidth`). A nested `app/work/layout.tsx` wraps every Work route in `WorkPageChrome`: stable `WorkIndexHero` (`heroTitle`, explicit two-line desktop/mobile lede from `lib/work-types.ts`, `PageTrail`), `WorkFilterNav` (hairline rounded shell, turquoise active label, `ViewTransition` indicator), and `#work-results` for route-specific listings. Hero geometry and filter position are identical across all eight categories; copy resolves from the URL via `workTypeFromPathname`. Filter clicks use Next.js client navigation with `scroll={false}` and a scoped smooth scroll to top (instant when `prefers-reduced-motion`). The global navbar is not sticky.
 
 Featured work is six package slugs in fixed order: LegalAgent flagship (`FeaturedProjectCard`, outside the editorial container), then Wink and ZTX in the editorial two-column grid, Bitlauncher as a wide editorial row, Opyn and EOS Costa Rica in a second two-column row. The pairs switch at a `48rem` container width. All cards use package hero imagery through `resolveProjectImage` with the same `object-cover` framing. Verified `role` uses `projectRole` (turquoise, small): under the title on editorial cards, and between the title and description on project pages. Writing below the grid is three latest editorial entries with a `/blog` action, matching the homepage writing pattern.
 
@@ -284,3 +283,7 @@ Capability routes that still use `CapabilityPage` share the same shell and `read
 ## Career story (`/bio`)
 
 `/bio` stays on `siteColumn` and does not use the `/ai` or `/web3` card sequence. `BioChapter` only supplies section spacing. It does not draw a rule or force a split. The 2010 chapter is prose, then the NodeSchool photograph at full shell width and its real ratio. The 2015 chapter places the Wink registry cover on the left. The 2017 chapter places `gabo-coding.jpg` on the right. The 2024 chapter ends with one LegalAgent banner. Do not route `/bio` through `CapabilityPage` or add a second project gallery inside a chapter.
+
+### GenUI career timeline
+
+`TimelineExperience` uses the `chapter-stack` composite through `components/genui/career-timeline.tsx`. A four-stop chapter index leads into a vertical hairline with small turquoise markers, editorial text, and real project covers from `ProjectCover`. Container queries switch chapter media beside the copy only when the result container is wide enough; narrow MCP embeds keep a single column. Native `details` exposes additional story and package-owned project descriptions, with keyboard focus visible. No glow, shadow, animated scroll sequence, or new typeface. This is an on-demand GenUI composition; `/bio` retains its editorial page layout.

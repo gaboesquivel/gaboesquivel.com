@@ -2,6 +2,7 @@
 
 import { createLibrary, defineComponent } from "@openuidev/react-lang";
 import {
+  timelineExperiencePropsSchema,
   aboutExperiencePropsSchema,
   answerPropsSchema,
   bookingExperiencePropsSchema,
@@ -13,6 +14,7 @@ import {
   writingExperiencePropsSchema,
 } from "lib/genui/contract/schemas";
 
+import { CareerTimeline } from "./career-timeline";
 import {
   AboutExperienceView,
   AnswerView,
@@ -81,6 +83,16 @@ const CapabilityShowcaseExperience = defineComponent({
   props: capabilityShowcasePropsSchema,
 });
 
+const TimelineExperience = defineComponent({
+  component: ({ props }) => (
+    <CareerTimeline sourceId={props.sourceId} projectIds={props.projectIds} />
+  ),
+  description:
+    "Career chronology with grounded project evidence, chapter navigation and expandable stories.",
+  name: "TimelineExperience",
+  props: timelineExperiencePropsSchema,
+});
+
 const AboutExperience = defineComponent({
   component: ({ props }) => <AboutExperienceView sourceId={props.sourceId} />,
   description: "About/profile context.",
@@ -115,6 +127,7 @@ export const genuiLibrary = createLibrary({
   components: [
     Answer,
     AboutExperience,
+    TimelineExperience,
     ProjectExperience,
     WritingExperience,
     CapabilityShowcaseExperience,

@@ -26,7 +26,10 @@ const recordKindForId = ({
       kind: "cv",
     };
   }
-  if (experience === "ProjectExperience") {
+  if (
+    experience === "ProjectExperience" ||
+    experience === "TimelineExperience"
+  ) {
     return {
       ids: Array.isArray(props.projectIds) ? props.projectIds.map(String) : [],
       kind: "project",
@@ -118,6 +121,13 @@ export const validateRecordReferences = ({
   const catalog = validatePublicRecords({ records });
   if (!catalog.ok) return catalog;
 
+  if (experience === "TimelineExperience") {
+    const source = catalog.byId.get(String(props.sourceId));
+    if (!source) return { ok: false as const, code: "missing_record" as const };
+    if (source.kind !== "profile" || source.id !== "/bio") {
+      return { ok: false as const, code: "record_kind_mismatch" as const };
+    }
+  }
   const { ids, kind } = recordKindForId({ experience, props });
   for (const id of ids) {
     if (!id) continue;
@@ -133,7 +143,13 @@ export const validateRecordReferences = ({
       };
     }
   }
-  return { ok: true as const, referencedRecordIds: ids.filter(Boolean) };
+  return {
+    ok: true as const,
+    referencedRecordIds: (experience === "TimelineExperience"
+      ? [String(props.sourceId), ...ids]
+      : ids
+    ).filter(Boolean),
+  };
 };
 
 export const validateProjectRecipeCardinality = ({

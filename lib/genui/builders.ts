@@ -1,7 +1,12 @@
+import { getProjectBySlug } from "gaboesquivel";
+import { careerChapters, careerProjectSlugs } from "lib/bio/career-timeline";
+import { siteOrigin } from "lib/site-path";
+
 import type { CompositeName } from "./composites";
 import { openUiStringList, openUiStringLiteral } from "./contract/serialize";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { GENUI_LIBRARY_VERSION } from "./envelope";
+import { projectToPublicRecord } from "./public-records";
 
 const envelope = ({
   fallbackText,
@@ -145,3 +150,28 @@ export const bookingDocument = ({
     records,
     requestId,
   });
+
+export const timelineDocument = ({ requestId }: { requestId: string }) => {
+  const projects = careerProjectSlugs.flatMap((slug) => {
+    const project = getProjectBySlug(slug);
+    return project ? [projectToPublicRecord(project)] : [];
+  });
+  return envelope({
+    fallbackText: careerChapters
+      .map(
+        (chapter) => `${chapter.period}: ${chapter.title}. ${chapter.summary}`
+      )
+      .join("\n\n"),
+    openuiText: `root = TimelineExperience("chapter-stack", "/bio", ${openUiStringList(projects.map((project) => project.id))})`,
+    records: [
+      {
+        id: "/bio",
+        kind: "profile",
+        title: "Career story",
+        url: `${siteOrigin}/bio`,
+      },
+      ...projects,
+    ],
+    requestId,
+  });
+};

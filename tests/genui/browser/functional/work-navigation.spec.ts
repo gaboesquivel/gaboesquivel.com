@@ -145,14 +145,19 @@ test.describe("Work index navigation", () => {
     }
   });
 
-  test("sticky Work filter and scrolling global navbar", async ({ page }) => {
+  test("Work filter and global navbar scroll with page", async ({ page }) => {
     await page.setViewportSize({ height: 900, width: 1440 });
     await page.goto("/work/all");
     await waitForWorkStable(page);
     await page.evaluate(() => window.scrollBy(0, 2000));
     await page.waitForFunction(() => window.scrollY > 400);
     const filterBox = await readBox(page, "[data-work-filter]");
-    expect(filterBox?.y).toBeLessThanOrEqual(geometryTolerance);
+    expect(filterBox).not.toBeNull();
+    if (filterBox) {
+      expect(filterBox.y + filterBox.height).toBeLessThanOrEqual(
+        geometryTolerance
+      );
+    }
     const navBox = await readBox(
       page,
       'header nav[aria-label="Primary navigation"]'
@@ -168,7 +173,12 @@ test.describe("Work index navigation", () => {
     await page.evaluate(() => window.scrollBy(0, 1500));
     await page.waitForFunction(() => window.scrollY > 300);
     const mobileFilter = await readBox(page, "[data-work-filter]");
-    expect(mobileFilter?.y).toBeLessThanOrEqual(geometryTolerance);
+    expect(mobileFilter).not.toBeNull();
+    if (mobileFilter) {
+      expect(mobileFilter.y + mobileFilter.height).toBeLessThanOrEqual(
+        geometryTolerance
+      );
+    }
   });
 
   test("filter navigation, scroll to top, and history", async ({ page }) => {

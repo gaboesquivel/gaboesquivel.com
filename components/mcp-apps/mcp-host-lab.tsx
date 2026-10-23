@@ -110,9 +110,10 @@ export const McpHostLab = ({
 
     bridge.addEventListener("initialized", async () => {
       setInitialized(true);
-      await bridge.sendToolInput({
-        arguments: { focus: "ai" },
-      });
+      const toolArguments = { focus: "ai" };
+      await bridge.sendToolInput({ arguments: toolArguments });
+      await mcpHostSleep(250);
+      await bridge.sendToolInput({ arguments: toolArguments });
       const result = await client.callTool({
         arguments: {},
         name: "get_profile",

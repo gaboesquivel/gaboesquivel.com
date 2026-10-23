@@ -1,11 +1,13 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import { enter } from "components/shared/motion";
 import { siteFieldClass } from "components/shared/spacing";
 import { Button } from "components/ui/button";
 import { Field, FieldError, FieldLabel } from "components/ui/field";
 import { Input } from "components/ui/input";
 import { Textarea } from "components/ui/textarea";
+import { cn } from "lib/utils";
 import { useRef, useState } from "react";
 
 import { submitContactForm } from "./actions";
@@ -87,11 +89,13 @@ export function ContactForm() {
           key={formState.success ? "success" : "error"}
           role={formState.success ? "status" : "alert"}
           aria-live="polite"
-          className={`rounded-lg p-4 motion-safe:transition-[opacity,transform] motion-safe:duration-200 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-opacity motion-reduce:duration-[120ms] motion-safe:starting:scale-[0.97] motion-safe:starting:opacity-0 motion-reduce:starting:opacity-0 ${
+          className={cn(
+            "rounded-lg p-4",
+            enter,
             formState.success
               ? "border border-accent text-accent"
               : "border border-red-800 text-red-800"
-          }`}
+          )}
         >
           {formState.success ? formState.message : formState.error}
         </div>

@@ -1,4 +1,5 @@
 import {
+  timelineDocument,
   bookingDocument,
   contactDocument,
   cvDocument,
@@ -14,6 +15,7 @@ import {
 } from "./sample-records";
 
 export type GenuiFixtureId =
+  | "career-timeline"
   | "cv-full"
   | "project-gallery"
   | "project-case-study"
@@ -34,6 +36,10 @@ export interface GenuiFixtureDefinition {
 const requestId = "fixture-lab";
 
 export const genuiFixtures: Record<GenuiFixtureId, GenuiFixtureDefinition> = {
+  "career-timeline": {
+    envelope: timelineDocument({ requestId }),
+    id: "career-timeline",
+  },
   "booking-hire": {
     envelope: bookingDocument({
       records: [sampleProfileRecord],

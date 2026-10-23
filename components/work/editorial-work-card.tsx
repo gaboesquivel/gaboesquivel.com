@@ -1,3 +1,4 @@
+import { imageHover } from "components/shared/motion";
 import { cardArrow, editorialLink } from "components/shared/spacing";
 import { getProjectBySlug } from "gaboesquivel";
 import { cn } from "lib/utils";
@@ -67,10 +68,7 @@ export function EditorialWorkCard({
               sizes={sizes}
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
-              className={cn(
-                "object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none",
-                objectClassName
-              )}
+              className={cn("object-cover", imageHover, objectClassName)}
             />
           </div>
         ) : null}

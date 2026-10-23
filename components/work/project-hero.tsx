@@ -1,4 +1,6 @@
+import { imageHover } from "components/shared/motion";
 import type { Project } from "gaboesquivel";
+import { cn } from "lib/utils";
 import { resolveProjectImage, workCoverSizes } from "lib/work/project-cover";
 import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
@@ -29,7 +31,7 @@ export function ProjectHero({
         sizes={workCoverSizes}
         preload={preload}
         fetchPriority={preload ? "high" : undefined}
-        className="object-contain motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none"
+        className={cn("object-contain", imageHover)}
       />
     </div>
   );

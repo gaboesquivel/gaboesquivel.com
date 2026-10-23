@@ -26,7 +26,7 @@ const keepActiveFilterVisible = (node: HTMLAnchorElement | null) => {
 };
 
 export const WorkFilterNav = ({ type }: { type: WorkType }) => (
-  <div data-work-filter className="sticky top-0 z-30 bg-black">
+  <div data-work-filter>
     <nav
       aria-label="Work types"
       className="rounded-lg border border-hairline p-1"

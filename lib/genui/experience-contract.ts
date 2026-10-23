@@ -3,6 +3,7 @@ import { compositeNames, isCompositeName } from "./composites";
 export const experienceNames = [
   "Answer",
   "AboutExperience",
+  "TimelineExperience",
   "ProjectExperience",
   "WritingExperience",
   "CapabilityShowcaseExperience",

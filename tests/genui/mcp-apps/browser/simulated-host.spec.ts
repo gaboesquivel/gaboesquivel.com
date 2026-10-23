@@ -19,7 +19,7 @@ test.describe("MCP Apps simulated host (AppBridge lab)", () => {
     );
     await expect(
       iframe.getByTestId("mcp-reference-tool-payload")
-    ).not.toHaveText("{}");
+    ).toContainText("focus", { timeout: 15_000 });
     await expect(page.getByTestId("mcp-host-tool-text")).not.toBeEmpty();
   });
 

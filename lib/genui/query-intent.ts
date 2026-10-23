@@ -4,6 +4,7 @@ import { siteOrigin } from "lib/site-path";
 import { featuredProjectSlugs } from "lib/work-types";
 
 import {
+  timelineDocument,
   answerDocument,
   bookingDocument,
   capabilityShowcaseDocument,
@@ -20,6 +21,7 @@ import { orderBrowseProjects } from "./project-browse";
 import { cvPublicRecord, projectToPublicRecord } from "./public-records";
 import { selectProjectComposition } from "./select-project-composition";
 import {
+  wantsCareerTimeline,
   classifyTaskIntent,
   wantsArchitectureIntent,
   wantsBrowseProjects,
@@ -258,6 +260,8 @@ export const composeIntentDocument = ({
       requestId,
     });
   }
+
+  if (wantsCareerTimeline(trimmed)) return timelineDocument({ requestId });
 
   if (taskIntent === "explain-experience" || taskIntent === "profile") {
     return null;

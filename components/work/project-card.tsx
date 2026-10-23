@@ -1,3 +1,4 @@
+import { imageHover } from "components/shared/motion";
 import { SiteCardLink } from "components/shared/site-card-link";
 import {
   projectCardDescription,
@@ -42,7 +43,7 @@ export function ProjectCard({
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
               sizes={wideProjectCardSizes}
-              className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
+              className={cn("object-cover", imageHover)}
             />
           </div>
         ) : (
@@ -54,7 +55,7 @@ export function ProjectCard({
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
               sizes={projectCardSizes}
-              className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
+              className={cn("object-cover", imageHover)}
             />
           </div>
         )

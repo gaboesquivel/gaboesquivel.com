@@ -1,6 +1,7 @@
 import { createLibrary, defineComponent } from "@openuidev/lang-core";
 
 import {
+  timelineExperiencePropsSchema,
   aboutExperiencePropsSchema,
   answerPropsSchema,
   bookingExperiencePropsSchema,
@@ -19,6 +20,14 @@ const Answer = defineComponent({
   description: "Short prose answer with source references.",
   name: "Answer",
   props: answerPropsSchema,
+});
+
+const TimelineExperience = defineComponent({
+  component: noop,
+  description:
+    "Career chronology with grounded project evidence, chapter navigation and expandable stories.",
+  name: "TimelineExperience",
+  props: timelineExperiencePropsSchema,
 });
 
 const AboutExperience = defineComponent({
@@ -82,6 +91,7 @@ export const genuiContractLibrary = createLibrary({
   components: [
     Answer,
     AboutExperience,
+    TimelineExperience,
     ProjectExperience,
     WritingExperience,
     CapabilityShowcaseExperience,

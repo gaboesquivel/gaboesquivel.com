@@ -53,6 +53,11 @@ export const wantsExplainExperience = (query: string) =>
     query
   ) && !wantsBrowseProjects(query);
 
+export const wantsCareerTimeline = (query: string) =>
+  /\b(career (story|timeline|journey|history)|professional (journey|background)|your journey|your career|how did you (start|get started)|trayectoria|historia profesional|linea de tiempo|línea de tiempo)\b/i.test(
+    query
+  ) || /^\s*(timeline|career|biography|bio)\s*[?.!]?$/i.test(query);
+
 export const classifyTaskIntent = (query: string): GenuiTaskIntent => {
   const trimmed = query.trim();
   if (!trimmed) return "unknown";
@@ -85,6 +90,7 @@ export const classifyTaskIntent = (query: string): GenuiTaskIntent => {
   ) {
     return "browse-writing";
   }
+  if (wantsCareerTimeline(trimmed)) return "profile";
   if (wantsArchitectureIntent(trimmed)) return "explain-architecture";
   if (wantsCompareProjects(trimmed)) return "compare-projects";
   if (wantsExplainExperience(trimmed)) return "explain-experience";

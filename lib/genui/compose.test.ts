@@ -22,6 +22,22 @@ const context = (): CapabilityContext => ({
 });
 
 describe("composeQuery", () => {
+  test("career timeline completes with grounded records and no model calls", async () => {
+    const result = await composeQuery({
+      context: context(),
+      input: {
+        clientRequestId: "career",
+        query: "Show me your career timeline",
+        version: 1,
+      },
+    });
+    expect(result.events.at(-1)?.type).toBe("complete");
+    expect(result.modelCalls).toBe(0);
+    expect(result.jevCalls).toBe(0);
+    expect(result.parseErrors).toBe(0);
+    expect(result.metadata.experience).toBe("TimelineExperience");
+    expect(result.metadata.composite).toBe("chapter-stack");
+  });
   test("tier 0 cv uses zero model calls", async () => {
     const result = await composeQuery({
       context: context(),

@@ -1,3 +1,4 @@
+import { imageHover } from "components/shared/motion";
 import {
   cardArrow,
   editorialLink,
@@ -35,7 +36,7 @@ export function FeaturedProjectCard({
               sizes={workCoverSizes}
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
-              className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none"
+              className={cn("object-cover", imageHover)}
             />
           </div>
         ) : null}

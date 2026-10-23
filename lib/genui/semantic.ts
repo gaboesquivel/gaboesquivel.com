@@ -18,7 +18,8 @@ const compositionPolicy = `Composition policy for gaboesquivel.com:
 6. Project content must use canonical record IDs from evidence only.
 7. Missing evidence: short truthful limitation via Answer.
 8. Do not invent achievements, roles, technologies, images, or links.
-9. Do not use CapabilityShowcaseExperience for generic AI or Web3 browsing.
+9. Career chronology can use TimelineExperience("chapter-stack", "/bio", [project IDs]) only when /bio and those project records are in evidence.
+10. Do not use CapabilityShowcaseExperience for generic AI or Web3 browsing.
 Return a single line: root = ...`;
 
 export const generateSemanticDocument = async ({

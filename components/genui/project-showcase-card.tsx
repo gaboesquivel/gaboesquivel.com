@@ -1,5 +1,6 @@
 "use client";
 
+import { imageHover } from "components/shared/motion";
 import {
   editorialLink,
   projectCardDescription,
@@ -50,7 +51,7 @@ export const ProjectShowcaseCard = ({
               sizes={sizes}
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
-              className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none"
+              className={cn("object-cover", imageHover)}
             />
           ) : (
             <div className="flex h-full min-h-[8rem] items-end p-4">
