@@ -10,7 +10,7 @@ import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
 
-/** Cover-filled frame, name, role, and description. A missing registry cover keeps the package image in this same frame. */
+/** Package hero image in a cover-filled frame, plus name, role, and description. */
 export function EditorialProjectCard({
   project,
   sizes,

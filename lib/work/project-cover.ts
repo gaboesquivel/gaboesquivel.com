@@ -1,7 +1,7 @@
 import type { Project } from "gaboesquivel";
 import { siteRelativePath } from "lib/site-path";
 
-/** Presentation only. Project names, roles and descriptions belong to the package. */
+/** Homepage selected-work slugs (layout only; images come from the package). */
 export const homepageEditorialSlugs = [
   "legal-agent",
   "wink",
@@ -11,43 +11,14 @@ export const homepageEditorialSlugs = [
 
 export type HomepageEditorialSlug = (typeof homepageEditorialSlugs)[number];
 
-const covers: Record<HomepageEditorialSlug, { src: string; alt: string }> = {
-  "legal-agent": {
-    src: "/images/work/covers/legal-agent.webp",
-    alt: "LegalAgent voice and bilingual chat screens",
-  },
-  wink: {
-    src: "/images/work/covers/wink.webp",
-    alt: "Wink mobile savings, spending reports and payment notification",
-  },
-  ztx: {
-    src: "/images/work/covers/ztx.webp",
-    alt: "ZTX Genesis Home Mint artwork and website",
-  },
-  bitlauncher: {
-    src: "/images/work/covers/bitlauncher.webp",
-    alt: "Bitlauncher launchpad website",
-  },
-};
-
-const isHomepageEditorialSlug = (slug: string): slug is HomepageEditorialSlug =>
-  slug in covers;
-
-export const projectCover = (slug: string) =>
-  isHomepageEditorialSlug(slug) ? covers[slug] : undefined;
-
 export const resolveProjectImage = ({
   project,
 }: {
-  project: Pick<Project, "slug" | "title" | "image">;
+  project: Pick<Project, "title" | "image">;
 }) => {
-  const cover = projectCover(project.slug);
-  const packageSrc = project.image
-    ? siteRelativePath(project.image)
-    : undefined;
-  const src = cover?.src ?? packageSrc;
+  const src = project.image ? siteRelativePath(project.image) : undefined;
   if (!src) return null;
-  return { src, alt: cover?.alt ?? project.title };
+  return { src, alt: project.title };
 };
 
 export const workCoverSizes =
@@ -64,9 +35,8 @@ export const evidenceUsesEditorial = ({
   presentation = "card",
   slugs,
 }: {
-  presentation?: "card" | "registry";
+  presentation?: "card" | "registry" | "editorial";
   slugs: readonly string[];
 }) =>
-  presentation === "registry" &&
-  slugs.length > 0 &&
-  slugs.every((slug) => Boolean(projectCover(slug)));
+  presentation === "editorial" ||
+  (presentation === "registry" && slugs.length > 0);
