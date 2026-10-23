@@ -93,8 +93,8 @@ importers:
         specifier: ^0.80.1
         version: 0.80.1(@opentelemetry/api@1.10.0)(ai@7.0.143(zod@4.6.7))
       gaboesquivel:
-        specifier: 8.0.2
-        version: 8.0.2
+        specifier: 8.0.4
+        version: 8.0.4
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -4500,8 +4500,8 @@ packages:
   fuzzysort@3.1.0:
     resolution: {integrity: sha512-sR9BNCjBg6LNgwvxlBd0sBABvQitkLzoVY9MYYROQVX/FvfJ4Mai9LsGhDgd8qYdds0bY77VzYd5iuB+v5rwQQ==}
 
-  gaboesquivel@8.0.2:
-    resolution: {integrity: sha512-iiiZVhkrskxE7t6i3y/f6w9MC2CFWH96CEnz5p4Vk/0Up0S8V5oOECokKgfcTVwYex9rr1aCYJ4lUh/t8vl0Jw==}
+  gaboesquivel@8.0.4:
+    resolution: {integrity: sha512-dBUd0kcsjHMR+5BDhZb2K+wYyKygCFi+xnjACPnalLgfkX2gVuXuQEMEpoOg/46ozkvAmT1WAATYJE2cSTvIUg==}
     hasBin: true
 
   gaxios@8.3.1:
@@ -11093,7 +11093,7 @@ snapshots:
 
   fuzzysort@3.1.0: {}
 
-  gaboesquivel@8.0.2:
+  gaboesquivel@8.0.4:
     dependencies:
       chalk: 6.0.1
       prompts: 2.4.2
