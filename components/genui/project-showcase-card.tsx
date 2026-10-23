@@ -12,19 +12,6 @@ import { resolveProjectImage } from "lib/work/project-cover";
 import Image from "next/image";
 import Link from "next/link";
 
-const roleMediaClass = ({ role }: { role: ProjectCompositionRole }) => {
-  if (role === "lead" || role === "closing-feature") {
-    return "aspect-[4/5] @min-[64rem]/project-showcase:aspect-auto @min-[64rem]/project-showcase:min-h-[22rem]";
-  }
-  if (role === "right-feature") {
-    return "aspect-[16/10] @min-[64rem]/project-showcase:min-h-[16rem]";
-  }
-  if (role === "top-right") {
-    return "aspect-[16/10]";
-  }
-  return "aspect-video";
-};
-
 export const ProjectShowcaseCard = ({
   project,
   role,
@@ -52,8 +39,7 @@ export const ProjectShowcaseCard = ({
       >
         <div
           className={cn(
-            "relative w-full overflow-hidden rounded-md bg-neutral-950",
-            roleMediaClass({ role })
+            "relative aspect-video w-full overflow-hidden rounded-md bg-neutral-950"
           )}
         >
           {image ? (

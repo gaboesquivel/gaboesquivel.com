@@ -51,6 +51,9 @@ describe("composeQuery", () => {
     expect(result.jevCalls).toBe(0);
     const complete = result.events.find((event) => event.type === "complete");
     expect(complete?.type).toBe("complete");
+    expect(result.metadata.experience).toBe("ProjectExperience");
+    expect(result.metadata.composite).toBe("project-bento");
+    expect(result.metadata.taskIntent).toBe("browse-projects");
     if (complete?.type === "complete") {
       expect(complete.envelope.openuiText).toContain("ProjectExperience");
       expect(complete.envelope.openuiText).toContain("project-bento");
@@ -58,9 +61,6 @@ describe("composeQuery", () => {
         "CapabilityShowcaseExperience"
       );
     }
-    expect(result.metadata.experience).toBe("ProjectExperience");
-    expect(result.metadata.composite).toBe("project-bento");
-    expect(result.metadata.taskIntent).toBe("browse-projects");
   });
 
   test("tier 0 explore my work uses work-gallery composite", async () => {

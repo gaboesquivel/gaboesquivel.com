@@ -1,6 +1,6 @@
 import type { Project } from "gaboesquivel";
 
-const aiBentoSlugs = [
+export const aiBrowsePrioritySlugs = [
   "legal-agent",
   "masterbots",
   "bitlauncher",
@@ -16,7 +16,7 @@ export const orderBrowseProjects = ({
 }) => {
   const priority =
     domain === "ai"
-      ? aiBentoSlugs
+      ? aiBrowsePrioritySlugs
       : domain === "web3"
         ? (["wink", "ztx", "opyn", "eos-costa-rica"] as const)
         : ([] as const);

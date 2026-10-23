@@ -32,7 +32,7 @@ export const PromptField = ({
       }}
     >
       <label className="sr-only" htmlFor="homepage-genui-search">
-        Search Gabo&apos;s work, writing, and career (beta)
+        Search Gabo&apos;s work, writing, and career
       </label>
       <div className="relative">
         <div className="pointer-events-none absolute top-3 right-3 z-10">
