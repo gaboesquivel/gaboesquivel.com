@@ -1,3 +1,5 @@
+import { normalizeGenuiQuery } from "./normalize-query";
+
 export type GenuiTaskIntent =
   | "browse-projects"
   | "project-detail"
@@ -10,9 +12,6 @@ export type GenuiTaskIntent =
   | "contact"
   | "booking"
   | "unknown";
-
-const normalize = (query: string) =>
-  query.trim().toLowerCase().replace(/\s+/g, " ");
 
 export const wantsProjectsLanguage = (query: string) =>
   /\b(project|projects|projetos|work|portfolio|built|proyectos|trabajo)\b/i.test(
@@ -29,7 +28,8 @@ export const wantsBrowseProjects = (query: string) => {
   if (/\bcompare\b/i.test(query) && wantsProjectsLanguage(query)) {
     return false;
   }
-  if (/\bshow me all your work\b/i.test(normalize(query))) return true;
+  if (/\bshow me all your work\b/i.test(normalizeGenuiQuery(query)))
+    return true;
   if (
     /\b(muestra|muéstrame|mostre)\b/i.test(query) &&
     wantsProjectsLanguage(query)

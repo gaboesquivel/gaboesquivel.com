@@ -1,7 +1,6 @@
 import { allBlogs } from "lib/blog";
 import { siteOrigin } from "lib/site-path";
 
-import { cvDownloadPayload } from "../connect/cv-download";
 import {
   bookingDocument,
   contactDocument,
@@ -14,32 +13,20 @@ import { chooseProjectComposite, chooseWritingComposite } from "./composites";
 import { domainFromQuery } from "./domain-from-query";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
+import { normalizeGenuiQuery } from "./normalize-query";
 import { orderBrowseProjects } from "./project-browse";
 import { projectsFromPublicIds } from "./project-from-id";
+import { cvPublicRecord } from "./public-records";
 import { sectionToRecord } from "./search-records";
 import { selectProjectComposition } from "./select-project-composition";
 import type { GenuiTaskIntent } from "./task-intent";
 import { classifyTaskIntent } from "./task-intent";
 
-const normalize = (query: string) =>
-  query.trim().toLowerCase().replace(/\s+/g, " ");
-
 const exactMap: Record<
   string,
   (args: { requestId: string }) => CompositionEnvelope | null
 > = {
-  cv: ({ requestId }) => {
-    const payload = cvDownloadPayload();
-    const record: PublicRecord = {
-      id: `/cv`,
-      kind: "cv",
-      pdfUrl: payload.pdfUrl,
-      title: payload.title,
-      url: payload.pageUrl,
-      variant: payload.variant,
-    };
-    return cvDocument({ record, requestId });
-  },
+  cv: ({ requestId }) => cvDocument({ record: cvPublicRecord(), requestId }),
   "download cv": ({ requestId }) => exactMap.cv({ requestId }),
   "book a call": ({ requestId }) =>
     bookingDocument({
@@ -82,7 +69,7 @@ export const tierZeroDocument = ({
 }: {
   query: string;
   requestId: string;
-}) => exactMap[normalize(query)]?.({ requestId }) ?? null;
+}) => exactMap[normalizeGenuiQuery(query)]?.({ requestId }) ?? null;
 
 export const buildSearchDocument = ({
   query,

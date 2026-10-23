@@ -29,17 +29,16 @@ const meaningfulTokens = (query: string) =>
     );
 
 const scoreSection = ({
-  query,
+  queryTokens,
   section,
 }: {
-  query: string;
+  queryTokens: string[];
   section: RankSection;
 }) => {
-  const tokens = meaningfulTokens(query);
-  if (!tokens.length) return 0;
+  if (!queryTokens.length) return 0;
   const hay = `${section.title} ${section.summary}`.toLowerCase();
   let score = 0;
-  for (const token of tokens) {
+  for (const token of queryTokens) {
     if (hay.includes(token)) score += 1;
     if (section.title.toLowerCase().includes(token)) score += 2;
   }
@@ -53,15 +52,16 @@ export const composeSearchSections = ({
   limit: number;
   query: string;
 }) => {
+  const queryTokens = meaningfulTokens(query);
   const scored = sections
-    .filter((section) => {
-      if (section.kind === "post" && section.publishedAt < "2020") return false;
-      return scoreSection({ query, section }) > 0;
-    })
+    .filter(
+      (section) => !(section.kind === "post" && section.publishedAt < "2020")
+    )
     .map((section) => ({
-      score: scoreSection({ query, section }),
+      score: scoreSection({ queryTokens, section }),
       section,
     }))
+    .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 

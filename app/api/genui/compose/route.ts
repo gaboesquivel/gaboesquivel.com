@@ -2,6 +2,7 @@ import { capabilityContextFromRequest } from "lib/capabilities/server-context";
 import { admitChat } from "lib/connect/caps";
 import { capsEnforced, readRequestIp, requestHost } from "lib/connect/ip";
 import { composeQuery } from "lib/genui/compose";
+import { COMPOSITION_FAILED_MESSAGE } from "lib/genui/messages";
 import { logComposeTelemetry } from "lib/genui/telemetry";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
@@ -96,7 +97,7 @@ export async function POST(request: Request) {
         controller.enqueue(
           encoder.encode(
             `${JSON.stringify({
-              message: "Composition failed.",
+              message: COMPOSITION_FAILED_MESSAGE,
               requestId: context.correlationId,
               sequence: 0,
               type: "error",

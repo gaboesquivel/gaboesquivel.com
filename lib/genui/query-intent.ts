@@ -3,7 +3,6 @@ import { allBlogs } from "lib/blog";
 import { siteOrigin } from "lib/site-path";
 import { featuredProjectSlugs } from "lib/work-types";
 
-import { cvDownloadPayload } from "../connect/cv-download";
 import {
   answerDocument,
   bookingDocument,
@@ -16,7 +15,9 @@ import {
 import { chooseProjectComposite, chooseWritingComposite } from "./composites";
 import { domainFromQuery } from "./domain-from-query";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import { normalizeGenuiQuery } from "./normalize-query";
 import { orderBrowseProjects } from "./project-browse";
+import { cvPublicRecord, projectToPublicRecord } from "./public-records";
 import { selectProjectComposition } from "./select-project-composition";
 import {
   classifyTaskIntent,
@@ -24,9 +25,6 @@ import {
   wantsBrowseProjects,
   wantsProjectsLanguage,
 } from "./task-intent";
-
-const normalize = (query: string) =>
-  query.trim().toLowerCase().replace(/\s+/g, " ");
 
 const profileRecord = ({
   id = "profile",
@@ -41,15 +39,6 @@ const profileRecord = ({
   kind: "profile",
   title,
   url,
-});
-
-const projectRecord = (project: (typeof projects)[number]): PublicRecord => ({
-  description: project.description,
-  id: `/project/${project.slug}`,
-  kind: "project",
-  slug: project.slug,
-  title: project.title,
-  url: `${siteOrigin}/project/${project.slug}`,
 });
 
 const postRecord = (post: (typeof allBlogs)[number]): PublicRecord => ({
@@ -76,7 +65,7 @@ const filterProjectsByDomain = (domain: "ai" | "web3" | "all") => {
 };
 
 const findProjectByName = (query: string) => {
-  const normalized = normalize(query);
+  const normalized = normalizeGenuiQuery(query);
   return projects.find(
     (project) =>
       normalized.includes(project.slug.replace(/-/g, " ")) ||
@@ -86,7 +75,7 @@ const findProjectByName = (query: string) => {
 };
 
 const findComparedProjects = (query: string) => {
-  const normalized = normalize(query);
+  const normalized = normalizeGenuiQuery(query);
   const matched = projects.filter(
     (project) =>
       normalized.includes(project.slug.replace(/-/g, " ")) ||
@@ -134,10 +123,11 @@ const isAdversarialOrUnsafe = (query: string) =>
   /<script|javascript:|\.env\b|system prompt|ignore (all )?previous|pretend you|private (project )?notes|invoke every|without (any )?confirmation|without asking/i.test(
     query
   ) ||
-  /^abc xyz qwerty$/i.test(normalize(query)) ||
+  /^abc xyz qwerty$/i.test(normalizeGenuiQuery(query)) ||
   /\bbook me tomorrow\b/i.test(query);
 
-const isEmptyIntentNoise = (query: string) => normalize(query) === "ai";
+const isEmptyIntentNoise = (query: string) =>
+  normalizeGenuiQuery(query) === "ai";
 
 const wantsQuantum = (query: string) => /\bquantum computing\b/i.test(query);
 
@@ -170,7 +160,7 @@ export const browseProjectsDocument = ({
   const filtered = filterProjectsByDomain(domain);
   if (!filtered.length) return null;
   const ordered = orderBrowseProjects({ domain, projects: filtered });
-  const records = ordered.map(projectRecord);
+  const records = ordered.map(projectToPublicRecord);
   const projectIds = records.map((record) => record.id);
   const composite = selectProjectComposition({ intent, projects: ordered });
   return projectDocument({
@@ -239,16 +229,7 @@ export const composeIntentDocument = ({
   }
 
   if (wantsCv(trimmed)) {
-    const payload = cvDownloadPayload();
-    const record: PublicRecord = {
-      id: "/cv",
-      kind: "cv",
-      pdfUrl: payload.pdfUrl,
-      title: payload.title,
-      url: payload.pageUrl,
-      variant: payload.variant,
-    };
-    return cvDocument({ record, requestId });
+    return cvDocument({ record: cvPublicRecord(), requestId });
   }
 
   if (wantsBooking(trimmed)) {
@@ -285,7 +266,7 @@ export const composeIntentDocument = ({
   if (taskIntent === "compare-projects") {
     const compared = findComparedProjects(trimmed);
     if (compared.length >= 2 && compared.length <= 3) {
-      const records = compared.map(projectRecord);
+      const records = compared.map(projectToPublicRecord);
       const projectIds = records.map((record) => record.id);
       const composite = selectProjectComposition({
         intent: "compare-projects",
@@ -309,7 +290,7 @@ export const composeIntentDocument = ({
     (taskIntent === "project-detail" ||
       /\b(show|tell|about|project)\b/i.test(trimmed))
   ) {
-    const record = projectRecord(named);
+    const record = projectToPublicRecord(named);
     return projectDocument({
       composite: "case-study",
       projectIds: [record.id],
@@ -339,7 +320,7 @@ export const composeIntentDocument = ({
         sourceIds: [],
       });
     }
-    const records = matched.map(projectRecord);
+    const records = matched.map(projectToPublicRecord);
     const projectIds = records.map((record) => record.id);
     return projectDocument({
       composite: chooseProjectComposite({ projectIds }),
@@ -373,7 +354,7 @@ export const composeIntentDocument = ({
       const filtered = filterProjectsByDomain(domain);
       if (filtered.length) {
         const ordered = orderBrowseProjects({ domain, projects: filtered });
-        const records = ordered.map(projectRecord);
+        const records = ordered.map(projectToPublicRecord);
         const projectIds = records.map((record) => record.id);
         return capabilityShowcaseDocument({
           domain,

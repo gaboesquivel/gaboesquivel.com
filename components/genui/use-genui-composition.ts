@@ -1,6 +1,7 @@
 "use client";
 
 import type { CompositionEnvelope } from "lib/genui/envelope";
+import { COMPOSITION_FAILED_MESSAGE } from "lib/genui/messages";
 import { consumeNdjsonResponse } from "lib/genui/ndjson-stream";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -57,7 +58,7 @@ export const useGenuiComposition = () => {
       });
       if (!response.ok) {
         if (id !== requestRef.current) return;
-        setError("Composition failed.");
+        setError(COMPOSITION_FAILED_MESSAGE);
         setIsStreaming(false);
         return;
       }
@@ -68,7 +69,7 @@ export const useGenuiComposition = () => {
           if (id !== requestRef.current) return;
           if (event.type === "error") {
             sawError = true;
-            setError(String(event.message ?? "Composition failed."));
+            setError(String(event.message ?? COMPOSITION_FAILED_MESSAGE));
             setIsStreaming(false);
             return;
           }
@@ -85,18 +86,18 @@ export const useGenuiComposition = () => {
       });
       if (id !== requestRef.current) return;
       if (!streamResult.ok) {
-        setError("Composition failed.");
+        setError(COMPOSITION_FAILED_MESSAGE);
         setIsStreaming(false);
         return;
       }
       if (!sawComplete && !sawError) {
-        setError("Composition failed.");
+        setError(COMPOSITION_FAILED_MESSAGE);
         setIsStreaming(false);
       }
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
       if (id !== requestRef.current) return;
-      setError("Composition failed.");
+      setError(COMPOSITION_FAILED_MESSAGE);
       setIsStreaming(false);
     }
   }, []);

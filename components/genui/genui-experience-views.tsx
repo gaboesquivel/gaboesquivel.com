@@ -1,7 +1,7 @@
 "use client";
 
-import { getProjectBySlug } from "gaboesquivel";
 import { isCompositeName } from "lib/genui/composites";
+import { projectsFromPublicIds } from "lib/genui/project-from-id";
 import { cn } from "lib/utils";
 import Link from "next/link";
 
@@ -105,16 +105,10 @@ export const ProjectExperienceView = ({
   domain?: "ai" | "web3" | "all";
   projectIds: string[];
 }) => {
-  const records = useGenuiRecords();
   const resolvedComposite = isCompositeName(composite)
     ? composite
     : "editorial-grid";
-  const projects = projectIds.flatMap((id) => {
-    const record = records.find((item) => item.id === id);
-    if (record?.kind !== "project") return [];
-    const project = getProjectBySlug(record.slug);
-    return project ? [project] : [];
-  });
+  const projects = projectsFromPublicIds(projectIds);
   return (
     <ProjectCompositeView
       composite={resolvedComposite}
@@ -153,12 +147,7 @@ export const CapabilityShowcaseExperienceView = ({
   projectIds: string[];
 }) => {
   const records = useGenuiRecords();
-  const projects = projectIds.flatMap((id) => {
-    const record = records.find((item) => item.id === id);
-    if (record?.kind !== "project") return [];
-    const project = getProjectBySlug(record.slug);
-    return project ? [project] : [];
-  });
+  const projects = projectsFromPublicIds(projectIds);
   return (
     <CapabilityShowcase domain={domain} projects={projects} records={records} />
   );

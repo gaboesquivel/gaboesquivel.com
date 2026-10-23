@@ -2,7 +2,6 @@ import { siteOrigin } from "lib/site-path";
 import { nanoid } from "nanoid";
 
 import type { CapabilityContext } from "../capabilities/types";
-import { cvDownloadPayload } from "../connect/cv-download";
 import { contactDocument, cvDocument, projectDocument } from "./builders";
 import type { ComposeResultMetadata } from "./compose-metadata";
 import { metadataFromEnvelope } from "./compose-metadata";
@@ -13,7 +12,9 @@ import { evaluateWithJev } from "./decisions";
 import { buildSearchDocument, tierZeroDocument } from "./deterministic";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
+import { COMPOSITION_FAILED_MESSAGE } from "./messages";
 import { projectsFromPublicIds } from "./project-from-id";
+import { cvPublicRecord } from "./public-records";
 import { browseProjectsDocument, composeIntentDocument } from "./query-intent";
 import { sectionToRecord } from "./search-records";
 import { selectProjectComposition } from "./select-project-composition";
@@ -81,16 +82,7 @@ const documentFromDecision = ({
     });
   }
   if (decision.domain === "cv") {
-    const payload = cvDownloadPayload();
-    const record: PublicRecord = {
-      id: "/cv",
-      kind: "cv",
-      pdfUrl: payload.pdfUrl,
-      title: payload.title,
-      url: payload.pageUrl,
-      variant: payload.variant,
-    };
-    return cvDocument({ record, requestId });
+    return cvDocument({ record: cvPublicRecord(), requestId });
   }
   if (decision.domain === "contact") {
     return contactDocument({
@@ -186,7 +178,7 @@ export const composeQuery = async ({
     if (!validated.ok) {
       parseErrors += 1;
       emit({
-        message: "Composition failed.",
+        message: COMPOSITION_FAILED_MESSAGE,
         requestId,
         sequence: sequence++,
         type: "error",
