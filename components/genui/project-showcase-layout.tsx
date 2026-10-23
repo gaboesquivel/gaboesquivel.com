@@ -3,6 +3,7 @@
 import type { Project } from "gaboesquivel";
 import { materializeProjectSlots } from "lib/genui/composition-plan";
 import type { ProjectCompositionRecipe } from "lib/genui/composition-plan";
+import { projectSlugFromPublicId } from "lib/genui/project-from-id";
 import { workTypeCopy } from "lib/work-types";
 import type { WorkType } from "lib/work-types";
 
@@ -43,7 +44,7 @@ export const ProjectShowcaseLayout = ({
 }) => {
   const plan = materializeProjectSlots(composite, projectIds);
   const ordered = plan.slots.flatMap((slot) => {
-    const slug = slot.projectId.replace(/^\/project\//, "");
+    const slug = projectSlugFromPublicId(slot.projectId);
     const project = projects.find((item) => item.slug === slug);
     return project ? [{ project, role: slot.role }] : [];
   });

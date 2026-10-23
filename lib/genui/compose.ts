@@ -7,14 +7,16 @@ import { contactDocument, cvDocument, projectDocument } from "./builders";
 import type { ComposeResultMetadata } from "./compose-metadata";
 import { metadataFromEnvelope } from "./compose-metadata";
 import { composeSearchSections } from "./compose-search";
-import { chooseProjectComposite } from "./composites";
+import type { CompiledExperience } from "./contract/errors";
 import type { JevDecision } from "./decisions";
 import { evaluateWithJev } from "./decisions";
 import { buildSearchDocument, tierZeroDocument } from "./deterministic";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
+import { projectsFromPublicIds } from "./project-from-id";
 import { browseProjectsDocument, composeIntentDocument } from "./query-intent";
 import { sectionToRecord } from "./search-records";
+import { selectProjectComposition } from "./select-project-composition";
 import { generateSemanticDocument } from "./semantic";
 import { classifyTaskIntent } from "./task-intent";
 import { validateCompositionEnvelope } from "./validate-envelope";
@@ -67,8 +69,12 @@ const documentFromDecision = ({
   if (decision.intents.includes("projects") || decision.domain === "projects") {
     const records = featuredProjectRecords();
     const projectIds = records.map((record) => record.id);
+    const projects = projectsFromPublicIds(projectIds);
     return projectDocument({
-      composite: chooseProjectComposite({ projectIds }),
+      composite: selectProjectComposition({
+        intent: "browse-projects",
+        projects,
+      }),
       projectIds,
       records,
       requestId,
@@ -154,6 +160,21 @@ export const composeQuery = async ({
   let jevCalls = 0;
   let parseErrors = 0;
   let tier: 0 | 1 | 2 = 0;
+  let lastCompiled: CompiledExperience | undefined;
+  const composeMetadata = ({
+    envelope,
+    validationOk,
+  }: {
+    envelope: CompositionEnvelope | null;
+    validationOk?: boolean;
+  }) =>
+    metadataFromEnvelope({
+      compiled: lastCompiled,
+      envelope,
+      query,
+      taskIntent,
+      validationOk,
+    });
   const emitValidated = ({
     envelope,
     type,
@@ -172,6 +193,7 @@ export const composeQuery = async ({
       });
       return false;
     }
+    lastCompiled = validated.compiled;
     emit({
       envelope,
       requestId,
@@ -187,7 +209,7 @@ export const composeQuery = async ({
     return {
       events,
       jevCalls,
-      metadata: metadataFromEnvelope({ envelope: exact, query }),
+      metadata: composeMetadata({ envelope: exact }),
       modelCalls,
       parseErrors,
       tier,
@@ -201,7 +223,7 @@ export const composeQuery = async ({
     return {
       events,
       jevCalls,
-      metadata: metadataFromEnvelope({ envelope: intent, query }),
+      metadata: composeMetadata({ envelope: intent }),
       modelCalls,
       parseErrors,
       tier,
@@ -215,7 +237,7 @@ export const composeQuery = async ({
     return {
       events,
       jevCalls,
-      metadata: metadataFromEnvelope({ envelope: null, query }),
+      metadata: composeMetadata({ envelope: null }),
       modelCalls,
       parseErrors,
       tier,
@@ -228,7 +250,7 @@ export const composeQuery = async ({
       return {
         events,
         jevCalls,
-        metadata: metadataFromEnvelope({ envelope: doc, query }),
+        metadata: composeMetadata({ envelope: doc }),
         modelCalls,
         parseErrors,
         tier,
@@ -257,10 +279,7 @@ export const composeQuery = async ({
       return {
         events,
         jevCalls,
-        metadata: metadataFromEnvelope({
-          envelope: semantic.envelope,
-          query,
-        }),
+        metadata: composeMetadata({ envelope: semantic.envelope }),
         modelCalls,
         parseErrors,
         tier,
@@ -280,7 +299,7 @@ export const composeQuery = async ({
     return {
       events,
       jevCalls,
-      metadata: metadataFromEnvelope({ envelope: searched, query }),
+      metadata: composeMetadata({ envelope: searched }),
       modelCalls,
       parseErrors,
       tier,
@@ -305,7 +324,7 @@ export const composeQuery = async ({
     return {
       events,
       jevCalls,
-      metadata: metadataFromEnvelope({ envelope: semantic.envelope, query }),
+      metadata: composeMetadata({ envelope: semantic.envelope }),
       modelCalls,
       parseErrors,
       tier,
@@ -321,9 +340,8 @@ export const composeQuery = async ({
   return {
     events,
     jevCalls,
-    metadata: metadataFromEnvelope({
+    metadata: composeMetadata({
       envelope: lastEnvelope(events),
-      query,
       validationOk: false,
     }),
     modelCalls,

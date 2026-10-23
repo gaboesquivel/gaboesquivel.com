@@ -42,7 +42,6 @@ export interface ComposeTelemetry {
   composite?: string;
   domain?: string;
   experience?: string;
-  fallbackReason?: string;
   jevCalls: number;
   mediaBackedProjectCount?: number;
   modelCalls: number;
@@ -60,7 +59,6 @@ export const logComposeTelemetry = (event: ComposeTelemetry) => {
       composite: event.composite,
       domain: event.domain,
       experience: event.experience,
-      fallbackReason: event.fallbackReason,
       jevCalls: event.jevCalls,
       mediaBackedProjectCount: event.mediaBackedProjectCount,
       modelCalls: event.modelCalls,

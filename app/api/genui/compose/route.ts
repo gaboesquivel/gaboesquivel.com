@@ -82,7 +82,6 @@ export async function POST(request: Request) {
           correlationId: context.correlationId,
           domain: result.metadata.domain,
           experience: result.metadata.experience,
-          fallbackReason: result.metadata.fallbackReason,
           jevCalls,
           mediaBackedProjectCount: result.metadata.mediaBackedProjectCount,
           modelCalls,

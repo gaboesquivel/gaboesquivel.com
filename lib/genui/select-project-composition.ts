@@ -2,10 +2,9 @@ import type { Project } from "gaboesquivel";
 import { resolveProjectImage } from "lib/work/project-cover";
 
 import type { CompositeName } from "./composites";
-import { isProjectCompositionRecipe } from "./composition-plan";
 import type { GenuiTaskIntent } from "./task-intent";
 
-const mediaBackedCount = (projects: Project[]) =>
+export const mediaBackedProjectCount = (projects: Project[]) =>
   projects.filter((project) => resolveProjectImage({ project })).length;
 
 export const selectProjectComposition = ({
@@ -16,7 +15,7 @@ export const selectProjectComposition = ({
   projects: Project[];
 }): CompositeName => {
   const count = projects.length;
-  const mediaCount = mediaBackedCount(projects);
+  const mediaCount = mediaBackedProjectCount(projects);
 
   if (intent === "compare-projects" && count >= 2 && count <= 3) {
     return "project-comparison";
@@ -41,6 +40,3 @@ export const selectProjectComposition = ({
   }
   return "project-compact-list";
 };
-
-export const isEditorialProjectComposite = (composite: CompositeName) =>
-  isProjectCompositionRecipe(composite);

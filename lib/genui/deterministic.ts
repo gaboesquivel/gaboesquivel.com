@@ -1,4 +1,3 @@
-import { getProjectBySlug } from "gaboesquivel";
 import { allBlogs } from "lib/blog";
 import { siteOrigin } from "lib/site-path";
 
@@ -12,9 +11,11 @@ import {
 } from "./builders";
 import { composeSearchSections } from "./compose-search";
 import { chooseProjectComposite, chooseWritingComposite } from "./composites";
+import { domainFromQuery } from "./domain-from-query";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
 import { orderBrowseProjects } from "./project-browse";
+import { projectsFromPublicIds } from "./project-from-id";
 import { sectionToRecord } from "./search-records";
 import { selectProjectComposition } from "./select-project-composition";
 import type { GenuiTaskIntent } from "./task-intent";
@@ -83,17 +84,6 @@ export const tierZeroDocument = ({
   requestId: string;
 }) => exactMap[normalize(query)]?.({ requestId }) ?? null;
 
-const domainFromQuery = (query: string): "ai" | "web3" | "all" | null => {
-  if (
-    /\b(web3|blockchain|wallet|smart contract|onchain|on-chain)\b/i.test(query)
-  )
-    return "web3";
-  if (/\b(ai|artificial intelligence|agent|agentic)\b/i.test(query))
-    return "ai";
-  if (/\b(all your work|show me all|all projects)\b/i.test(query)) return "all";
-  return null;
-};
-
 export const buildSearchDocument = ({
   query,
   requestId,
@@ -119,11 +109,7 @@ export const buildSearchDocument = ({
   const projectIds = projectRecords.map((record) => record.id);
 
   if (resolvedIntent === "browse-projects" && projectIds.length) {
-    const projects = projectIds.flatMap((id) => {
-      const slug = id.replace(/^\/project\//, "");
-      const project = getProjectBySlug(slug);
-      return project ? [project] : [];
-    });
+    const projects = projectsFromPublicIds(projectIds);
     if (projects.length) {
       const domain = domainFromQuery(query) ?? "all";
       const ordered = orderBrowseProjects({ domain, projects });
@@ -149,11 +135,7 @@ export const buildSearchDocument = ({
   }
 
   if (resolvedIntent === "compare-projects" && projectIds.length >= 2) {
-    const projects = projectIds.slice(0, 3).flatMap((id) => {
-      const slug = id.replace(/^\/project\//, "");
-      const project = getProjectBySlug(slug);
-      return project ? [project] : [];
-    });
+    const projects = projectsFromPublicIds(projectIds.slice(0, 3));
     if (projects.length >= 2) {
       const composite = selectProjectComposition({
         intent: "compare-projects",
@@ -189,11 +171,7 @@ export const buildSearchDocument = ({
     const weakSingle =
       projectSections.length === 1 && (projectSections[0]?.score ?? 0) < 2;
     if (weakSingle) return null;
-    const projects = searchProjectIds.flatMap((id) => {
-      const slug = id.replace(/^\/project\//, "");
-      const project = getProjectBySlug(slug);
-      return project ? [project] : [];
-    });
+    const projects = projectsFromPublicIds(searchProjectIds);
     const composite =
       projects.length > 0
         ? selectProjectComposition({

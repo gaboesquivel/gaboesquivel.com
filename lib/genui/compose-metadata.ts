@@ -1,8 +1,8 @@
-import { getProjectBySlug } from "gaboesquivel";
-import { resolveProjectImage } from "lib/work/project-cover";
-
 import { compileCompositionEnvelope } from "./contract/compiler";
+import type { CompiledExperience } from "./contract/errors";
 import type { CompositionEnvelope } from "./envelope";
+import { projectsFromPublicIds } from "./project-from-id";
+import { mediaBackedProjectCount } from "./select-project-composition";
 import type { GenuiTaskIntent } from "./task-intent";
 import { classifyTaskIntent } from "./task-intent";
 
@@ -10,7 +10,6 @@ export interface ComposeResultMetadata {
   composite?: string;
   domain?: string;
   experience?: string;
-  fallbackReason?: string;
   mediaBackedProjectCount?: number;
   projectCount?: number;
   taskIntent?: GenuiTaskIntent;
@@ -18,48 +17,45 @@ export interface ComposeResultMetadata {
 }
 
 export const metadataFromEnvelope = ({
+  compiled,
   envelope,
   query,
+  taskIntent,
   validationOk,
 }: {
+  compiled?: CompiledExperience;
   envelope: CompositionEnvelope | null;
   query: string;
+  taskIntent?: GenuiTaskIntent;
   validationOk?: boolean;
 }): ComposeResultMetadata => {
   const base: ComposeResultMetadata = {
-    taskIntent: classifyTaskIntent(query),
+    taskIntent: taskIntent ?? classifyTaskIntent(query),
     validationOutcome: validationOk === false ? "failed" : "ok",
   };
   if (!envelope) return base;
 
-  const compiled = compileCompositionEnvelope({ envelope });
-  if (!compiled.ok) {
+  const resolved = compiled ?? compileCompositionEnvelope({ envelope });
+  if (!resolved.ok) {
     return { ...base, validationOutcome: "failed" };
   }
 
-  const experience = compiled.experience;
-  const composite = compiled.composite ?? undefined;
+  const experience = resolved.experience;
+  const composite = resolved.composite ?? undefined;
   const domain =
-    typeof compiled.props.domain === "string"
-      ? compiled.props.domain
+    typeof resolved.props.domain === "string"
+      ? resolved.props.domain
       : undefined;
 
   let projectCount: number | undefined;
-  let mediaBackedProjectCount: number | undefined;
+  let mediaBacked: number | undefined;
   if (
     experience === "ProjectExperience" &&
-    Array.isArray(compiled.props.projectIds)
+    Array.isArray(resolved.props.projectIds)
   ) {
-    const ids = compiled.props.projectIds.map(String);
+    const ids = resolved.props.projectIds.map(String);
     projectCount = ids.length;
-    const projects = ids.flatMap((id) => {
-      const slug = id.replace(/^\/project\//, "");
-      const project = getProjectBySlug(slug);
-      return project ? [project] : [];
-    });
-    mediaBackedProjectCount = projects.filter((project) =>
-      resolveProjectImage({ project })
-    ).length;
+    mediaBacked = mediaBackedProjectCount(projectsFromPublicIds(ids));
   }
 
   return {
@@ -67,7 +63,7 @@ export const metadataFromEnvelope = ({
     composite,
     domain,
     experience,
-    mediaBackedProjectCount,
+    mediaBackedProjectCount: mediaBacked,
     projectCount,
   };
 };
