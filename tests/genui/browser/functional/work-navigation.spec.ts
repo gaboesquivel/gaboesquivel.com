@@ -1,17 +1,9 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import { workTypeRoutes } from "lib/work-types";
 
-const WORK_ROUTES = [
-  "/work",
-  "/work/full-time",
-  "/work/contract",
-  "/work/web3",
-  "/work/ai",
-  "/work/lead",
-  "/work/oss",
-  "/work/all",
-] as const;
+const WORK_ROUTES = workTypeRoutes;
 
 const VIEWPORTS = [
   { height: 900, width: 1440 },

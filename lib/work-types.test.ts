@@ -1,11 +1,13 @@
 import { describe, expect, test } from "bun:test";
 
 import {
+  activeWorkTypeFromPathname,
   featuredProjectSlugs,
   workTypeCopy,
   workTypeFromPathname,
   workTypeHref,
   workTypeOptions,
+  workTypeRoutes,
 } from "./work-types";
 
 const MOBILE_VIEWPORT_PX = 320;
@@ -36,6 +38,25 @@ describe("workTypeHref", () => {
     expect(workTypeHref({ type: "featured" })).toBe("/work");
     expect(workTypeHref({ type: "ai" })).toBe("/work/ai");
     expect(workTypeHref({ type: "full-time" })).toBe("/work/full-time");
+  });
+});
+
+describe("workTypeRoutes", () => {
+  test("lists one href per work type in option order", () => {
+    expect(workTypeRoutes).toHaveLength(workTypeOptions.length);
+    expect(workTypeRoutes[0]).toBe("/work");
+    for (let index = 1; index < workTypeOptions.length; index += 1) {
+      expect(workTypeRoutes[index]).toBe(
+        workTypeHref({ type: workTypeOptions[index] })
+      );
+    }
+  });
+});
+
+describe("activeWorkTypeFromPathname", () => {
+  test("defaults unknown paths to featured", () => {
+    expect(activeWorkTypeFromPathname("/projects")).toBe("featured");
+    expect(activeWorkTypeFromPathname(null)).toBe("featured");
   });
 });
 

@@ -1,6 +1,5 @@
-import { LatestPosts } from "components/blog/latest-posts";
-import { sectionAction } from "components/shared/spacing";
 import { ProjectsMasonry } from "components/work/projects-masonry";
+import { WorkLatestWriting } from "components/work/work-latest-writing";
 import { projects } from "gaboesquivel";
 import { pageMetadata } from "lib/page-metadata";
 import {
@@ -10,10 +9,15 @@ import {
   workTypeOptions,
 } from "lib/work-types";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamicParams = false;
+
+const workTypeFromParams = async (params: Promise<{ type: string }>) => {
+  const { type } = await params;
+  if (!isWorkType(type)) notFound();
+  return type;
+};
 
 export function generateStaticParams() {
   return workTypeOptions
@@ -26,12 +30,7 @@ export default async function WorkPage({
 }: {
   params: Promise<{ type: string }>;
 }) {
-  const { type: rawType } = await params;
-  const type = rawType || "featured";
-
-  if (!isWorkType(type)) {
-    notFound();
-  }
+  const type = await workTypeFromParams(params);
 
   const filteredProjects =
     type === "all"
@@ -46,16 +45,7 @@ export default async function WorkPage({
         preserveOrder={false}
         variant="editorial"
       />
-      <LatestPosts
-        limit={3}
-        title="Writing"
-        variant="editorial"
-        action={
-          <Link href="/blog" className={sectionAction}>
-            More writing
-          </Link>
-        }
-      />
+      <WorkLatestWriting />
     </>
   );
 }
@@ -65,13 +55,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ type: string }>;
 }): Promise<Metadata> {
-  const { type: rawType } = await params;
-  const type = rawType || "featured";
-
-  if (!isWorkType(type)) {
-    notFound();
-  }
-
+  const type = await workTypeFromParams(params);
   const copy = workTypeCopy[type];
 
   return pageMetadata({

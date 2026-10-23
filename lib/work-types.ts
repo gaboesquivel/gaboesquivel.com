@@ -20,7 +20,7 @@ export const workTypeOptions = [
 
 export type WorkType = (typeof workTypeOptions)[number];
 
-export interface WorkTypeEditorialCopy {
+interface WorkTypeEditorialCopy {
   heading: string;
   description: string;
   heroTitle: string;
@@ -131,8 +131,16 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
 export const isWorkType = (type: string): type is WorkType =>
   workTypeOptions.includes(type as WorkType);
 
-export const workTypeHref = ({ type }: { type: string }) =>
+export const workTypeHref = ({ type }: { type: WorkType }) =>
   type === "featured" ? "/work" : `/work/${type}`;
+
+export const workTypeRoutes = workTypeOptions.map((type) =>
+  workTypeHref({ type })
+);
+
+export const activeWorkTypeFromPathname = (
+  pathname: string | null | undefined
+): WorkType => workTypeFromPathname(pathname ?? "") ?? "featured";
 
 const normalizePathname = (pathname: string) => {
   const trimmed = pathname.replace(/\/+$/, "");
