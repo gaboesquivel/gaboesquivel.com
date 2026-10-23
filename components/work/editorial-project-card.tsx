@@ -10,7 +10,7 @@ import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
 
-/** Cover, name, role, and description. A missing registry cover keeps the package image in this same frame. */
+/** Cover-filled frame, name, role, and description. A missing registry cover keeps the package image in this same frame. */
 export function EditorialProjectCard({
   project,
   sizes,
@@ -49,7 +49,7 @@ export function EditorialProjectCard({
             sizes={sizes}
             preload={priority}
             fetchPriority={priority ? "high" : undefined}
-            className="object-contain motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none"
+            className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none"
           />
         </div>
       ) : null}

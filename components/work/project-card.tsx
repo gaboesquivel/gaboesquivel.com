@@ -35,16 +35,15 @@ export function ProjectCard({
     >
       {src ? (
         wide ? (
-          <div className="overflow-hidden">
+          <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[21/9]">
             <Image
               src={src}
               alt={project.title}
-              width={1600}
-              height={1067}
+              fill
               preload={priority}
               fetchPriority={priority ? "high" : undefined}
               sizes={wideProjectCardSizes}
-              className="h-auto w-full motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
+              className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-110"
             />
           </div>
         ) : (

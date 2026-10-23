@@ -5,9 +5,6 @@ import sharp from "sharp";
 
 import { homepageEditorialSlugs } from "../lib/work/project-cover";
 
-const portrait = "assets/homepage/v2/portrait-source.png";
-const crop = { left: 220, top: 0, width: 1213, height: 1098 };
-
 const fail = (message: string) => {
   console.error(`prepare-home-assets: ${message}`);
   process.exit(1);
@@ -72,21 +69,6 @@ const coverConfigs: Record<
 };
 
 try {
-  const meta = await sharp(portrait).metadata();
-  const width = meta.width ?? 0;
-  const height = meta.height ?? 0;
-  if (width < crop.left + crop.width || height < crop.height) {
-    fail(
-      `portrait source must be at least ${crop.left + crop.width}×${crop.height}px (got ${width}×${height})`
-    );
-  }
-
-  await mkdir("public/images/home", { recursive: true });
-  await sharp(portrait)
-    .extract(crop)
-    .webp({ quality: 92, effort: 6 })
-    .toFile("public/images/home/portrait-v2-1213.webp");
-
   await mkdir("public/images/work/covers", { recursive: true });
   const records = await Promise.all(
     homepageEditorialSlugs.map(async (slug) => {
@@ -111,23 +93,6 @@ try {
   await writeFile(
     "assets/work/covers/manifest.json",
     `${JSON.stringify(records, null, 2)}\n`
-  );
-  await writeFile(
-    "assets/homepage/v2/manifest.json",
-    `${JSON.stringify(
-      {
-        source: portrait,
-        sha256: await hashFile(portrait),
-        output: "public/images/home/portrait-v2-1213.webp",
-        outputDimensions: "1213×1098",
-        transform:
-          "Crop 220px empty left background; WebP quality 92; face not retouched",
-        geometry:
-          "components/home/portrait-media.tsx: vector elements restricted to empty background, no face overlay",
-      },
-      null,
-      2
-    )}\n`
   );
 } catch (error) {
   fail(error instanceof Error ? error.message : String(error));
