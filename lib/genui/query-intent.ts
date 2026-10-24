@@ -87,7 +87,8 @@ export const browseProjectsDocument = ({
   requestId: string;
 }) => browseProjectsEnvelope({ domain, requestId });
 
-export const composeIntentDocument = ({
+/** Fixed answers for unsafe, live-data, and fabrication requests. Query text is not copied into the document. */
+export const safetyDocument = ({
   query,
   requestId,
 }: {
@@ -96,9 +97,6 @@ export const composeIntentDocument = ({
 }): CompositionEnvelope | null => {
   const trimmed = query.trim();
   if (!trimmed) return null;
-
-  const taskIntent = classifyTaskIntent(trimmed);
-
   if (isAdversarialOrUnsafe(trimmed) || isOutOfScopeRealtime(trimmed)) {
     const body = isOutOfScopeRealtime(trimmed)
       ? "I do not have live weather or market data on this site. Browse /work, /cv, or /contact for published work and ways to reach me."
@@ -110,7 +108,6 @@ export const composeIntentDocument = ({
       sourceIds: [],
     });
   }
-
   if (isEmptyIntentNoise(trimmed)) {
     return answerDocument({
       body: "Your message was very short. Try asking about AI or Web3 projects, latest writing, my CV, booking a call, or sending a note.",
@@ -119,10 +116,6 @@ export const composeIntentDocument = ({
       sourceIds: [],
     });
   }
-
-  const curated = composeCuratedDocument({ query: trimmed, requestId });
-  if (curated) return curated;
-
   if (wantsQuantum(trimmed)) {
     return answerDocument({
       body: "No published quantum computing projects are listed on this site. Browse /work for the full public portfolio.",
@@ -131,7 +124,6 @@ export const composeIntentDocument = ({
       sourceIds: [],
     });
   }
-
   if (wantsUnpublished(trimmed) || wantsFabrication(trimmed)) {
     return answerDocument({
       body: "I only share published projects and writing from this site. I will not invent or disclose unpublished work.",
@@ -140,6 +132,25 @@ export const composeIntentDocument = ({
       sourceIds: [],
     });
   }
+  return null;
+};
+
+export const composeIntentDocument = ({
+  query,
+  requestId,
+}: {
+  query: string;
+  requestId: string;
+}): CompositionEnvelope | null => {
+  const trimmed = query.trim();
+  if (!trimmed) return null;
+
+  const taskIntent = classifyTaskIntent(trimmed);
+  const safety = safetyDocument({ query: trimmed, requestId });
+  if (safety) return safety;
+
+  const curated = composeCuratedDocument({ query: trimmed, requestId });
+  if (curated) return curated;
 
   if (wantsTypeScriptOnly(trimmed)) {
     const matched = projects.filter((project) =>

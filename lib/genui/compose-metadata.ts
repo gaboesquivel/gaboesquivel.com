@@ -1,3 +1,4 @@
+import type { CatalogExecution } from "./catalog-operation";
 import { compileCompositionEnvelope } from "./contract/compiler";
 import type { CompiledExperience } from "./contract/errors";
 import type { CompositionEnvelope } from "./envelope";
@@ -6,32 +7,64 @@ import { mediaBackedProjectCount } from "./select-project-composition";
 import type { GenuiTaskIntent } from "./task-intent";
 import { classifyTaskIntent } from "./task-intent";
 import { assessTaskCoverage, planTasks } from "./task-plan";
+import type { PlannedTask } from "./task-plan";
 
 export interface ComposeResultMetadata {
-  taskCoverage?: ReturnType<typeof assessTaskCoverage>;
+  catalogOperationTypes?: string[];
   composite?: string;
+  displayedCount?: number;
   domain?: string;
   experience?: string;
+  matchedCount?: number;
   mediaBackedProjectCount?: number;
+  planningPath?: "deterministic" | "semantic" | "fast-path";
   projectCount?: number;
+  recoveryReason?: string;
+  taskCount?: number;
+  taskCoverage?: ReturnType<typeof assessTaskCoverage>;
   taskIntent?: GenuiTaskIntent;
+  taskStatuses?: string[];
   validationOutcome?: "ok" | "failed";
 }
 
 export const metadataFromEnvelope = ({
   compiled,
   envelope,
+  executions = [],
+  planningPath,
   query,
+  recoveryReason,
+  taskCount,
   taskIntent,
+  tasks,
   validationOk,
 }: {
   compiled?: CompiledExperience;
   envelope: CompositionEnvelope | null;
+  executions?: CatalogExecution[];
+  planningPath?: ComposeResultMetadata["planningPath"];
   query: string;
+  recoveryReason?: string;
+  taskCount?: number;
   taskIntent?: GenuiTaskIntent;
+  tasks?: PlannedTask[];
   validationOk?: boolean;
 }): ComposeResultMetadata => {
   const base: ComposeResultMetadata = {
+    catalogOperationTypes: executions.map(
+      (execution) => execution.operationType
+    ),
+    displayedCount: executions.reduce(
+      (sum, execution) => sum + execution.displayedCount,
+      0
+    ),
+    matchedCount: executions.reduce(
+      (sum, execution) => sum + execution.matchedCount,
+      0
+    ),
+    planningPath,
+    recoveryReason,
+    taskCount,
     taskIntent: taskIntent ?? classifyTaskIntent(query),
     validationOutcome: validationOk === false ? "failed" : "ok",
   };
@@ -60,13 +93,15 @@ export const metadataFromEnvelope = ({
     mediaBacked = mediaBackedProjectCount(projectsFromPublicIds(ids));
   }
 
+  const taskCoverage = assessTaskCoverage(tasks ?? planTasks(query), resolved);
   return {
     ...base,
-    taskCoverage: assessTaskCoverage(planTasks(query), resolved),
     composite,
     domain,
     experience,
     mediaBackedProjectCount: mediaBacked,
     projectCount,
+    taskCoverage,
+    taskStatuses: taskCoverage.map((task) => task.status),
   };
 };

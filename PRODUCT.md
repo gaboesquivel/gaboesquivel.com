@@ -12,7 +12,7 @@ Gabo Esquivel's personal site. It shows founders and technical or product leader
 
 Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
-The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav chat button opens a right-hand sheet with an explicit link to the existing `/ask` conversation; inline conversation migration is deferred.
+The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav chat button opens a right-hand sheet. Its link points at `/ask`, and `/ask` redirects to `/`. Homepage search is the generative surface.
 
 ## Implemented surfaces
 
@@ -25,7 +25,7 @@ The current brand headline is **Agentic Software Engineer**. Historical employme
 - `/explore`: directory of pages, linked from the footer
 - Missing URLs (`app/not-found.tsx`) and failed pages (`app/error.tsx`, `app/global-error.tsx`) keep the site nav and link to `/` and `/explore`. They are not in the primary nav or `/explore` directory. Public HTML pages negotiate Markdown via `Accept: text/markdown` (and optional `.md` siblings such as `/index.md`) per [acceptmarkdown.com](https://acceptmarkdown.com/); HTML responses advertise the sibling with `Link: rel="alternate"` and page metadata. Missing paths with `Accept: text/markdown` receive HTTP 404 and a Markdown body with links to `/`, `/explore`, `/llms.txt`, and the sitemap
 - Trust and integration pages (`/about`, `/contact`, `/privacy`, `/docs`): public identity, contact paths, privacy policy, and MCP integration docs for the site agent. `/connect` permanently redirects to `/contact`. Linked from the footer; not in the primary nav or `/explore` (`/docs` appears on `/explore` in the About group)
-- `/ask`: Eve chat for notes and bookings; route stays available but is not in the primary nav, `/explore`, or the sitemap while the experience is in progress
+- `/ask`: redirects to `/`. Not a mounted chat page. Not in the primary nav.
 - llms corpus: `/llms.txt`, `/llms-full.txt`, and their `/.well-known/` copies, built by `scripts/llms/`
 - Redirects (`next.config.js`): `/cal` to Calendly, `/blog/tech/*` to `/tech/[slug]`, plus the Edge Config `redirects` list
 
@@ -90,17 +90,15 @@ Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institu
 
 ### `/ask`
 
-The page is the chat. People use it to ask, leave a note, or book a 15- or 30-minute call. A CV or resume request shows a download card with the PDF and a link to `/cv`. Other agents start a task at `/mcp` (`agent_start`, then `agent_get`). Notes go to contact@gaboesquivel.com. Bookings insert from the chat or from MCP, cap at 2 a day, then point at `/cal`. No confirm email. The portfolio stays a content site. Hire terms are not printed on the page; the agent and the llms export carry them. A broad experience or shipped-work question shows featured project media cards under the reply; each card opens the project page in a new tab.
-
-Use only facts already present in `LetsConnect`: direct hire, international hire, contracting through Blockmatic Labs LLC, cannot work under W-2, Costa Rica, and US Mountain Time.
+The route redirects to `/`. Notes and bookings are the contact form, the homepage booking controls when a visitor asks for them, and the MCP capability tools. The llms export still describes an older `/ask` agent; that export is not the route.
 
 ### `/docs`
 
-- Job: how another agent calls the Gabo Esquivel MCP server at `/mcp` (`agent_start`, then `agent_get`), uses the published `cv` tool, or connects ChatGPT-style clients to `/mcp/cv` for a CV download card
+- Job: how another agent calls the public MCP capability registry at `/mcp` (`book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, `send_note`), or connects a CV client to `/mcp/cv`
 - Visitor: integrator or coding agent wiring MCP
 - Message: public Streamable HTTP endpoint, invocation protocol, what messages can do, limits, CV download surfaces, and what is not offered
 - Canonical developer documentation URL; permanent redirects from `/developers`, `/developer`, `/mcp/docs`, and `/docs/mcp`
-- Do not duplicate hire terms; link `/ask` and `/privacy`
+- Do not duplicate hire terms; link `/contact` and `/privacy`
 - Not a second `/ask` page or API reference for unpublished tools
 
 ### `/blog`
@@ -169,7 +167,7 @@ Keyword owners:
 - `/work`: selected software projects
 - `/project/[slug]`: the named project
 - `/contact`: contact Gabo Esquivel
-- `/ask`: work with Gabo Esquivel (chat; not in primary nav while in progress)
+- `/ask`: redirect to the homepage; not a chat keyword target
 - `/docs`: Gabo Esquivel MCP
 - `/cv`: Senior Product Engineer CV
 - `/tech`: technology stack

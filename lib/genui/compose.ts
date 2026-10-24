@@ -6,6 +6,7 @@ import { contactDocument, cvDocument, projectDocument } from "./builders";
 import { catalogOperationDocument } from "./catalog-operation";
 import type { ComposeResultMetadata } from "./compose-metadata";
 import { metadataFromEnvelope } from "./compose-metadata";
+import { composePlannedDocument } from "./compose-planned";
 import { composeSearchSections } from "./compose-search";
 import type { CompiledExperience } from "./contract/errors";
 import type { JevDecision } from "./decisions";
@@ -16,11 +17,16 @@ import { featuredProjectRecords } from "./featured-records";
 import { COMPOSITION_FAILED_MESSAGE } from "./messages";
 import { projectsFromPublicIds } from "./project-from-id";
 import { cvPublicRecord } from "./public-records";
-import { browseProjectsDocument, composeIntentDocument } from "./query-intent";
+import {
+  browseProjectsDocument,
+  composeIntentDocument,
+  safetyDocument,
+} from "./query-intent";
 import { buildRequestPlan, retrievePlanEvidence } from "./request-plan";
 import { sectionToRecord } from "./search-records";
 import { selectProjectComposition } from "./select-project-composition";
 import { generateSemanticDocument } from "./semantic";
+import { genuiProviderConfigured, resolveSemanticPlan } from "./semantic-plan";
 import { classifyTaskIntent } from "./task-intent";
 import { validateCompositionEnvelope } from "./validate-envelope";
 
@@ -144,7 +150,8 @@ export const composeQuery = async ({
   }
   const requestId = context.correlationId || nanoid();
   const taskIntent = classifyTaskIntent(query);
-  const requestPlan = buildRequestPlan(query);
+  let requestPlan = buildRequestPlan(query);
+  const safety = safetyDocument({ query, requestId });
   let sequence = 0;
   const events: ComposeStreamEvent[] = [];
   const emit = (event: ComposeStreamEvent) => {
@@ -159,16 +166,31 @@ export const composeQuery = async ({
   let lastCompiled: CompiledExperience | undefined;
   const composeMetadata = ({
     envelope,
+    executions,
+    planningPath,
+    recoveryReason,
     validationOk,
   }: {
     envelope: CompositionEnvelope | null;
+    executions?: Parameters<typeof metadataFromEnvelope>[0]["executions"];
+    planningPath?: "deterministic" | "semantic" | "fast-path";
+    recoveryReason?: string;
     validationOk?: boolean;
   }) =>
     metadataFromEnvelope({
       compiled: lastCompiled,
       envelope,
+      executions,
+      planningPath:
+        planningPath ??
+        (requestPlan.disposition === "fast-path"
+          ? "fast-path"
+          : "deterministic"),
       query,
+      recoveryReason,
+      taskCount: requestPlan.tasks.length,
       taskIntent,
+      tasks: requestPlan.tasks,
       validationOk,
     });
   const emitValidated = ({
@@ -199,9 +221,34 @@ export const composeQuery = async ({
     return true;
   };
 
+  if (signal?.aborted) {
+    return {
+      events,
+      jevCalls,
+      metadata: composeMetadata({ envelope: null }),
+      modelCalls,
+      parseErrors,
+      tier,
+    };
+  }
+
+  if (safety) {
+    emitValidated({ envelope: safety, type: "complete" });
+    return {
+      events,
+      jevCalls,
+      metadata: composeMetadata({ envelope: safety }),
+      modelCalls,
+      parseErrors,
+      tier,
+    };
+  }
+
   const exact =
-    catalogOperationDocument({ query, requestId }) ??
-    tierZeroDocument({ query, requestId });
+    requestPlan.disposition === "fast-path"
+      ? (catalogOperationDocument({ query, requestId }) ??
+        tierZeroDocument({ query, requestId }))
+      : null;
   if (exact) {
     emitValidated({ envelope: exact, type: "complete" });
     return {
@@ -214,7 +261,82 @@ export const composeQuery = async ({
     };
   }
 
-  const candidate = composeIntentDocument({ query, requestId });
+  if (requestPlan.disposition === "compose") {
+    if (requestPlan.needsSemanticPlanning && genuiProviderConfigured()) {
+      const resolved = await resolveSemanticPlan({ plan: requestPlan, signal });
+      modelCalls += resolved.modelCalls;
+      requestPlan = resolved.plan;
+      if (signal?.aborted) {
+        return {
+          events,
+          jevCalls,
+          metadata: composeMetadata({ envelope: null }),
+          modelCalls,
+          parseErrors,
+          tier,
+        };
+      }
+    }
+    if (requestPlan.needsSemanticPlanning && genuiProviderConfigured()) {
+      tier = 2;
+      const semantic = await generateSemanticDocument({
+        plan: requestPlan,
+        query,
+        records: retrievePlanEvidence(requestPlan),
+        requestId,
+        signal,
+      });
+      if (signal?.aborted) {
+        return {
+          events,
+          jevCalls,
+          metadata: composeMetadata({ envelope: null }),
+          modelCalls,
+          parseErrors,
+          tier,
+        };
+      }
+      if (semantic) {
+        modelCalls += semantic.modelCalls;
+        emitValidated({ envelope: semantic.envelope, type: "complete" });
+        return {
+          events,
+          jevCalls,
+          metadata: composeMetadata({ envelope: semantic.envelope }),
+          modelCalls,
+          parseErrors,
+          tier,
+        };
+      }
+    }
+    const planned = composePlannedDocument({
+      requestId,
+      tasks: requestPlan.tasks,
+    });
+    if (planned) {
+      tier = 1;
+      emitValidated({ envelope: planned.envelope, type: "complete" });
+      return {
+        events,
+        jevCalls,
+        metadata: composeMetadata({
+          envelope: planned.envelope,
+          executions: planned.executions,
+          planningPath: requestPlan.needsSemanticPlanning
+            ? "semantic"
+            : "deterministic",
+        }),
+        modelCalls,
+        parseErrors,
+        tier,
+      };
+    }
+  }
+
+  const candidate =
+    requestPlan.disposition === "fast-path"
+      ? composeIntentDocument({ query, requestId })
+      : null;
   const candidateCheck = candidate
     ? validateCompositionEnvelope({ envelope: candidate })
     : null;

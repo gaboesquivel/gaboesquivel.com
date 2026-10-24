@@ -11,6 +11,7 @@ import { buildEvidencePacket } from "./context";
 import { genuiLibraryJsonSchema } from "./contract/library";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { recoverComposition } from "./recover-composition";
+import type { RequestPlan } from "./request-plan";
 import { buildRequestPlan } from "./request-plan";
 import { assessTaskCoverage } from "./task-plan";
 import { validateCompositionEnvelope } from "./validate-envelope";
@@ -42,11 +43,13 @@ const semanticSystemSuffix = `\nComponent semantics: ${JSON.stringify(componentS
 const semanticSystem = `${compositionPolicy}${semanticSystemSuffix}`;
 
 export const generateSemanticDocument = async ({
+  plan,
   query,
   records,
   requestId,
   signal,
 }: {
+  plan?: RequestPlan;
   query: string;
   records: PublicRecord[];
   requestId: string;
@@ -71,16 +74,16 @@ export const generateSemanticDocument = async ({
     };
   }
   const packet = buildEvidencePacket({ query, records });
-  const request = buildRequestPlan(query);
+  const request = plan ?? buildRequestPlan(query);
   // Only records whose evidence reached the model may support its output.
   const suppliedIds = new Set(packet.records.map(({ id }) => id));
   const suppliedRecords = records.filter(({ id }) => suppliedIds.has(id));
-  const recover = () =>
+  const recover = (reason: string) =>
     recoverComposition({
-      tasks: request.tasks,
+      reason,
       records: suppliedRecords,
       requestId,
-      constrained: request.constraints.length > 0,
+      tasks: request.tasks,
     });
   const abortSignal = signal
     ? AbortSignal.any([signal, AbortSignal.timeout(SEMANTIC_DEADLINE_MS)])
@@ -92,14 +95,28 @@ export const generateSemanticDocument = async ({
     maxOutputTokens: 4000,
     system: semanticSystem,
     prompt: JSON.stringify({
-      evidence: packet,
-      request,
+      evidence: {
+        catalog: packet.catalog,
+        omittedRecordIds: packet.omittedRecordIds,
+        records: packet.records,
+      },
+      request: {
+        query: request.query,
+        tasks: request.tasks.map((task) => ({
+          completion: task.completion,
+          filter: task.filter,
+          id: task.id,
+          kind: task.kind,
+          presentation: task.presentation,
+          unsupported: task.unsupported,
+        })),
+      },
     }),
   })
     .then((result) => result.text)
     .catch(() => null);
   if (signal?.aborted) return null;
-  if (!text) return { envelope: recover(), modelCalls: 1 };
+  if (!text) return { envelope: recover("timeout"), modelCalls: 1 };
   const line = text.trim();
   const envelope: CompositionEnvelope = {
     fallbackText: query.slice(0, 160),
@@ -109,10 +126,19 @@ export const generateSemanticDocument = async ({
     requestId,
   };
   const validated = validateCompositionEnvelope({ envelope });
-  if (!validated.ok) return { envelope: recover(), modelCalls: 1 };
+  if (!validated.ok) return { envelope: recover("malformed"), modelCalls: 1 };
   const coverage = assessTaskCoverage(request.tasks, validated.compiled);
-  if (coverage.some((task) => task.status === "missing")) {
-    return { envelope: recover(), modelCalls: 1 };
+  if (coverage.some((task) => task.status === "failed")) {
+    return {
+      envelope: recoverComposition({
+        partial: envelope,
+        reason: "missing-task",
+        records: suppliedRecords,
+        requestId,
+        tasks: request.tasks,
+      }),
+      modelCalls: 1,
+    };
   }
   return { envelope, modelCalls: 1 };
 };

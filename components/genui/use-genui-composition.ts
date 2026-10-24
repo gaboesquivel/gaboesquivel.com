@@ -3,6 +3,7 @@
 import type { CompositionEnvelope } from "lib/genui/envelope";
 import { COMPOSITION_FAILED_MESSAGE } from "lib/genui/messages";
 import { consumeNdjsonResponse } from "lib/genui/ndjson-stream";
+import { isCurrentCompositionRequest } from "lib/genui/request-generation";
 import { recordGenuiSearchQuery } from "lib/genui/search-history";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -61,7 +62,14 @@ export const useGenuiComposition = () => {
         signal: controller.signal,
       });
       if (!response.ok) {
-        if (id !== requestRef.current) return;
+        if (
+          !isCurrentCompositionRequest({
+            activeRequest: requestRef.current,
+            eventRequest: id,
+          })
+        ) {
+          return;
+        }
         setError(COMPOSITION_FAILED_MESSAGE);
         setIsStreaming(false);
         return;
@@ -70,7 +78,14 @@ export const useGenuiComposition = () => {
       let sawError = false;
       const streamResult = await consumeNdjsonResponse({
         onEvent: (event) => {
-          if (id !== requestRef.current) return;
+          if (
+            !isCurrentCompositionRequest({
+              activeRequest: requestRef.current,
+              eventRequest: id,
+            })
+          ) {
+            return;
+          }
           if (event.type === "error") {
             sawError = true;
             setError(String(event.message ?? COMPOSITION_FAILED_MESSAGE));
@@ -88,7 +103,14 @@ export const useGenuiComposition = () => {
         },
         response,
       });
-      if (id !== requestRef.current) return;
+      if (
+        !isCurrentCompositionRequest({
+          activeRequest: requestRef.current,
+          eventRequest: id,
+        })
+      ) {
+        return;
+      }
       if (!streamResult.ok) {
         setError(COMPOSITION_FAILED_MESSAGE);
         setIsStreaming(false);
@@ -100,7 +122,14 @@ export const useGenuiComposition = () => {
       }
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
-      if (id !== requestRef.current) return;
+      if (
+        !isCurrentCompositionRequest({
+          activeRequest: requestRef.current,
+          eventRequest: id,
+        })
+      ) {
+        return;
+      }
       setError(COMPOSITION_FAILED_MESSAGE);
       setIsStreaming(false);
     }

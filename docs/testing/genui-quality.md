@@ -42,6 +42,12 @@ Generate baselines in the same Linux/Chromium environment as CI. Do not widen di
 
 `lib/genui/telemetry.ts` emits OpenTelemetry-style span events via `emitComposeSpan`. Optional Langfuse export uses `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, and optional `LANGFUSE_BASE_URL` — never required for local dev or CI.
 
+## Planning contracts
+
+`lib/genui/planning.test.ts` covers task splitting, catalog counts and exclusions, coverage, recovery, cancellation, and prompt-injection handling with mocked or absent model calls. `eval:genui:offline` and `eval:genui:matrix` stay deterministic. `eval:genui:live` is the live model suite and is not evidence for those unit tests.
+
+Structural coverage does not prove a generated sentence is entailed by its sources. A heuristic plan does not prove the visitor’s intent was fully understood.
+
 ## Live evaluation
 
 Live model quality is opt-in only. Missing credentials must not produce a misleading green CI result.

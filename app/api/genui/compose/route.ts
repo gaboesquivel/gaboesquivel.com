@@ -77,23 +77,49 @@ export async function POST(request: Request) {
         jevCalls = result.jevCalls;
         modelCalls = result.modelCalls;
         parseErrors = result.parseErrors;
+        if (abortController.signal.aborted) {
+          logComposeTelemetry({
+            cancellation: "aborted",
+            correlationId: context.correlationId,
+            jevCalls,
+            modelCalls,
+            parseErrors,
+            taskCount: result.metadata.taskCount,
+            tier,
+            timingMs: Date.now() - started,
+          });
+          return;
+        }
         logComposeTelemetry({
-          cancellation: abortController.signal.aborted ? "aborted" : undefined,
+          cancellation: undefined,
+          catalogOperationTypes: result.metadata.catalogOperationTypes,
           composite: result.metadata.composite,
           correlationId: context.correlationId,
+          displayedCount: result.metadata.displayedCount,
           domain: result.metadata.domain,
           experience: result.metadata.experience,
           jevCalls,
+          matchedCount: result.metadata.matchedCount,
           mediaBackedProjectCount: result.metadata.mediaBackedProjectCount,
           modelCalls,
           parseErrors,
+          planningPath: result.metadata.planningPath,
           projectCount: result.metadata.projectCount,
+          recoveryReason: result.metadata.recoveryReason,
+          taskCount: result.metadata.taskCount,
           taskIntent: result.metadata.taskIntent,
+          taskStatuses: result.metadata.taskStatuses,
           tier,
           timingMs: Date.now() - started,
           validationOutcome: result.metadata.validationOutcome,
         });
-      } catch {
+      } catch (error) {
+        if (
+          request.signal.aborted ||
+          (error instanceof Error && error.name === "AbortError")
+        ) {
+          return;
+        }
         controller.enqueue(
           encoder.encode(
             `${JSON.stringify({

@@ -1,96 +1,132 @@
 import {
   answerDocument,
-  bookingDocument,
   childExpressionsFromOpenUi,
-  contactDocument,
-  cvDocument,
-  projectDocument,
   stackDocument,
-  writingDocument,
 } from "./builders";
+import { composePlannedDocument } from "./compose-planned";
 import { GENUI_MAX_STACK_CHILDREN } from "./contract/catalog";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import { assessTaskCoverage } from "./task-plan";
 import type { PlannedTask } from "./task-plan";
 import { validateCompositionEnvelope } from "./validate-envelope";
 
-/** Recover only supplied evidence. Never broaden an unresolved filtered request. */
-export const recoverComposition = ({
+const safeAnswer = ({ body, requestId }: { body: string; requestId: string }) =>
+  answerDocument({
+    body,
+    records: [],
+    requestId,
+    sourceIds: [],
+  });
+
+const asChildren = (envelope: CompositionEnvelope) =>
+  childExpressionsFromOpenUi(envelope.openuiText).flatMap((expression) => {
+    const document: CompositionEnvelope = {
+      ...envelope,
+      openuiText: expression.startsWith("root")
+        ? expression
+        : `root = ${expression}`,
+    };
+    return validateCompositionEnvelope({ envelope: document }).ok
+      ? [document]
+      : [];
+  });
+
+const coversTask = ({
+  document,
+  task,
   tasks,
-  records,
-  requestId,
-  constrained = false,
 }: {
+  document: CompositionEnvelope;
+  task: PlannedTask;
   tasks: PlannedTask[];
-  records: PublicRecord[];
+}) => {
+  const compiled = validateCompositionEnvelope({ envelope: document });
+  if (!compiled.ok) return false;
+  const coverage = assessTaskCoverage(tasks, compiled.compiled);
+  const item = coverage.find((entry) => entry.taskId === task.id);
+  return Boolean(item && item.status !== "failed");
+};
+
+const stackOf = ({
+  documents,
+  fallbackText,
+  requestId,
+}: {
+  documents: CompositionEnvelope[];
+  fallbackText: string;
   requestId: string;
-  constrained?: boolean;
-}): CompositionEnvelope => {
-  const message =
-    "I could not assemble the complete response. Available requested items are shown below; the remaining questions need a retry.";
-  const notice = (body: string) =>
-    answerDocument({ body, records: [], sourceIds: [], requestId });
-  const documents: CompositionEnvelope[] = [notice(message)];
-  const unresolved: string[] = [];
-  const projectRecords = records.filter((record) => record.kind === "project");
-  const posts = records.filter((record) => record.kind === "post");
-  const cv = records.find((record) => record.kind === "cv");
-  const contact = records.find(
-    (record) => record.kind === "profile" && record.id === "/contact"
-  );
-  const seen = new Set<string>();
-  for (const task of tasks) {
-    let document: CompositionEnvelope | null = null;
-    if (task.kind === "cv" && cv)
-      document = cvDocument({ record: cv, requestId });
-    if (task.kind === "booking")
-      document = bookingDocument({ records: [], requestId });
-    if (task.kind === "contact" && contact)
-      document = contactDocument({ records: [contact], requestId });
-    if (task.kind === "projects" && projectRecords.length && !constrained)
-      document = projectDocument({
-        composite: "project-compact-list",
-        projectIds: projectRecords.map(({ id }) => id),
-        records: projectRecords,
-        requestId,
-      });
-    if (task.kind === "writing" && posts.length && !constrained)
-      document = writingDocument({
-        composite: "dated-row",
-        postIds: posts.map(({ id }) => id),
-        records: posts,
-        requestId,
-      });
-    if (!document || !validateCompositionEnvelope({ envelope: document }).ok) {
-      unresolved.push(task.kind);
-      continue;
-    }
-    if (seen.has(document.openuiText)) continue;
-    if (documents.length >= GENUI_MAX_STACK_CHILDREN) {
-      unresolved.push(task.kind);
-      continue;
-    }
-    seen.add(document.openuiText);
-    documents.push(document);
-  }
-  const body = unresolved.length
-    ? `${message} Not completed: ${[...new Set(unresolved)].join(", ")}.`
-    : message;
-  documents[0] = notice(body);
-  const firstDocument = documents.at(0);
-  if (!firstDocument) return notice(body);
-  if (documents.length === 1) return firstDocument;
+}) => {
+  const limited = documents.slice(0, GENUI_MAX_STACK_CHILDREN);
+  if (!limited.length) return safeAnswer({ body: fallbackText, requestId });
   return stackDocument({
-    childExpressions: documents.flatMap((document) =>
+    childExpressions: limited.flatMap((document) =>
       childExpressionsFromOpenUi(document.openuiText)
     ),
-    fallbackText: body,
+    fallbackText,
     records: [
       ...new Map(
-        documents
+        limited
           .flatMap((document) => document.records)
           .map((record) => [record.id, record])
       ).values(),
     ],
+    requestId,
+  });
+};
+
+/** Preserve valid sections and fill only the tasks they do not already cover. */
+export const recoverComposition = ({
+  partial,
+  reason,
+  requestId,
+  tasks,
+}: {
+  partial?: CompositionEnvelope | null;
+  reason: string;
+  records?: PublicRecord[];
+  requestId: string;
+  tasks: PlannedTask[];
+}): CompositionEnvelope => {
+  const fallback =
+    reason === "timeout" || reason === "provider"
+      ? "I could not finish the written explanation. The other requested pieces that I can assemble are below."
+      : "I could not assemble the complete response. Available requested items are shown below.";
+  const useful = (partial ? asChildren(partial) : []).filter((document) =>
+    tasks.some((task) => coversTask({ document, task, tasks }))
+  );
+  const used = new Set<string>();
+  const ordered = tasks.flatMap((task) => {
+    const kept = useful.find(
+      (document) =>
+        !used.has(document.openuiText) && coversTask({ document, task, tasks })
+    );
+    if (kept) {
+      used.add(kept.openuiText);
+      return [kept];
+    }
+    const planned = composePlannedDocument({ requestId, tasks: [task] });
+    if (!planned) return [];
+    return asChildren(planned.envelope).filter((document) => {
+      if (used.has(document.openuiText)) return false;
+      used.add(document.openuiText);
+      return coversTask({ document, task, tasks });
+    });
+  });
+  const envelope = stackOf({
+    documents: ordered,
+    fallbackText: fallback,
+    requestId,
+  });
+  if (validateCompositionEnvelope({ envelope }).ok) return envelope;
+  const planned = composePlannedDocument({ requestId, tasks });
+  if (
+    planned &&
+    validateCompositionEnvelope({ envelope: planned.envelope }).ok
+  ) {
+    return planned.envelope;
+  }
+  return safeAnswer({
+    body: "I could not assemble the complete response.",
     requestId,
   });
 };

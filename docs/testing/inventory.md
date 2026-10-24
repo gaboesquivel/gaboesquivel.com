@@ -8,22 +8,23 @@ What exists on disk and what each layer claims. This is a map, not a substitute 
 | --- | --- | --- |
 | `MCP_APP_GENUI_UI_READY` | `lib/mcp/mcp-app-readiness.ts` | `false`: production MCP App resource is placeholder HTML only; GenUI-in-host Playwright block must stay skipped |
 | Placeholder copy | `lib/mcp/public-server.ts` | Resource `ui://gaboesquivel/app` serves `MCP_APP_PLACEHOLDER_MARKER` text, not shared GenUI fixtures |
-| `ExperienceStack` | `lib/genui/contract/` | Catalogued; production compiler rejects until nested subtrees ship (see ADR) |
+| `ExperienceStack` | `lib/genui/contract/` | Accepted by the shared compiler as a flat list of child experiences. Nested stacks are rejected. |
 
 ## Bun — `lib/genui`
 
 Colocated unit tests (also picked up by `test:genui:unit` via `bun test lib/genui`):
 
-| File                          | Focus                                     |
-| ----------------------------- | ----------------------------------------- |
-| `compose.test.ts`             | Composition routing and envelopes         |
-| `validate-envelope.test.ts`   | Envelope validation / compiler delegation |
-| `openui.test.ts`              | OpenUI document helpers                   |
-| `semantic.test.ts`            | Semantic matching                         |
-| `experience-contract.test.ts` | Experience prop policy                    |
-| `compat-gate.test.ts`         | Compatibility gates                       |
-| `ndjson-stream.test.ts`       | NDJSON stream parsing                     |
-| `telemetry.test.ts`           | Span emission                             |
+| File | Focus |
+| --- | --- |
+| `compose.test.ts` | Composition routing and envelopes |
+| `validate-envelope.test.ts` | Envelope validation / compiler delegation |
+| `openui.test.ts` | OpenUI document helpers |
+| `semantic.test.ts` | Semantic matching |
+| `experience-contract.test.ts` | Experience prop policy |
+| `compat-gate.test.ts` | Compatibility gates |
+| `ndjson-stream.test.ts` | NDJSON stream parsing |
+| `telemetry.test.ts` | Span emission |
+| `planning.test.ts` | Task plans, catalog operations, coverage, recovery |
 
 ## Bun — `tests/genui`
 
@@ -50,6 +51,7 @@ Colocated unit tests (also picked up by `test:genui:unit` via `bun test lib/genu
 | --- | --- | --- |
 | `functional/fixture-lab.spec.ts` | `test:genui:browser` | Declarative fixtures via `/__genui__/fixtures/:id` |
 | `functional/homepage-genui.spec.ts` | `test:genui:browser` | Homepage prompt UX + mocked `/api/genui/compose` |
+| `functional/mixed-task.spec.ts` | `test:genui:browser` | Narrow mixed comparison + CV fixture, keyboard disclosure, reduced motion |
 | `visual/` | `test:genui:visual` | Snapshots; baselines not required in default CI |
 | `accessibility/fixture-a11y.spec.ts` | `test:genui:a11y` | axe on fixture pages |
 

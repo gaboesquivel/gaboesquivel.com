@@ -1,6 +1,10 @@
 "use client";
 
 import type { Project } from "gaboesquivel";
+import {
+  comparisonRows,
+  missingComparisonValue,
+} from "lib/genui/comparison-dimensions";
 import { materializeProjectSlots } from "lib/genui/composition-plan";
 import type { ProjectCompositionRecipe } from "lib/genui/composition-plan";
 import { projectSlugFromPublicId } from "lib/genui/project-from-id";
@@ -78,15 +82,31 @@ export const ProjectShowcaseLayout = ({
     return (
       <div className="@container/project-showcase">
         <ShowcaseHeader domain={domain} />
-        <div className="grid grid-cols-1 gap-6 @min-[48rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:grid-cols-3">
+        <div className="grid min-w-0 grid-cols-1 gap-6 @min-[48rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:grid-cols-3">
           {ordered.map(({ project, role }, index) => (
-            <ProjectShowcaseCard
-              key={project.slug}
-              project={project}
-              role={role}
-              sizes={showcaseSizes.secondary}
-              priority={index === 0}
-            />
+            <div key={project.slug} className="min-w-0">
+              <ProjectShowcaseCard
+                project={project}
+                role={role}
+                sizes={showcaseSizes.secondary}
+                priority={index === 0}
+              />
+              <details className="mt-3 min-w-0" data-comparison-details>
+                <summary className="cursor-pointer text-sm text-neutral-300">
+                  Comparison details for {project.title}
+                </summary>
+                <dl className="mt-3 space-y-2 text-sm">
+                  {comparisonRows({ project }).map((row) => (
+                    <div key={row.dimension}>
+                      <dt className="text-neutral-500">{row.label}</dt>
+                      <dd className="text-neutral-200">
+                        {row.value ?? missingComparisonValue}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </details>
+            </div>
           ))}
         </div>
       </div>

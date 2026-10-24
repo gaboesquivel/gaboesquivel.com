@@ -1,5 +1,7 @@
 # /ask, notes, bookings, and MCP
 
+`/ask` redirects to `/`. Homepage search is the generative UI. This file covers credentials and booking limits for the capability tools and the connect code that is not mounted on that route.
+
 Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md). Card appearance is in [DESIGN.md](../../DESIGN.md). Trust rules, credential roles, and the booking limit are in [ARCHITECTURE.md](../../ARCHITECTURE.md).
 
 ## Skills and scaffold

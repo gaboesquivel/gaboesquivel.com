@@ -1,9 +1,11 @@
 import {
   timelineDocument,
   bookingDocument,
+  childExpressionsFromOpenUi,
   contactDocument,
   cvDocument,
   projectDocument,
+  stackDocument,
   writingDocument,
 } from "../builders";
 import type { CompositionEnvelope } from "../envelope";
@@ -24,6 +26,7 @@ export type GenuiFixtureId =
   | "writing-dated"
   | "contact-hire"
   | "booking-hire"
+  | "mixed-task"
   | "empty-error";
 
 export interface GenuiFixtureDefinition {
@@ -125,6 +128,34 @@ export const genuiFixtures: Record<GenuiFixtureId, GenuiFixtureDefinition> = {
       requestId,
     }),
     id: "project-asymmetric-closing",
+  },
+  "mixed-task": {
+    envelope: stackDocument({
+      childExpressions: [
+        ...childExpressionsFromOpenUi(
+          projectDocument({
+            composite: "project-comparison",
+            projectIds: ["/project/wink", "/project/its"],
+            records: [
+              sampleProjectRecord("wink", "Wink"),
+              sampleProjectRecord("its", "ITS"),
+            ],
+            requestId,
+          }).openuiText
+        ),
+        ...childExpressionsFromOpenUi(
+          cvDocument({ record: sampleCvRecord, requestId }).openuiText
+        ),
+      ],
+      fallbackText: "Comparison and CV",
+      records: [
+        sampleProjectRecord("wink", "Wink"),
+        sampleProjectRecord("its", "ITS"),
+        sampleCvRecord,
+      ],
+      requestId,
+    }),
+    id: "mixed-task",
   },
   "writing-dated": {
     envelope: writingDocument({

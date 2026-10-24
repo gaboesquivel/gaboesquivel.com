@@ -50,7 +50,7 @@ The HTML narrative and its machine-readable representation share facts but inclu
 | `components/work/`, `components/blog/`, `components/mdx.tsx` | Project evidence, post listings, and compiled MDX rendering. |
 | `lib/blog*`, `lib/tech-evidence.ts`, `lib/work-types.ts` | Content selection, taxonomy, related posts, and evidence filtering. |
 | `lib/api/`, `lib/accept-markdown.ts`, `lib/markdown-*` | Public read contracts, content negotiation, canonicalization, and error responses. |
-| `app/connect/` | Client chat and forms used by `/ask`; the folder name persists after the public route rename. |
+| `app/connect/` | Contact and booking card UI. `/ask` does not mount it; that route redirects to `/`. |
 | `agent/` | Eve model, channels, instructions, retrieval hooks, tools, and runtime skills. |
 | `lib/connect/` | Shared contact-domain logic: schemas, intent, retrieval ranking, caps, CV cards, notes, and bookings. |
 | `lib/mcp/`, `app/mcp/cv/` | Dedicated MCP CV app and download widget. |
@@ -94,17 +94,19 @@ The read-only JSON surface is `/api/v1/profile`, `/api/v1/pages`, and `/api/v1/p
 
 ## Agent and action flow
 
-`app/ask/page.tsx` mounts the chat from `app/connect/`. `connect-chat.tsx` and `eve-thread.tsx` coordinate the conversation, approvals, forms, and cards. Eve's Next.js integration supplies the transport through `withEve` in `next.config.js`.
+`/ask` redirects to `/` (`app/ask/page.tsx` and a non-permanent redirect in `next.config.js`). The nav sheet still links to `/ask`, so that link currently lands on the homepage. Homepage and dialog search submit to `/api/genui/compose`. `next.config.js` still wraps the Next config with `withEve`; that wrapper is not the public tool list.
+
+`app/mcp/route.ts` serves the capability registry in `lib/capabilities/registry.ts`: `book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, and `send_note`. `/mcp/cv` remains the CV download app. `/docs` is the integration page. The llms export still contains older `/ask` agent wording; the route behavior above is the source of truth until that export is revised.
 
 `agent/agent.ts` configures the model and disables default tools. Application tools and channels are defined under `agent/`. `lib/connect/sonnet-model.ts` configures Sonnet with Anthropic BYOK on the gateway. Gateway authentication and Anthropic provider authentication use distinct credentials.
 
 Retrieval uses `generated/agent-index.json` and `generated/markdown-routes.json`, with selection and ranking logic in the agent hooks and `lib/connect/`. This is generated corpus retrieval, not a vector database. Changes to facts or exports must reach these artifacts before the agent can use them.
 
-The chat can display a CV download card, project media, a note form, and a booking flow. The note opener is handled by the UI; `NOTE_FORM_LEAD` owns the form introduction. While the form is visible, the thread suppresses the replying indicator. Preserve this boundary when changing conversational behavior.
+The connect UI in `app/connect/` can display a CV download card, project media, a note form, and a booking flow. It is not mounted at `/ask`. The note opener is handled by the UI; `NOTE_FORM_LEAD` owns the form introduction. While the form is visible, the thread suppresses the replying indicator. Preserve this boundary when changing conversational behavior.
 
 The booking picker combines real availability with a bounded json-render component catalog. `lib/connect/compose.ts` supports Jev composition and a deterministic layout when layout is forced, credentials are absent, or composition fails. The current slot-listing path resolves a duration and uses the forced layout. Server-side booking logic owns validation and the Calendar write. A generated UI specification is not authorization to perform an action.
 
-External agents use the Eve MCP channel at `/mcp`, with `agent_start` and `agent_get`. `next.config.js` explicitly attaches this path to Eve through local rewrites and a Vercel output routing patch. `/mcp/cv` is a separate Next.js handler for the CV app/widget. The integration instructions presented to callers live at `/docs`.
+External agents call the capability registry at `/mcp`. `/mcp/cv` is a separate Next.js handler for the CV app/widget. The integration page is `/docs`.
 
 ## State, credentials, and external effects
 
@@ -134,6 +136,16 @@ The pre-commit hook regenerates and stages CV outputs when the specified CV, glo
 ## Maintaining this map
 
 Update this document when source ownership, system boundaries, data flow, or integrations change. Keep product decisions in [PRODUCT.md](PRODUCT.md), visual decisions in [DESIGN.md](DESIGN.md), and setup in [README.md](README.md).
+
+### GenUI planning and composition
+
+A request becomes an ordered task plan (`lib/genui/task-plan.ts`). Stable ids are `task-1`, `task-2`, so two project filters stay two obligations. Simple curated and single-intent requests stay on the existing deterministic route and do not call a model. Complex requests may use one schema-validated planner call (`lib/genui/semantic-plan.ts`, AI SDK `generateText` with `Output.object`). The model selects operations and constraints. `lib/genui/catalog-operation.ts` executes counts, filters, exclusions, deduplication, and limits on the published portfolio before any prompt truncation.
+
+Composition uses approved experiences and `ExperienceStack` (`lib/genui/compose-planned.ts`). Relationships are explanation plus evidence, comparison plus a supported interpretation, primary content plus a filter note, evidence plus a requested action, chronology, and a short factual answer. Component rules live in `lib/genui/component-semantics.ts`.
+
+Coverage is per task. Recovery (`lib/genui/recover-composition.ts`) keeps valid sections, fills a missing supported task without broadening its filter, and does not call the model again. A cancelled request does not emit a completion or error over a newer result.
+
+Budgets: planner 3.5s and 1,200 output tokens; composition 12s and 4,000 output tokens; HTTP deadline 15s; at most two model calls; evidence packet 12 records and 28,000 characters, without the full catalog listing; at most six stack children. Counts are published portfolio records. Structural coverage does not prove a sentence is entailed by its sources. See [docs/adr/ADR-genui-task-planning.md](docs/adr/ADR-genui-task-planning.md).
 
 ### GenUI career chronology
 
