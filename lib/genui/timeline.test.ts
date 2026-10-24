@@ -63,8 +63,8 @@ describe("career timeline", () => {
       composeIntentDocument({
         query: "What is your experience building AI agents?",
         requestId: "test",
-      })
-    ).toBeNull();
+      })?.openuiText
+    ).toContain("ExperienceStack");
     expect(
       composeIntentDocument({
         query: "Show your career timeline and download CV",

@@ -22,7 +22,7 @@ import { validateCorpus } from "./validate";
 
 const canonicalRoutes = [
   { label: "Home", path: "/" },
-  { label: "Career story", path: "/bio" },
+  { label: "My journey", path: "/bio" },
   { label: "AI engineering", path: "/ai" },
   { label: "Web3 engineering", path: "/web3" },
   { label: "Full-stack product engineering", path: "/fullstack" },
@@ -58,7 +58,7 @@ const buildLlmsIndex = ({
           llmsListItem({
             name: project.title,
             note: project.description.split("\n")[0],
-            url: `${BASE_URL}/project/${project.slug}`,
+            url: `/project/${project.slug}`,
           }),
         ]
       : [];

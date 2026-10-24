@@ -18,7 +18,7 @@ export const sampleProjectRecord = (
   kind: "project",
   slug,
   title,
-  url: `https://gaboesquivel.com/project/${slug}`,
+  url: `/project/${slug}`,
 });
 
 export const samplePostRecord = (

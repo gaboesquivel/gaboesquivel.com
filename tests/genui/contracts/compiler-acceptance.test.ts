@@ -117,14 +117,23 @@ describe("compileExperience acceptance", () => {
     if (!result.ok) expect(result.code).toBe("composite_incompatible");
   });
 
-  test("rejects ExperienceStack", () => {
+  test("accepts ExperienceStack with nested experiences", () => {
+    const records = [sampleProjectRecord("wink", "Wink")];
     const result = compileExperience({
-      document: 'root = ExperienceStack(["a"])',
+      document: `root = ExperienceStack([Answer("Intro", []), ProjectExperience("case-study", ["/project/wink"])])`,
+      libraryVersion: GENUI_LIBRARY_VERSION,
+      records,
+    });
+    expect(result.ok).toBe(true);
+  });
+
+  test("rejects ExperienceStack with unknown child", () => {
+    const result = compileExperience({
+      document: 'root = ExperienceStack([AdminPanel("x")])',
       libraryVersion: GENUI_LIBRARY_VERSION,
       records: [],
     });
     expect(result.ok).toBe(false);
-    if (!result.ok) expect(result.code).toBe("unsupported_experience");
   });
 
   test("rejects missing record", () => {

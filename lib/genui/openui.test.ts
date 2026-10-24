@@ -15,7 +15,7 @@ describe("openui fixtures", () => {
         kind: "project" as const,
         slug: "legal-agent",
         title: "LegalAgent",
-        url: "https://gaboesquivel.com/project/legal-agent",
+        url: "/project/legal-agent",
       },
     ];
     const single = projectDocument({

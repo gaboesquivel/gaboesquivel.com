@@ -15,7 +15,7 @@ import { Kbd, KbdGroup } from "components/ui/kbd";
 import { useHydrated } from "hooks/use-hydrated";
 import { cn } from "lib/utils";
 import { Search } from "lucide-react";
-import type { RefObject } from "react";
+import type { KeyboardEvent, RefObject } from "react";
 import { useSyncExternalStore } from "react";
 
 const subscribePointer = (onStoreChange: () => void) => {
@@ -37,7 +37,15 @@ export function SiteSearchField({
   showGenuiBetaBadge,
   autoFocus,
   describedById,
+  placeholder,
+  suggestionsOpen,
+  suggestionsListboxId,
+  activeSuggestionId,
   composingRef,
+  inputRef,
+  onBlur,
+  onFocus,
+  onInputKeyDown,
   onQueryChange,
   onCompositionStart,
   onCompositionEnd,
@@ -49,7 +57,15 @@ export function SiteSearchField({
   showGenuiBetaBadge?: boolean;
   autoFocus?: boolean;
   describedById: string;
+  placeholder?: string;
+  suggestionsOpen?: boolean;
+  suggestionsListboxId?: string;
+  activeSuggestionId?: string;
   composingRef: RefObject<boolean>;
+  inputRef?: RefObject<HTMLInputElement | null>;
+  onBlur?: () => void;
+  onFocus?: () => void;
+  onInputKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   onQueryChange: (value: string) => void;
   onCompositionStart: () => void;
   onCompositionEnd: () => void;
@@ -81,6 +97,7 @@ export function SiteSearchField({
           />
         </InputGroupAddon>
         <InputGroupInput
+          ref={inputRef}
           id={inputId}
           disabled={disabled}
           type="search"
@@ -88,18 +105,28 @@ export function SiteSearchField({
           enterKeyHint="search"
           autoComplete="off"
           autoFocus={autoFocus}
-          placeholder={searchPlaceholder}
+          placeholder={placeholder ?? searchPlaceholder}
           value={query}
+          role={suggestionsListboxId ? "combobox" : undefined}
+          aria-autocomplete={suggestionsListboxId ? "list" : undefined}
+          aria-activedescendant={activeSuggestionId}
+          aria-expanded={suggestionsListboxId ? suggestionsOpen : undefined}
+          aria-controls={suggestionsOpen ? suggestionsListboxId : undefined}
+          aria-haspopup={suggestionsListboxId ? "listbox" : undefined}
+          onBlur={onBlur}
           onChange={(event) => onQueryChange(event.target.value)}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
+          onFocus={onFocus}
           onKeyDown={(event) => {
             if (
               event.key === "Enter" &&
               (event.nativeEvent.isComposing || composingRef.current)
             ) {
               event.preventDefault();
+              return;
             }
+            onInputKeyDown?.(event);
           }}
           className="min-h-16 py-4 text-base text-white placeholder:text-neutral-400"
           aria-describedby={describedById}
@@ -118,9 +145,11 @@ export function SiteSearchField({
           </InputGroupAddon>
         ) : null}
       </InputGroup>
-      <p id={describedById} className="sr-only">
-        {searchHint}
-      </p>
+      {suggestionsListboxId ? null : (
+        <p id={describedById} className="sr-only">
+          {searchHint}
+        </p>
+      )}
     </>
   );
 }

@@ -40,7 +40,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
 - Order: split hero, full-width search, selected work, focus, writing, career links, work together
-- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search on the homepage (and the same UI via Cmd/Ctrl+K or nav Search site-wide) submits on Enter; generative replacement remains deferred.
+- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search on the homepage (and the same UI via Cmd/Ctrl+K or nav Search site-wide) submits on Enter and replaces the region below the hero with a validated GenUI result (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
 
 ### `/bio`
 

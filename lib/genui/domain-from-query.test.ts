@@ -23,4 +23,9 @@ describe("domainFromQuery", () => {
     expect(domainFromQuery("Show me your Web3 projects")).toBe("web3");
     expect(domainFromQuery("Show me all your work")).toBe("all");
   });
+
+  test("detects fintech browse", () => {
+    expect(domainFromQuery("show me your fintech work")).toBe("fintech");
+    expect(domainFromQuery("mobile banking experience")).toBe("fintech");
+  });
 });

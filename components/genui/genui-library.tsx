@@ -117,7 +117,11 @@ const BookingExperience = defineComponent({
 });
 
 const ExperienceStack = defineComponent({
-  component: ({ props }) => <ExperienceStackView segments={props.segments} />,
+  component: ({ props }) => (
+    <ExperienceStackView
+      items={Array.isArray(props.children) ? props.children : []}
+    />
+  ),
   description: "Ordered experiences for multi-intent results.",
   name: "ExperienceStack",
   props: experienceStackPropsSchema,

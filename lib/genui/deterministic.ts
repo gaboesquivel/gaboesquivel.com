@@ -10,6 +10,7 @@ import {
 } from "./builders";
 import { composeSearchSections } from "./compose-search";
 import { chooseProjectComposite, chooseWritingComposite } from "./composites";
+import { composeCuratedDocument } from "./curated-responses";
 import { domainFromQuery } from "./domain-from-query";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
@@ -69,7 +70,10 @@ export const tierZeroDocument = ({
 }: {
   query: string;
   requestId: string;
-}) => exactMap[normalizeGenuiQuery(query)]?.({ requestId }) ?? null;
+}) =>
+  composeCuratedDocument({ query, requestId }) ??
+  exactMap[normalizeGenuiQuery(query)]?.({ requestId }) ??
+  null;
 
 export const buildSearchDocument = ({
   query,

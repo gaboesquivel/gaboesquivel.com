@@ -11,7 +11,7 @@ export const catalogProjects = projects.map((project) => ({
   tech: project.tech,
   title: project.title,
   type: project.type,
-  url: `${siteOrigin}/project/${project.slug}`,
+  url: `/project/${project.slug}`,
   year: project.year,
 }));
 
@@ -22,7 +22,7 @@ export const catalogFeaturedProjects = featuredProjectSlugs.flatMap((slug) => {
         {
           slug: project.slug,
           title: project.title,
-          url: `${siteOrigin}/project/${project.slug}`,
+          url: `/project/${project.slug}`,
         },
       ]
     : [];

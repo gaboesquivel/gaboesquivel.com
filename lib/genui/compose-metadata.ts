@@ -5,8 +5,10 @@ import { projectsFromPublicIds } from "./project-from-id";
 import { mediaBackedProjectCount } from "./select-project-composition";
 import type { GenuiTaskIntent } from "./task-intent";
 import { classifyTaskIntent } from "./task-intent";
+import { assessTaskCoverage, planTasks } from "./task-plan";
 
 export interface ComposeResultMetadata {
+  taskCoverage?: ReturnType<typeof assessTaskCoverage>;
   composite?: string;
   domain?: string;
   experience?: string;
@@ -60,6 +62,7 @@ export const metadataFromEnvelope = ({
 
   return {
     ...base,
+    taskCoverage: assessTaskCoverage(planTasks(query), resolved),
     composite,
     domain,
     experience,

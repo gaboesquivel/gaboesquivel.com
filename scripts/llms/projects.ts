@@ -145,7 +145,7 @@ export const renderTechMarkdown = (tech: TechStackItem) => {
       "",
       ...rankedProjects.map(
         (project) =>
-          `- [${project.title}](${absoluteUrl(`/project/${project.slug}`)}) (${project.year})`
+          `- [${project.title}](/project/${project.slug}) (${project.year})`
       )
     );
     lines.push("");

@@ -40,7 +40,16 @@ const capabilityTypeMap: Record<
   web3: { display: "Web3", url: "/web3" },
 };
 
-export function ProjectCaseStudy({ project }: { project: Project }) {
+export function ProjectCaseStudy({
+  project,
+  context = "page",
+}: {
+  project: Project;
+  /** In-panel GenUI search uses tighter intro and section rhythm. */
+  context?: "page" | "genui";
+}) {
+  const genui = context === "genui";
+  const sectionGap = genui ? "mt-8 lg:mt-10" : undefined;
   const validExperienceTypes = (project.type ?? []).flatMap((type) => {
     const mapped = capabilityTypeMap[type];
     return mapped ? [mapped] : [];
@@ -66,24 +75,36 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
     <InteriorPageShell>
       <PageIntro
         compact
+        density={genui ? "panel" : "default"}
         description={project.description.replaceAll("\n", " ")}
         title={project.title}
         trail={[{ href: "/work", label: "work" }, { label: project.title }]}
-      />
+      >
+        {genui && (project.role || project.year) ? (
+          <div className="mt-4 space-y-1">
+            {project.role ? (
+              <p className={cn(projectRole, "max-w-3xl")}>{project.role}</p>
+            ) : null}
+            {project.year ? (
+              <p className="text-sm text-neutral-500">{project.year}</p>
+            ) : null}
+          </div>
+        ) : null}
+      </PageIntro>
 
-      {project.role ? (
+      {!genui && project.role ? (
         <p className={cn(projectRole, "mt-2 max-w-3xl")}>{project.role}</p>
       ) : null}
-      {project.year ? (
+      {!genui && project.year ? (
         <p className="mt-3 text-sm text-neutral-500">{project.year}</p>
       ) : null}
 
-      <FullBleedMedia className="mt-10">
+      <FullBleedMedia className={genui ? "mt-6" : "mt-10"}>
         <ProjectHero href={primaryImageHref} preload project={project} />
       </FullBleedMedia>
 
       {storyLead ? (
-        <EditorialSection label="Context">
+        <EditorialSection className={sectionGap} label="Context">
           <SplitSection sectionSpacing={false}>
             <SplitSectionContent mediaPosition="right" span={5}>
               <Prose className="mt-0">{storyLead}</Prose>
@@ -112,7 +133,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       ) : null}
 
       {!storyLead && project.achievements && project.achievements.length > 0 ? (
-        <PageSection title="Selected contributions">
+        <PageSection className={sectionGap} title="Selected contributions">
           <ul className="max-w-3xl list-disc space-y-4 pl-5 text-base leading-relaxed">
             {project.achievements.map((achievement) => (
               <li key={`${project.slug}-achievement-${achievement}`}>
@@ -134,7 +155,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       ) : null}
 
       {project.images && project.images.length > 0 ? (
-        <EditorialSection title="Artifacts">
+        <EditorialSection className={sectionGap} title="Artifacts">
           <div className="space-y-10">
             {project.images.map((image, index) => (
               <div
@@ -160,7 +181,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       ) : null}
 
       {hasProjectLinks ? (
-        <PageSection title="Project links">
+        <PageSection className={sectionGap} title="Project links">
           {project.link && project.link !== project.repo ? (
             <p className="text-sm">
               <a
@@ -189,7 +210,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       ) : null}
 
       {project.tech.length > 0 ? (
-        <PageSection title="Technologies">
+        <PageSection className={sectionGap} title="Technologies">
           <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             {project.tech.map((tech) => {
               const techItem = getTechStackByTag(tech as Tag);
@@ -212,7 +233,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       ) : null}
 
       {validExperienceTypes.length > 0 ? (
-        <PageSection title="Experience">
+        <PageSection className={sectionGap} title="Experience">
           <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             {validExperienceTypes.map((item) => (
               <li key={`${project.slug}-type-${item.url}`}>

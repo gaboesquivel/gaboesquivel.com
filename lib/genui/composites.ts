@@ -15,6 +15,7 @@ export const compositeNames = [
   "focus-pair",
   "hire-split",
   "cv-document",
+  "cv-preview",
   "capability-showcase",
   "project-bento",
   "project-feature-grid",

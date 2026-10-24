@@ -27,7 +27,10 @@ export const contactComposites: readonly CompositeName[] = ["hire-split"];
 
 export const bookingComposites: readonly CompositeName[] = ["hire-split"];
 
-export const cvComposites: readonly CompositeName[] = ["cv-document"];
+export const cvComposites: readonly CompositeName[] = [
+  "cv-document",
+  "cv-preview",
+];
 
 export const experienceCompositeAllowlist: Partial<
   Record<ExperienceName, readonly CompositeName[]>
@@ -40,10 +43,9 @@ export const experienceCompositeAllowlist: Partial<
   WritingExperience: writingComposites,
 };
 
-/** Not supported for production nested composition (renders segment strings only). */
-export const productionBlockedExperiences: readonly ExperienceName[] = [
-  "ExperienceStack",
-];
+export const productionBlockedExperiences: readonly ExperienceName[] = [];
+
+export const GENUI_MAX_STACK_CHILDREN = 6;
 
 export const GENUI_MAX_DOCUMENT_BYTES = 64 * 1024;
 

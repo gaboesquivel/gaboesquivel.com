@@ -40,12 +40,14 @@ describe("composeIntentDocument", () => {
     expect(doc?.openuiText).toContain("project-bento");
   });
 
-  test("experience question does not return project showcase", () => {
+  test("experience question uses evidence answer with projects", () => {
     const doc = composeIntentDocument({
       query: "What is your experience building AI agents with TypeScript?",
       requestId: "r",
     });
-    expect(doc).toBeNull();
+    expect(doc?.openuiText).toContain("ExperienceStack");
+    expect(doc?.openuiText).toContain("ProjectExperience");
+    expect(doc?.openuiText).not.toContain("CapabilityShowcaseExperience");
   });
 
   test("architecture question uses capability showcase", () => {

@@ -13,6 +13,17 @@ export type MatrixGrade = "PASS" | "FAIL" | "SKIP" | "NOT_RUN";
 export const rootExperienceFromOpenUi = (openuiText: string) =>
   openuiText.match(/^\s*root\s*=\s*(\w+)/)?.[1] ?? null;
 
+export const effectiveExperienceForGrading = (openuiText: string) => {
+  const root = rootExperienceFromOpenUi(openuiText);
+  if (root === "ExperienceStack") {
+    if (openuiText.includes("ProjectExperience")) return "ProjectExperience";
+    if (openuiText.includes("WritingExperience")) return "WritingExperience";
+    if (openuiText.includes("CVExperience")) return "CVExperience";
+    if (openuiText.includes("Answer")) return "Answer";
+  }
+  return root;
+};
+
 const familySatisfied = ({
   experience,
   families,
@@ -57,7 +68,7 @@ export const gradeQueryMatrixFixture = ({
     return { grade: "FAIL", reason: `invalid compile: ${compile.code}` };
   }
 
-  const experience = rootExperienceFromOpenUi(envelope.openuiText);
+  const experience = effectiveExperienceForGrading(envelope.openuiText);
   if (
     fixture.expectedCompositeFamilies.length &&
     !familySatisfied({

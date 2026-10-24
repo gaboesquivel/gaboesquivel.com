@@ -53,6 +53,37 @@ export const wantsExplainExperience = (query: string) =>
     query
   ) && !wantsBrowseProjects(query);
 
+export const wantsEngagement = (query: string) =>
+  /\b(how could we work together|work together|open to contract|open to full-?time|are you open to|engagement options|how do we work)\b/i.test(
+    query
+  );
+
+export const wantsCv = (query: string) =>
+  /\b(cv|curriculum|curr[ií]culum|r[eé]sum[eé]|resume|résumé)\b/i.test(query);
+
+export const wantsBooking = (query: string) =>
+  (/\b(book|booking|schedule|agendar|reservar)\b/i.test(query) &&
+    /\b(meeting|call|llamada|cita|intro|availability|booking|time with you)\b/i.test(
+      query
+    )) ||
+  /\bbook me\b/i.test(query);
+
+export const wantsContactForm = (query: string) =>
+  /\b(send email|reach you by email|email me|send a note|project inquiry)\b/i.test(
+    query
+  ) ||
+  /how can i contact/i.test(query) ||
+  /senior typescript engineer/i.test(query) ||
+  /vorrei contatt/i.test(query) ||
+  (/\b(contact|reach|touch|inquir|inquiry|hire|contrat|contatt)/i.test(query) &&
+    !wantsProjectsLanguage(query) &&
+    !wantsEngagement(query));
+
+export const wantsWritingBrowse = (query: string) =>
+  /\b(article|articles|blog|post|posts|writing|publication|latest)\b/i.test(
+    query
+  );
+
 export const wantsCareerTimeline = (query: string) =>
   /\b(career (story|timeline|journey|history)|professional (journey|background)|your journey|your career|how did you (start|get started)|trayectoria|historia profesional|linea de tiempo|línea de tiempo)\b/i.test(
     query
@@ -62,23 +93,21 @@ export const classifyTaskIntent = (query: string): GenuiTaskIntent => {
   const trimmed = query.trim();
   if (!trimmed) return "unknown";
 
-  if (/\b(cv|curriculum|curr[ií]culum|r[eé]sum[eé]|resume)\b/i.test(trimmed)) {
+  if (wantsCv(trimmed)) {
     return "cv";
   }
-  if (
-    (/\b(book|booking|schedule|agendar|reservar)\b/i.test(trimmed) &&
-      /\b(meeting|call|llamada|cita|intro|availability|booking)\b/i.test(
-        trimmed
-      )) ||
-    /\bbook me\b/i.test(trimmed)
-  ) {
+  if (wantsBooking(trimmed)) {
     return "booking";
   }
+  if (wantsEngagement(trimmed)) {
+    return "contact";
+  }
   if (
-    /\b(contact|reach|touch|inquir|inquiry|hire|contrat|contatt)/i.test(
+    wantsContactForm(trimmed) ||
+    (/\b(contact|reach|touch|inquir|inquiry|hire|contrat|contatt)/i.test(
       trimmed
     ) &&
-    (!wantsProjectsLanguage(trimmed) || /\binquiry\b/i.test(trimmed))
+      (!wantsProjectsLanguage(trimmed) || /\binquiry\b/i.test(trimmed)))
   ) {
     return "contact";
   }

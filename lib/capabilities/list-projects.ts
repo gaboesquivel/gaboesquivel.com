@@ -1,5 +1,4 @@
 import { projects } from "gaboesquivel";
-import { siteOrigin } from "lib/site-path";
 import { featuredProjectSlugs, isWorkType } from "lib/work-types";
 
 import { paginate } from "./pagination";
@@ -11,7 +10,7 @@ const projectRecord = (project: (typeof projects)[number]) => ({
   description: project.description,
   slug: project.slug,
   title: project.title,
-  url: `${siteOrigin}/project/${project.slug}`,
+  url: `/project/${project.slug}`,
   year: project.year,
 });
 

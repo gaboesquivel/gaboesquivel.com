@@ -35,8 +35,24 @@ export const selectProjectComposition = ({
   if (count === 4) {
     return "project-bento";
   }
-  if (count >= 5 && count <= 8) {
+  if (count >= 5) {
     return "project-asymmetric-closing";
   }
   return "project-compact-list";
+};
+
+const leadVisualCount = (total: number) => {
+  if (total <= 8) return total;
+  return 8;
+};
+
+export const splitLeadAndRemainderProjects = (projects: Project[]) => {
+  const leadCount = leadVisualCount(projects.length);
+  const lead = projects.slice(0, leadCount);
+  const remainder = projects.slice(leadCount);
+  const leadComposite = selectProjectComposition({
+    intent: "browse-projects",
+    projects: lead,
+  });
+  return { lead, leadComposite, remainder };
 };

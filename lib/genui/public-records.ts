@@ -1,5 +1,4 @@
 import type { Project } from "gaboesquivel";
-import { siteOrigin } from "lib/site-path";
 
 import { cvDownloadPayload } from "../connect/cv-download";
 import type { PublicRecord } from "./envelope";
@@ -22,5 +21,5 @@ export const projectToPublicRecord = (project: Project): PublicRecord => ({
   kind: "project",
   slug: project.slug,
   title: project.title,
-  url: `${siteOrigin}/project/${project.slug}`,
+  url: `/project/${project.slug}`,
 });

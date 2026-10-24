@@ -1,119 +1,48 @@
-import { getProjectBySlug, projects } from "gaboesquivel";
-import { allBlogs } from "lib/blog";
+import { projects } from "gaboesquivel";
 import { siteOrigin } from "lib/site-path";
-import { featuredProjectSlugs } from "lib/work-types";
 
 import {
-  timelineDocument,
   answerDocument,
   bookingDocument,
   capabilityShowcaseDocument,
-  contactDocument,
-  cvDocument,
   projectDocument,
+  stackDocument,
   writingDocument,
 } from "./builders";
-import { chooseProjectComposite, chooseWritingComposite } from "./composites";
+import { chooseWritingComposite } from "./composites";
+import {
+  isCompoundComposeQuery,
+  parseComposeSections,
+} from "./compound-intent";
+import { postRecord, profileRecord, publishedPosts } from "./content-records";
+import { openUiStringList, openUiStringLiteral } from "./contract/serialize";
+import { composeCuratedDocument } from "./curated-responses";
 import { domainFromQuery } from "./domain-from-query";
-import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import type { CompositionEnvelope } from "./envelope";
+import { explainExperienceDocument } from "./explain-experience";
 import { normalizeGenuiQuery } from "./normalize-query";
 import { orderBrowseProjects } from "./project-browse";
-import { cvPublicRecord, projectToPublicRecord } from "./public-records";
-import { selectProjectComposition } from "./select-project-composition";
+import type { GenuiProjectDomain } from "./project-domain";
+import { filterProjectsByDomain } from "./project-domain";
+import { projectsMatchingQuery } from "./project-query-match";
+import { projectToPublicRecord } from "./public-records";
 import {
-  wantsCareerTimeline,
+  composeSectionsDocument,
+  browseProjectsEnvelope,
+} from "./section-compose";
+import {
+  selectProjectComposition,
+  splitLeadAndRemainderProjects,
+} from "./select-project-composition";
+import {
   classifyTaskIntent,
   wantsArchitectureIntent,
+  wantsBooking,
   wantsBrowseProjects,
   wantsProjectsLanguage,
+  wantsWritingBrowse,
 } from "./task-intent";
-
-const profileRecord = ({
-  id = "profile",
-  title,
-  url,
-}: {
-  id?: string;
-  title: string;
-  url: string;
-}): PublicRecord => ({
-  id,
-  kind: "profile",
-  title,
-  url,
-});
-
-const postRecord = (post: (typeof allBlogs)[number]): PublicRecord => ({
-  excerpt: post.summary ?? "",
-  id: `/blog/${post.slug}`,
-  kind: "post",
-  publishedAt: post.publishedAt,
-  slug: post.slug,
-  title: post.title,
-  url: `${siteOrigin}/blog/${post.slug}`,
-});
-
-const publishedPosts = () =>
-  allBlogs
-    .filter((post) => post.publishedAt >= "2020")
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
-
-const filterProjectsByDomain = (domain: "ai" | "web3" | "all") => {
-  if (domain === "all") return [...projects];
-  if (domain === "ai" || domain === "web3") {
-    return projects.filter((project) => project.type.includes(domain));
-  }
-  return [];
-};
-
-const findProjectByName = (query: string) => {
-  const normalized = normalizeGenuiQuery(query);
-  return projects.find(
-    (project) =>
-      normalized.includes(project.slug.replace(/-/g, " ")) ||
-      normalized.includes(project.title.toLowerCase()) ||
-      normalized.includes(project.slug)
-  );
-};
-
-const findComparedProjects = (query: string) => {
-  const normalized = normalizeGenuiQuery(query);
-  const matched = projects.filter(
-    (project) =>
-      normalized.includes(project.slug.replace(/-/g, " ")) ||
-      normalized.includes(project.title.toLowerCase()) ||
-      normalized.includes(project.slug)
-  );
-  return matched.slice(0, 3);
-};
-
-const wantsCv = (query: string) =>
-  /\b(cv|curriculum|curr[ií]culum|r[eé]sum[eé]|resume)\b/i.test(query);
-
-const wantsBooking = (query: string) =>
-  (/\b(book|booking|schedule|agendar|reservar)\b/i.test(query) &&
-    /\b(meeting|call|llamada|cita|intro|availability|booking)\b/i.test(
-      query
-    )) ||
-  /\bbook me\b/i.test(query);
-
-const wantsContact = (query: string) =>
-  /\b(contact|reach|touch|inquir|inquiry|hire|contrat|contatt)/i.test(query) ||
-  /how can i contact/i.test(query) ||
-  /project inquiry/i.test(query) ||
-  /senior typescript engineer/i.test(query) ||
-  /vorrei contatt/i.test(query);
-
-const wantsWriting = (query: string) =>
-  /\b(article|articles|blog|post|posts|writing|publication)\b/i.test(query) ||
-  /\blatest\b/i.test(query);
-
-const writingDomainFromQuery = (query: string) => {
-  if (/\bweb3\b/i.test(query)) return "web3";
-  if (/\b(ai|generative interface|genui|mcp app|declarative ui)\b/i.test(query))
-    return "ai";
-  return null;
-};
+import { writingCategoryFromText } from "./writing-category";
 
 const isOutOfScopeRealtime = (query: string) =>
   /\b(weather|temperature)\b.*\b(right now|today|currently)\b/i.test(query) ||
@@ -152,27 +81,11 @@ const wantsFabrication = (query: string) =>
 
 export const browseProjectsDocument = ({
   domain,
-  intent,
   requestId,
 }: {
-  domain: "ai" | "web3" | "all";
-  intent: ReturnType<typeof classifyTaskIntent>;
+  domain: GenuiProjectDomain;
   requestId: string;
-}) => {
-  const filtered = filterProjectsByDomain(domain);
-  if (!filtered.length) return null;
-  const ordered = orderBrowseProjects({ domain, projects: filtered });
-  const records = ordered.map(projectToPublicRecord);
-  const projectIds = records.map((record) => record.id);
-  const composite = selectProjectComposition({ intent, projects: ordered });
-  return projectDocument({
-    composite,
-    domain: domain === "all" ? undefined : domain,
-    projectIds,
-    records,
-    requestId,
-  });
-};
+}) => browseProjectsEnvelope({ domain, requestId });
 
 export const composeIntentDocument = ({
   query,
@@ -207,105 +120,21 @@ export const composeIntentDocument = ({
     });
   }
 
-  if (wantsCompensation(trimmed)) {
-    const contact = profileRecord({
-      id: "/contact",
-      title: "Contact",
-      url: `${siteOrigin}/contact`,
-    });
-    return answerDocument({
-      body: "Compensation is not listed publicly on this site. Use the contact or booking flow if you want to discuss a role or engagement.",
-      records: [contact],
-      requestId,
-      sourceIds: [contact.id],
-    });
-  }
+  const curated = composeCuratedDocument({ query: trimmed, requestId });
+  if (curated) return curated;
 
-  if (wantsUnpublished(trimmed) || wantsFabrication(trimmed)) {
+  if (wantsQuantum(trimmed)) {
     return answerDocument({
-      body: "I only share published projects and writing from this site. I will not invent or disclose unpublished work.",
+      body: "No published quantum computing projects are listed on this site. Browse /work for the full public portfolio.",
       records: [],
       requestId,
       sourceIds: [],
     });
   }
 
-  if (wantsCv(trimmed)) {
-    return cvDocument({ record: cvPublicRecord(), requestId });
-  }
-
-  if (wantsBooking(trimmed)) {
-    return bookingDocument({
-      records: [
-        profileRecord({
-          title: "Book a call",
-          url: `${siteOrigin}/contact`,
-        }),
-      ],
-      requestId,
-    });
-  }
-
-  if (
-    wantsContact(trimmed) &&
-    (!wantsProjectsLanguage(trimmed) || /\binquiry\b/i.test(trimmed))
-  ) {
-    return contactDocument({
-      records: [
-        profileRecord({
-          title: "Contact",
-          url: `${siteOrigin}/contact`,
-        }),
-      ],
-      requestId,
-    });
-  }
-
-  if (wantsCareerTimeline(trimmed)) return timelineDocument({ requestId });
-
-  if (taskIntent === "explain-experience" || taskIntent === "profile") {
-    return null;
-  }
-
-  if (taskIntent === "compare-projects") {
-    const compared = findComparedProjects(trimmed);
-    if (compared.length >= 2 && compared.length <= 3) {
-      const records = compared.map(projectToPublicRecord);
-      const projectIds = records.map((record) => record.id);
-      const composite = selectProjectComposition({
-        intent: "compare-projects",
-        projects: compared,
-      });
-      const domain = domainFromQuery(trimmed);
-      return projectDocument({
-        composite,
-        domain: domain === "ai" || domain === "web3" ? domain : undefined,
-        projectIds,
-        records,
-        requestId,
-      });
-    }
-    return null;
-  }
-
-  const named = findProjectByName(trimmed);
-  if (
-    named &&
-    (taskIntent === "project-detail" ||
-      /\b(show|tell|about|project)\b/i.test(trimmed))
-  ) {
-    const record = projectToPublicRecord(named);
-    return projectDocument({
-      composite: "case-study",
-      projectIds: [record.id],
-      records: [record],
-      requestId,
-    });
-  }
-
-  if (wantsQuantum(trimmed)) {
+  if (wantsUnpublished(trimmed) || wantsFabrication(trimmed)) {
     return answerDocument({
-      body: "No published quantum computing projects are listed on this site. Browse /work for the full public portfolio.",
+      body: "I only share published projects and writing from this site. I will not invent or disclose unpublished work.",
       records: [],
       requestId,
       sourceIds: [],
@@ -326,12 +155,100 @@ export const composeIntentDocument = ({
     }
     const records = matched.map(projectToPublicRecord);
     const projectIds = records.map((record) => record.id);
-    return projectDocument({
-      composite: chooseProjectComposite({ projectIds }),
-      projectIds,
-      records,
+    const ordered = orderBrowseProjects({ domain: "all", projects: matched });
+    const { lead, leadComposite, remainder } =
+      splitLeadAndRemainderProjects(ordered);
+    if (!remainder.length) {
+      return projectDocument({
+        composite: selectProjectComposition({
+          intent: "browse-projects",
+          projects: ordered,
+        }),
+        projectIds,
+        records,
+        requestId,
+      });
+    }
+    const leadRecords = lead.map(projectToPublicRecord);
+    const leadIds = leadRecords.map((record) => record.id);
+    const remainderRecords = remainder.map(projectToPublicRecord);
+    const remainderIds = remainderRecords.map((record) => record.id);
+    return stackDocument({
+      childExpressions: [
+        `ProjectExperience(${openUiStringLiteral(leadComposite)}, ${openUiStringList(leadIds)})`,
+        `ProjectExperience(${openUiStringLiteral("project-compact-list")}, ${openUiStringList(remainderIds)})`,
+      ],
+      fallbackText: "TypeScript projects",
+      records: [...leadRecords, ...remainderRecords],
       requestId,
     });
+  }
+
+  const named = projectsMatchingQuery(trimmed)[0];
+  if (
+    named &&
+    (taskIntent === "project-detail" ||
+      /\b(show|tell|about)\b/i.test(trimmed)) &&
+    !isCompoundComposeQuery(trimmed)
+  ) {
+    const record = projectToPublicRecord(named);
+    return projectDocument({
+      composite: "case-study",
+      projectIds: [record.id],
+      records: [record],
+      requestId,
+    });
+  }
+
+  const sections = parseComposeSections(trimmed);
+  const onlyExplainExperience =
+    sections.length === 1 && sections[0]?.type === "explain-experience";
+  if (sections.length >= 1 && !onlyExplainExperience) {
+    const sectionDoc = composeSectionsDocument({ requestId, sections });
+    if (sectionDoc) return sectionDoc;
+  }
+
+  if (wantsCompensation(trimmed)) {
+    const contact = profileRecord({
+      id: "/contact",
+      title: "Contact",
+      url: `${siteOrigin}/contact`,
+    });
+    return answerDocument({
+      body: "Compensation is not listed publicly on this site. Use the contact or booking flow if you want to discuss a role or engagement.",
+      records: [contact],
+      requestId,
+      sourceIds: [contact.id],
+    });
+  }
+
+  if (taskIntent === "explain-experience") {
+    return explainExperienceDocument({ query: trimmed, requestId });
+  }
+
+  if (taskIntent === "profile") {
+    return null;
+  }
+
+  if (taskIntent === "compare-projects") {
+    const compared = projectsMatchingQuery(trimmed).slice(0, 3);
+    if (compared.length >= 2 && compared.length <= 3) {
+      const records = compared.map(projectToPublicRecord);
+      const projectIds = records.map((record) => record.id);
+      const composite = selectProjectComposition({
+        intent: "compare-projects",
+        projects: compared,
+      });
+      const domain = domainFromQuery(trimmed);
+      return projectDocument({
+        composite,
+        domain: domain === "ai" || domain === "web3" ? domain : undefined,
+        projectIds,
+        records,
+        requestId,
+      });
+    }
+    return null;
   }
 
   if (
@@ -355,7 +272,7 @@ export const composeIntentDocument = ({
   ) {
     const domain = domainFromQuery(trimmed) ?? "ai";
     if (domain === "ai" || domain === "web3") {
-      const filtered = filterProjectsByDomain(domain);
+      const filtered = filterProjectsByDomain({ domain });
       if (filtered.length) {
         const ordered = orderBrowseProjects({ domain, projects: filtered });
         const records = ordered.map(projectToPublicRecord);
@@ -378,13 +295,12 @@ export const composeIntentDocument = ({
   ) {
     return browseProjectsDocument({
       domain,
-      intent: "browse-projects",
       requestId,
     });
   }
 
-  if (wantsWriting(trimmed)) {
-    const category = writingDomainFromQuery(trimmed);
+  if (wantsWritingBrowse(trimmed)) {
+    const category = writingCategoryFromText(trimmed);
     const posts = publishedPosts().filter((post) =>
       category
         ? (post.category ?? []).some((item) => item.toLowerCase() === category)
@@ -408,19 +324,5 @@ export const composeIntentDocument = ({
     }
   }
 
-  if (
-    /\b(who is gabo|professional background|technology stack|experience building ai agents|how long have you been)\b/i.test(
-      trimmed
-    )
-  ) {
-    return null;
-  }
-
   return null;
 };
-
-export const catalogHasProjectSlug = (slug: string) =>
-  Boolean(getProjectBySlug(slug));
-
-export const featuredProjectIds = () =>
-  featuredProjectSlugs.map((slug) => `/project/${slug}`);

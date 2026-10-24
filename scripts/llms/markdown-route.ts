@@ -70,7 +70,7 @@ const renderWorkMarkdown = (type: string) => {
       llmsListItem({
         name: project.title,
         note: projectDescriptionLine(project.description),
-        url: absoluteUrl(`/project/${project.slug}`),
+        url: `/project/${project.slug}`,
       })
     ),
   ];

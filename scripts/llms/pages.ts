@@ -6,6 +6,8 @@ import { getProjectBySlug, techStack } from "gaboesquivel";
 import type { CvKey } from "gaboesquivel";
 
 import { techBrowseCategories } from "../../components/tech/categories";
+import { bioChapters } from "../../lib/bio/chapters";
+import type { BioParagraph } from "../../lib/bio/chapters";
 import { newestPosts } from "../../lib/blog-order";
 import {
   postMatchesBrowseCategory,
@@ -222,13 +224,37 @@ const renderPostLinks = ({
     .join("\n");
 };
 
+const paragraphToMarkdown = (paragraph: BioParagraph) =>
+  paragraph
+    .map((segment) =>
+      typeof segment === "string"
+        ? segment
+        : `[${segment.label}](${absoluteUrl(segment.href)})`
+    )
+    .join("");
+
+const renderBioTimelineMarkdown = () => {
+  const lines: string[] = [];
+  for (const chapter of bioChapters) {
+    lines.push(`## ${chapter.title}`, "");
+    for (const paragraph of chapter.summaryParagraphs) {
+      lines.push(paragraphToMarkdown(paragraph), "");
+    }
+    for (const paragraph of chapter.expandedParagraphs) {
+      lines.push(paragraphToMarkdown(paragraph), "");
+    }
+    for (const link of chapter.links) {
+      lines.push(`[${link.label}](${absoluteUrl(link.href)})`, "");
+    }
+  }
+  return lines.join("\n").trim();
+};
+
 const renderProjectLinks = (slugs: string[]) =>
   slugs
     .flatMap((slug) => {
       const project = getProjectBySlug(slug);
-      return project
-        ? [`- [${project.title}](${absoluteUrl(`/project/${slug}`)})`]
-        : [];
+      return project ? [`- [${project.title}](/project/${slug})`] : [];
     })
     .join("\n");
 
@@ -413,10 +439,7 @@ const jsxNodeToMarkdown = (
       if (typeof slug === "string") {
         const project = getProjectBySlug(slug);
         if (project) {
-          lines.push(
-            `[Explore ${project.title}](${absoluteUrl(`/project/${slug}`)})`,
-            ""
-          );
+          lines.push(`[Explore ${project.title}](/project/${slug})`, "");
         }
       }
       return;
@@ -467,6 +490,21 @@ const jsxNodeToMarkdown = (
       if (typeof description === "string" && description) {
         lines.push(description, "");
       }
+      return;
+    }
+
+    if (tagName === "BioHero") {
+      lines.push(
+        "# My journey",
+        "",
+        "A 15+ year journey building products across web, fintech, Web3, and AI. Different chapters, the same interest: making complex technology useful to people.",
+        ""
+      );
+      return;
+    }
+
+    if (tagName === "BioTimeline") {
+      lines.push(renderBioTimelineMarkdown(), "");
       return;
     }
 
@@ -547,7 +585,7 @@ const jsxNodeToMarkdown = (
               ? title
               : getProjectBySlug(slug)?.title;
         if (label) {
-          lines.push(`[${label}](${absoluteUrl(`/project/${slug}`)})`, "");
+          lines.push(`[${label}](/project/${slug})`, "");
         }
       }
       return;

@@ -33,7 +33,7 @@ describe("markdown corpus", () => {
     ] as const) {
       const markdown = getMarkdownForPath({ pathname });
       for (const slug of slugs) {
-        expect(markdown).toContain(`https://gaboesquivel.com/project/${slug}`);
+        expect(markdown).toContain(`/project/${slug}`);
       }
     }
   });
@@ -55,10 +55,10 @@ describe("markdown corpus", () => {
     expect(web3).not.toContain("Work together");
 
     const bio = getMarkdownForPath({ pathname: "/bio" });
-    expect(bio).toContain("# Career story");
+    expect(bio).toContain("# My journey");
     expect(bio).toContain("## Interfaces and a JavaScript community");
-    expect(bio).toContain("https://gaboesquivel.com/project/costa-rica-js");
-    expect(bio).toContain("https://gaboesquivel.com/project/wink");
+    expect(bio).toContain("/project/costa-rica-js");
+    expect(bio).toContain("/project/wink");
     expect(bio).toContain("From 2012, I also helped organize");
     expect(bio).not.toContain("founded Costa Rica JS");
     expect(bio).not.toContain("Grant Thornton");

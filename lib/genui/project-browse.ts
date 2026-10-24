@@ -11,7 +11,7 @@ export const orderBrowseProjects = ({
   domain,
   projects,
 }: {
-  domain: "ai" | "web3" | "all";
+  domain: "ai" | "web3" | "fintech" | "all";
   projects: Project[];
 }) => {
   const priority =
@@ -19,7 +19,9 @@ export const orderBrowseProjects = ({
       ? aiBrowsePrioritySlugs
       : domain === "web3"
         ? (["wink", "ztx", "opyn", "eos-costa-rica"] as const)
-        : ([] as const);
+        : domain === "fintech"
+          ? (["wink"] as const)
+          : ([] as const);
   const bySlug = new Map(projects.map((project) => [project.slug, project]));
   const ordered: Project[] = [];
   for (const slug of priority) {

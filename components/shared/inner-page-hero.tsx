@@ -15,25 +15,36 @@ export function InnerPageHero({
   title,
   description,
   compact = false,
+  density = "default",
   className,
+  children,
 }: {
   trail?: PageTrailSegment[];
   title: ReactNode;
   description?: string;
   compact?: boolean;
+  /** Tighter intro for in-panel GenUI results; only applies with `compact`. */
+  density?: "default" | "panel";
   className?: string;
+  children?: ReactNode;
 }) {
   const hasTrail = Boolean(trail?.length);
+  const panel = compact && density === "panel";
 
   return (
-    <header className={cn(compact ? "mb-8" : "mb-12 lg:mb-16", className)}>
+    <header
+      className={cn(
+        panel ? "mb-4" : compact ? "mb-8" : "mb-12 lg:mb-16",
+        className
+      )}
+    >
       {hasTrail ? <PageTrail segments={trail ?? []} /> : null}
       <PageTitle
         className={cn(
           compact
             ? cn(pageTitle, "mb-0 max-w-none")
             : cn(heroTitle, "mb-0 max-w-none"),
-          hasTrail && "mt-4"
+          hasTrail && (panel ? "mt-2" : "mt-4")
         )}
       >
         {title}
@@ -42,13 +53,16 @@ export function InnerPageHero({
         <p
           className={
             compact
-              ? cn(proseClass, "mt-4 max-w-[55ch] text-neutral-300")
+              ? panel
+                ? "mt-3 max-w-[55ch] text-base leading-relaxed text-neutral-300"
+                : cn(proseClass, "mt-4 max-w-[55ch] text-neutral-300")
               : heroPitch
           }
         >
           {description}
         </p>
       ) : null}
+      {children}
     </header>
   );
 }

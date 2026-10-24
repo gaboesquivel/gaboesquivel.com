@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 
 import type { CapabilityContext } from "../capabilities/types";
 import { contactDocument, cvDocument, projectDocument } from "./builders";
+import { catalogOperationDocument } from "./catalog-operation";
 import type { ComposeResultMetadata } from "./compose-metadata";
 import { metadataFromEnvelope } from "./compose-metadata";
 import { composeSearchSections } from "./compose-search";
@@ -16,6 +17,7 @@ import { COMPOSITION_FAILED_MESSAGE } from "./messages";
 import { projectsFromPublicIds } from "./project-from-id";
 import { cvPublicRecord } from "./public-records";
 import { browseProjectsDocument, composeIntentDocument } from "./query-intent";
+import { buildRequestPlan, retrievePlanEvidence } from "./request-plan";
 import { sectionToRecord } from "./search-records";
 import { selectProjectComposition } from "./select-project-composition";
 import { generateSemanticDocument } from "./semantic";
@@ -58,12 +60,13 @@ const documentFromDecision = ({
   }
   if (decision.taskIntent === "browse-projects") {
     const domain =
-      decision.domain === "ai" || decision.domain === "web3"
+      decision.domain === "ai" ||
+      decision.domain === "web3" ||
+      decision.domain === "fintech"
         ? decision.domain
         : "all";
     return browseProjectsDocument({
       domain,
-      intent: "browse-projects",
       requestId,
     });
   }
@@ -141,6 +144,7 @@ export const composeQuery = async ({
   }
   const requestId = context.correlationId || nanoid();
   const taskIntent = classifyTaskIntent(query);
+  const requestPlan = buildRequestPlan(query);
   let sequence = 0;
   const events: ComposeStreamEvent[] = [];
   const emit = (event: ComposeStreamEvent) => {
@@ -195,7 +199,9 @@ export const composeQuery = async ({
     return true;
   };
 
-  const exact = tierZeroDocument({ query, requestId });
+  const exact =
+    catalogOperationDocument({ query, requestId }) ??
+    tierZeroDocument({ query, requestId });
   if (exact) {
     emitValidated({ envelope: exact, type: "complete" });
     return {
@@ -208,7 +214,17 @@ export const composeQuery = async ({
     };
   }
 
-  const intent = composeIntentDocument({ query, requestId });
+  const candidate = composeIntentDocument({ query, requestId });
+  const candidateCheck = candidate
+    ? validateCompositionEnvelope({ envelope: candidate })
+    : null;
+  // Deterministic policy limitations must remain available without model credentials.
+  const policyLimitation =
+    candidateCheck?.ok &&
+    candidateCheck.compiled.experience === "Answer" &&
+    candidateCheck.compiled.referencedRecordIds.length === 0;
+  const intent =
+    !requestPlan.requiresSynthesis || policyLimitation ? candidate : null;
   if (intent) {
     tier = 1;
     emitValidated({ envelope: intent, type: "complete" });
@@ -235,7 +251,7 @@ export const composeQuery = async ({
       tier,
     };
   }
-  if (decision && !decision.needsSynthesis) {
+  if (decision && !decision.needsSynthesis && !requestPlan.requiresSynthesis) {
     const doc = documentFromDecision({ decision, requestId });
     if (doc) {
       emitValidated({ envelope: doc, type: "complete" });
@@ -252,13 +268,11 @@ export const composeQuery = async ({
 
   tier = 2;
   const resolvedTaskIntent = decision?.taskIntent ?? taskIntent;
-  if (resolvedTaskIntent === "explain-experience") {
-    const evidenceRecords = composeSearchSections({ limit: 6, query }).flatMap(
-      (item) => {
-        const record = sectionToRecord(item);
-        return record ? [record] : [];
-      }
-    );
+  if (
+    resolvedTaskIntent === "explain-experience" ||
+    requestPlan.requiresSynthesis
+  ) {
+    const evidenceRecords = retrievePlanEvidence(requestPlan);
     const semantic = await generateSemanticDocument({
       query,
       records: evidenceRecords,
@@ -279,11 +293,13 @@ export const composeQuery = async ({
     }
   }
 
-  const searched = buildSearchDocument({
-    query,
-    requestId,
-    taskIntent: resolvedTaskIntent,
-  });
+  const searched = requestPlan.requiresSynthesis
+    ? null
+    : buildSearchDocument({
+        query,
+        requestId,
+        taskIntent: resolvedTaskIntent,
+      });
   if (searched) {
     if (emitValidated({ envelope: searched, type: "partial" })) {
       emitValidated({ envelope: searched, type: "complete" });
@@ -304,12 +320,15 @@ export const composeQuery = async ({
       return record ? [record] : [];
     }
   );
-  const semantic = await generateSemanticDocument({
-    query,
-    records: evidenceRecords,
-    requestId,
-    signal,
-  });
+  const semantic =
+    resolvedTaskIntent === "explain-experience" || requestPlan.requiresSynthesis
+      ? null
+      : await generateSemanticDocument({
+          query,
+          records: evidenceRecords,
+          requestId,
+          signal,
+        });
   if (semantic) {
     modelCalls += semantic.modelCalls;
     emitValidated({ envelope: semantic.envelope, type: "complete" });

@@ -19,6 +19,7 @@ export function PageIntro({
   titleClassName,
   trail,
   compact,
+  density = "default",
   narrative = false,
   children,
 }: {
@@ -29,6 +30,7 @@ export function PageIntro({
   titleClassName?: string;
   trail?: PageTrailSegment[];
   compact?: boolean;
+  density?: "default" | "panel";
   /** One left-aligned reading block. No second column and no intro image. */
   narrative?: boolean;
   children?: ReactNode;
@@ -57,10 +59,13 @@ export function PageIntro({
       <InnerPageHero
         className={titleClassName}
         compact={compact}
+        density={density}
         description={description}
         title={title}
         trail={trail}
-      />
+      >
+        {children}
+      </InnerPageHero>
     </div>
   );
 }

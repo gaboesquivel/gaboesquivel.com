@@ -27,7 +27,7 @@ const envelope = ({
 });
 
 export const cvDocument = ({
-  composite = "cv-document",
+  composite = "cv-preview",
   focus = "full",
   record,
   requestId,
@@ -150,6 +150,78 @@ export const bookingDocument = ({
     records,
     requestId,
   });
+
+const splitTopLevelExpressions = (body: string) => {
+  const parts: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let index = 0; index < body.length; index += 1) {
+    const char = body[index];
+    if (char === "(") depth += 1;
+    if (char === ")") depth -= 1;
+    if (char === "," && depth === 0) {
+      parts.push(body.slice(start, index).trim());
+      start = index + 1;
+    }
+  }
+  parts.push(body.slice(start).trim());
+  return parts.filter(Boolean);
+};
+
+export const childExpressionsFromOpenUi = (openuiText: string) => {
+  const inner = openuiText.replace(/^\s*root\s*=\s*/, "").trim();
+  const stackBody = inner.match(/^ExperienceStack\(\[(.*)\]\)$/)?.[1];
+  if (stackBody) return splitTopLevelExpressions(stackBody);
+  return [inner];
+};
+
+export const stackDocument = ({
+  childExpressions,
+  fallbackText,
+  records,
+  requestId,
+}: {
+  childExpressions: string[];
+  fallbackText: string;
+  records: PublicRecord[];
+  requestId: string;
+}) =>
+  envelope({
+    fallbackText,
+    openuiText: `root = ExperienceStack([${childExpressions.join(", ")}])`,
+    records,
+    requestId,
+  });
+
+export const evidenceAnswerDocument = ({
+  body,
+  composite,
+  domain,
+  projectIds,
+  records,
+  requestId,
+  sourceIds,
+}: {
+  body: string;
+  composite: CompositeName;
+  domain?: "ai" | "web3" | "all";
+  projectIds: string[];
+  records: PublicRecord[];
+  requestId: string;
+  sourceIds: string[];
+}) => {
+  let domainArg = "";
+  if (domain) domainArg = `, ${openUiStringLiteral(domain)}`;
+  return stackDocument({
+    childExpressions: [
+      `Answer(${openUiStringLiteral(body)}, ${openUiStringList(sourceIds)})`,
+      `ProjectExperience(${openUiStringLiteral(composite)}, ${openUiStringList(projectIds)}${domainArg})`,
+    ],
+    fallbackText: body,
+    records,
+    requestId,
+  });
+};
 
 export const timelineDocument = ({ requestId }: { requestId: string }) => {
   const projects = careerProjectSlugs.flatMap((slug) => {

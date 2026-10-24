@@ -92,7 +92,7 @@ const HomepageGenUiBodyContent = ({
         )}
       </div>
       {active ? (
-        <div className="min-h-[100vh]">
+        <div className="min-h-[100vh] pt-6">
           <GeneratedRegion
             complete={complete}
             envelope={envelope}

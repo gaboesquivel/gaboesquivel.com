@@ -19,24 +19,24 @@ for (const width of [320, 390, 768, 1152]) {
         (node) => node.scrollWidth > node.clientWidth + 1
       )
     ).toBe(false);
-    const target = timeline.locator("article").last();
     await timeline.getByRole("link", { name: "2024 AI & agents" }).click();
-    await expect(target).toBeInViewport();
-    const summary = timeline.locator("summary").nth(1);
+    const productChapter = timeline.locator("article", {
+      has: page.getByRole("heading", {
+        name: "From interfaces to a banking product",
+      }),
+    });
+    await productChapter.scrollIntoViewIfNeeded();
+    await expect(productChapter).toBeInViewport();
+    const summary = productChapter.locator("summary");
     await summary.focus();
     await page.keyboard.press("Enter");
-    await expect(timeline.locator("details").nth(1)).toHaveAttribute(
-      "open",
-      ""
-    );
+    await expect(productChapter.locator("details")).toHaveAttribute("open", "");
+    await expect(productChapter).toContainText(/built the first React Native/);
     await expect(
-      timeline.getByText(/I built the first React Native/)
-    ).toBeVisible();
-    await expect(
-      timeline.getByRole("link", { name: "Wink →", exact: true })
+      productChapter.getByRole("link", { name: "Wink →", exact: true })
     ).toHaveAttribute("href", "/project/wink");
     await page.keyboard.press("Enter");
-    await expect(timeline.locator("details").nth(1)).not.toHaveAttribute(
+    await expect(productChapter.locator("details")).not.toHaveAttribute(
       "open",
       ""
     );

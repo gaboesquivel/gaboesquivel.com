@@ -51,7 +51,7 @@ export const cvExperiencePropsSchema = z.object({
 });
 
 export const experienceStackPropsSchema = z.object({
-  segments: z.array(z.string()).default([]),
+  children: z.array(z.unknown()).default([]),
 });
 
 export const experiencePropsByName = {

@@ -1,9 +1,19 @@
 "use client";
 
-import { GenuiSearchBetaBadge } from "components/genui/genui-search-beta-badge";
-import { cn } from "lib/utils";
+import {
+  genuiSearchPlaceholder,
+  homepageGenuiSearchInputId,
+  homepageGenuiSuggestionsListboxId,
+} from "components/search/search-copy";
+import { useHydrated } from "hooks/use-hydrated";
 import Link from "next/link";
-import { useRef, useSyncExternalStore } from "react";
+
+import {
+  GenuiSearchCombobox,
+  genuiSuggestionsOpenHint,
+} from "./genui-search-combobox";
+
+const genuiSearchScopeId = "homepage-genui-search-scope";
 
 export const PromptField = ({
   onChange,
@@ -14,56 +24,25 @@ export const PromptField = ({
   onSubmit: (query: string) => void;
   value: string;
 }) => {
-  const composing = useRef(false);
-  const hydrated = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
+  const hydrated = useHydrated();
 
   return (
-    <form
-      className="w-full"
-      onSubmit={(event) => {
-        event.preventDefault();
-        const query = value.trim();
-        if (!query) return;
-        onSubmit(query);
-      }}
-    >
-      <label className="sr-only" htmlFor="homepage-genui-search">
-        Search Gabo&apos;s work, writing, and career
-      </label>
-      <div className="relative">
-        <div className="pointer-events-none absolute top-3 right-3 z-10">
-          <GenuiSearchBetaBadge />
-        </div>
-        <input
-          className={cn(
-            "w-full rounded-md border border-hairline bg-black py-3 pr-20 pl-4 text-base text-white",
-            "placeholder:text-neutral-500 focus-visible:outline-2 focus-visible:outline-accent"
-          )}
-          id="homepage-genui-search"
-          onChange={(event) => onChange(event.target.value)}
-          onCompositionEnd={() => {
-            composing.current = false;
-          }}
-          onCompositionStart={() => {
-            composing.current = true;
-          }}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" && composing.current) {
-              event.preventDefault();
-            }
-          }}
-          placeholder="Ask about my work, writing, CV, or booking…"
-          type="search"
-          value={value}
-        />
-      </div>
+    <>
+      <GenuiSearchCombobox
+        describedById={genuiSearchScopeId}
+        inputId={homepageGenuiSearchInputId}
+        listboxId={homepageGenuiSuggestionsListboxId}
+        onQueryChange={onChange}
+        onSearchSubmit={onSubmit}
+        placeholder={genuiSearchPlaceholder}
+        query={value}
+        showGenuiBetaBadge
+        showShortcutHint
+      />
       {hydrated ? (
-        <p className="mt-2 text-xs text-neutral-500">
+        <p className="mt-2 text-xs text-neutral-500" id={genuiSearchScopeId}>
           Press Enter to search. Results replace the sections below.
+          {genuiSuggestionsOpenHint}
         </p>
       ) : (
         <p className="mt-2 text-xs text-neutral-500">
@@ -74,6 +53,6 @@ export const PromptField = ({
           to reach out.
         </p>
       )}
-    </form>
+    </>
   );
 };

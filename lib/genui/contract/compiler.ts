@@ -3,16 +3,13 @@ import { createParser } from "@openuidev/lang-core";
 import { GENUI_LIBRARY_VERSION } from "../envelope";
 import type { PublicRecord } from "../envelope";
 import type { ExperienceName } from "../experience-contract";
-import {
-  GENUI_MAX_DOCUMENT_BYTES,
-  GENUI_MAX_STATEMENT_COUNT,
-  productionBlockedExperiences,
-} from "./catalog";
+import { GENUI_MAX_DOCUMENT_BYTES, GENUI_MAX_STATEMENT_COUNT } from "./catalog";
 import type { CompileExperienceResult } from "./errors";
 import { genuiContractLibrary, genuiLibraryJsonSchema } from "./library";
 import {
   validateCompositeForExperience,
   validateExperiencePropsPolicy,
+  validateExperienceStackChildren,
   validateProjectRecipeCardinality,
   validatePublicRecords,
   validateRecordReferences,
@@ -136,10 +133,6 @@ export const compileExperience = ({
   const experience = parsed.root.typeName;
   const props = parsed.root.props;
 
-  if (productionBlockedExperiences.includes(experience as ExperienceName)) {
-    return { ok: false, code: "unsupported_experience" };
-  }
-
   const policy = validateExperiencePropsPolicy({ name: experience, props });
   if (!policy.ok) {
     return { ok: false, code: policy.code };
@@ -160,6 +153,20 @@ export const compileExperience = ({
   });
   if (!recipeCheck.ok) {
     return { ok: false, code: recipeCheck.code };
+  }
+
+  if (policy.name === "ExperienceStack") {
+    const stack = validateExperienceStackChildren({ props, records });
+    if (!stack.ok) {
+      return { ok: false, code: stack.code };
+    }
+    return {
+      ok: true,
+      composite,
+      experience,
+      props,
+      referencedRecordIds: stack.referencedRecordIds,
+    };
   }
 
   const refs = validateRecordReferences({

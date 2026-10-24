@@ -8,10 +8,8 @@ import {
   checkExperienceDocument,
   forbiddenExperienceKeys,
 } from "../experience-contract";
-import {
-  experienceCompositeAllowlist,
-  productionBlockedExperiences,
-} from "./catalog";
+import { experienceCompositeAllowlist } from "./catalog";
+import { parseStackChildren } from "./stack";
 
 const recordKindForId = ({
   experience,
@@ -87,12 +85,7 @@ export const validateCompositeForExperience = ({
   composite: string | null;
   experience: ExperienceName;
 }) => {
-  if (
-    productionBlockedExperiences.includes(experience) &&
-    experience === "ExperienceStack"
-  ) {
-    return { ok: false as const, code: "unsupported_experience" as const };
-  }
+  if (experience === "ExperienceStack") return { ok: true as const };
   const allowlist = experienceCompositeAllowlist[experience];
   if (!allowlist) return { ok: true as const };
   const effective =
@@ -201,4 +194,81 @@ export const validateExperiencePropsPolicy = ({
     return { ok: false as const, code: "forbidden_property" as const };
   }
   return { ok: true as const, name: policy.name };
+};
+
+const compositeFromProps = (
+  experience: ExperienceName,
+  props: Record<string, unknown>
+) => {
+  if (experience === "CapabilityShowcaseExperience") return null;
+  if (
+    experience === "Answer" ||
+    experience === "AboutExperience" ||
+    experience === "ExperienceStack"
+  )
+    return null;
+  const composite = props.composite;
+  return typeof composite === "string" ? composite : null;
+};
+
+export const validateExperienceSubtree = ({
+  experience,
+  props,
+  records,
+}: {
+  experience: ExperienceName;
+  props: Record<string, unknown>;
+  records: PublicRecord[];
+}) => {
+  const policy = validateExperiencePropsPolicy({ name: experience, props });
+  if (!policy.ok) return policy;
+
+  const composite = compositeFromProps(policy.name, props);
+  const compositeCheck = validateCompositeForExperience({
+    composite,
+    experience: policy.name,
+  });
+  if (!compositeCheck.ok) return compositeCheck;
+
+  const recipeCheck = validateProjectRecipeCardinality({
+    experience: policy.name,
+    props,
+  });
+  if (!recipeCheck.ok) return recipeCheck;
+
+  const refs = validateRecordReferences({
+    experience: policy.name,
+    props,
+    records,
+  });
+  if (!refs.ok) return refs;
+
+  return {
+    ok: true as const,
+    referencedRecordIds: refs.referencedRecordIds,
+  };
+};
+
+export const validateExperienceStackChildren = ({
+  props,
+  records,
+}: {
+  props: Record<string, unknown>;
+  records: PublicRecord[];
+}) => {
+  const parsed = parseStackChildren(props.children);
+  if (!parsed.ok) {
+    return { ok: false as const, code: "invalid_property_type" as const };
+  }
+  const referenced = new Set<string>();
+  for (const child of parsed.children) {
+    const subtree = validateExperienceSubtree({
+      experience: child.typeName,
+      props: child.props,
+      records,
+    });
+    if (!subtree.ok) return subtree;
+    for (const id of subtree.referencedRecordIds) referenced.add(id);
+  }
+  return { ok: true as const, referencedRecordIds: [...referenced] };
 };

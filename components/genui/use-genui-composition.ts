@@ -3,6 +3,7 @@
 import type { CompositionEnvelope } from "lib/genui/envelope";
 import { COMPOSITION_FAILED_MESSAGE } from "lib/genui/messages";
 import { consumeNdjsonResponse } from "lib/genui/ndjson-stream";
+import { recordGenuiSearchQuery } from "lib/genui/search-history";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useGenuiComposition = () => {
@@ -34,22 +35,25 @@ export const useGenuiComposition = () => {
   }, []);
 
   const runQuery = useCallback(async (nextQuery: string) => {
+    const trimmed = nextQuery.trim();
+    if (!trimmed) return;
     const id = requestRef.current + 1;
     requestRef.current = id;
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
     setActive(true);
-    setQuery(nextQuery);
+    setQuery(trimmed);
     setEnvelope(null);
     setError(null);
     setComplete(false);
     setIsStreaming(true);
+    queueMicrotask(() => recordGenuiSearchQuery(trimmed));
     try {
       const response = await fetch("/api/genui/compose", {
         body: JSON.stringify({
           clientRequestId: crypto.randomUUID(),
-          query: nextQuery,
+          query: trimmed,
           version: 1,
         }),
         headers: { "Content-Type": "application/json" },

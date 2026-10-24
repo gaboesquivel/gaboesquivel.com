@@ -53,7 +53,7 @@ describe("composeQuery", () => {
     expect(result.events.at(-1)?.type).toBe("complete");
   });
 
-  test("tier 1 Show me your AI projects uses project-bento without model calls", async () => {
+  test("Show me your AI projects uses evidence stack without model calls", async () => {
     const result = await composeQuery({
       context: context(),
       input: {
@@ -62,13 +62,12 @@ describe("composeQuery", () => {
         version: 1,
       },
     });
-    expect(result.tier).toBe(1);
+    expect(result.tier).toBe(0);
     expect(result.modelCalls).toBe(0);
     expect(result.jevCalls).toBe(0);
     const complete = result.events.find((event) => event.type === "complete");
     expect(complete?.type).toBe("complete");
-    expect(result.metadata.experience).toBe("ProjectExperience");
-    expect(result.metadata.composite).toBe("project-bento");
+    expect(result.metadata.experience).toBe("ExperienceStack");
     expect(result.metadata.taskIntent).toBe("browse-projects");
     if (complete?.type === "complete") {
       expect(complete.envelope.openuiText).toContain("ProjectExperience");

@@ -1,10 +1,17 @@
 "use client";
 
 import { GeneratedRegion } from "components/genui/generated-region";
+import {
+  GenuiSearchCombobox,
+  genuiSuggestionsOpenHint,
+} from "components/genui/genui-search-combobox";
 import { useGenuiComposition } from "components/genui/use-genui-composition";
 import { filterSearchRecords } from "components/search/filter-records";
 import {
+  dialogGenuiSearchScopeId,
+  dialogGenuiSuggestionsListboxId,
   dialogSearchInputId,
+  genuiSearchPlaceholder,
   homeSearchInputId,
 } from "components/search/search-copy";
 import { SearchResults } from "components/search/search-results";
@@ -53,7 +60,7 @@ export function SiteSearchPanel({
   );
   const inputId = variant === "home" ? homeSearchInputId : dialogSearchInputId;
   const scopeId =
-    variant === "home" ? "search-scope" : "site-search-dialog-scope";
+    variant === "home" ? "search-scope" : dialogGenuiSearchScopeId;
 
   useEffect(() => {
     if (variant !== "dialog") return;
@@ -72,47 +79,70 @@ export function SiteSearchPanel({
     genui.error &&
     submitted.length > 0;
 
+  const runGenuiSearch = (trimmed: string) => {
+    setSubmitted(trimmed);
+    void genui.runQuery(trimmed);
+  };
+
   return (
     <>
-      <form
-        role="search"
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (!composing.current && query.trim()) {
-            const trimmed = query.trim();
-            setSubmitted(trimmed);
-            if (variant === "dialog") {
-              genui.runQuery(trimmed).catch(() => {});
+      {variant === "dialog" ? (
+        <>
+          <GenuiSearchCombobox
+            autoFocus
+            describedById={scopeId}
+            disabled={!hydrated}
+            inputId={inputId}
+            listboxId={dialogGenuiSuggestionsListboxId}
+            onQueryChange={(value) => {
+              setQuery(value);
+              if (!value) {
+                setSubmitted("");
+                genui.reset();
+              }
+            }}
+            onSearchSubmit={runGenuiSearch}
+            placeholder={genuiSearchPlaceholder}
+            query={query}
+            showGenuiBetaBadge
+          />
+          <p className="mt-2 text-xs text-neutral-500" id={scopeId}>
+            Press Enter to search. Results appear below.
+            {genuiSuggestionsOpenHint}
+          </p>
+        </>
+      ) : (
+        <form
+          role="search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (!composing.current && query.trim()) {
+              setSubmitted(query.trim());
             }
-          }
-        }}
-      >
-        <SiteSearchField
-          inputId={inputId}
-          query={query}
-          disabled={!hydrated}
-          showShortcutHint={variant === "home"}
-          showGenuiBetaBadge={variant === "dialog"}
-          autoFocus={variant === "dialog"}
-          describedById={scopeId}
-          composingRef={composing}
-          onQueryChange={(value) => {
-            setQuery(value);
-            if (!value) {
-              setSubmitted("");
-              if (variant === "dialog") genui.reset();
-            }
           }}
-          onCompositionStart={() => {
-            composing.current = true;
-          }}
-          onCompositionEnd={() => {
-            window.setTimeout(() => {
-              composing.current = false;
-            }, 0);
-          }}
-        />
-      </form>
+        >
+          <SiteSearchField
+            inputId={inputId}
+            query={query}
+            disabled={!hydrated}
+            showShortcutHint
+            describedById={scopeId}
+            composingRef={composing}
+            onQueryChange={(value) => {
+              setQuery(value);
+              if (!value) setSubmitted("");
+            }}
+            onCompositionStart={() => {
+              composing.current = true;
+            }}
+            onCompositionEnd={() => {
+              window.setTimeout(() => {
+                composing.current = false;
+              }, 0);
+            }}
+          />
+        </form>
+      )}
       {variant === "home" ? (
         <noscript>
           <p className="mt-3 text-sm text-neutral-300">
@@ -140,7 +170,7 @@ export function SiteSearchPanel({
             error={showKeywordFallback ? null : genui.error}
             isStreaming={genui.isStreaming}
             onRetry={() => {
-              if (query.trim()) genui.runQuery(query.trim()).catch(() => {});
+              if (query.trim()) void genui.runQuery(query.trim());
             }}
           />
         </div>

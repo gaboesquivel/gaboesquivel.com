@@ -1,11 +1,18 @@
 "use client";
 
+import { siteProfile } from "lib/api/profile";
 import { isCompositeName } from "lib/genui/composites";
+import { isParsedExperienceChild } from "lib/genui/contract/stack";
 import { projectsFromPublicIds } from "lib/genui/project-from-id";
+import { siteRelativePath } from "lib/site-path";
 import { cn } from "lib/utils";
 import Link from "next/link";
 
 import { CapabilityShowcase } from "./capability-showcase";
+import { CareerTimeline } from "./career-timeline";
+import { CvPreview } from "./cv-preview";
+import { EngagementOptions } from "./engagement-options";
+import { EvidenceAnswer } from "./evidence-answer";
 import { GenuiBookingFlow } from "./genui-booking-flow";
 import { GenuiContactForm } from "./genui-contact-form";
 import { useGenuiRecords } from "./genui-record-context";
@@ -23,24 +30,38 @@ export const AnswerView = ({
   sourceIds: string[];
 }) => {
   const records = useGenuiRecords();
+  const isEngagement =
+    sourceIds.includes("/contact") &&
+    sourceIds.includes("/cv") &&
+    sourceIds.includes("booking");
+  const sourceLinks =
+    sourceIds.length > 0 && !isEngagement ? (
+      <ul className="space-y-2 text-sm text-neutral-400">
+        {sourceIds.map((id) => {
+          const record = records.find((item) => item.id === id);
+          if (!record) return null;
+          return (
+            <li key={id}>
+              <Link
+                className="text-accent hover:underline"
+                href={siteRelativePath(record.url) || record.url}
+              >
+                {record.title}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    ) : null;
+
+  if (isEngagement) {
+    return <EvidenceAnswer body={body} sources={<EngagementOptions />} />;
+  }
+
   return (
     <div className="max-w-2xl space-y-4 text-base leading-relaxed text-neutral-200">
       <p>{body}</p>
-      {sourceIds.length > 0 && (
-        <ul className="space-y-2 text-sm text-neutral-400">
-          {sourceIds.map((id) => {
-            const record = records.find((item) => item.id === id);
-            if (!record) return null;
-            return (
-              <li key={id}>
-                <Link className="text-accent hover:underline" href={record.url}>
-                  {record.title}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {sourceLinks}
     </div>
   );
 };
@@ -59,19 +80,28 @@ export const CvExperienceView = ({
   if (!cv || cv.kind !== "cv") {
     return <p className="text-neutral-400">CV unavailable.</p>;
   }
-  if (composite === "cv-document") {
+  if (composite === "cv-preview" || composite === "cv-document") {
+    if (composite === "cv-preview") {
+      return <CvPreview focus={cv.variant} />;
+    }
     return (
       <div className="max-w-3xl space-y-6 text-sm text-neutral-300">
         <h3 className="text-xl font-semibold text-white">{cv.title}</h3>
         <p>
           Highlights, experience, skills, and articles match the{" "}
-          <Link className="text-accent hover:underline" href={cv.url}>
+          <Link
+            className="text-accent hover:underline"
+            href={siteRelativePath(cv.url) || cv.url}
+          >
             online résumé
           </Link>
           .
         </p>
         <div className="flex flex-wrap gap-4">
-          <Link className="text-accent hover:underline" href={cv.url}>
+          <Link
+            className="text-accent hover:underline"
+            href={siteRelativePath(cv.url) || cv.url}
+          >
             View online
           </Link>
           <a className="text-accent hover:underline" href={cv.pdfUrl}>
@@ -85,7 +115,10 @@ export const CvExperienceView = ({
     <div className="space-y-4">
       <h3 className="text-xl font-semibold text-white">{cv.title}</h3>
       <div className="flex flex-wrap gap-4 text-sm">
-        <Link className="text-accent hover:underline" href={cv.url}>
+        <Link
+          className="text-accent hover:underline"
+          href={siteRelativePath(cv.url) || cv.url}
+        >
           View online
         </Link>
         <a className="text-accent hover:underline" href={cv.pdfUrl}>
@@ -163,37 +196,144 @@ export const AboutExperienceView = ({ sourceId }: { sourceId: string }) => {
       {"excerpt" in record && record.excerpt && (
         <p className="text-neutral-400">{record.excerpt}</p>
       )}
-      <Link className="text-accent hover:underline" href={record.url}>
+      <Link
+        className="text-accent hover:underline"
+        href={siteRelativePath(record.url) || record.url}
+      >
         Read more
       </Link>
     </div>
   );
 };
 
-export const ContactExperienceView = ({ contextId }: { contextId: string }) => (
-  <div className={cn("@container/genui", wideRail)}>
-    <aside className="hidden text-sm text-neutral-400 @min-[48rem]:block">
-      <p>Send a note about hiring, a project, or collaboration.</p>
-    </aside>
-    <GenuiContactForm contextId={contextId} />
-  </div>
-);
+export const ContactExperienceView = ({ contextId }: { contextId: string }) => {
+  const profile = siteProfile();
+  return (
+    <div className={cn("@container/genui", wideRail)}>
+      <aside className="space-y-3 text-sm text-neutral-400 @min-[48rem]:block">
+        <p>
+          This form sends a note to Gabo about hiring, a project, or
+          collaboration. Nothing is sent until you submit.
+        </p>
+        <p>
+          Email:{" "}
+          <a
+            className="text-accent hover:underline"
+            href={`mailto:${profile.email}`}
+          >
+            {profile.email}
+          </a>
+        </p>
+      </aside>
+      <GenuiContactForm contextId={contextId} />
+    </div>
+  );
+};
 
-export const BookingExperienceView = () => (
-  <div className={cn("@container/genui", wideRail)}>
-    <aside className="hidden text-sm text-neutral-400 @min-[48rem]:block">
-      <p>15- or 30-minute intro calls in US Mountain Time.</p>
-    </aside>
-    <GenuiBookingFlow />
-  </div>
-);
+export const BookingExperienceView = () => {
+  const profile = siteProfile();
+  return (
+    <div className={cn("@container/genui", wideRail)}>
+      <aside className="hidden space-y-3 text-sm text-neutral-400 @min-[48rem]:block">
+        <p>
+          Pick a 15- or 30-minute slot in {profile.timeZoneLabel}. Review your
+          details before confirming—booking is not created until you approve.
+        </p>
+      </aside>
+      <GenuiBookingFlow />
+    </div>
+  );
+};
 
-export const ExperienceStackView = ({ segments }: { segments: string[] }) => (
-  <div className="space-y-10">
-    {segments.map((segment, index) => (
-      <p key={`${segment}-${index}`} className="text-sm text-neutral-400">
-        {segment}
-      </p>
-    ))}
+const renderStackChild = (child: unknown, index: number) => {
+  if (!isParsedExperienceChild(child)) return null;
+  const key = `${child.typeName}-${index}`;
+  const props = child.props;
+  if (child.typeName === "Answer") {
+    return (
+      <AnswerView
+        key={key}
+        body={String(props.body ?? "")}
+        sourceIds={
+          Array.isArray(props.sourceIds) ? props.sourceIds.map(String) : []
+        }
+      />
+    );
+  }
+  if (child.typeName === "ProjectExperience") {
+    return (
+      <ProjectExperienceView
+        key={key}
+        composite={String(props.composite ?? "editorial-grid")}
+        domain={
+          props.domain === "ai" ||
+          props.domain === "web3" ||
+          props.domain === "all"
+            ? props.domain
+            : undefined
+        }
+        projectIds={
+          Array.isArray(props.projectIds) ? props.projectIds.map(String) : []
+        }
+      />
+    );
+  }
+  if (child.typeName === "WritingExperience") {
+    return (
+      <WritingExperienceView
+        key={key}
+        composite={String(props.composite ?? "dated-row")}
+        postIds={Array.isArray(props.postIds) ? props.postIds.map(String) : []}
+      />
+    );
+  }
+  if (child.typeName === "CVExperience") {
+    return (
+      <CvExperienceView
+        key={key}
+        composite={String(props.composite ?? "cv-preview")}
+        sourceId={String(props.sourceId ?? "")}
+      />
+    );
+  }
+  if (child.typeName === "TimelineExperience") {
+    return (
+      <CareerTimeline
+        key={key}
+        projectIds={
+          Array.isArray(props.projectIds) ? props.projectIds.map(String) : []
+        }
+        sourceId={String(props.sourceId ?? "/bio")}
+      />
+    );
+  }
+  if (child.typeName === "ContactExperience") {
+    return (
+      <ContactExperienceView
+        key={key}
+        contextId={String(props.contextId ?? "profile")}
+      />
+    );
+  }
+  if (child.typeName === "BookingExperience") {
+    return <BookingExperienceView key={key} />;
+  }
+  if (child.typeName === "CapabilityShowcaseExperience") {
+    return (
+      <CapabilityShowcaseExperienceView
+        key={key}
+        domain={props.domain === "web3" ? "web3" : "ai"}
+        projectIds={
+          Array.isArray(props.projectIds) ? props.projectIds.map(String) : []
+        }
+      />
+    );
+  }
+  return null;
+};
+
+export const ExperienceStackView = ({ items }: { items: unknown[] }) => (
+  <div className="space-y-12">
+    {items.map((child, index) => renderStackChild(child, index))}
   </div>
 );

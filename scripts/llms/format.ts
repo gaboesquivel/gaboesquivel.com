@@ -13,10 +13,12 @@ export const absoluteUrl = (href: string) => {
 };
 
 export const rewriteLinks = (text: string) =>
-  text.replaceAll(
-    /\[([^\]]+)\]\((\/[^)]+)\)/g,
-    (_, label, path) => `[${label}](${absoluteUrl(path)})`
-  );
+  text.replaceAll(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_, label, path) => {
+    if (path.startsWith("/project/")) {
+      return `[${label}](${path})`;
+    }
+    return `[${label}](${absoluteUrl(path)})`;
+  });
 
 export const llmsListItem = ({
   name,
