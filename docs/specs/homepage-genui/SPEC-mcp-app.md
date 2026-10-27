@@ -24,13 +24,11 @@ Set a narrow resource/connect policy matching shipped assets and needed requests
 
 Side effects follow the shared action contract: UI forms require explicit final interaction, model tool calls remain available under the host's own interaction model, and server limits/validation/idempotency apply to both. A visible result or structured document cannot itself trigger a send or booking.
 
-## Migration contract
+## Migration contract (shipped on `main`)
 
-`/mcp` currently belongs to Eve via local rewrites and a Vercel output routing patch. Adding `app/mcp/route.ts` alone is insufficient. Replace that ownership deliberately, remove obsolete interception, and verify both development and production output routing. Keep Eve's native composition transport working.
+`app/mcp/route.ts` serves the public MCP server (nine capability tools). Eve no longer intercepts `/mcp` for the public tool list; homepage composition remains on `/api/genui/compose`. `/mcp/cv` returns **410** with a migration message to the unified server and `get_cv`. JSON Render is not used in the MCP App build.
 
-Proposed final public contract replaces `agent_start`, `agent_get`, and the separate CV widget endpoint. Retire `/mcp/cv` after the unified CV tool works; return an explicit retirement response pointing to `/mcp`, not a blind redirect of protocol POSTs. Update `/docs`, export sources and discoverability references. Do not remove unrelated `/docs` aliases such as `/mcp/docs`. A compatibility alias, if required after review, must call the same registry and cannot resurrect the old agent orchestration.
-
-Remove the direct v1 SDK dependency after owned imports migrate, subject to compatible transitive dependencies. JSON Render must not be present in the app build. This module can be delivered after the native homepage; lack of host testing must not be represented as verified external support.
+Still verify production routing after deploy changes. Live ChatGPT/Claude acceptance is manual ([mcp-apps-host-release-gate.md](../../testing/mcp-apps-host-release-gate.md)); simulated host tests in CI are not a substitute.
 
 ## Code style
 

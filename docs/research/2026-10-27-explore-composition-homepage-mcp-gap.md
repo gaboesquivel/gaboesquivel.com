@@ -46,4 +46,4 @@ GitHub has **no open PRs** on `gaboesquivel.com`, `flow-skills`, `flow-next`, or
 1. **Docs:** Mark module statuses in SPECs + capability map (this pass).
 2. **Manual:** Live MCP host smoke per `docs/testing/mcp-apps-host-release-gate.md`.
 3. **Optional implement:** Nav sheet link directly to `/` with anchor, or retire `/mcp/cv` if still exposed.
-4. **Formal:** Run labeled CR/HP eval pass and file gaps only where tests fail.
+4. **Formal:** Partial automated record — [2026-10-27-acceptance-automated-record.md](./2026-10-27-acceptance-automated-record.md). Live MCP and a11y suite still open.

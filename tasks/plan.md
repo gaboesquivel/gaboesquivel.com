@@ -18,8 +18,12 @@ Do not re-run PC-A–G slices unless a regression or spec gap is found. Record g
 
 [Explore note](../docs/research/2026-10-27-explore-composition-homepage-mcp-gap.md): **composition-runtime**, **homepage-genui**, and **mcp-app** reconciled to shipped code; SPECs updated. No open PRs in ecosystem repos.
 
+## Automated acceptance (2026-10-27)
+
+[Record](../docs/research/2026-10-27-acceptance-automated-record.md): GenUI unit 158/158, browser 60/60, offline eval 5/5, MCP protocol 9/9, simulated host 8/8 (1 skipped). Live ChatGPT/Claude still open.
+
 ## Suggested next bounded slice
 
-1. **Manual:** Live MCP host smoke ([mcp-apps-host-release-gate.md](../docs/testing/mcp-apps-host-release-gate.md)) — records open OU/MCP gates.
-2. **Optional code:** Retire or document `/mcp/cv`; point nav sheet search at `/` instead of `/ask`.
-3. **Formal:** CR/HP labeled test audit; file gaps only on failure.
+1. **Manual:** Live MCP host smoke ([mcp-apps-host-release-gate.md](../docs/testing/mcp-apps-host-release-gate.md)).
+2. **Automated:** `bun run test:genui:a11y` and add results to the acceptance record.
+3. **Product:** Decide fate of unused `app/connect/*` Eve chat ( `/ask` now redirects to homepage GenUI).
