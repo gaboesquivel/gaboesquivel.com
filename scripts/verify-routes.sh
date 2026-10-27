@@ -56,7 +56,7 @@ check() {
 check_redirect() {
   path="$1"
   code="$(curl -s -o /dev/null -w '%{http_code}' "${base}${path}")"
-  if [ "$code" != "308" ] && [ "$code" != "301" ] && [ "$code" != "302" ]; then
+  if [ "$code" != "308" ] && [ "$code" != "307" ] && [ "$code" != "301" ] && [ "$code" != "302" ]; then
     echo "FAIL ${path} expected redirect got ${code}"
     exit 1
   fi
@@ -68,22 +68,7 @@ check /cv
 check "/cv?focus=ai"
 check "/cv?focus=web3"
 check "/cv?focus=fullstack"
-ask_body="$(mktemp)"
-ask_code="$(curl -s -o "$ask_body" -w '%{http_code}' "${base}/ask")"
-if [ "$ask_code" != "200" ]; then
-  echo "FAIL /ask expected 200 got ${ask_code}"
-  exit 1
-fi
-if ! grep -q "Book a call" "$ask_body"; then
-  echo "FAIL /ask body missing Book a call"
-  exit 1
-fi
-if grep -q "Send Message" "$ask_body"; then
-  echo "FAIL /ask still has Send Message"
-  exit 1
-fi
-rm -f "$ask_body"
-echo "OK   /ask 200"
+check_redirect /ask
 check_redirect /connect
 contact_body="$(mktemp)"
 contact_code="$(curl -s -o "$contact_body" -w '%{http_code}' "${base}/contact")"
