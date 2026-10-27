@@ -16,7 +16,7 @@ Do not re-run PC-A–G slices unless a regression or spec gap is found. Record g
 
 ## Initiative status (2026-10-27)
 
-[Explore note](../docs/research/2026-10-27-explore-composition-homepage-mcp-gap.md): **composition-runtime**, **homepage-genui**, and **mcp-app** reconciled to shipped code; SPECs updated. No open PRs in ecosystem repos.
+[Explore note](../docs/research/2026-10-27-explore-composition-homepage-mcp-gap.md): **composition-runtime**, **homepage-genui**, and **mcp-app** reconciled to shipped code; SPECs updated. No open PRs; [branch merge status](../docs/research/2026-10-27-branch-merge-status.md) (`fix/cv-screen-spacing` not merged — superseded by `main`).
 
 ## Automated acceptance (2026-10-27)
 
