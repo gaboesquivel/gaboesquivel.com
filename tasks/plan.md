@@ -10,9 +10,13 @@
 
 Do not re-run PC-A–G slices unless a regression or spec gap is found. Record gaps in the spec or an ADR, not by resurrecting this module as “proposed.”
 
-## Next module (capability map order)
+## Explore: openui-experiences (2026-10-27)
 
-**`openui-experiences`** — [SPEC-openui-experiences.md](../docs/specs/homepage-genui/SPEC-openui-experiences.md) remains draft. Before replacing this file with a new module plan: review the spec, reconcile with what already ships on `/` (GenUI compose, OpenUI renderer), then run Specify → Plan → Tasks for only the **remaining** delta.
+[Largely implemented on `develop`](../docs/research/2026-10-27-explore-openui-experiences-gap.md). Remaining spec gaps: **OU-08** (remove json-render from connect flows), manual ChatGPT/Claude MCP gate, formal OU audit. **composition-runtime** and **homepage-genui** also overlap shipped code — reconcile specs before writing a multi-module task list.
+
+## Suggested next bounded slice (when authorized)
+
+**OU-08 / connect migration** — replace `@json-render` usage in `app/connect/` and `lib/connect/compose.ts` with OpenUI/capability paths already used on the homepage. Scope with `to-spec` or `grill` before `implement`.
 
 ## In-flight work on `develop`
 

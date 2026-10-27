@@ -1,6 +1,6 @@
 # Spec: OpenUI experiences
 
-Module: `openui-experiences`. Status: draft, awaiting approval. Depends on: `public-capabilities`. Index: [capability map](CAPABILITIES-homepage-genui.md).
+Module: `openui-experiences`. Status: **largely implemented on `develop`** — OpenUI library, renderer, contract compiler, homepage compose, and fixture/MCP harness ship on `/`. Outstanding vs this spec: **OU-08** (json-render still used in `app/connect/`), live ChatGPT/Claude MCP gate (manual), formal OU-01–OU-07 audit. Gap analysis: [explore note](../../research/2026-10-27-explore-openui-experiences-gap.md). Depends on: `public-capabilities` (complete). Index: [capability map](CAPABILITIES-homepage-genui.md).
 
 ## Objective
 

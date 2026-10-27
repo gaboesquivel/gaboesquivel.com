@@ -19,7 +19,7 @@
 
 | Intent | Skill |
 | --- | --- |
-| Reconcile `openui-experiences` spec with shipped `/` UI | `explore` then `grill` |
+| OU-08 json-render removal or live MCP evidence | `grill` then `to-spec` — see [explore gap](2026-10-27-explore-openui-experiences-gap.md) |
 | Plan the next module delta only | `to-spec` / `to-tickets` after review |
 | Implement a bounded slice | `implement` |
 | Align ARCHITECTURE after doc correction | `flow` |
