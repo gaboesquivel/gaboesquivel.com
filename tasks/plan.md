@@ -20,10 +20,10 @@ Do not re-run PC-A–G slices unless a regression or spec gap is found. Record g
 
 ## Automated acceptance (2026-10-27)
 
-[Record](../docs/research/2026-10-27-acceptance-automated-record.md): GenUI unit 158/158, browser 60/60, offline eval 5/5, MCP protocol 9/9, simulated host 8/8 (1 skipped). Live ChatGPT/Claude still open.
+[Record](../docs/research/2026-10-27-acceptance-automated-record.md): GenUI unit 158/158, browser 60/60, offline eval 5/5, MCP protocol 9/9, simulated host 8/8 (1 skipped), a11y 1/1. Live ChatGPT/Claude still open.
 
 ## Suggested next bounded slice
 
 1. **Manual:** Live MCP host smoke ([mcp-apps-host-release-gate.md](../docs/testing/mcp-apps-host-release-gate.md)).
-2. **Automated:** `bun run test:genui:a11y` and add results to the acceptance record.
+2. **Automated:** Broaden a11y fixture matrix if required for OU-07 sign-off.
 3. **Product:** Decide fate of unused `app/connect/*` Eve chat ( `/ask` now redirects to homepage GenUI).

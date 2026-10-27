@@ -18,6 +18,7 @@ Local run on `main` after module reconciliation (`0ba9bfae`). **Not** a substitu
 | Public MCP protocol | `bun run test:genui:mcp-apps:protocol` | 9/9 pass |
 | Browser functional (HP/fixtures) | `bun run test:genui:browser` | **60/60 pass** (~45s) |
 | Simulated MCP host | `bun run test:genui:mcp-apps:host` | **8 pass**, 1 skipped (`production GenUI MCP App` iframe) |
+| Accessibility (OU-07 sample) | `bun run test:genui:a11y` | **1/1 pass** (`cv-full` fixture, no serious axe violations) |
 
 ## Mapping to spec IDs (partial)
 
@@ -34,5 +35,5 @@ If port **3199** is still bound after a Playwright run, `test:genui:mcp-apps:hos
 
 ## Open
 
-- Run `test:genui:a11y` (OU-07) in a follow-up pass.
+- Expand a11y coverage beyond the single `cv-full` fixture if OU-07 needs full matrix evidence.
 - Record live MCP smoke in `docs/testing/` when performed.
