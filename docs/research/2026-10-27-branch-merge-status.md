@@ -2,7 +2,7 @@
 
 ## GitHub pull requests
 
-No open PRs on `gaboesquivel.com`, `flow-skills`, `flow-next`, or `flow-mono`. Ecosystem dogfood cleanup is on each repo’s **`main`**.
+No open PRs on `gaboesquivel.com`, `flow-next`, or `flow-mono`. **flow-skills** `main` includes [PR #13](https://github.com/gaboesquivel/flow-skills/pull/13) (`start` bootstrap lib, `74a54f1`). **gaboesquivel.com** `main` is `fdd679b8` (`develop` synced).
 
 ## `gaboesquivel.com` local branches
 
