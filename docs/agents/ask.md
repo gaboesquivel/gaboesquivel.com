@@ -6,14 +6,15 @@ Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md). Card app
 
 ## Skills and scaffold
 
-Read the installed `eve`, `ai-sdk`, `core`, `react`, and `typesafe-ai` skills (bundled docs in `node_modules`, not memory). Then read Eve's Web Chat scaffold source in `node_modules/eve/dist/src/setup/scaffold/create/web-template.js` (`agent-chat.tsx` / `agent-message.tsx` strings).
+Read the installed `eve`, `ai-sdk`, and `typesafe-ai` skills (bundled docs in `node_modules`, not memory). Then read Eve's Web Chat scaffold source in `node_modules/eve/dist/src/setup/scaffold/create/web-template.js` (`agent-chat.tsx` / `agent-message.tsx` strings).
 
 ## Credentials
 
-Two keys. Keep them distinct. Names and roles are in `.env.example` and the architecture integrations table. If a documented name is missing from `.env`, stop and ask. If it is set locally, use it and do not ask again. Never print values.
+Live inference prefers Vercel AI Gateway. Names and roles are in `.env.example` and the architecture integrations table. If a documented name is missing from `.env`, stop and ask. If it is set locally, use it and do not ask again. Never print values.
 
-- `AI_GATEWAY_API_KEY` — Eve gateway auth and Jev (`lib/connect/compose.ts`).
-- `ANTHROPIC_API_KEY` — BYOK for Sonnet on the gateway (`lib/connect/sonnet-model.ts`, `agent/agent.ts`).
+- `AI_GATEWAY_API_KEY` — normal path for Eve, semantic GenUI, and Jev (`lib/ai/resolve-chat-model.ts`, `lib/connect/compose.ts`).
+- `ANTHROPIC_API_KEY` — only with `FLOW_ALLOW_DIRECT_ANTHROPIC=1` for local direct Anthropic override when the gateway key is unset.
+- `EVE_AGENT_MODEL` — optional Eve and compose model override (default `anthropic/claude-sonnet-5.5`).
 
 ## Caps
 

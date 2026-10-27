@@ -20,7 +20,7 @@ The [`gaboesquivel-skills`](https://github.com/gaboesquivel/gaboesquivel-skills)
 
 ## Connect
 
-`app/connect/` is the chat implementation. The public chat route is `/ask`. `/contact` is the human outreach page and form. `/connect` redirects to `/contact`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the `/ask` and `/contact` jobs in [PRODUCT.md](PRODUCT.md).
+`app/connect/` holds contact and booking UI used by generative flows. Homepage search (`/`) is the public generative surface; `/ask` redirects to `/`. `/contact` is the human outreach page and form. `/connect` redirects to `/contact`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the `/` and `/contact` jobs in [PRODUCT.md](PRODUCT.md).
 
 ## Archive
 

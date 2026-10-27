@@ -23,7 +23,7 @@ Default to standards that work across browsers and deployment targets without ty
 - Reach for other native Web APIs (Web Animations API, `IntersectionObserver`, `Popover` / `dialog`, Scroll-driven animations) before polyfills or third-party packages.
 - Do not add animation libraries (for example Framer Motion or GSAP) for effects CSS or built-in view transitions can carry. Existing dependencies and [DESIGN.md](DESIGN.md) exceptions (for example connect UI) stay as documented.
 - Ship progressive enhancement: interaction and layout must work with motion off; unsupported browsers get instant updates; always respect `prefers-reduced-motion`.
-- For new view transitions on this site, read Next’s bundled view-transitions guide under `node_modules/next/dist/docs/` and use the `vercel-react-view-transitions` skill. Site-specific motion limits remain in [DESIGN.md](DESIGN.md).
+- For new view transitions on this site, read Next’s bundled view-transitions guide under `node_modules/next/dist/docs/` and [docs/agents/motion.md](docs/agents/motion.md). Site-specific motion limits remain in [DESIGN.md](DESIGN.md).
 
 ## `__dev`
 
@@ -33,7 +33,7 @@ Default to standards that work across browsers and deployment targets without ty
 
 If a proposed change conflicts with or modifies an established documented decision, request approval before implementing it. Otherwise, proceed autonomously.
 
-Update the owning document in the same change. Use a PDR in `docs/pdr/` for a consequential product decision and an ADR in `docs/adr/` for a consequential architectural decision. Include context, decision, rationale, consequences, and status. Canonical documents hold current direction. Decision records hold rationale worth keeping. Create a record only when that rationale cannot be inferred from the code. Create `docs/pdr/` or `docs/adr/` with the first record.
+Update the owning document in the same change. For **new** consequential rationale, prefer a numbered record in `docs/decisions/NNN-short-name.md` ([0001](docs/decisions/0001-flow-adopter-docs.md)). Existing `docs/pdr/` and `docs/adr/` records remain valid; add to those trees only when extending prior work already filed there. Include context, decision, rationale, consequences, and status. Canonical documents hold current direction. Create a record only when that rationale cannot be inferred from the code.
 
 ## Lifecycle
 
@@ -49,7 +49,7 @@ Explore, Specify, and Plan stay in the conversation until a decision or an accep
 
 ## Specification storage
 
-Save feature specifications in `docs/specs/<feature-slug>/`, with the capability map and all module specs together. For homepage GenUI, use `docs/specs/homepage-genui/`. Keep stable module IDs and `SPEC-<module-id>.md` filenames; the capability map indexes the module specs. This repository convention overrides skills that place specifications at the project root. Early idea drafts remain in `docs/ideas/`. Plan and task locations continue to follow the applicable planning workflow.
+For **new** bounded work, prefer flat `docs/specs/NNN-short-name.md` ([0001](docs/decisions/0001-flow-adopter-docs.md)). Existing feature folders stay authoritative for work already there — especially `docs/specs/homepage-genui/` (capability map and `SPEC-<module-id>.md` modules). Early idea drafts remain in `docs/ideas/`. Plan and task locations continue to follow the applicable planning workflow.
 
 ## Context
 

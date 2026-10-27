@@ -43,12 +43,12 @@
     "eval:genui:live": "GENUI_EVAL_LIVE=1 promptfoo eval -c promptfooconfig.yaml"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.58",
     "@base-ui/react": "^1.9.0",
-    "@modelcontextprotocol/client": "2.3.1",
-    "@modelcontextprotocol/core": "2.3.1",
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@modelcontextprotocol/core": "^2.4.0",
     "@modelcontextprotocol/ext-apps": "2.0.3",
-    "@modelcontextprotocol/sdk": "^1.32.1",
-    "@modelcontextprotocol/server": "2.3.1",
+    "@modelcontextprotocol/server": "^2.4.0",
     "@openuidev/react-lang": "1.0.1",
     "@shadcn/react": "^0.3.1",
     "@streamdown/cjk": "^1.0.4",
@@ -68,7 +68,7 @@
     "cn": "^0.5.0",
     "date-fns": "^4.4.0",
     "embla-carousel-react": "^8.6.0",
-    "eve": "^0.80.1",
+    "eve": "^0.83.2",
     "gaboesquivel": "^8.0.5",
     "github-slugger": "^2.0.0",
     "input-otp": "^1.5.0",
@@ -121,6 +121,11 @@
     "typescript": "^7.0.2",
     "ultracite": "^8.0.1",
     "unified": "^11.0.5"
+  },
+  "overrides": {
+    "@modelcontextprotocol/client": "2.4.0",
+    "@modelcontextprotocol/core": "2.4.0",
+    "@modelcontextprotocol/server": "2.4.0"
   },
   "simple-git-hooks": {
     "pre-commit": "bun run hooks:pre-commit"

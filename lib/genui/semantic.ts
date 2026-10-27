@@ -1,6 +1,6 @@
 import { generateText } from "ai";
 
-import { SONNET_GATEWAY_MODEL } from "../connect/sonnet-model";
+import { resolveChatModel } from "../ai/resolve-chat-model";
 import { answerDocument } from "./builders";
 import {
   componentSemantics,
@@ -55,12 +55,8 @@ export const generateSemanticDocument = async ({
   requestId: string;
   signal?: AbortSignal;
 }): Promise<{ envelope: CompositionEnvelope; modelCalls: number } | null> => {
-  if (
-    !process.env.AI_GATEWAY_API_KEY?.trim() &&
-    !process.env.ANTHROPIC_API_KEY?.trim()
-  ) {
-    return null;
-  }
+  const model = resolveChatModel();
+  if (!model) return null;
   if (signal?.aborted) return null;
   if (!records.length) {
     return {
@@ -90,7 +86,7 @@ export const generateSemanticDocument = async ({
     : AbortSignal.timeout(SEMANTIC_DEADLINE_MS);
   const text = await generateText({
     abortSignal,
-    model: SONNET_GATEWAY_MODEL,
+    model,
     maxRetries: 0,
     maxOutputTokens: 4000,
     system: semanticSystem,

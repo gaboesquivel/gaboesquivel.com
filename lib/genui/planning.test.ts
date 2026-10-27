@@ -44,8 +44,10 @@ const context = (): CapabilityContext => ({
 const withoutProvider = async <T>(run: () => Promise<T>) => {
   const gateway = process.env.AI_GATEWAY_API_KEY;
   const anthropic = process.env.ANTHROPIC_API_KEY;
+  const direct = process.env.FLOW_ALLOW_DIRECT_ANTHROPIC;
   delete process.env.AI_GATEWAY_API_KEY;
   delete process.env.ANTHROPIC_API_KEY;
+  delete process.env.FLOW_ALLOW_DIRECT_ANTHROPIC;
   try {
     return await run();
   } finally {
@@ -53,6 +55,8 @@ const withoutProvider = async <T>(run: () => Promise<T>) => {
     else process.env.AI_GATEWAY_API_KEY = gateway;
     if (anthropic === undefined) delete process.env.ANTHROPIC_API_KEY;
     else process.env.ANTHROPIC_API_KEY = anthropic;
+    if (direct === undefined) delete process.env.FLOW_ALLOW_DIRECT_ANTHROPIC;
+    else process.env.FLOW_ALLOW_DIRECT_ANTHROPIC = direct;
   }
 };
 

@@ -1,5 +1,7 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
+import {
+  McpServer,
+  WebStandardStreamableHTTPServerTransport,
+} from "@modelcontextprotocol/server";
 import { z } from "zod";
 
 import { cvDownloadPayload } from "../connect/cv-download";
@@ -16,7 +18,6 @@ export const createCvMcpServer = () => {
   const server = new McpServer(
     { name: "gaboesquivel-cv", version: "1.0.0" },
     {
-      capabilities: { resources: {}, tools: {} },
       instructions:
         "Call cv to get Gabo Esquivel's CV as a PDF download card. Optional focus: full (default), ai, web3, or fullstack.",
     }

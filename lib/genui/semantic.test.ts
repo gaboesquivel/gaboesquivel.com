@@ -22,8 +22,10 @@ describe("generateSemanticDocument", () => {
   test("does not call the model without provider credentials", async () => {
     const priorGateway = process.env.AI_GATEWAY_API_KEY;
     const priorAnthropic = process.env.ANTHROPIC_API_KEY;
+    const priorDirect = process.env.FLOW_ALLOW_DIRECT_ANTHROPIC;
     process.env.AI_GATEWAY_API_KEY = "";
     process.env.ANTHROPIC_API_KEY = "";
+    delete process.env.FLOW_ALLOW_DIRECT_ANTHROPIC;
     const { generateSemanticDocument } = await import("./semantic");
     const result = await generateSemanticDocument({
       query: "cv",
@@ -39,6 +41,9 @@ describe("generateSemanticDocument", () => {
     });
     process.env.AI_GATEWAY_API_KEY = priorGateway;
     process.env.ANTHROPIC_API_KEY = priorAnthropic;
+    if (priorDirect === undefined)
+      delete process.env.FLOW_ALLOW_DIRECT_ANTHROPIC;
+    else process.env.FLOW_ALLOW_DIRECT_ANTHROPIC = priorDirect;
     expect(result).toBeNull();
     expect(generateText).not.toHaveBeenCalled();
   });

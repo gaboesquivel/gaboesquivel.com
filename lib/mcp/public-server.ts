@@ -1,5 +1,7 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
+import {
+  McpServer,
+  WebStandardStreamableHTTPServerTransport,
+} from "@modelcontextprotocol/server";
 
 import { capabilityRegistry, runCapability } from "../capabilities/registry";
 import { capabilityContextFromRequest } from "../capabilities/server-context";
@@ -29,7 +31,6 @@ export const createPublicMcpServer = ({ ip }: { ip: string }) => {
   const server = new McpServer(
     { name: "gaboesquivel", version: "2.0.0" },
     {
-      capabilities: { resources: {}, tools: {} },
       instructions:
         "Public portfolio tools for profile, projects, writing, search, CV, contact, availability, notes, and bookings.",
     }

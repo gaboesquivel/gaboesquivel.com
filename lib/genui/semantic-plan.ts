@@ -1,7 +1,7 @@
 import { generateText, Output } from "ai";
 import { z } from "zod";
 
-import { SONNET_GATEWAY_MODEL } from "../connect/sonnet-model";
+import { resolveChatModel } from "../ai/resolve-chat-model";
 import { namedProjectsInText } from "./named-projects";
 import type { RequestPlan } from "./request-plan";
 import { emptyFilter, planTasks } from "./task-plan";
@@ -128,11 +128,7 @@ export const tasksFromPlannerOutput = ({
     };
   });
 
-export const genuiProviderConfigured = () =>
-  Boolean(
-    process.env.AI_GATEWAY_API_KEY?.trim() ||
-    process.env.ANTHROPIC_API_KEY?.trim()
-  );
+export const genuiProviderConfigured = () => resolveChatModel() !== null;
 
 export const resolveSemanticPlan = async ({
   plan,
@@ -141,7 +137,8 @@ export const resolveSemanticPlan = async ({
   plan: RequestPlan;
   signal?: AbortSignal;
 }): Promise<{ modelCalls: number; plan: RequestPlan }> => {
-  if (!plan.needsSemanticPlanning || !genuiProviderConfigured()) {
+  const model = resolveChatModel();
+  if (!plan.needsSemanticPlanning || !model) {
     return { modelCalls: 0, plan };
   }
   if (signal?.aborted) return { modelCalls: 0, plan };
@@ -152,7 +149,7 @@ export const resolveSemanticPlan = async ({
     abortSignal,
     maxOutputTokens: 1200,
     maxRetries: 0,
-    model: SONNET_GATEWAY_MODEL,
+    model,
     output: Output.object({ schema: plannerSchema }),
     prompt: JSON.stringify({ query: plan.query }),
     system: plannerSystem,

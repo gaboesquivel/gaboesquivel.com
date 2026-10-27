@@ -176,7 +176,7 @@ Motion budget: color/underline transitions, project-card image hover via `imageH
 
 **Compatibility:** React `19.3.1` and Next.js App Router (`^16.4`) expose `<ViewTransition>` from `react`. Unsupported browsers keep route updates and active styling without animating the indicator. Transition types and `view-transition-class` need Chromium 125+ and recent Safari/Firefox; verify Safari when changing Work filter motion.
 
-**Agent guidance:** Follow Next’s bundled guide at `node_modules/next/dist/docs/01-app/02-guides/view-transitions.md` and the `vercel-react-view-transitions` skill for new transitions.
+**Agent guidance:** Follow Next’s bundled guide at `node_modules/next/dist/docs/01-app/02-guides/view-transitions.md` and [docs/agents/motion.md](docs/agents/motion.md) for new transitions.
 
 **Future candidates (not implemented):** Shared-element morphs between project cards and detail pages, relocating the homepage GenUI prompt (`docs/specs/homepage-genui/`), directional route transitions, list reorder identity, and Suspense loading reveals — each must pass the motion budget gate and `prefers-reduced-motion`. Homepage generation itself is active.
 

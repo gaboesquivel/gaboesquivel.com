@@ -18,12 +18,12 @@ flowchart TD
   Export --> Corpus["Generated Markdown corpus and agent index"]
   Export --> Public["llms text, JSON API data, OpenAPI"]
   Corpus --> ReadAPI["Markdown negotiation and page API"]
-  Corpus --> Agent["Eve agent"]
-  Chat["/ask web chat"] --> Agent
-  MCP["/mcp external clients"] --> Agent
-  Agent --> Redis["Upstash: caps and idempotency"]
-  Agent --> Mail["Resend: notes"]
-  Agent --> Calendar["Google Calendar: availability and bookings"]
+  Corpus --> Agent["Eve agent retrieval"]
+  HomeGenUI["/ homepage search"] --> Compose["/api/genui/compose"]
+  MCP["/mcp external clients"] --> Registry["lib/capabilities registry"]
+  Registry --> Redis["Upstash: caps and idempotency"]
+  Registry --> Mail["Resend: notes"]
+  Registry --> Calendar["Google Calendar: availability and bookings"]
 ```
 
 ## Sources of truth
@@ -34,7 +34,8 @@ flowchart TD
 | `app/` and shared components | Site narrative, route composition, metadata, presentation | Human-facing pages |
 | `content/*.mdx` | Blog source and frontmatter | Velite rendering and Markdown exports |
 | `scripts/llms/` | Machine-readable narrative, route mapping, authority order, corpus assembly | Text exports, Markdown responses, API data, agent retrieval |
-| `agent/` and `lib/connect/` | Agent configuration, tools, retrieval, contact and scheduling behavior | Web chat and MCP |
+| `agent/` and `lib/connect/` | Eve configuration, retrieval, and connect-domain helpers | Eve channels and generative compose paths |
+| `lib/capabilities/` and `app/mcp/` | Public capability registry and MCP HTTP transport | External MCP clients and `/api/capabilities` |
 | Installed `gabo` skill | Voice, identity, and claim constraints | Content authoring; maintenance is in [docs/agents/skills.md](docs/agents/skills.md) |
 
 The site does not own a second copy of package facts. Package changes follow [docs/agents/package.md](docs/agents/package.md). A local link makes unpublished package changes visible during development; production still installs the published dependency. `next.config.js` detects the link and adjusts transpilation and file tracing.
@@ -98,7 +99,7 @@ The read-only JSON surface is `/api/v1/profile`, `/api/v1/pages`, and `/api/v1/p
 
 `app/mcp/route.ts` serves the capability registry in `lib/capabilities/registry.ts`: `book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, and `send_note`. `/mcp/cv` remains the CV download app. `/docs` is the integration page. The llms export still contains older `/ask` agent wording; the route behavior above is the source of truth until that export is revised.
 
-`agent/agent.ts` configures the model and disables default tools. Application tools and channels are defined under `agent/`. `lib/connect/sonnet-model.ts` configures Sonnet with Anthropic BYOK on the gateway. Gateway authentication and Anthropic provider authentication use distinct credentials.
+`agent/agent.ts` configures the model and disables default tools. Application tools and channels are defined under `agent/`. Live inference uses `lib/ai/resolve-chat-model.ts`: `AI_GATEWAY_API_KEY` is the normal path; direct Anthropic requires `FLOW_ALLOW_DIRECT_ANTHROPIC=1` with `ANTHROPIC_API_KEY`.
 
 Retrieval uses `generated/agent-index.json` and `generated/markdown-routes.json`, with selection and ranking logic in the agent hooks and `lib/connect/`. This is generated corpus retrieval, not a vector database. Changes to facts or exports must reach these artifacts before the agent can use them.
 
@@ -116,7 +117,7 @@ Upstash Redis stores action caps and idempotency state through `lib/connect/stor
 
 | Integration | Boundary |
 | --- | --- |
-| AI Gateway and Anthropic | Server-side model access; `AI_GATEWAY_API_KEY` and `ANTHROPIC_API_KEY` have separate roles. |
+| AI Gateway and Anthropic | Server-side model access via `AI_GATEWAY_API_KEY`; optional direct Anthropic with `FLOW_ALLOW_DIRECT_ANTHROPIC=1`. |
 | Resend | Notes are delivered through `lib/connect/email.ts` and `note.ts`; delivery is an external side effect. |
 | Google Calendar | `calendar-auth.ts` signs service-account JWTs with domain-wide delegation. `calendar.ts` reads availability and `book.ts` coordinates booking. The service account impersonates the explicitly configured calendar identity; `calendarId()` rejects an absent or blank value. Visitors do not complete OAuth. |
 | Upstash | Distributed caps and duplicate-action coordination, not portfolio content storage. |

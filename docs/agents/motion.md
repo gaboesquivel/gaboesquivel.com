@@ -25,7 +25,7 @@ Vendor `components/ui/**` keeps shadcn / `tw-animate-css` animations; do not rew
 ## Adding motion
 
 - Micro-interactions: extend tokens or reuse them; stay inside the DESIGN motion budget.
-- Structural continuity: read Next’s bundled `view-transitions` guide under `node_modules/next/dist/docs/` and the `vercel-react-view-transitions` skill.
+- Structural continuity: read Next’s bundled `view-transitions` guide under `node_modules/next/dist/docs/` and the motion section of this file.
 - Always degrade: unsupported View Transition API, `prefers-reduced-motion`, and SSR must leave UX usable.
 
 ## Checks
