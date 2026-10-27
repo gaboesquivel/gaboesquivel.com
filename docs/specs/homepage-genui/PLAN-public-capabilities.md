@@ -1,6 +1,6 @@
 # Implementation plan: Public capabilities
 
-Module: `public-capabilities`. Status: proposed module plan, awaiting review before detailed task breakdown. The user requested per-module planning; this document does not authorize implementation or mark future module specs approved.
+Module: `public-capabilities`. Status: **historical plan** — preserved after implementation on `develop`. Not the active execution plan; see [tasks/plan.md](../../../tasks/plan.md) and [SPEC-public-capabilities.md](SPEC-public-capabilities.md) for current status.
 
 Spec: [Public capabilities](../docs/specs/homepage-genui/SPEC-public-capabilities.md). Initiative index: [capability map](../docs/specs/homepage-genui/CAPABILITIES-homepage-genui.md). Background: [initiative overview](../docs/specs/homepage-genui/INITIATIVE-OVERVIEW.md).
 

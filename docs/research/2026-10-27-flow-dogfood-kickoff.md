@@ -12,19 +12,19 @@
 ## Active product context
 
 - **Homepage GenUI initiative** — specs under `docs/specs/homepage-genui/`; capability map owns module order.
-- **Current module plan:** [tasks/plan.md](../../tasks/plan.md) — `public-capabilities` (proposed; awaiting review before task breakdown).
-- **Recent implementation on `develop`:** GenUI planning, bio timeline, curated compose (commits through `b1569c24`).
+- **`grill` (2026-10-27):** `public-capabilities` was already implemented (`lib/capabilities/`, 9 tests pass). Stale “proposed plan” docs corrected; see [tasks/plan.md](../../tasks/plan.md).
+- **Recent implementation on `develop`:** GenUI planning, bio timeline, curated compose; Flow Skills lock at `3f661dd0`.
 
 ## Skills to use next (explicit)
 
-| Intent                                             | Skill        |
-| -------------------------------------------------- | ------------ |
-| Stress-test `public-capabilities` plan before PC-A | `grill`      |
-| Turn approved plan into tasks                      | `to-tickets` |
-| Implement PC-A after plan approval                 | `implement`  |
-| Align root docs after a shipped slice              | `flow`       |
+| Intent | Skill |
+| --- | --- |
+| Reconcile `openui-experiences` spec with shipped `/` UI | `explore` then `grill` |
+| Plan the next module delta only | `to-spec` / `to-tickets` after review |
+| Implement a bounded slice | `implement` |
+| Align ARCHITECTURE after doc correction | `flow` |
 
 ## Not started in this pass
 
-- PC-A implementation (plan not yet approved for build).
+- Formal `openui-experiences` module plan in `tasks/plan.md`.
 - Live second-agent-host verification (open in flow-skills scenario status).

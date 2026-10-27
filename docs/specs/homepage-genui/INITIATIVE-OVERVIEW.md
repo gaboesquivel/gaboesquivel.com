@@ -1,6 +1,6 @@
 # Homepage GenUI initiative overview
 
-Status: preserved initiative-wide proposal, superseded as an executable plan by the per-module workflow. Its stages are background sequencing only, not approved tasks. The [capability map](CAPABILITIES-homepage-genui.md) owns module order; the [active module plan](../../../tasks/plan.md) currently covers only public-capabilities. No implementation has started.
+Status: preserved initiative-wide proposal, superseded as an executable plan by the per-module workflow. Its stages are background sequencing only, not approved tasks. The [capability map](CAPABILITIES-homepage-genui.md) owns module order and current implementation status. `public-capabilities` is implemented on `develop`; homepage GenUI work continues under later modules — see [tasks/plan.md](../../../tasks/plan.md).
 
 ## Summary
 

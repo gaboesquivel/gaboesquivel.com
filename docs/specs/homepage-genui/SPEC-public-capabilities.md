@@ -1,6 +1,6 @@
 # Spec: Public capabilities
 
-Module: `public-capabilities`. Status: planning requested; [module plan](../../../tasks/plan.md) proposed for review. Depends on: none. Index and shared policy: [capability map](CAPABILITIES-homepage-genui.md).
+Module: `public-capabilities`. Status: **implemented on `develop`** — registry and executors in `lib/capabilities/`; contract tests in `lib/capabilities/capabilities.test.ts`; adapters at `/api/capabilities` and public MCP. Historical plan: [PLAN-public-capabilities.md](PLAN-public-capabilities.md). Active planning index: [tasks/plan.md](../../../tasks/plan.md). Depends on: none. Index: [capability map](CAPABILITIES-homepage-genui.md).
 
 ## Objective
 

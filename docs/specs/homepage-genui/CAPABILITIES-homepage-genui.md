@@ -22,8 +22,8 @@ Run Specify → Plan → Tasks → Implement for each module in dependency order
 
 | Module | Current phase | Plan/task ownership |
 | --- | --- | --- |
-| public-capabilities | Proposed plan awaiting review | [Active plan](../../../tasks/plan.md); detailed `tasks/todo.md` follows plan review |
-| openui-experiences | Draft spec; next after provider completion | Separate future module cycle |
+| public-capabilities | **Complete** (provider on `develop`) | [PLAN-public-capabilities.md](./PLAN-public-capabilities.md) (historical) |
+| openui-experiences | Draft spec; next formal plan cycle | Reconcile with shipped OpenUI on `/` before new [tasks/plan.md](../../../tasks/plan.md) |
 | composition-runtime | Draft spec | Separate future module cycle |
 | homepage-genui | Draft spec | Separate future module cycle |
 | mcp-app | Draft spec | Separate future module cycle |
