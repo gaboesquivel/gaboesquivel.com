@@ -145,10 +145,10 @@
       "computedHash": "8229594f9f664d79159147d17bc0495df4b0bf00e2c0f693020afa4d949b24e9"
     },
     "prototype": {
-      "source": "mattpocock/skills",
+      "source": "gaboesquivel/flow-skills",
       "sourceType": "github",
-      "skillPath": "skills/engineering/prototype/SKILL.md",
-      "computedHash": "d3fc74689bd993e39c44bfae510d014eecffbeec2922764b065377fd1327c0f6"
+      "skillPath": "skills/prototype/SKILL.md",
+      "computedHash": "cf6f01d789e7dd515ae2edb7a69d859e62bcaaa859e9c59e227b0454be3d48cb"
     },
     "research": {
       "source": "mattpocock/skills",
