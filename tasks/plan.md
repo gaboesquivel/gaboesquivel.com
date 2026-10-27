@@ -12,12 +12,8 @@ Do not re-run PC-A–G slices unless a regression or spec gap is found. Record g
 
 ## Explore: openui-experiences (2026-10-27)
 
-[Largely implemented on `develop`](../docs/research/2026-10-27-explore-openui-experiences-gap.md). Remaining spec gaps: **OU-08** (remove json-render from connect flows), manual ChatGPT/Claude MCP gate, formal OU audit. **composition-runtime** and **homepage-genui** also overlap shipped code — reconcile specs before writing a multi-module task list.
+[Largely implemented on `main`](../docs/research/2026-10-27-explore-openui-experiences-gap.md). **OU-08** (json-render removed from connect; plain React picker/note form) shipped 2026-10-27. Still open: manual ChatGPT/Claude MCP gate, formal OU-01–OU-07 audit. **composition-runtime** and **homepage-genui** overlap shipped code — reconcile specs before a multi-module task list.
 
-## Suggested next bounded slice (when authorized)
+## Suggested next bounded slice
 
-**OU-08 / connect migration** — replace `@json-render` usage in `app/connect/` and `lib/connect/compose.ts` with OpenUI/capability paths already used on the homepage. Scope with `to-spec` or `grill` before `implement`.
-
-## In-flight work on `develop`
-
-Recent commits extend homepage GenUI (task planning, bio timeline, curated compose). That work tracks **composition-runtime** and **homepage-genui** specs, not the completed provider module. Keep transport and provider boundaries separate when planning the next slice.
+Live MCP host smoke ([mcp-apps-host-release-gate.md](../docs/testing/mcp-apps-host-release-gate.md)) or reconcile **composition-runtime** / **homepage-genui** specs with `ARCHITECTURE.md`.

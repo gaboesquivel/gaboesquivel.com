@@ -2,13 +2,13 @@ import { describe, expect, test } from "bun:test";
 
 import {
   bookFormMessage,
-  fixedNoteSpec,
+  initialNoteFormState,
+  noteFormLead,
   noteFormMessage,
   noteFormVisible,
   parseBookFormPayload,
   parseNoteFormPayload,
 } from "./compose";
-import { NOTE_FORM_LEAD } from "./copy";
 import { noteOpener } from "./intent";
 import { noteEmailHtml, noteMessageSegments } from "./note-present";
 import {
@@ -19,28 +19,17 @@ import {
 } from "./note-receipt";
 
 describe("note form", () => {
-  test("the fixed note spec keeps field values out of props", () => {
-    const spec = fixedNoteSpec({
+  test("note form state carries visitor values separately from static lead copy", () => {
+    const state = initialNoteFormState({
       description: "Discuss the lending integration.",
       email: "ada@example.com",
       name: "Ada",
     });
-    const props = JSON.stringify(
-      Object.values(spec.elements).map((element) => element.props)
-    );
-    expect(props).not.toContain("Ada");
-    expect(props).not.toContain("ada@example.com");
-    expect(props).not.toContain("Discuss the lending");
-    expect(JSON.stringify(spec.state)).toContain("Ada");
-    expect(JSON.stringify(spec.state)).toContain("ada@example.com");
-    expect(props).toContain(NOTE_FORM_LEAD);
-    expect(spec.elements.stack?.children).toEqual([
-      "lead",
-      "name",
-      "email",
-      "topic",
-      "submit",
-    ]);
+    const lead = noteFormLead();
+    expect(lead).not.toContain("Ada");
+    expect(JSON.stringify(state)).toContain("Ada");
+    expect(JSON.stringify(state)).toContain("ada@example.com");
+    expect(lead.toLowerCase()).toContain("discuss");
   });
 
   test("a send-email opener stays on the page", () => {

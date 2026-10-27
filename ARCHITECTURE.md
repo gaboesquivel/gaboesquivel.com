@@ -104,7 +104,7 @@ Retrieval uses `generated/agent-index.json` and `generated/markdown-routes.json`
 
 The connect UI in `app/connect/` can display a CV download card, project media, a note form, and a booking flow. It is not mounted at `/ask`. The note opener is handled by the UI; `NOTE_FORM_LEAD` owns the form introduction. While the form is visible, the thread suppresses the replying indicator. Preserve this boundary when changing conversational behavior.
 
-The booking picker combines real availability with a bounded json-render component catalog. `lib/connect/compose.ts` supports Jev composition and a deterministic layout when layout is forced, credentials are absent, or composition fails. The current slot-listing path resolves a duration and uses the forced layout. Server-side booking logic owns validation and the Calendar write. A generated UI specification is not authorization to perform an action.
+The booking picker combines real availability with deterministic React UI in `app/connect/slot-picker.tsx`. `list_slots` returns structured `slotState` for the picker; server-side booking logic owns validation and the Calendar write. A generated UI payload is not authorization to perform an action.
 
 External agents call the capability registry at `/mcp`. `/mcp/cv` is a separate Next.js handler for the CV app/widget. The integration page is `/docs`.
 

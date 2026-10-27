@@ -1,16 +1,10 @@
 "use client";
 
-import type { Spec } from "@json-render/core";
-import {
-  ActionProvider,
-  Renderer,
-  StateProvider,
-  useStateStore,
-  useStateValue,
-  VisibilityProvider,
-} from "@json-render/react";
-import { createContext, useCallback, useContext, useState } from "react";
-import type { ReactNode } from "react";
+import { useCallback, useState } from "react";
+
+import type { NoteFormState } from "@/lib/connect/compose";
+import { initialNoteFormState } from "@/lib/connect/compose";
+import { NOTE_FORM_LEAD } from "@/lib/connect/copy";
 
 import {
   ConnectEmailField,
@@ -20,110 +14,48 @@ import {
 } from "./connect-fields";
 import { ConnectCard, ConnectPrimaryButton } from "./connect-gen-ui";
 
-const SubmitContext = createContext<
-  | ((values: { description: string; email: string; name: string }) => void)
-  | null
->(null);
-
-const Lead = ({ element }: { element: { props: { text?: string } } }) =>
-  element.props.text ? (
-    <p className="text-sm text-neutral-400">{element.props.text}</p>
-  ) : null;
-
-const NameField = () => {
-  const name = useStateValue<string>("/name") ?? "";
-  const { set } = useStateStore();
-  return (
-    <ConnectNameField onChange={(value) => set("/name", value)} value={name} />
-  );
-};
-
-const EmailField = () => {
-  const email = useStateValue<string>("/email") ?? "";
-  const { set } = useStateStore();
-  return (
-    <ConnectEmailField
-      onChange={(value) => set("/email", value)}
-      value={email}
-    />
-  );
-};
-
-const TopicField = () => {
-  const description = useStateValue<string>("/description") ?? "";
-  const { set } = useStateStore();
-  return (
-    <ConnectTopicField
-      onChange={(value) => set("/description", value)}
-      value={description}
-    />
-  );
-};
-
-const Submit = ({ element }: { element: { props: { label?: string } } }) => {
-  const label = element.props.label;
-  const onSubmit = useContext(SubmitContext);
-  const name = useStateValue<string>("/name") ?? "";
-  const email = useStateValue<string>("/email") ?? "";
-  const description = useStateValue<string>("/description") ?? "";
-  const valid = contactValid({ description, email, name });
-  return (
-    <ConnectPrimaryButton
-      disabled={!valid}
-      onClick={() =>
-        onSubmit?.({ description, email: email.trim(), name: name.trim() })
-      }
-    >
-      {label ?? "Send email"}
-    </ConnectPrimaryButton>
-  );
-};
-
-const NoteStack = ({ children }: { children?: ReactNode }) => (
-  <ConnectCard title="Send email">{children}</ConnectCard>
-);
-
-const registry = {
-  EmailField,
-  Lead,
-  NameField,
-  NoteStack,
-  Submit,
-  TopicField,
-};
-
 export function NoteForm({
+  initialState,
   onSubmit,
-  spec,
 }: {
-  onSubmit: (values: {
-    description: string;
-    email: string;
-    name: string;
-  }) => void;
-  spec: Spec;
+  initialState?: NoteFormState;
+  onSubmit: (values: NoteFormState) => void;
 }) {
   const [disabled, setDisabled] = useState(false);
-  const handleSubmit = useCallback(
-    (values: { description: string; email: string; name: string }) => {
-      if (!contactValid(values) || disabled) return;
-      setDisabled(true);
-      onSubmit(values);
-    },
-    [disabled, onSubmit]
+  const [name, setName] = useState(
+    () => initialNoteFormState(initialState).name
   );
+  const [email, setEmail] = useState(
+    () => initialNoteFormState(initialState).email
+  );
+  const [description, setDescription] = useState(
+    () => initialNoteFormState(initialState).description
+  );
+
+  const handleSubmit = useCallback(() => {
+    const values = {
+      description: description.trim(),
+      email: email.trim(),
+      name: name.trim(),
+    };
+    if (!contactValid(values) || disabled) return;
+    setDisabled(true);
+    onSubmit(values);
+  }, [description, disabled, email, name, onSubmit]);
 
   if (disabled) return null;
 
+  const valid = contactValid({ description, email, name });
+
   return (
-    <SubmitContext.Provider value={handleSubmit}>
-      <StateProvider initialState={spec.state ?? {}}>
-        <VisibilityProvider>
-          <ActionProvider>
-            <Renderer registry={registry} spec={spec} />
-          </ActionProvider>
-        </VisibilityProvider>
-      </StateProvider>
-    </SubmitContext.Provider>
+    <ConnectCard title="Send email">
+      <p className="text-sm text-neutral-400">{NOTE_FORM_LEAD}</p>
+      <ConnectNameField onChange={setName} value={name} />
+      <ConnectEmailField onChange={setEmail} value={email} />
+      <ConnectTopicField onChange={setDescription} value={description} />
+      <ConnectPrimaryButton disabled={!valid} onClick={handleSubmit}>
+        Send email
+      </ConnectPrimaryButton>
+    </ConnectCard>
   );
 }

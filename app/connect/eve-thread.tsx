@@ -1,6 +1,5 @@
 "use client";
 
-import type { Spec } from "@json-render/core";
 import { proseLink } from "components/shared/spacing";
 import { openConversationInputs, useEveAgent } from "eve/react";
 import { siteOrigin, siteRelativePath } from "lib/site-path";
@@ -18,12 +17,11 @@ import { ProjectMediaStack } from "@/components/work/project-media";
 
 import {
   bookFormMessage,
-  fixedNoteSpec,
   noteFormMessage,
   noteFormVisible,
   parseBookTimeZone,
 } from "../../lib/connect/compose";
-import type { NoteFormState } from "../../lib/connect/compose";
+import type { NoteFormState, SlotState } from "../../lib/connect/compose";
 import { STREAM_FAILED } from "../../lib/connect/copy";
 import type { CvDownloadPayload } from "../../lib/connect/cv-download";
 import {
@@ -213,7 +211,6 @@ export function EveThread({
   const [pendingPickerLocks, setPendingPickerLocks] = useState<
     Record<string, string>
   >({});
-  const noteSpec = useMemo(() => fixedNoteSpec(), []);
   const pickerLocks = useMemo(
     () => ({
       ...lockedPickerSummaries(agent.data.messages),
@@ -552,12 +549,14 @@ export function EveThread({
               }
               if (part.toolName === "list_slots") {
                 if (part.state === "output-available") {
-                  const spec = (part.output as { spec?: unknown } | undefined)
-                    ?.spec;
-                  if (!spec || typeof spec !== "object") return null;
+                  const slotState = (
+                    part.output as { slotState?: SlotState } | undefined
+                  )?.slotState;
+                  if (!slotState || typeof slotState !== "object") return null;
                   return (
                     <div className={enter} key={part.toolCallId}>
                       <SlotPicker
+                        initialState={slotState}
                         lockedSummary={pickerLocks[part.toolCallId] ?? null}
                         onPick={(values) => {
                           const summary = formatSlotSelectionLine({
@@ -596,7 +595,6 @@ export function EveThread({
                               });
                             });
                         }}
-                        spec={spec as Spec}
                       />
                     </div>
                   );
@@ -707,7 +705,7 @@ export function EveThread({
       {showNoteForm ? (
         <div className={enter}>
           <NoteForm
-            onSubmit={(values) => {
+            onSubmit={(values: NoteFormState) => {
               const zone = browserTimeZone();
               setOptimisticNote(values);
               setNoteFormDisabled(true);
@@ -721,7 +719,6 @@ export function EveThread({
                   setOptimisticNote(null);
                 });
             }}
-            spec={noteSpec}
           />
         </div>
       ) : null}

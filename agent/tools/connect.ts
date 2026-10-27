@@ -4,7 +4,7 @@ import { z } from "zod";
 import { bookCall } from "../../lib/connect/book";
 import { googleCalendar } from "../../lib/connect/calendar";
 import { admitMcpTurn } from "../../lib/connect/caps";
-import { fixedSpec, parseNoteFormPayload } from "../../lib/connect/compose";
+import { parseNoteFormPayload } from "../../lib/connect/compose";
 import type { SlotState } from "../../lib/connect/compose";
 import {
   NO_SLOTS,
@@ -90,7 +90,7 @@ export default defineDynamic({
               duration,
               message: ZONE_NEEDED,
               slots: [],
-              spec: null,
+              slotState: null,
               timeZone,
             };
           }
@@ -108,7 +108,7 @@ export default defineDynamic({
                 duration,
                 message: NO_SLOTS,
                 slots: [],
-                spec: null,
+                slotState: null,
                 timeZone,
               };
             }
@@ -117,12 +117,11 @@ export default defineDynamic({
               day: open.days[0] ?? null,
               duration,
             };
-            const spec = fixedSpec(state);
             return {
               duration,
               message: "Open times are in the picker.",
               slots: shortSlots(state),
-              spec,
+              slotState: state,
               timeZone,
             };
           } catch (error) {
@@ -130,7 +129,7 @@ export default defineDynamic({
               duration,
               message: slotsMessageForError(error),
               slots: [],
-              spec: null,
+              slotState: null,
               timeZone,
             };
           }

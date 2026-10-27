@@ -30,7 +30,7 @@ How much of [SPEC-openui-experiences.md](../specs/homepage-genui/SPEC-openui-exp
 | OU-05 | **Partially met** | Streaming/compose tests exist; full supersession gate not audited line-by-line |
 | OU-06 | **Met by architecture** | Post-compose interactions use capabilities; planner is pre-compose only |
 | OU-07 | **Partially met** | `test:genui:a11y` exists; not run in this explore pass |
-| OU-08 | **Not met** | `@json-render/core` and `@json-render/react` still in `package.json`; `app/connect/*` and `lib/connect/compose.ts` still import json-render |
+| OU-08 | **Met** (2026-10-27) | Connect picker/note form are plain React; `list_slots` returns `slotState`; json-render deps and Eve skills removed |
 
 ## Spec drift
 

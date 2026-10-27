@@ -1,13 +1,5 @@
 "use client";
 
-import type { Spec } from "@json-render/core";
-import {
-  ActionProvider,
-  StateProvider,
-  useStateStore,
-  useStateValue,
-  VisibilityProvider,
-} from "@json-render/react";
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -93,9 +85,11 @@ const TimeButton = ({
 );
 
 const BookingScheduler = ({
+  initialState,
   lockedSummary,
   onContinue,
 }: {
+  initialState: SlotState;
   lockedSummary?: string | null;
   onContinue: (input: {
     description: string;
@@ -106,11 +100,13 @@ const BookingScheduler = ({
     timeZone: string;
   }) => void;
 }) => {
-  const rawSlots = useStateValue<SlotState["slots"]>("/slots");
-  const storedZone = useStateValue<string>("/timeZone") ?? "UTC";
-  const storedDuration = useStateValue<number>("/duration");
-  const duration: 15 | 30 =
-    storedDuration === 15 || storedDuration === 30 ? storedDuration : 30;
+  const rawSlots = initialState.slots;
+  const storedZone = initialState.timeZone || "UTC";
+  const [duration, setDuration] = useState<15 | 30>(
+    initialState.duration === 15 || initialState.duration === 30
+      ? initialState.duration
+      : 30
+  );
   const [displayZone, setDisplayZone] = useState(storedZone);
   const [expanded, setExpanded] = useState(false);
   const [weekStart, setWeekStart] = useState(() =>
@@ -132,7 +128,6 @@ const BookingScheduler = ({
   const [description, setDescription] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [now, setNow] = useState(() => new Date());
-  const { set } = useStateStore();
 
   useEffect(() => {
     const id = window.setInterval(() => setNow(new Date()), 60_000);
@@ -197,7 +192,6 @@ const BookingScheduler = ({
 
   const changeZone = (next: string) => {
     setDisplayZone(next);
-    set("/timeZone", next);
   };
 
   const slotStillOpen =
@@ -275,7 +269,7 @@ const BookingScheduler = ({
     <ConnectCard title="Pick a time">
       <DurationToggle
         onChange={(next) => {
-          set("/duration", next);
+          setDuration(next);
           setSelection(null);
         }}
         value={duration}
@@ -427,10 +421,11 @@ const BookingScheduler = ({
 };
 
 export function SlotPicker({
+  initialState,
   lockedSummary,
   onPick,
-  spec,
 }: {
+  initialState: SlotState;
   lockedSummary?: string | null;
   onPick: (input: {
     description: string;
@@ -440,20 +435,14 @@ export function SlotPicker({
     start: string;
     timeZone: string;
   }) => void;
-  spec: Spec;
 }) {
   return (
-    <StateProvider initialState={spec.state ?? {}}>
-      <VisibilityProvider>
-        <ActionProvider>
-          <div className={enter}>
-            <BookingScheduler
-              lockedSummary={lockedSummary}
-              onContinue={onPick}
-            />
-          </div>
-        </ActionProvider>
-      </VisibilityProvider>
-    </StateProvider>
+    <div className={enter}>
+      <BookingScheduler
+        initialState={initialState}
+        lockedSummary={lockedSummary}
+        onContinue={onPick}
+      />
+    </div>
   );
 }

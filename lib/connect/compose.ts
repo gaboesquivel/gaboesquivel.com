@@ -1,5 +1,3 @@
-import type { Spec } from "@json-render/core";
-
 import { NOTE_FORM_LEAD } from "./copy";
 
 export interface SlotState {
@@ -10,55 +8,22 @@ export interface SlotState {
   timeZone: string;
 }
 
-const slotStateRecord = (state: SlotState) =>
-  state as unknown as Record<string, unknown>;
-
 export interface NoteFormState {
   description: string;
   email: string;
   name: string;
 }
 
-const emptyNoteFormState = (): NoteFormState => ({
+export const emptyNoteFormState = (): NoteFormState => ({
   description: "",
   email: "",
   name: "",
 });
 
-const noteStateRecord = (state: NoteFormState) =>
-  state as unknown as Record<string, unknown>;
+export const initialNoteFormState = (state?: NoteFormState): NoteFormState =>
+  state ?? emptyNoteFormState();
 
-export const fixedNoteSpec = (state?: NoteFormState): Spec => ({
-  elements: {
-    email: {
-      props: {},
-      type: "EmailField",
-    },
-    lead: {
-      props: { text: NOTE_FORM_LEAD },
-      type: "Lead",
-    },
-    name: {
-      props: {},
-      type: "NameField",
-    },
-    stack: {
-      children: ["lead", "name", "email", "topic", "submit"],
-      props: {},
-      type: "NoteStack",
-    },
-    submit: {
-      props: { label: "Send email" },
-      type: "Submit",
-    },
-    topic: {
-      props: {},
-      type: "TopicField",
-    },
-  },
-  root: "stack",
-  state: noteStateRecord(state ?? emptyNoteFormState()),
-});
+export const noteFormLead = () => NOTE_FORM_LEAD;
 
 export const noteFormMessage = ({
   description,
@@ -140,14 +105,3 @@ export const noteFormVisible = ({
   hasSendApproval: boolean;
   mode: "book" | "note" | null;
 }) => mode === "note" && !hasSendApproval && !formDisabled;
-
-export const fixedSpec = (state: SlotState): Spec => ({
-  elements: {
-    scheduler: {
-      props: {},
-      type: "BookingScheduler",
-    },
-  },
-  root: "scheduler",
-  state: slotStateRecord(state),
-});

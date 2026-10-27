@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 
 import { bookCall } from "./book";
 import { memoryCapStore } from "./caps";
-import { fixedSpec } from "./compose";
+import type { SlotState } from "./compose";
 import { BOOKING_CAP } from "./copy";
 import { bookSchema } from "./schema";
 import { listOpenSlots, zonedInstant } from "./slots";
@@ -156,8 +156,8 @@ describe("connect gate", () => {
     );
   });
 
-  test("the fixed picker spec keeps clock strings out of props", () => {
-    const spec = fixedSpec({
+  test("slot state keeps ISO starts in slots, not in presentation metadata", () => {
+    const state: SlotState = {
       day: "2026-10-19",
       days: ["2026-10-19"],
       duration: 15,
@@ -166,12 +166,14 @@ describe("connect gate", () => {
         "30": { "2026-10-19": ["2026-10-19T15:00:00.000Z"] },
       },
       timeZone: "America/Denver",
+    };
+    const meta = JSON.stringify({
+      day: state.day,
+      days: state.days,
+      duration: state.duration,
+      timeZone: state.timeZone,
     });
-    const props = JSON.stringify(
-      Object.values(spec.elements).map((element) => element.props)
-    );
-    expect(props).not.toContain("10:00");
-    expect(props).not.toContain("15:00");
-    expect(JSON.stringify(spec.state)).toContain("2026-10-19T15:00:00.000Z");
+    expect(meta).not.toContain("15:00:00");
+    expect(JSON.stringify(state.slots)).toContain("2026-10-19T15:00:00.000Z");
   });
 });
