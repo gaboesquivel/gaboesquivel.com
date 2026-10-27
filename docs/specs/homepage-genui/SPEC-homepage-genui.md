@@ -1,8 +1,8 @@
 # Spec: Homepage GenUI
 
-Module: `homepage-genui`. Status: draft, awaiting approval. Depends on: `composition-runtime`. Index: [capability map](CAPABILITIES-homepage-genui.md).
+Module: `homepage-genui`. Status: **largely implemented on `main`** — `HomepageGenUiShell`, sticky prompt, generated region, reset, `/api/genui/compose` on submit; SSR portfolio preserved. Outstanding: DESIGN.md motion budget, bundle baseline report, formal HP-01–HP-09 audit. Gap note: [explore](../../research/2026-10-27-explore-composition-homepage-mcp-gap.md). Depends on: `composition-runtime` (largely shipped). Index: [capability map](CAPABILITIES-homepage-genui.md).
 
-The Design System v2 SSR baseline is implemented separately: full-width local search and editorial grid. This draft still owns future sticky replacement behavior; the current search does not invoke the composition runtime. Global chat currently opens a navigation sheet linking to `/ask`, not a migrated conversation.
+Design System v2 SSR baseline and homepage GenUI search share `/`. Nav sheet may still link to `/ask` (redirects to `/`). Global Eve chat remains on connect surfaces, not the homepage transcript model.
 
 ## Objective
 

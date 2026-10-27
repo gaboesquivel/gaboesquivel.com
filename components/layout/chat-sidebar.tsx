@@ -14,7 +14,7 @@ import { MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-/** Staged navigation shell: existing conversation remains on /ask until migration. */
+/** Nav sheet entry point for homepage GenUI search (`/ask` redirects to `/`). */
 export function ChatSidebar() {
   const [open, setOpen] = useState(false);
   return (
@@ -39,13 +39,15 @@ export function ChatSidebar() {
           </SheetDescription>
         </SheetHeader>
         <div className="space-y-6 px-4 text-sm text-neutral-300">
-          <p>The conversation opens on its own page.</p>
+          <p>
+            Use the homepage search to explore work, leave a note, or book time.
+          </p>
           <Link
-            href="/ask"
+            href="/"
             onClick={() => setOpen(false)}
             className={cn(ctaLink, "inline-flex min-h-11 items-center")}
           >
-            Start a chat
+            Go to homepage search
           </Link>
           <p>
             Prefer to write directly?{" "}

@@ -22,11 +22,11 @@ Run Specify → Plan → Tasks → Implement for each module in dependency order
 
 | Module | Current phase | Plan/task ownership |
 | --- | --- | --- |
-| public-capabilities | **Complete** (provider on `develop`) | [PLAN-public-capabilities.md](./PLAN-public-capabilities.md) (historical) |
-| openui-experiences | **Largely complete** on `develop`; OU-08 + live MCP open | [SPEC-openui-experiences](SPEC-openui-experiences.md); [explore gap](../../research/2026-10-27-explore-openui-experiences-gap.md) |
-| composition-runtime | **Partially shipped** (task planning, compose budgets) | Reconcile [SPEC-composition-runtime](SPEC-composition-runtime.md) with ARCHITECTURE.md before a new plan |
-| homepage-genui | **Partially shipped** (homepage shell, search, compose region) | Reconcile [SPEC-homepage-genui](SPEC-homepage-genui.md) with `app/page.tsx` / shell components |
-| mcp-app | Draft spec | Separate future module cycle |
+| public-capabilities | **Complete** on `main` | [PLAN-public-capabilities.md](./PLAN-public-capabilities.md) (historical) |
+| openui-experiences | **Largely complete**; live MCP gate open | [SPEC-openui-experiences](SPEC-openui-experiences.md); [explore gap](../../research/2026-10-27-explore-openui-experiences-gap.md) |
+| composition-runtime | **Largely complete** | [SPEC-composition-runtime](SPEC-composition-runtime.md); [explore](../../research/2026-10-27-explore-composition-homepage-mcp-gap.md) |
+| homepage-genui | **Largely complete** | [SPEC-homepage-genui](SPEC-homepage-genui.md); same explore note |
+| mcp-app | **Largely complete**; live host gate open | [SPEC-mcp-app](SPEC-mcp-app.md); same explore note |
 
 `tasks/plan.md` and `tasks/todo.md` describe only the active module. Before advancing, preserve its completed plan and checklist here as `PLAN-<module-id>.md` and `TASKS-<module-id>.md`, link them from this index, then activate the next module. Do not overwrite incomplete work for a different module.
 

@@ -1,6 +1,6 @@
 # Spec: Composition runtime
 
-Module: `composition-runtime`. Status: draft, awaiting approval. Depends on: `openui-experiences` and its public-capabilities contract. Index: [capability map](CAPABILITIES-homepage-genui.md).
+Module: `composition-runtime`. Status: **largely implemented on `main`** — compose API, tiered routing (0/1/2), task planner, Jev decisions, semantic plan, budgets per `ARCHITECTURE.md` and `docs/adr/ADR-genui-task-planning.md`. Outstanding: formal CR-01–CR-08 audit, documented p75 latency vs spec targets. Gap note: [explore](../../research/2026-10-27-explore-composition-homepage-mcp-gap.md). Depends on: `openui-experiences` (largely complete). Index: [capability map](CAPABILITIES-homepage-genui.md).
 
 ## Objective
 

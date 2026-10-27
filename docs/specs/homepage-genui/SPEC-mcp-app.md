@@ -1,6 +1,6 @@
 # Spec: MCP App
 
-Module: `mcp-app`. Status: draft, awaiting approval. Depends on: `public-capabilities`, `openui-experiences`. Index: [capability map](CAPABILITIES-homepage-genui.md).
+Module: `mcp-app`. Status: **largely implemented on `main`** — `/mcp` serves nine registry tools; capabilities shared with HTTP; MCP Apps harness in CI. Outstanding: live ChatGPT/Claude release gate, confirm `/mcp/cv` retirement vs spec, refresh migration section (Eve no longer owns `/mcp`). Gap note: [explore](../../research/2026-10-27-explore-composition-homepage-mcp-gap.md). Depends on: `public-capabilities`, `openui-experiences`. Index: [capability map](CAPABILITIES-homepage-genui.md).
 
 ## Objective
 

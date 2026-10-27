@@ -19,7 +19,8 @@
 
 | Intent | Skill |
 | --- | --- |
-| OU-08 json-render removal or live MCP evidence | `grill` then `to-spec` — see [explore gap](2026-10-27-explore-openui-experiences-gap.md) |
+| Live MCP host gate (ChatGPT/Claude) | Manual + [mcp-apps-host-release-gate.md](../testing/mcp-apps-host-release-gate.md) |
+| CR/HP formal acceptance audit | `explore` complete — [composition/homepage/mcp gap](2026-10-27-explore-composition-homepage-mcp-gap.md) |
 | Plan the next module delta only | `to-spec` / `to-tickets` after review |
 | Implement a bounded slice | `implement` |
 | Align ARCHITECTURE after doc correction | `flow` |
