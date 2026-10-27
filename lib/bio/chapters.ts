@@ -33,7 +33,6 @@ export interface BioChapter {
   summaryParagraphs: readonly BioParagraph[];
   expandedParagraphs: readonly BioParagraph[];
   links: readonly BioLink[];
-  extraMedia?: readonly BioChapterMedia[];
   primaryMedia: BioChapterMedia;
   projectSlugs: readonly string[];
 }
@@ -122,22 +121,11 @@ export const bioChapters: readonly BioChapter[] = [
       ],
     ],
     links: [
+      { href: "/project/opyn", label: "Opyn →" },
       { href: "/project/eos-costa-rica", label: "EOS Costa Rica →" },
-      { href: "/project/ztx", label: "ZTX →" },
       { href: "/web3", label: "Explore Web3 work →" },
     ],
-    extraMedia: [
-      {
-        kind: "image",
-        src: "/images/bio/gabo-coding.jpg",
-        alt: "Gabo Esquivel coding",
-      },
-    ],
-    primaryMedia: {
-      kind: "image",
-      src: "/images/work/gaboesquivel-presentation.jpg",
-      alt: "Gabo Esquivel presenting at a community event",
-    },
+    primaryMedia: { kind: "project", slug: "opyn", href: "/project/opyn" },
     projectSlugs: [
       "ztx",
       "eos-costa-rica",

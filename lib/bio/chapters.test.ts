@@ -37,4 +37,16 @@ describe("bio chapters", () => {
     );
     expect(links.some((link) => link.href === "/web3")).toBe(true);
   });
+
+  test("systems chapter features Opyn", () => {
+    const systems = bioChapters.find((chapter) => chapter.id === "systems");
+    expect(systems?.primaryMedia).toEqual({
+      kind: "project",
+      slug: "opyn",
+      href: "/project/opyn",
+    });
+    expect(systems?.links.some((link) => link.href === "/project/opyn")).toBe(
+      true
+    );
+  });
 });
