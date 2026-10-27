@@ -10,6 +10,7 @@ Record of automated quality layers for OpenUI composition, the fixture lab, MCP 
 | [inventory.md](inventory.md) | Test paths, harness code, readiness flags, what is / is not asserted |
 | [ci-genui-quality.md](ci-genui-quality.md) | GitHub Actions workflow jobs and local parity |
 | [mcp-apps-host-release-gate.md](mcp-apps-host-release-gate.md) | Deterministic MCP host CI vs manual ChatGPT/Claude gate |
+| [live-mcp-host-checklist.md](live-mcp-host-checklist.md) | Blank table for recording ChatGPT/Claude smoke (manual) |
 
 Related elsewhere:
 

@@ -24,6 +24,6 @@ Do not re-run PC-A–G slices unless a regression or spec gap is found. Record g
 
 ## Suggested next bounded slice
 
-1. **Manual:** Live MCP host smoke ([mcp-apps-host-release-gate.md](../docs/testing/mcp-apps-host-release-gate.md)).
+1. **Manual:** Live MCP host — [checklist](docs/testing/live-mcp-host-checklist.md) + [release gate](docs/testing/mcp-apps-host-release-gate.md).
 2. **Automated:** Broaden a11y fixture matrix if required for OU-07 sign-off.
-3. **Product:** Decide fate of unused `app/connect/*` Eve chat ( `/ask` now redirects to homepage GenUI).
+3. **Product:** [Connect surface status](../docs/research/2026-10-27-connect-surface-status.md) (`ConnectChat` not mounted on any route).
