@@ -82,9 +82,9 @@ html {
   max-width: 65ch;
 }
 
-/* Posts fill the shell. Words stay on the reading measure. Figures and code use the shell. */
+/* Posts fill the shell. Words match wide figures so text and diagrams share one edge. */
 .blog-content > :where(p, ul, ol, blockquote, h2, h3, h4) {
-  max-width: 65ch;
+  max-width: min(52rem, 100%);
 }
 
 .blog-content figure {
