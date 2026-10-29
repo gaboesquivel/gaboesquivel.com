@@ -12,8 +12,12 @@ on:
       - "promptfooconfig.yaml"
       - "package.json"
       - "bun.lock"
+      - "scripts/**"
+      - "lib/capabilities/**"
+      - "lib/mcp/**"
+      - ".github/workflows/genui-quality.yml"
   push:
-    branches: [develop]
+    branches: [main, develop]
     paths:
       - "lib/genui/**"
       - "components/genui/**"
@@ -30,6 +34,7 @@ jobs:
         with:
           node-version: "24"
       - run: bun install --frozen-lockfile
+      - run: bun run prepare:generated
       - run: bun run verify
       - run: bun run test:genui:unit
       - run: bun run test:genui:mcp-apps:protocol
@@ -44,6 +49,7 @@ jobs:
         with:
           node-version: "24"
       - run: bun install --frozen-lockfile
+      - run: bun run prepare:generated
       - run: bunx playwright install chromium --with-deps
       - run: bun run test:genui:browser
       - run: bun run test:genui:mcp-apps:host
@@ -61,4 +67,5 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
+      - run: bun run prepare:generated
       - run: bun test lib/mcp/public-protocol.test.ts lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts

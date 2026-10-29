@@ -73,3 +73,26 @@ Read the matching document before editing:
 ## Git
 
 Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): subject` (for example `docs: add PRODUCT.md`, `content(ai): align page copy`). Common types: `docs`, `content`, `feat`, `fix`, `chore`.
+
+<!-- BEGIN FLOW -->
+
+## Flow
+
+This project uses Flow skills. Say a phrase to load its skill; the installed `flow` skill describes this block. Delete the block to opt out.
+
+Delivery: github
+
+| Say                                                  | Skill       |
+| ---------------------------------------------------- | ----------- |
+| "explore this"                                       | `explore`   |
+| "interview me"                                       | `interview` |
+| "grill this"                                         | `grill`     |
+| "spec it"                                            | `to-spec`   |
+| "share the draft"                                    | `to-spec`   |
+| "break it down"                                      | `to-tasks`  |
+| "build it"                                           | `build`     |
+| "check it against the spec"                          | `review`    |
+| "ship it" (add "local" or "with GitHub" for one run) | `ship`      |
+| "update the docs"                                    | `flow`      |
+
+<!-- END FLOW -->

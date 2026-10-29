@@ -90,7 +90,7 @@ Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institu
 
 ### `/ask`
 
-The route redirects to `/`. Notes and bookings are the contact form, the homepage booking controls when a visitor asks for them, and the MCP capability tools. The llms export still describes an older `/ask` agent; that export is not the route.
+The route redirects to `/`. Notes and bookings are the contact form, the homepage booking controls when a visitor asks for them, and the MCP capability tools. The llms export and OpenAPI description point agents at those MCP tools; `lib/capabilities/published-copy.test.ts` fails when agent-facing copy names a tool the registry does not serve.
 
 ### `/docs`
 

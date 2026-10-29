@@ -36,4 +36,6 @@ Optional / not gated in CI by default: `test:genui:visual`, `test:genui:a11y`, `
 
 - **Fixture lab:** `GENUI_FIXTURE_LAB=1` on the Next server (Playwright sets this via `playwright.config.ts`).
 - **Playwright:** default dev URL `http://localhost:3199` (`PLAYWRIGHT_PORT`, `PLAYWRIGHT_BASE_URL`, `PLAYWRIGHT_SKIP_WEBSERVER`).
-- **Site dev:** production-style dev remains port `3099`; do not confuse with the GenUI Playwright port.
+- **Site dev:** production-style dev remains port `3099`; do not confuse with the GenUI Playwright port. The fixture lab builds into `.next-genui-lab` (`NEXT_DIST_DIR`), so Playwright runs beside a running `bun run dev` without stopping it.
+- **Generated inputs:** `generated/*.json` is gitignored. `bun run prepare:generated` (Velite + `scripts/export-llms.ts`) creates it; CI and the Playwright web server run it first.
+- **Planner paraphrases:** add a row to `lib/genui/planner-paraphrases.test.ts` for every new planner keyword rule, including a query it must not capture.
