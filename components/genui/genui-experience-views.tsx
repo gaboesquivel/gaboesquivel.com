@@ -1,6 +1,8 @@
 "use client";
 
 import { siteProfile } from "lib/api/profile";
+import { isComparisonDimension } from "lib/genui/comparison-dimensions";
+import type { ComparisonDimension } from "lib/genui/comparison-dimensions";
 import { isCompositeName } from "lib/genui/composites";
 import { isParsedExperienceChild } from "lib/genui/contract/stack";
 import { projectsFromPublicIds } from "lib/genui/project-from-id";
@@ -22,11 +24,16 @@ import { WritingCompositeView } from "./writing-composite-view";
 const wideRail =
   "min-w-0 max-w-full @min-[48rem]:grid @min-[48rem]:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] @min-[48rem]:gap-10";
 
+const noShownIds: string[] = [];
+
 export const AnswerView = ({
   body,
+  shownIds = noShownIds,
   sourceIds,
 }: {
   body: string;
+  /** Records already rendered as evidence beside this answer; not relisted. */
+  shownIds?: string[];
   sourceIds: string[];
 }) => {
   const records = useGenuiRecords();
@@ -34,10 +41,11 @@ export const AnswerView = ({
     sourceIds.includes("/contact") &&
     sourceIds.includes("/cv") &&
     sourceIds.includes("booking");
+  const listedIds = sourceIds.filter((id) => !shownIds.includes(id));
   const sourceLinks =
-    sourceIds.length > 0 && !isEngagement ? (
+    listedIds.length > 0 && !isEngagement ? (
       <ul className="space-y-2 text-sm text-neutral-400">
-        {sourceIds.map((id) => {
+        {listedIds.map((id) => {
           const record = records.find((item) => item.id === id);
           if (!record) return null;
           return (
@@ -131,10 +139,12 @@ export const CvExperienceView = ({
 
 export const ProjectExperienceView = ({
   composite,
+  dimensions,
   domain,
   projectIds,
 }: {
   composite: string;
+  dimensions?: ComparisonDimension[];
   domain?: "ai" | "web3" | "all";
   projectIds: string[];
 }) => {
@@ -145,6 +155,7 @@ export const ProjectExperienceView = ({
   return (
     <ProjectCompositeView
       composite={resolvedComposite}
+      dimensions={dimensions}
       domain={domain}
       projectIds={projectIds}
       projects={projects}
@@ -245,7 +256,17 @@ export const BookingExperienceView = () => {
   );
 };
 
-const renderStackChild = (child: unknown, index: number) => {
+const evidenceIdsOf = (child: unknown) => {
+  if (!isParsedExperienceChild(child) || child.typeName === "Answer") return [];
+  const ids = child.props.projectIds ?? child.props.postIds;
+  return Array.isArray(ids) ? ids.map(String) : [];
+};
+
+const renderStackChild = (
+  child: unknown,
+  index: number,
+  shownIds: string[]
+) => {
   if (!isParsedExperienceChild(child)) return null;
   const key = `${child.typeName}-${index}`;
   const props = child.props;
@@ -254,6 +275,7 @@ const renderStackChild = (child: unknown, index: number) => {
       <AnswerView
         key={key}
         body={String(props.body ?? "")}
+        shownIds={shownIds}
         sourceIds={
           Array.isArray(props.sourceIds) ? props.sourceIds.map(String) : []
         }
@@ -265,6 +287,11 @@ const renderStackChild = (child: unknown, index: number) => {
       <ProjectExperienceView
         key={key}
         composite={String(props.composite ?? "editorial-grid")}
+        dimensions={
+          Array.isArray(props.dimensions)
+            ? props.dimensions.filter(isComparisonDimension)
+            : undefined
+        }
         domain={
           props.domain === "ai" ||
           props.domain === "web3" ||
@@ -332,8 +359,11 @@ const renderStackChild = (child: unknown, index: number) => {
   return null;
 };
 
-export const ExperienceStackView = ({ items }: { items: unknown[] }) => (
-  <div className="space-y-12">
-    {items.map((child, index) => renderStackChild(child, index))}
-  </div>
-);
+export const ExperienceStackView = ({ items }: { items: unknown[] }) => {
+  const shownIds = items.flatMap(evidenceIdsOf);
+  return (
+    <div className="space-y-10">
+      {items.map((child, index) => renderStackChild(child, index, shownIds))}
+    </div>
+  );
+};

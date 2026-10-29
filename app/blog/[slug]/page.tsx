@@ -131,7 +131,7 @@ export default async function Blog({
               </time>
             </p>
             {archived ? (
-              <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-500">
+              <p className="mb-6 text-sm text-neutral-400">
                 Historical post — views and technology at time of publication.
               </p>
             ) : null}

@@ -144,6 +144,8 @@ A request becomes an ordered task plan (`lib/genui/task-plan.ts`). Stable ids ar
 
 Composition uses approved experiences and `ExperienceStack` (`lib/genui/compose-planned.ts`). Relationships are explanation plus evidence, comparison plus a supported interpretation, primary content plus a filter note, evidence plus a requested action, chronology, and a short factual answer. Component rules live in `lib/genui/component-semantics.ts`.
 
+Requested comparison dimensions travel as a `ProjectExperience` `dimensions` prop (`lib/genui/comparison-dimensions.ts`); process questions about building with agents compose an answer plus `WritingExperience` from topic-ranked published posts (`lib/genui/writing-topic.ts`). Homepage and the search dialog wrap generated results in the same `GenuiSessionProvider` (draft and interaction state), and `GeneratedRegion` turns render or contract failures into a retryable error.
+
 Coverage is per task. Recovery (`lib/genui/recover-composition.ts`) keeps valid sections, fills a missing supported task without broadening its filter, and does not call the model again. A cancelled request does not emit a completion or error over a newer result.
 
 Budgets: planner 3.5s and 1,200 output tokens; composition 12s and 4,000 output tokens; HTTP deadline 15s; at most two model calls; evidence packet 12 records and 28,000 characters, without the full catalog listing; at most six stack children. Counts are published portfolio records. Structural coverage does not prove a sentence is entailed by its sources. See [docs/adr/ADR-genui-task-planning.md](docs/adr/ADR-genui-task-planning.md).

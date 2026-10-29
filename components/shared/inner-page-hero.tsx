@@ -17,6 +17,7 @@ export function InnerPageHero({
   compact = false,
   density = "default",
   className,
+  meta,
   children,
 }: {
   trail?: PageTrailSegment[];
@@ -26,6 +27,8 @@ export function InnerPageHero({
   /** Tighter intro for in-panel GenUI results; only applies with `compact`. */
   density?: "default" | "panel";
   className?: string;
+  /** Short facts (role, year) rendered between the title and description. */
+  meta?: ReactNode;
   children?: ReactNode;
 }) {
   const hasTrail = Boolean(trail?.length);
@@ -49,6 +52,7 @@ export function InnerPageHero({
       >
         {title}
       </PageTitle>
+      {meta ? <div className={panel ? "mt-2" : "mt-3"}>{meta}</div> : null}
       {description ? (
         <p
           className={

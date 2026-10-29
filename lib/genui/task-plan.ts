@@ -1,6 +1,7 @@
 import { projects } from "gaboesquivel";
 
 import { executeTaskFilter } from "./catalog-operation";
+import { namedComparisonDimensions } from "./comparison-dimensions";
 import type { CompiledExperience } from "./contract/errors";
 import { parseStackChildren } from "./contract/stack";
 import type { ExperienceName } from "./experience-contract";
@@ -221,13 +222,23 @@ const restrictiveRemainder = ({
   return words;
 };
 
+/** A request for a personal ranking. */
+export const prideClause = /\bproud(?:est)?\b/i;
+
+/** A request for an account of a production incident or problem solved. */
+export const incidentClause =
+  /\b(production incident|incident you solved|outage|(?:problem|issue|bug) (?:you|i)(?: have| 've)? (?:solved|fixed|debugged)|(?:solved|fixed|debugged) in production|production (?:problem|issue|bug))\b/i;
+
 const startsTask = (text: string) =>
   /^(?:and\s+)?(?:please\s+)?(?:show|list|browse|give|compare|explain|describe|include|add|tell|what|how|count)\b/i.test(
     text.trim()
   ) ||
   /^(?:and\s+)?(?:me\s+)?(?:your\s+)?(?:cv|resume|résumé|timeline)\b/i.test(
     text.trim()
-  );
+  ) ||
+  // Noun-phrase asks ("your proudest work", "a bug you fixed in production").
+  prideClause.test(text) ||
+  incidentClause.test(text);
 
 const hasTaskSignal = (text: string) =>
   /\b(compare|versus|how many|count|cv|resume|résumé|timeline|career|availability|book|schedule|contact|writing|articles?|blog|posts?|projects?|work|show|list|explain|describe|proud|incident|process)\b/i.test(
@@ -357,14 +368,16 @@ const classifyClause = ({
     domains = inheritedDomains;
   }
 
-  const pride = /\bproud\b/i.test(clause);
-  const incident = /\b(production incident|incident you solved|outage)\b/i.test(
-    clause
-  );
+  const pride = prideClause.test(clause);
+  const incident = incidentClause.test(clause);
   const process =
     /\b(process you follow|how do you develop|how you develop|using agents)\b/i.test(
       clause
-    );
+    ) ||
+    (/\b(process|workflow|method|approach|how (?:do )?you (?:develop|build|ship|work))\b/i.test(
+      clause
+    ) &&
+      /\b(agents?|agentic|ai|llms?)\b/i.test(clause));
   const relate = /\b(?:how it relates|relates to|related to your work)\b/i.test(
     clause
   );
@@ -477,6 +490,18 @@ export const planTasks = (query: string): PlannedTask[] => {
       inheritedDomains: inherited,
       orderedAfter: ordered ? previousId : null,
     });
+    const last = tasks.at(-1);
+    // "Compare A and B: role, challenges, and what shipped" splits into
+    // dimension clauses; they refine the comparison instead of becoming tasks.
+    if (
+      last?.kind === "compare" &&
+      namedComparisonDimensions(clause).length > 0 &&
+      namedProjectsInText({ text: clause }).length === 0 &&
+      (!draft || (draft.kind === "explain" && !draft.closedLimitation))
+    ) {
+      last.purpose = `${last.purpose}, ${clause}`;
+      continue;
+    }
     if (!draft) continue;
     const position = tasks.length + 1;
     const task = { ...draft, id: `task-${position}`, position };
@@ -595,7 +620,8 @@ export const assessTaskCoverage = (
     }
     if (task.kind === "explain" && gap) {
       const impossible =
-        task.closedLimitation && /proud|incident|outage/i.test(task.purpose);
+        task.closedLimitation &&
+        (prideClause.test(task.purpose) || incidentClause.test(task.purpose));
       return {
         kind: task.kind,
         reason: impossible

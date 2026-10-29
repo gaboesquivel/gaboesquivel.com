@@ -21,11 +21,12 @@ export function BioTimelineEntry({
   return (
     <li
       className={cn(
-        "relative grid min-w-0 grid-cols-1 gap-8 border-t border-hairline py-12 first:border-t-0 first:pt-0 lg:grid-cols-[7.5rem_minmax(0,1fr)_minmax(0,38%)] lg:gap-x-10 lg:py-16",
+        "relative grid min-w-0 grid-cols-1 gap-6 border-t border-hairline py-10 first:border-t-0 first:pt-0 lg:grid-cols-[7.5rem_minmax(0,1fr)_minmax(0,38%)] lg:gap-x-10 lg:py-16",
         !isLast && "lg:pb-16"
       )}
     >
-      <div className="relative flex gap-4 lg:block lg:pt-1">
+      {/* Desktop rail. Below lg the period line carries the dates and category. */}
+      <div className="relative hidden lg:block lg:pt-1">
         <div
           aria-hidden="true"
           className="flex w-5 shrink-0 justify-center pt-1"
@@ -48,7 +49,17 @@ export function BioTimelineEntry({
         id={entryId}
         tabIndex={-1}
       >
-        <p className="m-0 text-sm text-accent">{chapter.period}</p>
+        <p className="m-0 flex items-center gap-2 text-sm">
+          <span
+            aria-hidden="true"
+            className="size-2.5 shrink-0 rounded-full border-2 border-accent bg-black lg:hidden"
+          />
+          <span className="text-accent">{chapter.period}</span>
+          <span className="text-neutral-400 lg:hidden">
+            <span aria-hidden="true">· </span>
+            {chapter.category.toLowerCase()}
+          </span>
+        </p>
         <h2
           className={cn(sectionTitle, "mt-3 text-balance")}
           id={`${entryId}-title`}

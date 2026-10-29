@@ -11,10 +11,10 @@ export function PrintButton({ file }: { file: string }) {
       download={file}
       className={cn(
         press,
-        "inline-flex min-h-11 items-center gap-2 text-sm hover:text-accent print:hidden preview-print:hidden"
+        "inline-flex min-h-11 shrink-0 items-center gap-2 text-sm text-accent hover:text-white print:hidden preview-print:hidden"
       )}
     >
-      PDF <FileText className="h-3.5 w-3.5" />
+      <FileText aria-hidden className="h-3.5 w-3.5" /> Download PDF
     </a>
   );
 }

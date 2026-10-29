@@ -45,9 +45,7 @@ export function ArticleTocNav({ items }: { items: readonly BlogTocItem[] }) {
       aria-label="Table of contents"
       className="article-toc-rail hidden xl:block"
     >
-      <p className="mb-4 text-xs tracking-wide text-neutral-500 uppercase">
-        On this page
-      </p>
+      <p className="mb-4 text-sm text-neutral-400">On this page</p>
       <ol className="space-y-2 text-sm leading-snug">
         {items.map((item) => (
           <li

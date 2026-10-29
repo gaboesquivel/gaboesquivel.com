@@ -3,7 +3,6 @@ import { EditorialSection } from "components/interior/editorial-section";
 import { FullBleedMedia } from "components/interior/full-bleed-media";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
-import { SectionLabel } from "components/interior/section-label";
 import {
   SplitSection,
   SplitSectionContent,
@@ -68,6 +67,17 @@ export function ProjectCaseStudy({
           .map((post) => post.url)
       : undefined;
 
+  const contributions =
+    project.achievements && project.achievements.length > 0 ? (
+      <ul className="max-w-3xl list-disc space-y-4 pl-5 text-base leading-relaxed">
+        {project.achievements.map((achievement) => (
+          <li key={`${project.slug}-achievement-${achievement}`}>
+            {achievement}
+          </li>
+        ))}
+      </ul>
+    ) : null;
+
   const storyLead = project.story?.[0];
   const storyRest = project.story?.slice(1) ?? [];
 
@@ -78,33 +88,32 @@ export function ProjectCaseStudy({
         density={genui ? "panel" : "default"}
         description={project.description.replaceAll("\n", " ")}
         title={project.title}
+        meta={
+          project.role || project.year ? (
+            <p className="max-w-3xl text-sm">
+              {project.role ? (
+                <span className={projectRole}>{project.role}</span>
+              ) : null}
+              {project.role && project.year ? (
+                <span aria-hidden="true" className="text-neutral-400">
+                  {" · "}
+                </span>
+              ) : null}
+              {project.year ? (
+                <span className="text-neutral-400">{project.year}</span>
+              ) : null}
+            </p>
+          ) : undefined
+        }
         trail={[{ href: "/work", label: "work" }, { label: project.title }]}
-      >
-        {genui && (project.role || project.year) ? (
-          <div className="mt-4 space-y-1">
-            {project.role ? (
-              <p className={cn(projectRole, "max-w-3xl")}>{project.role}</p>
-            ) : null}
-            {project.year ? (
-              <p className="text-sm text-neutral-500">{project.year}</p>
-            ) : null}
-          </div>
-        ) : null}
-      </PageIntro>
-
-      {!genui && project.role ? (
-        <p className={cn(projectRole, "mt-2 max-w-3xl")}>{project.role}</p>
-      ) : null}
-      {!genui && project.year ? (
-        <p className="mt-3 text-sm text-neutral-500">{project.year}</p>
-      ) : null}
+      />
 
       <FullBleedMedia className={genui ? "mt-6" : "mt-10"}>
         <ProjectHero href={primaryImageHref} preload project={project} />
       </FullBleedMedia>
 
       {storyLead ? (
-        <EditorialSection className={sectionGap} label="Context">
+        <EditorialSection className={sectionGap}>
           <SplitSection sectionSpacing={false}>
             <SplitSectionContent mediaPosition="right" span={5}>
               <Prose className="mt-0">{storyLead}</Prose>
@@ -114,33 +123,21 @@ export function ProjectCaseStudy({
                 </Prose>
               ))}
             </SplitSectionContent>
-            {project.achievements && project.achievements.length > 0 ? (
+            {contributions ? (
               <SplitSectionMedia mediaPosition="right" span={6}>
-                <SectionLabel className="mb-3">
+                <h2 className="mb-4 text-base font-semibold tracking-tight">
                   Selected contributions
-                </SectionLabel>
-                <ul className="list-disc space-y-4 pl-5 text-base leading-relaxed">
-                  {project.achievements.map((achievement) => (
-                    <li key={`${project.slug}-achievement-${achievement}`}>
-                      {achievement}
-                    </li>
-                  ))}
-                </ul>
+                </h2>
+                {contributions}
               </SplitSectionMedia>
             ) : null}
           </SplitSection>
         </EditorialSection>
       ) : null}
 
-      {!storyLead && project.achievements && project.achievements.length > 0 ? (
+      {!storyLead && contributions ? (
         <PageSection className={sectionGap} title="Selected contributions">
-          <ul className="max-w-3xl list-disc space-y-4 pl-5 text-base leading-relaxed">
-            {project.achievements.map((achievement) => (
-              <li key={`${project.slug}-achievement-${achievement}`}>
-                {achievement}
-              </li>
-            ))}
-          </ul>
+          {contributions}
         </PageSection>
       ) : null}
 

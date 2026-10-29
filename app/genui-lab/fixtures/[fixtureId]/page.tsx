@@ -1,4 +1,5 @@
 import { GeneratedRegion } from "components/genui/generated-region";
+import { GenuiSessionProvider } from "components/genui/genui-session";
 import {
   fixtureLabEnabled,
   genuiFixtures,
@@ -26,12 +27,14 @@ export default async function GenuiFixturePage({
         className="max-w-full min-w-0 overflow-x-hidden"
         style={{ margin: "0 auto", maxWidth: width, width: "100%" }}
       >
-        <GeneratedRegion
-          complete={Boolean(fixture.envelope)}
-          envelope={fixture.envelope}
-          error={fixture.errorMessage ?? null}
-          isStreaming={false}
-        />
+        <GenuiSessionProvider writesEnabled={false}>
+          <GeneratedRegion
+            complete={Boolean(fixture.envelope)}
+            envelope={fixture.envelope}
+            error={fixture.errorMessage ?? null}
+            isStreaming={false}
+          />
+        </GenuiSessionProvider>
       </div>
     </main>
   );

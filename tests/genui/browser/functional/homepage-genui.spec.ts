@@ -128,7 +128,8 @@ test.describe("homepage GenUI shell", () => {
     await expect(page.getByRole("status")).toContainText("Results ready.", {
       timeout: 15_000,
     });
-    await expect(page.getByText("SELECTED AI WORK")).toBeVisible();
+    // Evidence leads; no eyebrow label or section heading above it.
+    await expect(page.getByText("SELECTED AI WORK")).toHaveCount(0);
     await expect(page.getByText("operate after launch")).toHaveCount(0);
     await expect(page.getByRole("link", { name: /View project/i })).toHaveCount(
       4

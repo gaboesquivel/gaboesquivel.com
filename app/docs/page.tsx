@@ -6,27 +6,29 @@ import {
   Prose,
 } from "components/shared/page-layout";
 import { pageMetadata } from "lib/page-metadata";
-import { siteOrigin } from "lib/site-path";
 import Link from "next/link";
 
-const endpoint = `${siteOrigin}/mcp`;
-const cvAppEndpoint = `${siteOrigin}/mcp/cv`;
+const code = "text-neutral-200";
 
 export default function DocsPage() {
   return (
-    <ReadingPageShell className="max-w-[75ch]">
+    <ReadingPageShell>
       <IndexHeading>
         Gabo Esquivel MCP and Site API — developer documentation
       </IndexHeading>
       <Prose>
-        The Gabo Esquivel MCP server is how another agent reaches the same site
-        agent as{" "}
-        <Link href="/ask" className={proseLink}>
-          /ask
+        The Gabo Esquivel MCP server publishes the site&apos;s public capability
+        registry over Streamable HTTP: profile, projects, writing, search, CV
+        links, contact context, availability, notes, and bookings. People use
+        the search on the{" "}
+        <Link href="/" className={proseLink}>
+          homepage
+        </Link>{" "}
+        or the{" "}
+        <Link href="/contact" className={proseLink}>
+          contact form
         </Link>
-        : ask about published work on gaboesquivel.com, leave a note, or request
-        a 15- or 30-minute call. Humans can use the chat UI; MCP clients
-        delegate durable work over Streamable HTTP.
+        .
       </Prose>
 
       <PageSection title="Gabo Esquivel MCP developer resources">
@@ -55,8 +57,7 @@ export default function DocsPage() {
           <Link href="/openapi.json" className={proseLink}>
             /openapi.json
           </Link>
-          . Task execution is not on that REST surface — use the MCP{" "}
-          <code className="text-neutral-200">agent_*</code> tools documented
+          . Notes and bookings are not on that REST surface — use the MCP tools
           below. For a plain-text corpus index, use{" "}
           <Link href="/llms.txt" className={proseLink}>
             llms.txt
@@ -69,118 +70,90 @@ export default function DocsPage() {
         <Prose>
           Connect a Streamable HTTP MCP client to{" "}
           <Link href="/mcp" className={proseLink}>
-            {endpoint}
+            https://gaboesquivel.com/mcp
           </Link>
-          . The route registers GET, POST, and DELETE. Access rules and
-          invocation-id handling are under Gabo Esquivel MCP authentication
-          below.
-        </Prose>
-      </PageSection>
-
-      <PageSection title="Gabo Esquivel MCP invocation protocol">
-        <Prose>
-          The channel exposes four MCP tools. Start with{" "}
-          <code className="text-neutral-200">agent_start</code> and a{" "}
-          <code className="text-neutral-200">message</code> string (up to 64 KiB
-          UTF-8). It returns an invocation id immediately; work continues after
-          the HTTP response. Poll with{" "}
-          <code className="text-neutral-200">agent_get</code> and{" "}
-          <code className="text-neutral-200">invocationId</code> until the
-          status is terminal. While status is{" "}
-          <code className="text-neutral-200">working</code>, wait at least{" "}
-          <code className="text-neutral-200">pollAfterMs</code> before polling
-          again.
-        </Prose>
-        <Prose>
-          Status values: <code className="text-neutral-200">working</code>,{" "}
-          <code className="text-neutral-200">input_required</code>,{" "}
-          <code className="text-neutral-200">authorization_required</code>,{" "}
-          <code className="text-neutral-200">completed</code>,{" "}
-          <code className="text-neutral-200">failed</code>,{" "}
-          <code className="text-neutral-200">cancelled</code>. Use{" "}
-          <code className="text-neutral-200">agent_update</code> only when
-          status is <code className="text-neutral-200">input_required</code>,
-          sending the full answer batch in{" "}
-          <code className="text-neutral-200">responses</code>.{" "}
-          <code className="text-neutral-200">agent_cancel</code> requests
-          cooperative cancellation; keep polling{" "}
-          <code className="text-neutral-200">agent_get</code> until the
-          invocation reaches a terminal state.
-        </Prose>
-        <Prose>
-          Rejected tool calls use{" "}
-          <code className="text-neutral-200">isError: true</code> with{" "}
-          <code className="text-neutral-200">structuredContent.error</code>{" "}
-          codes: <code className="text-neutral-200">invalid_input</code>,{" "}
-          <code className="text-neutral-200">not_found</code>,{" "}
-          <code className="text-neutral-200">conflict</code> (retryable),{" "}
-          <code className="text-neutral-200">internal</code>. A{" "}
-          <code className="text-neutral-200">failed</code> invocation status
-          means the call succeeded but the task failed — handle that separately
-          from a rejected call.
-        </Prose>
-        <Prose>
-          <code className="text-neutral-200">agent_start</code> is not
-          idempotent. If the response is lost, there is no id to poll; a second
-          start begins a second task. The whole MCP request body is limited to 1
-          MiB.
+          . The route registers GET, POST, and DELETE and answers with JSON.
+          Call <code className={code}>tools/list</code> for the input schemas,
+          then <code className={code}>tools/call</code>.
         </Prose>
       </PageSection>
 
       <PageSection title="Published tools on /mcp">
         <Prose>
-          The channel also publishes{" "}
-          <code className="text-neutral-200">cv</code>, a read-only tool that
-          returns PDF and HTML links for the CV variants (
-          <code className="text-neutral-200">full</code>,{" "}
-          <code className="text-neutral-200">ai</code>,{" "}
-          <code className="text-neutral-200">web3</code>,{" "}
-          <code className="text-neutral-200">fullstack</code>). Call it with{" "}
-          <code className="text-neutral-200">tools/call</code> or let{" "}
-          <code className="text-neutral-200">agent_start</code> handle a CV
-          request. Direct <code className="text-neutral-200">cv</code> calls do
-          not count toward message limits.
+          Read tools: <code className={code}>get_profile</code> (verified
+          profile and contextual links),{" "}
+          <code className={code}>contact_gabo</code> (public contact
+          descriptor), <code className={code}>get_cv</code> (CV download
+          metadata for the full, ai, web3, and fullstack variants),{" "}
+          <code className={code}>list_projects</code> (package-owned project
+          records by work type), <code className={code}>list_writing</code>{" "}
+          (published writing), <code className={code}>search_site</code>{" "}
+          (deterministic search over the public corpus), and{" "}
+          <code className={code}>list_availability</code> (open booking slots
+          for a visitor time zone).
         </Prose>
         <Prose>
-          For MCP Apps hosts (ChatGPT and similar), connect a separate
-          Streamable HTTP server at{" "}
-          <Link href="/mcp/cv" className={proseLink}>
-            {cvAppEndpoint}
-          </Link>
-          . It exposes the same <code className="text-neutral-200">cv</code>{" "}
-          tool with a UI resource that renders a download card.
+          Write tools: <code className={code}>send_note</code> (email a note to
+          Gabo) and <code className={code}>book_call</code> (book a 15- or
+          30-minute call).
+        </Prose>
+        <Prose>
+          List tools take an optional <code className={code}>limit</code> (1–20,
+          default 6) and <code className={code}>cursor</code>.{" "}
+          <code className={code}>search_site</code> takes a{" "}
+          <code className={code}>query</code> of up to 2000 characters.
         </Prose>
       </PageSection>
 
-      <PageSection title="What a message can do">
+      <PageSection title="Results">
         <Prose>
-          The site agent answers from the published corpus (same retrieval as
-          the chat). It can also book a call or send email through internal
-          tools that are not published on the MCP surface:{" "}
-          <code className="text-neutral-200">list_slots</code>,{" "}
-          <code className="text-neutral-200">book</code>, and{" "}
-          <code className="text-neutral-200">send</code>. On this channel those
-          tools do not wait for browser approval.
+          Every call returns a text message and{" "}
+          <code className={code}>structuredContent</code> with{" "}
+          <code className={code}>status</code>,{" "}
+          <code className={code}>message</code>,{" "}
+          <code className={code}>data</code>,{" "}
+          <code className={code}>operation</code>,{" "}
+          <code className={code}>requestId</code>, and{" "}
+          <code className={code}>version</code>. Read tools report{" "}
+          <code className={code}>ok</code>, <code className={code}>empty</code>,
+          or <code className={code}>error</code>. Write tools report{" "}
+          <code className={code}>pending</code>,{" "}
+          <code className={code}>confirmed</code>,{" "}
+          <code className={code}>uncertain</code>, or{" "}
+          <code className={code}>failed</code>.
         </Prose>
         <Prose>
-          A note needs a name, an email, and what you want to discuss (10–5000
-          characters). The site emails contact@gaboesquivel.com with your
-          address as reply-to; it does not send you a receipt. A booking needs
-          name, email, 15- or 30-minute duration, an ISO start time, a time
-          zone, and what you want to discuss. Open weekday slots are 9:00–17:00
-          America/Denver. When two bookings are already on the calendar for that
-          Denver day, the agent points to{" "}
+          Write tools require a <code className={code}>retryIdentity</code>{" "}
+          (8–128 characters). Repeating a call with the same identity and
+          payload replays the original outcome instead of sending or booking
+          twice; the same identity with a changed payload fails.
+        </Prose>
+      </PageSection>
+
+      <PageSection title="What notes and bookings do">
+        <Prose>
+          A note needs a name, an email, and a{" "}
+          <code className={code}>description</code> of what you want to discuss
+          (10–5000 characters). The site emails contact@gaboesquivel.com with
+          your address as reply-to; it does not send you a receipt.
+        </Prose>
+        <Prose>
+          A booking needs name, email, 15- or 30-minute duration, an ISO start
+          time, a time zone, and a description. Use{" "}
+          <code className={code}>list_availability</code> first. Open weekday
+          slots are 9:00–17:00 America/Denver. When two bookings are already on
+          the calendar for that Denver day, use{" "}
           <Link href="/cal" className={proseLink}>
             gaboesquivel.com/cal
           </Link>
           .
         </Prose>
         <Prose>
-          Hire terms and human-facing context live on{" "}
-          <Link href="/ask" className={proseLink}>
-            /ask
+          Hire terms live on{" "}
+          <Link href="/contact" className={proseLink}>
+            /contact
           </Link>
-          . Data handling for chat, notes, and bookings is in{" "}
+          . Data handling for notes and bookings is in{" "}
           <Link href="/privacy" className={proseLink}>
             /privacy
           </Link>
@@ -190,32 +163,28 @@ export default function DocsPage() {
 
       <PageSection title="Public limits">
         <Prose>
-          Limits reset on America/Denver calendar days: 30 messages per IP, 5
-          notes per email and per IP, 2 bookings site-wide. Do not send
-          passwords, payment card numbers, or other secrets through the agent.
+          Limits reset on America/Denver calendar days: 5 notes per email and
+          per IP, 2 bookings site-wide. Do not send passwords, payment card
+          numbers, or other secrets through these tools.
         </Prose>
       </PageSection>
 
       <PageSection title="Gabo Esquivel MCP authentication">
         <Prose>
           Access is public: no API key, no OAuth, and no scoped credentials.
-          Every caller shares the anonymous principal. An invocation id is a
-          bearer capability until workflow retention expires — keep invocation
-          ids out of logs and public URLs.
+          Every caller shares the anonymous principal.
         </Prose>
       </PageSection>
 
       <PageSection title="Not offered on Gabo Esquivel MCP">
         <Prose>
-          There is no separate write API, webhooks, API-key authentication, or
-          OAuth scopes for this endpoint. Booking and note tools (
-          <code className="text-neutral-200">list_slots</code>,{" "}
-          <code className="text-neutral-200">book</code>,{" "}
-          <code className="text-neutral-200">send</code>) and skills are not
-          published on <code className="text-neutral-200">/mcp</code> — only{" "}
-          <code className="text-neutral-200">agent_*</code> and{" "}
-          <code className="text-neutral-200">cv</code>. For a plain-text index
-          of site facts, use{" "}
+          There are no webhooks, API-key authentication, or OAuth scopes, and no
+          conversational agent tool: callers compose the published tools
+          themselves. The former CV app endpoint at{" "}
+          <code className={code}>/mcp/cv</code> is retired and returns 410; use{" "}
+          <code className={code}>get_cv</code> on{" "}
+          <code className={code}>/mcp</code>. For a plain-text index of site
+          facts, use{" "}
           <Link href="/llms.txt" className={proseLink}>
             llms.txt
           </Link>
@@ -228,7 +197,7 @@ export default function DocsPage() {
 
 export const metadata = pageMetadata({
   description:
-    "Gabo Esquivel MCP and Site API: OpenAPI at /openapi.json, Streamable HTTP at /mcp, protocol at /docs (also /developers), public auth, agent_start and agent_get.",
+    "Gabo Esquivel MCP and Site API: OpenAPI at /openapi.json, Streamable HTTP at /mcp with public tools for profile, projects, writing, search, CV, notes, and bookings.",
   path: "/docs",
   title: "Gabo Esquivel MCP and Site API — Developer documentation",
 });

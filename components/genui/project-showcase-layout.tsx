@@ -2,14 +2,21 @@
 
 import type { Project } from "gaboesquivel";
 import {
-  comparisonRows,
+  comparisonDimensionLabel,
+  comparisonValue,
+  defaultComparisonDimensions,
   missingComparisonValue,
 } from "lib/genui/comparison-dimensions";
+import type {
+  ComparisonDimension,
+  ComparisonValue,
+} from "lib/genui/comparison-dimensions";
 import { materializeProjectSlots } from "lib/genui/composition-plan";
-import type { ProjectCompositionRecipe } from "lib/genui/composition-plan";
+import type {
+  ProjectCompositionRecipe,
+  ProjectCompositionRole,
+} from "lib/genui/composition-plan";
 import { projectSlugFromPublicId } from "lib/genui/project-from-id";
-import { workTypeCopy } from "lib/work-types";
-import type { WorkType } from "lib/work-types";
 
 import { ProjectShowcaseCard } from "./project-showcase-card";
 
@@ -19,29 +26,84 @@ const showcaseSizes = {
   list: "(max-width: 47.99rem) 100vw, 24rem",
 };
 
-const ShowcaseHeader = ({ domain }: { domain?: "ai" | "web3" | "all" }) => {
-  if (!domain || domain === "all") return null;
-  const copy = workTypeCopy[domain as WorkType];
+const ComparisonCell = ({ value }: { value: ComparisonValue }) => {
+  if (!value) {
+    return <p className="text-neutral-400">{missingComparisonValue}</p>;
+  }
+  if (typeof value === "string") {
+    return <p className="text-neutral-200">{value}</p>;
+  }
   return (
-    <header className="mb-8 space-y-2">
-      <p className="font-mono text-xs tracking-[0.2em] text-neutral-500 uppercase">
-        {domain === "ai" ? "SELECTED AI WORK" : "SELECTED WEB3 WORK"}
-      </p>
-      <h2 className="text-3xl font-semibold tracking-tight text-white">
-        {copy.heading}
-      </h2>
-      <p className="max-w-2xl text-base text-neutral-400">{copy.description}</p>
-    </header>
+    <ul className="space-y-2 text-neutral-200">
+      {value.map((item) => (
+        <li key={item} className="border-l border-hairline pl-3">
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const comparisonRole: ProjectCompositionRole = "comparison-item";
+
+/** Two or three projects side by side, one aligned row per requested dimension. */
+const ProjectComparison = ({
+  dimensions,
+  projects,
+}: {
+  dimensions: ComparisonDimension[];
+  projects: Project[];
+}) => {
+  const columns =
+    projects.length === 3
+      ? "@min-[40rem]/project-showcase:grid-cols-3"
+      : "@min-[40rem]/project-showcase:grid-cols-2";
+  return (
+    <div className="@container/project-showcase space-y-8">
+      <div className={`grid grid-cols-1 gap-6 ${columns}`}>
+        {projects.map((project, index) => (
+          <ProjectShowcaseCard
+            key={project.slug}
+            priority={index === 0}
+            project={project}
+            role={comparisonRole}
+            sizes={showcaseSizes.secondary}
+          />
+        ))}
+      </div>
+      <dl className="divide-y divide-hairline border-y border-hairline text-sm">
+        {dimensions.map((dimension) => (
+          <div key={dimension} className="py-5" data-comparison-row={dimension}>
+            <dt className="mb-3 font-semibold text-white">
+              {comparisonDimensionLabel(dimension)}
+            </dt>
+            <dd className={`grid grid-cols-1 gap-x-6 gap-y-4 ${columns}`}>
+              {projects.map((project) => (
+                <div key={project.slug} className="min-w-0">
+                  <p className="mb-1 text-xs text-neutral-400 @min-[40rem]/project-showcase:sr-only">
+                    {project.title}
+                  </p>
+                  <ComparisonCell
+                    value={comparisonValue({ dimension, project })}
+                  />
+                </div>
+              ))}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 };
 
 export const ProjectShowcaseLayout = ({
   composite,
-  domain,
+  dimensions,
   projectIds,
   projects,
 }: {
   composite: ProjectCompositionRecipe;
+  dimensions?: ComparisonDimension[];
   domain?: "ai" | "web3" | "all";
   projectIds: string[];
   projects: Project[];
@@ -56,7 +118,6 @@ export const ProjectShowcaseLayout = ({
   if (composite === "project-compact-list") {
     return (
       <div className="@container/project-showcase">
-        <ShowcaseHeader domain={domain} />
         <ul className="divide-y divide-hairline border-y border-hairline">
           {ordered.map(({ project }) => (
             <li key={project.slug} className="py-4">
@@ -80,36 +141,12 @@ export const ProjectShowcaseLayout = ({
 
   if (composite === "project-comparison") {
     return (
-      <div className="@container/project-showcase">
-        <ShowcaseHeader domain={domain} />
-        <div className="grid min-w-0 grid-cols-1 gap-6 @min-[48rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:grid-cols-3">
-          {ordered.map(({ project, role }, index) => (
-            <div key={project.slug} className="min-w-0">
-              <ProjectShowcaseCard
-                project={project}
-                role={role}
-                sizes={showcaseSizes.secondary}
-                priority={index === 0}
-              />
-              <details className="mt-3 min-w-0" data-comparison-details>
-                <summary className="cursor-pointer text-sm text-neutral-300">
-                  Comparison details for {project.title}
-                </summary>
-                <dl className="mt-3 space-y-2 text-sm">
-                  {comparisonRows({ project }).map((row) => (
-                    <div key={row.dimension}>
-                      <dt className="text-neutral-500">{row.label}</dt>
-                      <dd className="text-neutral-200">
-                        {row.value ?? missingComparisonValue}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </details>
-            </div>
-          ))}
-        </div>
-      </div>
+      <ProjectComparison
+        dimensions={
+          dimensions?.length ? dimensions : defaultComparisonDimensions
+        }
+        projects={ordered.map(({ project }) => project)}
+      />
     );
   }
 
@@ -117,7 +154,6 @@ export const ProjectShowcaseLayout = ({
     const [lead, ...supporting] = ordered;
     return (
       <div className="@container/project-showcase space-y-6">
-        <ShowcaseHeader domain={domain} />
         {lead ? (
           <ProjectShowcaseCard
             project={lead.project}
@@ -148,7 +184,6 @@ export const ProjectShowcaseLayout = ({
     const bottomRight = byRole.get("bottom-right");
     return (
       <div className="@container/project-showcase">
-        <ShowcaseHeader domain={domain} />
         <div className="grid grid-cols-1 gap-4 @min-[48rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:grid-cols-12 @min-[64rem]/project-showcase:grid-rows-2 @min-[64rem]/project-showcase:gap-4">
           {lead ? (
             <div className="@min-[64rem]/project-showcase:col-span-6 @min-[64rem]/project-showcase:row-span-2">
@@ -201,7 +236,6 @@ export const ProjectShowcaseLayout = ({
     const restSupporting = supporting.slice(1);
     return (
       <div className="@container/project-showcase space-y-8">
-        <ShowcaseHeader domain={domain} />
         <div className="grid grid-cols-1 gap-6 @min-[64rem]/project-showcase:grid-cols-12">
           {lead ? (
             <div className="@min-[64rem]/project-showcase:col-span-8">

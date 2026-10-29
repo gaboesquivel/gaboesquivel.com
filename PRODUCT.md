@@ -24,7 +24,7 @@ The current brand headline is **Agentic Software Engineer**. Historical employme
 - CV: `/cv` and `/cv?focus=ai|web3|fullstack`, each with a PDF in `public/`
 - `/explore`: directory of pages, linked from the footer
 - Missing URLs (`app/not-found.tsx`) and failed pages (`app/error.tsx`, `app/global-error.tsx`) keep the site nav and link to `/` and `/explore`. They are not in the primary nav or `/explore` directory. Public HTML pages negotiate Markdown via `Accept: text/markdown` (and optional `.md` siblings such as `/index.md`) per [acceptmarkdown.com](https://acceptmarkdown.com/); HTML responses advertise the sibling with `Link: rel="alternate"` and page metadata. Missing paths with `Accept: text/markdown` receive HTTP 404 and a Markdown body with links to `/`, `/explore`, `/llms.txt`, and the sitemap
-- Trust and integration pages (`/about`, `/contact`, `/privacy`, `/docs`): public identity, contact paths, privacy policy, and MCP integration docs for the site agent. `/connect` permanently redirects to `/contact`. Linked from the footer; not in the primary nav or `/explore` (`/docs` appears on `/explore` in the About group)
+- Trust and integration pages (`/about`, `/contact`, `/privacy`, `/docs`): public identity, contact paths, privacy policy, and docs for the public MCP capability tools at `/mcp`. `/connect` permanently redirects to `/contact`. Linked from the footer; not in the primary nav or `/explore` (`/docs` appears on `/explore` in the About group)
 - `/ask`: redirects to `/`. Not a mounted chat page. Not in the primary nav.
 - llms corpus: `/llms.txt`, `/llms-full.txt`, and their `/.well-known/` copies, built by `scripts/llms/`
 - Redirects (`next.config.js`): `/cal` to Calendly, `/blog/tech/*` to `/tech/[slug]`, plus the Edge Config `redirects` list
@@ -71,7 +71,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Job: human outreach — hire framing and the contact form (name, email, subject, message via Resend to contact@gaboesquivel.com)
 - Visitor: founder, product or technical lead, or recruiter ready to write
 - Message: same hire facts as `LetsConnect` (direct hire, international hire, Blockmatic Labs LLC, cannot work under W-2, Costa Rica, US Mountain Time); also email, `/cal`, and `/work`
-- Not the site agent; `/ask` and `/mcp` remain documented on `/docs` and in the llms corpus
+- `/ask` redirects to `/`; the public MCP tools at `/mcp` are documented on `/docs`
 
 ### `/work` and `/project/[slug]`
 
@@ -94,7 +94,7 @@ The route redirects to `/`. Notes and bookings are the contact form, the homepag
 
 ### `/docs`
 
-- Job: how another agent calls the public MCP capability registry at `/mcp` (`book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, `send_note`), or connects a CV client to `/mcp/cv`
+- Job: how another agent calls the public MCP capability registry at `/mcp` (`book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, `send_note`). `/mcp/cv` is retired (410); CV links come from `get_cv` on `/mcp`
 - Visitor: integrator or coding agent wiring MCP
 - Message: public Streamable HTTP endpoint, invocation protocol, what messages can do, limits, CV download surfaces, and what is not offered
 - Canonical developer documentation URL; permanent redirects from `/developers`, `/developer`, `/mcp/docs`, and `/docs/mcp`
@@ -113,7 +113,7 @@ The route redirects to `/`. Notes and bookings are the contact form, the homepag
 
 ### `/cv` and `/tech`
 
-- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy.
+- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy. A screen-only focus switcher and PDF download sit under the title; no writing list is appended.
 - `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/page-breaks.ts` and `lib/cv-paths.ts` add print breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Each variant's page title and description come from its package `metadata`. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs
 - `/tech/[slug]`: implementation evidence and named projects; not a capability thesis page

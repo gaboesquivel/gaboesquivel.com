@@ -265,8 +265,13 @@ describe("composition and coverage", () => {
     ["Show AI projects, then Web3 projects, excluding ZTX.", "/project/ztx"],
     ["Show AI and fintech projects.", "ProjectExperience"],
     ["What are you most proud of?", "most proud"],
-    ["Describe a production incident you solved.", "production incident"],
-    ["How do you develop applications using agents?", "not a process"],
+    ["Describe a production incident you solved.", "production problem"],
+    ["Describe a problem you solved in production.", "production problem"],
+    ["How do you develop applications using agents?", "AI Coding Factories"],
+    [
+      "What process do you follow to develop applications using agents?",
+      "WritingExperience",
+    ],
     [
       "Show relevant writing and explain how it relates to your work.",
       "WritingExperience",
@@ -522,5 +527,42 @@ describe("simple routes stay deterministic", () => {
     expect(viewed.modelCalls).toBe(0);
     expect(viewed.result.tier).toBe(0);
     expect(viewed.openui).toContain("CVExperience");
+  });
+});
+
+describe("whole-request composition", () => {
+  test("a comparison carries the requested dimensions", async () => {
+    const viewed = await withoutProvider(() =>
+      completeText(
+        "Compare Wink and LegalAgent: my role, technical challenges, and what shipped."
+      )
+    );
+    expect(viewed.openui).toContain('["role", "work", "shipped"]');
+    expect(viewed.openui).toContain("project-comparison");
+    expect(viewed.openui).toContain("not recorded as a separate field");
+  });
+
+  test("a comparison paraphrase maps to the same dimensions", () => {
+    const tasks = planTasks("Wink vs LegalAgent: role and outcomes");
+    expect(tasks).toHaveLength(1);
+    expect(tasks[0]?.kind).toBe("compare");
+  });
+
+  test("answerable parts survive beside unanswerable ones", async () => {
+    for (const query of [
+      "How many projects have you built, what are you most proud of, and describe a problem you solved in production?",
+      "how many projects, your proudest work, and a bug you fixed in production",
+    ]) {
+      const tasks = planTasks(query);
+      expect(tasks.map((task) => task.kind)).toEqual([
+        "count",
+        "explain",
+        "explain",
+      ]);
+      const viewed = await withoutProvider(() => completeText(query));
+      expect(viewed.openui).toContain("published portfolio documents");
+      expect(viewed.openui).toContain("most proud");
+      expect(viewed.openui).toContain("production problem");
+    }
   });
 });

@@ -8,10 +8,11 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <ReadingPageShell className="max-w-[75ch]">
+    <ReadingPageShell>
       <PageIntro
         description="Gabo Esquivel is a product engineer based in Costa Rica. His work spans AI assistants, mobile banking, blockchain systems, and the interfaces that connect them. He works across product decisions, design, architecture, and implementation."
         title="About Gabo Esquivel"
+        titleClassName="mb-0 lg:mb-0"
       />
       <Prose>
         For examples of that work, explore the selected projects on{" "}
@@ -73,7 +74,7 @@ export default function AboutPage() {
           <PathLink
             href="/docs"
             title="Gabo Esquivel MCP"
-            note="Developer docs for the Streamable HTTP site agent at /mcp."
+            note="Developer docs for the public MCP tools at /mcp."
           />
         </li>
       </ul>

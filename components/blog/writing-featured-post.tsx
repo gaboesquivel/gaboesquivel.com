@@ -20,7 +20,7 @@ export function WritingFeaturedPost({ post }: { post: Blog }) {
     : null;
 
   return (
-    <EditorialSection label="Featured">
+    <EditorialSection>
       <SplitSection sectionSpacing={false}>
         <SplitSectionContent mediaPosition="right" span={6}>
           <Link
@@ -40,7 +40,7 @@ export function WritingFeaturedPost({ post }: { post: Blog }) {
             ) : null}
             <time
               dateTime={post.publishedAt}
-              className="mt-4 block text-sm text-neutral-500"
+              className="mt-4 block text-sm text-neutral-400"
             >
               {formatBlogListDate(post.publishedAt)}
             </time>
@@ -53,7 +53,11 @@ export function WritingFeaturedPost({ post }: { post: Blog }) {
           >
             <Image
               alt={post.title}
-              className="aspect-[16/10] w-full object-cover"
+              className={cn(
+                "aspect-video w-full bg-black",
+                // Generated OG fallbacks are title-led 1200×630 art; contain them so the title is never cropped.
+                post.image ? "object-cover" : "object-contain"
+              )}
               height={900}
               sizes="(max-width: 1023px) 100vw, min(42vw, 36rem)"
               src={blogListingImageSrc(post)}
