@@ -61,8 +61,9 @@ export const googleCalendar = (): CalendarClient => {
 
   return {
     freeBusy: async ({ timeMax, timeMin }) => {
+      const id = calendarId();
       const payload = (await googleFetch({
-        body: { items: [{ id: calendarId() }], timeMax, timeMin },
+        body: { items: [{ id }], timeMax, timeMin },
         path: "/freeBusy",
       })) as {
         calendars?: Record<
@@ -70,10 +71,7 @@ export const googleCalendar = (): CalendarClient => {
           { busy?: { end?: string; start?: string }[] }
         >;
       };
-      return busyForCalendar({
-        calendars: payload.calendars,
-        id: calendarId(),
-      });
+      return busyForCalendar({ calendars: payload.calendars, id });
     },
     get: async ({ eventId }) => {
       try {

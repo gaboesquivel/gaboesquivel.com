@@ -20,7 +20,11 @@ const publishedCopy = [
   "scripts/llms/pages.ts",
 ];
 const toolNames = Object.keys(capabilityRegistry);
-const toolLike = /\b(?:agent|book|contact|get|list|search|send)_[a-z_]+\b/g;
+// Prefixes come from the registry, plus retired ones that must never return.
+const prefixes = [
+  ...new Set([...toolNames.map((name) => name.split("_")[0]), "agent", "ask"]),
+];
+const toolLike = new RegExp(`\\b(?:${prefixes.join("|")})_[a-z0-9_]+\\b`, "g");
 
 describe("published MCP copy", () => {
   for (const file of publishedCopy) {
@@ -35,7 +39,9 @@ describe("published MCP copy", () => {
 
   test("/docs documents every registry tool", () => {
     const docs = readFileSync(join(root, "app/docs/page.tsx"), "utf-8");
-    expect(toolNames.filter((name) => !docs.includes(name))).toEqual([]);
+    expect(
+      toolNames.filter((name) => !new RegExp(`\\b${name}\\b`).test(docs))
+    ).toEqual([]);
   });
 
   test("/mcp/cv appears only as retired", () => {
