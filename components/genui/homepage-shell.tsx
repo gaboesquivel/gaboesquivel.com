@@ -66,6 +66,7 @@ const HomepageGenUiBodyContent = ({
         ref={promptAnchorRef}
       >
         <PromptField
+          onBack={active ? handleReset : undefined}
           onChange={setQuery}
           onSubmit={(value) => {
             requestAnimationFrame(() => {
@@ -75,15 +76,6 @@ const HomepageGenUiBodyContent = ({
           }}
           value={query}
         />
-        {active && (
-          <button
-            className="mt-3 text-sm text-accent hover:underline"
-            onClick={handleReset}
-            type="button"
-          >
-            Back to homepage
-          </button>
-        )}
         {receipt && (
           <p className="mt-3 text-sm text-neutral-300" role="status">
             {receipt.message}

@@ -12,7 +12,7 @@ const navItems = [
   { name: "ai", path: "/ai" },
   { name: "web3", path: "/web3" },
   { name: "bio", path: "/bio" },
-  { name: "writing", path: "/blog" },
+  { name: "blog", path: "/blog" },
 ];
 
 export default function Navbar() {
@@ -36,7 +36,7 @@ export default function Navbar() {
                 href={path}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "inline-flex h-9 items-center justify-center rounded-lg px-2.5 py-1.5 align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent",
+                  "inline-flex h-9 items-center justify-center rounded-lg px-2 py-1.5 align-middle transition-colors hover:text-neutral-800 dark:hover:text-accent",
                   isActive ? "text-accent" : "text-neutral-400"
                 )}
               >

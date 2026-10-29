@@ -15,7 +15,7 @@ import { Kbd, KbdGroup } from "components/ui/kbd";
 import { useHydrated } from "hooks/use-hydrated";
 import { cn } from "lib/utils";
 import { Search } from "lucide-react";
-import type { KeyboardEvent, RefObject } from "react";
+import type { KeyboardEvent, ReactNode, RefObject } from "react";
 import { useSyncExternalStore } from "react";
 
 const subscribePointer = (onStoreChange: () => void) => {
@@ -43,6 +43,7 @@ export function SiteSearchField({
   activeSuggestionId,
   composingRef,
   inputRef,
+  leadingAction,
   onBlur,
   onFocus,
   onInputKeyDown,
@@ -63,6 +64,7 @@ export function SiteSearchField({
   activeSuggestionId?: string;
   composingRef: RefObject<boolean>;
   inputRef?: RefObject<HTMLInputElement | null>;
+  leadingAction?: ReactNode;
   onBlur?: () => void;
   onFocus?: () => void;
   onInputKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
@@ -90,11 +92,13 @@ export function SiteSearchField({
         )}
       >
         <InputGroupAddon align="inline-start" className="pl-0">
-          <Search
-            aria-hidden="true"
-            className="size-6 shrink-0 text-neutral-300"
-            strokeWidth={1.5}
-          />
+          {leadingAction ?? (
+            <Search
+              aria-hidden="true"
+              className="size-6 shrink-0 text-neutral-300"
+              strokeWidth={1.5}
+            />
+          )}
         </InputGroupAddon>
         <InputGroupInput
           ref={inputRef}

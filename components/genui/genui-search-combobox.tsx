@@ -6,6 +6,7 @@ import { useHydrated } from "hooks/use-hydrated";
 import { buildGenuiAutosuggest } from "lib/genui/query-suggestions";
 import type { GenuiQuerySuggestion } from "lib/genui/query-suggestions";
 import { cn } from "lib/utils";
+import type { ReactNode } from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
 
 import { useGenuiSearchHistory } from "./use-genui-search-history";
@@ -18,6 +19,7 @@ export const GenuiSearchCombobox = ({
   describedById,
   disabled,
   inputId,
+  leadingAction,
   listboxId,
   onQueryChange,
   onSearchSubmit,
@@ -30,6 +32,7 @@ export const GenuiSearchCombobox = ({
   describedById: string;
   disabled?: boolean;
   inputId: string;
+  leadingAction?: ReactNode;
   listboxId: string;
   onQueryChange: (query: string) => void;
   onSearchSubmit: (query: string) => void;
@@ -198,6 +201,7 @@ export const GenuiSearchCombobox = ({
           disabled={disabled}
           inputId={inputId}
           inputRef={inputRef}
+          leadingAction={leadingAction}
           onCompositionEnd={() => {
             composing.current = false;
           }}

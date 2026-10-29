@@ -27,7 +27,7 @@ Keep the Next App Router homepage server-rendered. Use a small React client isla
 | Error | Keep prompt and query; show retry plus ordinary `/work`, `/cv`, `/contact` routes. |
 | Reset | Clear query, results and unsent drafts; cancel composition; restore original sections and nonsticky initial state. |
 
-Proposed reset control: a small labeled “Back to homepage” action visible in the active state. No query strings, browser-history entries, sharing URLs or cross-visit query restoration in MVP. Ordinary route links remain ordinary navigation.
+Reset control: in the active state, a back-arrow button (accessible name and tooltip “Back to homepage”) replaces the field’s leading search icon. Usage hints stay screen-reader only; no visible helper text sits under the field. No query strings, browser-history entries, sharing URLs or cross-visit query restoration in MVP. Ordinary route links remain ordinary navigation.
 
 The sticky containing block spans the full results region and must not be trapped by the existing hero's short/overflow wrapper. Short results still need enough layout extent for the prompt to remain at the top. Prompt placement and reading width remain inside the site column. Do not make the nav sticky or alter hero artwork/identity copy as part of this feature.
 
