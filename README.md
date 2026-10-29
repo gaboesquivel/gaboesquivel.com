@@ -13,7 +13,7 @@ bun run dev
 
 `bun run dev` runs Velite and Next.js at [https://gaboesquivel.localhost](https://gaboesquivel.localhost). Next listens on port 3099; [http://localhost:3099](http://localhost:3099) hits the same app but is a troubleshooting URL only (see **Browser development**).
 
-Trust the local HTTPS certificate once (this may prompt for sudo or Keychain):
+Trust the local HTTPS certificate and start the proxy on 443 once (this prompts for sudo and may prompt for Keychain). portless only waits 30 seconds for its own sudo prompt and then falls back to port 1355, so the script caches sudo first. If the URL needs `:1355`, run `portless proxy stop -p 1355` and rerun this:
 
 ```bash
 bun run setup:portless

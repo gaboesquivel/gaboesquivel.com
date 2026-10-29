@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "portless",
     "dev:app": "sh -c 'ulimit -n 10240 2>/dev/null; rm -rf .next; bun scripts/export-llms.ts; exec bunx concurrently -k \"velite --watch\" \"next dev -p 3099\"'",
-    "setup:portless": "portless trust && portless proxy start",
+    "setup:portless": "portless trust && sudo -v && portless proxy start",
     "content:build": "velite",
     "content:watch": "velite --watch",
     "build": "velite && bun scripts/generate-og.ts && bun scripts/export-llms.ts && next build",
