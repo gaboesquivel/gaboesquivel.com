@@ -165,7 +165,7 @@ const taskDocuments = ({
       return {
         documents: [
           answerDocument({
-            body: `${execution.projects.map((project) => project.title).join(" and ")} side by side: ${listed}, from each published case study.${challengeNote} A missing field reads “Not recorded”.`,
+            body: `${execution.projects.map((project) => project.title).join(" and ")} side by side: ${listed}, from each published project record.${challengeNote} A missing field reads “Not recorded”.`,
             records,
             requestId,
             sourceIds: records.map((record) => record.id),

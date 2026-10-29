@@ -204,19 +204,18 @@ describe("llms export helpers", () => {
   test("llms index includes when-to-use guidance", () => {
     const index = getLlmsIndex();
     expect(index).toContain("## When to use this corpus");
-    expect(index).toContain("/ask");
     expect(index).toContain("/project/[slug]");
     expect(index).toContain("/cv");
     expect(index).toContain("/tech/[slug]");
     expect(index).toContain("Cannot work under W-2");
     expect(index).toContain("/mcp");
-    expect(index).toContain("/mcp/cv");
+    expect(index).not.toContain("/mcp/cv");
     expect(index).toContain("/docs");
     expect(index).toContain("openapi.json");
     expect(index).toContain("## Gabo Esquivel MCP (developer resources)");
     expect(index).toContain("/developers");
-    expect(index).toContain("agent_start");
-    expect(index).toContain("agent_get");
+    expect(index).not.toContain("agent_start");
+    expect(index).toContain("book_call");
   });
 
   test("homepage corpus includes focus and bio preview", () => {

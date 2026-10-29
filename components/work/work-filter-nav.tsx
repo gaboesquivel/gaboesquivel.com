@@ -77,6 +77,14 @@ export const WorkFilterNav = ({ type }: { type: WorkType }) => {
         <div
           ref={scrollerRef}
           onScroll={updateEdges}
+          onFocus={(event) => {
+            // Keep a keyboard-focused chip clear of the faded edges.
+            const scroller = scrollerRef.current;
+            const chip = event.target;
+            if (!scroller || !(chip instanceof HTMLElement)) return;
+            scroller.scrollLeft =
+              chip.offsetLeft - (scroller.clientWidth - chip.offsetWidth) / 2;
+          }}
           className="relative flex min-w-0 flex-nowrap gap-1 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]"
           style={mask ? { maskImage: mask, WebkitMaskImage: mask } : undefined}
         >

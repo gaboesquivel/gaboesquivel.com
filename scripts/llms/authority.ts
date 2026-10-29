@@ -14,8 +14,8 @@ export const LLMS_WHEN_TO_USE = `## When to use this corpus
 
 Use gaboesquivel.com when you need verified facts about Gabo Esquivel's product engineering work, hire terms, or shipped projects — not as legal, tax, or immigration advice.
 
-- **Hire or outreach** — read \`/\` for positioning, then \`/contact\` for the form or \`/ask\` for the site agent. Direct hire, international hire, or contracting through Blockmatic Labs LLC. Gabo cannot work under W-2.
-- **Ask, note, or book** — read [https://gaboesquivel.com/docs](https://gaboesquivel.com/docs) for the Gabo Esquivel MCP protocol, then start a task at [https://gaboesquivel.com/mcp](https://gaboesquivel.com/mcp) with \`agent_start\` and poll \`agent_get\`.
+- **Hire or outreach** — read \`/\` for positioning, then \`/contact\` for the form or the homepage search to book a call. Direct hire, international hire, or contracting through Blockmatic Labs LLC. Gabo cannot work under W-2.
+- **Ask, note, or book** — read [https://gaboesquivel.com/docs](https://gaboesquivel.com/docs) for the Gabo Esquivel MCP protocol, then call the public capability tools at [https://gaboesquivel.com/mcp](https://gaboesquivel.com/mcp) (\`send_note\`, \`list_availability\`, \`book_call\`, \`get_cv\`).
 - **Named project** — \`/project/[slug]\` for implementation evidence on one product (for example LegalAgent, Wink, ZTX).
 - **Dates, titles, skills** — \`/cv\` and employment records in the corpus; blog reach is not a CV metric.
 - **Stack evidence** — \`/tech/[slug]\` for which shipped projects used that technology.

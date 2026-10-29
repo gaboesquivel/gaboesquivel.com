@@ -222,6 +222,20 @@ const restrictiveRemainder = ({
   return words;
 };
 
+/**
+ * How software gets built with agents ("workflow for building apps with AI
+ * agents", "how do you build software with coding agents"). Needs both a
+ * development verb and an agent framing; project browsing never qualifies.
+ */
+const agentDevelopmentPattern =
+  /\b(?:process|workflow|method|approach|how (?:do )?you)\b.*\b(?:develop\w*|build\w*|ship\w*|creat\w*|cod(?:e|ing)|engineer\w*)\b.*\b(?:with|using|via)\s+(?:coding\s+|ai\s+)?agents?\b|\bagentic (?:development|engineering|coding)\b/i;
+
+export const agentDevelopmentClause = {
+  test: (clause: string) =>
+    agentDevelopmentPattern.test(clause) &&
+    !/\b(show|list|browse|projects?|portfolio)\b/i.test(clause),
+};
+
 /** A request for a personal ranking. */
 export const prideClause = /\bproud(?:est)?\b/i;
 
@@ -373,11 +387,7 @@ const classifyClause = ({
   const process =
     /\b(process you follow|how do you develop|how you develop|using agents)\b/i.test(
       clause
-    ) ||
-    (/\b(process|workflow|method|approach|how (?:do )?you (?:develop|build|ship|work))\b/i.test(
-      clause
-    ) &&
-      /\b(agents?|agentic|ai|llms?)\b/i.test(clause));
+    ) || agentDevelopmentClause.test(clause);
   const relate = /\b(?:how it relates|relates to|related to your work)\b/i.test(
     clause
   );

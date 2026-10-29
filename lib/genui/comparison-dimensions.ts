@@ -40,18 +40,18 @@ const labels: Record<ComparisonDimension, string> = {
 };
 
 const dimensionPatterns: [ComparisonDimension, RegExp][] = [
-  ["role", /\b(role|position|title|responsibilit\w*|what did (?:i|you) do)\b/i],
+  ["role", /\b(role|position|responsibilit\w*|what did (?:i|you) do)\b/i],
   [
     "work",
-    /\b(technical (?:challenges?|work|problems?)|challenges?|hard parts?|problems?|architecture|how (?:it|they) (?:was|were) built)\b/i,
+    /\b(technical (?:challenges?|work|problems?)|challenges?|hard parts?|architecture|how (?:it|they) (?:was|were) built)\b/i,
   ],
   [
     "shipped",
-    /\b(shipped|delivered|outcomes?|results?|achievements?|impact|what (?:i|you|was) built|launch(?:ed)?)\b/i,
+    /\b(shipped|delivered|outcomes?|achievements?|impact|what (?:i|you|was) built|launched)\b/i,
   ],
-  ["technologies", /\b(stack|tech(?:nolog(?:y|ies))?|tools?|languages?)\b/i],
-  ["categories", /\b(categor(?:y|ies)|types?|domains?)\b/i],
-  ["year", /\b(years?|when|dates?|timeline)\b/i],
+  ["technologies", /\b(stack|tech stack|technolog(?:y|ies)|languages?)\b/i],
+  ["categories", /\b(categor(?:y|ies))\b/i],
+  ["year", /\b(years?)\b/i],
 ];
 
 /** Dimensions a request names explicitly, in canonical order. */

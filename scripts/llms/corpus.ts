@@ -72,18 +72,13 @@ const buildLlmsIndex = ({
     }),
     llmsListItem({
       name: "Gabo Esquivel MCP — developer documentation",
-      note: "Streamable HTTP protocol (agent_start, agent_get), Gabo Esquivel MCP authentication, and limits. Aliases: /developers, /mcp/docs.",
+      note: "Public MCP capability tools, inputs, result statuses, and limits. Aliases: /developers, /mcp/docs.",
       url: `${BASE_URL}/docs`,
     }),
     llmsListItem({
       name: "Gabo Esquivel MCP server endpoint",
-      note: "Public Streamable HTTP; agent_* tools and published cv tool; no API key or OAuth.",
+      note: "Public Streamable HTTP; nine capability tools (get_cv, list_projects, book_call, send_note, …); no API key or OAuth.",
       url: `${BASE_URL}/mcp`,
-    }),
-    llmsListItem({
-      name: "Gabo Esquivel MCP CV download card",
-      note: "MCP Apps UI at /mcp/cv; call cv for PDF links with a download card in ChatGPT and other MCP Apps hosts.",
-      url: `${BASE_URL}/mcp/cv`,
     }),
     llmsListItem({
       name: "Gabo Esquivel llms.txt (agent corpus)",

@@ -17,13 +17,17 @@ const topicGroups: string[][] = [
 
 const stem = (word: string) => word.slice(0, 5);
 
+/** Prefix match, so "ship" matches "shipped" and "test" matches "testing". */
+const sameRoot = (word: string, term: string) =>
+  word.startsWith(stem(term)) || term.startsWith(stem(word));
+
 const topicsOf = (text: string) => {
   const words = (text.toLowerCase().match(/[a-z]+/g) ?? []).filter(
     (word) => word.length > 2 && !stopwords.has(word)
   );
   return words.map((word) => {
     const group = topicGroups.find((terms) =>
-      terms.some((term) => stem(term) === stem(word))
+      terms.some((term) => sameRoot(word, term))
     );
     return group ?? [word];
   });
@@ -43,10 +47,11 @@ export const writingForTopic = (text: string, limit = 3) => {
         ...(post.title.toLowerCase().match(/[a-z]+/g) ?? []),
         ...(post.summary?.toLowerCase().match(/[a-z]+/g) ?? []),
       ];
-      const stems = new Set(haystack.map(stem));
       const score = new Set(
         topics
-          .filter((terms) => terms.some((term) => stems.has(stem(term))))
+          .filter((terms) =>
+            terms.some((term) => haystack.some((word) => sameRoot(word, term)))
+          )
           .map((terms) => terms.join("|"))
       ).size;
       return { post, score };

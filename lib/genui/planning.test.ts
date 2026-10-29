@@ -565,4 +565,28 @@ describe("whole-request composition", () => {
       expect(viewed.openui).toContain("production problem");
     }
   });
+
+  test("AI browsing and unrelated process questions are not agent-process tasks", () => {
+    for (const query of [
+      "Show me AI workflow projects",
+      "What is your approach to AI projects?",
+      "What's your process for working with clients on AI?",
+    ]) {
+      const tasks = planTasks(query);
+      expect(tasks.some((task) => task.closedLimitation)).toBe(false);
+    }
+    for (const query of [
+      "what's your workflow for building apps with AI agents",
+      "How do you build software with coding agents?",
+    ]) {
+      expect(planTasks(query)[0]?.closedLimitation).toBe(true);
+    }
+  });
+
+  test("unrelated words do not narrow a comparison", async () => {
+    const viewed = await withoutProvider(() =>
+      completeText("Compare Wink and LegalAgent and show me your timeline")
+    );
+    expect(viewed.openui).not.toContain('["year"]');
+  });
 });

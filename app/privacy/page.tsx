@@ -35,10 +35,11 @@ export default function PrivacyPage() {
         the time, the length, and what you wanted to discuss.
       </Prose>
       <Prose>
-        Notes and bookings are counted per day in Upstash so the public limits
-        hold. Those counts use your IP address and, for a note, your email
-        address. Do not send passwords, payment card numbers, or other secrets
-        through the search or the MCP tools.
+        Searches, notes, and bookings are counted per day in Upstash so the
+        public limits hold (for example, 30 searches per IP address per day).
+        Those counts use your IP address and, for a note, your email address. Do
+        not send passwords, payment card numbers, or other secrets through the
+        search or the MCP tools.
       </Prose>
       <Prose>
         The site loads Vercel Web Analytics to understand aggregate traffic
