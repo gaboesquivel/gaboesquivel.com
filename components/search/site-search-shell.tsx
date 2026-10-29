@@ -77,7 +77,7 @@ export function SiteSearchShell({
         <DialogContent
           showCloseButton={false}
           className={cn(
-            "top-[12%] max-w-6xl translate-y-0 gap-0 border-hairline bg-black p-4 shadow-none ring-hairline motion-reduce:transition-none sm:max-w-[calc(100%-2rem)]"
+            "top-4 max-w-6xl translate-y-0 gap-0 border-hairline bg-black p-4 shadow-none ring-hairline motion-reduce:transition-none sm:max-w-[calc(100%-2rem)]"
           )}
         >
           <DialogHeader className="sr-only">
