@@ -106,7 +106,7 @@ export function SiteSearchPanel({
             query={query}
             showGenuiBetaBadge
           />
-          <p className="mt-2 text-xs text-neutral-500" id={scopeId}>
+          <p className="sr-only" id={scopeId}>
             Press Enter to search. Results appear below.
             {genuiSuggestionsOpenHint}
           </p>
