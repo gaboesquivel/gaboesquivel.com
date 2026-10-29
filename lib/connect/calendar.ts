@@ -56,13 +56,13 @@ const busyForCalendar = ({
 };
 
 export const googleCalendar = (): CalendarClient => {
-  const id = calendarId();
-  const calendarPath = encodeURIComponent(id);
+  // Resolved per call: read-only tools must work without calendar env, and
+  // only calendar operations report "calendar-unconfigured".
 
   return {
     freeBusy: async ({ timeMax, timeMin }) => {
       const payload = (await googleFetch({
-        body: { items: [{ id }], timeMax, timeMin },
+        body: { items: [{ id: calendarId() }], timeMax, timeMin },
         path: "/freeBusy",
       })) as {
         calendars?: Record<
@@ -70,13 +70,16 @@ export const googleCalendar = (): CalendarClient => {
           { busy?: { end?: string; start?: string }[] }
         >;
       };
-      return busyForCalendar({ calendars: payload.calendars, id });
+      return busyForCalendar({
+        calendars: payload.calendars,
+        id: calendarId(),
+      });
     },
     get: async ({ eventId }) => {
       try {
         const token = await googleAccessToken();
         const response = await fetch(
-          `https://www.googleapis.com/calendar/v3/calendars/${calendarPath}/events/${encodeURIComponent(eventId)}`,
+          `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId())}/events/${encodeURIComponent(eventId)}`,
           {
             headers: { Authorization: `Bearer ${token}` },
             method: "GET",
@@ -93,7 +96,7 @@ export const googleCalendar = (): CalendarClient => {
     insert: async ({ event, eventId }) => {
       const payload = (await googleFetch({
         body: eventId ? { ...event, id: eventId } : event,
-        path: `/calendars/${calendarPath}/events?sendUpdates=all&conferenceDataVersion=1`,
+        path: `/calendars/${encodeURIComponent(calendarId())}/events?sendUpdates=all&conferenceDataVersion=1`,
       })) as { id?: string };
       if (!payload.id) throw new Error("calendar-insert");
       return { id: payload.id };
