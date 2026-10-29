@@ -19,7 +19,9 @@ const stem = (word: string) => word.slice(0, 5);
 
 /** Prefix match, so "ship" matches "shipped" and "test" matches "testing". */
 const sameRoot = (word: string, term: string) =>
-  word.startsWith(stem(term)) || term.startsWith(stem(word));
+  word.length >= 4 &&
+  term.length >= 4 &&
+  (word.startsWith(stem(term)) || term.startsWith(stem(word)));
 
 const topicsOf = (text: string) => {
   const words = (text.toLowerCase().match(/[a-z]+/g) ?? []).filter(

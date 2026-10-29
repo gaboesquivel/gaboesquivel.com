@@ -571,6 +571,8 @@ describe("whole-request composition", () => {
       "Show me AI workflow projects",
       "What is your approach to AI projects?",
       "What's your process for working with clients on AI?",
+      "Show me projects using agents",
+      "Which projects did you build using agents?",
     ]) {
       const tasks = planTasks(query);
       expect(tasks.some((task) => task.closedLimitation)).toBe(false);
