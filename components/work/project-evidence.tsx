@@ -15,11 +15,13 @@ export function ProjectEvidence({
   columns = 2,
   presentation = "card",
   imageSizes,
+  className,
 }: {
   slugs: string[];
   columns?: 1 | 2;
   presentation?: "card" | "registry" | "editorial";
   imageSizes?: string;
+  className?: string;
 }) {
   const evidence = projectsFromSlugs(slugs);
   const twoColumn = columns === 2 && evidence.length > 1;
@@ -31,7 +33,12 @@ export function ProjectEvidence({
 
   return (
     <ul
-      className={cn(blockSpacing, singleColGrid, twoColumn && "md:grid-cols-2")}
+      className={cn(
+        blockSpacing,
+        singleColGrid,
+        twoColumn && "md:grid-cols-2",
+        className
+      )}
     >
       {evidence.map((project, index) => {
         const isLastOdd =

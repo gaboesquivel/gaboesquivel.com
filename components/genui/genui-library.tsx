@@ -49,6 +49,7 @@ const ProjectExperience = defineComponent({
   component: ({ props }) => (
     <ProjectExperienceView
       composite={props.composite}
+      dimensions={props.dimensions}
       domain={props.domain}
       projectIds={props.projectIds}
     />

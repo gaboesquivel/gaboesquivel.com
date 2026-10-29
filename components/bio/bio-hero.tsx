@@ -1,4 +1,3 @@
-import { SectionLabel } from "components/interior/section-label";
 import { PageTitle } from "components/shared/page-layout";
 import { heroPitch, heroTitle } from "components/shared/spacing";
 import { cn } from "lib/utils";
@@ -16,8 +15,7 @@ export function BioHero({ className }: { className?: string }) {
       )}
     >
       <div className="max-w-[72ch] min-w-0">
-        <SectionLabel>Bio</SectionLabel>
-        <PageTitle className={cn(heroTitle, "mt-4 mb-0 max-w-none")}>
+        <PageTitle className={cn(heroTitle, "mb-0 max-w-none")}>
           My journey
         </PageTitle>
         <p className={cn(heroPitch, "max-w-[52ch]")}>

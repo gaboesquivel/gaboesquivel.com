@@ -15,6 +15,7 @@ tests/genui/mcp-apps/vendor/
 
 # next.js
 /.next/
+/.next-genui-lab/
 /out/
 
 # production

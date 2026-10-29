@@ -2,6 +2,7 @@ import { getProjectBySlug } from "gaboesquivel";
 import { careerChapters, careerProjectSlugs } from "lib/bio/career-timeline";
 import { siteOrigin } from "lib/site-path";
 
+import type { ComparisonDimension } from "./comparison-dimensions";
 import type { CompositeName } from "./composites";
 import { openUiStringList, openUiStringLiteral } from "./contract/serialize";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
@@ -64,20 +65,25 @@ export const answerDocument = ({
 
 export const projectDocument = ({
   composite,
+  dimensions,
   domain,
   projectIds,
   records,
   requestId,
 }: {
   composite: CompositeName;
+  dimensions?: ComparisonDimension[];
   domain?: "ai" | "web3" | "all";
   projectIds: string[];
   records: PublicRecord[];
   requestId: string;
 }) => {
   let domainArg = "";
-  if (domain) {
-    domainArg = `, ${openUiStringLiteral(domain)}`;
+  if (domain || dimensions?.length) {
+    domainArg = `, ${openUiStringLiteral(domain ?? "all")}`;
+  }
+  if (dimensions?.length) {
+    domainArg += `, ${openUiStringList(dimensions)}`;
   }
   return envelope({
     fallbackText: "Selected projects",

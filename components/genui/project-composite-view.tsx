@@ -6,6 +6,7 @@ import { ProjectCaseStudy } from "components/work/project-case-study";
 import { ProjectEvidence } from "components/work/project-evidence";
 import { WorkProjectGallery } from "components/work/work-project-gallery";
 import type { Project } from "gaboesquivel";
+import type { ComparisonDimension } from "lib/genui/comparison-dimensions";
 import type { CompositeName } from "lib/genui/composites";
 import { isProjectCompositionRecipe } from "lib/genui/composition-plan";
 import { workCoverSizes } from "lib/work/project-cover";
@@ -14,11 +15,13 @@ import { ProjectShowcaseLayout } from "./project-showcase-layout";
 
 export const ProjectCompositeView = ({
   composite,
+  dimensions,
   domain,
   projectIds,
   projects,
 }: {
   composite: CompositeName;
+  dimensions?: ComparisonDimension[];
   domain?: "ai" | "web3" | "all";
   projectIds: string[];
   projects: Project[];
@@ -31,6 +34,7 @@ export const ProjectCompositeView = ({
     return (
       <ProjectShowcaseLayout
         composite={composite}
+        dimensions={dimensions}
         domain={domain}
         projectIds={projectIds}
         projects={projects}

@@ -78,13 +78,13 @@ export function BlogPosts({
         <PageIntro
           compact={Boolean(trail?.length)}
           description={intro}
-          eyebrow={trail ? undefined : "Writing"}
           title={pageTitle}
           trail={trail}
         />
       ) : null}
 
       <FilterNav
+        className={heading || trail ? "mt-0" : undefined}
         label="Writing categories"
         current={currentCategory}
         items={[

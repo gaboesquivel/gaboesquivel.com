@@ -7,14 +7,17 @@ import {
 import { SiteSearchProvider } from "components/search/site-search-context";
 import { SiteSearchPanel } from "components/search/site-search-panel";
 import type { SearchRecord } from "components/search/types";
+import { Button } from "components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "components/ui/dialog";
 import { cn } from "lib/utils";
+import { XIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -89,6 +92,20 @@ export function SiteSearchShell({
           </DialogHeader>
           {open ? (
             <SiteSearchPanel
+              closeControl={
+                <DialogClose
+                  render={
+                    <Button
+                      className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
+                      size="icon"
+                      variant="ghost"
+                    />
+                  }
+                >
+                  <XIcon aria-hidden="true" strokeWidth={1.5} />
+                  <span className="sr-only">Close search</span>
+                </DialogClose>
+              }
               records={records}
               variant="dialog"
               onNavigate={() => setOpen(false)}

@@ -9,10 +9,7 @@ import {
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
-import { SectionLabel } from "./section-label";
-
 export function PageIntro({
-  eyebrow,
   title,
   description,
   className,
@@ -21,9 +18,9 @@ export function PageIntro({
   compact,
   density = "default",
   narrative = false,
+  meta,
   children,
 }: {
-  eyebrow?: string;
   title: ReactNode;
   description?: string;
   className?: string;
@@ -33,6 +30,8 @@ export function PageIntro({
   density?: "default" | "panel";
   /** One left-aligned reading block. No second column and no intro image. */
   narrative?: boolean;
+  /** Short facts (role, year) between the title and description. */
+  meta?: ReactNode;
   children?: ReactNode;
 }) {
   if (narrative) {
@@ -53,14 +52,12 @@ export function PageIntro({
 
   return (
     <div className={cn("max-w-4xl lg:max-w-5xl", className)}>
-      {eyebrow && !trail?.length ? (
-        <SectionLabel className="mb-4">{eyebrow}</SectionLabel>
-      ) : null}
       <InnerPageHero
         className={titleClassName}
         compact={compact}
         density={density}
         description={description}
+        meta={meta}
         title={title}
         trail={trail}
       >

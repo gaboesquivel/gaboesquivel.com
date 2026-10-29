@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { comparisonDimensions } from "../comparison-dimensions";
 import { compositeNames } from "../composites";
 
 export const compositeSchema = z.enum(compositeNames);
@@ -23,6 +24,8 @@ export const projectExperiencePropsSchema = z.object({
   composite: compositeSchema.default("editorial-grid"),
   projectIds: z.array(z.string()),
   domain: z.enum(["ai", "web3", "all"]).optional(),
+  /** project-comparison only: requested dimensions, in display order. */
+  dimensions: z.array(z.enum(comparisonDimensions)).optional(),
 });
 
 export const writingExperiencePropsSchema = z.object({

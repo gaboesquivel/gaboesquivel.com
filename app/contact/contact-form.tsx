@@ -204,12 +204,12 @@ export function ContactForm() {
                       ✓ Message length is good
                     </span>
                   ) : (
-                    <span className="text-neutral-500">
+                    <span className="text-neutral-400">
                       {10 - field.state.value.length} more characters needed
                     </span>
                   )}
                 </p>
-                <p className="text-sm text-neutral-500">
+                <p className="text-sm text-neutral-400">
                   {field.state.value.length}/5000
                 </p>
               </div>

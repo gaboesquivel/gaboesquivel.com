@@ -5,6 +5,11 @@ import {
   GenuiSearchCombobox,
   genuiSuggestionsOpenHint,
 } from "components/genui/genui-search-combobox";
+import {
+  GenuiReceipt,
+  GenuiSessionProvider,
+  genuiWritesEnabled,
+} from "components/genui/genui-session";
 import { useGenuiComposition } from "components/genui/use-genui-composition";
 import { filterSearchRecords } from "components/search/filter-records";
 import {
@@ -18,7 +23,9 @@ import { SearchResults } from "components/search/search-results";
 import { SiteSearchField } from "components/search/site-search-field";
 import type { SearchRecord } from "components/search/types";
 import { useHydrated } from "hooks/use-hydrated";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 function SearchBrowseLinks() {
@@ -40,10 +47,13 @@ function SearchBrowseLinks() {
 }
 
 export function SiteSearchPanel({
+  closeControl,
   records,
   variant,
   onNavigate,
 }: {
+  /** Dialog only: visible close control placed beside the field. */
+  closeControl?: ReactNode;
   records: SearchRecord[];
   variant: "home" | "dialog";
   onNavigate?: () => void;
@@ -75,37 +85,66 @@ export function SiteSearchPanel({
 
   const showKeywordFallback =
     variant === "dialog" &&
-    genui.complete &&
-    genui.error &&
-    submitted.length > 0;
+    Boolean(genui.error) &&
+    submitted.length > 0 &&
+    matches.length > 0;
 
   const runGenuiSearch = (trimmed: string) => {
     setSubmitted(trimmed);
     void genui.runQuery(trimmed);
   };
 
+  const resetDialogSearch = () => {
+    setQuery("");
+    setSubmitted("");
+    resetGenui();
+    document.querySelector<HTMLInputElement>(`#${inputId}`)?.focus();
+  };
+
   return (
     <>
       {variant === "dialog" ? (
         <>
-          <GenuiSearchCombobox
-            autoFocus
-            describedById={scopeId}
-            disabled={!hydrated}
-            inputId={inputId}
-            listboxId={dialogGenuiSuggestionsListboxId}
-            onQueryChange={(value) => {
-              setQuery(value);
-              if (!value) {
-                setSubmitted("");
-                genui.reset();
-              }
-            }}
-            onSearchSubmit={runGenuiSearch}
-            placeholder={genuiSearchPlaceholder}
-            query={query}
-            showGenuiBetaBadge
-          />
+          <div className="flex items-start gap-2">
+            <div className="min-w-0 flex-1">
+              <GenuiSearchCombobox
+                autoFocus
+                describedById={scopeId}
+                disabled={!hydrated}
+                inputId={inputId}
+                leadingAction={
+                  showGenui ? (
+                    <button
+                      aria-label="Clear results"
+                      className="-ml-2.5 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-md text-neutral-300 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
+                      onClick={resetDialogSearch}
+                      title="Clear results"
+                      type="button"
+                    >
+                      <ArrowLeft
+                        aria-hidden="true"
+                        className="size-6"
+                        strokeWidth={1.5}
+                      />
+                    </button>
+                  ) : undefined
+                }
+                listboxId={dialogGenuiSuggestionsListboxId}
+                onQueryChange={(value) => {
+                  setQuery(value);
+                  if (!value) {
+                    setSubmitted("");
+                    genui.reset();
+                  }
+                }}
+                onSearchSubmit={runGenuiSearch}
+                placeholder={genuiSearchPlaceholder}
+                query={query}
+                showGenuiBetaBadge
+              />
+            </div>
+            {closeControl}
+          </div>
           <p className="sr-only" id={scopeId}>
             Press Enter to search. Results appear below.
             {genuiSuggestionsOpenHint}
@@ -163,17 +202,21 @@ export function SiteSearchPanel({
         </>
       ) : null}
       {showGenui ? (
-        <div className="mt-4 max-h-[min(70dvh,40rem)] overflow-x-hidden overflow-y-auto">
-          <GeneratedRegion
-            complete={genui.complete}
-            envelope={genui.envelope}
-            error={showKeywordFallback ? null : genui.error}
-            isStreaming={genui.isStreaming}
-            onRetry={() => {
-              if (query.trim()) void genui.runQuery(query.trim());
-            }}
-          />
-        </div>
+        <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
+          <div className="mt-4 max-h-[min(70dvh,40rem)] overflow-x-hidden overflow-y-auto">
+            <GenuiReceipt className="mb-3 text-sm text-neutral-300" />
+            <GeneratedRegion
+              complete={genui.complete}
+              envelope={genui.envelope}
+              error={genui.error}
+              isStreaming={genui.isStreaming}
+              onRetry={() => {
+                const retry = submitted || query.trim();
+                if (retry) void genui.runQuery(retry);
+              }}
+            />
+          </div>
+        </GenuiSessionProvider>
       ) : null}
       {showKeywordFallback ? (
         <div className="mt-4 border-t border-hairline pt-4">

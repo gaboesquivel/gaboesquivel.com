@@ -1,4 +1,3 @@
-import { getProjectBySlug } from "gaboesquivel";
 import type { Project } from "gaboesquivel";
 import { siteOrigin } from "lib/site-path";
 
@@ -15,14 +14,20 @@ import {
 } from "./builders";
 import { catalogScope, executeTaskFilter } from "./catalog-operation";
 import type { CatalogExecution } from "./catalog-operation";
+import {
+  comparisonDimensionLabel,
+  comparisonDimensionsInText,
+} from "./comparison-dimensions";
 import { componentSemantics } from "./component-semantics";
 import type { CompositionRelationship } from "./component-semantics";
 import { postRecord, profileRecord, publishedPosts } from "./content-records";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { cvPublicRecord, projectToPublicRecord } from "./public-records";
 import { selectProjectComposition } from "./select-project-composition";
+import { incidentClause, prideClause } from "./task-plan";
 import type { PlannedTask } from "./task-plan";
 import { validateCompositionEnvelope } from "./validate-envelope";
+import { writingForTopic } from "./writing-topic";
 
 export interface PlannedComposition {
   bindings: {
@@ -102,13 +107,18 @@ const taskDocuments = ({
     const slice = task.filter.domains.length
       ? ` in the ${task.filter.domains.join(" and ")} slice`
       : "";
+    const work = profileRecord({
+      id: "/work",
+      title: "Browse all work",
+      url: `${siteOrigin}/work`,
+    });
     return {
       documents: [
         answerDocument({
-          body: `${execution.matchedCount} published portfolio records${slice} match this request. ${catalogScope}`,
-          records: [],
+          body: `The published portfolio documents ${execution.matchedCount} projects${slice}. That is what this site records, not a lifetime total or a count of independently founded products.`,
+          records: [work],
           requestId,
-          sourceIds: [],
+          sourceIds: [work.id],
         }),
       ],
       execution,
@@ -141,16 +151,28 @@ const taskDocuments = ({
       execution.projects.length <= 3
     ) {
       const records = execution.projects.map(projectToPublicRecord);
+      const dimensions = comparisonDimensionsInText(task.purpose);
+      const labels = dimensions.map((dimension) =>
+        comparisonDimensionLabel(dimension).toLowerCase()
+      );
+      const listed =
+        labels.length > 2
+          ? `${labels.slice(0, -1).join(", ")}, and ${labels.at(-1)}`
+          : labels.join(" and ");
+      const challengeNote = /\bchallenges?\b/i.test(task.purpose)
+        ? " Challenges are not recorded as a separate field, so the technical work row quotes each case study."
+        : "";
       return {
         documents: [
           answerDocument({
-            body: "Compared on year, role, categories, and technologies recorded for these projects. A missing field stays missing.",
+            body: `${execution.projects.map((project) => project.title).join(" and ")} side by side: ${listed}, from each published project record.${challengeNote} A missing field reads “Not recorded”.`,
             records,
             requestId,
             sourceIds: records.map((record) => record.id),
           }),
           projectDocument({
             composite: "project-comparison",
+            dimensions,
             projectIds: records.map((record) => record.id),
             records,
             requestId,
@@ -307,7 +329,7 @@ const taskDocuments = ({
     };
   }
 
-  if (task.closedLimitation && /\bproud\b/i.test(task.purpose)) {
+  if (task.closedLimitation && prideClause.test(task.purpose)) {
     return {
       documents: [
         limitation(
@@ -318,11 +340,11 @@ const taskDocuments = ({
       execution: null,
     };
   }
-  if (task.closedLimitation && /incident|outage/i.test(task.purpose)) {
+  if (task.closedLimitation && incidentClause.test(task.purpose)) {
     return {
       documents: [
         limitation(
-          "I do not have a published account of a production incident I solved. A project title is not that account.",
+          "I have not published an account of a specific production problem and how I solved it, so I am not reconstructing one from a project title. The case studies on /work describe what each project shipped.",
           requestId
         ),
       ],
@@ -330,21 +352,32 @@ const taskDocuments = ({
     };
   }
   if (task.closedLimitation && /process|agents/i.test(task.purpose)) {
-    const project = getProjectBySlug("legal-agent");
-    const records = project ? [projectToPublicRecord(project)] : [];
-    const answer = answerDocument({
-      body: "I have not published a general method for developing applications with agents. LegalAgent is shipped product evidence, not a process description.",
-      records,
-      requestId,
-      sourceIds: records.map((record) => record.id),
-    });
-    if (!project) return { documents: [answer], execution: null };
+    // Process questions rank process writing first.
+    const posts = writingForTopic(`${task.purpose} process`);
+    const lead = posts[0];
+    if (!lead) {
+      return {
+        documents: [
+          limitation(
+            "I have not published a general method for developing applications with agents.",
+            requestId
+          ),
+        ],
+        execution: null,
+      };
+    }
+    const records = posts.map(postRecord);
     return {
       documents: [
-        answer,
-        projectDocument({
-          composite: "case-study",
-          projectIds: records.map((record) => record.id),
+        answerDocument({
+          body: `My published writing is the closest account of that process. ${lead.title}: ${lead.summary?.trim() ?? ""}`.trim(),
+          records,
+          requestId,
+          sourceIds: [records[0]?.id ?? ""].filter(Boolean),
+        }),
+        writingDocument({
+          composite: "dated-row",
+          postIds: records.map((record) => record.id),
           records,
           requestId,
         }),

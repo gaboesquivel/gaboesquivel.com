@@ -8,6 +8,8 @@ import {
   SplitSectionMedia,
 } from "components/interior/split-section";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
+import { heroPitch } from "components/shared/spacing";
+import { cn } from "lib/utils";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -48,22 +50,33 @@ export function CapabilityPage({
 }) {
   return (
     <InteriorPageShell>
-      <PageIntro description={intro[0]} eyebrow="Capabilities" title={title} />
-      {intro.slice(1).map((paragraph) => (
-        <Prose key={paragraph}>{paragraph}</Prose>
-      ))}
+      <PageIntro description={intro[0]} title={title}>
+        {intro.slice(1).map((paragraph) => (
+          <p key={paragraph} className={cn(heroPitch, "mt-4")}>
+            {paragraph}
+          </p>
+        ))}
+      </PageIntro>
 
       {sections.map(({ heading, paragraphs, projectSlugs }, index) => {
         const layout = chapterLayouts[index % chapterLayouts.length];
-        const chapterNumber = String(index + 1).padStart(2, "0");
-
         const hasEvidence = projectSlugs.length > 0;
 
         return (
-          <EditorialSection key={heading} label={chapterNumber} title={heading}>
+          <EditorialSection
+            key={heading}
+            className={index === 0 ? "mt-0 lg:mt-0" : undefined}
+            title={heading}
+          >
             {hasEvidence ? (
               <SplitSection sectionSpacing={false}>
+                {/* Below lg, evidence leads the chapter so project proof is not buried under prose. */}
                 <SplitSectionContent
+                  className={
+                    layout.mediaPosition === "right"
+                      ? "order-2 lg:order-1"
+                      : "order-2"
+                  }
                   mediaPosition={layout.mediaPosition}
                   span={layout.textSpan}
                 >
@@ -74,10 +87,16 @@ export function CapabilityPage({
                   ))}
                 </SplitSectionContent>
                 <SplitSectionMedia
+                  className={
+                    layout.mediaPosition === "right"
+                      ? "order-1 lg:order-2"
+                      : "order-1"
+                  }
                   mediaPosition={layout.mediaPosition}
                   span={layout.mediaSpan}
                 >
                   <ProjectEvidence
+                    className="mt-0"
                     columns={1}
                     presentation="registry"
                     slugs={projectSlugs}

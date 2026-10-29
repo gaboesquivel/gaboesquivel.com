@@ -38,6 +38,8 @@ const genuiFixtureRewrites =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // The GenUI fixture lab runs beside `bun run dev` with its own build dir.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   allowedDevOrigins: [
     "gaboesquivel.localhost",
     "*.gaboesquivel.localhost",

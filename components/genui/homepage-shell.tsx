@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 import { GeneratedRegion } from "./generated-region";
-import { GenuiDraftProvider, useGenuiDraft } from "./genui-draft-context";
+import { useGenuiDraft } from "./genui-draft-context";
 import {
-  GenuiInteractionProvider,
-  useGenuiInteraction,
-} from "./genui-interaction-context";
+  GenuiReceipt,
+  GenuiSessionProvider,
+  genuiWritesEnabled,
+} from "./genui-session";
 import { PromptField } from "./prompt-field";
 import { scrollPromptToViewportTop } from "./scroll-prompt";
 import { useGenuiComposition } from "./use-genui-composition";
@@ -25,7 +26,6 @@ const HomepageGenUiBodyContent = ({
   }) => void;
 }) => {
   const { clear } = useGenuiDraft();
-  const { receipt } = useGenuiInteraction();
   const {
     active,
     complete,
@@ -76,12 +76,7 @@ const HomepageGenUiBodyContent = ({
           }}
           value={query}
         />
-        {receipt && (
-          <p className="mt-3 text-sm text-neutral-300" role="status">
-            {receipt.message}
-            {receipt.receiptId ? ` (${receipt.receiptId})` : ""}
-          </p>
-        )}
+        <GenuiReceipt />
       </div>
       {active ? (
         <div className="min-h-[100vh] pt-6">
@@ -106,28 +101,22 @@ const HomepageGenUiBodyContent = ({
   );
 };
 
-const HomepageGenUiBody = ({ children }: { children: React.ReactNode }) => {
-  const [writesEnabled, setWritesEnabled] = useState(false);
-
-  return (
-    <GenuiInteractionProvider writesEnabled={writesEnabled}>
-      <HomepageGenUiBodyContent
-        onSessionChange={({ active, complete, error, isStreaming }) => {
-          setWritesEnabled(active && complete && !isStreaming && !error);
-        }}
-      >
-        {children}
-      </HomepageGenUiBodyContent>
-    </GenuiInteractionProvider>
-  );
-};
-
 export const HomepageGenUiShell = ({
   children,
 }: {
   children: React.ReactNode;
-}) => (
-  <GenuiDraftProvider>
-    <HomepageGenUiBody>{children}</HomepageGenUiBody>
-  </GenuiDraftProvider>
-);
+}) => {
+  const [writesEnabled, setWritesEnabled] = useState(false);
+
+  return (
+    <GenuiSessionProvider writesEnabled={writesEnabled}>
+      <HomepageGenUiBodyContent
+        onSessionChange={(session) => {
+          setWritesEnabled(genuiWritesEnabled(session));
+        }}
+      >
+        {children}
+      </HomepageGenUiBodyContent>
+    </GenuiSessionProvider>
+  );
+};

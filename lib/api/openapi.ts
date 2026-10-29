@@ -109,7 +109,7 @@ export const openApiDocument = () => ({
   },
   info: {
     description:
-      "Read-only JSON API for published site facts and Markdown page exports. Task execution for ask, note, and book flows uses the Gabo Esquivel MCP server at /mcp (agent_start, agent_get), documented at /docs.",
+      "Read-only JSON API for published site facts and Markdown page exports. Note and booking flows use the public MCP capability tools at /mcp (book_call, contact_gabo, get_cv, list_availability, and others), documented at /docs.",
     title: "Gabo Esquivel Site API",
     version: "1.0.0",
   },

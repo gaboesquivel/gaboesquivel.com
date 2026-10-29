@@ -112,13 +112,28 @@ export const bookCallCapability = async ({
     });
   }
 
-  const slotOk = await offeredSlot({
-    calendar: context.calendar,
-    duration: booking.duration,
-    now: context.clock,
-    start: booking.start,
-    timeZone: booking.timeZone,
-  });
+  let slotOk: boolean;
+  try {
+    slotOk = await offeredSlot({
+      calendar: context.calendar,
+      duration: booking.duration,
+      now: context.clock,
+      start: booking.start,
+      timeZone: booking.timeZone,
+    });
+  } catch (error) {
+    // Nothing is reserved yet, so a calendar failure here is a clean failure.
+    return writeResult({
+      data: { eventId: null },
+      message:
+        error instanceof Error && error.message === "calendar-unconfigured"
+          ? CALENDAR_UNCONNECTED
+          : CALENDAR_FAILED,
+      operation: "book_call",
+      requestId: context.correlationId,
+      status: "failed",
+    });
+  }
   if (!slotOk) {
     return writeResult({
       data: { eventId: null },

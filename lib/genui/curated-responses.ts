@@ -36,7 +36,7 @@ export const resolveCuratedQueryKey = (query: string) =>
   canonicalKeys.get(normalizeGenuiQuery(query)) ?? null;
 
 const aiProjectsIntro =
-  "I have shipped production AI products (LegalAgent and Masterbots) with case studies on this site. Bitlauncher combines AI with crypto launch workflows. Wizard World was a Flow hackathon experiment with generative images—not a shipped product line.";
+  "LegalAgent and Masterbots are shipped AI products; Wizard World was a hackathon experiment, not a product line.";
 
 const fintechIntro =
   "Yes—Wink is Costa Rica's first neobank in the public portfolio. I was Lead Engineer on the React Native app and AWS backend, including partner-bank integrations and biometric KYC.";
