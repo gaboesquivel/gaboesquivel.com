@@ -80,6 +80,8 @@ Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): 
 
 This project uses Flow skills. Say a phrase to load its skill; the installed `flow` skill describes this block. Delete the block to opt out.
 
+Do the work yourself: CLI, then MCP, then API, then browser. Hand the user only sign-in, secrets, payment, consent, or permission changes, once, as one command each (`write-agents` Tools).
+
 Delivery: github
 
 | Say                                                  | Skill       |
@@ -93,6 +95,7 @@ Delivery: github
 | "build it"                                           | `build`     |
 | "check it against the spec"                          | `review`    |
 | "ship it" (add "local" or "with GitHub" for one run) | `ship`      |
+| "push it"                                            | `push`      |
 | "update the docs"                                    | `flow`      |
 
 <!-- END FLOW -->
