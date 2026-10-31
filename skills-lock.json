@@ -106,7 +106,7 @@
       "source": "gaboesquivel/flow-skills",
       "sourceType": "github",
       "skillPath": "skills/handoff/SKILL.md",
-      "computedHash": "657f72ed393f88cb04ff1f7e90006e609ed861570b224675b5001fe5e81863a0"
+      "computedHash": "480a26c33369f2dedd1e53bf5809531fb2a2d3b31847bfa0a7d6f468c2f85bfe"
     },
     "interview": {
       "source": "gaboesquivel/flow-skills",
@@ -202,25 +202,13 @@
       "source": "gaboesquivel/flow-skills",
       "sourceType": "github",
       "skillPath": "skills/ship/SKILL.md",
-      "computedHash": "a693c0155b9fd654951735bd86966b3aed9697638106f7fee149cadde4a77f3c"
+      "computedHash": "711ccef28fe9a22a3a2a89aed6bdd7aeddb1d6e941a1c98fc6d62a6ab81627ec"
     },
     "start": {
       "source": "gaboesquivel/flow-skills",
       "sourceType": "github",
       "skillPath": "skills/start/SKILL.md",
       "computedHash": "f0ac95607a53845cad87b3e219d6506caf5ab740ca4864c2831b755f9fe6e521"
-    },
-    "tdd": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "skillPath": "skills/engineering/tdd/SKILL.md",
-      "computedHash": "daf55026f456af104a72fa43247f7bcec89e5127316dc5b1b8d675d6a9d8ce94"
-    },
-    "test-driven-development": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/test-driven-development/SKILL.md",
-      "computedHash": "e4725d435cbd6e94c1da1a39eff634f6592c7ac303a06c61532d5c399b1f75c3"
     },
     "tldr": {
       "source": "gaboesquivel/flow-skills",
@@ -280,7 +268,7 @@
       "source": "gaboesquivel/flow-skills",
       "sourceType": "github",
       "skillPath": "skills/write-agents/SKILL.md",
-      "computedHash": "bc4331ef3bae84a28480395d76b82be2c775f38d1e5dccf6459cabc63fadcedb"
+      "computedHash": "da73597d7c58196d428d955e9a0fc7c9cb8c17943890c34865b9f5c42488e75d"
     },
     "write-humans": {
       "source": "gaboesquivel/flow-skills",
