@@ -12,7 +12,7 @@ Add, update, and remove skills with the skills CLI so `.agents/skills/` matches 
 
 Use each skill's name as it appears in the lock. Do not invent a `-vN` folder.
 
-Basilic `/w-*` playbooks are not installed.
+Basilic `/w-*` playbooks and third-party TDD skills (`tdd`, `test-driven-development`) are not installed; Flow's `build` and `review` own test practice, under the checks in this site's lifecycle.
 
 `.agents/skills/` is for repository work and changes through the lock. `agent/skills/` is the Eve runtime (`SKILL.md` and `references/` only). Do not copy catalog evals into `agent/skills/`. Edit that tree only when the task is about the running agent. The boundary is in [ARCHITECTURE.md](../../ARCHITECTURE.md).
 
