@@ -50,7 +50,7 @@ Follow [docs/agents/verify.md](docs/agents/verify.md) for UI verification requir
 - `bun run test:llms`: regenerate exports and run selected content, CV, API, and chat tests.
 - `bun run build`: generate content and machine-readable outputs, then build Next.js.
 
-See [docs/agents/checks.md](docs/agents/checks.md) for task-specific checks and pre-commit behavior.
+See [docs/agents/checks.md](docs/agents/checks.md) for task-specific checks and CV regeneration.
 
 ## Docs
 

@@ -20,9 +20,6 @@
     "lint:fix": "ultracite fix",
     "format": "bun x oxfmt",
     "qa": "bun run lint:fix && bun run format && bun run build",
-    "hooks:cvs-if-needed": "sh scripts/hooks/cvs-if-needed.sh",
-    "hooks:pre-commit": "bun run qa && bun run hooks:cvs-if-needed && git update-index --again",
-    "prepare": "simple-git-hooks",
     "skills:install": "bunx skills@latest experimental_install",
     "skills:update": "bunx skills@latest update -p -y",
     "og:generate": "velite && bun scripts/generate-og.ts",
@@ -117,7 +114,6 @@
     "promptfoo": "^0.124.1",
     "remark-parse": "^11.0.0",
     "sharp": "^0.35.5",
-    "simple-git-hooks": "2.14.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "ultracite": "^8.0.1",
@@ -127,9 +123,6 @@
     "@modelcontextprotocol/client": "2.4.0",
     "@modelcontextprotocol/core": "2.4.0",
     "@modelcontextprotocol/server": "2.4.0"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "bun run hooks:pre-commit"
   },
   "engines": {
     "node": "24.x"
