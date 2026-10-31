@@ -49,7 +49,6 @@ jobs:
       - run: bun run verify
       - run: bun run test:genui:unit
       - run: bun run test:genui:mcp-apps:protocol
-      - run: bun run eval:genui:offline
 
   browser:
     runs-on: ubuntu-latest

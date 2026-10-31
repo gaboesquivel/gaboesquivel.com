@@ -25,7 +25,7 @@ Authoritative definitions: `package.json`. Summary:
 | `bun run test:genui:browser` | Playwright functional fixture lab |
 | `bun run test:genui:visual` | Visual snapshots (not default CI) |
 | `bun run test:genui:a11y` | axe + fixture pages |
-| `bun run eval:genui:offline` | Deterministic offline eval (tier 0 in CI) |
+| `bun run eval:genui:offline` | Deterministic offline eval (tier 0, on demand; not in CI) |
 | `bun run eval:genui:live` | Promptfoo live; requires `GENUI_EVAL_LIVE=1` |
 
 ## Fixture lab
