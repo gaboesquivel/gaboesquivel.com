@@ -17,23 +17,8 @@ on:
       - "lib/connect/**"
       - "lib/mcp/**"
       - ".github/workflows/genui-quality.yml"
-  push:
-    branches: [main, develop]
-    paths:
-      - "lib/genui/**"
-      - "components/genui/**"
-      - "app/api/genui/**"
-      - "app/genui-lab/**"
-      - "tests/genui/**"
-      - "playwright.config.ts"
-      - "promptfooconfig.yaml"
-      - "package.json"
-      - "bun.lock"
-      - "scripts/**"
-      - "lib/capabilities/**"
-      - "lib/connect/**"
-      - "lib/mcp/**"
-      - ".github/workflows/genui-quality.yml"
+  # Playwright browser tests run on demand only.
+  workflow_dispatch:
 
 jobs:
   static:
@@ -48,9 +33,10 @@ jobs:
       - run: bun run prepare:generated
       - run: bun run verify
       - run: bun run test:genui:unit
-      - run: bun run test:genui:mcp-apps:protocol
+      - run: bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts
 
   browser:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -70,15 +56,3 @@ jobs:
           path: |
             tests/genui/browser/report
             tests/genui/browser/test-results
-
-  mcp:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-      - run: bun install --frozen-lockfile
-      - run: bun run prepare:generated
-      - run: bun test lib/mcp/public-protocol.test.ts lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts

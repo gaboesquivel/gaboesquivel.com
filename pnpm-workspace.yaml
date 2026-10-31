@@ -2,7 +2,6 @@ allowBuilds:
   "@openuidev/lang-core": set this to true or false
   esbuild: true
   sharp: true
-  simple-git-hooks: true
 minimumReleaseAgeExclude:
   - postcss@8.5.31
   - react-resizable-panels@4.14.7

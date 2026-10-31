@@ -4,21 +4,23 @@ Workflow file: [`.github/workflows/genui-quality.yml`](../../.github/workflows/g
 
 ## Triggers
 
-- **Pull request** when paths touch GenUI, fixture lab, Playwright config, Promptfoo config, or lockfile (see workflow `paths`).
-- **Push to `develop`** on a subset of paths (GenUI + Playwright; narrower than PR).
+- **Pull request** when paths touch GenUI, fixture lab, MCP, Playwright config, Promptfoo config, scripts, or lockfile (see workflow `paths`): runs `static` only.
+- **Manual** (`workflow_dispatch`): runs `static` and `browser`.
+
+No push runs, evals, or model calls.
 
 ## Jobs
 
 ### `static`
 
-| Step             | Command / action                       |
-| ---------------- | -------------------------------------- |
-| Install          | `bun install --frozen-lockfile`        |
-| Lint + content   | `bun run verify`                       |
-| Unit + contracts | `bun run test:genui:unit`              |
-| MCP protocol     | `bun run test:genui:mcp-apps:protocol` |
+| Step | Command / action |
+| --- | --- |
+| Install | `bun install --frozen-lockfile` |
+| Lint + content | `bun run verify` |
+| Unit + contracts | `bun run test:genui:unit` (includes `public-protocol`) |
+| MCP and capability module | `bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts` |
 
-### `browser`
+### `browser` (manual only)
 
 | Step               | Command / action                                       |
 | ------------------ | ------------------------------------------------------ |
@@ -27,19 +29,14 @@ Workflow file: [`.github/workflows/genui-quality.yml`](../../.github/workflows/g
 | MCP simulated host | `bun run test:genui:mcp-apps:host`                     |
 | On failure         | Upload `tests/genui/browser/report` and `test-results` |
 
-### `mcp`
-
-| Step | Command / action |
-| --- | --- |
-| MCP module tests | `bun test lib/mcp/public-protocol.test.ts lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts` |
-
-Note: `public-protocol.test.ts` also runs under `static`; this job adds server and CV MCP coverage.
+Run it locally (`bun run test:genui:browser`, `bun run test:genui:mcp-apps:host`) or dispatch the workflow when a change touches fixture lab rendering or the MCP Apps host.
 
 ## Not in this workflow (by design)
 
 | Item | Run locally / separately |
 | --- | --- |
-| `test:genui` full aggregate | `static` + `browser` + partial overlap with `mcp` |
+| `test:genui` full aggregate | `static` + `browser` |
+| Offline eval | `bun run eval:genui:offline` |
 | Visual snapshots | `bun run test:genui:visual` |
 | Accessibility | `bun run test:genui:a11y` |
 | Live Promptfoo | `bun run eval:genui:live` with credentials |
@@ -51,9 +48,7 @@ Note: `public-protocol.test.ts` also runs under `static`; this job adds server a
 ```bash
 bun run verify
 bun run test:genui:unit
-bun run test:genui:mcp-apps
+bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts
 bun run test:genui:browser
-bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts
+bun run test:genui:mcp-apps:host
 ```
-
-Equivalent to the three CI jobs without re-running `public-protocol` twice.
