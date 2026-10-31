@@ -17,7 +17,6 @@ Workflow file: [`.github/workflows/genui-quality.yml`](../../.github/workflows/g
 | Lint + content   | `bun run verify`                       |
 | Unit + contracts | `bun run test:genui:unit`              |
 | MCP protocol     | `bun run test:genui:mcp-apps:protocol` |
-| Offline eval     | `bun run eval:genui:offline`           |
 
 ### `browser`
 
@@ -54,7 +53,6 @@ bun run verify
 bun run test:genui:unit
 bun run test:genui:mcp-apps
 bun run test:genui:browser
-bun run eval:genui:offline
 bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts
 ```
 
