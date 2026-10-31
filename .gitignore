@@ -62,9 +62,13 @@ generated/api/pages.json
 
 __dev
 .agents
-.claude
-.cursor
 
 # accidental nested build output
 /gaboesquivel.com/
 .env*
+
+# Agent hosts: shared config is committed, per-machine state is not
+.claude/worktrees/
+.claude/settings.local.json
+.cursor/*
+!.cursor/cli.json

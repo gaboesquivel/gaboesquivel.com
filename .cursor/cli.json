@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(gh:pr view *)",
+      "Shell(gh:pr checks *)",
+      "Shell(gh:pr create *)",
+      "Shell(gh:pr edit *)",
+      "Shell(gh:pr merge *)",
+      "Shell(gh:run view *)",
+      "Shell(gh:run watch *)",
+      "Shell(vercel:ls *)",
+      "Shell(vercel:inspect *)",
+      "Shell(vercel:logs *)",
+      "Shell(vercel:env ls *)",
+      "Shell(vercel:env pull *)",
+      "Shell(bun:run lint)",
+      "Shell(bun:run verify)",
+      "Shell(bun:run build)",
+      "Shell(bun:run test:genui:unit)"
+    ],
+    "deny": []
+  }
+}
