@@ -1,0 +1,10 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "url": "https://gaboesquivel.localhost",
+      "port": 443
+    }
+  ]
+}
