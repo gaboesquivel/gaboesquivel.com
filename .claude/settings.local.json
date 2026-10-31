@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Read",
+      "Edit",
+      "Write",
+      "Skill",
+      "Agent",
+      "Artifact",
+      "WebFetch",
+      "WebSearch",
+      "mcp__visualize",
+      "mcp__Claude_Browser"
+    ]
+  }
+}
