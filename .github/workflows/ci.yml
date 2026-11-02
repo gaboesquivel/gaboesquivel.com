@@ -1,0 +1,33 @@
+# Site-wide lint, format, content schema, and motion-stack check on every PR (docs/agents/checks.md: CI checks without writing).
+name: CI
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Raster images and PDFs in public/ are ~160 MB of the ~170 MB tree and no check reads them
+      # (Velite inlines public/**/*.svg, which stays). Partial clone; ~1 MB of public/ instead.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/public/**/*.png
+            !/public/**/*.jpg
+            !/public/**/*.jpeg
+            !/public/**/*.webp
+            !/public/**/*.gif
+            !/public/**/*.pdf
+      - uses: ./.github/actions/setup
+      - run: bun run verify

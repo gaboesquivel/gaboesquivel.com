@@ -16,35 +16,49 @@ on:
       - "lib/capabilities/**"
       - "lib/connect/**"
       - "lib/mcp/**"
+      - ".github/actions/setup/**"
       - ".github/workflows/genui-quality.yml"
   # Playwright browser tests run on demand only.
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
+  # Lint, format, and content checks run in the CI workflow (ci.yml) in parallel.
   static:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
+      # Raster images and PDFs in public/ are ~160 MB of the ~170 MB tree and no check reads them
+      # (Velite inlines public/**/*.svg, which stays). Partial clone; ~1 MB of public/ instead.
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - uses: actions/setup-node@v4
         with:
-          node-version: "24"
-      - run: bun install --frozen-lockfile
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/public/**/*.png
+            !/public/**/*.jpg
+            !/public/**/*.jpeg
+            !/public/**/*.webp
+            !/public/**/*.gif
+            !/public/**/*.pdf
+      - uses: ./.github/actions/setup
       - run: bun run prepare:generated
-      - run: bun run verify
       - run: bun run test:genui:unit
       - run: bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts
 
   browser:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/setup
       - run: bun run prepare:generated
       - run: bunx playwright install chromium --with-deps
       - run: bun run test:genui:browser
