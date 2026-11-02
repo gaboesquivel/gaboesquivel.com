@@ -1,33 +1,9 @@
-import { siteOrigin } from "lib/site-path";
+import { rankAgentSections } from "lib/search/agent-sections";
 
-import index from "../../generated/agent-index.json";
-import bodies from "../../generated/markdown-routes.json";
-import { rankSections } from "../connect/rank";
-import type { RankSection } from "../connect/rank";
 import { paginate } from "./pagination";
 import { readResult } from "./result";
 import { searchSiteInput } from "./schemas";
 import type { CapabilityContext } from "./types";
-
-const sections = index as RankSection[];
-const sectionByPath = new Map(
-  sections.map((section) => [section.path, section])
-);
-const corpus = bodies as Record<string, string>;
-
-const toRecord = (section: RankSection) => {
-  const path = section.path.startsWith("/") ? section.path : `/${section.path}`;
-  const bodyKey = section.bodyKey ?? path;
-  const body = corpus[bodyKey] ?? corpus[path] ?? "";
-  const excerpt = (section.summary || body.slice(0, 240)).trim();
-  return {
-    excerpt,
-    id: path,
-    kind: section.kind,
-    title: section.title,
-    url: `${siteOrigin}${path}`,
-  };
-};
 
 export const searchSite = ({
   context,
@@ -47,28 +23,9 @@ export const searchSite = ({
     });
   }
   const { cursor, limit, query } = parsed.data;
-  const ranked = rankSections({
-    bodies: corpus,
-    question: query,
-    sections,
-  });
-  const matched =
-    ranked.paths.length > 0
-      ? ranked.paths
-          .map((path) => sectionByPath.get(path))
-          .filter((section): section is RankSection => Boolean(section))
-      : sections.filter((section) => {
-          if (section.kind === "post" && section.publishedAt < "2020") {
-            return false;
-          }
-          const hay = `${section.title} ${section.summary}`.toLowerCase();
-          return query
-            .toLowerCase()
-            .split(/\s+/)
-            .filter((token) => token.length > 2)
-            .some((token) => hay.includes(token));
-        });
-  const records = matched.map(toRecord);
+  const records = rankAgentSections({ query }).map(
+    ({ excerpt, id, kind, title, url }) => ({ excerpt, id, kind, title, url })
+  );
   const page = paginate({ cursor, items: records, limit });
   if ("error" in page) {
     return readResult({

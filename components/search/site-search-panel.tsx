@@ -11,7 +11,6 @@ import {
   genuiWritesEnabled,
 } from "components/genui/genui-session";
 import { useGenuiComposition } from "components/genui/use-genui-composition";
-import { filterSearchRecords } from "components/search/filter-records";
 import {
   dialogGenuiSearchScopeId,
   dialogGenuiSuggestionsListboxId,
@@ -23,6 +22,7 @@ import { SearchResults } from "components/search/search-results";
 import { SiteSearchField } from "components/search/site-search-field";
 import type { SearchRecord } from "components/search/types";
 import { useHydrated } from "hooks/use-hydrated";
+import { rankSearchRecords } from "lib/search/rank-records";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -65,7 +65,7 @@ export function SiteSearchPanel({
   const genui = useGenuiComposition();
   const { reset: resetGenui } = genui;
   const matches = useMemo(
-    () => filterSearchRecords(records, submitted),
+    () => rankSearchRecords(records, submitted),
     [records, submitted]
   );
   const inputId = variant === "home" ? homeSearchInputId : dialogSearchInputId;
