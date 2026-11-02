@@ -29,16 +29,15 @@
   --tweet-verified-blue-color: var(--tweet-color-blue-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  .tweet .react-tweet-theme {
-    --tweet-bg-color: #222;
-    --tweet-bg-color-hover: var(--tweet-bg-color);
-    --tweet-quoted-bg-color-hover: rgba(255, 255, 255, 0.03);
-    --tweet-border: 1px solid #333;
-    --tweet-color-blue-secondary: #fff;
-    --tweet-color-blue-secondary-hover: #333;
-    --tweet-font-color-secondary: #9ca3af;
-  }
+/* Dark theme: keyed to the site's `.dark` class, not the OS preference */
+.dark .tweet .react-tweet-theme {
+  --tweet-bg-color: #222;
+  --tweet-bg-color-hover: var(--tweet-bg-color);
+  --tweet-quoted-bg-color-hover: rgba(255, 255, 255, 0.03);
+  --tweet-border: 1px solid #333;
+  --tweet-color-blue-secondary: #fff;
+  --tweet-color-blue-secondary-hover: #333;
+  --tweet-font-color-secondary: #9ca3af;
 }
 
 .tweet .react-tweet-theme p {
@@ -50,10 +49,8 @@
   @apply border-b border-gray-300 transition-[border-color] hover:border-gray-600;
 }
 
-@media (prefers-color-scheme: dark) {
-  .tweet .react-tweet-theme p a {
-    @apply border-gray-500 text-white hover:border-white;
-  }
+.dark .tweet .react-tweet-theme p a {
+  @apply border-gray-500 text-white hover:border-white;
 }
 
 .tweet .react-tweet-theme p a:hover {
