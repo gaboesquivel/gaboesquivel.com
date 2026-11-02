@@ -178,6 +178,7 @@ export const rankByKeywords = <T>({
   fields,
   items,
   limit,
+  match = "any",
   query,
 }: {
   /** Optional multiplier per item (for example, shipped projects over tags). */
@@ -185,6 +186,8 @@ export const rankByKeywords = <T>({
   fields: (item: T) => KeywordFields;
   items: readonly T[];
   limit?: number;
+  /** "all": every query term must match (type-ahead); "any": rank by coverage. */
+  match?: "all" | "any";
   query: string;
 }): KeywordMatch<T>[] => {
   const terms = queryTerms(query);
@@ -203,7 +206,9 @@ export const rankByKeywords = <T>({
       }
       return { index, item, matched, score: score * (boost?.(item) ?? 1) };
     })
-    .filter(({ matched }) => matched > 0)
+    .filter(({ matched }) =>
+      match === "all" ? matched === terms.length : matched > 0
+    )
     .sort(
       (a, b) => b.matched - a.matched || b.score - a.score || a.index - b.index
     )

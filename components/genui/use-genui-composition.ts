@@ -1,19 +1,35 @@
 "use client";
 
 import type { CompositionEnvelope } from "lib/genui/envelope";
-import { COMPOSITION_FAILED_MESSAGE } from "lib/genui/messages";
 import { consumeNdjsonResponse } from "lib/genui/ndjson-stream";
 import { isCurrentCompositionRequest } from "lib/genui/request-generation";
 import { recordGenuiSearchQuery } from "lib/genui/search-history";
+import {
+  errorFromEvent,
+  errorFromHttp,
+  searchError,
+} from "lib/search/compose-outcome";
+import type { SearchError, SearchStatus } from "lib/search/compose-outcome";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+const readServerMessage = async (response: Response) => {
+  const body = (await response.json().catch(() => null)) as {
+    message?: unknown;
+  } | null;
+  return typeof body?.message === "string" ? body.message : undefined;
+};
+
+/**
+ * The shared search state machine: idle → composing → result | empty | error.
+ * `query` is the field text; `submitted` is the last query sent, which Try
+ * again re-runs (never the edited, unsubmitted field text).
+ */
 export const useGenuiComposition = () => {
-  const [active, setActive] = useState(false);
+  const [status, setStatus] = useState<SearchStatus>("idle");
   const [query, setQuery] = useState("");
+  const [submitted, setSubmitted] = useState("");
   const [envelope, setEnvelope] = useState<CompositionEnvelope | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [complete, setComplete] = useState(false);
+  const [error, setError] = useState<SearchError | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const requestRef = useRef(0);
 
@@ -27,12 +43,11 @@ export const useGenuiComposition = () => {
   const reset = useCallback(() => {
     abortRef.current?.abort();
     requestRef.current += 1;
-    setActive(false);
+    setStatus("idle");
     setQuery("");
+    setSubmitted("");
     setEnvelope(null);
     setError(null);
-    setComplete(false);
-    setIsStreaming(false);
   }, []);
 
   const runQuery = useCallback(async (nextQuery: string) => {
@@ -43,13 +58,21 @@ export const useGenuiComposition = () => {
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
-    setActive(true);
+    const current = () =>
+      isCurrentCompositionRequest({
+        activeRequest: requestRef.current,
+        eventRequest: id,
+      });
+    const fail = (next: SearchError) => {
+      if (!current()) return;
+      setError(next);
+      setStatus("error");
+    };
+    setStatus("composing");
     setQuery(trimmed);
+    setSubmitted(trimmed);
     setEnvelope(null);
     setError(null);
-    setComplete(false);
-    setIsStreaming(true);
-    queueMicrotask(() => recordGenuiSearchQuery(trimmed));
     try {
       const response = await fetch("/api/genui/compose", {
         body: JSON.stringify({
@@ -62,88 +85,65 @@ export const useGenuiComposition = () => {
         signal: controller.signal,
       });
       if (!response.ok) {
-        if (
-          !isCurrentCompositionRequest({
-            activeRequest: requestRef.current,
-            eventRequest: id,
-          })
-        ) {
-          return;
-        }
-        setError(COMPOSITION_FAILED_MESSAGE);
-        setIsStreaming(false);
+        fail(errorFromHttp(response.status, await readServerMessage(response)));
         return;
       }
-      let sawComplete = false;
-      let sawError = false;
-      const streamResult = await consumeNdjsonResponse({
+      let settled = false;
+      await consumeNdjsonResponse({
         onEvent: (event) => {
-          if (
-            !isCurrentCompositionRequest({
-              activeRequest: requestRef.current,
-              eventRequest: id,
-            })
-          ) {
+          if (!current() || settled) return;
+          if (event.type === "error") {
+            settled = true;
+            fail(errorFromEvent(event));
             return;
           }
-          if (event.type === "error") {
-            sawError = true;
-            setError(String(event.message ?? COMPOSITION_FAILED_MESSAGE));
-            setIsStreaming(false);
+          if (event.type === "empty") {
+            settled = true;
+            setEnvelope(null);
+            setStatus("empty");
             return;
           }
           if (event.envelope) {
             setEnvelope(event.envelope as CompositionEnvelope);
           }
           if (event.type === "complete") {
-            sawComplete = true;
-            setComplete(true);
-            setIsStreaming(false);
+            settled = true;
+            setStatus("result");
+            // Recent keeps only queries that reached a result.
+            queueMicrotask(() => recordGenuiSearchQuery(trimmed));
           }
         },
         response,
       });
-      if (
-        !isCurrentCompositionRequest({
-          activeRequest: requestRef.current,
-          eventRequest: id,
-        })
-      ) {
-        return;
-      }
-      if (!streamResult.ok) {
-        setError(COMPOSITION_FAILED_MESSAGE);
-        setIsStreaming(false);
-        return;
-      }
-      if (!sawComplete && !sawError) {
-        setError(COMPOSITION_FAILED_MESSAGE);
-        setIsStreaming(false);
-      }
+      // A stream that ends without a settled event (or breaks mid-line) failed.
+      if (!settled) fail(searchError("failed"));
     } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") return;
-      if (
-        !isCurrentCompositionRequest({
-          activeRequest: requestRef.current,
-          eventRequest: id,
-        })
-      ) {
+      if (error instanceof DOMException && error.name === "AbortError") {
         return;
       }
-      setError(COMPOSITION_FAILED_MESSAGE);
-      setIsStreaming(false);
+      fail(searchError("failed"));
     }
   }, []);
 
+  /** Re-runs the last submitted query; the field shows it again. */
+  const retry = useCallback(() => {
+    if (submitted) runQuery(submitted).catch(() => {});
+  }, [runQuery, submitted]);
+
   return {
-    active,
-    complete,
+    active: status !== "idle",
+    complete: status === "result",
     envelope,
     error,
-    isStreaming,
+    isStreaming: status === "composing",
     query,
     reset,
+    retry,
     runQuery,
     setQuery,
+    status,
+    submitted,
   };
 };
+
+export type GenuiComposition = ReturnType<typeof useGenuiComposition>;

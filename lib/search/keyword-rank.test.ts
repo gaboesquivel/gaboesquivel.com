@@ -78,6 +78,17 @@ describe("ranking order", () => {
     expect(titles("leg")).toEqual(["LegalAgent"]);
   });
 
+  test("type-ahead mode requires every term", () => {
+    const all = rankByKeywords({
+      fields: (doc) => doc,
+      items: docs,
+      match: "all",
+      query: "wallet lawyers",
+    });
+    expect(all).toEqual([]);
+    expect(titles("wallet lawyers")).toHaveLength(2);
+  });
+
   test("stop-word-only queries return nothing", () => {
     expect(titles("what is the")).toEqual([]);
   });

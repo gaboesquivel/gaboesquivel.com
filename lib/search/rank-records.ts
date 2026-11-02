@@ -8,7 +8,13 @@ export const KEYWORD_MATCH_LIMIT = 8;
 export const rankSearchRecords = (
   records: readonly SearchRecord[],
   query: string,
-  limit = KEYWORD_MATCH_LIMIT
+  {
+    limit = KEYWORD_MATCH_LIMIT,
+    match = "any",
+  }: {
+    limit?: number;
+    match?: "all" | "any";
+  } = {}
 ) =>
   rankByKeywords({
     fields: (record) => ({
@@ -18,5 +24,6 @@ export const rankSearchRecords = (
     }),
     items: records,
     limit,
+    match,
     query,
   }).map(({ item }) => item);

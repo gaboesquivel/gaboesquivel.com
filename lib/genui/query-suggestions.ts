@@ -149,7 +149,9 @@ export const buildGenuiAutosuggest = ({
   const site: GenuiQuerySuggestion[] = [];
 
   if (trimmed) {
-    for (const record of rankSearchRecords(records, trimmed)) {
+    for (const record of rankSearchRecords(records, trimmed, {
+      match: "all",
+    })) {
       const normalized = normalizeGenuiQuery(record.title);
       if (seen.has(normalized)) continue;
       seen.add(normalized);

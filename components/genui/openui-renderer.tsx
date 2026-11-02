@@ -4,7 +4,7 @@ import { Renderer } from "@openuidev/react-lang";
 import { compileExperience } from "lib/genui/contract/compiler";
 import type { PublicRecord } from "lib/genui/envelope";
 import { experienceAllowed, GENUI_LIBRARY_VERSION } from "lib/genui/envelope";
-import { RENDER_FAILED_MESSAGE } from "lib/genui/messages";
+import { searchCopy } from "lib/search/copy";
 import { useEffect, useMemo } from "react";
 
 import { genuiLibrary } from "./genui-library";
@@ -39,7 +39,7 @@ export const OpenUiExperienceRenderer = ({
 
   const contractFailed = complete && Boolean(response) && !contractOk;
   useEffect(() => {
-    if (contractFailed) onRenderFailure?.(RENDER_FAILED_MESSAGE);
+    if (contractFailed) onRenderFailure?.(searchCopy.renderFailed);
   }, [contractFailed, onRenderFailure]);
 
   if (!response) {
@@ -66,7 +66,7 @@ export const OpenUiExperienceRenderer = ({
               (item) => item.source === "runtime" && item.severity !== "warning"
             )
           ) {
-            onRenderFailure?.(RENDER_FAILED_MESSAGE);
+            onRenderFailure?.(searchCopy.renderFailed);
           }
         }}
         response={response}

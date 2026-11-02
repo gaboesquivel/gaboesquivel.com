@@ -2,17 +2,13 @@
 
 import { GenuiSearchBetaBadge } from "components/genui/genui-search-beta-badge";
 import {
-  searchHint,
-  searchLabel,
-  searchPlaceholder,
-} from "components/search/search-copy";
-import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "components/ui/input-group";
 import { Kbd, KbdGroup } from "components/ui/kbd";
 import { useHydrated } from "hooks/use-hydrated";
+import { searchCopy } from "lib/search/copy";
 import { cn } from "lib/utils";
 import { Search } from "lucide-react";
 import type { KeyboardEvent, ReactNode, RefObject } from "react";
@@ -29,48 +25,53 @@ const getFinePointer = () => window.matchMedia("(pointer: fine)").matches;
 const useFinePointer = () =>
   useSyncExternalStore(subscribePointer, getFinePointer, () => false);
 
+/**
+ * The search field shared by the homepage prompt and the dialog: a
+ * `type="text"` combobox (no native clear button, so Escape never erases
+ * text), the visible Beta badge hidden from assistive tech (the accessible
+ * name carries "beta"), and one ⌘K hint shown only when the caller says so
+ * (idle and empty) and never below 640px.
+ */
 export function SiteSearchField({
-  inputId,
-  query,
-  disabled,
-  showShortcutHint,
-  showGenuiBetaBadge,
-  autoFocus,
-  describedById,
-  placeholder,
-  suggestionsOpen,
-  suggestionsListboxId,
   activeSuggestionId,
+  autoFocus,
   composingRef,
+  describedById,
+  disabled,
+  inputId,
   inputRef,
   leadingAction,
   onBlur,
+  onCompositionEnd,
+  onCompositionStart,
   onFocus,
   onInputKeyDown,
   onQueryChange,
-  onCompositionStart,
-  onCompositionEnd,
+  placeholder,
+  query,
+  showShortcutHint,
+  suggestionsListboxId,
+  suggestionsOpen,
 }: {
-  inputId: string;
-  query: string;
-  disabled?: boolean;
-  showShortcutHint?: boolean;
-  showGenuiBetaBadge?: boolean;
-  autoFocus?: boolean;
-  describedById: string;
-  placeholder?: string;
-  suggestionsOpen?: boolean;
-  suggestionsListboxId?: string;
   activeSuggestionId?: string;
+  autoFocus?: boolean;
   composingRef: RefObject<boolean>;
+  describedById: string;
+  disabled?: boolean;
+  inputId: string;
   inputRef?: RefObject<HTMLInputElement | null>;
   leadingAction?: ReactNode;
   onBlur?: () => void;
+  onCompositionEnd: () => void;
+  onCompositionStart: () => void;
   onFocus?: () => void;
   onInputKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   onQueryChange: (value: string) => void;
-  onCompositionStart: () => void;
-  onCompositionEnd: () => void;
+  placeholder?: string;
+  query: string;
+  showShortcutHint?: boolean;
+  suggestionsListboxId: string;
+  suggestionsOpen: boolean;
 }) {
   const hydrated = useHydrated();
   const finePointer = useFinePointer();
@@ -83,11 +84,11 @@ export function SiteSearchField({
   return (
     <>
       <label htmlFor={inputId} className="sr-only">
-        {searchLabel}
+        {searchCopy.accessibleName}
       </label>
       <InputGroup
         className={cn(
-          "h-auto min-h-16 gap-4 rounded-lg border-accent/50 bg-transparent px-5 shadow-none! dark:bg-transparent",
+          "h-auto min-h-16 gap-3 rounded-lg border-accent/50 bg-transparent px-4 shadow-none! sm:gap-4 sm:px-5 dark:bg-transparent",
           "has-[[data-slot=input-group-control]:focus-visible]:border-accent/50 has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot=input-group-control]:focus-visible]:ring-accent has-[[data-slot=input-group-control]:focus-visible]:ring-offset-0"
         )}
       >
@@ -104,19 +105,21 @@ export function SiteSearchField({
           ref={inputRef}
           id={inputId}
           disabled={disabled}
-          type="search"
+          type="text"
           inputMode="search"
           enterKeyHint="search"
           autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
           autoFocus={autoFocus}
-          placeholder={placeholder ?? searchPlaceholder}
+          placeholder={placeholder ?? searchCopy.placeholder}
           value={query}
-          role={suggestionsListboxId ? "combobox" : undefined}
-          aria-autocomplete={suggestionsListboxId ? "list" : undefined}
+          role="combobox"
+          aria-autocomplete="list"
           aria-activedescendant={activeSuggestionId}
-          aria-expanded={suggestionsListboxId ? suggestionsOpen : undefined}
+          aria-expanded={suggestionsOpen}
           aria-controls={suggestionsOpen ? suggestionsListboxId : undefined}
-          aria-haspopup={suggestionsListboxId ? "listbox" : undefined}
+          aria-haspopup="listbox"
           onBlur={onBlur}
           onChange={(event) => onQueryChange(event.target.value)}
           onCompositionStart={onCompositionStart}
@@ -132,16 +135,18 @@ export function SiteSearchField({
             }
             onInputKeyDown?.(event);
           }}
-          className="min-h-16 py-4 text-base text-white placeholder:text-neutral-400"
+          className="min-h-16 min-w-0 py-4 text-base text-white placeholder:text-neutral-400"
           aria-describedby={describedById}
         />
-        {showGenuiBetaBadge ? (
-          <InputGroupAddon align="inline-end" className="pr-0">
-            <GenuiSearchBetaBadge />
-          </InputGroupAddon>
-        ) : null}
+        <InputGroupAddon align="inline-end" className="pr-0">
+          <GenuiSearchBetaBadge />
+        </InputGroupAddon>
         {showKbd ? (
-          <InputGroupAddon align="inline-end" className="pr-0">
+          <InputGroupAddon
+            align="inline-end"
+            className="hidden pr-0 sm:flex"
+            data-search-shortcut-hint=""
+          >
             <KbdGroup aria-hidden="true">
               {isMac ? <Kbd>⌘</Kbd> : <Kbd>Ctrl</Kbd>}
               <Kbd>K</Kbd>
@@ -149,11 +154,6 @@ export function SiteSearchField({
           </InputGroupAddon>
         ) : null}
       </InputGroup>
-      {suggestionsListboxId ? null : (
-        <p id={describedById} className="sr-only">
-          {searchHint}
-        </p>
-      )}
     </>
   );
 }

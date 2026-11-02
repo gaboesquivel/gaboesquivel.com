@@ -1,3 +1,4 @@
+import { searchCopy } from "lib/search/copy";
 import { siteOrigin } from "lib/site-path";
 import { nanoid } from "nanoid";
 
@@ -14,7 +15,6 @@ import { evaluateWithJev } from "./decisions";
 import { buildSearchDocument, tierZeroDocument } from "./deterministic";
 import type { CompositionEnvelope } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
-import { COMPOSITION_FAILED_MESSAGE } from "./messages";
 import { projectsFromPublicIds } from "./project-from-id";
 import { cvPublicRecord } from "./public-records";
 import { composeIntentDocument, safetyDocument } from "./query-intent";
@@ -44,7 +44,21 @@ export type ComposeStreamEvent =
       sequence: number;
       type: "partial" | "complete";
     }
-  | { message: string; requestId: string; sequence: number; type: "error" };
+  | {
+      /** A model answer with no on-site evidence, or nothing matched. */
+      envelope?: CompositionEnvelope;
+      message: string;
+      requestId: string;
+      sequence: number;
+      type: "empty";
+    }
+  | {
+      code?: "timed_out" | "failed";
+      message: string;
+      requestId: string;
+      sequence: number;
+      type: "error";
+    };
 
 const queryCodePoints = (query: string) => [...query].length;
 
@@ -194,7 +208,7 @@ export const composeQuery = async ({
     if (!validated.ok) {
       parseErrors += 1;
       emit({
-        message: COMPOSITION_FAILED_MESSAGE,
+        message: searchCopy.serverFailed,
         requestId,
         sequence: sequence++,
         type: "error",
@@ -209,6 +223,30 @@ export const composeQuery = async ({
       type,
     });
     return true;
+  };
+
+  /**
+   * Model output that compiles to an Answer citing no records is a "no answer"
+   * for this site: the client shows the empty state, never "Results ready.".
+   */
+  const emitSemantic = (envelope: CompositionEnvelope) => {
+    const validated = validateCompositionEnvelope({ envelope });
+    if (
+      validated.ok &&
+      validated.compiled.experience === "Answer" &&
+      validated.compiled.referencedRecordIds.length === 0
+    ) {
+      lastCompiled = validated.compiled;
+      emit({
+        envelope,
+        message: searchCopy.serverNoAnswer,
+        requestId,
+        sequence: sequence++,
+        type: "empty",
+      });
+      return;
+    }
+    emitValidated({ envelope, type: "complete" });
   };
 
   const result = (meta: Parameters<typeof composeMetadata>[0]) => ({
@@ -262,7 +300,7 @@ export const composeQuery = async ({
       }
       if (semantic) {
         modelCalls += semantic.modelCalls;
-        emitValidated({ envelope: semantic.envelope, type: "complete" });
+        emitSemantic(semantic.envelope);
         return result({ envelope: semantic.envelope });
       }
     }
@@ -332,7 +370,7 @@ export const composeQuery = async ({
     });
     if (semantic) {
       modelCalls += semantic.modelCalls;
-      emitValidated({ envelope: semantic.envelope, type: "complete" });
+      emitSemantic(semantic.envelope);
       return result({ envelope: semantic.envelope });
     }
   }
@@ -368,15 +406,15 @@ export const composeQuery = async ({
         });
   if (semantic) {
     modelCalls += semantic.modelCalls;
-    emitValidated({ envelope: semantic.envelope, type: "complete" });
+    emitSemantic(semantic.envelope);
     return result({ envelope: semantic.envelope });
   }
 
   emit({
-    message: "No matching experience. Try /work, /cv, or /contact.",
+    message: searchCopy.serverNoAnswer,
     requestId,
     sequence: sequence++,
-    type: "error",
+    type: "empty",
   });
   return result({
     envelope: lastEnvelope(events),

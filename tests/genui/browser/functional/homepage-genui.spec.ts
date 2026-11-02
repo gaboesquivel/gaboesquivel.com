@@ -12,8 +12,8 @@ test.describe("homepage GenUI shell", () => {
     const input = page.locator("#homepage-genui-search");
     await input.scrollIntoViewIfNeeded();
     await expect(input).toBeVisible();
-    await expect(input).toHaveAttribute("type", "search");
-    await expect(page.getByLabel("Beta")).toBeVisible();
+    await expect(input).toHaveAttribute("type", "text");
+    await expect(page.getByText("Beta", { exact: true }).first()).toBeVisible();
     const form = page.locator("form").filter({ has: input });
     await expect(
       form.getByRole("button", { name: /submit|search/i })
@@ -36,14 +36,16 @@ test.describe("homepage GenUI shell", () => {
     await input.focus();
     await input.fill("your cv");
     const listbox = page.getByRole("listbox", {
-      name: "Example interview questions",
+      name: "Suggestions",
     });
     await expect(listbox).toBeVisible();
     await expect(
-      listbox.getByRole("option", { name: "your cv Recent" })
+      listbox
+        .getByRole("group", { name: "Recent" })
+        .getByRole("option", { name: "your cv" })
     ).toBeVisible();
     await expect(
-      listbox.getByRole("option", { name: /résumé/i })
+      listbox.getByRole("option", { name: "Can I see your résumé?" })
     ).toBeVisible();
     const fieldChrome = page.locator("[data-slot=input-group]").first();
     await expect(fieldChrome).toBeVisible();
@@ -75,7 +77,11 @@ test.describe("homepage GenUI shell", () => {
     const firstOption = page
       .locator('[id^="homepage-genui-suggestions-option-"]')
       .first();
-    await expect(firstOption).toBeFocused();
+    await expect(input).toBeFocused();
+    await expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      (await firstOption.getAttribute("id")) ?? ""
+    );
     await firstOption.click();
     await expect(page.getByRole("status")).toContainText("Results ready.", {
       timeout: 15_000,
@@ -169,7 +175,7 @@ test.describe("homepage GenUI shell", () => {
     });
     await expect(page.getByText("Selected work")).toHaveCount(0);
     await expect(
-      page.getByRole("button", { name: "Back to homepage" })
+      page.getByRole("button", { name: "Clear search" })
     ).toBeVisible();
   });
 

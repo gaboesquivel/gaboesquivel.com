@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  homepageGenuiSearchInputId,
-  homeSearchInputId,
-} from "components/search/search-copy";
+import { homepageGenuiSearchInputId } from "components/search/search-ids";
 import { SiteSearchProvider } from "components/search/site-search-context";
 import { SiteSearchPanel } from "components/search/site-search-panel";
 import type { SearchRecord } from "components/search/types";
@@ -16,24 +13,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "components/ui/dialog";
+import { searchCopy } from "lib/search/copy";
 import { XIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-
-const isEditableTarget = (target: EventTarget | null) => {
-  if (!(target instanceof HTMLElement)) return false;
-  return Boolean(
-    target.closest(
-      "input, textarea, select, [contenteditable=''], [contenteditable='true']"
-    )
-  );
-};
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const focusHomeSearchField = () => {
-  const field =
-    document.querySelector<HTMLInputElement>(
-      `#${homepageGenuiSearchInputId}`
-    ) ?? document.querySelector<HTMLInputElement>(`#${homeSearchInputId}`);
+  const field = document.querySelector<HTMLInputElement>(
+    `#${homepageGenuiSearchInputId}`
+  );
   if (!field) return;
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -54,37 +42,48 @@ export function SiteSearchShell({
 }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
+  /** The element that opened the dialog gets focus back when it closes. */
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+
+  const openDialog = useCallback(() => {
+    const active = document.activeElement;
+    returnFocusRef.current =
+      active instanceof HTMLElement && active !== document.body ? active : null;
+    setOpen(true);
+  }, []);
 
   const requestSearch = useCallback(() => {
     if (pathname === "/") focusHomeSearchField();
-    else setOpen(true);
-  }, [pathname]);
+    else openDialog();
+  }, [openDialog, pathname]);
 
   useEffect(() => {
+    // Cmd/Ctrl+K works everywhere, including inside inputs, and toggles the
+    // dialog closed when it is open.
     const onKeyDown = (event: KeyboardEvent) => {
       if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k")
         return;
-      if (isEditableTarget(event.target)) return;
       event.preventDefault();
-      requestSearch();
+      if (open) setOpen(false);
+      else requestSearch();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [requestSearch]);
+  }, [open, requestSearch]);
 
   return (
     <SiteSearchProvider value={{ records, requestSearch }}>
       {children}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
+          finalFocus={returnFocusRef}
           showCloseButton={false}
-          className="top-4 max-w-6xl translate-y-0 gap-0 border-hairline bg-black p-4 shadow-none ring-hairline motion-reduce:transition-none sm:max-w-[calc(100%-2rem)]"
+          className="top-4 max-w-6xl translate-y-0 gap-0 border-hairline bg-black p-4 pt-0 shadow-none ring-hairline motion-reduce:transition-none sm:max-w-[calc(100%-2rem)]"
         >
           <DialogHeader className="sr-only">
-            <DialogTitle>Search this site</DialogTitle>
+            <DialogTitle>{searchCopy.dialogTitle}</DialogTitle>
             <DialogDescription>
-              Generative search (beta) over projects, writing, career, and
-              contact.
+              {searchCopy.dialogDescription}
             </DialogDescription>
           </DialogHeader>
           {open ? (
@@ -100,11 +99,9 @@ export function SiteSearchShell({
                   }
                 >
                   <XIcon aria-hidden="true" strokeWidth={1.5} />
-                  <span className="sr-only">Close search</span>
+                  <span className="sr-only">{searchCopy.close}</span>
                 </DialogClose>
               }
-              records={records}
-              variant="dialog"
               onNavigate={() => setOpen(false)}
             />
           ) : null}
