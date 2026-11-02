@@ -4,9 +4,11 @@ import type { Project } from "gaboesquivel";
 export function ProjectsMasonry({
   projects,
   preserveOrder = false,
+  priorityFirst = false,
 }: {
   projects: Project[];
   preserveOrder?: boolean;
+  priorityFirst?: boolean;
 }) {
   const sortedProjects = preserveOrder
     ? projects
@@ -16,5 +18,11 @@ export function ProjectsMasonry({
           (b.order ?? Number.POSITIVE_INFINITY)
       );
 
-  return <EditorialProjectList projects={sortedProjects} className="mt-8" />;
+  return (
+    <EditorialProjectList
+      className="mt-8"
+      priorityFirst={priorityFirst}
+      projects={sortedProjects}
+    />
+  );
 }

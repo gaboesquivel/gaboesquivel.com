@@ -30,6 +30,7 @@ export function ProjectHero({
         fill
         sizes={workCoverSizes}
         preload={preload}
+        loading={preload ? "eager" : undefined}
         fetchPriority={preload ? "high" : undefined}
         className={cn("object-contain", imageHover)}
       />

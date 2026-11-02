@@ -8,7 +8,7 @@ import {
   SplitSectionMedia,
 } from "components/interior/split-section";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
-import { heroPitch } from "components/shared/spacing";
+import { heroPitch, sectionAction } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -118,7 +118,14 @@ export function CapabilityPage({
 
       <LatestPosts slugs={postSlugs} title={writingTitle} />
 
-      <PageSection title="See the work">
+      <PageSection
+        title="See the work"
+        action={
+          <Link href="/work" className={sectionAction}>
+            View all work
+          </Link>
+        }
+      >
         <Prose>
           Browse the full{" "}
           <Link href="/work" className={proseLink}>

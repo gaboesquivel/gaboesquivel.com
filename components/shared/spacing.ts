@@ -56,7 +56,8 @@ export const ctaLink =
 export const proseLink =
   "underline decoration-neutral-400 underline-offset-2 transition-colors dark:decoration-neutral-600";
 
-export const sectionAction = cn(ctaLink, "text-sm");
+/** Section-row CTA. Padding cancelled by negative margin gives a 44px hit area without moving the row. */
+export const sectionAction = cn(ctaLink, "-my-3 py-3 text-sm");
 
 export const pageTitle = cn(
   titleSpacing,

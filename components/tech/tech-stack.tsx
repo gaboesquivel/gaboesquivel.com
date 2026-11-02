@@ -36,6 +36,7 @@ export default function TechStack({
         </PageSection>
       ) : null}
 
+      <h2 className="sr-only">Projects</h2>
       <ProjectsMasonry preserveOrder projects={projects} />
 
       <LatestPosts tech={tech.tag} title="Related posts" />

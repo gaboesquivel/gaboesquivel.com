@@ -93,6 +93,7 @@ export function TechList({
         />
       ) : null}
 
+      {hasTrail ? <h2 className="sr-only">Technologies</h2> : null}
       <TechMasonry techStack={sortedTech} identifier={currentCategory} />
     </section>
   );
