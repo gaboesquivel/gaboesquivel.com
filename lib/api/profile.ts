@@ -7,7 +7,6 @@ export const siteProfile = () => ({
   email: "contact@gaboesquivel.com",
   links: {
     about: `${BASE_URL}/about`,
-    ask: `${BASE_URL}/ask`,
     docs: `${BASE_URL}/docs`,
     llms: `${BASE_URL}/llms.txt`,
     mcp: `${BASE_URL}/mcp`,
