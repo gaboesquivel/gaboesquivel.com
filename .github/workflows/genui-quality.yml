@@ -34,7 +34,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # Raster images and PDFs in public/ are ~160 MB of the ~170 MB tree and no check reads them
+      # (Velite inlines public/**/*.svg, which stays). Partial clone; ~1 MB of public/ instead.
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/public/**/*.png
+            !/public/**/*.jpg
+            !/public/**/*.jpeg
+            !/public/**/*.webp
+            !/public/**/*.gif
+            !/public/**/*.pdf
       - uses: ./.github/actions/setup
       - run: bun run prepare:generated
       - run: bun run test:genui:unit
