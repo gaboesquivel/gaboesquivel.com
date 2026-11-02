@@ -173,8 +173,7 @@ test.describe("contact writes", () => {
     page,
   }) => {
     const bodies: unknown[] = [];
-    const { promise: held, resolve: release } =
-      Promise.withResolvers<undefined>();
+    const { promise: held, resolve: release } = Promise.withResolvers<null>();
     await page.route(`**${GENUI_LAB_CAPABILITY_PATH}`, async (route: Route) => {
       bodies.push(route.request().postDataJSON());
       await held;
@@ -187,7 +186,7 @@ test.describe("contact writes", () => {
     const send = page.getByRole("button", { name: "Send email" });
     await send.dblclick();
     await expect(page.getByRole("button", { name: "Sending…" })).toBeDisabled();
-    release();
+    release(null);
     const receipt = page.locator("[data-genui-receipt]");
     await expect(receipt).toContainText("Note sent");
     await expect(receipt).not.toContainText("rcpt_internal");
