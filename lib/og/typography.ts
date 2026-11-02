@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { parse as parseFont } from "opentype.js";
-import type { Font } from "opentype.js";
+import type { Font, Path } from "opentype.js";
 
 const root = path.join(import.meta.dir, "../..");
 
@@ -17,6 +17,21 @@ export const loadIbmPlexMono = () => {
   cachedFont = parseFont(readFileSync(fontPath));
   return cachedFont;
 };
+
+const n = (value: number) => value.toFixed(2);
+
+/** Serializes glyph outlines; opentype.js 2.0 `toPathData` emits NaN for some coordinates. */
+export const pathData = (path: Path) =>
+  path.commands
+    .map((c) => {
+      if (c.type === "M" || c.type === "L")
+        return `${c.type}${n(c.x)} ${n(c.y)}`;
+      if (c.type === "C")
+        return `C${n(c.x1)} ${n(c.y1)} ${n(c.x2)} ${n(c.y2)} ${n(c.x)} ${n(c.y)}`;
+      if (c.type === "Q") return `Q${n(c.x1)} ${n(c.y1)} ${n(c.x)} ${n(c.y)}`;
+      return "Z";
+    })
+    .join("");
 
 export const textToPath = ({
   text,
@@ -39,7 +54,7 @@ export const textToPath = ({
   const leading = lineHeight - (ascent + descent);
   const baseline = top + leading / 2 + ascent;
 
-  return font.getPath(text, x, baseline, fontSize).toPathData(2);
+  return pathData(font.getPath(text, x, baseline, fontSize));
 };
 
 export const measureTextWidth = ({
@@ -52,52 +67,63 @@ export const measureTextWidth = ({
   font?: Font;
 }) => font.getAdvanceWidth(text, fontSize);
 
-export const wrapTitleLines = ({
-  title,
+export const wrapTextLines = ({
+  text,
   maxWidth,
   fontSize,
   maxLines,
   font = loadIbmPlexMono(),
 }: {
-  title: string;
+  text: string;
   maxWidth: number;
   fontSize: number;
   maxLines: number;
   font?: Font;
 }) => {
-  const words = title.trim().split(/\s+/);
+  if (maxLines < 1) return [];
+  const words = text.trim().split(/\s+/);
   const lines: string[] = [];
   let current = "";
+  let used = 0;
 
   for (const word of words) {
     const candidate = current ? `${current} ${word}` : word;
     if (measureTextWidth({ text: candidate, fontSize, font }) <= maxWidth) {
       current = candidate;
+      used += 1;
       continue;
     }
+    if (lines.length === maxLines - 1) break;
     if (current) lines.push(current);
     current = word;
-    if (lines.length >= maxLines - 1) break;
+    used += 1;
   }
   if (current) lines.push(current);
 
-  if (lines.length > maxLines) return lines.slice(0, maxLines);
-
-  const usedWords = lines.join(" ").split(/\s+/).length;
-  if (usedWords < words.length && lines.length === maxLines) {
-    const last = lines.at(-1) ?? "";
-    let trimmed = last;
+  if (used < words.length) {
+    let last = lines.at(-1) ?? "";
     while (
-      trimmed.length > 1 &&
-      measureTextWidth({ text: `${trimmed}…`, fontSize, font }) > maxWidth
+      last.length > 1 &&
+      measureTextWidth({ text: `${last}…`, fontSize, font }) > maxWidth
     )
-      trimmed = trimmed.slice(0, -1);
-    lines[lines.length - 1] = `${trimmed}…`;
+      last = last.slice(
+        0,
+        last.lastIndexOf(" ") > 0 ? last.lastIndexOf(" ") : -1
+      );
+    lines[lines.length - 1] = `${last.replace(/[\s,.;:—-]+$/, "")}…`;
   }
 
   return lines;
 };
 
+const titleSpecs = [
+  { fontSize: 84, lineHeight: 96, maxLines: 2 },
+  { fontSize: 72, lineHeight: 84, maxLines: 3 },
+  { fontSize: 60, lineHeight: 72, maxLines: 3 },
+  { fontSize: 52, lineHeight: 62, maxLines: 3 },
+];
+
+/** Largest title size that fits without truncation; the smallest size truncates. */
 export const pickTitleLayout = ({
   title,
   maxWidth,
@@ -107,53 +133,14 @@ export const pickTitleLayout = ({
   maxWidth: number;
   font?: Font;
 }) => {
-  const specs = [
-    { fontSize: 52, lineHeight: 64, maxLines: 4 },
-    { fontSize: 44, lineHeight: 54, maxLines: 5 },
-    { fontSize: 36, lineHeight: 46, maxLines: 6 },
-    { fontSize: 30, lineHeight: 40, maxLines: 7 },
-    { fontSize: 26, lineHeight: 34, maxLines: 8 },
-  ];
-
-  for (const spec of specs) {
-    const lines = wrapTitleLines({
-      title,
-      maxWidth,
-      fontSize: spec.fontSize,
-      maxLines: spec.maxLines,
-      font,
-    });
-    const joined = lines.join(" ");
-    const normalizedTitle = title.trim().replace(/\s+/g, " ");
-    const fits =
-      joined === normalizedTitle ||
-      joined.endsWith("…") ||
-      lines.every(
-        (line, index) =>
-          measureTextWidth({
-            text: line,
-            fontSize: spec.fontSize,
-            font,
-          }) <= maxWidth || index === lines.length - 1
-      );
-    if (fits && lines.length <= spec.maxLines) return { ...spec, lines };
+  const normalized = title.trim().replace(/\s+/g, " ");
+  for (const spec of titleSpecs) {
+    const lines = wrapTextLines({ text: normalized, maxWidth, font, ...spec });
+    if (lines.join(" ") === normalized) return { ...spec, lines };
   }
-
-  const fallback = specs.at(-1) ?? {
-    fontSize: 26,
-    lineHeight: 34,
-    maxLines: 8,
-  };
+  const smallest = titleSpecs.at(-1) ?? titleSpecs[0];
   return {
-    fontSize: fallback.fontSize,
-    lineHeight: fallback.lineHeight,
-    maxLines: fallback.maxLines,
-    lines: wrapTitleLines({
-      title,
-      maxWidth,
-      fontSize: fallback.fontSize,
-      maxLines: fallback.maxLines,
-      font,
-    }),
+    ...smallest,
+    lines: wrapTextLines({ text: normalized, maxWidth, font, ...smallest }),
   };
 };

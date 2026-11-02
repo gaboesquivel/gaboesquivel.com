@@ -21,7 +21,6 @@ describe("og resolve", () => {
     expect(resolveBlogOg({ slug: "2026-10-generative-interfaces" })).toEqual({
       kind: "generated",
       slug: "2026-10-generative-interfaces",
-      visual: "generative-ui",
     });
   });
 
