@@ -1,35 +1,31 @@
 import path from "node:path";
 
-import { portraitHeight, portraitWidth } from "lib/portrait-overlay";
+import {
+  portraitHeight,
+  portraitSrc,
+  portraitWidth,
+} from "lib/portrait-overlay";
 import sharp from "sharp";
 
-import { ogColors, ogHeight, ogWidth, personalPortraitPath } from "./constants";
+import { ogColors, ogHeight, ogWidth } from "./constants";
 import { personalTextSvg, portraitOverlaySvg, wrapSvg } from "./svg";
 
 /** Portrait height on the card; the frame is right-aligned and vertically centered. */
 const portraitOgHeight = 560;
 
-export const buildPersonalOgSvg = () => wrapSvg(personalTextSvg());
-
-export const compositePersonalOgPng = async ({
-  root,
-  portraitRelativePath = personalPortraitPath,
-}: {
-  root: string;
-  portraitRelativePath?: string;
-}) => {
+export const compositePersonalOgPng = async ({ root }: { root: string }) => {
   const height = portraitOgHeight;
   const width = Math.round((height * portraitWidth) / portraitHeight);
   const left = ogWidth - width;
   const top = Math.round((ogHeight - height) / 2);
 
-  const portrait = await sharp(path.join(root, portraitRelativePath))
+  const portrait = await sharp(path.join(root, "public", portraitSrc))
     .resize({ width, height, fit: "fill" })
     .toBuffer();
   const overlay = Buffer.from(
     `<svg width="${width}" height="${height}" viewBox="0 0 ${portraitWidth} ${portraitHeight}" xmlns="http://www.w3.org/2000/svg">${portraitOverlaySvg()}</svg>`
   );
-  const base = await sharp(Buffer.from(buildPersonalOgSvg()))
+  const base = await sharp(Buffer.from(wrapSvg(personalTextSvg())))
     .flatten({ background: ogColors.black })
     .png()
     .toBuffer();

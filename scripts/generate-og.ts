@@ -6,10 +6,7 @@ import { projects } from "gaboesquivel";
 import { blogs } from "#velite";
 
 import { articleOgPngBuffer } from "../lib/og/generate-article";
-import {
-  buildPersonalOgSvg,
-  compositePersonalOgPng,
-} from "../lib/og/generate-personal";
+import { compositePersonalOgPng } from "../lib/og/generate-personal";
 import { projectOgPngBuffer } from "../lib/og/generate-project";
 import { projectOgPublicSourcePath } from "../lib/og/resolve";
 import { siteOrigin } from "../lib/site-path";
@@ -17,15 +14,8 @@ import { siteOrigin } from "../lib/site-path";
 const root = path.join(import.meta.dir, "..");
 
 const writePersonal = async () => {
-  const svgOut = path.join(root, "public/images/og/home.svg");
   const pngOut = path.join(root, "app/opengraph-image.png");
-  const svg = buildPersonalOgSvg();
-  const png = await compositePersonalOgPng({ root });
-
-  await mkdir(path.dirname(svgOut), { recursive: true });
-  await writeFile(svgOut, svg, "utf-8");
-  await writeFile(pngOut, png);
-  console.log(`Wrote ${path.relative(root, svgOut)}`);
+  await writeFile(pngOut, await compositePersonalOgPng({ root }));
   console.log(`Wrote ${path.relative(root, pngOut)}`);
 };
 

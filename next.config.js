@@ -70,7 +70,7 @@ const nextConfig = {
       },
       { destination: "/contact", permanent: true, source: "/connect" },
       {
-        destination: "/images/gaboesquivel-homepage-mobile.webp",
+        destination: "/images/gabo-portrait.webp",
         permanent: true,
         source: "/images/gaboesquivel-homepage.webp",
       },

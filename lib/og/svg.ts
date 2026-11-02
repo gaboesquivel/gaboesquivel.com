@@ -24,13 +24,13 @@ interface TextLine {
 const textPath = (line: TextLine) =>
   `<path d="${textToPath(line)}" fill="${line.fill}"/>`;
 
-export const accentBarSvg = () =>
+const accentBarSvg = () =>
   `<rect width="${ogWidth}" height="${accentBarHeight}" fill="${ogColors.accent}"/>`;
 
 /** Homepage H1 (`app/page.tsx`), rewrapped to clear the portrait. */
 const heroLines = ["Software for", "humans and", "agents."];
 
-export const personalCopy: TextLine[] = [
+const personalCopy: TextLine[] = [
   ...heroLines.map((text, index) => ({
     text,
     x: ogPadding,

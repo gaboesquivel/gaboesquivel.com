@@ -1,6 +1,6 @@
 /** Homepage portrait linework, shared by the hero (`PortraitMedia`) and the personal OG image. */
-export const portraitWidth = 1433;
-export const portraitHeight = 1098;
+export const portraitWidth = 1454;
+export const portraitHeight = 1082;
 export const portraitSrc = "/images/gabo-portrait.webp";
 
 /** Linework was tuned on the former left crop; full-frame raster keeps the same offsets. */
@@ -15,7 +15,7 @@ interface OverlayPath {
   strokeWidth?: number;
 }
 
-/** Geometry in full portrait coordinates (1433×1098); strokes stay off facial pixels. */
+/** Geometry in full portrait pixel coordinates; strokes stay off facial pixels. */
 export const portraitOverlay = {
   strokeGroups: [
     {

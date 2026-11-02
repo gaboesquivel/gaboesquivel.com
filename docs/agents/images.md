@@ -83,30 +83,29 @@ Approved composition for the site default social image (not per-post hero images
 
 A turquoise bar runs across the top edge. Right-side artwork: the live homepage portrait (`public/images/gabo-portrait.webp`), scaled uniformly, right-aligned, and blended with `lighten` so its black backdrop never covers the type. The hero linework is drawn from the same geometry as the site (`lib/portrait-overlay.ts`), with labels outlined in IBM Plex Mono. Flat editorial palette (`#000000`, `#ffffff`, `#a3a3a3`, `#5cded6`).
 
-## Blog OG
-
-Every post without `ogImage` gets the same 1200 × 630 card from `lib/og/generate-article.ts`: an 8px turquoise top bar; the title in white IBM Plex Mono, as large as fits without truncation (84px over 2 lines, then 72, 60, and 52px over 3 lines, truncated with an ellipsis only at 52px); the frontmatter `summary` in gray at 28px, up to 3 lines with an ellipsis; and a footer with `Gabo Esquivel` in gray on the left and `gaboesquivel.com` in turquoise on the right. Posts do not get per-post diagrams.
-
 **Assets**
 
 | Output              | Path                          |
 | ------------------- | ----------------------------- |
-| SVG source          | `public/images/og/home.svg`   |
 | PNG (file-based OG) | `app/opengraph-image.png`     |
 | Alt text            | `app/opengraph-image.alt.txt` |
 
 **Dimensions:** 1200 × 630, opaque sRGB, pure black background.
 
-**Font:** IBM Plex Mono Regular in `assets/fonts/ibm-plex-mono/` (SIL Open Font License in `LICENSE.txt`). Text is converted to outlines in the SVG; generation does not request remote fonts.
+**Font:** IBM Plex Mono Regular in `assets/fonts/ibm-plex-mono/` (SIL Open Font License in `LICENSE.txt`). Text is converted to outlines; generation does not request remote fonts.
 
-**Generation:** `bun run og:generate` (`scripts/generate-og.ts`). Reproduces the personal SVG/PNG, per-post editorial blog OG images under `public/images/og/blog/`, and project OG derivatives under `public/images/og/projects/`. Also runs in `bun run build` after Velite.
+**Generation:** `bun run og:generate` (`scripts/generate-og.ts`). Reproduces the personal PNG, per-post editorial blog OG images under `public/images/og/blog/`, and project OG derivatives under `public/images/og/projects/`. Also runs in `bun run build` after Velite.
 
 **Serving:** Next.js file-based metadata uses `app/opengraph-image.png`. `app/og/route.ts` returns the same PNG bytes at `/og` for Twitter default (`summary_large_image`) without remote fetch or secondary rendering.
 
+## Blog OG
+
+Every post without `ogImage` gets the same 1200 × 630 card from `lib/og/generate-article.ts`: an 8px turquoise top bar; the title in white IBM Plex Mono, as large as fits without truncation (84px over 2 lines, then 72, 60, and 52px over 3 lines, truncated with an ellipsis only at 52px); the frontmatter `summary` in gray at 28px, up to 3 lines with an ellipsis; and a footer with `Gabo Esquivel` in gray on the left and `gaboesquivel.com` in turquoise on the right. Posts do not get per-post diagrams.
+
 ## Homepage portrait hero
 
-Photographic hero composition (exception to flat editorial hero rules). Master: `assets/homepage/gaboesquivel-homepage-master.webp` (1448×1086). Shipped WebPs: `public/images/gaboesquivel-homepage-mobile.webp` (896×672) and `public/images/gaboesquivel-homepage-desktop.webp` (700×525). Regenerate with `bun run hero:optimize` after editing the master. Layout and delivery: [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). Legacy URL `/images/gaboesquivel-homepage.webp` redirects to the mobile derivative.
+Photographic hero composition (exception to flat editorial hero rules). Source: `assets/homepage/v2/gabo-portrait.png`. Replace that PNG, then run `bun run hero:optimize` to write `public/images/gabo-portrait.webp` (full size, WebP quality 90) and `bun run og:generate` to refresh the personal OG. When the source dimensions change, update `portraitWidth` and `portraitHeight` in `lib/portrait-overlay.ts`. The homepage, `/bio`, and the personal OG all read the portrait path and size from that module. Layout and delivery: [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). The legacy URL `/images/gaboesquivel-homepage.webp` redirects to the current portrait.
 
-## Design System v2 homepage assets
+## Project images
 
-The homepage portrait is `public/images/gabo-portrait.webp`; replace that file directly when the raster changes (see [DESIGN.md](../../DESIGN.md#homepage-portrait-hero)). Project card and hero images come from each package project’s `image` URL (canonical host `https://gaboesquivel.com`; the site strips that origin to a path under `public/`). Update the WebP or PNG in `public/images/work/` and the package `image` field together when art changes. After editing linked package markdown, run `bun run build` in `gaboesquivel` so `dist/` matches `content/`; `generate` alone does not refresh what Next imports. The older `hero:optimize` outputs and master remain available for legacy consumers; the personal OG composites `gabo-portrait.webp`.
+Project card and hero images come from each package project’s `image` URL (canonical host `https://gaboesquivel.com`; the site strips that origin to a path under `public/`). Update the WebP or PNG in `public/images/work/` and the package `image` field together when art changes. After editing linked package markdown, run `bun run build` in `gaboesquivel` so `dist/` matches `content/`; `generate` alone does not refresh what Next imports.

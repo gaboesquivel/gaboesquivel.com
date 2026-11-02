@@ -12,7 +12,7 @@ const summaryFontSize = 28;
 const summaryLineHeight = 40;
 const summaryMaxLines = 3;
 
-export const buildArticleOgSvg = ({
+const buildArticleOgSvg = ({
   title,
   summary,
 }: {
