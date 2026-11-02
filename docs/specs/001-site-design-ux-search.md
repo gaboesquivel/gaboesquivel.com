@@ -1,6 +1,6 @@
 # 001: Site design, UX, motion and search consistency
 
-Status: draft (2026-11-02)
+Status: accepted (2026-11-02). Acceptance covers tasks 01–14 as scoped. Each item under [Needs approval](#needs-approval) still needs its own yes before its task starts.
 
 Evidence: a site-wide audit on 2026-11-02 against `next dev` at `http://localhost:3099`. It covered 31 routes at 1440×900 and 390×844, spot checks at 768, emulated light colour scheme and reduced motion, the fixture lab, and the public MCP endpoint. Each finding below cites its source (`file:line`, a measured value, or a screenshot name from the evidence gallery linked in the pull request). Screenshots stay out of the repository, per [verify.md](../agents/verify.md).
 
