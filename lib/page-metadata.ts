@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { markdownSiblingPath } from "./markdown-sibling";
+import { personalOgImage } from "./og/constants";
 import { landingOgImages } from "./og/landing";
 
 export const pageMetadata = ({
@@ -19,7 +20,10 @@ export const pageMetadata = ({
     alt?: string;
   }[];
 }): Metadata => {
-  const ogImages = images ?? (path ? landingOgImages(path) : undefined);
+  // Explicit images, then the page's landing card, then the personal card, so
+  // every page unfurls with a 1200 × 630 PNG.
+  const ogImages = images ??
+    (path ? landingOgImages(path) : undefined) ?? [personalOgImage];
   return {
     title,
     description,
@@ -36,13 +40,13 @@ export const pageMetadata = ({
       title,
       type: "website",
       ...(path ? { url: path } : {}),
-      ...(ogImages ? { images: ogImages } : {}),
+      images: ogImages,
     },
     twitter: {
       card: "summary_large_image",
       description,
       title,
-      ...(ogImages ? { images: ogImages } : {}),
+      images: ogImages,
     },
   };
 };

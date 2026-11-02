@@ -4,7 +4,7 @@ import { PageCard } from "components/shared/page-card";
 import { blockGrid, PageSection } from "components/shared/page-layout";
 import { blockSpacing } from "components/shared/spacing";
 import { featuredLandingPages, landingPageGroups } from "lib/landing-pages";
-import { markdownSiblingPath } from "lib/markdown-sibling";
+import { pageMetadata } from "lib/page-metadata";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
 
@@ -52,15 +52,18 @@ export default function ExplorePage() {
   );
 }
 
+// pageMetadata gives /explore its landing card. Without page-level images the
+// route inherits app/opengraph-image.png, which next dev resolves against the
+// request host (localhost) instead of metadataBase.
 export const metadata: Metadata = {
-  alternates: {
-    types: { "text/markdown": markdownSiblingPath("/explore") },
-  },
-  description:
-    "Every page on the site, grouped by domain, engineering capability, and career context.",
+  ...pageMetadata({
+    description:
+      "Every page on the site, grouped by domain, engineering capability, and career context.",
+    path: "/explore",
+    title: "Explore | Gabo Esquivel",
+  }),
   robots: {
     follow: true,
     index: false,
   },
-  title: "Explore | Gabo Esquivel",
 };
