@@ -158,6 +158,7 @@ export const GenuiBookingFlow = () => {
       if (isSettledWrite(payload)) {
         setReceipt("booking", {
           lines: [slotLabel(input.start), `${input.name} · ${input.email}`],
+          summary: `${payload.status === "pending" ? "Booking processing" : "Call booked"}: ${slotLabel(input.start)}`,
           message:
             payload.status === "pending"
               ? "Your booking is processing. Watch for a calendar invite."

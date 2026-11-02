@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import type { Page, Route } from "@playwright/test";
+import { genuiFixtures } from "lib/genui/fixtures/registry";
 import {
   GENUI_LAB_CAPABILITY_PATH,
   labSlotStarts,
@@ -186,7 +187,7 @@ test.describe("contact writes", () => {
     const send = page.getByRole("button", { name: "Send email" });
     await send.dblclick();
     await expect(page.getByRole("button", { name: "Sending…" })).toBeDisabled();
-    release(undefined);
+    release();
     const receipt = page.locator("[data-genui-receipt]");
     await expect(receipt).toContainText("Note sent");
     await expect(receipt).not.toContainText("rcpt_internal");
@@ -241,5 +242,70 @@ test.describe("rail", () => {
     if (asideBox && formBox) {
       expect(formBox.y).toBeGreaterThan(asideBox.y + asideBox.height - 1);
     }
+  });
+});
+
+test.describe("receipt outside the result tree", () => {
+  test("a booked call stays reported after a later answer replaces the form", async ({
+    page,
+  }) => {
+    const envelopes = [
+      genuiFixtures["booking-hire"].envelope,
+      genuiFixtures["project-gallery"].envelope,
+    ];
+    let composeCalls = 0;
+    await page.route("**/api/genui/compose", async (route) => {
+      const envelope = envelopes[Math.min(composeCalls, 1)];
+      composeCalls += 1;
+      const events = [
+        { requestId: "pw", sequence: 0, type: "start" },
+        { envelope, requestId: "pw", sequence: 1, type: "complete" },
+      ];
+      await route.fulfill({
+        body: `${events.map((event) => JSON.stringify(event)).join("\n")}\n`,
+        contentType: "application/x-ndjson",
+        status: 200,
+      });
+    });
+    const writes: unknown[] = [];
+    await page.route("**/api/capabilities", async (route) => {
+      const body = route.request().postDataJSON() as { operation: string };
+      if (body.operation === "list_availability") {
+        await route.fulfill({
+          json: { data: { starts: labSlotStarts() }, status: "ok" },
+        });
+        return;
+      }
+      writes.push(body);
+      await route.fulfill({
+        json: { data: { eventId: "evt_internal" }, status: "confirmed" },
+      });
+    });
+
+    await page.goto("/");
+    const input = page.locator("#homepage-genui-search");
+    await input.scrollIntoViewIfNeeded();
+    await input.fill("I want to book a meeting.");
+    await input.press("Enter");
+    await page.getByLabel("Duration").selectOption("30");
+    await page.getByLabel("Name").fill("Mock Visitor");
+    await page.getByLabel("Email").fill("mock@example.com");
+    await page.getByLabel("Agenda").fill("Mocked agenda.");
+    await pickFirstSlotAndReview(page);
+    await page.getByRole("button", { name: "Confirm booking" }).click();
+    await expect(page.locator("[data-genui-receipt]")).toContainText(
+      "Call booked"
+    );
+    const line = page.locator("[data-genui-receipt-line]");
+    await expect(line).toContainText("Call booked: 30 min");
+
+    await input.fill("explore my work");
+    await input.press("Enter");
+    await expect(page.locator("[data-genui-receipt]")).toHaveCount(0);
+    await expect(page.getByLabel("Duration")).toHaveCount(0);
+    await expect(line).toBeVisible();
+    await expect(line).toContainText("Call booked: 30 min");
+    await expect(line).not.toContainText("evt_internal");
+    expect(writes).toHaveLength(1);
   });
 });
