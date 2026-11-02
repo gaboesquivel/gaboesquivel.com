@@ -6,8 +6,7 @@ import {
   ALREADY_BOOKED,
   BOOKING_CAP,
   BUSY_SLOT,
-  CALENDAR_FAILED,
-  CALENDAR_UNCONNECTED,
+  bookMessageForError,
   STORE_UNAVAILABLE_BOOK,
 } from "./copy";
 import { bookSchema } from "./schema";
@@ -93,10 +92,7 @@ export const bookCall = async ({
     };
   } catch (error) {
     await releaseCap();
-    const message =
-      error instanceof Error && error.message === "calendar-unconfigured"
-        ? CALENDAR_UNCONNECTED
-        : CALENDAR_FAILED;
+    const message = bookMessageForError(error);
     return { inserted: false, message, ok: false };
   }
 };

@@ -1,7 +1,5 @@
 import type { CompositeName } from "../composites";
-import { compositeNames } from "../composites";
 import type { ExperienceName } from "../experience-contract";
-import { experienceNames } from "../experience-contract";
 
 /** Composites with distinct rendering for each experience (no silent fallback). */
 export const projectComposites: readonly CompositeName[] = [
@@ -43,14 +41,8 @@ export const experienceCompositeAllowlist: Partial<
   WritingExperience: writingComposites,
 };
 
-export const productionBlockedExperiences: readonly ExperienceName[] = [];
-
 export const GENUI_MAX_STACK_CHILDREN = 6;
 
 export const GENUI_MAX_DOCUMENT_BYTES = 64 * 1024;
 
 export const GENUI_MAX_STATEMENT_COUNT = 1;
-
-export const supportedExperienceSet = new Set<string>(experienceNames);
-
-export const supportedCompositeSet = new Set<string>(compositeNames);

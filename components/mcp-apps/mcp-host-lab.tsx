@@ -19,8 +19,7 @@ type HostLabMode = "ui" | "text-only";
 const toolResultText = (
   content: { type: string; text?: string }[] | undefined
 ) => {
-  const block = content?.find((part) => part.type === "text");
-  return block && block.type === "text" && block.text ? block.text : "";
+  return content?.find((part) => part.type === "text")?.text ?? "";
 };
 
 const waitForIframeLoad = async (iframe: HTMLIFrameElement) => {

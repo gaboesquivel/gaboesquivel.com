@@ -112,7 +112,6 @@ export const composeCuratedDocument = ({
       projects: filterProjectsByDomain({ domain: "web3" }),
     });
     const records = ordered.map(projectToPublicRecord);
-    const projectIds = records.map((record) => record.id);
     const { lead, leadComposite, remainder } =
       splitLeadAndRemainderProjects(ordered);
     const leadIds = lead.map((p) => `/project/${p.slug}`);

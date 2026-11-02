@@ -170,16 +170,11 @@ export const WritingExperienceView = ({
   composite: string;
   postIds: string[];
 }) => {
-  const records = useGenuiRecords();
   const resolvedComposite = isCompositeName(composite)
     ? composite
     : "dated-row";
   return (
-    <WritingCompositeView
-      composite={resolvedComposite}
-      postIds={postIds}
-      records={records}
-    />
+    <WritingCompositeView composite={resolvedComposite} postIds={postIds} />
   );
 };
 

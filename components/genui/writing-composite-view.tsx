@@ -5,16 +5,13 @@ import { WritingFeaturedPost } from "components/blog/writing-featured-post";
 import { WritingRecentList } from "components/blog/writing-recent-list";
 import { allBlogs } from "lib/blog";
 import type { CompositeName } from "lib/genui/composites";
-import type { PublicRecord } from "lib/genui/envelope";
 
 export const WritingCompositeView = ({
   composite,
   postIds,
-  records,
 }: {
   composite: CompositeName;
   postIds: string[];
-  records: PublicRecord[];
 }) => {
   const posts = postIds.flatMap((id) => {
     const slug = id.replace("/blog/", "");

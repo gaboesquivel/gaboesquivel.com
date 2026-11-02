@@ -42,6 +42,12 @@ export const slotsMessageForError = (error: unknown) => {
   return SLOTS_FAILED;
 };
 
+export const bookMessageForError = (error: unknown) => {
+  const message = error instanceof Error ? error.message : "";
+  if (message === "calendar-unconfigured") return CALENDAR_UNCONNECTED;
+  return CALENDAR_FAILED;
+};
+
 export const NO_SLOTS =
   "Nothing is open on weekdays between 9:00 and 17:00 America/Denver. Nothing was booked. Use gaboesquivel.com/cal.";
 

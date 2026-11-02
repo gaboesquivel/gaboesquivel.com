@@ -1,4 +1,4 @@
-import { compositeNames, isCompositeName } from "./composites";
+import { isCompositeName } from "./composites";
 
 export const experienceNames = [
   "Answer",

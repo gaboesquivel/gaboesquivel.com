@@ -49,7 +49,7 @@ export const joinSections = (sections: string[]) =>
 export const estimateTokens = (text: string) => Math.ceil(text.length / 4);
 
 export const isValidProjectLink = (link?: string) =>
-  Boolean(link && link !== "#" && link !== "" && !link.includes("example.com"));
+  Boolean(link && link !== "#" && !link.includes("example.com"));
 
 export const blogSlugFromRelatedUrl = (url: string) => {
   if (url.startsWith("http")) {

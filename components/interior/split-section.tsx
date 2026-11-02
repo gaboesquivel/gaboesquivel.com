@@ -20,28 +20,13 @@ const textStartWhenMediaRight: Record<ColSpan, string> = {
   8: "lg:col-start-3",
 };
 
-const textStartWhenMediaLeft: Record<ColSpan, string> = {
+/** Column start that pins a span to the right edge of the 12-column grid. */
+const startAtEnd: Record<ColSpan, string> = {
   4: "lg:col-start-9",
   5: "lg:col-start-8",
   6: "lg:col-start-7",
   7: "lg:col-start-6",
   8: "lg:col-start-5",
-};
-
-const mediaStartWhenMediaRight: Record<ColSpan, string> = {
-  4: "lg:col-start-9",
-  5: "lg:col-start-8",
-  6: "lg:col-start-7",
-  7: "lg:col-start-6",
-  8: "lg:col-start-5",
-};
-
-const mediaStartWhenMediaLeft: Record<ColSpan, string> = {
-  4: "lg:col-start-1",
-  5: "lg:col-start-1",
-  6: "lg:col-start-1",
-  7: "lg:col-start-1",
-  8: "lg:col-start-1",
 };
 
 export function SplitSection({
@@ -95,7 +80,7 @@ export function SplitSectionContent({
         spanClass[span],
         mediaPosition === "right"
           ? textStartWhenMediaRight[span]
-          : textStartWhenMediaLeft[span],
+          : startAtEnd[span],
         textOrder(mediaPosition),
         className
       )}
@@ -117,9 +102,7 @@ export function SplitSectionMedia({
   span?: ColSpan;
 }) {
   const mediaStart =
-    mediaPosition === "right"
-      ? mediaStartWhenMediaRight[span]
-      : mediaStartWhenMediaLeft[span];
+    mediaPosition === "right" ? startAtEnd[span] : "lg:col-start-1";
 
   return (
     <div

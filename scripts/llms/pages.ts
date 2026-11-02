@@ -259,7 +259,7 @@ const renderProjectLinks = (slugs: string[]) =>
     .join("\n");
 
 const renderFeaturedTechLinks = () => {
-  const featured = [...techStack]
+  const featured = techStack
     .filter((tech) => tech.featuredOrder !== undefined)
     .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0));
 
@@ -375,11 +375,10 @@ const jsxNodeToMarkdown = (
       return;
     }
 
-    if (pagePath === "/" && tagName === "HomePrompt") {
-      return;
-    }
-
-    if (pagePath === "/" && tagName === "PortraitMedia") {
+    if (
+      pagePath === "/" &&
+      (tagName === "HomePrompt" || tagName === "PortraitMedia")
+    ) {
       return;
     }
 
@@ -633,7 +632,7 @@ const jsxNodeToMarkdown = (
       return;
     }
 
-    if (tagName === "Prose" && ts.isJsxElement(node)) {
+    if ((tagName === "Prose" || tagName === "p") && ts.isJsxElement(node)) {
       const text = jsxChildrenToText(node.children, variables);
       if (text) {
         lines.push(text, "");
@@ -647,16 +646,8 @@ const jsxNodeToMarkdown = (
     ) {
       const text = jsxChildrenToText(node.children, variables);
       if (text) {
-        const level = tagName === "h1" ? "#" : tagName === "h2" ? "##" : "###";
+        const level = "#".repeat(Number(tagName[1]));
         lines.push(`${level} ${text}`, "");
-      }
-      return;
-    }
-
-    if (tagName === "p" && ts.isJsxElement(node)) {
-      const text = jsxChildrenToText(node.children, variables);
-      if (text) {
-        lines.push(text, "");
       }
       return;
     }
@@ -853,15 +844,7 @@ const parsePageFile = ({ file, path }: { file: string; path: string }) => {
   jsxNodeToMarkdown(sourceFile, variables, lines, path);
 
   if (path === "/tech" && techBrowseCategories.length) {
-    lines.push(
-      renderCategoryGroups(
-        techBrowseCategories.map(({ href, name, description }) => ({
-          href,
-          name,
-          description,
-        }))
-      )
-    );
+    lines.push(renderCategoryGroups(techBrowseCategories));
   }
 
   const fullText = lines.join("\n").trim();

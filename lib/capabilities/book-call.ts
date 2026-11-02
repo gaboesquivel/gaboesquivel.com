@@ -4,17 +4,12 @@ import {
   ALREADY_BOOKED,
   BOOKING_CAP,
   BUSY_SLOT,
-  CALENDAR_FAILED,
-  CALENDAR_UNCONNECTED,
+  bookMessageForError,
   STORE_UNAVAILABLE_BOOK,
 } from "../connect/copy";
 import { bookSchema } from "../connect/schema";
 import { overlaps } from "../connect/slots";
-import {
-  loadReceipt,
-  rejectChangedPayload,
-  saveReceipt,
-} from "./action-receipts";
+import { rejectChangedPayload, saveReceipt } from "./action-receipts";
 import { writeResult } from "./result";
 import { calendarEventIdFromRetry } from "./retry";
 import { bookCallInput } from "./schemas";
@@ -125,10 +120,7 @@ export const bookCallCapability = async ({
     // Nothing is reserved yet, so a calendar failure here is a clean failure.
     return writeResult({
       data: { eventId: null },
-      message:
-        error instanceof Error && error.message === "calendar-unconfigured"
-          ? CALENDAR_UNCONNECTED
-          : CALENDAR_FAILED,
+      message: bookMessageForError(error),
       operation: "book_call",
       requestId: context.correlationId,
       status: "failed",
@@ -260,10 +252,7 @@ export const bookCallCapability = async ({
       status: "uncertain",
       store,
     });
-    const message =
-      error instanceof Error && error.message === "calendar-unconfigured"
-        ? CALENDAR_UNCONNECTED
-        : CALENDAR_FAILED;
+    const message = bookMessageForError(error);
     return writeResult({
       data: { eventId: null },
       message,

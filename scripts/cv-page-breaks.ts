@@ -41,7 +41,6 @@ export const choosePageBreaks = ({
   const greedy = ({ extraBreaks }: { extraBreaks: ReadonlySet<string> }) => {
     const breakIds: string[] = [];
     let used = 0;
-    let pageCount = 1;
     const pages: string[][] = [[]];
 
     for (const [index, block] of blocks.entries()) {
@@ -53,7 +52,6 @@ export const choosePageBreaks = ({
       if (index > 0 && !isSticky(block) && (forceBreak || overflows)) {
         breakIds.push(block.id);
         used = block.height;
-        pageCount += 1;
         pages.push([block.id]);
         continue;
       }
@@ -62,7 +60,7 @@ export const choosePageBreaks = ({
       pages.at(-1).push(block.id);
     }
 
-    return { breakIds, pageCount, pages, used };
+    return { breakIds, pageCount: pages.length, pages };
   };
 
   const first = greedy({ extraBreaks: new Set() });

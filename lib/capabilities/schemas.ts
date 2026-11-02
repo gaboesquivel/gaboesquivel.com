@@ -63,6 +63,3 @@ export const sendNoteInput = z
     retryIdentity,
   })
   .strict();
-
-export type GetCvInput = z.infer<typeof getCvInput>;
-export type SearchSiteInput = z.infer<typeof searchSiteInput>;

@@ -405,7 +405,6 @@ export function EveThread({
       if (part.toolName === "list_slots") return part.state !== "output-error";
       if (part.toolName === "book") return part.state === "approval-requested";
       if (part.toolName === "send") {
-        if (part.state === "approval-requested") return true;
         return (
           part.state !== "output-available" && part.state !== "output-error"
         );
@@ -430,7 +429,7 @@ export function EveThread({
     onVisibleChange?.(
       visibleMessages.length > 0 ||
         showReplying ||
-        Boolean(showFailure) ||
+        showFailure ||
         showNoteForm ||
         Boolean(optimisticReceipt)
     );

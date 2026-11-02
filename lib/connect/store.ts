@@ -47,10 +47,7 @@ const redisStore = ({
   };
 };
 
-const envValue = (value?: string) => {
-  const trimmed = value?.trim();
-  return trimmed && trimmed.length > 0 ? trimmed : undefined;
-};
+const envValue = (value?: string) => value?.trim() || undefined;
 
 export const restRedisEnv = () => {
   const url =

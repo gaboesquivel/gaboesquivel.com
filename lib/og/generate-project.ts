@@ -15,16 +15,6 @@ export const projectOgPngBuffer = async ({
   const height = meta.height ?? ogHeight;
   const sourceAspect = width / height;
 
-  if (
-    Math.abs(sourceAspect - ogAspect) <= aspectTolerance &&
-    width >= ogWidth - 2 &&
-    height >= ogHeight - 2
-  )
-    return image
-      .resize(ogWidth, ogHeight, { fit: "fill" })
-      .png({ compressionLevel: 9 })
-      .toBuffer();
-
   if (Math.abs(sourceAspect - ogAspect) <= aspectTolerance)
     return image
       .resize(ogWidth, ogHeight, { fit: "fill" })

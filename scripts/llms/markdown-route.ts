@@ -6,9 +6,9 @@ import {
   techCategoryLabels,
 } from "../../components/tech/categories";
 import {
-  browseCategories,
   categoryDescriptions,
   categoryDisplayNames,
+  isBrowseCategory,
   postMatchesBrowseCategory,
 } from "../../lib/blog-taxonomy";
 import {
@@ -47,9 +47,6 @@ const projectDescriptionLine = (description: string) =>
 const projectsForWorkType = (type: string) => {
   if (type === "all") {
     return projects;
-  }
-  if (type === "featured") {
-    return projects.filter((project) => project.type.includes("featured"));
   }
   return projects.filter((project) => project.type.includes(type));
 };
@@ -105,12 +102,10 @@ const renderBlogCategoryMarkdown = (
   category: string,
   posts: ReturnType<typeof loadBlogPosts>
 ) => {
-  if (
-    !browseCategories.includes(category as (typeof browseCategories)[number])
-  ) {
+  if (!isBrowseCategory(category)) {
     return null;
   }
-  const slug = category as (typeof browseCategories)[number];
+  const slug = category;
   const filtered = posts.filter((post) =>
     postMatchesBrowseCategory({
       categories: post.category,
@@ -218,7 +213,7 @@ const resolveCvMarkdown = ({
   return wrapSection({ body, path: cv.path, title: cv.title });
 };
 
-const defaultContext = (): MarkdownRouteContext => ({
+export const defaultContext = (): MarkdownRouteContext => ({
   manifest: buildRouteManifest(),
   pages: loadNarrativePages(),
   posts: loadBlogPosts(),
@@ -302,9 +297,6 @@ export const getMarkdownForPath = ({
 
   if (path.startsWith("/blog/")) {
     const slug = path.slice("/blog/".length);
-    if (slug.startsWith("category/")) {
-      return null;
-    }
     const post = ctx.posts.find((item) => item.slug === slug);
     if (!post) {
       return null;

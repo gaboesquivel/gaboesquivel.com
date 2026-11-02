@@ -324,10 +324,8 @@ export const requestClauses = (query: string) =>
 const presentationFor = ({
   kind,
   named,
-  domains,
   excluding,
 }: {
-  domains: GenuiProjectDomain[];
   excluding: boolean;
   kind: PlannedTaskKind;
   named: number;
@@ -342,8 +340,7 @@ const presentationFor = ({
   if (kind === "cv") return "cv";
   if (kind === "writing") return "writing";
   if (kind === "booking") return "booking";
-  if (kind === "contact") return "contact";
-  return domains.length > 1 ? "primary-with-support" : "projects";
+  return "contact";
 };
 
 const classifyClause = ({
@@ -479,7 +476,6 @@ const classifyClause = ({
     },
     kind,
     presentation: presentationFor({
-      domains,
       excluding,
       kind,
       named: named.length,
@@ -555,7 +551,7 @@ export const assessTaskCoverage = (
   const children = stackChildren(compiled);
   const used = new Set<number>();
   const shownProjectIds: string[] = [];
-  return tasks.map((task, taskIndex) => {
+  return tasks.map((task) => {
     const match = children.findIndex((child, index) => {
       if (used.has(index)) return false;
       return childMatches({
@@ -594,18 +590,7 @@ export const assessTaskCoverage = (
       };
     }
     const child = children[match];
-    if (!child) {
-      return {
-        kind: task.kind,
-        reason: "Missing section.",
-        status: "failed" as const,
-        taskId: task.id,
-      };
-    }
-    const previousIndexes = [...used];
-    const previousMax = previousIndexes.length
-      ? Math.max(...previousIndexes)
-      : -1;
+    const previousMax = used.size ? Math.max(...used) : -1;
     used.add(match);
     if (child.typeName === "ProjectExperience") {
       shownProjectIds.push(...idsOf(child.props, "projectIds"));
