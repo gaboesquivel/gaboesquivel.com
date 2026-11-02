@@ -1,56 +1,60 @@
 import sharp from "sharp";
 
-import { articleOgVisualBySlug, articleVisualSvg } from "./article-visuals";
-import type { ArticleOgVisualKey } from "./article-visuals";
-import { ogColors } from "./constants";
-import { articleBrandingSvg, wrapSvg } from "./svg";
-import { pickTitleLayout } from "./typography";
+import { ogColors, ogWidth } from "./constants";
+import { accentBarHeight, articleSvg, ogPadding, wrapSvg } from "./svg";
+import { pickTitleLayout, wrapTextLines } from "./typography";
+
+const textWidth = ogWidth - ogPadding * 2;
+const titleTop = accentBarHeight + 72;
+const footerTop = 548;
+const summaryGap = 28;
+const summaryFontSize = 28;
+const summaryLineHeight = 40;
+const summaryMaxLines = 3;
 
 export const buildArticleOgSvg = ({
   title,
-  visualKey,
+  summary,
 }: {
   title: string;
-  visualKey: ArticleOgVisualKey | null;
+  summary: string;
 }) => {
-  const withVisual = visualKey !== null;
-  const titleMaxWidth = withVisual ? 620 : 1000;
-  const titleX = 72;
-  const layout = pickTitleLayout({ title, maxWidth: titleMaxWidth });
-  const titleTop = withVisual ? 96 : 120;
+  const layout = pickTitleLayout({ title, maxWidth: textWidth });
+  const summaryTop =
+    titleTop + layout.lines.length * layout.lineHeight + summaryGap;
+  const summaryRoom = Math.floor(
+    (footerTop - summaryGap - summaryTop) / summaryLineHeight
+  );
+  const summaryLines = wrapTextLines({
+    text: summary,
+    maxWidth: textWidth,
+    fontSize: summaryFontSize,
+    maxLines: Math.max(0, Math.min(summaryMaxLines, summaryRoom)),
+  });
 
-  const visualMarkup =
-    visualKey === null
-      ? ""
-      : articleVisualSvg({ visualKey, offsetX: 720, offsetY: 100 });
-
-  const titleBlockBottom =
-    titleTop + layout.lines.length * layout.lineHeight + 24;
-  const authorTop = Math.min(Math.max(titleBlockBottom, 440), 520);
-
-  const body = `${articleBrandingSvg({
-    titleX,
-    titleTop,
-    titleLines: layout.lines,
-    fontSize: layout.fontSize,
-    lineHeight: layout.lineHeight,
-    authorTop,
-  })}
-  ${visualMarkup}`;
-
-  return wrapSvg(body);
+  return wrapSvg(
+    articleSvg({
+      titleLines: layout.lines,
+      titleFontSize: layout.fontSize,
+      titleLineHeight: layout.lineHeight,
+      summaryLines,
+      summaryFontSize,
+      summaryLineHeight,
+      titleTop,
+      summaryTop,
+      footerTop,
+    })
+  );
 };
 
 export const articleOgPngBuffer = async ({
   title,
-  slug,
-  visualKey = articleOgVisualBySlug[slug] ?? null,
+  summary,
 }: {
   title: string;
-  slug: string;
-  visualKey?: ArticleOgVisualKey | null;
+  summary: string;
 }) => {
-  const svg = buildArticleOgSvg({ title, visualKey });
+  const svg = buildArticleOgSvg({ title, summary });
   return sharp(Buffer.from(svg))
     .flatten({ background: ogColors.black })
     .png({ compressionLevel: 9 })

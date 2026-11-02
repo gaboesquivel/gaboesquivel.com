@@ -109,7 +109,7 @@ Choose the visual structure from the content:
 
 Use image generation for conceptual artwork. Construct exact diagrams, arrows, labels, and factual relationships with SVG or another controlled layout tool. Add any typography after generation; never rely on generated text. In-article diagrams in `public/images/diagrams/` use this palette and the site monospace, and the page scales them to the content column width so they stay readable without horizontal scroll. Hero images do not contain the article title, logos, or a signature. No new triangle mark or monogram is approved. Social assets may use the author's name or domain as typeset attribution.
 
-A **hero image** is the optional editorial raster for a blog post (`image` in MDX frontmatter). Posts may ship without one; listings omit the hero when `image` is omitted. Open Graph uses build-time title-led images at `public/images/og/blog/{slug}.png` (optional `ogImage` frontmatter overrides). In-article diagrams stay SVG or evidence imagery and are not hero images.
+A **hero image** is the optional editorial raster for a blog post (`image` in MDX frontmatter). Posts may ship without one; listings omit the hero when `image` is omitted. Open Graph uses build-time title-led images at `public/images/og/blog/{slug}.png` (optional `ogImage` frontmatter overrides): one layout for every post, with a turquoise top bar, a large white title, the post `summary` in gray, and the author and domain in the footer. No per-post diagrams. In-article diagrams stay SVG or evidence imagery and are not hero images.
 
 Produce blog hero images at 1600 × 900 and OG compositions at 1200 × 630. Recompose for other formats; do not stretch or blindly crop. The palette and geometry stay consistent across the website, LinkedIn, and X. Existing assets are not automatically approved references, and this policy does not authorize a bulk replacement of older images or changes to listing layouts.
 
@@ -253,7 +253,7 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 
 The homepage portrait ships as `public/images/gabo-portrait.webp` (1433×1098; edit the file in place, no facial retouch). Provenance and hash live in `assets/homepage/v2/manifest.json`. `PortraitMedia` overlays crisp SVG geometry in empty background coordinates only: a partial arc, sparse grid and dot reticle, vertical axis with PRODUCT, DESIGN, ENGINEERING, and DELIVERY, and a small plus near the collar. No glow, bloom, shadow, or decorative gradient.
 
-The split layout uses normal grid flow. The left column contains the white H1, muted name/turquoise role, and an end-to-end pitch. The full-width search sits beneath both columns. Mobile stacks without clipping. The older master remains the independent personal OG source; no project OG or hero is replaced by homepage covers.
+The split layout uses normal grid flow. The left column contains the white H1, muted name/turquoise role, and an end-to-end pitch. The full-width search sits beneath both columns. Mobile stacks without clipping. The personal OG composites this same portrait and linework (`lib/portrait-overlay.ts`) beside the H1, muted name, and turquoise role; no project OG or hero is replaced by homepage covers.
 
 ## Editorial homepage
 

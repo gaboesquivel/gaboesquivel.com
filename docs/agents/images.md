@@ -74,13 +74,18 @@ This batch establishes the first reusable visual references. Profile banners, lo
 
 Approved composition for the site default social image (not per-post hero images).
 
-**Copy (exact, unwrapped):**
+**Copy (mirrors the homepage hero):**
 
-- `Gabo Esquivel` — primary name, white
-- `Agentic Software Engineer` — role, gray
-- `gaboesquivel.com` — URL, turquoise
+- `Software for` / `humans and` / `agents.` — the homepage H1, white, three lines so it clears the portrait
+- `Gabo Esquivel` — name, gray
+- `Agentic Software Engineer` — role, turquoise
+- `gaboesquivel.com` — URL, gray, bottom left
 
-Right-side artwork: the homepage portrait master (`assets/homepage/gaboesquivel-homepage-master.webp`), scaled uniformly and placed on the right, clear of the left type. The portrait keeps its proportions and embedded linework; the SVG does not redraw those labels. Left-side copy unchanged. Flat editorial palette on the type (`#000000`, `#ffffff`, `#a3a3a3`, `#5cded6`).
+A turquoise bar runs across the top edge. Right-side artwork: the live homepage portrait (`public/images/gabo-portrait.webp`), scaled uniformly, right-aligned, and blended with `lighten` so its black backdrop never covers the type. The hero linework is drawn from the same geometry as the site (`lib/portrait-overlay.ts`), with labels outlined in IBM Plex Mono. Flat editorial palette (`#000000`, `#ffffff`, `#a3a3a3`, `#5cded6`).
+
+## Blog OG
+
+Every post without `ogImage` gets the same 1200 × 630 card from `lib/og/generate-article.ts`: an 8px turquoise top bar; the title in white IBM Plex Mono, as large as fits without truncation (84px over 2 lines, then 72, 60, and 52px over 3 lines, truncated with an ellipsis only at 52px); the frontmatter `summary` in gray at 28px, up to 3 lines with an ellipsis; and a footer with `Gabo Esquivel` in gray on the left and `gaboesquivel.com` in turquoise on the right. Posts do not get per-post diagrams.
 
 **Assets**
 
@@ -100,8 +105,8 @@ Right-side artwork: the homepage portrait master (`assets/homepage/gaboesquivel-
 
 ## Homepage portrait hero
 
-Photographic hero composition (exception to flat editorial hero rules). Master: `assets/homepage/gaboesquivel-homepage-master.webp` (1448×1086). Shipped WebPs: `public/images/gaboesquivel-homepage-mobile.webp` (896×672) and `public/images/gaboesquivel-homepage-desktop.webp` (700×525). Regenerate with `bun run hero:optimize` after editing the master. The personal OG image composites this master, not the mobile derivative. Layout and delivery: [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). Legacy URL `/images/gaboesquivel-homepage.webp` redirects to the mobile derivative.
+Photographic hero composition (exception to flat editorial hero rules). Master: `assets/homepage/gaboesquivel-homepage-master.webp` (1448×1086). Shipped WebPs: `public/images/gaboesquivel-homepage-mobile.webp` (896×672) and `public/images/gaboesquivel-homepage-desktop.webp` (700×525). Regenerate with `bun run hero:optimize` after editing the master. Layout and delivery: [DESIGN.md](../../DESIGN.md#homepage-portrait-hero). Legacy URL `/images/gaboesquivel-homepage.webp` redirects to the mobile derivative.
 
 ## Design System v2 homepage assets
 
-The homepage portrait is `public/images/gabo-portrait.webp`; replace that file directly when the raster changes (see [DESIGN.md](../../DESIGN.md#homepage-portrait-hero)). Project card and hero images come from each package project’s `image` URL (canonical host `https://gaboesquivel.com`; the site strips that origin to a path under `public/`). Update the WebP or PNG in `public/images/work/` and the package `image` field together when art changes. After editing linked package markdown, run `bun run build` in `gaboesquivel` so `dist/` matches `content/`; `generate` alone does not refresh what Next imports. The older `hero:optimize` outputs and master remain available for legacy consumers and the personal OG.
+The homepage portrait is `public/images/gabo-portrait.webp`; replace that file directly when the raster changes (see [DESIGN.md](../../DESIGN.md#homepage-portrait-hero)). Project card and hero images come from each package project’s `image` URL (canonical host `https://gaboesquivel.com`; the site strips that origin to a path under `public/`). Update the WebP or PNG in `public/images/work/` and the package `image` field together when art changes. After editing linked package markdown, run `bun run build` in `gaboesquivel` so `dist/` matches `content/`; `generate` alone does not refresh what Next imports. The older `hero:optimize` outputs and master remain available for legacy consumers; the personal OG composites `gabo-portrait.webp`.
