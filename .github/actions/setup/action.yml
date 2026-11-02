@@ -1,0 +1,16 @@
+name: Setup
+description: Bun, Node 24, and dependencies from the Bun install cache (keyed on bun.lock).
+runs:
+  using: composite
+  steps:
+    - uses: oven-sh/setup-bun@v2
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "24"
+    - uses: actions/cache@v4
+      with:
+        path: ~/.bun/install/cache
+        key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+        restore-keys: bun-${{ runner.os }}-
+    - run: bun install --frozen-lockfile
+      shell: bash

@@ -1,13 +1,13 @@
 # CI: GenUI quality workflow
 
-Workflow file: [`.github/workflows/genui-quality.yml`](../../.github/workflows/genui-quality.yml).
+Workflow file: [`.github/workflows/genui-quality.yml`](../../.github/workflows/genui-quality.yml). Site-wide `bun run verify` (Velite, Ultracite, motion stack) runs on every PR in [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), in parallel with `static`.
 
 ## Triggers
 
 - **Pull request** when paths touch GenUI, fixture lab, MCP, Playwright config, Promptfoo config, scripts, or lockfile (see workflow `paths`): runs `static` only.
 - **Manual** (`workflow_dispatch`): runs `static` and `browser`.
 
-No push runs, evals, or model calls.
+No push runs, evals, or model calls. A newer push to the same PR cancels the run in progress. Jobs share [`.github/actions/setup`](../../.github/actions/setup/action.yml): Bun, Node 24, and `bun install --frozen-lockfile` from a Bun install cache keyed on `bun.lock`.
 
 ## Jobs
 
@@ -15,8 +15,8 @@ No push runs, evals, or model calls.
 
 | Step | Command / action |
 | --- | --- |
-| Install | `bun install --frozen-lockfile` |
-| Lint + content | `bun run verify` |
+| Install | `.github/actions/setup` |
+| Generated inputs | `bun run prepare:generated` |
 | Unit + contracts | `bun run test:genui:unit` (includes `public-protocol`) |
 | MCP and capability module | `bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts` |
 
@@ -46,7 +46,7 @@ Run it locally (`bun run test:genui:browser`, `bun run test:genui:mcp-apps:host`
 ## Local parity
 
 ```bash
-bun run verify
+bun run verify # ci.yml
 bun run test:genui:unit
 bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts
 bun run test:genui:browser
