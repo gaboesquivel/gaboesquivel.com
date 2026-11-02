@@ -12,7 +12,7 @@ export const EngagementOptions = () => {
         <Link className="text-accent hover:underline" href={publicBookingUrl}>
           Book a short intro call
         </Link>
-        <span className="text-neutral-500">
+        <span className="text-neutral-400">
           {" "}
           (15 or 30 minutes, {profile.timeZoneLabel})
         </span>
@@ -21,7 +21,7 @@ export const EngagementOptions = () => {
         <Link className="text-accent hover:underline" href="/contact">
           Send a project note
         </Link>
-        <span className="text-neutral-500"> through the contact form</span>
+        <span className="text-neutral-400"> through the contact form</span>
       </li>
       <li>
         <Link className="text-accent hover:underline" href="/cv">
