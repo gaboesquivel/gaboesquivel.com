@@ -1,18 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef } from "react";
 
 import type { WriteReceipt } from "./genui-draft-context";
-
-const noopSubscribe = () => () => {};
-
-/** False during SSR and hydration; true after. Guards visitor-zone copy. */
-export const useHydrated = () =>
-  useSyncExternalStore(
-    noopSubscribe,
-    () => true,
-    () => false
-  );
 
 export const inputClass =
   "w-full rounded-md border border-hairline bg-black px-3 py-2 disabled:opacity-60";
@@ -47,12 +37,18 @@ export const WriteError = ({
   </div>
 );
 
+const focusedReceipts = new WeakSet<WriteReceipt>();
+
 /** Settled write: replaces the form in place, so it cannot submit again. */
 export const WriteReceiptCard = ({ receipt }: { receipt: WriteReceipt }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
+    // Focus a receipt once, when it settles; a later result that remounts the
+    // same receipt leaves focus in the search field.
+    if (focusedReceipts.has(receipt)) return;
+    focusedReceipts.add(receipt);
     ref.current?.focus();
-  }, []);
+  }, [receipt]);
   return (
     <div
       className="space-y-2 rounded-lg border border-hairline p-4 text-sm outline-none"

@@ -217,7 +217,9 @@ describe("public MCP result parity", () => {
       expect(undocumented).toEqual([]);
       const write = writeTools.has(tool.name);
       expect(tool.annotations?.readOnlyHint).toBe(!write);
-      expect(tool.annotations?.destructiveHint).toBe(false);
+      expect(tool.annotations?.destructiveHint).toBe(
+        tool.name === "book_call" || tool.name === "send_note"
+      );
     }
   });
 

@@ -89,7 +89,9 @@ export interface RetryIdentityState {
 }
 
 export const writeFingerprint = (payload: Record<string, unknown>) =>
-  JSON.stringify(payload, Object.keys(payload).sort());
+  JSON.stringify(
+    Object.entries(payload).toSorted(([a], [b]) => a.localeCompare(b))
+  );
 
 /**
  * One retry identity per draft. Retries of the same payload reuse it (the

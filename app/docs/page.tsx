@@ -139,7 +139,10 @@ export default function DocsPage() {
           <code className={code}>send_note</code>, and{" "}
           <code className={code}>contact_gabo</code> set{" "}
           <code className={code}>readOnlyHint: false</code> so hosts confirm
-          before calling them; none is destructive. Transport errors such as a
+          before calling them. <code className={code}>book_call</code> and{" "}
+          <code className={code}>send_note</code> also set{" "}
+          <code className={code}>destructiveHint: true</code> because they
+          create a calendar event or send an email. Transport errors such as a
           missing <code className={code}>Accept</code> type (406) or malformed
           JSON (400) answer with a JSON-RPC error body.
         </Prose>

@@ -226,12 +226,15 @@ export const composeQuery = async ({
   };
 
   /**
-   * Model output that compiles to an Answer citing no records is a "no answer"
-   * for this site: the client shows the empty state, never "Results ready.".
+   * A recovered fallback (no evidence, timeout, malformed or missing-task
+   * output) that compiles to an Answer citing no records is a "no answer" for
+   * this site: the client shows the empty state, never "Results ready.". A
+   * model answer that cites nothing (hire terms, availability) still renders.
    */
-  const emitSemantic = (envelope: CompositionEnvelope) => {
+  const emitSemantic = (envelope: CompositionEnvelope, recovered: boolean) => {
     const validated = validateCompositionEnvelope({ envelope });
     if (
+      recovered &&
       validated.ok &&
       validated.compiled.experience === "Answer" &&
       validated.compiled.referencedRecordIds.length === 0
@@ -300,7 +303,7 @@ export const composeQuery = async ({
       }
       if (semantic) {
         modelCalls += semantic.modelCalls;
-        emitSemantic(semantic.envelope);
+        emitSemantic(semantic.envelope, semantic.recovered);
         return result({ envelope: semantic.envelope });
       }
     }
@@ -370,7 +373,7 @@ export const composeQuery = async ({
     });
     if (semantic) {
       modelCalls += semantic.modelCalls;
-      emitSemantic(semantic.envelope);
+      emitSemantic(semantic.envelope, semantic.recovered);
       return result({ envelope: semantic.envelope });
     }
   }
@@ -406,7 +409,7 @@ export const composeQuery = async ({
         });
   if (semantic) {
     modelCalls += semantic.modelCalls;
-    emitSemantic(semantic.envelope);
+    emitSemantic(semantic.envelope, semantic.recovered);
     return result({ envelope: semantic.envelope });
   }
 

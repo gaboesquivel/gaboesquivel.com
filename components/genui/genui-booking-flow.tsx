@@ -1,5 +1,6 @@
 "use client";
 
+import { useHydrated } from "hooks/use-hydrated";
 import { formatSlotSelectionLine } from "lib/connect/slot-display";
 import {
   AVAILABILITY_EMPTY_COPY,
@@ -21,7 +22,6 @@ import {
   WriteReceiptCard,
   inputClass,
   primaryButtonClass,
-  useHydrated,
 } from "./genui-write-status";
 
 type Availability =

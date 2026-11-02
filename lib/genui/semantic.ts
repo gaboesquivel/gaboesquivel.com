@@ -54,7 +54,11 @@ export const generateSemanticDocument = async ({
   records: PublicRecord[];
   requestId: string;
   signal?: AbortSignal;
-}): Promise<{ envelope: CompositionEnvelope; modelCalls: number } | null> => {
+}): Promise<{
+  envelope: CompositionEnvelope;
+  modelCalls: number;
+  recovered: boolean;
+} | null> => {
   const model = resolveChatModel();
   if (!model) return null;
   if (signal?.aborted) return null;
@@ -67,6 +71,7 @@ export const generateSemanticDocument = async ({
         sourceIds: [],
       }),
       modelCalls: 0,
+      recovered: true,
     };
   }
   const packet = buildEvidencePacket({ query, records });
@@ -112,7 +117,9 @@ export const generateSemanticDocument = async ({
     .then((result) => result.text)
     .catch(() => null);
   if (signal?.aborted) return null;
-  if (!text) return { envelope: recover("timeout"), modelCalls: 1 };
+  if (!text) {
+    return { envelope: recover("timeout"), modelCalls: 1, recovered: true };
+  }
   const line = text.trim();
   const envelope: CompositionEnvelope = {
     fallbackText: query.slice(0, 160),
@@ -122,7 +129,9 @@ export const generateSemanticDocument = async ({
     requestId,
   };
   const validated = validateCompositionEnvelope({ envelope });
-  if (!validated.ok) return { envelope: recover("malformed"), modelCalls: 1 };
+  if (!validated.ok) {
+    return { envelope: recover("malformed"), modelCalls: 1, recovered: true };
+  }
   const coverage = assessTaskCoverage(request.tasks, validated.compiled);
   if (coverage.some((task) => task.status === "failed")) {
     return {
@@ -134,7 +143,8 @@ export const generateSemanticDocument = async ({
         tasks: request.tasks,
       }),
       modelCalls: 1,
+      recovered: true,
     };
   }
-  return { envelope, modelCalls: 1 };
+  return { envelope, modelCalls: 1, recovered: false };
 };

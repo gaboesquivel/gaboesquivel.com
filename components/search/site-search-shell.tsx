@@ -65,8 +65,11 @@ export function SiteSearchShell({
 
   const openDialog = useCallback(() => {
     const active = document.activeElement;
+    // Safari does not focus buttons on click, so fall back to the nav trigger.
     returnFocusRef.current =
-      active instanceof HTMLElement && active !== document.body ? active : null;
+      active instanceof HTMLElement && active !== document.body
+        ? active
+        : document.querySelector<HTMLElement>("[data-site-search-trigger]");
     setOpen(true);
   }, []);
 

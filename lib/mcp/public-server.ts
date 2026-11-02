@@ -27,11 +27,20 @@ export const toolResult = (name: string, result: unknown) => {
   };
 };
 
-const humanError = (error: unknown) => {
+/**
+ * Only caller-actionable messages reach MCP clients; anything else (provider
+ * or internal failures) is logged and replaced with a generic message.
+ */
+const humanError = (error: unknown, correlationId: string) => {
   const raw = error instanceof Error ? error.message : String(error);
-  return raw.startsWith("unknown-capability:")
-    ? `Unknown tool ${raw.slice("unknown-capability:".length)}.`
-    : raw || "The tool failed. Try again.";
+  if (raw.startsWith("unknown-capability:")) {
+    return `Unknown tool ${raw.slice("unknown-capability:".length)}.`;
+  }
+  if (error instanceof Error && error.name === "ZodError") {
+    return `Invalid input: ${raw}`;
+  }
+  console.error("mcp tool failed", { correlationId, error });
+  return `The tool failed. Try again. Reference ${correlationId}.`;
 };
 
 export const createPublicMcpServer = ({ ip }: { ip: string }) => {
@@ -76,7 +85,9 @@ export const createPublicMcpServer = ({ ip }: { ip: string }) => {
           return toolResult(entry.name, result);
         } catch (error) {
           return {
-            content: [{ text: humanError(error), type: "text" as const }],
+            content: [
+              { text: humanError(error, correlationId), type: "text" as const },
+            ],
             isError: true,
           };
         }

@@ -11,8 +11,9 @@ const read: ToolAnnotations = {
 
 /**
  * Hosts confirm before calling these. book_call and send_note have side
- * effects; contact_gabo only returns the contact descriptor but opens the
- * contact flow, so it is declared a write too (spec 001, item 9).
+ * effects outside the site (a calendar event, an email), so they are marked
+ * destructive; contact_gabo only returns the contact descriptor but opens the
+ * contact flow, so it is declared a non-destructive write (spec 001, item 9).
  */
 const write: ToolAnnotations = {
   destructiveHint: false,
@@ -26,7 +27,7 @@ export const mcpToolMetadata: Record<
   { annotations: ToolAnnotations; title: string }
 > = {
   book_call: {
-    annotations: { ...write, idempotentHint: true },
+    annotations: { ...write, destructiveHint: true, idempotentHint: true },
     title: "Book a call with Gabo",
   },
   contact_gabo: {
@@ -43,7 +44,7 @@ export const mcpToolMetadata: Record<
   list_writing: { annotations: read, title: "List writing" },
   search_site: { annotations: read, title: "Search the site" },
   send_note: {
-    annotations: { ...write, idempotentHint: true },
+    annotations: { ...write, destructiveHint: true, idempotentHint: true },
     title: "Send a note to Gabo",
   },
 };
