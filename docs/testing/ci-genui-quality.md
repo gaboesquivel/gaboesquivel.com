@@ -7,7 +7,7 @@ Workflow file: [`.github/workflows/genui-quality.yml`](../../.github/workflows/g
 - **Pull request** when paths touch GenUI, fixture lab, MCP, Playwright config, Promptfoo config, scripts, or lockfile (see workflow `paths`): runs `static` only.
 - **Manual** (`workflow_dispatch`): runs `static` and `browser`.
 
-No push runs, evals, or model calls. A newer push to the same PR cancels the run in progress. Jobs share [`.github/actions/setup`](../../.github/actions/setup/action.yml): Bun, Node 24, and `bun install --frozen-lockfile` from a Bun install cache keyed on `bun.lock`.
+No push runs, evals, or model calls. A newer push to the same PR cancels the run in progress. Jobs share [`.github/actions/setup`](../../.github/actions/setup/action.yml): Bun, Node 24, and `bun install --frozen-lockfile`. There is no dependency cache: restoring the Bun install cache (~720 MB) measured slower than a cold install.
 
 ## Jobs
 

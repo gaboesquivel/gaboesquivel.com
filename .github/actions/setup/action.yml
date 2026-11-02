@@ -1,5 +1,7 @@
+# No dependency cache: a Bun install cache restore (~720 MB, ~20 s) measured slower than a cold
+# `bun install` (~8 s) on GitHub-hosted runners, and its save step added ~10 s on a miss.
 name: Setup
-description: Bun, Node 24, and dependencies from the Bun install cache (keyed on bun.lock).
+description: Bun, Node 24, and dependencies.
 runs:
   using: composite
   steps:
@@ -7,10 +9,5 @@ runs:
     - uses: actions/setup-node@v4
       with:
         node-version: "24"
-    - uses: actions/cache@v4
-      with:
-        path: ~/.bun/install/cache
-        key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
-        restore-keys: bun-${{ runner.os }}-
     - run: bun install --frozen-lockfile
       shell: bash
