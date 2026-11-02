@@ -6,10 +6,18 @@ export function SiteWidth({
   children,
   className,
   as: Tag = "div",
+  id,
+  tabIndex,
 }: {
   children: ReactNode;
   className?: string;
   as?: "div" | "main";
+  id?: string;
+  tabIndex?: number;
 }) {
-  return <Tag className={cn(siteColumn, className)}>{children}</Tag>;
+  return (
+    <Tag id={id} tabIndex={tabIndex} className={cn(siteColumn, className)}>
+      {children}
+    </Tag>
+  );
 }

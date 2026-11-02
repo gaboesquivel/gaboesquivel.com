@@ -35,6 +35,7 @@ export function FeaturedProjectCard({
               fill
               sizes={workCoverSizes}
               preload={priority}
+              loading={priority ? "eager" : undefined}
               fetchPriority={priority ? "high" : undefined}
               className={cn("object-cover", imageHover)}
             />

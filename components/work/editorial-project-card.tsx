@@ -48,6 +48,7 @@ export function EditorialProjectCard({
             fill
             sizes={sizes}
             preload={priority}
+            loading={priority ? "eager" : undefined}
             fetchPriority={priority ? "high" : undefined}
             className={cn("bg-neutral-900 object-cover", imageHover)}
             style={{ objectPosition: projectCoverPosition(project) }}

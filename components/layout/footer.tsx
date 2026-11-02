@@ -1,12 +1,18 @@
-import { ctaLink } from "components/shared/spacing";
+import { ctaLink, siteColumn } from "components/shared/spacing";
 import { hireContractBlogPath } from "lib/hire-terms";
+import { cn } from "lib/utils";
 import Link from "next/link";
 
 const footerLink = "text-neutral-300 transition-colors hover:text-white";
 
 export function Footer() {
   return (
-    <footer className="mt-12 sm:mt-28 print:hidden preview-print:hidden">
+    <footer
+      className={cn(
+        siteColumn,
+        "mt-12 sm:mt-28 print:hidden preview-print:hidden"
+      )}
+    >
       <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
         <div>
           <ul className="space-y-2">

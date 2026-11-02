@@ -137,7 +137,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Location / breadcrumb | `PageTrail` (slash-separated, mono meta; parent links only) | `components/shared/page-trail.tsx` |
 | Section | `PageSection` | `components/shared/page-layout.tsx` |
 | Body paragraph | `Prose` | `components/shared/page-layout.tsx` |
-| Filter | `FilterNav` (`Button` as `Link`) | `components/shared/page-layout.tsx`, `components/ui/button.tsx` |
+| Filter | `FilterNav` (plain `Link` with `aria-current`) | `components/shared/page-layout.tsx` |
 | Text / route card | `PageCard` / `SiteCardLink` on `Card` | `components/shared/page-card.tsx`, `components/shared/site-card-link.tsx` |
 | Project with image | `EditorialProjectCard` (cover frame) or bordered `ProjectCard` | `components/work/editorial-project-card.tsx`, `components/work/project-card.tsx` |
 | Editorial feature, landscape, and banner | `EditorialWorkCard` | `components/work/editorial-work-card.tsx` |
@@ -212,6 +212,8 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 - Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under. Inactive nav items use `neutral-400` (`navbar.tsx`). Some meta text still uses `neutral-500`. See Open questions.
 - Focus: `SiteCardLink` surfaces (`PageCard`, `PathLink`, `ProjectCard`, blog cards) and `/ask` fields draw an accent ring via `siteCardInteractive` or field primitives. Primary nav links keep the browser's default outline.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
+- Skip link and landmarks: the first tab stop on every route is a "Skip to content" link to `<main id="main">` (`app/layout.tsx`). The footer renders after `<main>`, not inside it, so it exposes the `contentinfo` landmark.
+- Colour scheme: `<html>` sets `scheme-dark`, so scrollbars and native inputs stay dark under an OS light theme; `components/tweet.css` keys its dark values to `.dark`, not `prefers-color-scheme`.
 - Images: every `next/image` needs `alt`; describe what the photo shows.
 - Reduced motion: the `cardArrow` nudge, connect status, approval card, slot picker, starter and send press, and `siteCardInteractive` press use `motion-safe:` / `motion-reduce:`. Cover imagery uses `imageHover` (`1.02` under `motion-safe:` only).
 - Print: the top bar, nav, and footer are `print:hidden`.

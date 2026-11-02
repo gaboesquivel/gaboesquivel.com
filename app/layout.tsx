@@ -63,7 +63,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark bg-black font-mono font-normal text-white">
+    <html
+      lang="en"
+      className="dark bg-black font-mono font-normal text-white scheme-dark"
+    >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="is-agentic-site-type" content="content" />
@@ -73,6 +76,12 @@ export default function RootLayout({
         />
       </head>
       <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-black focus:px-4 focus:py-3 focus:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-accent print:hidden"
+        >
+          Skip to content
+        </a>
         <SiteSearchShell records={siteSearchRecords}>
           <div className="flex min-h-0 flex-1 flex-col">
             <header className="bg-black print:hidden preview-print:hidden">
@@ -83,12 +92,14 @@ export default function RootLayout({
             </header>
             <SiteWidth
               as="main"
-              className="flex min-h-0 flex-1 flex-col print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
+              id="main"
+              tabIndex={-1}
+              className="flex min-h-0 flex-1 flex-col outline-none print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
             >
               {children}
-              <Footer />
-              <DeferredAnalytics />
             </SiteWidth>
+            <Footer />
+            <DeferredAnalytics />
           </div>
         </SiteSearchShell>
       </body>

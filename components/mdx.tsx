@@ -85,6 +85,7 @@ function BlogImage({
         className="rounded-lg"
         fetchPriority={priority ? "high" : undefined}
         height={675}
+        loading={priority ? "eager" : undefined}
         preload={priority}
         sizes={sizes}
         src={src}

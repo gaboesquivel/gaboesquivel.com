@@ -33,6 +33,7 @@ export function ProjectHero({
         fill
         sizes={workCoverSizes}
         preload={preload}
+        loading={preload ? "eager" : undefined}
         fetchPriority={preload ? "high" : undefined}
         className={cn("bg-neutral-900 object-cover", imageHover)}
         style={{ objectPosition: projectCoverPosition(project) }}

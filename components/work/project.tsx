@@ -27,7 +27,7 @@ export function ProjectDetails({
       />
 
       <div className="mt-8">
-        <ProjectHero href={primaryImageHref} project={project} />
+        <ProjectHero href={primaryImageHref} preload project={project} />
       </div>
     </div>
   );
