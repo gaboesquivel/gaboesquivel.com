@@ -100,10 +100,12 @@ test.describe("booking writes", () => {
     await confirm.click();
     const alert = page.locator("[data-genui-write-error]");
     await expect(alert).toContainText("Could not reach the server");
+    await expect(alert).toHaveAttribute("role", "alert");
     await expect(confirm).toBeEnabled();
     await alert.getByRole("button", { name: "Try again" }).click();
     const receipt = page.locator("[data-genui-receipt]");
     await expect(receipt).toContainText("Call booked");
+    await expect(receipt).toBeFocused();
     await expect(receipt).not.toContainText("evt_lab_internal");
     await expect(
       page.getByRole("button", { name: /Confirm booking/ })

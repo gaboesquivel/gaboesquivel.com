@@ -26,6 +26,7 @@ Related elsewhere:
 | Contract + composition unit tests | `bun run test:genui:unit` |
 | MCP protocol + simulated host | `bun run test:genui:mcp-apps` |
 | Fixture lab Playwright only | `bun run test:genui:browser` |
+| Search and agent-surface states (lab, no model calls) | `bunx playwright test tests/genui/browser/functional/lab-states.spec.ts` |
 | Offline eval (tier 0 compose, no API keys) | `bun run eval:genui:offline` |
 | Prompt matrix (deterministic cases, no API keys) | `bun run eval:genui:matrix` |
 | Live Promptfoo eval | `bun run eval:genui:live` (requires `GENUI_EVAL_LIVE=1`) |
@@ -38,4 +39,5 @@ Optional / not gated in CI by default: `test:genui:browser`, `test:genui:mcp-app
 - **Playwright:** default dev URL `http://localhost:3199` (`PLAYWRIGHT_PORT`, `PLAYWRIGHT_BASE_URL`, `PLAYWRIGHT_SKIP_WEBSERVER`).
 - **Site dev:** production-style dev remains port `3099`; do not confuse with the GenUI Playwright port. The fixture lab builds into `.next-genui-lab` (`NEXT_DIST_DIR`), so Playwright runs beside a running `bun run dev` without stopping it.
 - **Generated inputs:** `generated/*.json` is gitignored. `bun run prepare:generated` (Velite + `scripts/export-llms.ts`) creates it; CI and the Playwright web server run it first.
+- **Contract states in the lab:** `/__genui__/fixtures/search-composing`, `search-streaming`, `search-empty`, `search-error`, `search-timed-out` and `search-rate-limited` show each shared search state with a lab field; Try again and example chips refocus it and record the query instead of calling compose. Write failure is `contact-hire?writes=failure` or `booking-hire?writes=failure`. `functional/lab-states.spec.ts` asserts copy (`lib/search/copy.ts`), one live-region announcement per state, and the focus target; live-surface flows stay in `search-contract.spec.ts` and `genui-writes.spec.ts`.
 - **Planner paraphrases:** add a row to `lib/genui/planner-paraphrases.test.ts` for every new planner keyword rule, including a query it must not capture.

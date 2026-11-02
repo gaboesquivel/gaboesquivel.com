@@ -7,6 +7,7 @@ import {
 import { isGenuiWriteScenario } from "lib/genui/fixtures/write-scenarios";
 import { notFound } from "next/navigation";
 
+import { LabSearch } from "./lab-search";
 import { GenuiLabSession } from "./lab-session";
 
 export default async function GenuiFixturePage({
@@ -36,21 +37,25 @@ export default async function GenuiFixturePage({
         style={{ margin: "0 auto", maxWidth: width, width: "100%" }}
       >
         <GenuiLabSession scenario={scenario}>
-          <GeneratedRegion
-            envelope={fixture.envelope}
-            error={
-              fixture.errorMessage
-                ? { kind: "failed", message: fixture.errorMessage }
-                : null
-            }
-            status={
-              fixture.errorMessage
-                ? "error"
-                : fixture.envelope
-                  ? "result"
-                  : "idle"
-            }
-          />
+          {fixture.search ? (
+            <LabSearch envelope={fixture.envelope} state={fixture.search} />
+          ) : (
+            <GeneratedRegion
+              envelope={fixture.envelope}
+              error={
+                fixture.errorMessage
+                  ? { kind: "failed", message: fixture.errorMessage }
+                  : null
+              }
+              status={
+                fixture.errorMessage
+                  ? "error"
+                  : fixture.envelope
+                    ? "result"
+                    : "idle"
+              }
+            />
+          )}
         </GenuiLabSession>
       </div>
     </main>
