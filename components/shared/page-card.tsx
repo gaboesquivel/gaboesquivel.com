@@ -32,9 +32,7 @@ export function PageCard({
           →
         </span>
       </div>
-      <p className="mb-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
-        {href}
-      </p>
+      <p className="mb-2 font-mono text-xs text-neutral-400">{href}</p>
       <p className={cn(proseClass, "line-clamp-3 flex-grow text-sm")}>
         {description}
       </p>

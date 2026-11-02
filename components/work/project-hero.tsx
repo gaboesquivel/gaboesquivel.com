@@ -1,7 +1,12 @@
 import { imageHover } from "components/shared/motion";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
-import { resolveProjectImage, workCoverSizes } from "lib/work/project-cover";
+import {
+  projectCoverMaxWidth,
+  projectCoverPosition,
+  resolveProjectImage,
+  workCoverSizes,
+} from "lib/work/project-cover";
 import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +24,8 @@ export function ProjectHero({
 
   if (!resolved) return null;
 
+  const maxWidth = projectCoverMaxWidth({ src: resolved.src });
+
   const image = (
     <div
       className="relative aspect-video overflow-hidden rounded-lg bg-black"
@@ -31,12 +38,16 @@ export function ProjectHero({
         sizes={workCoverSizes}
         preload={preload}
         fetchPriority={preload ? "high" : undefined}
-        className={cn("object-contain", imageHover)}
+        className={cn("bg-neutral-900 object-cover", imageHover)}
+        style={{ objectPosition: projectCoverPosition(project) }}
       />
     </div>
   );
 
-  if (!href) return image;
+  // Small legacy sources never stretch past their intrinsic width.
+  const media = maxWidth ? <div style={{ maxWidth }}>{image}</div> : image;
+
+  if (!href) return media;
 
   return (
     <Link
@@ -50,7 +61,7 @@ export function ProjectHero({
           }
         : {})}
     >
-      {image}
+      {media}
     </Link>
   );
 }

@@ -6,7 +6,10 @@ import {
 } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
-import { resolveProjectImage } from "lib/work/project-cover";
+import {
+  projectCoverPosition,
+  resolveProjectImage,
+} from "lib/work/project-cover";
 import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,7 +53,8 @@ export function EditorialProjectCard({
             sizes={sizes}
             preload={priority}
             fetchPriority={priority ? "high" : undefined}
-            className={cn("object-cover", imageHover)}
+            className={cn("bg-neutral-900 object-cover", imageHover)}
+            style={{ objectPosition: projectCoverPosition(project) }}
           />
         </div>
       ) : null}

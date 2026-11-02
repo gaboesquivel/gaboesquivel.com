@@ -1,6 +1,16 @@
 import { describe, expect, test } from "bun:test";
+import { join } from "node:path";
 
-import { evidenceUsesEditorial, resolveProjectImage } from "./project-cover";
+import { projects } from "gaboesquivel";
+import sharp from "sharp";
+
+import {
+  evidenceUsesEditorial,
+  projectCoverMaxWidth,
+  projectCoverPosition,
+  resolveProjectImage,
+  smallCoverThreshold,
+} from "./project-cover";
 
 describe("resolveProjectImage", () => {
   test("strips the production site origin from package image URLs", () => {
@@ -62,5 +72,30 @@ describe("evidenceUsesEditorial", () => {
         slugs: ["legal-agent", "masterbots"],
       })
     ).toBe(true);
+  });
+});
+
+describe("projectCoverMaxWidth", () => {
+  test("lists every package cover narrower than the frame at its intrinsic width", async () => {
+    const covers = projects.flatMap((project) => {
+      const image = resolveProjectImage({ project });
+      return image ? [image.src] : [];
+    });
+    for (const src of new Set(covers)) {
+      const { width = 0 } = await sharp(
+        join(process.cwd(), "public", src)
+      ).metadata();
+      expect({ src, width: projectCoverMaxWidth({ src }) ?? null }).toEqual({
+        src,
+        width: width < smallCoverThreshold ? width : null,
+      });
+    }
+  });
+});
+
+describe("projectCoverPosition", () => {
+  test("keeps the Bitlauncher wordmark in frame and centers the rest", () => {
+    expect(projectCoverPosition({ slug: "bitlauncher" })).toBe("20% 20%");
+    expect(projectCoverPosition({ slug: "wink" })).toBe("50% 50%");
   });
 });

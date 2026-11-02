@@ -14,7 +14,12 @@ import {
   Prose,
   projectMedia,
 } from "components/shared/page-layout";
-import { editorialLink, projectRole } from "components/shared/spacing";
+import {
+  editorialLink,
+  projectRole,
+  sectionHeadingSpacing,
+  sectionTitle,
+} from "components/shared/spacing";
 import { VimeoPlayer } from "components/vimeo";
 import { YouTubePlayer } from "components/youtube";
 import { getTechStackByTag } from "gaboesquivel";
@@ -125,7 +130,7 @@ export function ProjectCaseStudy({
             </SplitSectionContent>
             {contributions ? (
               <SplitSectionMedia mediaPosition="right" span={6}>
-                <h2 className="mb-4 text-base font-semibold tracking-tight">
+                <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
                   Selected contributions
                 </h2>
                 {contributions}
@@ -243,11 +248,10 @@ export function ProjectCaseStudy({
         </PageSection>
       ) : null}
 
+      {/* Only posts tied to this project; unrelated latest posts do not pad old work. */}
       {relatedSlugs ? (
         <LatestPosts slugs={relatedSlugs} title="Related writing" />
-      ) : (
-        <LatestPosts />
-      )}
+      ) : null}
     </InteriorPageShell>
   );
 }
