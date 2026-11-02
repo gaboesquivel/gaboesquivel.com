@@ -146,7 +146,6 @@ export default async function Blog({
         <LatestPosts
           slugs={relatedPosts.map((post) => post.slug)}
           title="Related writing"
-          variant="editorial"
         />
       ) : null}
     </section>

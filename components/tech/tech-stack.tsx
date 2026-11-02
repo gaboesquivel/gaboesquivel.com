@@ -36,14 +36,9 @@ export default function TechStack({
         </PageSection>
       ) : null}
 
-      <ProjectsMasonry
-        identifier={tech.slug}
-        preserveOrder
-        projects={projects}
-        variant="editorial"
-      />
+      <ProjectsMasonry preserveOrder projects={projects} />
 
-      <LatestPosts tech={tech.tag} title="Related posts" variant="editorial" />
+      <LatestPosts tech={tech.tag} title="Related posts" />
 
       {tech.link ? (
         <p className="mt-6 text-sm text-neutral-400">

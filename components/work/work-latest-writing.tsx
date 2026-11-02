@@ -6,7 +6,6 @@ export const WorkLatestWriting = () => (
   <LatestPosts
     limit={3}
     title="Writing"
-    variant="editorial"
     action={
       <Link href="/blog" className={sectionAction}>
         More writing

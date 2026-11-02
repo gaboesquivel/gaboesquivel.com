@@ -83,7 +83,7 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `blog` (`components/layout/navbar.tsx`). `/ask` is not a nav item.
 - `/ask` redirects to `/`. Connect transcript styles in `app/connect/` are not mounted on that route.
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
-- Page and project media: 16:9, `rounded-lg`, via `PageImage` or `projectMedia`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
+- Page and project media: 16:9, `rounded-lg`, via `projectMedia`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
 
 ## AI, Web3, and biography pages
 
@@ -91,7 +91,7 @@ The `/ai`, `/web3`, and `/bio` pages are editorial portfolio narratives, not dia
 
 Use the homepage shell, monochrome type, turquoise links, hairline borders, and `rounded-lg` media. Introductions are one left-aligned block (`PageIntro` `narrative`): `heroTitle`, then `narrativeLead`, then supporting `narrativeCopy`. No second text column and no intro image. The first section uses `narrativeIntroGap` (56px mobile, 80px desktop). Later sections use `narrativeSectionGap` (64px mobile, 96px desktop). Whitespace separates chapters. Do not rule every chapter.
 
-`/ai` and `/web3` present LegalAgent and ZTX with `EditorialWorkCard` `layout="feature"` (about 40% copy and 60% media, full shell width). Masterbots, Bitlauncher, Bitcash, Opyn, and RareMint use `layout="landscape"` in a two-up grid. `/web3` protocols are `ProjectTextRow` links, not image cards. The editorial description lives in the card. Do not repeat it beside a thumbnail. `/bio` uses `BioChapter` only for section spacing. NodeSchool is a full-width photograph at its real aspect ratio. Wink is media-left, about 55–58% of the row. The 2017 chapter is text-left with the Opyn project cover on the right, linking to `/project/opyn`. The 2024 chapter ends with `layout="banner"`, quieter than the `/ai` feature. Covers come from `resolveProjectImage`. Use `object-cover` and adjust focal position when a frame would letterbox; do not edit the asset.
+`/ai` and `/web3` present LegalAgent and ZTX with `EditorialWorkCard` `layout="feature"` (about 40% copy and 60% media, full shell width). Masterbots, Bitlauncher, Bitcash, Opyn, and RareMint use `layout="landscape"` in a two-up grid. `/web3` protocols are `ProjectTextRow` links, not image cards. The editorial description lives in the card. Do not repeat it beside a thumbnail. `/bio` renders its chapters with `BioTimeline`. NodeSchool is a full-width photograph at its real aspect ratio. Wink is media-left, about 55–58% of the row. The 2017 chapter is text-left with the Opyn project cover on the right, linking to `/project/opyn`. The 2024 chapter ends with `layout="banner"`, quieter than the `/ai` feature. Covers come from `resolveProjectImage`. Use `object-cover` and adjust focal position when a frame would letterbox; do not edit the asset.
 
 End these pages with résumé and conversation links. Do not repeat `LetsConnect` above the footer. Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
 
@@ -137,11 +137,9 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Location / breadcrumb | `PageTrail` (slash-separated, mono meta; parent links only) | `components/shared/page-trail.tsx` |
 | Section | `PageSection` | `components/shared/page-layout.tsx` |
 | Body paragraph | `Prose` | `components/shared/page-layout.tsx` |
-| Photo | `PageImage` (requires `alt`) | `components/shared/page-layout.tsx` |
 | Filter | `FilterNav` (`Button` as `Link`) | `components/shared/page-layout.tsx`, `components/ui/button.tsx` |
 | Text / route card | `PageCard` / `SiteCardLink` on `Card` | `components/shared/page-card.tsx`, `components/shared/site-card-link.tsx` |
 | Project with image | `EditorialProjectCard` (cover frame) or bordered `ProjectCard` | `components/work/editorial-project-card.tsx`, `components/work/project-card.tsx` |
-| Narrative project evidence | `ProjectFigure` (caption link, no card description) | `components/work/project-figure.tsx` |
 | Editorial feature, landscape, and banner | `EditorialWorkCard` | `components/work/editorial-work-card.tsx` |
 | Registry cover frame | `ProjectCover` | `components/work/editorial-work-card.tsx` |
 | Text-first project row | `ProjectTextRow` | `components/interior/project-text-row.tsx` |
@@ -154,7 +152,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Text/media split (12-col) | `SplitSection` + `SplitSectionContent` / `SplitSectionMedia` | `components/interior/split-section.tsx` |
 | Article + sticky TOC | `ArticleShell`, `ArticleTocNav`, `ArticleTocInline` | `components/interior/article-shell.tsx` |
 | Utility / legal reading | `ReadingPageShell` | `components/interior/reading-page-shell.tsx` |
-| Writing lists (home, related, work, etc.) | `WritingPostsSection`, `LatestPosts` (`variant="editorial"`), `EditorialBlogList` | `components/blog/writing-posts-section.tsx`, `latest-posts.tsx`, `editorial-blog-list.tsx` |
+| Writing lists (home, related, work, etc.) | `WritingPostsSection`, `LatestPosts`, `EditorialBlogList` | `components/blog/writing-posts-section.tsx`, `latest-posts.tsx`, `editorial-blog-list.tsx` |
 | Writing index | `WritingIndex`, `WritingFeaturedPost`, `WritingRecentList` | `components/blog/writing-*.tsx` |
 | Project case study | `ProjectCaseStudy` | `components/work/project-case-study.tsx` |
 | In-post image width | `BlogImage` `layout="prose" \| "wide" \| "breakout"` | `components/mdx.tsx`, `app/global.css` |
@@ -214,7 +212,7 @@ Conversation carries intent; interactive cards carry data entry and confirmation
 - Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under. Inactive nav items use `neutral-400` (`navbar.tsx`). Some meta text still uses `neutral-500`. See Open questions.
 - Focus: `SiteCardLink` surfaces (`PageCard`, `PathLink`, `ProjectCard`, blog cards) and `/ask` fields draw an accent ring via `siteCardInteractive` or field primitives. Primary nav links keep the browser's default outline.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
-- Images: `PageImage` requires `alt`; describe what the photo shows.
+- Images: every `next/image` needs `alt`; describe what the photo shows.
 - Reduced motion: the `cardArrow` nudge, connect status, approval card, slot picker, starter and send press, and `siteCardInteractive` press use `motion-safe:` / `motion-reduce:`. Cover imagery uses `imageHover` (`1.02` under `motion-safe:` only).
 - Print: the top bar, nav, and footer are `print:hidden`.
 
@@ -277,7 +275,7 @@ Featured work is six package slugs in fixed order: LegalAgent flagship (`Feature
 
 Filtered `/work/[type]` pages use the same editorial masonry as `/tech` project lists (`EditorialProjectList` / `EditorialProjectCard`). Bordered `ProjectCard` remains for capability evidence when `ProjectEvidence` uses `presentation="card"`. Writing categories, technology categories, technology detail pages, and project pages still use compact `InnerPageHero` and generic `FilterNav` where applicable.
 
-Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` or `presentation="editorial"` (editorial layout with package images). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. Do not use `ProjectEvidence` or `ProjectFigure` for the `/ai`, `/web3`, and `/bio` narratives; those routes use `EditorialWorkCard`, `ProjectCover`, and `ProjectTextRow` as described above. Homepage and `/work` project cards use `object-cover` in their aspect frames; adjust focal position when a crop would clip the subject. Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
+Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` or `presentation="editorial"` (editorial layout with package images). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. Do not use `ProjectEvidence` for the `/ai`, `/web3`, and `/bio` narratives; those routes use `EditorialWorkCard`, `ProjectCover`, and `ProjectTextRow` as described above. Homepage and `/work` project cards use `object-cover` in their aspect frames; adjust focal position when a crop would clip the subject. Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
 
 ## Contact (`/contact`)
 

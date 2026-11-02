@@ -30,7 +30,6 @@ export default function BioPage() {
         className={narrativeSectionGap}
         limit={4}
         title="Selected writing"
-        variant="editorial"
       />
 
       <section className={narrativeSectionGap}>

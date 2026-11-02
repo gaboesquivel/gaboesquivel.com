@@ -98,7 +98,6 @@ export default function HomePage() {
         <LatestPosts
           limit={4}
           title="Writing"
-          variant="editorial"
           action={
             <Link href="/blog" className={sectionAction}>
               More writing

@@ -1,32 +1,15 @@
-import { BlogPostCard } from "components/blog/blog-post-card";
 import { EditorialBlogList } from "components/blog/editorial-blog-list";
-import { CardGrid } from "components/shared/card-grid";
 import { blockSpacing } from "components/shared/spacing";
 import type { Blog } from "lib/blog";
 
 export function BlogPostsMasonry({
   posts,
-  identifier = "posts",
-  variant = "card",
   className,
 }: {
   posts: Blog[];
-  identifier?: string;
-  variant?: "card" | "editorial";
   className?: string;
 }) {
-  if (variant === "editorial") {
-    return (
-      <EditorialBlogList posts={posts} className={className ?? blockSpacing} />
-    );
-  }
-
   return (
-    <CardGrid
-      items={posts}
-      identifier={identifier}
-      getKey={(post) => post.slug}
-      renderItem={(post) => <BlogPostCard post={post} />}
-    />
+    <EditorialBlogList posts={posts} className={className ?? blockSpacing} />
   );
 }

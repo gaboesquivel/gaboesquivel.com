@@ -94,7 +94,6 @@ export default function AIExperiencePage() {
         className={narrativeSectionGap}
         limit={4}
         title="Writing about AI products"
-        variant="editorial"
       />
 
       <section className={narrativeSectionGap}>

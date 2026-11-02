@@ -244,13 +244,9 @@ export function ProjectCaseStudy({
       ) : null}
 
       {relatedSlugs ? (
-        <LatestPosts
-          slugs={relatedSlugs}
-          title="Related writing"
-          variant="editorial"
-        />
+        <LatestPosts slugs={relatedSlugs} title="Related writing" />
       ) : (
-        <LatestPosts variant="editorial" />
+        <LatestPosts />
       )}
     </InteriorPageShell>
   );

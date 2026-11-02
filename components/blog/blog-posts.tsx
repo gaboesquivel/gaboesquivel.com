@@ -104,12 +104,7 @@ export function BlogPosts({
       {showPublicationIndex ? (
         <WritingIndex posts={paginatedPosts} showFeatured />
       ) : (
-        <BlogPostsMasonry
-          className={blockSpacing}
-          posts={paginatedPosts}
-          identifier={currentCategory}
-          variant="editorial"
-        />
+        <BlogPostsMasonry className={blockSpacing} posts={paginatedPosts} />
       )}
       <BlogPagination
         category={currentCategory}

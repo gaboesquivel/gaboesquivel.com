@@ -32,7 +32,6 @@ const siteIdentityExports: Record<string, string> = {
 };
 
 const SKIP_COMPONENTS = new Set([
-  "PageImage",
   "ContactForm",
   "PrintButton",
   "FilterNav",
@@ -427,17 +426,6 @@ const jsxNodeToMarkdown = (
       lines.push(
         `- [${String(title)}](${absoluteUrl(String(href))})${description}`
       );
-      return;
-    }
-
-    if (tagName === "ProjectFigure") {
-      const slug = getJsxAttributeValue(attributes, "slug", variables);
-      if (typeof slug === "string") {
-        const project = getProjectBySlug(slug);
-        if (project) {
-          lines.push(`[Explore ${project.title}](/project/${slug})`, "");
-        }
-      }
       return;
     }
 
