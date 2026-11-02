@@ -9,7 +9,7 @@ export function ArticleTocNav({ items }: { items: readonly BlogTocItem[] }) {
   const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);
   // While a TOC click scrolls the page, the clicked item stays current.
   const clickLock = useRef(false);
-  const releaseTimer = useRef<number | undefined>();
+  const releaseTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const headings = items.flatMap((item) => {
@@ -49,10 +49,10 @@ export function ArticleTocNav({ items }: { items: readonly BlogTocItem[] }) {
       if (released) return;
       released = true;
       clickLock.current = false;
-      window.clearTimeout(releaseTimer.current);
+      window.clearTimeout(releaseTimer.current ?? undefined);
       window.removeEventListener("scrollend", release);
     };
-    window.clearTimeout(releaseTimer.current);
+    window.clearTimeout(releaseTimer.current ?? undefined);
     window.addEventListener("scrollend", release, { once: true });
     // Fallback when the target is already in place or scrollend is unsupported.
     releaseTimer.current = window.setTimeout(release, 1000);
