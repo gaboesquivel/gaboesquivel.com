@@ -12,8 +12,7 @@ export const ogColors = {
   accent: "#5cded6",
 } as const;
 
-export const personalPortraitPath =
-  "assets/homepage/gaboesquivel-homepage-master.webp";
+export const personalPortraitPath = "public/images/gabo-portrait.webp";
 
 export const personalOgUrl = "/og";
 

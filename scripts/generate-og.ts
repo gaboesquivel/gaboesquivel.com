@@ -37,7 +37,7 @@ const writeBlogImages = async () => {
     if (post.ogImage) continue;
     const buffer = await articleOgPngBuffer({
       title: post.title,
-      slug: post.slug,
+      summary: post.summary,
     });
     const out = path.join(outDir, `${post.slug}.png`);
     await writeFile(out, buffer);
