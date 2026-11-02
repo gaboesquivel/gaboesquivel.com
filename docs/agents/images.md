@@ -96,7 +96,21 @@ A turquoise bar runs across the top edge. Right-side artwork: the live homepage 
 
 **Generation:** `bun run og:generate` (`scripts/generate-og.ts`). Reproduces the personal PNG, per-post editorial blog OG images under `public/images/og/blog/`, and project OG derivatives under `public/images/og/projects/`. Also runs in `bun run build` after Velite.
 
-**Serving:** Next.js file-based metadata uses `app/opengraph-image.png`. `app/og/route.ts` returns the same PNG bytes at `/og` for Twitter default (`summary_large_image`) without remote fetch or secondary rendering.
+**Serving:** `app/og/route.ts` returns the bytes of `app/opengraph-image.png` at `/og` without remote fetch or secondary rendering. The homepage and the `pageMetadata` fallback point at `/og`. The file-based `app/opengraph-image.png` only reaches routes that set no Open Graph images of their own; do not rely on it, because `next dev` resolves it against the request host (localhost) rather than `metadataBase`.
+
+## Which route uses which OG source
+
+Every route emits `og:image` and `twitter:image` as an absolute `https://gaboesquivel.com` URL to a 1200 × 630 PNG.
+
+| Route | Source |
+| --- | --- |
+| `/` | Personal card at `/og` |
+| `/work`, `/work/[type]`, `/ai`, `/web3`, `/bio`, `/blog`, `/blog/category/[category]`, capability pages, `/tech`, `/tech/[category]`, `/explore`, `/about`, `/contact`, `/privacy`, `/docs`, `/cv` (every `focus`) | Landing card at `public/images/og/pages/{path}.png` ([Landing OG](#landing-og)) |
+| `/blog/[slug]` | Frontmatter `ogImage`, else `public/images/og/blog/{slug}.png` ([Blog OG](#blog-og)) |
+| `/project/[slug]` | `public/images/og/projects/{slug}.png` when the project has an `image`, else `/og` |
+| Any other `pageMetadata` page | Explicit `images`, else its landing card, else `/og` |
+
+`lib/page-metadata.ts` applies that order; `lib/og/resolve.ts` builds the blog and project URLs.
 
 ## Landing OG
 
