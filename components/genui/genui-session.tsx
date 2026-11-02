@@ -2,7 +2,7 @@
 
 import type { CapabilityCaller } from "lib/genui/write-flow";
 
-import { GenuiDraftProvider } from "./genui-draft-context";
+import { GenuiDraftProvider, useGenuiDraft } from "./genui-draft-context";
 import type { BookingDraft, NoteDraft } from "./genui-draft-context";
 import { GenuiInteractionProvider } from "./genui-interaction-context";
 
@@ -46,3 +46,26 @@ export const GenuiSessionProvider = ({
     </GenuiInteractionProvider>
   </GenuiDraftProvider>
 );
+
+/**
+ * Quiet record of accepted writes, mounted outside the generated result tree
+ * so it survives a later answer replacing the form (the in-place receipt
+ * carries the detail and the announcement).
+ */
+export const GenuiReceipt = ({ className }: { className?: string }) => {
+  const { receipts } = useGenuiDraft();
+  const lines = [receipts.booking, receipts.note].flatMap((receipt) =>
+    receipt ? [receipt.summary] : []
+  );
+  if (lines.length === 0) return null;
+  return (
+    <ul
+      className={className ?? "mt-3 space-y-1 text-xs text-neutral-400"}
+      data-genui-receipt-line
+    >
+      {lines.map((line) => (
+        <li key={line}>{line}</li>
+      ))}
+    </ul>
+  );
+};

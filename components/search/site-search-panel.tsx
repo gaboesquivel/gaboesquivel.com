@@ -6,6 +6,7 @@ import {
   genuiSuggestionsOpenHint,
 } from "components/genui/genui-search-combobox";
 import {
+  GenuiReceipt,
   GenuiSessionProvider,
   genuiWritesEnabled,
 } from "components/genui/genui-session";
@@ -201,6 +202,7 @@ export function SiteSearchPanel({
       {showGenui ? (
         <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
           <div className="mt-4 max-h-[min(70dvh,40rem)] overflow-x-hidden overflow-y-auto">
+            <GenuiReceipt className="mb-3 space-y-1 text-xs text-neutral-400" />
             <GeneratedRegion
               complete={genui.complete}
               envelope={genui.envelope}

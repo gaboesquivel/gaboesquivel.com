@@ -24,6 +24,8 @@ export interface BookingDraft {
 export interface WriteReceipt {
   lines: string[];
   message: string;
+  /** Short line kept under the prompt after the result tree is replaced. */
+  summary: string;
 }
 
 export type WriteKind = "booking" | "note";
@@ -97,7 +99,7 @@ export const GenuiDraftProvider = ({
         setNoteState(emptyNote());
         setBookingState(emptyBooking());
         setAttempts(freshAttempts());
-        setReceipts(noReceipts());
+        // Accepted writes keep their receipt; reset clears unsent drafts only.
       },
       note,
       receipts,

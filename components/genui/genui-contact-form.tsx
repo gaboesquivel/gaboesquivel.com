@@ -56,6 +56,7 @@ export const GenuiContactForm = () => {
       if (isSettledWrite(payload)) {
         setReceipt("note", {
           lines: [`${input.name} · ${input.email}`],
+          summary: `Note sent from ${input.email}`,
           message: `Note sent. Gabo will reply to ${input.email}.`,
         });
         return;
