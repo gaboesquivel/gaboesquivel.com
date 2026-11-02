@@ -253,6 +253,7 @@ for (const { name: surface, path } of surfaces) {
       await expect(page.locator("[data-search-state=error]")).toContainText(
         "Daily search limit reached."
       );
+      await expect(status(page)).toHaveText("Daily search limit reached.");
     });
 
     test("the server deadline shows the timed-out copy", async ({ page }) => {
@@ -278,6 +279,7 @@ for (const { name: surface, path } of surfaces) {
       await expect(page.locator("[data-search-state=error]")).toContainText(
         searchCopy.errorTimedOut
       );
+      await expect(status(page)).toHaveText(searchCopy.errorTimedOut);
     });
   });
 }
