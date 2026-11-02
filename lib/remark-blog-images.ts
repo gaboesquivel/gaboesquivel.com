@@ -13,10 +13,28 @@ const diagramSize = ({ src }: { src: string }) => {
   return { height: viewBox[2], width: viewBox[1] };
 };
 
+const isWhitespace = (node: { type: string; value?: string }) =>
+  node.type === "text" && !node.value?.trim();
+
+/** Hoist images out of image-only paragraphs so `<figure>` never renders inside `<p>`. */
+const unwrapImageParagraphs = (tree: Root) => {
+  visit(tree as never, "paragraph", (node, index, parent) => {
+    const paragraph = node as Parent;
+    const container = parent as Parent | undefined;
+    if (index === undefined || !container) return;
+    const images = paragraph.children.filter((child) => !isWhitespace(child));
+    if (images.length === 0 || images.some((child) => child.type !== "image"))
+      return;
+    container.children.splice(index, 1, ...images);
+    return index + images.length;
+  });
+};
+
 export const remarkBlogImages = () => {
   let firstImage = true;
 
   return (tree: Root) => {
+    unwrapImageParagraphs(tree);
     // unist-util-visit pulls a second @types/unist copy; mdast Root is fine at runtime.
     visit(tree as never, "image", (node, index, parent) => {
       const image = node as Image;

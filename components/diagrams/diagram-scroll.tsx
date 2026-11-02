@@ -42,7 +42,7 @@ export function DiagramScroll({
         {children}
       </div>
       <figcaption
-        className="mt-2 flex items-center justify-between gap-4 text-xs tracking-wide text-neutral-500 md:hidden"
+        className="mt-2 flex items-center justify-between gap-4 text-xs tracking-wide text-neutral-400 md:hidden"
         id={hintId}
       >
         <span>Scroll horizontally to read the full diagram.</span>

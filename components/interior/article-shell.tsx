@@ -33,11 +33,11 @@ export function ArticleShell({
             : cn("article-layout-centered mx-auto", articleProseColumn)
         )}
       >
+        {hasToc ? <ArticleTocNav items={toc} /> : null}
         <div className="article-layout-main min-w-0">
           {header}
           {children}
         </div>
-        {hasToc ? <ArticleTocNav items={toc} /> : null}
       </div>
     </InteriorPageShell>
   );
