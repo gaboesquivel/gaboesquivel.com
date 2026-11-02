@@ -83,7 +83,7 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `blog` (`components/layout/navbar.tsx`). `/ask` is not a nav item.
 - `/ask` redirects to `/`. Connect transcript styles in `app/connect/` are not mounted on that route.
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
-- Page and project media: 16:9, `rounded-lg`, via `projectMedia`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
+- Page and project media: 16:9, `rounded-lg`, via `projectMedia`. Project covers use `object-cover`; per-slug focal positions and the intrinsic-width cap for small legacy sources live in `lib/work/project-cover.ts`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
 
 ## AI, Web3, and biography pages
 
