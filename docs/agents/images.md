@@ -98,6 +98,12 @@ A turquoise bar runs across the top edge. Right-side artwork: the live homepage 
 
 **Serving:** Next.js file-based metadata uses `app/opengraph-image.png`. `app/og/route.ts` returns the same PNG bytes at `/og` for Twitter default (`summary_large_image`) without remote fetch or secondary rendering.
 
+## Landing OG
+
+Every landing page except the homepage gets the homepage card layout with its own headline in place of the H1: `/blog` reads "Blog", `/work/ai` reads "Applied AI.", `/tech/react` reads "React", and so on. `lib/og/landing.ts` lists every path and its headline; the dynamic sets (work types, blog categories, tech categories, and technologies) come from the same data as their routes' `generateStaticParams`. The headline is as large as fits the left column (72px over 2 lines, then 60, 48, and 40px over 3 lines). `pageMetadata` uses the page's card when the page passes no `images`; `/cv` reads it directly. `lib/og/landing.test.ts` fails when a static route has no card.
+
+`bun run og:generate` writes the cards to `public/images/og/pages/` (about 100 cards, 27 MB). That folder is gitignored and is regenerated in every `bun run build`; run `og:generate` locally to preview a card. When adding a page, add its path and headline to `lib/og/landing.ts`.
+
 ## Blog OG
 
 Every post without `ogImage` gets the same 1200 × 630 card from `lib/og/generate-article.ts`: an 8px turquoise top bar; the title in white IBM Plex Mono, as large as fits without truncation (84px over 2 lines, then 72, 60, and 52px over 3 lines, truncated with an ellipsis only at 52px); the frontmatter `summary` in gray at 28px, up to 3 lines with an ellipsis; and a footer with `Gabo Esquivel` in gray on the left and `gaboesquivel.com` in turquoise on the right. Posts do not get per-post diagrams.

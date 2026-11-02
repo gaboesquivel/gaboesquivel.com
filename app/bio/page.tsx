@@ -13,7 +13,6 @@ import {
   sectionTitle,
 } from "components/shared/spacing";
 import { pageMetadata } from "lib/page-metadata";
-import { portraitSrc } from "lib/portrait-overlay";
 import { cn } from "lib/utils";
 import Link from "next/link";
 
@@ -69,12 +68,6 @@ export default function BioPage() {
 export const metadata = pageMetadata({
   description:
     "From Costa Rica JS and Wink to Web3 products and AI assistants, explore the career and product engineering approach of Gabo Esquivel.",
-  images: [
-    {
-      url: portraitSrc,
-      alt: "Gabo Esquivel",
-    },
-  ],
   path: "/bio",
   title: "Gabo Esquivel | My journey",
 });

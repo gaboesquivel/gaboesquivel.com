@@ -156,12 +156,6 @@ export default function Web3ExperiencePage() {
 export const metadata = pageMetadata({
   description:
     "Gabo Esquivel builds Web3 products across wallets, blockchain signing, token auctions, indexing, and trading, including work on ZTX and Bitlauncher.",
-  images: [
-    {
-      url: "/images/work/ztx.png",
-      alt: "ZTX virtual world experience",
-    },
-  ],
   path: "/web3",
   title: "Web3 Engineering | Gabo Esquivel",
 });

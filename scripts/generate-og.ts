@@ -6,8 +6,9 @@ import { projects } from "gaboesquivel";
 import { blogs } from "#velite";
 
 import { articleOgPngBuffer } from "../lib/og/generate-article";
-import { compositePersonalOgPng } from "../lib/og/generate-personal";
+import { homeHeadline, landingOgPng } from "../lib/og/generate-landing";
 import { projectOgPngBuffer } from "../lib/og/generate-project";
+import { landingOgDir, landingOgFile, landingOgPages } from "../lib/og/landing";
 import { projectOgPublicSourcePath } from "../lib/og/resolve";
 import { siteOrigin } from "../lib/site-path";
 
@@ -15,8 +16,20 @@ const root = path.join(import.meta.dir, "..");
 
 const writePersonal = async () => {
   const pngOut = path.join(root, "app/opengraph-image.png");
-  await writeFile(pngOut, await compositePersonalOgPng({ root }));
+  await writeFile(pngOut, await landingOgPng({ root, headline: homeHeadline }));
   console.log(`Wrote ${path.relative(root, pngOut)}`);
+};
+
+const writeLandingImages = async () => {
+  const outDir = path.join(root, "public", landingOgDir);
+  await mkdir(outDir, { recursive: true });
+
+  const pages = landingOgPages();
+  for (const [pagePath, headline] of pages) {
+    const buffer = await landingOgPng({ root, headline });
+    await writeFile(path.join(outDir, landingOgFile(pagePath)), buffer);
+  }
+  console.log(`Wrote ${pages.size} landing OG images`);
 };
 
 const writeBlogImages = async () => {
@@ -54,5 +67,6 @@ const writeProjectImages = async () => {
 };
 
 await writePersonal();
+await writeLandingImages();
 await writeBlogImages();
 await writeProjectImages();

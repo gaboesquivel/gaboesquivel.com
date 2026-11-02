@@ -15,7 +15,7 @@ import {
 import { resolveCv as resolveCvBase } from "gaboesquivel";
 import { cvPath, cvPdfFile } from "lib/cv-paths";
 import { markdownSiblingPath } from "lib/markdown-sibling";
-import { personalOgImage } from "lib/og/constants";
+import { landingOgImages } from "lib/og/landing";
 import { cn } from "lib/utils";
 import type { Metadata } from "next";
 import { cache } from "react";
@@ -225,6 +225,8 @@ export async function generateMetadata({
   const isPreviewPrint =
     previewParam({ preview: resolved?.preview }) === "print";
 
+  const images = landingOgImages("/cv");
+
   return {
     alternates: {
       canonical: "/cv",
@@ -234,14 +236,14 @@ export async function generateMetadata({
     keywords: variant.metadata.keywords,
     openGraph: {
       ...variant.metadata.openGraph,
-      images: [personalOgImage],
+      images,
       type: "profile",
     },
     title: variant.metadata.title,
     twitter: {
       card: "summary_large_image",
       description: variant.metadata.description,
-      images: [personalOgImage.url],
+      images,
       title: variant.metadata.title,
     },
     ...(isPreviewPrint ? { robots: { follow: false, index: false } } : {}),

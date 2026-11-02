@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { markdownSiblingPath } from "./markdown-sibling";
+import { landingOgImages } from "./og/landing";
 
 export const pageMetadata = ({
   title,
@@ -17,31 +18,34 @@ export const pageMetadata = ({
     height?: number;
     alt?: string;
   }[];
-}): Metadata => ({
-  title,
-  description,
-  ...(path
-    ? {
-        alternates: {
-          canonical: path,
-          types: { "text/markdown": markdownSiblingPath(path) },
-        },
-      }
-    : {}),
-  openGraph: {
-    description,
+}): Metadata => {
+  const ogImages = images ?? (path ? landingOgImages(path) : undefined);
+  return {
     title,
-    type: "website",
-    ...(path ? { url: path } : {}),
-    ...(images ? { images } : {}),
-  },
-  twitter: {
-    card: "summary_large_image",
     description,
-    title,
-    ...(images ? { images } : {}),
-  },
-});
+    ...(path
+      ? {
+          alternates: {
+            canonical: path,
+            types: { "text/markdown": markdownSiblingPath(path) },
+          },
+        }
+      : {}),
+    openGraph: {
+      description,
+      title,
+      type: "website",
+      ...(path ? { url: path } : {}),
+      ...(ogImages ? { images: ogImages } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      description,
+      title,
+      ...(ogImages ? { images: ogImages } : {}),
+    },
+  };
+};
 
 export const metadataWithMarkdownAlternate = ({
   metadata,
