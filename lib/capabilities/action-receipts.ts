@@ -73,10 +73,7 @@ export const rejectChangedPayload = async ({
   }
   if (!bound) await store.set(identityKey, payloadHash);
   const existing = await loadReceipt({ operation, payload, store });
-  if (existing?.status === "confirmed") {
-    return { existing, ok: true as const, replay: true as const };
-  }
-  if (existing?.status === "pending") {
+  if (existing?.status === "confirmed" || existing?.status === "pending") {
     return { existing, ok: true as const, replay: true as const };
   }
   return { ok: true as const, replay: false as const };

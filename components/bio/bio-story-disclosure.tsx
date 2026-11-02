@@ -4,17 +4,14 @@ import { getProjectBySlug } from "gaboesquivel";
 import type { BioChapter } from "lib/bio/chapters";
 import { cn } from "lib/utils";
 import Link from "next/link";
-import type { ReactNode } from "react";
 
 const actionLink = cn(ctaLink, editorialLink, "text-sm");
 
 export function BioStoryDisclosure({
   chapter,
-  children,
   groundedProjectIds,
 }: {
   chapter: BioChapter;
-  children?: ReactNode;
   /** When set, only list projects present in GenUI evidence. */
   groundedProjectIds?: readonly string[];
 }) {
@@ -30,8 +27,7 @@ export function BioStoryDisclosure({
   const hasExpandedBody =
     chapter.expandedParagraphs.length > 0 ||
     chapter.links.length > 0 ||
-    projects.length > 0 ||
-    Boolean(children);
+    projects.length > 0;
 
   if (!hasExpandedBody) return null;
 
@@ -59,7 +55,6 @@ export function BioStoryDisclosure({
             paragraph={paragraph}
           />
         ))}
-        {children}
         {groundedProjectIds && projects.length > 0 ? (
           <ul className="space-y-4">
             {projects.map((project) => (

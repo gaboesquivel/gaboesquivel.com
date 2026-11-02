@@ -1,22 +1,10 @@
-import { loadBlogPosts } from "./blog";
-import type { MarkdownRouteContext } from "./markdown-route";
-import { getMarkdownForPath } from "./markdown-route";
-import { loadNarrativePages } from "./pages";
-import { sortProjects, sortTech } from "./projects";
-import { buildRouteManifest } from "./routes";
+import { defaultContext, getMarkdownForPath } from "./markdown-route";
 
 export const buildMarkdownCorpus = () => {
-  const manifest = buildRouteManifest();
-  const context: MarkdownRouteContext = {
-    manifest,
-    pages: loadNarrativePages(),
-    posts: loadBlogPosts(),
-    projects: sortProjects(),
-    tech: sortTech(),
-  };
+  const context = defaultContext();
   const corpus: Record<string, string> = {};
 
-  for (const routeKey of manifest) {
+  for (const routeKey of context.manifest) {
     const qIndex = routeKey.indexOf("?");
     const pathname = qIndex === -1 ? routeKey : routeKey.slice(0, qIndex);
     const search = qIndex === -1 ? "" : routeKey.slice(qIndex + 1);

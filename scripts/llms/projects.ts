@@ -44,11 +44,9 @@ export const sortProjects = () => {
 };
 
 export const sortTech = () =>
-  visibleTechStack([...techStack]).sort((a, b) => {
-    const aOrder = (a as TechStackItem & { featuredOrder?: number })
-      .featuredOrder;
-    const bOrder = (b as TechStackItem & { featuredOrder?: number })
-      .featuredOrder;
+  visibleTechStack(techStack).sort((a, b) => {
+    const aOrder = a.featuredOrder;
+    const bOrder = b.featuredOrder;
     if (aOrder !== undefined && bOrder !== undefined) {
       return aOrder - bOrder;
     }
@@ -158,4 +156,4 @@ export const renderTechMarkdown = (tech: TechStackItem) => {
   return lines.join("\n").trim();
 };
 
-export { featuredProjectSlugs, projects, techStack };
+export { featuredProjectSlugs };

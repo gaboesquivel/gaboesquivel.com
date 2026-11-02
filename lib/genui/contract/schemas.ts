@@ -56,16 +56,3 @@ export const cvExperiencePropsSchema = z.object({
 export const experienceStackPropsSchema = z.object({
   children: z.array(z.unknown()).default([]),
 });
-
-export const experiencePropsByName = {
-  AboutExperience: aboutExperiencePropsSchema,
-  TimelineExperience: timelineExperiencePropsSchema,
-  Answer: answerPropsSchema,
-  BookingExperience: bookingExperiencePropsSchema,
-  CapabilityShowcaseExperience: capabilityShowcasePropsSchema,
-  ContactExperience: contactExperiencePropsSchema,
-  CVExperience: cvExperiencePropsSchema,
-  ExperienceStack: experienceStackPropsSchema,
-  ProjectExperience: projectExperiencePropsSchema,
-  WritingExperience: writingExperiencePropsSchema,
-} as const;

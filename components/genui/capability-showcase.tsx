@@ -29,7 +29,6 @@ export const CapabilityShowcase = ({
       postIds={records
         .filter((record) => record.kind === "post")
         .map((record) => record.id)}
-      records={records}
     />
   </div>
 );

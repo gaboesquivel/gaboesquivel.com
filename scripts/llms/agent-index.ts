@@ -186,5 +186,5 @@ export const buildAgentIndex = ({
     title: "Curriculum Vitae",
   });
 
-  return [...pages, ...projects, ...tech, ...posts, jobs, cv].flat();
+  return [...pages, ...projects, ...tech, ...posts, ...jobs, cv];
 };

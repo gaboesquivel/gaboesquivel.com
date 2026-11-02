@@ -190,12 +190,10 @@ const taskDocuments = ({
         .join(". ");
       return {
         documents: [
-          answerDocument({
-            body: `This compares published catalog slices, not a ranking. ${counts}. ${catalogScope}`,
-            records: [],
-            requestId,
-            sourceIds: [],
-          }),
+          limitation(
+            `This compares published catalog slices, not a ranking. ${counts}. ${catalogScope}`,
+            requestId
+          ),
         ],
         execution,
       };
@@ -214,12 +212,10 @@ const taskDocuments = ({
     if (!execution.projects.length) {
       return {
         documents: [
-          answerDocument({
-            body: `0 published portfolio records match this request. ${catalogScope}`,
-            records: [],
-            requestId,
-            sourceIds: [],
-          }),
+          limitation(
+            `0 published portfolio records match this request. ${catalogScope}`,
+            requestId
+          ),
         ],
         execution,
       };
@@ -499,7 +495,7 @@ export const composePlannedDocument = ({
       relationship: item.relationship,
       taskId: item.task.id,
     })),
-    envelope: validated.ok ? envelope : documents[0],
+    envelope,
     executions: rendered.flatMap((item) =>
       item.execution ? [item.execution] : []
     ),

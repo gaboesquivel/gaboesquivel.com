@@ -2,7 +2,7 @@ import sharp from "sharp";
 
 import { articleOgVisualBySlug, articleVisualSvg } from "./article-visuals";
 import type { ArticleOgVisualKey } from "./article-visuals";
-import { ogColors, ogHeight, ogWidth } from "./constants";
+import { ogColors } from "./constants";
 import { articleBrandingSvg, wrapSvg } from "./svg";
 import { pickTitleLayout } from "./typography";
 
@@ -56,8 +56,3 @@ export const articleOgPngBuffer = async ({
     .png({ compressionLevel: 9 })
     .toBuffer();
 };
-
-export const articleOgDimensions = () => ({
-  width: ogWidth,
-  height: ogHeight,
-});

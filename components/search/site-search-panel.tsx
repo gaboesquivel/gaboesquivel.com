@@ -183,14 +183,12 @@ export function SiteSearchPanel({
         </form>
       )}
       {variant === "home" ? (
-        <noscript>
-          <p className="mt-3 text-sm text-neutral-300">
-            Search needs JavaScript. Browse <SearchBrowseLinks />.
-          </p>
-        </noscript>
-      ) : null}
-      {variant === "home" ? (
         <>
+          <noscript>
+            <p className="mt-3 text-sm text-neutral-300">
+              Search needs JavaScript. Browse <SearchBrowseLinks />.
+            </p>
+          </noscript>
           <p role="status" className="sr-only">
             {submitted ? `${matches.length} results for ${submitted}` : ""}
           </p>

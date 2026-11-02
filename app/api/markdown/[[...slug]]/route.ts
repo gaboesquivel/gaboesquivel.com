@@ -12,9 +12,7 @@ export const runtime = "nodejs";
 const prefix = "/api/markdown";
 
 const pagePathFromApiPathname = (pathname: string) =>
-  pathname === prefix || pathname === `${prefix}/`
-    ? "/"
-    : pathname.slice(prefix.length) || "/";
+  pathname.slice(prefix.length) || "/";
 
 const resolveRequestTarget = (req: Request) => {
   const { pathname, search } = new URL(req.url);

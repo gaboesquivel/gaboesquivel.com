@@ -34,31 +34,23 @@ export function ProjectCard({
       href={`/project/${project.slug}`}
     >
       {image ? (
-        wide ? (
-          <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[21/9]">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              preload={priority}
-              fetchPriority={priority ? "high" : undefined}
-              sizes={wideProjectCardSizes}
-              className={cn("object-cover", imageHover)}
-            />
-          </div>
-        ) : (
-          <div className="relative aspect-video overflow-hidden">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              preload={priority}
-              fetchPriority={priority ? "high" : undefined}
-              sizes={projectCardSizes}
-              className={cn("object-cover", imageHover)}
-            />
-          </div>
-        )
+        <div
+          className={
+            wide
+              ? "relative aspect-[16/10] overflow-hidden sm:aspect-[21/9]"
+              : "relative aspect-video overflow-hidden"
+          }
+        >
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            preload={priority}
+            fetchPriority={priority ? "high" : undefined}
+            sizes={wide ? wideProjectCardSizes : projectCardSizes}
+            className={cn("object-cover", imageHover)}
+          />
+        </div>
       ) : null}
       <div className="flex-grow p-4">
         <h3 className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">

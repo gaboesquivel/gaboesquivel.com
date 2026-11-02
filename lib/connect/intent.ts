@@ -86,10 +86,7 @@ export const toolsForTurn = ({
   assistantTexts?: string[];
   texts: string[];
 }) => {
-  const cleaned = texts
-    .map(stripMarker)
-    .map((text) => text.trim())
-    .filter(Boolean);
+  const cleaned = texts.map(stripMarker).filter(Boolean);
   const latestRaw = texts.at(-1) ?? "";
   const latestMarker = markerIntent(latestRaw);
   if (

@@ -41,6 +41,3 @@ export const noteSchema = z.object({
   email,
   name,
 });
-
-export type BookInput = z.infer<typeof bookSchema>;
-export type NoteInput = z.infer<typeof noteSchema>;

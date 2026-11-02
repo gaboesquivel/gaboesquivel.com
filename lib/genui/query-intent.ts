@@ -22,7 +22,6 @@ import type { CompositionEnvelope } from "./envelope";
 import { explainExperienceDocument } from "./explain-experience";
 import { normalizeGenuiQuery } from "./normalize-query";
 import { orderBrowseProjects } from "./project-browse";
-import type { GenuiProjectDomain } from "./project-domain";
 import { filterProjectsByDomain } from "./project-domain";
 import { projectsMatchingQuery } from "./project-query-match";
 import { projectToPublicRecord } from "./public-records";
@@ -78,14 +77,6 @@ const wantsUnpublished = (query: string) =>
 const wantsFabrication = (query: string) =>
   /\beven if you only have\b/i.test(query) ||
   /\bfive ai projects\b/i.test(query);
-
-export const browseProjectsDocument = ({
-  domain,
-  requestId,
-}: {
-  domain: GenuiProjectDomain;
-  requestId: string;
-}) => browseProjectsEnvelope({ domain, requestId });
 
 /** Fixed answers for unsafe, live-data, and fabrication requests. Query text is not copied into the document. */
 export const safetyDocument = ({
@@ -304,7 +295,7 @@ export const composeIntentDocument = ({
     domain &&
     (taskIntent === "browse-projects" || wantsBrowseProjects(trimmed))
   ) {
-    return browseProjectsDocument({
+    return browseProjectsEnvelope({
       domain,
       requestId,
     });

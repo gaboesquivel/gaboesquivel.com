@@ -6,10 +6,7 @@ const root = path.join(import.meta.dir, "..");
 const scanRoots = ["app", "components", "lib"] as const;
 
 const skipDir = (name: string) =>
-  name === "node_modules" ||
-  name === "ui" ||
-  name === ".next" ||
-  name.startsWith(".");
+  name === "node_modules" || name === "ui" || name.startsWith(".");
 
 const forbidden = [
   /from\s+["']motion\/react["']/,
@@ -24,7 +21,6 @@ const walk = async (dir: string): Promise<string[]> => {
   for (const entry of entries) {
     if (entry.isDirectory()) {
       if (skipDir(entry.name)) continue;
-      if (dir.endsWith("components") && entry.name === "ui") continue;
       files.push(...(await walk(path.join(dir, entry.name))));
       continue;
     }

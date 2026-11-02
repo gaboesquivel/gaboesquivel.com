@@ -199,10 +199,7 @@ const recentTitles = (sections: RankSection[]) => {
 const best = (
   scored: { score: number; section: RankSection }[],
   kind: RankSection["kind"]
-) =>
-  scored
-    .filter((item) => item.section.kind === kind)
-    .sort((a, b) => b.score - a.score)[0]?.section;
+) => scored.find((item) => item.section.kind === kind)?.section;
 
 export const rankSections = ({
   bodies,
@@ -294,10 +291,7 @@ export const rankSections = ({
 
   const top = scored[0]?.section;
   if (!top) return { paste: "", paths: [] as string[] };
-  const second =
-    top.kind === "project"
-      ? undefined
-      : scored.find((item) => item.section !== top)?.section;
+  const second = scored.find((item) => item.section !== top)?.section;
   return takeFitting({
     bodies,
     sections: [top, second].filter((section): section is RankSection =>

@@ -28,12 +28,9 @@ export const narrativeCopy = "text-base leading-[1.75] text-neutral-300";
 export const articleLayoutRegion = "w-full max-w-6xl";
 
 export const interiorSectionGap = "mt-16 lg:mt-20";
-export const interiorMajorGap = "mt-20 lg:mt-28";
 
 /** Article grid: prose column + optional TOC rail (xl+). */
 export const articleProseColumn = "max-w-[52rem] min-w-0 w-full";
-export const articleTocRail =
-  "hidden xl:block w-[min(17rem,100%)] shrink-0 min-w-0";
 
 export const editorialGrid12 =
   "grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-x-8 xl:gap-x-10";

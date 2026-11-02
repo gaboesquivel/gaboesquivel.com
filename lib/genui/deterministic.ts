@@ -12,7 +12,7 @@ import { composeSearchSections } from "./compose-search";
 import { chooseProjectComposite, chooseWritingComposite } from "./composites";
 import { composeCuratedDocument } from "./curated-responses";
 import { domainFromQuery } from "./domain-from-query";
-import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import type { CompositionEnvelope } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
 import { normalizeGenuiQuery } from "./normalize-query";
 import { orderBrowseProjects } from "./project-browse";

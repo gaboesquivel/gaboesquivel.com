@@ -240,23 +240,24 @@ export const parseCatalogOperation = (query: string) => {
   };
 };
 
+const noFilter: TaskFilter = {
+  domains: [],
+  excludeDomains: [],
+  excludeProjectIds: [],
+  excludeTechnologies: [],
+  excludeWeb3Family: false,
+  namedProjectIds: [],
+  technologies: [],
+  types: [],
+  unresolved: [],
+};
+
 export const executeCatalogOperation = (query: string) => {
   const operation = parseCatalogOperation(query);
   if (!operation) return null;
   if (operation.kind === "count" && operation.domain === "all") {
     const execution = executeTaskFilter({
-      filter: {
-        domains: [],
-        excludeDomains: [],
-        excludeProjectIds: [],
-        excludeTechnologies: [],
-        excludeWeb3Family: false,
-        limit: undefined,
-        namedProjectIds: [],
-        technologies: [],
-        types: [],
-        unresolved: [],
-      },
+      filter: noFilter,
       operationType: "count",
     });
     return {
@@ -270,15 +271,8 @@ export const executeCatalogOperation = (query: string) => {
   if (operation.kind === "count") {
     const execution = executeTaskFilter({
       filter: {
+        ...noFilter,
         domains: [operation.domain === "all" ? "ai" : operation.domain],
-        excludeDomains: [],
-        excludeProjectIds: [],
-        excludeTechnologies: [],
-        excludeWeb3Family: false,
-        namedProjectIds: [],
-        technologies: [],
-        types: [],
-        unresolved: [],
       },
       operationType: "count",
     });
@@ -297,15 +291,9 @@ export const executeCatalogOperation = (query: string) => {
   if (resolved.status !== "resolved") return null;
   const execution = executeTaskFilter({
     filter: {
-      domains: [],
-      excludeDomains: [],
-      excludeProjectIds: [],
-      excludeTechnologies: [],
+      ...noFilter,
       excludeWeb3Family: operation.excludeWeb3,
-      namedProjectIds: [],
       technologies: [resolved.tag],
-      types: [],
-      unresolved: [],
     },
     operationType: "filter",
   });

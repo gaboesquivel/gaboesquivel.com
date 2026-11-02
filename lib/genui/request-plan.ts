@@ -1,7 +1,6 @@
 import { siteOrigin } from "lib/site-path";
 
 import { executeCatalogOperation } from "./catalog-operation";
-import type { CatalogExecution } from "./catalog-operation";
 import { postRecord, profileRecord, publishedPosts } from "./content-records";
 import type { PublicRecord } from "./envelope";
 import { namedProjectsInText } from "./named-projects";
@@ -141,15 +140,3 @@ export const retrievePlanEvidence = (plan: RequestPlan): PublicRecord[] => {
     ...new Map(records.map((record) => [record.id, record])).values(),
   ].slice(0, 12);
 };
-
-export const executionSummary = (execution: CatalogExecution) => ({
-  displayedCount: execution.displayedCount,
-  displayedIds: execution.displayedIds.slice(0, 12),
-  exclusion: execution.exclusion,
-  matchedCount: execution.matchedCount,
-  omittedIds: execution.omittedIds.slice(0, 12),
-  operationType: execution.operationType,
-  scope: execution.scope,
-  systemOfRecord: execution.systemOfRecord,
-  unresolved: execution.unresolved,
-});

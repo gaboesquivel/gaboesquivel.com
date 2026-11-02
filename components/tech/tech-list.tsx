@@ -55,8 +55,6 @@ export function TechList({
       if (aOrder !== bOrder) {
         return aOrder - bOrder;
       }
-
-      return bProjects - aProjects;
     }
 
     return bProjects - aProjects;

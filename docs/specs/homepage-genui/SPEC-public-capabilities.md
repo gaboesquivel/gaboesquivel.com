@@ -23,8 +23,8 @@ Each registry entry has a stable name, description, input/output schemas, read/w
 | get_cv | `full`, `ai`, `web3`, or `fullstack`; default `full` | Existing CV title, filename, variant, page URL, PDF URL |
 | contact_gabo | Optional supported focus | Public contact/form descriptor and verified contextual records; no email sent |
 | list_availability | IANA time zone; optional 15/30-minute duration | Available ISO starts, duration, display zone, checked-at time, empty/error state |
-| book_call | Existing BookInput plus retry identity | Confirmed/pending/uncertain/failed result and safe receipt |
-| send_note | Existing NoteInput plus retry identity | Confirmed/pending/uncertain/failed result and safe receipt |
+| book_call | Existing `bookSchema` input plus retry identity | Confirmed/pending/uncertain/failed result and safe receipt |
+| send_note | Existing `noteSchema` input plus retry identity | Confirmed/pending/uncertain/failed result and safe receipt |
 
 Proposed common response: version, request ID, operation, status, typed data, safe message and optional retry guidance. Read success distinguishes no matches from failure. Write success is returned only after confirmed provider success or a stored confirmed receipt. Do not expose raw provider exceptions, addresses of other visitors, calendar event bodies or busy-event descriptions.
 
@@ -49,8 +49,6 @@ export const noteSchema = z.object({
   email,
   name,
 });
-
-export type NoteInput = z.infer<typeof noteSchema>;
 ```
 
 Retain the existing `safeParse` boundary in `bookCall`/`sendNote`; do not trust an adapter merely because it is typed.

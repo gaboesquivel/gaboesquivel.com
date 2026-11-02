@@ -16,7 +16,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "components/ui/dialog";
-import { cn } from "lib/utils";
 import { XIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -79,9 +78,7 @@ export function SiteSearchShell({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           showCloseButton={false}
-          className={cn(
-            "top-4 max-w-6xl translate-y-0 gap-0 border-hairline bg-black p-4 shadow-none ring-hairline motion-reduce:transition-none sm:max-w-[calc(100%-2rem)]"
-          )}
+          className="top-4 max-w-6xl translate-y-0 gap-0 border-hairline bg-black p-4 shadow-none ring-hairline motion-reduce:transition-none sm:max-w-[calc(100%-2rem)]"
         >
           <DialogHeader className="sr-only">
             <DialogTitle>Search this site</DialogTitle>

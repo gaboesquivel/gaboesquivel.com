@@ -243,7 +243,7 @@ export function ProjectCaseStudy({
         </PageSection>
       ) : null}
 
-      {relatedSlugs && relatedSlugs.length > 0 ? (
+      {relatedSlugs ? (
         <LatestPosts
           slugs={relatedSlugs}
           title="Related writing"

@@ -44,16 +44,5 @@ export interface CompositionEnvelope {
   requestId: string;
 }
 
-export const recordIdsValid = ({
-  ids,
-  records,
-}: {
-  ids: string[];
-  records: PublicRecord[];
-}) => {
-  const known = new Set(records.map((record) => record.id));
-  return ids.every((id) => known.has(id));
-};
-
 export const experienceAllowed = (name: string) =>
   (experienceNames as readonly string[]).includes(name);

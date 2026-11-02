@@ -177,21 +177,14 @@ const BookingScheduler = ({
     [displayZone, weekStart]
   );
 
-  const weekSlots = useMemo(
-    () =>
-      weekDays.flatMap((day) =>
-        (futureByDay[day] ?? []).map((start) => ({ day, start }))
-      ),
+  const weekStarts = useMemo(
+    () => weekDays.flatMap((day) => futureByDay[day] ?? []),
     [futureByDay, weekDays]
   );
 
   const pickTime = (input: { duration: 15 | 30; start: string }) => {
     setSelection(input);
     setPhase("details");
-  };
-
-  const changeZone = (next: string) => {
-    setDisplayZone(next);
   };
 
   const slotStillOpen =
@@ -278,7 +271,7 @@ const BookingScheduler = ({
         <FieldLabel htmlFor="connect-timezone">Times shown in</FieldLabel>
         <Select
           onValueChange={(zone) => {
-            if (zone) changeZone(zone);
+            if (zone) setDisplayZone(zone);
           }}
           value={displayZone}
         >
@@ -355,18 +348,17 @@ const BookingScheduler = ({
             className="grid grid-cols-2 gap-2 sm:grid-cols-3"
             role="group"
           >
-            {(activeDay
-              ? (futureByDay[activeDay] ?? [])
-              : weekSlots.map((item) => item.start)
-            ).map((start) => (
-              <TimeButton
-                duration={duration}
-                iso={start}
-                key={start}
-                onPick={pickTime}
-                timeZone={displayZone}
-              />
-            ))}
+            {(activeDay ? (futureByDay[activeDay] ?? []) : weekStarts).map(
+              (start) => (
+                <TimeButton
+                  duration={duration}
+                  iso={start}
+                  key={start}
+                  onPick={pickTime}
+                  timeZone={displayZone}
+                />
+              )
+            )}
           </div>
           <ConnectSecondaryButton onClick={() => setExpanded(false)}>
             Show fewer times

@@ -16,18 +16,10 @@ export const proxy = (req: NextRequest) => {
     return NextResponse.next();
   }
 
-  if (pathname.endsWith(".md")) {
-    const url = req.nextUrl.clone();
-    url.pathname = markdownApiRewritePath(pathname);
-    const rewritten = NextResponse.rewrite(url);
-    appendVaryAccept(rewritten.headers);
-    return rewritten;
-  }
-
   const acceptHeader = req.headers.get("accept");
   const chosen = preferredContentType(acceptHeader);
 
-  if (chosen === "text/markdown") {
+  if (pathname.endsWith(".md") || chosen === "text/markdown") {
     const url = req.nextUrl.clone();
     url.pathname = markdownApiRewritePath(pathname);
     const rewritten = NextResponse.rewrite(url);

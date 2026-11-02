@@ -12,18 +12,15 @@ import type { CompiledExperience } from "./contract/errors";
 import type { JevDecision } from "./decisions";
 import { evaluateWithJev } from "./decisions";
 import { buildSearchDocument, tierZeroDocument } from "./deterministic";
-import type { CompositionEnvelope, PublicRecord } from "./envelope";
+import type { CompositionEnvelope } from "./envelope";
 import { featuredProjectRecords } from "./featured-records";
 import { COMPOSITION_FAILED_MESSAGE } from "./messages";
 import { projectsFromPublicIds } from "./project-from-id";
 import { cvPublicRecord } from "./public-records";
-import {
-  browseProjectsDocument,
-  composeIntentDocument,
-  safetyDocument,
-} from "./query-intent";
+import { composeIntentDocument, safetyDocument } from "./query-intent";
 import { buildRequestPlan, retrievePlanEvidence } from "./request-plan";
 import { sectionToRecord } from "./search-records";
+import { browseProjectsEnvelope } from "./section-compose";
 import { selectProjectComposition } from "./select-project-composition";
 import { generateSemanticDocument } from "./semantic";
 import { genuiProviderConfigured, resolveSemanticPlan } from "./semantic-plan";
@@ -71,7 +68,7 @@ const documentFromDecision = ({
       decision.domain === "fintech"
         ? decision.domain
         : "all";
-    return browseProjectsDocument({
+    return browseProjectsEnvelope({
       domain,
       requestId,
     });
@@ -106,20 +103,13 @@ const documentFromDecision = ({
       requestId,
     });
   }
-  if (decision.domain === "writing") {
-    return null;
-  }
   return null;
 };
 
 const lastEnvelope = (events: ComposeStreamEvent[]) => {
   for (let index = events.length - 1; index >= 0; index -= 1) {
     const event = events[index];
-    if (
-      event &&
-      (event.type === "complete" || event.type === "partial") &&
-      "envelope" in event
-    ) {
+    if (event && (event.type === "complete" || event.type === "partial")) {
       return event.envelope;
     }
   }
@@ -221,27 +211,22 @@ export const composeQuery = async ({
     return true;
   };
 
+  const result = (meta: Parameters<typeof composeMetadata>[0]) => ({
+    events,
+    jevCalls,
+    metadata: composeMetadata(meta),
+    modelCalls,
+    parseErrors,
+    tier,
+  });
+
   if (signal?.aborted) {
-    return {
-      events,
-      jevCalls,
-      metadata: composeMetadata({ envelope: null }),
-      modelCalls,
-      parseErrors,
-      tier,
-    };
+    return result({ envelope: null });
   }
 
   if (safety) {
     emitValidated({ envelope: safety, type: "complete" });
-    return {
-      events,
-      jevCalls,
-      metadata: composeMetadata({ envelope: safety }),
-      modelCalls,
-      parseErrors,
-      tier,
-    };
+    return result({ envelope: safety });
   }
 
   const exact =
@@ -251,14 +236,7 @@ export const composeQuery = async ({
       : null;
   if (exact) {
     emitValidated({ envelope: exact, type: "complete" });
-    return {
-      events,
-      jevCalls,
-      metadata: composeMetadata({ envelope: exact }),
-      modelCalls,
-      parseErrors,
-      tier,
-    };
+    return result({ envelope: exact });
   }
 
   if (requestPlan.disposition === "compose") {
@@ -267,14 +245,7 @@ export const composeQuery = async ({
       modelCalls += resolved.modelCalls;
       requestPlan = resolved.plan;
       if (signal?.aborted) {
-        return {
-          events,
-          jevCalls,
-          metadata: composeMetadata({ envelope: null }),
-          modelCalls,
-          parseErrors,
-          tier,
-        };
+        return result({ envelope: null });
       }
     }
     if (requestPlan.needsSemanticPlanning && genuiProviderConfigured()) {
@@ -287,26 +258,12 @@ export const composeQuery = async ({
         signal,
       });
       if (signal?.aborted) {
-        return {
-          events,
-          jevCalls,
-          metadata: composeMetadata({ envelope: null }),
-          modelCalls,
-          parseErrors,
-          tier,
-        };
+        return result({ envelope: null });
       }
       if (semantic) {
         modelCalls += semantic.modelCalls;
         emitValidated({ envelope: semantic.envelope, type: "complete" });
-        return {
-          events,
-          jevCalls,
-          metadata: composeMetadata({ envelope: semantic.envelope }),
-          modelCalls,
-          parseErrors,
-          tier,
-        };
+        return result({ envelope: semantic.envelope });
       }
     }
     const planned = composePlannedDocument({
@@ -316,20 +273,13 @@ export const composeQuery = async ({
     if (planned) {
       tier = 1;
       emitValidated({ envelope: planned.envelope, type: "complete" });
-      return {
-        events,
-        jevCalls,
-        metadata: composeMetadata({
-          envelope: planned.envelope,
-          executions: planned.executions,
-          planningPath: requestPlan.needsSemanticPlanning
-            ? "semantic"
-            : "deterministic",
-        }),
-        modelCalls,
-        parseErrors,
-        tier,
-      };
+      return result({
+        envelope: planned.envelope,
+        executions: planned.executions,
+        planningPath: requestPlan.needsSemanticPlanning
+          ? "semantic"
+          : "deterministic",
+      });
     }
   }
 
@@ -350,41 +300,20 @@ export const composeQuery = async ({
   if (intent) {
     tier = 1;
     emitValidated({ envelope: intent, type: "complete" });
-    return {
-      events,
-      jevCalls,
-      metadata: composeMetadata({ envelope: intent }),
-      modelCalls,
-      parseErrors,
-      tier,
-    };
+    return result({ envelope: intent });
   }
 
   tier = 1;
   const decision = await evaluateWithJev({ query, signal });
   if (decision) jevCalls += 1;
   if (signal?.aborted) {
-    return {
-      events,
-      jevCalls,
-      metadata: composeMetadata({ envelope: null }),
-      modelCalls,
-      parseErrors,
-      tier,
-    };
+    return result({ envelope: null });
   }
   if (decision && !decision.needsSynthesis && !requestPlan.requiresSynthesis) {
     const doc = documentFromDecision({ decision, requestId });
     if (doc) {
       emitValidated({ envelope: doc, type: "complete" });
-      return {
-        events,
-        jevCalls,
-        metadata: composeMetadata({ envelope: doc }),
-        modelCalls,
-        parseErrors,
-        tier,
-      };
+      return result({ envelope: doc });
     }
   }
 
@@ -404,14 +333,7 @@ export const composeQuery = async ({
     if (semantic) {
       modelCalls += semantic.modelCalls;
       emitValidated({ envelope: semantic.envelope, type: "complete" });
-      return {
-        events,
-        jevCalls,
-        metadata: composeMetadata({ envelope: semantic.envelope }),
-        modelCalls,
-        parseErrors,
-        tier,
-      };
+      return result({ envelope: semantic.envelope });
     }
   }
 
@@ -426,14 +348,7 @@ export const composeQuery = async ({
     if (emitValidated({ envelope: searched, type: "partial" })) {
       emitValidated({ envelope: searched, type: "complete" });
     }
-    return {
-      events,
-      jevCalls,
-      metadata: composeMetadata({ envelope: searched }),
-      modelCalls,
-      parseErrors,
-      tier,
-    };
+    return result({ envelope: searched });
   }
 
   const evidenceRecords = composeSearchSections({ limit: 6, query }).flatMap(
@@ -454,14 +369,7 @@ export const composeQuery = async ({
   if (semantic) {
     modelCalls += semantic.modelCalls;
     emitValidated({ envelope: semantic.envelope, type: "complete" });
-    return {
-      events,
-      jevCalls,
-      metadata: composeMetadata({ envelope: semantic.envelope }),
-      modelCalls,
-      parseErrors,
-      tier,
-    };
+    return result({ envelope: semantic.envelope });
   }
 
   emit({
@@ -470,15 +378,8 @@ export const composeQuery = async ({
     sequence: sequence++,
     type: "error",
   });
-  return {
-    events,
-    jevCalls,
-    metadata: composeMetadata({
-      envelope: lastEnvelope(events),
-      validationOk: false,
-    }),
-    modelCalls,
-    parseErrors,
-    tier,
-  };
+  return result({
+    envelope: lastEnvelope(events),
+    validationOk: false,
+  });
 };

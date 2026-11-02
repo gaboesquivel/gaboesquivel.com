@@ -35,7 +35,6 @@ export const extractBlogToc = (source: string): BlogTocItem[] => {
     if (!match) continue;
 
     const level = match[1].length;
-    if (level !== 2 && level !== 3) continue;
 
     const text = cleanHeadingText(match[2]);
     if (!text) continue;
