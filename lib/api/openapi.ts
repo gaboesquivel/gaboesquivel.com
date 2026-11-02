@@ -75,13 +75,12 @@ export const openApiDocument = () => ({
           links: {
             properties: {
               about: { format: "uri", type: "string" },
-              ask: { format: "uri", type: "string" },
               docs: { format: "uri", type: "string" },
               llms: { format: "uri", type: "string" },
               mcp: { format: "uri", type: "string" },
               openapi: { format: "uri", type: "string" },
             },
-            required: ["about", "ask", "docs", "llms", "mcp", "openapi"],
+            required: ["about", "docs", "llms", "mcp", "openapi"],
             type: "object",
           },
           location: { type: "string" },
@@ -188,7 +187,7 @@ export const openApiDocument = () => ({
     "/api/v1/profile": {
       get: {
         description:
-          "Return public identity facts for Gabo Esquivel: role, location, contact email, and links to ask, MCP docs, and the OpenAPI description.",
+          "Return public identity facts for Gabo Esquivel: role, location, contact email, and links to the about page, MCP docs, llms.txt, and the OpenAPI description.",
         operationId: "getProfile",
         responses: {
           "200": {

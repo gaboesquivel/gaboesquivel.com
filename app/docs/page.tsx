@@ -82,8 +82,9 @@ export default function DocsPage() {
         <Prose>
           Read tools: <code className={code}>get_profile</code> (verified
           profile and contextual links),{" "}
-          <code className={code}>contact_gabo</code> (public contact
-          descriptor), <code className={code}>get_cv</code> (CV download
+          <code className={code}>contact_gabo</code> (public contact descriptor;
+          it sends nothing but is annotated as a write because it starts the
+          contact flow), <code className={code}>get_cv</code> (CV download
           metadata for the full, ai, web3, and fullstack variants),{" "}
           <code className={code}>list_projects</code> (package-owned project
           records by work type), <code className={code}>list_writing</code>{" "}
@@ -107,7 +108,8 @@ export default function DocsPage() {
 
       <PageSection title="Results">
         <Prose>
-          Every call returns a text message and{" "}
+          Every call returns one text block, a short readable summary followed
+          by the full result as JSON, and the same result as{" "}
           <code className={code}>structuredContent</code> with{" "}
           <code className={code}>status</code>,{" "}
           <code className={code}>message</code>,{" "}
@@ -120,7 +122,26 @@ export default function DocsPage() {
           <code className={code}>pending</code>,{" "}
           <code className={code}>confirmed</code>,{" "}
           <code className={code}>uncertain</code>, or{" "}
-          <code className={code}>failed</code>.
+          <code className={code}>failed</code>. An{" "}
+          <code className={code}>error</code> or{" "}
+          <code className={code}>failed</code> result, and any call with invalid
+          arguments such as a bad <code className={code}>cursor</code>, also
+          sets <code className={code}>isError: true</code> and leads with a
+          plain explanation.
+        </Prose>
+        <Prose>
+          <code className={code}>tools/list</code> gives each tool a readable
+          title, a description for every input, an{" "}
+          <code className={code}>outputSchema</code> for the result, and{" "}
+          <code className={code}>annotations</code>. Read tools set{" "}
+          <code className={code}>readOnlyHint: true</code>.{" "}
+          <code className={code}>book_call</code>,{" "}
+          <code className={code}>send_note</code>, and{" "}
+          <code className={code}>contact_gabo</code> set{" "}
+          <code className={code}>readOnlyHint: false</code> so hosts confirm
+          before calling them; none is destructive. Transport errors such as a
+          missing <code className={code}>Accept</code> type (406) or malformed
+          JSON (400) answer with a JSON-RPC error body.
         </Prose>
         <Prose>
           Write tools require a <code className={code}>retryIdentity</code>{" "}

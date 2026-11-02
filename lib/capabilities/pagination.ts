@@ -9,7 +9,10 @@ export const paginate = <T>({
 }) => {
   const offset = cursor ? Number.parseInt(cursor, 10) : 0;
   if (!Number.isFinite(offset) || offset < 0) {
-    return { error: "Invalid cursor." as const };
+    return {
+      error:
+        "Invalid cursor. Pass nextCursor from a previous page, or omit cursor to start at the first page." as const,
+    };
   }
   const slice = items.slice(offset, offset + limit);
   const next = offset + limit < items.length ? String(offset + limit) : null;
