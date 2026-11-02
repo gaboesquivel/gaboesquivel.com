@@ -50,6 +50,7 @@ const stopWords = new Set([
   "are",
   "at",
   "be",
+  "best",
   "by",
   "can",
   "could",
@@ -219,3 +220,25 @@ export const rankByKeywords = <T>({
 /** Path segments as keywords: `/project/legal-agent` → `project legal agent`. */
 export const pathKeywords = (path: string) =>
   path.split(/[/-]+/).filter(Boolean);
+
+/**
+ * Shipped work and site pages answer more questions than tags or posts.
+ * Shared by `search_site` and the on-site keyword matches so both order alike.
+ */
+export const kindBoost = {
+  cv: 1,
+  employment: 1,
+  page: 1.2,
+  post: 1,
+  project: 2,
+  tech: 0.8,
+} as const;
+
+/** The kind of a site path, for `kindBoost`. */
+export const kindOfPath = (path: string): keyof typeof kindBoost => {
+  if (path.startsWith("/project/")) return "project";
+  if (path.startsWith("/blog/")) return "post";
+  if (path.startsWith("/tech/")) return "tech";
+  if (path === "/cv") return "cv";
+  return "page";
+};

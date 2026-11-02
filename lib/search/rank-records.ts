@@ -1,6 +1,11 @@
 import type { SearchRecord } from "components/search/types";
 
-import { pathKeywords, rankByKeywords } from "./keyword-rank";
+import {
+  kindBoost,
+  kindOfPath,
+  pathKeywords,
+  rankByKeywords,
+} from "./keyword-rank";
 
 export const KEYWORD_MATCH_LIMIT = 8;
 
@@ -17,6 +22,7 @@ export const rankSearchRecords = (
   } = {}
 ) =>
   rankByKeywords({
+    boost: (record) => kindBoost[kindOfPath(record.href)],
     fields: (record) => ({
       keywords: pathKeywords(record.href),
       text: record.description,

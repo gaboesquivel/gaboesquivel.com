@@ -1,5 +1,6 @@
 "use client";
 
+import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { homepageGenuiSearchInputId } from "components/search/search-ids";
 import { SiteSearchProvider } from "components/search/site-search-context";
 import { SiteSearchPanel } from "components/search/site-search-panel";
@@ -8,15 +9,32 @@ import { Button } from "components/ui/button";
 import {
   Dialog,
   DialogClose,
-  DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogOverlay,
+  DialogPortal,
   DialogTitle,
 } from "components/ui/dialog";
 import { searchCopy } from "lib/search/copy";
 import { XIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+/**
+ * Call-site overrides (vendor `components/ui` stays untouched). Overlay: solid
+ * scrim, no blur. Panel: the site column (`max-w-6xl` less gutters),
+ * `rounded-lg`, hairline, solid black; full height with safe-area padding
+ * below 640px. Motion: 150ms from the top on the site curve, none under
+ * reduced motion.
+ */
+const searchOverlay =
+  "bg-black/60 duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] supports-backdrop-filter:backdrop-blur-none motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none";
+
+const searchPanel = [
+  "fixed inset-0 z-50 flex h-dvh w-full flex-col overflow-y-auto overscroll-contain bg-black px-4 text-sm text-white outline-none",
+  "sm:inset-auto sm:top-4 sm:left-1/2 sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-3rem)] sm:max-w-[68rem] sm:-translate-x-1/2 sm:rounded-lg sm:border sm:border-hairline lg:w-[calc(100%-4rem)]",
+  "origin-top duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none",
+].join(" ");
 
 const focusHomeSearchField = () => {
   const field = document.querySelector<HTMLInputElement>(
@@ -75,37 +93,40 @@ export function SiteSearchShell({
     <SiteSearchProvider value={{ records, requestSearch }}>
       {children}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
-          finalFocus={returnFocusRef}
-          showCloseButton={false}
-          className="top-4 max-w-6xl translate-y-0 gap-0 border-hairline bg-black p-4 pt-0 shadow-none ring-hairline motion-reduce:transition-none sm:max-w-[calc(100%-2rem)]"
-        >
-          <DialogHeader className="sr-only">
-            <DialogTitle>{searchCopy.dialogTitle}</DialogTitle>
-            <DialogDescription>
-              {searchCopy.dialogDescription}
-            </DialogDescription>
-          </DialogHeader>
-          {open ? (
-            <SiteSearchPanel
-              closeControl={
-                <DialogClose
-                  render={
-                    <Button
-                      className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
-                      size="icon"
-                      variant="ghost"
-                    />
-                  }
-                >
-                  <XIcon aria-hidden="true" strokeWidth={1.5} />
-                  <span className="sr-only">{searchCopy.close}</span>
-                </DialogClose>
-              }
-              onNavigate={() => setOpen(false)}
-            />
-          ) : null}
-        </DialogContent>
+        <DialogPortal>
+          <DialogOverlay className={searchOverlay} />
+          <DialogPrimitive.Popup
+            className={searchPanel}
+            data-slot="dialog-content"
+            finalFocus={returnFocusRef}
+          >
+            <DialogHeader className="sr-only">
+              <DialogTitle>{searchCopy.dialogTitle}</DialogTitle>
+              <DialogDescription>
+                {searchCopy.dialogDescription}
+              </DialogDescription>
+            </DialogHeader>
+            {open ? (
+              <SiteSearchPanel
+                closeControl={
+                  <DialogClose
+                    render={
+                      <Button
+                        className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
+                        size="icon"
+                        variant="ghost"
+                      />
+                    }
+                  >
+                    <XIcon aria-hidden="true" strokeWidth={1.5} />
+                    <span className="sr-only">{searchCopy.close}</span>
+                  </DialogClose>
+                }
+                onNavigate={() => setOpen(false)}
+              />
+            ) : null}
+          </DialogPrimitive.Popup>
+        </DialogPortal>
       </Dialog>
     </SiteSearchProvider>
   );

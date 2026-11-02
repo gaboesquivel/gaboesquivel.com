@@ -37,7 +37,10 @@ export function SiteSearchPanel({
 
   return (
     <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
-      <div className="sticky top-0 z-10 -mx-4 bg-black px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-2 sm:pt-4">
+      <div
+        className="sticky top-0 z-10 -mx-4 bg-black px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-2 sm:pt-4"
+        data-search-field-bar=""
+      >
         <div className="flex items-start gap-2">
           <div className="min-w-0 flex-1">
             <GenuiSearchCombobox

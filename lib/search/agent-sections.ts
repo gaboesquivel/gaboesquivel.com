@@ -3,7 +3,7 @@ import { siteOrigin } from "lib/site-path";
 import index from "../../generated/agent-index.json";
 import bodies from "../../generated/markdown-routes.json";
 import type { RankSection } from "../connect/rank";
-import { pathKeywords, rankByKeywords } from "./keyword-rank";
+import { kindBoost, pathKeywords, rankByKeywords } from "./keyword-rank";
 
 export const agentSections = index as RankSection[];
 const corpus = bodies as Record<string, string>;
@@ -20,16 +20,6 @@ const eligible = (section: RankSection, query: string) => {
   return [...query.matchAll(/\b(?:19|20)\d{2}\b/g)].some(
     ([year]) => year < ARCHIVE_BEFORE && section.publishedAt.startsWith(year)
   );
-};
-
-/** Shipped work and site pages answer more questions than tags or old posts. */
-const kindBoost: Record<RankSection["kind"], number> = {
-  cv: 1,
-  employment: 1,
-  page: 1.2,
-  post: 1,
-  project: 2,
-  tech: 0.8,
 };
 
 const sectionPath = (section: RankSection) =>

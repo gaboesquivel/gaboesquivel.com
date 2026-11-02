@@ -148,7 +148,7 @@ for (const { name: surface, path } of surfaces) {
     test("composing line shows at once; shimmer only after 300ms", async ({
       page,
     }) => {
-      const gate = Promise.withResolvers<undefined>();
+      const gate = Promise.withResolvers<boolean>();
       await page.route("**/api/genui/compose", async (route) => {
         await gate.promise;
         await fulfillResult(route);
@@ -165,7 +165,7 @@ for (const { name: surface, path } of surfaces) {
         "true"
       );
       await expect(line.locator(".text-shimmer")).toHaveCount(1);
-      gate.resolve();
+      gate.resolve(true);
       await expect(status(page)).toHaveText(searchCopy.resultReady);
     });
 
@@ -301,4 +301,130 @@ test("homepage ⌘K hint shows only when idle and empty", async ({ page }) => {
   const input = page.locator("#homepage-genui-search");
   await input.fill("a");
   await expect(hint).toHaveCount(0);
+});
+
+const dialogPanel = (page: Page) => page.locator("[data-slot=dialog-content]");
+const dialogOverlay = (page: Page) =>
+  page.locator("[data-slot=dialog-overlay]");
+
+const openDialog = async (page: Page) => {
+  await page.goto("/blog");
+  await page.getByRole("button", { name: searchCopy.accessibleName }).click();
+  await expect(page.locator("#site-search-dialog")).toBeFocused();
+  // Measure the settled panel, not a frame of its open animation.
+  await dialogPanel(page).evaluate((element) =>
+    Promise.all(element.getAnimations().map((animation) => animation.finished))
+  );
+};
+
+const runningOpenCloseKeyframes = (page: Page) =>
+  page.evaluate(() =>
+    document
+      .getAnimations()
+      .filter((animation) => animation instanceof CSSAnimation)
+      .map((animation) => (animation as CSSAnimation).animationName)
+      .filter((name) => name === "enter" || name === "exit")
+  );
+
+test.describe("search dialog surface", () => {
+  test("desktop panel matches the site column with no glass", async ({
+    page,
+  }) => {
+    await openDialog(page);
+    const column = await page.locator("main").evaluate((main) => {
+      const style = getComputedStyle(main);
+      return (
+        main.clientWidth -
+        Number.parseFloat(style.paddingLeft) -
+        Number.parseFloat(style.paddingRight)
+      );
+    });
+    const box = await dialogPanel(page).boundingBox();
+    expect(Math.abs((box?.width ?? 0) - column)).toBeLessThanOrEqual(2);
+    const panelStyle = await dialogPanel(page).evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        background: style.backgroundColor,
+        radius: style.borderTopLeftRadius,
+      };
+    });
+    expect(["8px", "10px"]).toContain(panelStyle.radius);
+    expect(panelStyle.background).toBe("rgb(0, 0, 0)");
+    const overlayStyle = await dialogOverlay(page).evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        background: style.backgroundColor,
+        filter: style.backdropFilter,
+      };
+    });
+    expect(["none", ""]).toContain(overlayStyle.filter);
+    expect(overlayStyle.background).toMatch(/0\.6\)$/);
+  });
+
+  test("suggestions stay inside the panel", async ({ page }) => {
+    await openDialog(page);
+    const listbox = page.getByRole("listbox", { name: searchCopy.suggestions });
+    await expect(listbox).toBeVisible();
+    const list = await listbox.boundingBox();
+    const box = await dialogPanel(page).boundingBox();
+    expect((list?.y ?? 0) + (list?.height ?? 0)).toBeLessThanOrEqual(
+      (box?.y ?? 0) + (box?.height ?? 0) + 1
+    );
+  });
+
+  test("reduced motion runs no keyframes on open or close", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await openDialog(page);
+    expect(await runningOpenCloseKeyframes(page)).toEqual([]);
+    // The first Escape closes the open suggestions, the second the dialog.
+    await page.keyboard.press("Escape");
+    await page.keyboard.press("Escape");
+    expect(await runningOpenCloseKeyframes(page)).toEqual([]);
+    await expect(dialogPanel(page)).toHaveCount(0);
+  });
+
+  test("with motion, the panel opens from the top in 150ms", async ({
+    page,
+  }) => {
+    await openDialog(page);
+    const style = await dialogPanel(page).evaluate((element) => {
+      const computed = getComputedStyle(element);
+      return {
+        duration: computed.animationDuration,
+        easing: computed.animationTimingFunction,
+        origin: computed.transformOrigin,
+      };
+    });
+    expect(style.duration).toBe("0.15s");
+    expect(style.easing).toBe("cubic-bezier(0.23, 1, 0.32, 1)");
+    expect(style.origin.split(" ")[1]).toBe("0px");
+  });
+});
+
+test.describe("search surfaces at 390px", () => {
+  test.use({ viewport: { height: 844, width: 390 } });
+
+  test("the dialog is full height with a sticky field", async ({ page }) => {
+    await openDialog(page);
+    const box = await dialogPanel(page).boundingBox();
+    expect(box).toMatchObject({ height: 844, width: 390, x: 0, y: 0 });
+    const position = await page
+      .locator("[data-search-field-bar]")
+      .evaluate((bar) => getComputedStyle(bar).position);
+    expect(position).toBe("sticky");
+  });
+
+  test("the homepage field shows at least 20 characters", async ({ page }) => {
+    await page.goto("/");
+    const input = page.locator("#homepage-genui-search");
+    await input.fill("abcdefghijklmnopqrst");
+    const fits = await input.evaluate(
+      (element: HTMLInputElement) => element.scrollWidth <= element.clientWidth
+    );
+    expect(fits).toBe(true);
+    await input.fill("");
+    await expect(page.locator("[data-search-shortcut-hint]")).toBeHidden();
+  });
 });
