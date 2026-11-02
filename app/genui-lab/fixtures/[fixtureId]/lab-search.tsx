@@ -1,7 +1,7 @@
 "use client";
 
 import { GeneratedRegion } from "components/genui/generated-region";
-import { useHydrated } from "components/genui/genui-write-status";
+import { useHydrated } from "hooks/use-hydrated";
 import type { CompositionEnvelope } from "lib/genui/envelope";
 import type { GenuiSearchState } from "lib/genui/fixtures/registry";
 import type { SearchStatus } from "lib/search/compose-outcome";
