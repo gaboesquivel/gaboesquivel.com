@@ -1,5 +1,7 @@
 "use client";
 
+import { newRetryIdentity } from "lib/genui/write-flow";
+import type { RetryIdentityState } from "lib/genui/write-flow";
 import { createContext, useContext, useMemo, useState } from "react";
 
 export interface NoteDraft {
@@ -18,12 +20,24 @@ export interface BookingDraft {
   timeZone: string;
 }
 
+/** A write the server accepted; rendered in place and locks the form. */
+export interface WriteReceipt {
+  lines: string[];
+  message: string;
+}
+
+export type WriteKind = "booking" | "note";
+
 interface DraftState {
+  attempts: Record<WriteKind, RetryIdentityState>;
   booking: BookingDraft;
   clear: () => void;
   note: NoteDraft;
+  receipts: Record<WriteKind, WriteReceipt | null>;
+  setAttempt: (kind: WriteKind, value: RetryIdentityState) => void;
   setBooking: (value: Partial<BookingDraft>) => void;
   setNote: (value: Partial<NoteDraft>) => void;
+  setReceipt: (kind: WriteKind, value: WriteReceipt | null) => void;
 }
 
 const emptyNote = (): NoteDraft => ({
@@ -42,23 +56,53 @@ const emptyBooking = (): BookingDraft => ({
   timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC",
 });
 
+/** Each draft gets its retry identity when it starts, kept across retries. */
+const freshAttempts = (): Record<WriteKind, RetryIdentityState> => ({
+  booking: { fingerprint: null, identity: newRetryIdentity() },
+  note: { fingerprint: null, identity: newRetryIdentity() },
+});
+
+const noReceipts = (): Record<WriteKind, WriteReceipt | null> => ({
+  booking: null,
+  note: null,
+});
+
 const DraftContext = createContext<DraftState | null>(null);
 
 export const GenuiDraftProvider = ({
   children,
+  initialBooking,
+  initialNote,
 }: {
   children: React.ReactNode;
+  /** Fixture-lab prefill only; production drafts start empty. */
+  initialBooking?: Partial<BookingDraft>;
+  initialNote?: Partial<NoteDraft>;
 }) => {
-  const [note, setNoteState] = useState(emptyNote);
-  const [booking, setBookingState] = useState(emptyBooking);
+  const [note, setNoteState] = useState(() => ({
+    ...emptyNote(),
+    ...initialNote,
+  }));
+  const [booking, setBookingState] = useState(() => ({
+    ...emptyBooking(),
+    ...initialBooking,
+  }));
+  const [attempts, setAttempts] = useState(freshAttempts);
+  const [receipts, setReceipts] = useState(noReceipts);
   const value = useMemo(
     () => ({
+      attempts,
       booking,
       clear: () => {
         setNoteState(emptyNote());
         setBookingState(emptyBooking());
+        setAttempts(freshAttempts());
+        setReceipts(noReceipts());
       },
       note,
+      receipts,
+      setAttempt: (kind: WriteKind, next: RetryIdentityState) =>
+        setAttempts((current) => ({ ...current, [kind]: next })),
       setBooking: (patch: Partial<BookingDraft>) =>
         setBookingState((current) => ({
           ...current,
@@ -71,8 +115,10 @@ export const GenuiDraftProvider = ({
         })),
       setNote: (patch: Partial<NoteDraft>) =>
         setNoteState((current) => ({ ...current, ...patch })),
+      setReceipt: (kind: WriteKind, next: WriteReceipt | null) =>
+        setReceipts((current) => ({ ...current, [kind]: next })),
     }),
-    [booking, note]
+    [attempts, booking, note, receipts]
   );
   return (
     <DraftContext.Provider value={value}>{children}</DraftContext.Provider>

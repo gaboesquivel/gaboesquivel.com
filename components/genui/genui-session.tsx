@@ -1,10 +1,10 @@
 "use client";
 
+import type { CapabilityCaller } from "lib/genui/write-flow";
+
 import { GenuiDraftProvider } from "./genui-draft-context";
-import {
-  GenuiInteractionProvider,
-  useGenuiInteraction,
-} from "./genui-interaction-context";
+import type { BookingDraft, NoteDraft } from "./genui-draft-context";
+import { GenuiInteractionProvider } from "./genui-interaction-context";
 
 /** Writes (booking, notes) unlock only after a settled, error-free result. */
 export const genuiWritesEnabled = ({
@@ -21,29 +21,28 @@ export const genuiWritesEnabled = ({
 
 /**
  * Draft and interaction state shared by every surface that renders generated
- * experiences (homepage and the off-homepage search dialog).
+ * experiences (homepage and the off-homepage search dialog). Accepted writes
+ * keep their receipt here, outside any replaced component, and render in place.
  */
 export const GenuiSessionProvider = ({
+  callCapability,
   children,
+  initialBooking,
+  initialNote,
   writesEnabled,
 }: {
+  callCapability?: CapabilityCaller;
   children: React.ReactNode;
+  initialBooking?: Partial<BookingDraft>;
+  initialNote?: Partial<NoteDraft>;
   writesEnabled: boolean;
 }) => (
-  <GenuiDraftProvider>
-    <GenuiInteractionProvider writesEnabled={writesEnabled}>
+  <GenuiDraftProvider initialBooking={initialBooking} initialNote={initialNote}>
+    <GenuiInteractionProvider
+      callCapability={callCapability}
+      writesEnabled={writesEnabled}
+    >
       {children}
     </GenuiInteractionProvider>
   </GenuiDraftProvider>
 );
-
-export const GenuiReceipt = ({ className }: { className?: string }) => {
-  const { receipt } = useGenuiInteraction();
-  if (!receipt) return null;
-  return (
-    <p className={className ?? "mt-3 text-sm text-neutral-300"} role="status">
-      {receipt.message}
-      {receipt.receiptId ? ` (${receipt.receiptId})` : ""}
-    </p>
-  );
-};

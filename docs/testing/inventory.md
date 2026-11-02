@@ -50,6 +50,7 @@ Colocated unit tests (also picked up by `test:genui:unit` via `bun test lib/genu
 | Path | Script | Notes |
 | --- | --- | --- |
 | `functional/fixture-lab.spec.ts` | `test:genui:browser` | Declarative fixtures via `/__genui__/fixtures/:id` |
+| `functional/genui-writes.spec.ts` | `test:genui:browser` | Booking/contact write states (`?writes=`): availability loading/error/More times, network and 502 retry, one `retryIdentity`, receipt lock, rail at 390/1440 |
 | `functional/homepage-genui.spec.ts` | `test:genui:browser` | Homepage prompt UX + mocked `/api/genui/compose` |
 | `functional/mixed-task.spec.ts` | `test:genui:browser` | Narrow mixed comparison + CV fixture, keyboard disclosure, reduced motion |
 | `visual/` | `test:genui:visual` | Snapshots; baselines not required in default CI |

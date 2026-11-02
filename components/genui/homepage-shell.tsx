@@ -4,11 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { GeneratedRegion } from "./generated-region";
 import { useGenuiDraft } from "./genui-draft-context";
-import {
-  GenuiReceipt,
-  GenuiSessionProvider,
-  genuiWritesEnabled,
-} from "./genui-session";
+import { GenuiSessionProvider, genuiWritesEnabled } from "./genui-session";
 import { PromptField } from "./prompt-field";
 import { scrollPromptToViewportTop } from "./scroll-prompt";
 import { useGenuiComposition } from "./use-genui-composition";
@@ -76,7 +72,6 @@ const HomepageGenUiBodyContent = ({
           }}
           value={query}
         />
-        <GenuiReceipt />
       </div>
       {active ? (
         <div className="min-h-[100vh] pt-6">

@@ -1,56 +1,92 @@
 "use client";
 
-import { useState } from "react";
+import {
+  identityForAttempt,
+  isSettledWrite,
+  newRetryIdentity,
+  writeErrorMessage,
+} from "lib/genui/write-flow";
+import { useRef, useState } from "react";
 
 import { useGenuiDraft } from "./genui-draft-context";
 import { useGenuiInteraction } from "./genui-interaction-context";
+import {
+  WriteError,
+  WriteReceiptCard,
+  inputClass,
+  primaryButtonClass,
+} from "./genui-write-status";
 
-export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
-  const { note, setNote } = useGenuiDraft();
-  const { setReceipt, writesEnabled } = useGenuiInteraction();
-  const [status, setStatus] = useState<string | null>(null);
+const NOTE_FAILED = "Could not send the note.";
+
+/** Contact note: details, send, then a receipt in place of the form. */
+export const GenuiContactForm = () => {
+  const { attempts, note, receipts, setAttempt, setNote, setReceipt } =
+    useGenuiDraft();
+  const { callCapability, writesEnabled } = useGenuiInteraction();
+  const [failure, setFailure] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const inFlight = useRef(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const receipt = receipts.note;
+
+  if (receipt) return <WriteReceiptCard receipt={receipt} />;
 
   const submit = async () => {
-    if (!writesEnabled) return;
+    if (inFlight.current || !writesEnabled) return;
+    inFlight.current = true;
     setPending(true);
-    setStatus(null);
-    const retryIdentity = crypto.randomUUID();
-    const response = await fetch("/api/capabilities", {
-      body: JSON.stringify({
-        input: { ...note, retryIdentity },
-        operation: "send_note",
-      }),
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
+    setFailure(null);
+    const input = {
+      description: note.description,
+      email: note.email,
+      name: note.name,
+    };
+    const attempt = identityForAttempt({
+      create: newRetryIdentity,
+      payload: input,
+      state: attempts.note,
     });
-    const payload = await response.json();
-    setPending(false);
-    if (payload.status === "confirmed") {
-      setReceipt({
-        message: payload.message ?? "Note sent.",
-        receiptId: payload.data?.receiptId,
+    setAttempt("note", attempt);
+    try {
+      const payload = await callCapability({
+        input: { ...input, retryIdentity: attempt.identity },
+        operation: "send_note",
       });
-      setStatus(null);
-      return;
+      if (isSettledWrite(payload)) {
+        setReceipt("note", {
+          lines: [`${input.name} · ${input.email}`],
+          message: `Note sent. Gabo will reply to ${input.email}.`,
+        });
+        return;
+      }
+      setFailure(payload.message ?? NOTE_FAILED);
+    } catch (error) {
+      setFailure(writeErrorMessage(error));
+    } finally {
+      inFlight.current = false;
+      setPending(false);
     }
-    setStatus(payload.message ?? "Could not send the note.");
   };
+
+  const locked = !writesEnabled || pending;
 
   return (
     <form
+      aria-busy={pending}
       className="space-y-4"
       onSubmit={(event) => {
         event.preventDefault();
-        void submit();
+        submit().catch(() => {});
       }}
+      ref={formRef}
     >
-      <p className="text-xs text-neutral-500">Context: {contextId}</p>
       <label className="block space-y-2 text-sm">
         <span>Name</span>
         <input
-          className="w-full rounded-md border border-hairline bg-black px-3 py-2"
-          disabled={!writesEnabled}
+          autoComplete="name"
+          className={inputClass}
+          disabled={locked}
           onChange={(event) => setNote({ name: event.target.value })}
           required
           value={note.name}
@@ -59,8 +95,9 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
       <label className="block space-y-2 text-sm">
         <span>Email</span>
         <input
-          className="w-full rounded-md border border-hairline bg-black px-3 py-2"
-          disabled={!writesEnabled}
+          autoComplete="email"
+          className={inputClass}
+          disabled={locked}
           onChange={(event) => setNote({ email: event.target.value })}
           required
           type="email"
@@ -70,25 +107,22 @@ export const GenuiContactForm = ({ contextId }: { contextId: string }) => {
       <label className="block space-y-2 text-sm">
         <span>What should we discuss?</span>
         <textarea
-          className="min-h-28 w-full rounded-md border border-hairline bg-black px-3 py-2"
-          disabled={!writesEnabled}
+          className={`min-h-28 ${inputClass}`}
+          disabled={locked}
           onChange={(event) => setNote({ description: event.target.value })}
           required
           value={note.description}
         />
       </label>
-      <button
-        className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-black disabled:opacity-50"
-        disabled={pending || !writesEnabled}
-        type="submit"
-      >
-        Send email
+      <button className={primaryButtonClass} disabled={locked} type="submit">
+        {pending ? "Sending…" : "Send email"}
       </button>
-      {status && (
-        <p className="text-sm text-neutral-300" role="status">
-          {status}
-        </p>
-      )}
+      {failure ? (
+        <WriteError
+          message={failure}
+          onRetry={() => formRef.current?.requestSubmit()}
+        />
+      ) : null}
     </form>
   );
 };
