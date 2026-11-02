@@ -5,7 +5,7 @@
 ## Current routing
 
 - `/ask` redirects to `/` ([`app/ask/page.tsx`](../../app/ask/page.tsx)).
-- Nav chat sheet links to homepage GenUI search ([`chat-sidebar.tsx`](../../components/layout/chat-sidebar.tsx)).
+- Nav chat sheet links to homepage GenUI search (`chat-sidebar.tsx`, since removed).
 - **`ConnectChat`** (`app/connect/connect-chat.tsx`) is only referenced from `connect-page-content.tsx`, which is **not imported** by any `app/**/page.tsx`.
 
 ## Still used

@@ -56,7 +56,7 @@ Deliverable format: markdown plan in `docs/specs/design-system-v2/` (suggested f
 | Editorial project card | [`components/work/project-card.tsx`](../../../components/work/project-card.tsx) `variant="editorial"` |
 | Cover registry | [`lib/work/project-cover.ts`](../../../lib/work/project-cover.ts) — `homepageEditorialSlugs`, `projectCover`, `editorialCoverSizes` |
 | Assets | `bun run assets:home` → [`scripts/prepare-home-assets.ts`](../../../scripts/prepare-home-assets.ts); manifests under `assets/homepage/v2/`, `assets/work/covers/` |
-| Chat shell | [`components/layout/chat-sidebar.tsx`](../../../components/layout/chat-sidebar.tsx) |
+| Chat shell | `components/layout/chat-sidebar.tsx` (removed) |
 | Hydration gate | [`hooks/use-hydrated.ts`](../../../hooks/use-hydrated.ts) |
 | Layout | [`app/layout.tsx`](../../../app/layout.tsx) wraps header/main/footer in `SiteWidth` |
 | Error shell | [`app/global-error.tsx`](../../../app/global-error.tsx) uses `SiteWidth` |

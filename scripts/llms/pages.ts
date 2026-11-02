@@ -375,10 +375,7 @@ const jsxNodeToMarkdown = (
       return;
     }
 
-    if (
-      pagePath === "/" &&
-      (tagName === "HomePrompt" || tagName === "PortraitMedia")
-    ) {
+    if (pagePath === "/" && tagName === "PortraitMedia") {
       return;
     }
 
