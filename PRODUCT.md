@@ -12,7 +12,7 @@ Gabo Esquivel's personal site. It shows founders and technical or product leader
 
 Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
-The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav chat button opens a right-hand sheet. Its link points at `/ask`, and `/ask` redirects to `/`. Homepage search is the generative surface.
+The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav Search button focuses the homepage search field on `/` and opens the shared search dialog on other routes. `/ask` redirects to `/`. Homepage and dialog search are the public generative surfaces.
 
 ## Implemented surfaces
 
