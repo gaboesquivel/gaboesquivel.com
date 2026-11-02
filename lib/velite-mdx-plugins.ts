@@ -33,6 +33,12 @@ export const rehypePlugins = [
       theme: "one-dark-pro",
     },
   ],
-  [rehypeAutolinkHeadings, { properties: { className: ["anchor"] } }],
+  [
+    rehypeAutolinkHeadings,
+    // Decorative hover affordance: the TOC and heading ids carry navigation.
+    {
+      properties: { ariaHidden: "true", className: ["anchor"], tabIndex: -1 },
+    },
+  ],
   rehypeBlogImages,
 ];

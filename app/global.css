@@ -34,8 +34,10 @@ html {
   grid-template-columns: minmax(0, 1fr) minmax(14rem, 17rem);
 }
 
+/* The TOC rail comes first in DOM (tab order) but sits in the right column. */
 .article-layout-with-toc .article-layout-main {
   grid-column: 1;
+  grid-row: 1;
   max-width: 52rem;
   width: 100%;
 }
@@ -44,6 +46,7 @@ html {
   position: sticky;
   top: var(--header-offset);
   grid-column: 2;
+  grid-row: 1;
   max-height: calc(100dvh - var(--header-offset) - 2rem);
   overflow-y: auto;
 }
@@ -133,7 +136,7 @@ html {
 }
 
 .prose a {
-  @apply decoration-neutral-400 decoration-[0.1em] underline-offset-2 transition-all dark:decoration-neutral-600;
+  @apply decoration-neutral-400 decoration-[0.1em] underline-offset-2 transition-[color,text-decoration-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none dark:decoration-neutral-600;
 }
 
 .prose .anchor:before {
@@ -147,9 +150,10 @@ html {
   @apply visible;
 }
 
+/* Code blocks pad the pre box so every line sits inside the padding. */
 .prose pre {
   @apply border border-hairline bg-neutral-900;
-  padding: 0 !important;
+  padding: 10px !important;
 }
 
 .prose code {
@@ -158,9 +162,16 @@ html {
   word-break: break-word;
 }
 
+/* Inline code is a pill; drop the typography plugin's literal backticks. */
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
 .prose pre code {
-  @apply p-0 text-neutral-800 dark:text-neutral-200;
+  @apply block bg-transparent p-0 text-neutral-800 dark:text-neutral-200;
   border: initial;
+  border-radius: 0;
 }
 
 .prose img {
@@ -241,10 +252,6 @@ pre {
   scrollbar-width: none; /* Firefox */
   overflow-x: auto;
   max-width: 100%;
-}
-
-pre code {
-  padding: 10px !important;
 }
 
 /* Remove Safari input shadow on mobile */
@@ -697,9 +704,38 @@ body:has([data-connect]) [data-slot="input-group"] textarea {
 }
 
 /* View transitions (Work filter indicator; add named groups here) */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 ::view-transition-group(work-filter-indicator) {
   animation-duration: 180ms;
   animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Keep the active filter label above the indicator snapshot (Chromium 137+, Safari 18.4) */
+[data-work-filter] a > span.relative {
+  view-transition-name: match-element;
+  view-transition-class: work-filter-label;
+}
+
+::view-transition-group(.work-filter-label) {
+  animation: none;
+  z-index: 1;
+}
+
+::view-transition-old(.work-filter-label) {
+  display: none;
+}
+
+::view-transition-new(.work-filter-label) {
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,240 +1,100 @@
 "use client";
 
 import { GeneratedRegion } from "components/genui/generated-region";
-import {
-  GenuiSearchCombobox,
-  genuiSuggestionsOpenHint,
-} from "components/genui/genui-search-combobox";
+import { GenuiSearchCombobox } from "components/genui/genui-search-combobox";
 import {
   GenuiReceipt,
   GenuiSessionProvider,
   genuiWritesEnabled,
 } from "components/genui/genui-session";
+import { ClearSearchButton } from "components/genui/prompt-field";
 import { useGenuiComposition } from "components/genui/use-genui-composition";
-import { filterSearchRecords } from "components/search/filter-records";
 import {
   dialogGenuiSearchScopeId,
   dialogGenuiSuggestionsListboxId,
   dialogSearchInputId,
-  genuiSearchPlaceholder,
-  homeSearchInputId,
-} from "components/search/search-copy";
-import { SearchResults } from "components/search/search-results";
-import { SiteSearchField } from "components/search/site-search-field";
-import type { SearchRecord } from "components/search/types";
+} from "components/search/search-ids";
 import { useHydrated } from "hooks/use-hydrated";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { searchCopy } from "lib/search/copy";
 import type { ReactNode } from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRef } from "react";
 
-function SearchBrowseLinks() {
-  return (
-    <>
-      <Link href="/work" className="text-accent">
-        work
-      </Link>
-      ,{" "}
-      <Link href="/blog" className="text-accent">
-        writing
-      </Link>
-      , or{" "}
-      <Link href="/contact" className="text-accent">
-        contact me
-      </Link>
-    </>
-  );
-}
-
+/** The dialog presentation of site search (same state machine and outcome region as `/`). */
 export function SiteSearchPanel({
   closeControl,
-  records,
-  variant,
   onNavigate,
 }: {
-  /** Dialog only: visible close control placed beside the field. */
+  /** Visible close control placed beside the field. */
   closeControl?: ReactNode;
-  records: SearchRecord[];
-  variant: "home" | "dialog";
   onNavigate?: () => void;
 }) {
   const hydrated = useHydrated();
-  const composing = useRef(false);
-  const [query, setQuery] = useState("");
-  const [submitted, setSubmitted] = useState("");
   const genui = useGenuiComposition();
-  const { reset: resetGenui } = genui;
-  const matches = useMemo(
-    () => filterSearchRecords(records, submitted),
-    [records, submitted]
-  );
-  const inputId = variant === "home" ? homeSearchInputId : dialogSearchInputId;
-  const scopeId =
-    variant === "home" ? "search-scope" : dialogGenuiSearchScopeId;
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if (variant !== "dialog") return;
-    return () => {
-      resetGenui();
-    };
-  }, [resetGenui, variant]);
-
-  const showGenui =
-    variant === "dialog" &&
-    (genui.active || genui.isStreaming || genui.envelope || genui.error);
-
-  const showKeywordFallback =
-    variant === "dialog" &&
-    Boolean(genui.error) &&
-    submitted.length > 0 &&
-    matches.length > 0;
-
-  const runGenuiSearch = (trimmed: string) => {
-    setSubmitted(trimmed);
-    void genui.runQuery(trimmed);
-  };
-
-  const resetDialogSearch = () => {
-    setQuery("");
-    setSubmitted("");
-    resetGenui();
-    document.querySelector<HTMLInputElement>(`#${inputId}`)?.focus();
-  };
+  const focusField = () => inputRef.current?.focus();
+  const handleQueryChange = (value: string) => genui.setQuery(value);
 
   return (
-    <>
-      {variant === "dialog" ? (
-        <>
-          <div className="flex items-start gap-2">
-            <div className="min-w-0 flex-1">
-              <GenuiSearchCombobox
-                autoFocus
-                describedById={scopeId}
-                disabled={!hydrated}
-                inputId={inputId}
-                leadingAction={
-                  showGenui ? (
-                    <button
-                      aria-label="Clear results"
-                      className="-ml-2.5 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-md text-neutral-300 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
-                      onClick={resetDialogSearch}
-                      title="Clear results"
-                      type="button"
-                    >
-                      <ArrowLeft
-                        aria-hidden="true"
-                        className="size-6"
-                        strokeWidth={1.5}
-                      />
-                    </button>
-                  ) : undefined
-                }
-                listboxId={dialogGenuiSuggestionsListboxId}
-                onQueryChange={(value) => {
-                  setQuery(value);
-                  if (!value) {
-                    setSubmitted("");
-                    genui.reset();
-                  }
-                }}
-                onSearchSubmit={runGenuiSearch}
-                placeholder={genuiSearchPlaceholder}
-                query={query}
-                showGenuiBetaBadge
-              />
-            </div>
-            {closeControl}
-          </div>
-          <p className="sr-only" id={scopeId}>
-            Press Enter to search. Results appear below.
-            {genuiSuggestionsOpenHint}
-          </p>
-        </>
-      ) : (
-        <form
-          role="search"
-          onSubmit={(event) => {
-            event.preventDefault();
-            if (!composing.current && query.trim()) {
-              setSubmitted(query.trim());
-            }
-          }}
-        >
-          <SiteSearchField
-            inputId={inputId}
-            query={query}
-            disabled={!hydrated}
-            showShortcutHint
-            describedById={scopeId}
-            composingRef={composing}
-            onQueryChange={(value) => {
-              setQuery(value);
-              if (!value) setSubmitted("");
-            }}
-            onCompositionStart={() => {
-              composing.current = true;
-            }}
-            onCompositionEnd={() => {
-              window.setTimeout(() => {
-                composing.current = false;
-              }, 0);
-            }}
-          />
-        </form>
-      )}
-      {variant === "home" ? (
-        <>
-          <noscript>
-            <p className="mt-3 text-sm text-neutral-300">
-              Search needs JavaScript. Browse <SearchBrowseLinks />.
-            </p>
-          </noscript>
-          <p role="status" className="sr-only">
-            {submitted ? `${matches.length} results for ${submitted}` : ""}
-          </p>
-          <SearchResults
-            matches={matches}
-            submitted={submitted}
-            onNavigate={onNavigate}
-          />
-        </>
-      ) : null}
-      {showGenui ? (
-        <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
-          <div className="mt-4 max-h-[min(70dvh,40rem)] overflow-x-hidden overflow-y-auto">
-            <GenuiReceipt className="mb-3 text-sm text-neutral-300" />
-            <GeneratedRegion
-              complete={genui.complete}
-              envelope={genui.envelope}
-              error={genui.error}
-              isStreaming={genui.isStreaming}
-              onRetry={() => {
-                const retry = submitted || query.trim();
-                if (retry) void genui.runQuery(retry);
+    <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
+      <div
+        className="sticky top-0 z-10 -mx-4 bg-black px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-2 sm:pt-4"
+        data-search-field-bar=""
+      >
+        <div className="flex items-start gap-2">
+          <div className="min-w-0 flex-1">
+            <GenuiSearchCombobox
+              autoFocus
+              describedById={dialogGenuiSearchScopeId}
+              disabled={!hydrated}
+              inlineSuggestions
+              inputId={dialogSearchInputId}
+              inputRef={inputRef}
+              leadingAction={
+                genui.active ? (
+                  <ClearSearchButton
+                    onClear={() => {
+                      genui.reset();
+                      focusField();
+                    }}
+                  />
+                ) : undefined
+              }
+              listboxId={dialogGenuiSuggestionsListboxId}
+              onQueryChange={handleQueryChange}
+              onSearchSubmit={(value) => {
+                genui.runQuery(value).catch(() => {});
               }}
+              query={genui.query}
             />
           </div>
-        </GenuiSessionProvider>
-      ) : null}
-      {showKeywordFallback ? (
-        <div className="mt-4 border-t border-hairline pt-4">
-          <p className="mb-3 text-sm text-neutral-400">
-            Keyword matches for your query:
-          </p>
-          <SearchResults
-            matches={matches}
-            submitted={submitted}
+          {closeControl}
+        </div>
+        <p className="sr-only" id={dialogGenuiSearchScopeId}>
+          {searchCopy.dialogHint}
+          {searchCopy.suggestionsHint}
+        </p>
+        <GenuiReceipt className="mt-2 space-y-1 text-xs text-neutral-400" />
+      </div>
+      {genui.active ? (
+        <div className="pt-2 pb-[max(1rem,env(safe-area-inset-bottom))]">
+          <GeneratedRegion
+            envelope={genui.envelope}
+            error={genui.error}
+            onExample={(example) => {
+              genui.runQuery(example).catch(() => {});
+              focusField();
+            }}
             onNavigate={onNavigate}
+            onRetry={() => {
+              genui.retry();
+              focusField();
+            }}
+            status={genui.status}
+            submitted={genui.submitted}
           />
         </div>
       ) : null}
-      {variant === "dialog" && !showGenui && submitted ? (
-        <SearchResults
-          matches={matches}
-          submitted={submitted}
-          onNavigate={onNavigate}
-        />
-      ) : null}
-    </>
+    </GenuiSessionProvider>
   );
 }

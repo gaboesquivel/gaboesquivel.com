@@ -22,7 +22,7 @@ export function ProjectMedia({ project }: { project: Project }) {
         <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-lg">
           <Image
             alt=""
-            className="object-cover"
+            className="bg-neutral-900 object-cover"
             fill
             sizes="112px"
             src={image.src}

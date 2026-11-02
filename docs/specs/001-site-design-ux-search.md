@@ -234,22 +234,22 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 ## Tasks
 
-- [ ] 01: Site chrome accessibility and colour scheme
-- [ ] 02: Blog rendering and article navigation
-- [ ] 03: Contact form accessibility
-- [ ] 04: Index semantics and mobile targets
-- [ ] 05: Project media and project-page sections
-- [ ] 06: Social image coverage
-- [ ] 07: Motion back on token
-- [ ] 08: Shared keyword ranker and MCP search recall
-- [ ] 09: Shared search contract
-- [ ] 10: Search dialog surface and mobile layout
-- [ ] 11: GenUI write flows and rail
-- [ ] 12: MCP result parity
-- [ ] 13: Checkable design rules and fixture coverage
-- [ ] 14: Docs match the code
-- [ ] 15: Approved motion additions (gated)
-- [ ] 16: Approved agent-surface additions (gated)
+- [x] 01: Site chrome accessibility and colour scheme
+- [x] 02: Blog rendering and article navigation
+- [x] 03: Contact form accessibility
+- [x] 04: Index semantics and mobile targets
+- [x] 05: Project media and project-page sections
+- [x] 06: Social image coverage
+- [x] 07: Motion back on token
+- [x] 08: Shared keyword ranker and MCP search recall
+- [x] 09: Shared search contract
+- [x] 10: Search dialog surface and mobile layout
+- [x] 11: GenUI write flows and rail
+- [x] 12: MCP result parity
+- [x] 13: Checkable design rules and fixture coverage
+- [ ] 14: Docs match the code — waiting on D-1 and D-2
+- [ ] 15: Approved motion additions (gated) — waiting on M-B, M-H, M-I, M-J
+- [ ] 16: Approved agent-surface additions (gated) — waiting on S-P1, S-P2, S-P3, A-P1
 
 ### 01: Site chrome accessibility and colour scheme
 
@@ -423,6 +423,8 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 ### 13: Checkable design rules and fixture coverage
 
+**Scope change (2026-11-02):** the banned-class check moved to `scripts/check-design.ts`, owned by the DESIGN.md split work (flow-skills spec 056), so there is one design check instead of two. This task delivered the fixture-lab states and their Playwright coverage only.
+
 **What to build:** DESIGN.md's bans and the two contracts become checks an agent can run: a design check for banned classes, and fixture-lab tests for every search and agent state. (rico reference; prevents regressions of V9, S8, M1, V14)
 
 **Area:** scripts, tests, app/genui-lab, components/genui
@@ -486,6 +488,8 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 - Animated `og:video` link previews ([rauno](https://x.com/raunofreiberg/status/2112875577388712123)): a possible OG follow-up.
 
 ## Further Notes
+
+- Build notes (2026-11-02): the acceptance scenario's "source line" under results (step 3, contract item 3) has no owning task; it is left for task 16 or a follow-up. Review follow-ups not fixed in this build: editing a write after a network failure creates a new retry identity, so a request that reached the server could repeat (keep the identity until a definite response); dialog keyword matches rank site search records while MCP `search_site` ranks the agent index, so results are close but not identical (feed both from one record set). `lib/genui/writing-topic.ts:28` has a pre-existing type error on `main`.
 
 - Local only, not a site bug: `/llms.txt` and `/llms-full.txt` returned 500 in the audit worktree because the gitignored, generated `public/llms.txt` collides with `app/llms.txt/route.ts`. Check whether `dev:app`'s export step should write elsewhere.
 - Worth confirming during task 09: `/api/genui/compose` has a rate limit and a spend cap (raised by the chatbot-template security notes).

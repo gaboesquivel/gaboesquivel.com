@@ -48,7 +48,7 @@ export function ProjectCard({
             preload={priority}
             fetchPriority={priority ? "high" : undefined}
             sizes={wide ? wideProjectCardSizes : projectCardSizes}
-            className={cn("object-cover", imageHover)}
+            className={cn("bg-neutral-900 object-cover", imageHover)}
           />
         </div>
       ) : null}

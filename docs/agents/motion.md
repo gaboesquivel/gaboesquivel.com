@@ -8,11 +8,11 @@ Canonical product gate: [DESIGN.md](../../DESIGN.md) § Motion & View Transition
 | ------------ | ------------------------------------------------------- |
 | `press`      | Buttons, chips, filter links — 160ms press scale `0.97` |
 | `enter`      | Mount / reveal — 200ms `@starting-style` fade + scale   |
-| `imageHover` | Cover imagery — 500ms hover scale `1.02`                |
+| `imageHover` | Cover imagery — 500ms hover scale `1.02`, site curve    |
 
-Related: `cardArrow` and `siteCardInteractive` in `components/shared/spacing.ts`.
+Related: `cardArrow` (200ms nudge, site curve) and `siteCardInteractive` in `components/shared/spacing.ts`.
 
-Easing for site-authored motion: `cubic-bezier(0.23, 1, 0.32, 1)`. View-transition groups: 180ms (see `app/global.css`).
+Easing for site-authored motion: `cubic-bezier(0.23, 1, 0.32, 1)`. View-transition groups and the root crossfade: 180ms (see `app/global.css`).
 
 ## Stack
 

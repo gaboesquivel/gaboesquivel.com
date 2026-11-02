@@ -6,8 +6,10 @@ import {
 } from "components/shared/spacing";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
-import { resolveProjectImage } from "lib/work/project-cover";
-import { projectViewTransitionName } from "lib/work/project-view-transition";
+import {
+  projectCoverPosition,
+  resolveProjectImage,
+} from "lib/work/project-cover";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -39,9 +41,6 @@ export function EditorialProjectCard({
             "relative overflow-hidden rounded-lg bg-black",
             wide ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-video"
           )}
-          style={{
-            viewTransitionName: projectViewTransitionName(project.slug),
-          }}
         >
           <Image
             src={image.src}
@@ -49,8 +48,10 @@ export function EditorialProjectCard({
             fill
             sizes={sizes}
             preload={priority}
+            loading={priority ? "eager" : undefined}
             fetchPriority={priority ? "high" : undefined}
-            className={cn("object-cover", imageHover)}
+            className={cn("bg-neutral-900 object-cover", imageHover)}
+            style={{ objectPosition: projectCoverPosition(project) }}
           />
         </div>
       ) : null}

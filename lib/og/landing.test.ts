@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { pageMetadata } from "lib/page-metadata";
 
+import { personalOgImage } from "./constants";
 import { landingOgFile, landingOgImages, landingOgPages } from "./landing";
 
 /** Routes that keep their own OG image or are not public landing pages. */
@@ -41,7 +42,7 @@ describe("landing OG", () => {
     );
   });
 
-  test("explicit images win and unknown paths fall back to the layout", () => {
+  test("explicit images win and unknown paths fall back to the personal card", () => {
     const images = [{ url: "/custom.png" }];
     expect(
       pageMetadata({ title: "t", description: "d", path: "/blog", images })
@@ -50,6 +51,9 @@ describe("landing OG", () => {
     expect(
       pageMetadata({ title: "t", description: "d", path: "/nope" }).openGraph
         ?.images
-    ).toBeUndefined();
+    ).toEqual([personalOgImage]);
+    expect(
+      pageMetadata({ title: "t", description: "d" }).twitter?.images
+    ).toEqual([personalOgImage]);
   });
 });

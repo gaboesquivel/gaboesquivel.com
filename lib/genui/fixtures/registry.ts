@@ -1,3 +1,6 @@
+import { searchError } from "lib/search/compose-outcome";
+import type { SearchError, SearchStatus } from "lib/search/compose-outcome";
+
 import {
   timelineDocument,
   bookingDocument,
@@ -27,14 +30,35 @@ export type GenuiFixtureId =
   | "contact-hire"
   | "booking-hire"
   | "mixed-task"
-  | "empty-error";
+  | "empty-error"
+  | "search-composing"
+  | "search-streaming"
+  | "search-empty"
+  | "search-error"
+  | "search-timed-out"
+  | "search-rate-limited";
+
+/**
+ * A scripted search outcome: the lab mounts the region idle, then moves it to
+ * `status` so the live region announces like a real request. Try again and
+ * example chips are wired to a lab field, never to `/api/genui/compose`.
+ */
+export interface GenuiSearchState {
+  error?: SearchError;
+  status: Exclude<SearchStatus, "idle" | "result">;
+  submitted: string;
+}
 
 export interface GenuiFixtureDefinition {
   containerWidth?: number;
   envelope: CompositionEnvelope | null;
   errorMessage?: string;
   id: GenuiFixtureId;
+  search?: GenuiSearchState;
 }
+
+/** Server message the rate-limited fixture shows verbatim (429 body). */
+export const LAB_RATE_LIMIT_MESSAGE = "Daily search limit reached.";
 
 const requestId = "fixture-lab";
 
@@ -65,6 +89,53 @@ export const genuiFixtures: Record<GenuiFixtureId, GenuiFixtureDefinition> = {
     envelope: null,
     errorMessage: "Fixture error state",
     id: "empty-error",
+  },
+  "search-composing": {
+    envelope: null,
+    id: "search-composing",
+    search: { status: "composing", submitted: "explore my work" },
+  },
+  "search-streaming": {
+    envelope: projectDocument({
+      composite: "work-gallery",
+      projectIds: ["/project/wink"],
+      records: [sampleProjectRecord("wink", "Wink")],
+      requestId,
+    }),
+    id: "search-streaming",
+    search: { status: "composing", submitted: "explore my work" },
+  },
+  "search-empty": {
+    envelope: null,
+    id: "search-empty",
+    search: { status: "empty", submitted: "best pizza in Denver" },
+  },
+  "search-error": {
+    envelope: null,
+    id: "search-error",
+    search: {
+      error: searchError("failed"),
+      status: "error",
+      submitted: "show me web3 work",
+    },
+  },
+  "search-timed-out": {
+    envelope: null,
+    id: "search-timed-out",
+    search: {
+      error: searchError("timed_out"),
+      status: "error",
+      submitted: "explore my work",
+    },
+  },
+  "search-rate-limited": {
+    envelope: null,
+    id: "search-rate-limited",
+    search: {
+      error: searchError("rate_limited", LAB_RATE_LIMIT_MESSAGE),
+      status: "error",
+      submitted: "explore my work",
+    },
   },
   "project-case-study": {
     envelope: projectDocument({

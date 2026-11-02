@@ -1,4 +1,3 @@
-import { Button } from "components/ui/button";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -120,22 +119,20 @@ export function FilterNav({
       )}
     >
       {items.map((item) => (
-        <Button
+        <Link
           key={item.id}
-          nativeButton={false}
-          render={<Link href={item.href} />}
+          href={item.href}
           aria-current={current === item.id ? "page" : undefined}
-          variant="ghost"
           className={cn(
             press,
-            "h-auto min-h-11 rounded-md px-3 py-2 text-sm hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-accent",
+            "inline-flex min-h-11 items-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none",
             current === item.id
               ? "bg-neutral-800 text-accent"
               : "text-neutral-300 hover:text-white"
           )}
         >
           {item.label}
-        </Button>
+        </Link>
       ))}
     </nav>
   );

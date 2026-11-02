@@ -7,7 +7,6 @@ import { isCompositeName } from "lib/genui/composites";
 import { isParsedExperienceChild } from "lib/genui/contract/stack";
 import { projectsFromPublicIds } from "lib/genui/project-from-id";
 import { siteRelativePath } from "lib/site-path";
-import { cn } from "lib/utils";
 import Link from "next/link";
 
 import { CapabilityShowcase } from "./capability-showcase";
@@ -22,7 +21,7 @@ import { ProjectCompositeView } from "./project-composite-view";
 import { WritingCompositeView } from "./writing-composite-view";
 
 const wideRail =
-  "min-w-0 max-w-full @min-[48rem]:grid @min-[48rem]:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] @min-[48rem]:gap-10";
+  "grid min-w-0 max-w-full gap-6 @min-[48rem]:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] @min-[48rem]:gap-10";
 
 const noShownIds: string[] = [];
 
@@ -212,44 +211,64 @@ export const AboutExperienceView = ({ sourceId }: { sourceId: string }) => {
   );
 };
 
-export const ContactExperienceView = ({ contextId }: { contextId: string }) => {
+/**
+ * Wide container (>=48rem): context left, form right. Narrow: context stacks
+ * above the form, so the approval line stays visible at every width.
+ */
+const WriteRail = ({
+  aside,
+  children,
+}: {
+  aside: React.ReactNode;
+  children: React.ReactNode;
+}) => (
+  <div className="@container/genui max-w-full min-w-0">
+    <div className={wideRail} data-genui-rail>
+      <aside className="space-y-3 text-sm text-neutral-400">{aside}</aside>
+      <div className="min-w-0">{children}</div>
+    </div>
+  </div>
+);
+
+export const ContactExperienceView = () => {
   const profile = siteProfile();
   return (
-    <div className={cn("@container/genui", wideRail)}>
-      <aside className="space-y-3 text-sm text-neutral-400 @min-[48rem]:block">
-        <p>
-          This form sends a note to Gabo about hiring, a project, or
-          collaboration. Nothing is sent until you submit.
-        </p>
-        <p>
-          Email:{" "}
-          <a
-            className="text-accent hover:underline"
-            href={`mailto:${profile.email}`}
-          >
-            {profile.email}
-          </a>
-        </p>
-      </aside>
-      <GenuiContactForm contextId={contextId} />
-    </div>
+    <WriteRail
+      aside={
+        <>
+          <p>
+            This form sends a note to Gabo about hiring, a project, or
+            collaboration. Nothing is sent until you submit.
+          </p>
+          <p>
+            Email:{" "}
+            <a
+              className="text-accent hover:underline"
+              href={`mailto:${profile.email}`}
+            >
+              {profile.email}
+            </a>
+          </p>
+        </>
+      }
+    >
+      <GenuiContactForm />
+    </WriteRail>
   );
 };
 
-export const BookingExperienceView = () => {
-  const profile = siteProfile();
-  return (
-    <div className={cn("@container/genui", wideRail)}>
-      <aside className="hidden space-y-3 text-sm text-neutral-400 @min-[48rem]:block">
-        <p>
-          Pick a 15- or 30-minute slot in {profile.timeZoneLabel}. Review your
-          details before confirming—booking is not created until you approve.
-        </p>
-      </aside>
-      <GenuiBookingFlow />
-    </div>
-  );
-};
+export const BookingExperienceView = () => (
+  <WriteRail
+    aside={
+      <p data-genui-approval>
+        Pick a 15- or 30-minute slot. Times show in your time zone. Review your
+        details before confirming—booking is not created until you approve.
+      </p>
+    }
+  >
+    <GenuiBookingFlow />
+  </WriteRail>
+);
 
 const evidenceIdsOf = (child: unknown) => {
   if (!isParsedExperienceChild(child) || child.typeName === "Answer") return [];
@@ -330,12 +349,7 @@ const renderStackChild = (
     );
   }
   if (child.typeName === "ContactExperience") {
-    return (
-      <ContactExperienceView
-        key={key}
-        contextId={String(props.contextId ?? "profile")}
-      />
-    );
+    return <ContactExperienceView key={key} />;
   }
   if (child.typeName === "BookingExperience") {
     return <BookingExperienceView key={key} />;

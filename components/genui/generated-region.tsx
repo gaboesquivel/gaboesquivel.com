@@ -1,27 +1,50 @@
 "use client";
 
 import { Shimmer } from "components/ai-elements/shimmer";
+import { useSiteSearchOptional } from "components/search/site-search-context";
+import type { SearchRecord } from "components/search/types";
 import type { CompositionEnvelope } from "lib/genui/envelope";
-import { RENDER_FAILED_MESSAGE } from "lib/genui/messages";
+import { curatedGenuiQuerySuggestions } from "lib/genui/query-suggestions";
+import { announcementFor, searchError } from "lib/search/compose-outcome";
+import type { SearchError, SearchStatus } from "lib/search/compose-outcome";
+import { browseLinks, EXAMPLE_CHIP_COUNT, searchCopy } from "lib/search/copy";
+import { rankSearchRecords } from "lib/search/rank-records";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Component, useState } from "react";
+import { Component, useEffect, useMemo, useState } from "react";
 
-const LoadingLine = () => (
-  <div
-    aria-hidden="true"
-    className="min-h-[12rem] rounded-md border border-hairline p-6"
-  >
-    <Shimmer className="text-sm text-neutral-300">Composing results…</Shimmer>
-  </div>
-);
+const SHIMMER_DELAY_MS = 300;
+
+/** Static text at once; the shimmer only after 300ms (static under reduced motion). */
+const ComposingLine = () => {
+  const [shimmer, setShimmer] = useState(false);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setShimmer(true), SHIMMER_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
+  return (
+    <div
+      aria-hidden="true"
+      className="min-h-[12rem] rounded-md border border-hairline p-6 text-sm text-neutral-300"
+      data-search-composing=""
+    >
+      {/* `text-*` utilities would be merged away from `text-shimmer`, so size
+          and colour sit on the wrapper. */}
+      {shimmer ? (
+        <Shimmer>{searchCopy.composing}</Shimmer>
+      ) : (
+        <p>{searchCopy.composing}</p>
+      )}
+    </div>
+  );
+};
 
 const OpenUiExperienceRenderer = dynamic(
   () =>
     import("./openui-renderer").then(
       (module) => module.OpenUiExperienceRenderer
     ),
-  { loading: LoadingLine, ssr: false }
+  { loading: ComposingLine, ssr: false }
 );
 
 /** Catches failures outside OpenUI's per-element boundaries. */
@@ -47,55 +70,138 @@ class RegionErrorBoundary extends Component<
   }
 }
 
+const textLink =
+  "text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent";
+
+const BrowseLinks = ({ onNavigate }: { onNavigate?: () => void }) => (
+  <p className="text-neutral-400">
+    {searchCopy.browse}{" "}
+    {browseLinks.map((link, index) => (
+      <span key={link.href}>
+        <Link className={textLink} href={link.href} onClick={onNavigate}>
+          {link.label}
+        </Link>
+        {index < browseLinks.length - 2
+          ? ", "
+          : index === browseLinks.length - 2
+            ? ", or "
+            : "."}
+      </span>
+    ))}
+  </p>
+);
+
+const KeywordMatches = ({
+  matches,
+  onNavigate,
+}: {
+  matches: SearchRecord[];
+  onNavigate?: () => void;
+}) =>
+  matches.length ? (
+    <div>
+      <h2 className="text-sm text-neutral-400">{searchCopy.keywordMatches}</h2>
+      <ul className="mt-2 flex flex-col gap-2">
+        {matches.map((record) => (
+          <li key={record.href}>
+            <Link className={textLink} href={record.href} onClick={onNavigate}>
+              {record.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : null;
+
+const outcomePanel =
+  "flex flex-col gap-4 rounded-md border border-hairline p-4 text-sm text-neutral-200";
+
 const ErrorPanel = ({
-  message,
+  error,
+  matches,
+  onNavigate,
   onRetry,
 }: {
-  message: string;
+  error: SearchError;
+  matches: SearchRecord[];
+  onNavigate?: () => void;
   onRetry?: () => void;
 }) => (
-  <div className="rounded-md border border-hairline p-4 text-sm text-neutral-200">
-    <p>{message}</p>
-    {onRetry && (
+  <div className={outcomePanel} data-search-state="error">
+    <p>{error.message}</p>
+    {onRetry ? (
       <button
-        className="mt-3 text-sm text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent"
+        className={`self-start ${textLink}`}
         onClick={onRetry}
         type="button"
       >
-        Try again
+        {searchCopy.retry}
       </button>
-    )}
-    <p className="mt-2 text-neutral-400">
-      Or browse{" "}
-      <Link className="text-accent" href="/work">
-        work
-      </Link>
-      ,{" "}
-      <Link className="text-accent" href="/cv">
-        the résumé
-      </Link>
-      , or{" "}
-      <Link className="text-accent" href="/contact">
-        contact
-      </Link>
-      .
-    </p>
+    ) : null}
+    <KeywordMatches matches={matches} onNavigate={onNavigate} />
+    <BrowseLinks onNavigate={onNavigate} />
   </div>
 );
 
+const EmptyPanel = ({
+  matches,
+  onExample,
+  onNavigate,
+}: {
+  matches: SearchRecord[];
+  onExample?: (query: string) => void;
+  onNavigate?: () => void;
+}) => (
+  <div className={outcomePanel} data-search-state="empty">
+    <p>{searchCopy.empty}</p>
+    <KeywordMatches matches={matches} onNavigate={onNavigate} />
+    {onExample ? (
+      <div>
+        <p className="text-neutral-400">{searchCopy.emptyExamples}</p>
+        <ul className="mt-2 flex flex-wrap gap-2">
+          {curatedGenuiQuerySuggestions
+            .slice(0, EXAMPLE_CHIP_COUNT)
+            .map((example) => (
+              <li key={example.query}>
+                <button
+                  className="min-h-11 cursor-pointer rounded-lg border border-hairline px-3 py-2 text-left text-neutral-200 transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
+                  onClick={() => onExample(example.query)}
+                  type="button"
+                >
+                  {example.label}
+                </button>
+              </li>
+            ))}
+        </ul>
+      </div>
+    ) : null}
+    <BrowseLinks onNavigate={onNavigate} />
+  </div>
+);
+
+/**
+ * The shared search outcome region (homepage, dialog and fixture lab): one
+ * live region, the composing line, the generated result, and the explicit
+ * empty and error states with keyword matches for the submitted text.
+ */
 export const GeneratedRegion = ({
-  complete,
   envelope,
   error,
-  isStreaming,
+  onExample,
+  onNavigate,
   onRetry,
+  status,
+  submitted = "",
 }: {
-  complete: boolean;
   envelope: CompositionEnvelope | null;
-  error: string | null;
-  isStreaming: boolean;
+  error: SearchError | null;
+  onExample?: (query: string) => void;
+  onNavigate?: () => void;
   onRetry?: () => void;
+  status: SearchStatus;
+  submitted?: string;
 }) => {
+  const records = useSiteSearchOptional()?.records;
   // Render failures are keyed to the envelope that produced them, so a new
   // result clears them without an effect.
   const [renderFailure, setRenderFailure] = useState<{
@@ -106,7 +212,6 @@ export const GeneratedRegion = ({
     renderFailure && renderFailure.envelope === envelope
       ? renderFailure.message
       : null;
-  const shownError = error ?? failure;
   const reportFailure = (message: string) => {
     if (!envelope) return;
     setRenderFailure((current) =>
@@ -114,30 +219,56 @@ export const GeneratedRegion = ({
     );
   };
 
-  const announced =
-    shownError ??
-    (complete ? "Results ready." : isStreaming ? "Loading results." : "");
-  const waiting =
-    !shownError && !envelope?.openuiText && (isStreaming || !complete);
+  const shownStatus: SearchStatus = failure ? "error" : status;
+  const shownError =
+    failure && status !== "error"
+      ? { ...searchError("failed"), message: failure }
+      : error;
+  const matches = useMemo(
+    () =>
+      (shownStatus === "error" || shownStatus === "empty") && records
+        ? rankSearchRecords(records, submitted)
+        : [],
+    [records, shownStatus, submitted]
+  );
+  const waiting = status === "composing" && !envelope?.openuiText;
+  const showEnvelope =
+    envelope && !failure && (status === "result" || status === "composing");
 
   return (
-    <section aria-busy={waiting} className="min-h-[12rem] space-y-4">
+    <section
+      aria-busy={status === "composing"}
+      className="min-h-[12rem] space-y-4"
+      data-search-status={shownStatus}
+    >
       <p aria-live="polite" className="sr-only" role="status">
-        {announced}
+        {announcementFor({ error: shownError, status: shownStatus })}
       </p>
-      {shownError ? (
-        <ErrorPanel message={shownError} onRetry={onRetry} />
+      {shownStatus === "error" && shownError ? (
+        <ErrorPanel
+          error={shownError}
+          matches={matches}
+          onNavigate={onNavigate}
+          onRetry={onRetry}
+        />
       ) : null}
-      {waiting ? <LoadingLine /> : null}
-      {envelope && !failure ? (
+      {shownStatus === "empty" ? (
+        <EmptyPanel
+          matches={matches}
+          onExample={onExample}
+          onNavigate={onNavigate}
+        />
+      ) : null}
+      {waiting ? <ComposingLine /> : null}
+      {showEnvelope ? (
         <RegionErrorBoundary
           key={envelope.openuiText}
-          onError={() => reportFailure(RENDER_FAILED_MESSAGE)}
+          onError={() => reportFailure(searchCopy.renderFailed)}
         >
           <OpenUiExperienceRenderer
-            complete={complete}
+            complete={status === "result"}
             fallbackText={envelope.fallbackText}
-            isStreaming={isStreaming}
+            isStreaming={status === "composing"}
             onRenderFailure={reportFailure}
             records={envelope.records}
             response={envelope.openuiText}

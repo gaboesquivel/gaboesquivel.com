@@ -6,4 +6,4 @@ export const enter =
 
 /** Cover imagery on cards and heroes — one hover scale site-wide. */
 export const imageHover =
-  "motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none";
+  "motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:group-hover:scale-[1.02] motion-reduce:transition-none";

@@ -37,7 +37,7 @@ export default function ContactPage() {
         </ul>
       </PageIntro>
       {/* DOM order is facts, form, context so mobile reaches the form early; from lg the form sits beside both paragraphs. */}
-      <div className="mx-auto max-w-5xl lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(16rem,26rem)] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-10 xl:gap-x-14">
+      <div className="max-w-5xl lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(16rem,26rem)] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-10 xl:gap-x-14">
         <Prose className="mt-0 lg:col-start-1 lg:row-start-1">
           I&apos;m available for direct hire, international hire, and contracts
           through{" "}

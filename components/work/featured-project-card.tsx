@@ -28,13 +28,14 @@ export function FeaturedProjectCard({
         className={cn("group mt-4 block", editorialLink)}
       >
         {image ? (
-          <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-black sm:aspect-video">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-neutral-900 sm:aspect-video">
             <Image
               src={image.src}
               alt={image.alt}
               fill
               sizes={workCoverSizes}
               preload={priority}
+              loading={priority ? "eager" : undefined}
               fetchPriority={priority ? "high" : undefined}
               className={cn("object-cover", imageHover)}
             />

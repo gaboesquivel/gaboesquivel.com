@@ -14,12 +14,12 @@ export function PathLink({
   return (
     <SiteCardLink className="group h-auto" href={href}>
       <div className="mb-1 flex items-start justify-between gap-3">
-        <span className="font-mono text-xs text-neutral-400">{href}</span>
+        <span className="font-medium">{title}</span>
         <span aria-hidden className={cardArrow}>
           →
         </span>
       </div>
-      <span className="font-medium">{title}</span>
+      <span className="font-mono text-xs text-neutral-400">{href}</span>
       {note ? (
         <p className={cn(proseClass, "mt-2 flex-grow text-sm")}>{note}</p>
       ) : null}

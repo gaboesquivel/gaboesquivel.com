@@ -6,7 +6,6 @@ import {
 } from "components/interior/split-section";
 import { editorialLink } from "components/shared/spacing";
 import type { Blog } from "lib/blog";
-import { blogListingImageSrc } from "lib/blog-listing-image";
 import { categoryDisplayNames } from "lib/blog-taxonomy";
 import { primaryBrowseCategory } from "lib/blog-trail";
 import { cn, formatBlogListDate } from "lib/utils";
@@ -22,7 +21,7 @@ export function WritingFeaturedPost({ post }: { post: Blog }) {
   return (
     <EditorialSection>
       <SplitSection sectionSpacing={false}>
-        <SplitSectionContent mediaPosition="right" span={6}>
+        <SplitSectionContent mediaPosition="right" span={post.image ? 6 : 7}>
           <Link
             href={`/blog/${post.slug}`}
             className={cn(editorialLink, "block")}
@@ -46,25 +45,24 @@ export function WritingFeaturedPost({ post }: { post: Blog }) {
             </time>
           </Link>
         </SplitSectionContent>
-        <SplitSectionMedia mediaPosition="right" span={6}>
-          <Link
-            href={`/blog/${post.slug}`}
-            className={cn(editorialLink, "block overflow-hidden rounded-lg")}
-          >
-            <Image
-              alt={post.title}
-              className={cn(
-                "aspect-video w-full bg-black",
-                // Generated OG fallbacks are title-led 1200×630 art; contain them so the title is never cropped.
-                post.image ? "object-cover" : "object-contain"
-              )}
-              height={900}
-              sizes="(max-width: 1023px) 100vw, min(42vw, 36rem)"
-              src={blogListingImageSrc(post)}
-              width={1600}
-            />
-          </Link>
-        </SplitSectionMedia>
+        {/* Listings omit the hero when `image` is absent (DESIGN.md Editorial images). */}
+        {post.image ? (
+          <SplitSectionMedia mediaPosition="right" span={6}>
+            <Link
+              href={`/blog/${post.slug}`}
+              className={cn(editorialLink, "block overflow-hidden rounded-lg")}
+            >
+              <Image
+                alt={post.title}
+                className="aspect-video w-full bg-neutral-900 object-cover"
+                height={900}
+                sizes="(max-width: 1023px) 100vw, min(42vw, 36rem)"
+                src={post.image}
+                width={1600}
+              />
+            </Link>
+          </SplitSectionMedia>
+        ) : null}
       </SplitSection>
     </EditorialSection>
   );

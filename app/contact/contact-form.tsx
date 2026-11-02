@@ -38,6 +38,26 @@ const getErrorMessage = (error: unknown): string => {
   return "Invalid input";
 };
 
+const fieldOrder = ["name", "email", "subject", "message"] as const;
+
+const errorId = (name: string) => `${name}-error`;
+
+/** Wires invalid state and the error description onto a field control. */
+const invalidProps = (name: string, errors: unknown[]) =>
+  errors.length > 0
+    ? { "aria-describedby": errorId(name), "aria-invalid": true as const }
+    : {};
+
+function FieldMessage({ name, errors }: { name: string; errors: unknown[] }) {
+  if (errors.length === 0) return null;
+  return (
+    <FieldError className="text-red-400" id={errorId(name)}>
+      <span aria-hidden="true">✗ </span>
+      {getErrorMessage(errors[0])}
+    </FieldError>
+  );
+}
+
 export function ContactForm() {
   const [formState, setFormState] = useState<FormState | null>(null);
   const [isPending, setIsPending] = useState(false);
@@ -77,6 +97,16 @@ export function ContactForm() {
         setIsPending(false);
       }
     },
+    onSubmitInvalid: ({ formApi }) => {
+      const firstInvalid = fieldOrder.find(
+        (name) => (formApi.getFieldMeta(name)?.errors.length ?? 0) > 0
+      );
+      if (!firstInvalid) return;
+      // Wait for React to commit aria-invalid and the error text before moving focus.
+      requestAnimationFrame(() => {
+        document.querySelector<HTMLElement>(`#${firstInvalid}`)?.focus();
+      });
+    },
     validators: {
       onSubmit: contactSchema,
     },
@@ -94,7 +124,7 @@ export function ContactForm() {
             enter,
             formState.success
               ? "border border-accent text-accent"
-              : "border border-red-800 text-red-800"
+              : "border border-red-400 text-red-400"
           )}
         >
           {formState.success ? formState.message : formState.error}
@@ -118,16 +148,18 @@ export function ContactForm() {
                 disabled={isPending}
                 id={field.name}
                 name={field.name}
+                required
+                {...invalidProps(field.name, field.state.meta.errors)}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+                autoComplete="name"
                 placeholder="Your full name"
                 value={field.state.value}
               />
-              {field.state.meta.errors.length > 0 && (
-                <FieldError>
-                  ✗ {getErrorMessage(field.state.meta.errors[0])}
-                </FieldError>
-              )}
+              <FieldMessage
+                errors={field.state.meta.errors}
+                name={field.name}
+              />
             </Field>
           )}
         </form.Field>
@@ -135,23 +167,28 @@ export function ContactForm() {
         <form.Field name="email">
           {(field) => (
             <Field>
-              <FieldLabel htmlFor={field.name}>Email Address</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Email address</FieldLabel>
               <Input
                 className={siteFieldClass}
                 disabled={isPending}
                 id={field.name}
                 name={field.name}
+                required
+                {...invalidProps(field.name, field.state.meta.errors)}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+                autoCapitalize="none"
+                autoComplete="email"
+                inputMode="email"
                 placeholder="your@email.com"
+                spellCheck={false}
                 type="email"
                 value={field.state.value}
               />
-              {field.state.meta.errors.length > 0 && (
-                <FieldError>
-                  ✗ {getErrorMessage(field.state.meta.errors[0])}
-                </FieldError>
-              )}
+              <FieldMessage
+                errors={field.state.meta.errors}
+                name={field.name}
+              />
             </Field>
           )}
         </form.Field>
@@ -165,16 +202,17 @@ export function ContactForm() {
                 disabled={isPending}
                 id={field.name}
                 name={field.name}
+                required
+                {...invalidProps(field.name, field.state.meta.errors)}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Email subject line"
                 value={field.state.value}
               />
-              {field.state.meta.errors.length > 0 && (
-                <FieldError>
-                  ✗ {getErrorMessage(field.state.meta.errors[0])}
-                </FieldError>
-              )}
+              <FieldMessage
+                errors={field.state.meta.errors}
+                name={field.name}
+              />
             </Field>
           )}
         </form.Field>
@@ -188,6 +226,8 @@ export function ContactForm() {
                 disabled={isPending}
                 id={field.name}
                 name={field.name}
+                required
+                {...invalidProps(field.name, field.state.meta.errors)}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Describe the product, team, and what you need help with..."
@@ -196,8 +236,13 @@ export function ContactForm() {
               <div className="mt-2 flex items-center justify-between">
                 <p className="text-sm text-neutral-400">
                   {field.state.meta.errors.length > 0 ? (
-                    <span className="text-red-400">
-                      ✗ {getErrorMessage(field.state.meta.errors[0])}
+                    <span
+                      className="text-red-400"
+                      id={errorId(field.name)}
+                      role="alert"
+                    >
+                      <span aria-hidden="true">✗ </span>
+                      {getErrorMessage(field.state.meta.errors[0])}
                     </span>
                   ) : field.state.value.length >= 10 ? (
                     <span className="text-accent">

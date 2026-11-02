@@ -33,7 +33,7 @@ export function PageTrail({
               className="inline-flex min-w-0 items-center gap-x-1.5"
             >
               {index > 0 ? (
-                <span aria-hidden className="text-neutral-500">
+                <span aria-hidden className="text-neutral-400">
                   /
                 </span>
               ) : null}

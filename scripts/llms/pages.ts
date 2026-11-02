@@ -58,15 +58,16 @@ export interface PageExport {
   body: string;
 }
 
-const narrativePages: { file: string; path: string }[] = [
+/** `title` names pages whose markup has no H1 the exporter can read. */
+const narrativePages: { file: string; path: string; title?: string }[] = [
   { file: "page.tsx", path: "/" },
   { file: "bio/page.tsx", path: "/bio" },
   { file: "ai/page.tsx", path: "/ai" },
   { file: "web3/page.tsx", path: "/web3" },
-  { file: "ask/page.tsx", path: "/ask" },
-  { file: "about/page.tsx", path: "/about" },
-  { file: "contact/page.tsx", path: "/contact" },
-  { file: "docs/page.tsx", path: "/docs" },
+  { file: "ask/page.tsx", path: "/ask", title: "Ask" },
+  { file: "about/page.tsx", path: "/about", title: "About" },
+  { file: "contact/page.tsx", path: "/contact", title: "Contact" },
+  { file: "docs/page.tsx", path: "/docs", title: "Developer docs" },
   { file: "privacy/page.tsx", path: "/privacy" },
   { file: "tech/page.tsx", path: "/tech" },
   { file: "fullstack/page.tsx", path: "/fullstack" },
@@ -804,7 +805,15 @@ const parseCapabilityPage = (
   });
 };
 
-const parsePageFile = ({ file, path }: { file: string; path: string }) => {
+const parsePageFile = ({
+  file,
+  path,
+  title: fallbackTitle,
+}: {
+  file: string;
+  path: string;
+  title?: string;
+}) => {
   const filePath = join(APP_DIR, file);
   const content = readFileSync(filePath, "utf-8");
   sourceFile = ts.createSourceFile(
@@ -820,7 +829,7 @@ const parsePageFile = ({ file, path }: { file: string; path: string }) => {
   if (capability) {
     return {
       path,
-      title: capability.match(/^# (.+)/m)?.[1] ?? path,
+      title: capability.match(/^# (.+)/m)?.[1] ?? fallbackTitle ?? path,
       body: rewriteLinks(capability.replace(/^# .+\n\n?/, "")),
     };
   }
@@ -834,7 +843,7 @@ const parsePageFile = ({ file, path }: { file: string; path: string }) => {
 
   const fullText = lines.join("\n").trim();
   const titleMatch = fullText.match(/^# (.+)/m);
-  const title = titleMatch?.[1] ?? path;
+  const title = titleMatch?.[1] ?? fallbackTitle ?? path;
 
   return {
     body: rewriteLinks(fullText.replace(/^# .+\n\n?/, "")),

@@ -39,7 +39,8 @@ export default async function WorkPage({
 
   return (
     <>
-      <ProjectsMasonry projects={filteredProjects} />
+      <h2 className="sr-only">Projects</h2>
+      <ProjectsMasonry priorityFirst projects={filteredProjects} />
       <WorkLatestWriting />
     </>
   );

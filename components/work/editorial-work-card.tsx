@@ -60,7 +60,12 @@ export function EditorialWorkCard({
         )}
       >
         {image ? (
-          <div className={cn("relative shrink-0 bg-black", frameClass[layout])}>
+          <div
+            className={cn(
+              "relative shrink-0 bg-neutral-900",
+              frameClass[layout]
+            )}
+          >
             <Image
               src={image.src}
               alt={image.alt}
@@ -146,7 +151,10 @@ export function ProjectCover({
 
   return (
     <div
-      className={cn("relative overflow-hidden rounded-lg bg-black", className)}
+      className={cn(
+        "relative overflow-hidden rounded-lg bg-neutral-900",
+        className
+      )}
     >
       <Image
         src={image.src}
