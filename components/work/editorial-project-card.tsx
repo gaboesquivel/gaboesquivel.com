@@ -7,7 +7,6 @@ import {
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { resolveProjectImage } from "lib/work/project-cover";
-import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -39,9 +38,6 @@ export function EditorialProjectCard({
             "relative overflow-hidden rounded-lg bg-black",
             wide ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-video"
           )}
-          style={{
-            viewTransitionName: projectViewTransitionName(project.slug),
-          }}
         >
           <Image
             src={image.src}

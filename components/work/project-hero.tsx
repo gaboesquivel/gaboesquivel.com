@@ -2,7 +2,6 @@ import { imageHover } from "components/shared/motion";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { resolveProjectImage, workCoverSizes } from "lib/work/project-cover";
-import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,10 +19,7 @@ export function ProjectHero({
   if (!resolved) return null;
 
   const image = (
-    <div
-      className="relative aspect-video overflow-hidden rounded-lg bg-black"
-      style={{ viewTransitionName: projectViewTransitionName(project.slug) }}
-    >
+    <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
       <Image
         src={resolved.src}
         alt={resolved.alt}
