@@ -41,6 +41,16 @@ Dark reading column, not a marketing landing kit. Black canvas, white type, one 
 
 Voice and identity facts live in the installed `gabo` skill. UI microcopy: sentence case, plain verbs, no marketing CTAs. Do not duplicate biography or hire terms here.
 
+## Surfaces
+
+Everything in this file applies to every page. Detail for one surface lives in its own file; read it when you change that surface:
+
+- Homepage (portrait hero, editorial homepage): [docs/agents/design/home.md](docs/agents/design/home.md)
+- Work index: [docs/agents/design/work.md](docs/agents/design/work.md)
+- `/ai`, `/web3`, `/bio`, and `/contact`: [docs/agents/design/pages.md](docs/agents/design/pages.md)
+- Editorial images: [docs/agents/design/editorial-images.md](docs/agents/design/editorial-images.md)
+- `/ask` generative UI: [docs/agents/design/ask.md](docs/agents/design/ask.md)
+
 ## Colors
 
 | Token | Value | Use |
@@ -84,36 +94,6 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - `/ask` redirects to `/`. Connect transcript styles in `app/connect/` are not mounted on that route.
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
 - Page and project media: 16:9, `rounded-lg`, via `projectMedia`. Project covers use `object-cover`; per-slug focal positions and the intrinsic-width cap for small legacy sources live in `lib/work/project-cover.ts`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
-
-## AI, Web3, and biography pages
-
-The `/ai`, `/web3`, and `/bio` pages are editorial portfolio narratives, not diagram pages. They use coherent prose introductions, selected project evidence, authentic photography, and deliberate image/text compositions. Diagrams, decorative flowcharts, repetitive timeline widgets, and diagram substitutes are not used on these routes. Featured projects may use large horizontal compositions aligned with the homepage design system. Long-form career content should not be forced into repeated two-column grids. Project media is sourced from the canonical project image registry, so asset updates do not require page-specific changes. Blog diagram guidance below does not apply to these three routes; diagrams remain appropriate in technical articles when they explain something text alone cannot.
-
-Use the homepage shell, monochrome type, turquoise links, hairline borders, and `rounded-lg` media. Introductions are one left-aligned block (`PageIntro` `narrative`): `heroTitle`, then `narrativeLead`, then supporting `narrativeCopy`. No second text column and no intro image. The first section uses `narrativeIntroGap` (56px mobile, 80px desktop). Later sections use `narrativeSectionGap` (64px mobile, 96px desktop). Whitespace separates chapters. Do not rule every chapter.
-
-`/ai` and `/web3` present LegalAgent and ZTX with `EditorialWorkCard` `layout="feature"` (about 40% copy and 60% media, full shell width). Masterbots, Bitlauncher, Bitcash, Opyn, and RareMint use `layout="landscape"` in a two-up grid. `/web3` protocols are `ProjectTextRow` links, not image cards. The editorial description lives in the card. Do not repeat it beside a thumbnail. `/bio` renders its chapters with `BioTimeline`. NodeSchool is a full-width photograph at its real aspect ratio. Wink is media-left, about 55–58% of the row. The 2017 chapter is text-left with the Opyn project cover on the right, linking to `/project/opyn`. The 2024 chapter ends with `layout="banner"`, quieter than the `/ai` feature. Covers come from `resolveProjectImage`. Use `object-cover` and adjust focal position when a frame would letterbox; do not edit the asset.
-
-End these pages with résumé and conversation links. Do not repeat `LetsConnect` above the footer. Open Graph for `/ai` and `/web3` uses their generated landing cards (see [docs/agents/images.md](docs/agents/images.md#landing-og)).
-
-## Editorial images
-
-Every editorial image communicates a specific idea from its article. Technical images show meaningful structures and relationships. Reflective images express the central experience through a clear visual metaphor. Both use the same palette, drawing style, spacing, and compositional discipline.
-
-The approved direction is flat, diagram-like editorial illustration: pure black canvas, white and neutral-gray shapes and lines, and turquoise `#5cded6` marking the important relationship or subject. Use sparse, recognizable objects, clear boundaries, generous negative space, and consistent strokes. No dimensional rendering, shadows, glow, glass, grain, gradients, futuristic offices, robots, decorative code, or technology-logo collages. Organic subjects such as grass and trails use the same simplified drawing language. Photography and real project screenshots remain evidence and retain their original character.
-
-Choose the visual structure from the content:
-
-- Technical explanation: components, boundaries, connections, or flow.
-- Engineering perspective: a comparison, tradeoff, progression, or feedback loop.
-- Personal reflection: a concrete visual metaphor grounded in the author's account. Do not turn personal experience into a scientific causal claim.
-
-Use image generation for conceptual artwork. Construct exact diagrams, arrows, labels, and factual relationships with SVG or another controlled layout tool. Add any typography after generation; never rely on generated text. In-article diagrams in `public/images/diagrams/` use this palette and the site monospace, and the page scales them to the content column width so they stay readable without horizontal scroll. Hero images do not contain the article title, logos, or a signature. No new triangle mark or monogram is approved. Social assets may use the author's name or domain as typeset attribution.
-
-A **hero image** is the optional editorial raster for a blog post (`image` in MDX frontmatter). Posts may ship without one; listings omit the hero when `image` is omitted. Open Graph uses build-time title-led images at `public/images/og/blog/{slug}.png` (optional `ogImage` frontmatter overrides): one layout for every post, with a turquoise top bar, a large white title, the post `summary` in gray, and the author and domain in the footer. No per-post diagrams. In-article diagrams stay SVG or evidence imagery and are not hero images.
-
-Produce blog hero images at 1600 × 900 and OG compositions at 1200 × 630. Recompose for other formats; do not stretch or blindly crop. The palette and geometry stay consistent across the website, LinkedIn, and X. Existing assets are not automatically approved references, and this policy does not authorize a bulk replacement of older images or changes to listing layouts.
-
-Production specifications, the fixed generation brief, and the first three hero-image briefs live in [docs/agents/images.md](docs/agents/images.md). This is the current direction for new editorial imagery; existing assets migrate only in explicitly scoped tasks.
 
 ## Elevation & Depth
 
@@ -188,25 +168,6 @@ Motion budget: color/underline transitions, project-card image hover via `imageH
 - Preserve SSR, accessibility, performance, and SEO; do not block paint for decorative motion.
 - Use Next `Link` / `useRouter` `transitionTypes` only when directional navigation is product-approved; cross-document (MPA) transitions follow browser support and are out of scope until explicitly specified.
 
-## `/ask` generative UI
-
-`/ask` redirects to `/`. The notes below describe connect cards in `app/connect/`, which are not the homepage GenUI result. Homepage generation uses the shared OpenUI experiences.
-
-Conversation carries intent; interactive cards carry data entry and confirmation. The model calls `list_slots`, `book`, and `send`; React owns layout, validation, and local UI state without extra chat turns for ordinary picker navigation.
-
-**Principles**
-
-- One card surface per workflow step: shadcn `Card`, hairline border, `rounded-lg`, `p-4`, `max-w-md`, `gap-3`, mono type, turquoise focus rings — see `ConnectCard` in `app/connect/connect-gen-ui.tsx`.
-- Progressive disclosure: booking shows duration, visitor time zone, and the next few starts before an in-place expand for week navigation and a responsive time grid (`app/connect/slot-picker.tsx`, logic in `lib/connect/slot-display.ts`).
-- Stateful flows: availability → details → approval → receipt. Contact fields persist when the visitor changes time. The discussion field is never prefilled from chat history.
-- Shared fields and actions: `connect-fields.tsx`, `ConnectPrimaryButton` / `ConnectSecondaryButton`, `DurationToggle` chips with `aria-pressed` and accent border when selected.
-- Approval: `ConnectApprovalForm` edits name, email, and topic once more; primary label names the action (`Book …`, `Send email`).
-- Receipts: compact `BookReceipt` and `NoteReceipt` cards with shimmer while pending, neutral or red status text when settled, definition lists for summary fields. After a slot is chosen, the picker collapses to a read-only summary (`picker-lock.ts`); approval and receipt cards disable repeat submission.
-- Responsive: generative cards stay `max-w-md` in the chat column; expanded time grids use two columns on narrow viewports and three from `sm` up. Verify with `agent-browser set viewport <w> <h>`.
-- Motion: existing `enter` on card mount only; no decorative animation. Loading uses `Shimmer` on status lines.
-- Time zones: IANA identifiers in a native `select`; slots rebucket client-side when the display zone changes. Business hours stay America/Denver server-side.
-- Accessibility: grouped times with `role="group"` and `aria-label`, keyboard-focusable chips and buttons, `tabular-nums` on times, reduced motion via existing `motion-safe` / `motion-reduce` on press styles. After the visitor leaves the empty state, `/ask` keeps a screen-reader-only `h1` (`connect-chat.tsx`) so the page still has a level-one heading.
-
 ## Accessibility
 
 - Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under. Inactive nav items use `neutral-400` (`navbar.tsx`). Some meta text still uses `neutral-500`. See Open questions.
@@ -235,6 +196,8 @@ Which routes may be restyled, and in which passes, is in [docs/agents/content.md
 - Gradient blobs, numbered 01/02/03 markers, eyebrow labels, icon feature rows, stat strips, second accent
 - Display serif, cream/terracotta defaults, broadsheet chrome, or acid-green redesigns of the turquoise bar
 
+**How these are checked.** `bun run check:design` (part of `bun run verify`) fails in site-authored code (`app/`, `components/` except `components/ui/`, and `lib/`) on gradients, `zinc`/`gray`/`slate` classes, `shadow-*` classes, `backdrop-blur`, `rounded-xl`/`rounded-2xl`, display serif, inline `viewTransitionName` styles, and `text-neutral-500`, apart from the exceptions in Drift. The other bans (01/02/03 markers, eyebrow labels, feature rows, stat strips, a second accent, a new signature) need a look at the rendered page ([docs/agents/verify.md](docs/agents/verify.md)).
+
 **Skills**
 
 - `frontend-design` is a critic inside this brief (anti-slop, restraint). It must not invent palette, type, or a signature — this file wins.
@@ -247,46 +210,8 @@ Which routes may be restyled, and in which passes, is in [docs/agents/content.md
 
 Intended surface border is `border-hairline`. Intended color family otherwise is `neutral-*`. Existing exceptions in `app/global.css`: `::selection` uses `bg-gray-800`, and some code blocks use `slate` / `#333`. Leave those in place during a design-docs pass. Do not spread them.
 
+`check:design` allows these existing exceptions and no others: the shimmer and text-reveal gradients and the `gray`/`slate` uses in `app/global.css`, the vendor tweet theme in `components/tweet.css`, and the edge-fade mask in `components/work/work-filter-nav.tsx`. Fix one by removing it from the script's allowlist in the same change.
+
 ## Open questions
 
 - Resolved (2026-10-29): small meta text in shared templates uses `neutral-400` (AA on black). `neutral-500` remains only in files not yet touched; raise it when editing them.
-
-## Homepage portrait hero
-
-The homepage portrait ships as `public/images/gabo-portrait.webp`, generated from `assets/homepage/v2/gabo-portrait.png` (no facial retouch; production steps in [docs/agents/images.md](docs/agents/images.md#homepage-portrait-hero)). `PortraitMedia` overlays crisp SVG geometry in empty background coordinates only: a partial arc, sparse grid and dot reticle, vertical axis with PRODUCT, DESIGN, ENGINEERING, and DELIVERY, and a small plus near the collar. No glow, bloom, shadow, or decorative gradient.
-
-The split layout uses normal grid flow. The left column contains the white H1, muted name/turquoise role, and an end-to-end pitch. The full-width search sits beneath both columns. Mobile stacks without clipping. The personal OG composites this same portrait and linework (`lib/portrait-overlay.ts`) beside the H1, muted name, and turquoise role. Every other landing page gets the same card with its own headline; no project OG or hero is replaced by homepage covers.
-
-## Editorial homepage
-
-`homeColumn`, `homeSection`, `editorialGrid`, `editorialLink`, `heroTitle` and `heroPitch` extend the existing spacing system. `SiteWidth` applies that homepage shell on every route. It does not import page content into a client graph. Navigation, main and footer share width. Narrative copy stays on `readingMeasure`. The résumé keeps its screen measure. CV print width stays unchanged.
-
-Selected work is LegalAgent, Wink, ZTX and Bitlauncher in `EditorialProjectList`. The grid is one column until the editorial container is `48rem` wide, then two columns. `EditorialProjectCard` shows the package `image` URL (site-relative via `resolveProjectImage`) in a 16:9 frame, plus name, verified `role`, and description in `projectCardDescription` (`line-clamp-3`, shared with `FeaturedProjectCard` and filtered work grids). Package facts remain authoritative for image paths and alt text uses the project title.
-
-Focus uses lightly ruled typographic links. Writing uses four latest dated editorial entries. Career uses two compact links. Work together retains the existing hire terms. Footer content stays unchanged.
-
-Homepage generative search (`HomepageGenUiShell` / `PromptField`) and the off-homepage search dialog follow one search contract ([spec 001](docs/specs/001-site-design-ux-search.md#shared-search-contract)): one state machine (`useGenuiComposition`), one outcome region (`GeneratedRegion`), one copy table (`lib/search/copy.ts`) and one keyword ranker (`lib/search/keyword-rank.ts`, shared with MCP `search_site`). Both call `/api/genui/compose` on Enter from a `type="text"` combobox with an outline **Beta** badge at the trailing edge (hidden from assistive tech; the accessible name is "Search this site (beta)"). Enter-only, IME-safe, no submit button, no theme toggle or send control on the field. Escape closes suggestions first, then the dialog, and never clears text. The suggestions list is named "Suggestions" with "Recent" and "Examples" groups; focus stays in the field, and Recent keeps only queries that reached a result. The leading search icon becomes a back-arrow "Clear search" control once a search is active; it resets and refocuses the field, and emptying the field does not reset results. Usage hints are screen-reader only on both surfaces. Cmd/Ctrl+K works everywhere, including inside inputs, and the nav Search control focuses the homepage field on `/` or opens the dialog elsewhere; Cmd/Ctrl+K closes an open dialog, and closing returns focus to whatever opened it. The `⌘K` / `Ctrl K` hint shows only on fine pointers, from 640px, while the homepage field is idle and empty. The conversational placeholder stays approved for sighted users. Without JavaScript, the homepage field falls back to browse/contact copy. Successful GenUI sessions replace homepage SSR sections below the sticky prompt (solid `bg-black`, hairline bottom border, no blur); the dialog matches the site column (`max-w-6xl` less gutters) with `rounded-lg`, a hairline border and solid `bg-black` over a `bg-black/60` overlay (no blur), keeps suggestions inside the panel, goes full height (`100dvh`) with a sticky field and safe-area padding below 640px, opens in 150ms from the top on the site curve (no animation under reduced motion), scrolls generated results in-panel, and shares the homepage session providers (`GenuiSessionProvider`, so booking and contact flows render in both). Both surfaces show a static "Composing results…" line at once and a shimmer only after 300ms. An off-topic query ends in an explicit empty state ("No answer for that on this site.", keyword matches, three example chips). Errors are typed: rate-limited shows the server's message, the server's 15s deadline shows "That took too long. Try again.", anything else shows "Search is unavailable right now."; every error shows Try again (re-runs the last submitted query and refocuses the field), keyword matches and links to `/work`, `/cv` and `/contact`, identically on both surfaces. Only a result announces "Results ready." Sticky prompt behavior and capability specs remain in `docs/specs/homepage-genui/`. The top-right chat button opens an accessible right-side sheet with a link to `/ask`. That route redirects to `/`. Homepage GenUI replacement below the prompt is active; moving the prompt itself is not.
-
-Alternative project arrangements are documented in [the v2 implementation scope](docs/specs/design-system-v2/IMPLEMENTATION.md) for future GenUI use, not competing homepage layouts. GenUI project browsing uses approved editorial recipes (`project-bento`, `project-feature-grid`, `project-asymmetric-closing`, `project-compact-list`, `project-comparison`) with dark hairline cards, package images via `resolveProjectImage`, and turquoise project links. `project-comparison` shows the projects as two or three balanced columns, then one aligned, always-visible row per requested dimension (role, technical work, what shipped, stack, categories, year; default role, what shipped, stack). Rows quote package fields only; a missing field reads “Not recorded”. GenUI project recipes do not add eyebrow labels or section headings above the evidence, and an answer does not relist sources that already render as evidence beside it. capability diagrams are reserved for explicit architecture intent, not domain keywords alone. Curated homepage suggestions and equivalent canonical queries share one deterministic route (intro + evidence via `ExperienceStack` when needed). Large project sets use a visual lead recipe plus a compact list remainder so every published match stays reachable. FinTech browse is limited to package-backed slugs in `lib/genui/fintech-projects.ts` (currently Wink). CV results use the `cv-preview` composite (HTML from `resolveCv`, not duplicated JSX facts).
-
-## Work index (`/work`)
-
-`/work` shares the homepage shell width (`homeColumn` via `SiteWidth`). A nested `app/work/layout.tsx` wraps every Work route in `WorkPageChrome`: stable `WorkIndexHero` (`heroTitle`, explicit two-line desktop/mobile lede from `lib/work-types.ts`, `PageTrail`), `WorkFilterNav` (hairline rounded shell, turquoise active label, `ViewTransition` indicator), and `#work-results` for route-specific listings. Hero geometry and filter position are identical across all eight categories; copy resolves from the URL via `workTypeFromPathname`. When the chips overflow (mobile), the selected chip is centered in the scroller on load and on navigation, and only the overflowing edges fade (`mask-image`); the page never scrolls to reveal it. Filter clicks use Next.js client navigation with `scroll={false}` and a scoped smooth scroll to top (instant when `prefers-reduced-motion`). The global navbar is not sticky.
-
-Featured work is six package slugs in fixed order: LegalAgent flagship (`FeaturedProjectCard`, outside the editorial container), then Wink and ZTX in the editorial two-column grid, Bitlauncher as a wide editorial row, Opyn and EOS Costa Rica in a second two-column row. The pairs switch at a `48rem` container width. All cards use package hero imagery through `resolveProjectImage` with the same `object-cover` framing. Verified `role` uses `projectRole` (turquoise, small): under the title on editorial cards, and on project pages as one meta line (`role · year`, year `neutral-400`) between the title and description via `InnerPageHero` `meta`. Writing below the grid is three latest editorial entries with a `/blog` action, matching the homepage writing pattern.
-
-Filtered `/work/[type]` pages use the same editorial masonry as `/tech` project lists (`EditorialProjectList` / `EditorialProjectCard`). Bordered `ProjectCard` remains for capability evidence when `ProjectEvidence` uses `presentation="card"`. Writing categories, technology categories, technology detail pages, and project pages still use compact `InnerPageHero` and generic `FilterNav` where applicable.
-
-Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` or `presentation="editorial"` (editorial layout with package images). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. Do not use `ProjectEvidence` for the `/ai`, `/web3`, and `/bio` narratives; those routes use `EditorialWorkCard`, `ProjectCover`, and `ProjectTextRow` as described above. Homepage and `/work` project cards use `object-cover` in their aspect frames; adjust focal position when a crop would clip the subject. Open Graph for `/ai` and `/web3` uses their generated landing cards (see [docs/agents/images.md](docs/agents/images.md#landing-og)).
-
-## Contact (`/contact`)
-
-`InnerPageHero` stays full width, same display scale as the other inner pages. From `lg`, the hire facts and the form sit side by side (`1fr` and a 26rem column). The form is part of the server render, so the first paint includes the fields. The message box is `h-44` / `sm:h-52` so the column stays close to the copy. Email and a call link sit under the title. Mobile stacks the hire facts, then the form, then the invitation and context links; from `lg` the form spans both rows beside the facts and the invitation.
-
-## Career story (`/bio`)
-
-`/bio` stays on `siteColumn` and does not use the `/ai` or `/web3` card sequence. `BioHero` opens with the approved `gabo-portrait.webp` (no homepage geometry overlay) and the “My journey” lede. `BioTimeline` renders four chronological chapters from `lib/bio/chapters.ts`: a left rail (year and category) at `lg+` (below `lg` the rail hides and the period line carries the marker, period, and category), center narrative with native `details` progressive disclosure, and registry or authentic photography on the right at `lg+`. Hairline dividers and flat turquoise markers only — no glow, card chrome, or decorative gradients. Do not route `/bio` through `CapabilityPage`.
-
-### GenUI career timeline
-
-`TimelineExperience` (`chapter-stack`) wraps the same `BioTimeline` composite as `/bio` via `components/genui/career-timeline.tsx`. Canonical chapter copy and media paths live in `lib/bio/chapters.ts`; project descriptions in expanded GenUI states remain package-owned. A four-stop chapter index, expandable stories, and grounded project evidence follow the same presentation rules as the page. No glow, shadow, animated scroll sequence, or new typeface.
