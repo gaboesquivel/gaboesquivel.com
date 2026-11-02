@@ -6,6 +6,7 @@ import {
   loadIbmPlexMono,
   measureTextWidth,
   pathData,
+  pickTitleLayout,
   textToPath,
 } from "./typography";
 
@@ -27,46 +28,60 @@ const textPath = (line: TextLine) =>
 const accentBarSvg = () =>
   `<rect width="${ogWidth}" height="${accentBarHeight}" fill="${ogColors.accent}"/>`;
 
-/** Homepage H1 (`app/page.tsx`), rewrapped to clear the portrait. */
-const heroLines = ["Software for", "humans and", "agents."];
-
-const personalCopy: TextLine[] = [
-  ...heroLines.map((text, index) => ({
-    text,
-    x: ogPadding,
-    top: 112 + index * 72,
-    fontSize: 60,
-    lineHeight: 72,
-    fill: ogColors.white,
-  })),
-  {
-    text: "Gabo Esquivel",
-    x: ogPadding,
-    top: 360,
-    fontSize: 28,
-    lineHeight: 38,
-    fill: ogColors.gray,
-  },
-  {
-    text: siteBrandRole,
-    x: ogPadding,
-    top: 400,
-    fontSize: 24,
-    lineHeight: 34,
-    fill: ogColors.accent,
-  },
-  {
-    text: "gaboesquivel.com",
-    x: ogPadding,
-    top: 532,
-    fontSize: 20,
-    lineHeight: 28,
-    fill: ogColors.gray,
-  },
+/** Headline sizes for the portrait cards; the column stops short of the portrait. */
+const headlineSpecs = [
+  { fontSize: 72, lineHeight: 84, maxLines: 2 },
+  { fontSize: 60, lineHeight: 72, maxLines: 3 },
+  { fontSize: 48, lineHeight: 58, maxLines: 3 },
+  { fontSize: 40, lineHeight: 50, maxLines: 3 },
 ];
+const headlineTop = 112;
+const headlineMaxWidth = 440;
 
-export const personalTextSvg = () =>
-  [accentBarSvg(), ...personalCopy.map(textPath)].join("\n  ");
+/** Left column of the portrait cards: headline, name, role, and domain. */
+export const landingTextSvg = (headline: string) => {
+  const layout = pickTitleLayout({
+    title: headline,
+    maxWidth: headlineMaxWidth,
+    specs: headlineSpecs,
+  });
+  const nameTop = headlineTop + layout.lines.length * layout.lineHeight + 32;
+  const lines: TextLine[] = [
+    ...layout.lines.map((text, index) => ({
+      text,
+      x: ogPadding,
+      top: headlineTop + index * layout.lineHeight,
+      fontSize: layout.fontSize,
+      lineHeight: layout.lineHeight,
+      fill: ogColors.white,
+    })),
+    {
+      text: "Gabo Esquivel",
+      x: ogPadding,
+      top: nameTop,
+      fontSize: 28,
+      lineHeight: 38,
+      fill: ogColors.gray,
+    },
+    {
+      text: siteBrandRole,
+      x: ogPadding,
+      top: nameTop + 40,
+      fontSize: 24,
+      lineHeight: 34,
+      fill: ogColors.accent,
+    },
+    {
+      text: "gaboesquivel.com",
+      x: ogPadding,
+      top: 532,
+      fontSize: 20,
+      lineHeight: 28,
+      fill: ogColors.gray,
+    },
+  ];
+  return [accentBarSvg(), ...lines.map(textPath)].join("\n  ");
+};
 
 /** Portrait linework as SVG markup in portrait coordinates, labels outlined. */
 export const portraitOverlaySvg = () => {

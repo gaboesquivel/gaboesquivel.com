@@ -93,7 +93,7 @@ Use the homepage shell, monochrome type, turquoise links, hairline borders, and 
 
 `/ai` and `/web3` present LegalAgent and ZTX with `EditorialWorkCard` `layout="feature"` (about 40% copy and 60% media, full shell width). Masterbots, Bitlauncher, Bitcash, Opyn, and RareMint use `layout="landscape"` in a two-up grid. `/web3` protocols are `ProjectTextRow` links, not image cards. The editorial description lives in the card. Do not repeat it beside a thumbnail. `/bio` renders its chapters with `BioTimeline`. NodeSchool is a full-width photograph at its real aspect ratio. Wink is media-left, about 55–58% of the row. The 2017 chapter is text-left with the Opyn project cover on the right, linking to `/project/opyn`. The 2024 chapter ends with `layout="banner"`, quieter than the `/ai` feature. Covers come from `resolveProjectImage`. Use `object-cover` and adjust focal position when a frame would letterbox; do not edit the asset.
 
-End these pages with résumé and conversation links. Do not repeat `LetsConnect` above the footer. Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
+End these pages with résumé and conversation links. Do not repeat `LetsConnect` above the footer. Open Graph for `/ai` and `/web3` uses their generated landing cards (see [docs/agents/images.md](docs/agents/images.md#landing-og)).
 
 ## Editorial images
 
@@ -253,7 +253,7 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 
 The homepage portrait ships as `public/images/gabo-portrait.webp`, generated from `assets/homepage/v2/gabo-portrait.png` (no facial retouch; production steps in [docs/agents/images.md](docs/agents/images.md#homepage-portrait-hero)). `PortraitMedia` overlays crisp SVG geometry in empty background coordinates only: a partial arc, sparse grid and dot reticle, vertical axis with PRODUCT, DESIGN, ENGINEERING, and DELIVERY, and a small plus near the collar. No glow, bloom, shadow, or decorative gradient.
 
-The split layout uses normal grid flow. The left column contains the white H1, muted name/turquoise role, and an end-to-end pitch. The full-width search sits beneath both columns. Mobile stacks without clipping. The personal OG composites this same portrait and linework (`lib/portrait-overlay.ts`) beside the H1, muted name, and turquoise role; no project OG or hero is replaced by homepage covers.
+The split layout uses normal grid flow. The left column contains the white H1, muted name/turquoise role, and an end-to-end pitch. The full-width search sits beneath both columns. Mobile stacks without clipping. The personal OG composites this same portrait and linework (`lib/portrait-overlay.ts`) beside the H1, muted name, and turquoise role. Every other landing page gets the same card with its own headline; no project OG or hero is replaced by homepage covers.
 
 ## Editorial homepage
 
@@ -275,7 +275,7 @@ Featured work is six package slugs in fixed order: LegalAgent flagship (`Feature
 
 Filtered `/work/[type]` pages use the same editorial masonry as `/tech` project lists (`EditorialProjectList` / `EditorialProjectCard`). Bordered `ProjectCard` remains for capability evidence when `ProjectEvidence` uses `presentation="card"`. Writing categories, technology categories, technology detail pages, and project pages still use compact `InnerPageHero` and generic `FilterNav` where applicable.
 
-Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` or `presentation="editorial"` (editorial layout with package images). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. Do not use `ProjectEvidence` for the `/ai`, `/web3`, and `/bio` narratives; those routes use `EditorialWorkCard`, `ProjectCover`, and `ProjectTextRow` as described above. Homepage and `/work` project cards use `object-cover` in their aspect frames; adjust focal position when a crop would clip the subject. Open Graph for `/ai` and `/web3` keeps the package PNG paths in route metadata.
+Capability routes that still use `CapabilityPage` share the same shell and `readingMeasure` for narrative blocks. `ProjectEvidence` fills mixed slug lists: `presentation="card"` (bordered), `presentation="registry"` or `presentation="editorial"` (editorial layout with package images). Pass `imageSizes` for that shell: `editorialCoverSizes` / `workCoverSizes` for editorial and wide evidence, `projectCardSizes` for two-up cards. Do not use `ProjectEvidence` for the `/ai`, `/web3`, and `/bio` narratives; those routes use `EditorialWorkCard`, `ProjectCover`, and `ProjectTextRow` as described above. Homepage and `/work` project cards use `object-cover` in their aspect frames; adjust focal position when a crop would clip the subject. Open Graph for `/ai` and `/web3` uses their generated landing cards (see [docs/agents/images.md](docs/agents/images.md#landing-og)).
 
 ## Contact (`/contact`)
 

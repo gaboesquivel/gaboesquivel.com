@@ -2,7 +2,6 @@ import { PageIntro } from "components/interior/page-intro";
 import { ReadingPageShell } from "components/interior/reading-page-shell";
 import { blockGrid, proseLink, Prose } from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
-import { personalOgImage } from "lib/og/constants";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 
@@ -85,7 +84,6 @@ export default function AboutPage() {
 export const metadata = pageMetadata({
   description:
     "Background and public information for Gabo Esquivel, with links to selected software projects, career history, CV, and agent-readable resources.",
-  images: [personalOgImage],
   path: "/about",
   title: "About Gabo Esquivel",
 });

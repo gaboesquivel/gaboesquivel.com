@@ -8,12 +8,22 @@ import {
 import sharp from "sharp";
 
 import { ogColors, ogHeight, ogWidth } from "./constants";
-import { personalTextSvg, portraitOverlaySvg, wrapSvg } from "./svg";
+import { landingTextSvg, portraitOverlaySvg, wrapSvg } from "./svg";
 
 /** Portrait height on the card; the frame is right-aligned and vertically centered. */
 const portraitOgHeight = 560;
 
-export const compositePersonalOgPng = async ({ root }: { root: string }) => {
+/** Homepage H1 (`app/page.tsx`); the personal card at `/og`. */
+export const homeHeadline = "Software for humans and agents.";
+
+/** Portrait card: page headline on the left, homepage portrait on the right. */
+export const landingOgPng = async ({
+  root,
+  headline,
+}: {
+  root: string;
+  headline: string;
+}) => {
   const height = portraitOgHeight;
   const width = Math.round((height * portraitWidth) / portraitHeight);
   const left = ogWidth - width;
@@ -25,7 +35,7 @@ export const compositePersonalOgPng = async ({ root }: { root: string }) => {
   const overlay = Buffer.from(
     `<svg width="${width}" height="${height}" viewBox="0 0 ${portraitWidth} ${portraitHeight}" xmlns="http://www.w3.org/2000/svg">${portraitOverlaySvg()}</svg>`
   );
-  const base = await sharp(Buffer.from(wrapSvg(personalTextSvg())))
+  const base = await sharp(Buffer.from(wrapSvg(landingTextSvg(headline))))
     .flatten({ background: ogColors.black })
     .png()
     .toBuffer();

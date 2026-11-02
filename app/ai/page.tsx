@@ -120,12 +120,6 @@ export default function AIExperiencePage() {
 export const metadata = pageMetadata({
   description:
     "AI engineering by Gabo Esquivel: voice and chat assistants, retrieval, agentic workflows, and production tools built for teams to operate.",
-  images: [
-    {
-      url: "/images/work/legalagent.png",
-      alt: "LegalAgent AI assistant interface",
-    },
-  ],
   path: "/ai",
   title: "AI Engineering | Gabo Esquivel",
 });

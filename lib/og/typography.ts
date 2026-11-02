@@ -116,7 +116,13 @@ export const wrapTextLines = ({
   return lines;
 };
 
-const titleSpecs = [
+interface TitleSpec {
+  fontSize: number;
+  lineHeight: number;
+  maxLines: number;
+}
+
+const titleSpecs: TitleSpec[] = [
   { fontSize: 84, lineHeight: 96, maxLines: 2 },
   { fontSize: 72, lineHeight: 84, maxLines: 3 },
   { fontSize: 60, lineHeight: 72, maxLines: 3 },
@@ -127,18 +133,20 @@ const titleSpecs = [
 export const pickTitleLayout = ({
   title,
   maxWidth,
+  specs = titleSpecs,
   font = loadIbmPlexMono(),
 }: {
   title: string;
   maxWidth: number;
+  specs?: TitleSpec[];
   font?: Font;
 }) => {
   const normalized = title.trim().replace(/\s+/g, " ");
-  for (const spec of titleSpecs) {
+  for (const spec of specs) {
     const lines = wrapTextLines({ text: normalized, maxWidth, font, ...spec });
     if (lines.join(" ") === normalized) return { ...spec, lines };
   }
-  const smallest = titleSpecs.at(-1) ?? titleSpecs[0];
+  const smallest = specs.at(-1) ?? specs[0];
   return {
     ...smallest,
     lines: wrapTextLines({ text: normalized, maxWidth, font, ...smallest }),
