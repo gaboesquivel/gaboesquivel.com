@@ -102,9 +102,7 @@ const AboutExperience = defineComponent({
 });
 
 const ContactExperience = defineComponent({
-  component: ({ props }) => (
-    <ContactExperienceView contextId={props.contextId} />
-  ),
+  component: () => <ContactExperienceView />,
   description: "Contact note form.",
   name: "ContactExperience",
   props: contactExperiencePropsSchema,

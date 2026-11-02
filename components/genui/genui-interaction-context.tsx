@@ -1,29 +1,29 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { defaultCapabilityCaller } from "lib/genui/write-flow";
+import type { CapabilityCaller } from "lib/genui/write-flow";
+import { createContext, useContext, useMemo } from "react";
 
-export interface ActionReceipt {
-  message: string;
-  receiptId?: string;
+interface GenuiInteraction {
+  callCapability: CapabilityCaller;
+  writesEnabled: boolean;
 }
 
-const GenuiInteractionContext = createContext<{
-  receipt: ActionReceipt | null;
-  setReceipt: (receipt: ActionReceipt | null) => void;
-  writesEnabled: boolean;
-} | null>(null);
+const GenuiInteractionContext = createContext<GenuiInteraction | null>(null);
 
 export const GenuiInteractionProvider = ({
+  callCapability = defaultCapabilityCaller,
   children,
   writesEnabled,
 }: {
+  /** The fixture lab injects a scripted caller; production uses the API. */
+  callCapability?: CapabilityCaller;
   children: React.ReactNode;
   writesEnabled: boolean;
 }) => {
-  const [receipt, setReceipt] = useState<ActionReceipt | null>(null);
   const value = useMemo(
-    () => ({ receipt, setReceipt, writesEnabled }),
-    [receipt, writesEnabled]
+    () => ({ callCapability, writesEnabled }),
+    [callCapability, writesEnabled]
   );
   return (
     <GenuiInteractionContext.Provider value={value}>
@@ -32,14 +32,10 @@ export const GenuiInteractionProvider = ({
   );
 };
 
-export const useGenuiInteraction = () => {
+export const useGenuiInteraction = (): GenuiInteraction => {
   const value = useContext(GenuiInteractionContext);
   if (!value) {
-    return {
-      receipt: null,
-      setReceipt: () => {},
-      writesEnabled: false,
-    };
+    return { callCapability: defaultCapabilityCaller, writesEnabled: false };
   }
   return value;
 };
