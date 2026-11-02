@@ -74,10 +74,10 @@ export function SiteSearchPanel({
           {searchCopy.dialogHint}
           {searchCopy.suggestionsHint}
         </p>
+        <GenuiReceipt className="mt-2 space-y-1 text-xs text-neutral-400" />
       </div>
       {genui.active ? (
         <div className="pt-2 pb-[max(1rem,env(safe-area-inset-bottom))]">
-          <GenuiReceipt className="mb-3 space-y-1 text-xs text-neutral-400" />
           <GeneratedRegion
             envelope={genui.envelope}
             error={genui.error}
