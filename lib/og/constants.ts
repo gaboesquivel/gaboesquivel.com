@@ -8,17 +8,12 @@ export const ogColors = {
   black: "#000000",
   white: "#ffffff",
   gray: "#a3a3a3",
-  darkGray: "#404040",
   accent: "#5cded6",
 } as const;
-
-export const personalPortraitPath = "public/images/gabo-portrait.webp";
-
-export const personalOgUrl = "/og";
 
 export const personalOgImage = {
   alt: siteOgAlt,
   height: ogHeight,
-  url: personalOgUrl,
+  url: "/og",
   width: ogWidth,
 } as const;

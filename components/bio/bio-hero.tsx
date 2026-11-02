@@ -1,5 +1,10 @@
 import { PageTitle } from "components/shared/page-layout";
 import { heroPitch, heroTitle } from "components/shared/spacing";
+import {
+  portraitHeight,
+  portraitSrc,
+  portraitWidth,
+} from "lib/portrait-overlay";
 import { cn } from "lib/utils";
 import Image from "next/image";
 
@@ -29,11 +34,11 @@ export function BioHero({ className }: { className?: string }) {
           alt="Gabo Esquivel"
           className="h-auto max-h-[min(72vh,640px)] w-full rounded-lg object-cover object-[center_12%]"
           fetchPriority="high"
-          height={1098}
+          height={portraitHeight}
           preload
           sizes={portraitSizes}
-          src="/images/gabo-portrait.webp"
-          width={1433}
+          src={portraitSrc}
+          width={portraitWidth}
         />
       </figure>
     </header>

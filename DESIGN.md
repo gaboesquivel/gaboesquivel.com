@@ -251,7 +251,7 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 
 ## Homepage portrait hero
 
-The homepage portrait ships as `public/images/gabo-portrait.webp` (1433×1098; edit the file in place, no facial retouch). Provenance and hash live in `assets/homepage/v2/manifest.json`. `PortraitMedia` overlays crisp SVG geometry in empty background coordinates only: a partial arc, sparse grid and dot reticle, vertical axis with PRODUCT, DESIGN, ENGINEERING, and DELIVERY, and a small plus near the collar. No glow, bloom, shadow, or decorative gradient.
+The homepage portrait ships as `public/images/gabo-portrait.webp`, generated from `assets/homepage/v2/gabo-portrait.png` (no facial retouch; production steps in [docs/agents/images.md](docs/agents/images.md#homepage-portrait-hero)). `PortraitMedia` overlays crisp SVG geometry in empty background coordinates only: a partial arc, sparse grid and dot reticle, vertical axis with PRODUCT, DESIGN, ENGINEERING, and DELIVERY, and a small plus near the collar. No glow, bloom, shadow, or decorative gradient.
 
 The split layout uses normal grid flow. The left column contains the white H1, muted name/turquoise role, and an end-to-end pitch. The full-width search sits beneath both columns. Mobile stacks without clipping. The personal OG composites this same portrait and linework (`lib/portrait-overlay.ts`) beside the H1, muted name, and turquoise role; no project OG or hero is replaced by homepage covers.
 

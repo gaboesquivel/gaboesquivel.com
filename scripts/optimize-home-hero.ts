@@ -1,23 +1,9 @@
 import sharp from "sharp";
 
-const master = "assets/homepage/gaboesquivel-homepage-master.webp";
+const source = "assets/homepage/v2/gabo-portrait.png";
+const output = "public/images/gabo-portrait.webp";
 
-const outputs = [
-  {
-    path: "public/images/gaboesquivel-homepage-mobile.webp",
-    width: 896,
-  },
-  {
-    path: "public/images/gaboesquivel-homepage-desktop.webp",
-    width: 700,
-  },
-] as const;
-
-for (const { path, width } of outputs) {
-  await sharp(master)
-    .resize({ width, withoutEnlargement: true })
-    .webp({ quality: 82, effort: 6 })
-    .toFile(path);
-  const meta = await sharp(path).metadata();
-  console.log(`${path} ${meta.width}×${meta.height}`);
-}
+await sharp(source).webp({ quality: 90, effort: 6 }).toFile(output);
+const { width, height } = await sharp(output).metadata();
+const kb = Math.round(Bun.file(output).size / 1024);
+console.log(`${output} ${width}×${height} ${kb} KB`);
