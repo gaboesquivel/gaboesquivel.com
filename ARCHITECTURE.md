@@ -54,7 +54,7 @@ The HTML narrative and its machine-readable representation share facts but inclu
 | `app/connect/` | Contact and booking card UI. `/ask` does not mount it; that route redirects to `/`. |
 | `agent/` | Eve model, channels, instructions, retrieval hooks, tools, and runtime skills. |
 | `lib/connect/` | Shared contact-domain logic: schemas, intent, retrieval ranking, caps, CV cards, notes, and bookings. |
-| `lib/mcp/`, `app/mcp/cv/` | Dedicated MCP CV app and download widget. |
+| `lib/mcp/`, `app/mcp/` | Public MCP transport, tool metadata, and app resources. `app/mcp/cv/` returns 410 for the retired endpoint. |
 | `scripts/` | Content/API export, CV printing, verification, and operational helpers. |
 
 Coding-agent skills in `.agents/skills/` guide repository work. The skills in `agent/skills/` belong to the application's Eve runtime. Their consumers and installation paths are different; changing development guidance does not require changing the runtime agent.
@@ -69,7 +69,7 @@ Coding-agent skills in `.agents/skills/` guide repository work. The skills in `a
 
 `velite.config.ts` defines the blog schema. Velite compiles `content/*.mdx` into `.velite`, validating technology tags against the package and categories against `lib/blog-taxonomy.ts`. `lib/blog.ts` exposes this compiled collection; blog routes render it through `components/mdx.tsx`.
 
-`bun run build` runs Velite, then `scripts/export-llms.ts`, then Next.js. The export assembles package facts, blog content, and site-specific definitions into:
+`bun run build` runs Velite, `scripts/generate-og.ts`, `scripts/export-llms.ts`, then Next.js. The export assembles package facts, blog content, and site-specific definitions into:
 
 - `public/llms.txt` and `public/llms-full.txt`;
 - `generated/markdown-routes.json`, keyed by page path and supported query variants;
@@ -95,9 +95,9 @@ The read-only JSON surface is `/api/v1/profile`, `/api/v1/pages`, and `/api/v1/p
 
 ## Agent and action flow
 
-`/ask` redirects to `/` (`app/ask/page.tsx` and a non-permanent redirect in `next.config.js`). The nav sheet still links to `/ask`, so that link currently lands on the homepage. Homepage and dialog search submit to `/api/genui/compose`. `next.config.js` still wraps the Next config with `withEve`; that wrapper is not the public tool list.
+`/ask` redirects to `/` (`app/ask/page.tsx` and a non-permanent redirect in `next.config.js`). The nav Search control focuses the homepage prompt or opens the shared search dialog on other routes. Homepage and dialog search submit to `/api/genui/compose`. `next.config.js` still wraps the Next config with `withEve`; that wrapper is not the public tool list.
 
-`app/mcp/route.ts` serves the capability registry in `lib/capabilities/registry.ts`: `book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, and `send_note`. `lib/mcp/public-server.ts` adapts each result to MCP: text content is a summary from `lib/mcp/tool-metadata.ts` plus the serialized result, `structuredContent` is the result, and `error`/`failed` outcomes set `isError`. Titles and read/write annotations live in `lib/mcp/tool-metadata.ts`; output schemas in `lib/capabilities/output-schemas.ts`. `/mcp/cv` remains the CV download app. `/docs` is the integration page. The llms export still contains older `/ask` agent wording; the route behavior above is the source of truth until that export is revised.
+`app/mcp/route.ts` serves the capability registry in `lib/capabilities/registry.ts`: `book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, and `send_note`. `lib/mcp/public-server.ts` adapts each result to MCP: text content is a summary from `lib/mcp/tool-metadata.ts` plus the serialized result, `structuredContent` is the result, and `error`/`failed` outcomes set `isError`. Titles and read/write annotations live in `lib/mcp/tool-metadata.ts`; output schemas in `lib/capabilities/output-schemas.ts`. `/mcp/cv` returns 410; clients obtain CV links through `get_cv` on `/mcp`. `/docs` is the integration page. The llms export still contains older `/ask` agent wording; the route behavior above is the source of truth until that export is revised.
 
 `agent/agent.ts` configures the model and disables default tools. Application tools and channels are defined under `agent/`. Live inference uses `lib/ai/resolve-chat-model.ts`: `AI_GATEWAY_API_KEY` is the normal path; direct Anthropic requires `FLOW_ALLOW_DIRECT_ANTHROPIC=1` with `ANTHROPIC_API_KEY`.
 
@@ -107,7 +107,7 @@ The connect UI in `app/connect/` can display a CV download card, project media, 
 
 The booking picker combines real availability with deterministic React UI in `app/connect/slot-picker.tsx`. `list_slots` returns structured `slotState` for the picker; server-side booking logic owns validation and the Calendar write. A generated UI payload is not authorization to perform an action.
 
-External agents call the capability registry at `/mcp`. `/mcp/cv` is a separate Next.js handler for the CV app/widget. The integration page is `/docs`.
+External agents call the capability registry at `/mcp`. `/mcp/cv` is a retired endpoint with a migration response pointing clients to `/mcp` and `get_cv`. The integration page is `/docs`.
 
 ## State, credentials, and external effects
 

@@ -6,7 +6,7 @@ Skills come from `skills-lock.json` (`bun run skills:install` or `bun run skills
 
 The lock also pins the [Flow Skills](https://github.com/gaboesquivel/flow-skills) catalog (`gaboesquivel/flow-skills`; current list in its [docs/skills.md](https://github.com/gaboesquivel/flow-skills/blob/main/docs/skills.md)), except `domain-modeling`, which stays on `mattpocock/skills`. Say a phrase from the Flow block in [AGENTS.md](../../AGENTS.md) to load a Flow skill; Flow skills do not replace the installed `gabo` skill for voice, identity, or claims. The `flow` skill aligns this site's `PRODUCT.md`, `DESIGN.md`, `ARCHITECTURE.md`, and `GLOSSARY.md` after meaningful changes — it does not copy Flow's product identity from flow-skills. New specs and decisions follow [docs/decisions/0001-flow-adopter-docs.md](../decisions/0001-flow-adopter-docs.md); existing `docs/specs/homepage-genui/` and PDR/ADR trees stay in place. This site's lifecycle in [AGENTS.md](../../AGENTS.md) remains authoritative for checks and verification.
 
-Change voice in `gaboesquivel-skills`, then run `bunx skills@latest update gabo -p -y` and commit the lock.
+The `gabo` lock entry uses `gaboesquivel/gaboesquivel-skills`, so restoration does not depend on a sibling checkout. Change voice in `gaboesquivel-skills`, then run `bunx skills@latest update gabo -p -y` and commit the lock.
 
 Add, update, and remove skills with the skills CLI so `.agents/skills/` matches the lock. `.agents/` is gitignored; the lock is the committed source.
 
