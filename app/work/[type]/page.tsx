@@ -39,12 +39,7 @@ export default async function WorkPage({
 
   return (
     <>
-      <ProjectsMasonry
-        projects={filteredProjects}
-        identifier={type}
-        preserveOrder={false}
-        variant="editorial"
-      />
+      <ProjectsMasonry projects={filteredProjects} />
       <WorkLatestWriting />
     </>
   );

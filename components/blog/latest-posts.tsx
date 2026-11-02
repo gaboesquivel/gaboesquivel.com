@@ -4,8 +4,6 @@ import { newestPosts } from "lib/blog-order";
 import { postMatchesBrowseCategory, toBrowseSlug } from "lib/blog-taxonomy";
 import type { ReactNode } from "react";
 
-import { PostGrid } from "./posts-grid";
-
 export function LatestPosts({
   limit = 8,
   title = "Latest Articles",
@@ -14,7 +12,6 @@ export function LatestPosts({
   slugs,
   excludeSlug,
   action,
-  variant = "cards",
   className,
   arrow = false,
 }: {
@@ -25,7 +22,6 @@ export function LatestPosts({
   slugs?: string[];
   excludeSlug?: string;
   action?: ReactNode;
-  variant?: "cards" | "editorial";
   className?: string;
   arrow?: boolean;
 }) {
@@ -41,18 +37,15 @@ export function LatestPosts({
     return null;
   }
 
-  if (variant === "editorial") {
-    return (
-      <WritingPostsSection
-        arrow={arrow}
-        posts={latestPosts}
-        title={title}
-        action={action}
-        className={className}
-      />
-    );
-  }
-  return <PostGrid posts={latestPosts} title={title} action={action} />;
+  return (
+    <WritingPostsSection
+      arrow={arrow}
+      posts={latestPosts}
+      title={title}
+      action={action}
+      className={className}
+    />
+  );
 }
 
 function getLatestPosts({

@@ -116,7 +116,7 @@ export function CapabilityPage({
         );
       })}
 
-      <LatestPosts slugs={postSlugs} title={writingTitle} variant="editorial" />
+      <LatestPosts slugs={postSlugs} title={writingTitle} />
 
       <PageSection title="See the work">
         <Prose>

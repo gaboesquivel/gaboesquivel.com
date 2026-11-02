@@ -88,11 +88,7 @@ export default async function TechCategoryPage({
         />
         {filteredPosts.length > 0 ? (
           <PageSection title={`Writing about ${techCategoryLabels[category]}`}>
-            <BlogPostsMasonry
-              identifier={category}
-              posts={filteredPosts}
-              variant="editorial"
-            />
+            <BlogPostsMasonry posts={filteredPosts} />
           </PageSection>
         ) : null}
       </>

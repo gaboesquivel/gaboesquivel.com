@@ -1,7 +1,5 @@
 import { Button } from "components/ui/button";
 import { cn } from "lib/utils";
-import Image from "next/image";
-import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -98,40 +96,6 @@ export function PageSection({
       </div>
       {children}
     </section>
-  );
-}
-
-export function PageImage({
-  src,
-  alt,
-  priority,
-  className,
-  objectClassName,
-}: {
-  src: StaticImageData | string;
-  alt: string;
-  priority?: boolean;
-  className?: string;
-  objectClassName?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        "relative aspect-[16/9] h-auto max-h-[420px] w-full",
-        blockSpacing,
-        className
-      )}
-    >
-      <Image
-        alt={alt}
-        src={src}
-        fill
-        sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(100vw - 3rem), calc(min(100vw, 72rem) - 4rem)"
-        preload={priority}
-        fetchPriority={priority ? "high" : undefined}
-        className={cn("rounded-lg object-cover", objectClassName)}
-      />
-    </div>
   );
 }
 

@@ -130,7 +130,6 @@ export default function Web3ExperiencePage() {
         className={narrativeSectionGap}
         limit={4}
         title="Writing about Web3 systems"
-        variant="editorial"
       />
 
       <section className={narrativeSectionGap}>
