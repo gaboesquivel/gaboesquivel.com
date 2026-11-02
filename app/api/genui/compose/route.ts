@@ -2,14 +2,13 @@ import { capabilityContextFromRequest } from "lib/capabilities/server-context";
 import { admitChat } from "lib/connect/caps";
 import { capsEnforced, readRequestIp, requestHost } from "lib/connect/ip";
 import { composeQuery } from "lib/genui/compose";
-import { COMPOSITION_FAILED_MESSAGE } from "lib/genui/messages";
+import { armComposeDeadline, timedOutEvent } from "lib/genui/compose-deadline";
 import { logComposeTelemetry } from "lib/genui/telemetry";
+import { searchCopy } from "lib/search/copy";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-
-const OVERALL_DEADLINE_MS = 15_000;
 
 export async function POST(request: Request) {
   const started = Date.now();
@@ -49,14 +48,30 @@ export async function POST(request: Request) {
       let jevCalls = 0;
       let modelCalls = 0;
       let parseErrors = 0;
+      let closed = false;
+      const write = (event: Record<string, unknown>) => {
+        if (closed) return;
+        controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+      };
+      const close = () => {
+        if (closed) return;
+        closed = true;
+        controller.close();
+      };
+      const abortController = new AbortController();
+      const onClientAbort = () => abortController.abort();
+      request.signal.addEventListener("abort", onClientAbort);
+      // At the deadline the client gets an explicit timed-out error, not a
+      // silent end of stream that reads as a generic failure.
+      const disarm = armComposeDeadline({
+        controller: abortController,
+        onTimeout: () => {
+          if (request.signal.aborted) return;
+          write(timedOutEvent(context.correlationId));
+          close();
+        },
+      });
       try {
-        const abortController = new AbortController();
-        const onClientAbort = () => abortController.abort();
-        request.signal.addEventListener("abort", onClientAbort);
-        const deadline = setTimeout(
-          () => abortController.abort(),
-          OVERALL_DEADLINE_MS
-        );
         const result = await composeQuery({
           context,
           input: {
@@ -67,12 +82,10 @@ export async function POST(request: Request) {
           },
           onEvent: (event) => {
             if (abortController.signal.aborted) return;
-            controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+            write(event);
           },
           signal: abortController.signal,
         });
-        clearTimeout(deadline);
-        request.signal.removeEventListener("abort", onClientAbort);
         tier = result.tier;
         jevCalls = result.jevCalls;
         modelCalls = result.modelCalls;
@@ -116,22 +129,22 @@ export async function POST(request: Request) {
       } catch (error) {
         if (
           request.signal.aborted ||
+          abortController.signal.aborted ||
           (error instanceof Error && error.name === "AbortError")
         ) {
           return;
         }
-        controller.enqueue(
-          encoder.encode(
-            `${JSON.stringify({
-              message: COMPOSITION_FAILED_MESSAGE,
-              requestId: context.correlationId,
-              sequence: 0,
-              type: "error",
-            })}\n`
-          )
-        );
+        write({
+          code: "failed",
+          message: searchCopy.serverFailed,
+          requestId: context.correlationId,
+          sequence: 0,
+          type: "error",
+        });
       } finally {
-        controller.close();
+        disarm();
+        request.signal.removeEventListener("abort", onClientAbort);
+        close();
       }
     },
   });

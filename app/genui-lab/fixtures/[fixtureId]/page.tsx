@@ -37,10 +37,19 @@ export default async function GenuiFixturePage({
       >
         <GenuiLabSession scenario={scenario}>
           <GeneratedRegion
-            complete={Boolean(fixture.envelope)}
             envelope={fixture.envelope}
-            error={fixture.errorMessage ?? null}
-            isStreaming={false}
+            error={
+              fixture.errorMessage
+                ? { kind: "failed", message: fixture.errorMessage }
+                : null
+            }
+            status={
+              fixture.errorMessage
+                ? "error"
+                : fixture.envelope
+                  ? "result"
+                  : "idle"
+            }
           />
         </GenuiLabSession>
       </div>

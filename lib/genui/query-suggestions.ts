@@ -1,5 +1,5 @@
-import { filterSearchRecords } from "components/search/filter-records";
 import type { SearchRecord } from "components/search/types";
+import { rankSearchRecords } from "lib/search/rank-records";
 
 import { normalizeGenuiQuery } from "./normalize-query";
 import { filterGenuiSearchHistory } from "./search-history";
@@ -149,7 +149,9 @@ export const buildGenuiAutosuggest = ({
   const site: GenuiQuerySuggestion[] = [];
 
   if (trimmed) {
-    for (const record of filterSearchRecords(records, trimmed)) {
+    for (const record of rankSearchRecords(records, trimmed, {
+      match: "all",
+    })) {
       const normalized = normalizeGenuiQuery(record.title);
       if (seen.has(normalized)) continue;
       seen.add(normalized);

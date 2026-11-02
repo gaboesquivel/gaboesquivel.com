@@ -15,7 +15,7 @@ export const genuiWritesEnabled = ({
 }: {
   active: boolean;
   complete: boolean;
-  error: string | null;
+  error: unknown;
   isStreaming: boolean;
 }) => active && complete && !isStreaming && !error;
 

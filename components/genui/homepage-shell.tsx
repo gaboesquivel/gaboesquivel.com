@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import { GeneratedRegion } from "./generated-region";
 import { useGenuiDraft } from "./genui-draft-context";
@@ -12,47 +12,31 @@ import {
 import { PromptField } from "./prompt-field";
 import { scrollPromptToViewportTop } from "./scroll-prompt";
 import { useGenuiComposition } from "./use-genui-composition";
+import type { GenuiComposition } from "./use-genui-composition";
 
 const HomepageGenUiBodyContent = ({
   children,
-  onSessionChange,
+  genui,
 }: {
   children: React.ReactNode;
-  onSessionChange: (session: {
-    active: boolean;
-    complete: boolean;
-    error: string | null;
-    isStreaming: boolean;
-  }) => void;
+  genui: GenuiComposition;
 }) => {
   const { clear } = useGenuiDraft();
-  const {
-    active,
-    complete,
-    envelope,
-    error,
-    isStreaming,
-    query,
-    reset,
-    runQuery,
-    setQuery,
-  } = useGenuiComposition();
+  const { active, envelope, error, query, reset, runQuery, setQuery } = genui;
   const promptAnchorRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    onSessionChange({ active, complete, error, isStreaming });
-  }, [active, complete, error, isStreaming, onSessionChange]);
+  const run = (value: string) => {
+    requestAnimationFrame(() => {
+      scrollPromptToViewportTop({ element: promptAnchorRef.current });
+    });
+    runQuery(value).catch(() => {});
+  };
 
-  const handleReset = () => {
+  const handleClear = () => {
     reset();
     clear();
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    window.scrollTo({
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-      top: 0,
-    });
+    inputRef.current?.focus();
   };
 
   return (
@@ -60,20 +44,17 @@ const HomepageGenUiBodyContent = ({
       <div
         className={
           active
-            ? "sticky top-0 z-20 border-b border-hairline bg-black/95 px-0 py-4 backdrop-blur"
+            ? "sticky top-0 z-20 border-b border-hairline bg-black px-0 py-4"
             : "mt-8 lg:mt-10"
         }
         ref={promptAnchorRef}
       >
         <PromptField
-          onBack={active ? handleReset : undefined}
+          idle={!active}
+          inputRef={inputRef}
           onChange={setQuery}
-          onSubmit={(value) => {
-            requestAnimationFrame(() => {
-              scrollPromptToViewportTop({ element: promptAnchorRef.current });
-            });
-            runQuery(value).catch(() => {});
-          }}
+          onClear={active ? handleClear : undefined}
+          onSubmit={run}
           value={query}
         />
         <GenuiReceipt />
@@ -81,17 +62,18 @@ const HomepageGenUiBodyContent = ({
       {active ? (
         <div className="min-h-[100vh] pt-6">
           <GeneratedRegion
-            complete={complete}
             envelope={envelope}
             error={error}
-            isStreaming={isStreaming}
-            onRetry={
-              query
-                ? () => {
-                    runQuery(query).catch(() => {});
-                  }
-                : undefined
-            }
+            onExample={(example) => {
+              run(example);
+              inputRef.current?.focus();
+            }}
+            onRetry={() => {
+              genui.retry();
+              inputRef.current?.focus();
+            }}
+            status={genui.status}
+            submitted={genui.submitted}
           />
         </div>
       ) : (
@@ -106,15 +88,11 @@ export const HomepageGenUiShell = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [writesEnabled, setWritesEnabled] = useState(false);
+  const genui = useGenuiComposition();
 
   return (
-    <GenuiSessionProvider writesEnabled={writesEnabled}>
-      <HomepageGenUiBodyContent
-        onSessionChange={(session) => {
-          setWritesEnabled(genuiWritesEnabled(session));
-        }}
-      >
+    <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
+      <HomepageGenUiBodyContent genui={genui}>
         {children}
       </HomepageGenUiBodyContent>
     </GenuiSessionProvider>
