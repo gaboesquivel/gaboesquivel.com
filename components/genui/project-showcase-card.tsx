@@ -30,7 +30,7 @@ export const ProjectShowcaseCard = ({
   return (
     <article
       className={cn(
-        "flex h-full flex-col rounded-lg border border-hairline bg-black p-4 motion-safe:transition-colors motion-safe:duration-300 motion-reduce:transition-none",
+        "flex h-full flex-col rounded-lg border border-hairline bg-black p-4 motion-safe:transition-colors motion-safe:duration-150 motion-reduce:transition-none",
         "focus-within:border-neutral-500 hover:border-neutral-600"
       )}
     >
