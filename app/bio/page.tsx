@@ -1,7 +1,7 @@
-import { BioHero } from "components/bio/bio-hero";
 import { BioTimeline } from "components/bio/bio-timeline";
 import { LatestPosts } from "components/blog/latest-posts";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import {
   ctaLink,
   editorialLink,
@@ -21,7 +21,11 @@ const actionLink = cn(ctaLink, editorialLink, "text-sm");
 export default function BioPage() {
   return (
     <InteriorPageShell>
-      <BioHero />
+      <PageIntro
+        description="A 15+ year journey building products across web, fintech, Web3, and AI. Different chapters, the same interest: making complex technology useful to people."
+        narrative
+        title="My journey"
+      />
 
       <BioTimeline className={narrativeIntroGap} />
 

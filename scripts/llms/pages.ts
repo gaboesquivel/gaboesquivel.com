@@ -478,16 +478,6 @@ const jsxNodeToMarkdown = (
       return;
     }
 
-    if (tagName === "BioHero") {
-      lines.push(
-        "# My journey",
-        "",
-        "A 15+ year journey building products across web, fintech, Web3, and AI. Different chapters, the same interest: making complex technology useful to people.",
-        ""
-      );
-      return;
-    }
-
     if (tagName === "BioTimeline") {
       lines.push(renderBioTimelineMarkdown(), "");
       return;
