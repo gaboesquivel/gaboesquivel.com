@@ -1,6 +1,6 @@
 # 001: Site design, UX, motion and search consistency
 
-Status: accepted (2026-11-02). Acceptance covers tasks 01–14 as scoped. Each item under [Needs approval](#needs-approval) still needs its own yes before its task starts.
+Status: implemented (2026-11-03). Every item under [Needs approval](#needs-approval) was approved by the user on 2026-11-03: D-1(a), D-2(a), V2 (already shipped by #19's landing OG cards), U-P1, U-P2, S-P1, S-P2, S-P3, A-P1, M-B, M-H, M-I and M-J.
 
 Evidence: a site-wide audit on 2026-11-02 against `next dev` at `http://localhost:3099`. It covered 31 routes at 1440×900 and 390×844, spot checks at 768, emulated light colour scheme and reduced motion, the fixture lab, and the public MCP endpoint. Each finding below cites its source (`file:line`, a measured value, or a screenshot name from the evidence gallery linked in the pull request). Screenshots stay out of the repository, per [verify.md](../agents/verify.md).
 
@@ -247,8 +247,8 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 - [x] 11: GenUI write flows and rail
 - [x] 12: MCP result parity
 - [x] 13: Checkable design rules and fixture coverage
-- [ ] 14: Docs match the code — waiting on D-1 and D-2
-- [ ] 15: Approved motion additions (gated) — waiting on M-B, M-H, M-I, M-J
+- [x] 14: Docs match the code (D-1(a), D-2(a))
+- [x] 15: Approved motion additions (M-B, M-H, M-J; M-I built with 16), plus U-P1 and U-P2
 - [x] 16: Approved agent-surface additions (S-P1, S-P2, S-P3, A-P1; plus M-I from 15)
 
 ### 01: Site chrome accessibility and colour scheme
