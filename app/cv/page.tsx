@@ -2,7 +2,6 @@ import "./cv.css";
 import { PrintButton } from "components/print-button";
 import { ContactInfo } from "components/shared/contact-info";
 import {
-  FilterNav,
   PageSection,
   PageTitle,
   Prose,
@@ -13,7 +12,7 @@ import {
   titleSpacing,
 } from "components/shared/page-layout";
 import { resolveCv as resolveCvBase } from "gaboesquivel";
-import { cvPath, cvPdfFile } from "lib/cv-paths";
+import { cvPdfFile } from "lib/cv-paths";
 import { markdownSiblingPath } from "lib/markdown-sibling";
 import { landingOgImages } from "lib/og/landing";
 import { cn } from "lib/utils";
@@ -33,14 +32,6 @@ const bulletItemClass =
   "cv-content cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•']";
 
 const bulletListClass = cn(proseClass, "mb-0 list-none pl-0");
-
-/** Screen-only switcher between the default CV and its focus variants. */
-const cvFocusOptions = [
-  { id: "full", label: "general" },
-  { id: "ai", label: "ai" },
-  { id: "web3", label: "web3" },
-  { id: "fullstack", label: "full-stack" },
-] as const;
 
 const previewParam = ({ preview }: { preview?: string | string[] }) =>
   Array.isArray(preview) ? preview[0] : preview;
@@ -93,16 +84,6 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           <p className="cv-print-professional-title mt-0 mb-0 font-medium tracking-tight text-neutral-400">
             {variant.professionalTitle}
           </p>
-          <FilterNav
-            className="mt-6 w-fit print:hidden preview-print:hidden"
-            current={key}
-            items={cvFocusOptions.map(({ id, label }) => ({
-              href: cvPath({ key: id }),
-              id,
-              label,
-            }))}
-            label="CV focus"
-          />
         </header>
 
         <div className="cv-summary">
