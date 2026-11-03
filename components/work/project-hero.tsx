@@ -7,8 +7,10 @@ import {
   resolveProjectImage,
   workCoverSizes,
 } from "lib/work/project-cover";
+import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
+import { ViewTransition } from "react";
 
 export function ProjectHero({
   project,
@@ -26,19 +28,25 @@ export function ProjectHero({
   const maxWidth = projectCoverMaxWidth({ src: resolved.src });
 
   const image = (
-    <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
-      <Image
-        src={resolved.src}
-        alt={resolved.alt}
-        fill
-        sizes={workCoverSizes}
-        preload={preload}
-        loading={preload ? "eager" : undefined}
-        fetchPriority={preload ? "high" : undefined}
-        className={cn("bg-neutral-900 object-cover", imageHover)}
-        style={{ objectPosition: projectCoverPosition(project) }}
-      />
-    </div>
+    <ViewTransition
+      name={projectViewTransitionName(project.slug)}
+      share="morph"
+      default="none"
+    >
+      <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
+        <Image
+          src={resolved.src}
+          alt={resolved.alt}
+          fill
+          sizes={workCoverSizes}
+          preload={preload}
+          loading={preload ? "eager" : undefined}
+          fetchPriority={preload ? "high" : undefined}
+          className={cn("bg-neutral-900 object-cover", imageHover)}
+          style={{ objectPosition: projectCoverPosition(project) }}
+        />
+      </div>
+    </ViewTransition>
   );
 
   // Small legacy sources never stretch past their intrinsic width.

@@ -10,8 +10,10 @@ import {
   projectCoverPosition,
   resolveProjectImage,
 } from "lib/work/project-cover";
+import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
+import { ViewTransition } from "react";
 
 /** Package hero image in a cover-filled frame, plus name, role, and description. */
 export function EditorialProjectCard({
@@ -36,24 +38,30 @@ export function EditorialProjectCard({
       className={cn("group block h-full", editorialLink)}
     >
       {image ? (
-        <div
-          className={cn(
-            "relative overflow-hidden rounded-lg bg-black",
-            wide ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-video"
-          )}
+        <ViewTransition
+          name={projectViewTransitionName(project.slug)}
+          share="morph"
+          default="none"
         >
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes={sizes}
-            preload={priority}
-            loading={priority ? "eager" : undefined}
-            fetchPriority={priority ? "high" : undefined}
-            className={cn("bg-neutral-900 object-cover", imageHover)}
-            style={{ objectPosition: projectCoverPosition(project) }}
-          />
-        </div>
+          <div
+            className={cn(
+              "relative overflow-hidden rounded-lg bg-black",
+              wide ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-video"
+            )}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes={sizes}
+              preload={priority}
+              loading={priority ? "eager" : undefined}
+              fetchPriority={priority ? "high" : undefined}
+              className={cn("bg-neutral-900 object-cover", imageHover)}
+              style={{ objectPosition: projectCoverPosition(project) }}
+            />
+          </div>
+        </ViewTransition>
       ) : null}
       <h3 className="mt-4 text-2xl font-semibold tracking-tight">
         {project.title}
