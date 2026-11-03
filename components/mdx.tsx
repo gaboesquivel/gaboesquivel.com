@@ -1,3 +1,4 @@
+import { NewTabCue, newTabProps } from "components/shared/new-tab-cue";
 import { cn } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,11 +24,16 @@ const CustomLink = ({
     );
   }
 
-  if (href.startsWith("#")) {
+  if (!/^https?:\/\//i.test(href)) {
     return <a href={href} {...props} />;
   }
 
-  return <a href={href} target="_blank" rel="noopener noreferrer" {...props} />;
+  return (
+    <a href={href} {...newTabProps} {...props}>
+      {props.children}
+      <NewTabCue />
+    </a>
+  );
 };
 
 function BlogImage({
