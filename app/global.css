@@ -571,56 +571,6 @@ a {
   }
 }
 
-/* /ask is a viewport chat. Unlayered so these beat utility borders and rings. */
-body:has([data-connect]) {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  max-height: 100dvh;
-  margin-bottom: 0;
-  overflow: hidden;
-  overscroll-behavior: none;
-}
-
-body:has([data-connect]) main {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-}
-
-body:has([data-connect]) footer {
-  display: none;
-}
-
-body:has([data-connect]) [data-slot="input-group"] {
-  align-items: flex-end;
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: none;
-}
-
-body:has([data-connect]) [data-slot="input-group"]:focus-within {
-  border-color: #5cded6;
-  box-shadow: 0 0 0 2px #5cded6;
-}
-
-body:has([data-connect]) [data-slot="input-group"] textarea {
-  padding-right: 3.25rem;
-}
-
-@media print {
-  body:has([data-connect]) {
-    display: block;
-    height: auto;
-    max-height: none;
-    overflow: visible;
-  }
-
-  body:has([data-connect]) main {
-    overflow: visible;
-  }
-}
-
 [data-work-shell] .work-hero-title {
   min-block-size: 2lh;
 }
@@ -703,6 +653,44 @@ body:has([data-connect]) [data-slot="input-group"] textarea {
   }
 }
 
+/*
+ * M-I: GenUI result reveal. The `enter` token's values (components/shared/
+ * motion.ts) on each generated block as it mounts: the items of an
+ * experience stack, or the single experience under the OpenUI renderer's two
+ * wrappers, plus the source line. The wrapper is keyed by request, so each
+ * query reveals once. CSS, not <ViewTransition>: streamed updates are not
+ * transition-scoped. Reduced motion: 120ms opacity only.
+ */
+:is(
+  [data-genui-reveal] [data-genui-blocks] > *,
+  [data-genui-reveal] > * > * > :not([data-genui-blocks]),
+  [data-genui-reveal] > [data-search-source]
+) {
+  transition:
+    opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    scale 200ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    [data-genui-reveal] [data-genui-blocks] > *,
+    [data-genui-reveal] > * > * > :not([data-genui-blocks]),
+    [data-genui-reveal] > [data-search-source]
+  ) {
+    transition: opacity 120ms cubic-bezier(0.23, 1, 0.32, 1);
+
+    @starting-style {
+      opacity: 0;
+      scale: none;
+    }
+  }
+}
+
 /* View transitions (Work filter indicator; add named groups here) */
 ::view-transition {
   pointer-events: none;
@@ -736,6 +724,37 @@ body:has([data-connect]) [data-slot="input-group"] textarea {
 
 ::view-transition-new(.work-filter-label) {
   animation: none;
+}
+
+/* Project cover morph: card ↔ project hero (<ViewTransition share="morph" default="none">) */
+::view-transition-group(.morph) {
+  animation-duration: 240ms;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  object-fit: cover;
+  height: 100%;
+}
+
+/* /bio and GenUI career timeline story disclosure: animated open/close where supported */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  details[data-bio-disclosure]::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 240ms cubic-bezier(0.23, 1, 0.32, 1),
+      content-visibility 240ms allow-discrete;
+  }
+
+  details[data-bio-disclosure][open]::details-content {
+    block-size: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

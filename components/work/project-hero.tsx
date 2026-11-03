@@ -1,4 +1,6 @@
 import { imageHover } from "components/shared/motion";
+import { newTabProps } from "components/shared/new-tab-cue";
+import { CoverMorph } from "components/work/cover-morph";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import {
@@ -26,19 +28,21 @@ export function ProjectHero({
   const maxWidth = projectCoverMaxWidth({ src: resolved.src });
 
   const image = (
-    <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
-      <Image
-        src={resolved.src}
-        alt={resolved.alt}
-        fill
-        sizes={workCoverSizes}
-        preload={preload}
-        loading={preload ? "eager" : undefined}
-        fetchPriority={preload ? "high" : undefined}
-        className={cn("bg-neutral-900 object-cover", imageHover)}
-        style={{ objectPosition: projectCoverPosition(project) }}
-      />
-    </div>
+    <CoverMorph slug={project.slug}>
+      <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
+        <Image
+          src={resolved.src}
+          alt={resolved.alt}
+          fill
+          sizes={workCoverSizes}
+          preload={preload}
+          loading={preload ? "eager" : undefined}
+          fetchPriority={preload ? "high" : undefined}
+          className={cn("bg-neutral-900 object-cover", imageHover)}
+          style={{ objectPosition: projectCoverPosition(project) }}
+        />
+      </div>
+    </CoverMorph>
   );
 
   // Small legacy sources never stretch past their intrinsic width.
@@ -52,9 +56,8 @@ export function ProjectHero({
       className="group block"
       {...(href.startsWith("http")
         ? {
-            "aria-label": `Open ${project.title} website`,
-            rel: "noopener noreferrer",
-            target: "_blank",
+            "aria-label": `Open ${project.title} website (opens in new tab)`,
+            ...newTabProps,
           }
         : {})}
     >

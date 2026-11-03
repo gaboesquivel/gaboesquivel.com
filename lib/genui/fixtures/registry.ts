@@ -1,5 +1,6 @@
 import { searchError } from "lib/search/compose-outcome";
 import type { SearchError, SearchStatus } from "lib/search/compose-outcome";
+import type { ComposeStage } from "lib/search/copy";
 
 import {
   timelineDocument,
@@ -36,7 +37,9 @@ export type GenuiFixtureId =
   | "search-empty"
   | "search-error"
   | "search-timed-out"
-  | "search-rate-limited";
+  | "search-rate-limited"
+  | "search-staged"
+  | "search-stopped";
 
 /**
  * A scripted search outcome: the lab mounts the region idle, then moves it to
@@ -45,6 +48,8 @@ export type GenuiFixtureId =
  */
 export interface GenuiSearchState {
   error?: SearchError;
+  /** Compose stage the status line shows while composing. */
+  stage?: ComposeStage;
   status: Exclude<SearchStatus, "idle" | "result">;
   submitted: string;
 }
@@ -104,6 +109,20 @@ export const genuiFixtures: Record<GenuiFixtureId, GenuiFixtureDefinition> = {
     }),
     id: "search-streaming",
     search: { status: "composing", submitted: "explore my work" },
+  },
+  "search-staged": {
+    envelope: null,
+    id: "search-staged",
+    search: {
+      stage: "projects",
+      status: "composing",
+      submitted: "What agentic AI products have you shipped?",
+    },
+  },
+  "search-stopped": {
+    envelope: null,
+    id: "search-stopped",
+    search: { status: "stopped", submitted: "explore my work" },
   },
   "search-empty": {
     envelope: null,

@@ -8,7 +8,7 @@ Render a small application-controlled vocabulary consistently on the homepage an
 
 ## Tech stack and project structure
 
-React, existing Base UI controls and Tailwind tokens, plus a compatible pinned `@openuidev/react-lang`. Proposed owners: `components/genui/library/`, `components/genui/openui-renderer.tsx`, and the document contract under `lib/genui/openui.ts`. Reuse `components/shared/spacing.ts`, `components/ui/`, `components/work/project-card.tsx`, and applicable `app/connect/` form/picker logic. Tests and document fixtures live beside the library. Do not import server services into the client catalog.
+React, existing Base UI controls and Tailwind tokens, plus a compatible pinned `@openuidev/react-lang`. Proposed owners: `components/genui/library/`, `components/genui/openui-renderer.tsx`, and the document contract under `lib/genui/openui.ts`. Reuse `components/shared/spacing.ts`, `components/ui/`, `components/work/project-card.tsx`, and applicable connect form/picker logic (now `components/genui/genui-booking-flow.tsx` and `genui-contact-form.tsx`; `app/connect/` was deleted by spec 001, 2026-11-03). Tests and document fixtures live beside the library. Do not import server services into the client catalog.
 
 ## Provider contract
 
@@ -55,7 +55,7 @@ Reuse named components, stable data keys, site spacing and neutral/turquoise tok
 ```bash
 bun run verify
 bun run build
-bun test lib/connect/slot-display.test.ts lib/connect/picker-lock.test.ts
+bun test lib/connect/slot-display.test.ts lib/genui/write-flow.test.ts
 agent-browser skills get core
 ```
 
@@ -84,4 +84,4 @@ Use parser/catalog contract tests, deterministic fixtures and browser interactio
 
 ## Open questions
 
-Review the proposed 48rem threshold and draft-preservation behavior with the homepage spec. Planning must prove the exact OpenUI version supports the required validation/action gates and Eve stream adaptation. JSON Render can be removed once `/ask` is redirected and no active consumer remains; do not remove it early while imports still ship.
+Review the proposed 48rem threshold and draft-preservation behavior with the homepage spec. Planning must prove the exact OpenUI version supports the required validation/action gates and Eve stream adaptation. JSON Render can be removed once `/ask` is redirected and no active consumer remains; do not remove it early while imports still ship. _Amended by spec 001, 2026-11-03 (D-2): JSON Render is removed, and the unmounted connect UI (`app/connect/*`) and the Eve web channel went with it. Booking and contact are the mounted GenUI forms; `agent/channels/eve.ts` disables `/eve/v1`._

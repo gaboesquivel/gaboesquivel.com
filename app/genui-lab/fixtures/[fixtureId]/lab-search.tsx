@@ -33,18 +33,24 @@ export const LabSearch = ({
   const [value, setValue] = useState(state.submitted);
   // The last query Try again or a chip re-ran; null while the fixture holds.
   const [rerunQuery, setRerunQuery] = useState<string | null>(null);
+  const [stopped, setStopped] = useState(false);
   const hydrated = useHydrated();
   const submitted = rerunQuery ?? state.submitted;
   let status: SearchStatus = "idle";
   if (hydrated) status = rerunQuery === null ? state.status : "composing";
+  if (hydrated && stopped) status = "stopped";
   const error = status === "error" ? (state.error ?? null) : null;
 
-  const rerun = (query: string) => {
+  const rerun = (query: string, label?: string) => {
     window.__genuiLabSearches = [...(window.__genuiLabSearches ?? []), query];
+    setStopped(false);
     setRerunQuery(query);
-    setValue(query);
+    setValue(label ?? query);
     fieldRef.current?.focus();
   };
+
+  // Stop keeps the field text and moves to "Stopped." (lab: no request).
+  const stop = () => setStopped(true);
 
   return (
     <div className="space-y-6">
@@ -62,6 +68,8 @@ export const LabSearch = ({
         error={error}
         onExample={rerun}
         onRetry={() => rerun(submitted)}
+        onStop={stop}
+        stage={rerunQuery === null ? state.stage : null}
         status={status}
         submitted={submitted}
       />

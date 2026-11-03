@@ -56,3 +56,33 @@ describe("buildGenuiAutosuggest", () => {
     expect(suggestions[0]?.query).toBe("My custom AI query");
   });
 });
+
+describe("echo: Recent keeps the visitor's words", () => {
+  const history = ["What agentic AI products have you shipped?"];
+
+  test("a stored example label routes on its canonical query", () => {
+    const [first] = buildGenuiAutosuggest({
+      history,
+      includeRecentWhenEmpty: true,
+      query: "",
+      records: [],
+    });
+    expect(first).toMatchObject({
+      label: "What agentic AI products have you shipped?",
+      query: "show me your ai projects",
+      source: "history",
+    });
+  });
+
+  test("the example is not listed twice", () => {
+    const suggestions = buildGenuiAutosuggest({
+      history,
+      includeRecentWhenEmpty: true,
+      query: "",
+      records: [],
+    });
+    expect(
+      suggestions.filter((item) => item.query === "show me your ai projects")
+    ).toHaveLength(1);
+  });
+});

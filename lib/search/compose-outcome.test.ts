@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { composeQuery } from "lib/genui/compose";
+import { composeQuery, stageForTasks } from "lib/genui/compose";
 
 import {
   announcementFor,
@@ -8,7 +8,40 @@ import {
   errorFromHttp,
   searchError,
 } from "./compose-outcome";
-import { searchCopy } from "./copy";
+import {
+  composeStageCopy,
+  isComposeStage,
+  searchCopy,
+  sourceLine,
+} from "./copy";
+
+describe("agent-surface additions (A-P1)", () => {
+  test("stopped announces Stopped.", () => {
+    expect(announcementFor({ error: null, status: "stopped" })).toBe(
+      searchCopy.stopped
+    );
+  });
+
+  test("stages map to human labels, never tool names", () => {
+    expect(stageForTasks([{ kind: "booking" }])).toBe("availability");
+    expect(stageForTasks([{ kind: "projects" }])).toBe("projects");
+    expect(stageForTasks([{ kind: "writing" }])).toBe("writing");
+    expect(stageForTasks([])).toBe("answer");
+    for (const label of Object.values(composeStageCopy)) {
+      expect(label).toMatch(/^[A-Z][a-zé ]+…$/);
+    }
+    expect(isComposeStage("search_site")).toBe(false);
+  });
+
+  test("source line counts projects and posts", () => {
+    expect(sourceLine({ posts: 2, projects: 4 })).toBe(
+      "Based on 4 projects and 2 posts"
+    );
+    expect(sourceLine({ posts: 0, projects: 1 })).toBe("Based on 1 project");
+    expect(sourceLine({ posts: 1, projects: 0 })).toBe("Based on 1 post");
+    expect(sourceLine({ posts: 0, projects: 0 })).toBeNull();
+  });
+});
 
 describe("typed search errors", () => {
   test("429 shows the server's message", () => {

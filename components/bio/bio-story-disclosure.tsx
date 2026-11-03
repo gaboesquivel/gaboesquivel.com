@@ -32,7 +32,7 @@ export function BioStoryDisclosure({
   if (!hasExpandedBody) return null;
 
   return (
-    <details className="group mt-6">
+    <details data-bio-disclosure="" className="group mt-6">
       <summary
         className={cn(
           "inline-flex w-fit cursor-pointer list-none items-center gap-2 rounded-lg border border-hairline px-4 py-2.5 text-sm text-white",
@@ -44,7 +44,10 @@ export function BioStoryDisclosure({
         <span className="group-open:hidden">Read the full story</span>
         <span className="hidden group-open:inline">Close story</span>
         <span className="sr-only">: {chapter.title}</span>
-        <span aria-hidden="true" className="text-accent group-open:rotate-180">
+        <span
+          aria-hidden="true"
+          className="text-accent group-open:rotate-180 motion-safe:transition-[rotate] motion-safe:duration-200 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)]"
+        >
           ↓
         </span>
       </summary>

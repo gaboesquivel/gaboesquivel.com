@@ -86,7 +86,7 @@ export const siteCardSurface =
   "flex flex-col gap-0 rounded-lg border border-neutral-200 bg-transparent shadow-none ring-0 dark:border-hairline";
 
 export const siteCardInteractive =
-  "transition-[color,background-color,transform] ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99] hover:bg-neutral-100 hover:text-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:hover:bg-neutral-800 dark:hover:text-white";
+  "transition-[color,background-color,transform,scale] ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:duration-[160ms] motion-safe:active:scale-[0.97] motion-reduce:duration-[80ms] motion-reduce:active:scale-[0.99] hover:bg-neutral-100 hover:text-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:hover:bg-neutral-800 dark:hover:text-white";
 
 export const cardArrow =
   "shrink-0 text-neutral-400 group-hover:text-accent motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] motion-safe:group-hover:translate-x-0.5";

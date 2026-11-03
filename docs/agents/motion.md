@@ -4,15 +4,17 @@ Canonical product gate: [DESIGN.md](../../DESIGN.md) § Motion & View Transition
 
 ## Tokens (`components/shared/motion.ts`)
 
-| Token        | Use                                                     |
-| ------------ | ------------------------------------------------------- |
-| `press`      | Buttons, chips, filter links — 160ms press scale `0.97` |
-| `enter`      | Mount / reveal — 200ms `@starting-style` fade + scale   |
-| `imageHover` | Cover imagery — 500ms hover scale `1.02`, site curve    |
+| Token | Use |
+| --- | --- |
+| `press` | Buttons, chips, filter links, nav search — 160ms press scale `0.97` (transitions `scale`) |
+| `enter` | Mount / reveal — 200ms `@starting-style` fade + scale |
+| `imageHover` | Cover imagery — 500ms hover scale `1.02`, site curve |
 
 Related: `cardArrow` (200ms nudge, site curve) and `siteCardInteractive` in `components/shared/spacing.ts`.
 
-Easing for site-authored motion: `cubic-bezier(0.23, 1, 0.32, 1)`. View-transition groups and the root crossfade: 180ms (see `app/global.css`).
+Easing for site-authored motion: `cubic-bezier(0.23, 1, 0.32, 1)`. View-transition groups and the root crossfade: 180ms; the project cover morph (`.morph`, `lib/work/project-view-transition.ts`): 240ms; the `/bio` disclosure (`details[data-bio-disclosure]::details-content`): 240ms block size, motion-safe only (see `app/global.css`).
+
+Shared-element names: one mounted `<ViewTransition name>` per name per page, and always pair `default="none"` with an explicit `share`. Browser Back/Forward starts no view transition (React renders popstate synchronously), so only link navigations morph.
 
 ## Stack
 

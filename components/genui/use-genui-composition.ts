@@ -2,14 +2,18 @@
 
 import type { CompositionEnvelope } from "lib/genui/envelope";
 import { consumeNdjsonResponse } from "lib/genui/ndjson-stream";
+import { curatedQueryForLabel } from "lib/genui/query-suggestions";
 import { isCurrentCompositionRequest } from "lib/genui/request-generation";
 import { recordGenuiSearchQuery } from "lib/genui/search-history";
 import {
+  CLIENT_COMPOSE_TIMEOUT_MS,
   errorFromEvent,
   errorFromHttp,
   searchError,
 } from "lib/search/compose-outcome";
 import type { SearchError, SearchStatus } from "lib/search/compose-outcome";
+import { isComposeStage } from "lib/search/copy";
+import type { ComposeStage } from "lib/search/copy";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const readServerMessage = async (response: Response) => {
@@ -20,17 +24,33 @@ const readServerMessage = async (response: Response) => {
 };
 
 /**
- * The shared search state machine: idle → composing → result | empty | error.
- * `query` is the field text; `submitted` is the last query sent, which Try
- * again re-runs (never the edited, unsubmitted field text).
+ * What was sent: `label` is the visitor's own words (typed text or the
+ * clicked suggestion), shown in the field and stored in Recent; `query` is
+ * what compose routes on (a suggestion's canonical rewrite stays internal).
+ */
+export interface SearchSubmission {
+  label: string;
+  query: string;
+}
+
+type AbortReason = "stopped" | "timed_out";
+
+/**
+ * The shared search state machine: idle → composing → result | empty |
+ * error | stopped. `query` is the field text; `submitted` is the last
+ * submission, which Try again re-runs (never the edited, unsubmitted text).
  */
 export const useGenuiComposition = () => {
   const [status, setStatus] = useState<SearchStatus>("idle");
+  const [stage, setStage] = useState<ComposeStage | null>(null);
   const [query, setQuery] = useState("");
-  const [submitted, setSubmitted] = useState("");
+  const [submission, setSubmission] = useState<SearchSubmission | null>(null);
+  /** Increments per request so each result reveals once (keyed by query). */
+  const [requestKey, setRequestKey] = useState(0);
   const [envelope, setEnvelope] = useState<CompositionEnvelope | null>(null);
   const [error, setError] = useState<SearchError | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const abortReasonRef = useRef<AbortReason | null>(null);
   const requestRef = useRef(0);
 
   useEffect(
@@ -44,20 +64,25 @@ export const useGenuiComposition = () => {
     abortRef.current?.abort();
     requestRef.current += 1;
     setStatus("idle");
+    setStage(null);
     setQuery("");
-    setSubmitted("");
+    setSubmission(null);
     setEnvelope(null);
     setError(null);
   }, []);
 
-  const runQuery = useCallback(async (nextQuery: string) => {
-    const trimmed = nextQuery.trim();
-    if (!trimmed) return;
+  const runQuery = useCallback(async (nextQuery: string, label?: string) => {
+    const typed = nextQuery.trim();
+    if (!typed) return;
+    const shown = label?.trim() || typed;
+    // Enter on an echoed example label still routes on its canonical query.
+    const trimmed = label ? typed : (curatedQueryForLabel(typed) ?? typed);
     const id = requestRef.current + 1;
     requestRef.current = id;
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
+    abortReasonRef.current = null;
     const current = () =>
       isCurrentCompositionRequest({
         activeRequest: requestRef.current,
@@ -67,12 +92,28 @@ export const useGenuiComposition = () => {
       if (!current()) return;
       setError(next);
       setStatus("error");
+      setStage(null);
     };
+    // A stalled request (no settled event in 20s) maps to the timed-out copy.
+    const timer = window.setTimeout(() => {
+      if (!current()) return;
+      abortReasonRef.current = "timed_out";
+      controller.abort();
+    }, CLIENT_COMPOSE_TIMEOUT_MS);
     setStatus("composing");
-    setQuery(trimmed);
-    setSubmitted(trimmed);
+    setStage(null);
+    setQuery(shown);
+    setSubmission({ label: shown, query: trimmed });
+    setRequestKey(id);
     setEnvelope(null);
     setError(null);
+    // Once the stream settles, the 20s timer can no longer turn it into a
+    // timeout, even if the body stays open.
+    let settled = false;
+    const settle = () => {
+      settled = true;
+      window.clearTimeout(timer);
+    };
     try {
       const response = await fetch("/api/genui/compose", {
         body: JSON.stringify({
@@ -88,18 +129,22 @@ export const useGenuiComposition = () => {
         fail(errorFromHttp(response.status, await readServerMessage(response)));
         return;
       }
-      let settled = false;
       await consumeNdjsonResponse({
         onEvent: (event) => {
           if (!current() || settled) return;
+          if (event.type === "stage") {
+            if (isComposeStage(event.stage)) setStage(event.stage);
+            return;
+          }
           if (event.type === "error") {
-            settled = true;
+            settle();
             fail(errorFromEvent(event));
             return;
           }
           if (event.type === "empty") {
-            settled = true;
+            settle();
             setEnvelope(null);
+            setStage(null);
             setStatus("empty");
             return;
           }
@@ -107,10 +152,12 @@ export const useGenuiComposition = () => {
             setEnvelope(event.envelope as CompositionEnvelope);
           }
           if (event.type === "complete") {
-            settled = true;
+            settle();
+            setStage(null);
             setStatus("result");
-            // Recent keeps only queries that reached a result.
-            queueMicrotask(() => recordGenuiSearchQuery(trimmed));
+            // Recent keeps only queries that reached a result, in the
+            // visitor's own words.
+            queueMicrotask(() => recordGenuiSearchQuery(shown));
           }
         },
         response,
@@ -119,16 +166,38 @@ export const useGenuiComposition = () => {
       if (!settled) fail(searchError("failed"));
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
+        if (!current() || settled) return;
+        if (abortReasonRef.current === "timed_out") {
+          fail(searchError("timed_out"));
+        } else if (abortReasonRef.current === "stopped") {
+          setStatus("stopped");
+          setStage(null);
+          setEnvelope(null);
+        }
         return;
       }
       fail(searchError("failed"));
+    } finally {
+      window.clearTimeout(timer);
     }
   }, []);
 
-  /** Re-runs the last submitted query; the field shows it again. */
+  /**
+   * Stop: aborts the request (the server stops too), keeps the field text and
+   * every draft, and ends in "Stopped." with Try again.
+   */
+  const stop = useCallback(() => {
+    if (!abortRef.current || abortRef.current.signal.aborted) return;
+    abortReasonRef.current = "stopped";
+    abortRef.current.abort();
+  }, []);
+
+  /** Re-runs the last submission; the field shows the visitor's words again. */
   const retry = useCallback(() => {
-    if (submitted) runQuery(submitted).catch(() => {});
-  }, [runQuery, submitted]);
+    if (submission) {
+      runQuery(submission.query, submission.label).catch(() => {});
+    }
+  }, [runQuery, submission]);
 
   return {
     active: status !== "idle",
@@ -137,12 +206,16 @@ export const useGenuiComposition = () => {
     error,
     isStreaming: status === "composing",
     query,
+    requestKey,
     reset,
     retry,
     runQuery,
     setQuery,
+    stage,
     status,
-    submitted,
+    stop,
+    /** The visitor's words for the last submission (keyword matches use them). */
+    submitted: submission?.label ?? "",
   };
 };
 

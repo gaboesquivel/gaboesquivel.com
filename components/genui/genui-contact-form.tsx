@@ -4,6 +4,7 @@ import {
   identityForAttempt,
   isSettledWrite,
   newRetryIdentity,
+  settleAttempt,
   writeErrorMessage,
 } from "lib/genui/write-flow";
 import { useRef, useState } from "react";
@@ -53,6 +54,7 @@ export const GenuiContactForm = () => {
         input: { ...input, retryIdentity: attempt.identity },
         operation: "send_note",
       });
+      setAttempt("note", settleAttempt({ state: attempt }));
       if (isSettledWrite(payload)) {
         setReceipt("note", {
           lines: [`${input.name} · ${input.email}`],
@@ -63,6 +65,7 @@ export const GenuiContactForm = () => {
       }
       setFailure(payload.message ?? NOTE_FAILED);
     } catch (error) {
+      setAttempt("note", settleAttempt({ error, state: attempt }));
       setFailure(writeErrorMessage(error));
     } finally {
       inFlight.current = false;
@@ -71,6 +74,9 @@ export const GenuiContactForm = () => {
   };
 
   const locked = !writesEnabled || pending;
+  // After a network failure the note may have been sent: edits wait for an
+  // answer so a retry cannot become a second, different note.
+  const editLocked = locked || Boolean(attempts.note.unresolved);
 
   return (
     <form
@@ -87,7 +93,7 @@ export const GenuiContactForm = () => {
         <input
           autoComplete="name"
           className={inputClass}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => setNote({ name: event.target.value })}
           required
           value={note.name}
@@ -98,7 +104,7 @@ export const GenuiContactForm = () => {
         <input
           autoComplete="email"
           className={inputClass}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => setNote({ email: event.target.value })}
           required
           type="email"
@@ -109,7 +115,7 @@ export const GenuiContactForm = () => {
         <span>What should we discuss?</span>
         <textarea
           className={`min-h-28 ${inputClass}`}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => setNote({ description: event.target.value })}
           required
           value={note.description}
