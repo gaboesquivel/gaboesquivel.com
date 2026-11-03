@@ -4,16 +4,15 @@ import {
   projectCardDescription,
   projectRoleInCard,
 } from "components/shared/spacing";
+import { CoverMorph } from "components/work/cover-morph";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import {
   projectCoverPosition,
   resolveProjectImage,
 } from "lib/work/project-cover";
-import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
-import { ViewTransition } from "react";
 
 /** Package hero image in a cover-filled frame, plus name, role, and description. */
 export function EditorialProjectCard({
@@ -38,11 +37,7 @@ export function EditorialProjectCard({
       className={cn("group block h-full", editorialLink)}
     >
       {image ? (
-        <ViewTransition
-          name={projectViewTransitionName(project.slug)}
-          share="morph"
-          default="none"
-        >
+        <CoverMorph slug={project.slug}>
           <div
             className={cn(
               "relative overflow-hidden rounded-lg bg-black",
@@ -61,7 +56,7 @@ export function EditorialProjectCard({
               style={{ objectPosition: projectCoverPosition(project) }}
             />
           </div>
-        </ViewTransition>
+        </CoverMorph>
       ) : null}
       <h3 className="mt-4 text-2xl font-semibold tracking-tight">
         {project.title}

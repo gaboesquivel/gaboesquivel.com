@@ -34,7 +34,7 @@ Quality gates DS-01–DS-14 apply where a phase touches homepage-adjacent cover 
 | Width | [components/layout/site-width.tsx](../../../components/layout/site-width.tsx) applies `homeColumn` (`max-w-6xl`) on every route. Narrative copy uses `readingMeasure` (`max-w-[65ch]`). The résumé stays `max-w-4xl` on screen. CV print unchanged. Homepage files stay untouched. |
 | Effects / type | No glow, bloom, glass, decorative gradients; system monospace; accent `#5cded6`. |
 | Covers | Presentation-only [lib/work/project-cover.ts](../../../lib/work/project-cover.ts); four WebPs from [assets/work/covers/manifest.json](../../../assets/work/covers/manifest.json). ZTX remains Genesis Home Mint fallback until verified character source art exists. |
-| `/ask` work rows | [components/work/project-media.tsx](../../../components/work/project-media.tsx) via `app/connect/eve-thread.tsx`; package `project.image` only — not `projectCover`. _(Superseded, spec 001 D-2, 2026-11-03: `app/connect/` was deleted; nothing renders these rows.)_ |
+| `/ask` work rows | `components/work/project-media.tsx` (deleted) via `app/connect/eve-thread.tsx`; package `project.image` only — not `projectCover`. _(Superseded, spec 001 D-2, 2026-11-03: `app/connect/` was deleted; nothing renders these rows.)_ |
 | Reading tokens | No `heroTitle`, `heroPitch`, `homeSection`, or `homeColumn` on non-home routes. |
 
 ## Uniform anatomy rule

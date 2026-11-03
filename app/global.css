@@ -571,56 +571,6 @@ a {
   }
 }
 
-/* /ask is a viewport chat. Unlayered so these beat utility borders and rings. */
-body:has([data-connect]) {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  max-height: 100dvh;
-  margin-bottom: 0;
-  overflow: hidden;
-  overscroll-behavior: none;
-}
-
-body:has([data-connect]) main {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-}
-
-body:has([data-connect]) footer {
-  display: none;
-}
-
-body:has([data-connect]) [data-slot="input-group"] {
-  align-items: flex-end;
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: none;
-}
-
-body:has([data-connect]) [data-slot="input-group"]:focus-within {
-  border-color: #5cded6;
-  box-shadow: 0 0 0 2px #5cded6;
-}
-
-body:has([data-connect]) [data-slot="input-group"] textarea {
-  padding-right: 3.25rem;
-}
-
-@media print {
-  body:has([data-connect]) {
-    display: block;
-    height: auto;
-    max-height: none;
-    overflow: visible;
-  }
-
-  body:has([data-connect]) main {
-    overflow: visible;
-  }
-}
-
 [data-work-shell] .work-hero-title {
   min-block-size: 2lh;
 }

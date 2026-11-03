@@ -10,4 +10,7 @@ import { searchRecordFromSection } from "./search/rank-records";
  * order, so keyword matches and `search_site` agree for the same text.
  */
 export const getSiteSearchRecords = (): SearchRecord[] =>
-  (index as RankSection[]).map((section) => searchRecordFromSection(section));
+  (index as RankSection[])
+    .map((section) => searchRecordFromSection(section))
+    // /ask only redirects; the ranker never returns it, so don't ship it.
+    .filter((record) => record.href !== "/ask");

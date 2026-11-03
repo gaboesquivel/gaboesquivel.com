@@ -72,7 +72,10 @@ const HomepageGenUiBodyContent = ({
               genui.retry();
               inputRef.current?.focus();
             }}
-            onStop={() => genui.stop()}
+            onStop={() => {
+              genui.stop();
+              inputRef.current?.focus();
+            }}
             revealKey={genui.requestKey}
             stage={genui.stage}
             status={genui.status}

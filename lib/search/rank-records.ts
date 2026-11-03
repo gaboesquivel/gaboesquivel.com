@@ -33,8 +33,12 @@ export const searchRecordFromSection = (
   ...(section.kind === "post" ? { publishedAt: section.publishedAt } : {}),
 });
 
+/** Routes that only redirect; never offer them as a match. */
+const REDIRECT_ONLY = new Set(["/ask"]);
+
 /** Archive posts stay out unless the query names them or their year. */
 const eligible = (record: SearchRecord, query: string) => {
+  if (REDIRECT_ONLY.has(record.href)) return false;
   if (
     record.kind !== "post" ||
     !record.publishedAt ||
@@ -61,8 +65,11 @@ export const rankSearchMatches = <R extends SearchRecord>(
     limit?: number;
     match?: "all" | "any";
   } = {}
-) =>
-  rankByKeywords({
+) => {
+  // Several records can share a page (every CV role links to /cv); keep the
+  // best-ranked one per href so a match list never repeats a destination.
+  const seen = new Set<string>();
+  const unique = rankByKeywords({
     boost: (record) => kindBoost[record.kind ?? kindOfPath(record.href)],
     fields: (record) => ({
       keywords: [...(record.keywords ?? []), ...pathKeywords(record.href)],
@@ -70,10 +77,15 @@ export const rankSearchMatches = <R extends SearchRecord>(
       title: record.title,
     }),
     items: records.filter((record) => eligible(record, query)),
-    limit,
     match,
     query,
+  }).filter(({ item }) => {
+    if (seen.has(item.href)) return false;
+    seen.add(item.href);
+    return true;
   });
+  return limit === undefined ? unique : unique.slice(0, limit);
+};
 
 /** Site search records (projects, posts, pages, roles, tech) ranked by the shared ranker. */
 export const rankSearchRecords = (

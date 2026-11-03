@@ -1,5 +1,6 @@
 import { imageHover } from "components/shared/motion";
 import { newTabProps } from "components/shared/new-tab-cue";
+import { CoverMorph } from "components/work/cover-morph";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import {
@@ -8,10 +9,8 @@ import {
   resolveProjectImage,
   workCoverSizes,
 } from "lib/work/project-cover";
-import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
-import { ViewTransition } from "react";
 
 export function ProjectHero({
   project,
@@ -29,11 +28,7 @@ export function ProjectHero({
   const maxWidth = projectCoverMaxWidth({ src: resolved.src });
 
   const image = (
-    <ViewTransition
-      name={projectViewTransitionName(project.slug)}
-      share="morph"
-      default="none"
-    >
+    <CoverMorph slug={project.slug}>
       <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
         <Image
           src={resolved.src}
@@ -47,7 +42,7 @@ export function ProjectHero({
           style={{ objectPosition: projectCoverPosition(project) }}
         />
       </div>
-    </ViewTransition>
+    </CoverMorph>
   );
 
   // Small legacy sources never stretch past their intrinsic width.

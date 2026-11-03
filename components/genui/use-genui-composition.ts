@@ -2,6 +2,7 @@
 
 import type { CompositionEnvelope } from "lib/genui/envelope";
 import { consumeNdjsonResponse } from "lib/genui/ndjson-stream";
+import { curatedQueryForLabel } from "lib/genui/query-suggestions";
 import { isCurrentCompositionRequest } from "lib/genui/request-generation";
 import { recordGenuiSearchQuery } from "lib/genui/search-history";
 import {
@@ -71,9 +72,11 @@ export const useGenuiComposition = () => {
   }, []);
 
   const runQuery = useCallback(async (nextQuery: string, label?: string) => {
-    const trimmed = nextQuery.trim();
-    if (!trimmed) return;
-    const shown = label?.trim() || trimmed;
+    const typed = nextQuery.trim();
+    if (!typed) return;
+    const shown = label?.trim() || typed;
+    // Enter on an echoed example label still routes on its canonical query.
+    const trimmed = label ? typed : (curatedQueryForLabel(typed) ?? typed);
     const id = requestRef.current + 1;
     requestRef.current = id;
     abortRef.current?.abort();
@@ -104,6 +107,13 @@ export const useGenuiComposition = () => {
     setRequestKey(id);
     setEnvelope(null);
     setError(null);
+    // Once the stream settles, the 20s timer can no longer turn it into a
+    // timeout, even if the body stays open.
+    let settled = false;
+    const settle = () => {
+      settled = true;
+      window.clearTimeout(timer);
+    };
     try {
       const response = await fetch("/api/genui/compose", {
         body: JSON.stringify({
@@ -119,7 +129,6 @@ export const useGenuiComposition = () => {
         fail(errorFromHttp(response.status, await readServerMessage(response)));
         return;
       }
-      let settled = false;
       await consumeNdjsonResponse({
         onEvent: (event) => {
           if (!current() || settled) return;
@@ -128,12 +137,12 @@ export const useGenuiComposition = () => {
             return;
           }
           if (event.type === "error") {
-            settled = true;
+            settle();
             fail(errorFromEvent(event));
             return;
           }
           if (event.type === "empty") {
-            settled = true;
+            settle();
             setEnvelope(null);
             setStage(null);
             setStatus("empty");
@@ -143,7 +152,7 @@ export const useGenuiComposition = () => {
             setEnvelope(event.envelope as CompositionEnvelope);
           }
           if (event.type === "complete") {
-            settled = true;
+            settle();
             setStage(null);
             setStatus("result");
             // Recent keeps only queries that reached a result, in the
@@ -157,7 +166,7 @@ export const useGenuiComposition = () => {
       if (!settled) fail(searchError("failed"));
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
-        if (!current()) return;
+        if (!current() || settled) return;
         if (abortReasonRef.current === "timed_out") {
           fail(searchError("timed_out"));
         } else if (abortReasonRef.current === "stopped") {

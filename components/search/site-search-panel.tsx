@@ -95,7 +95,10 @@ export function SiteSearchPanel({
               genui.retry();
               focusField();
             }}
-            onStop={() => genui.stop()}
+            onStop={() => {
+              genui.stop();
+              focusField();
+            }}
             revealKey={genui.requestKey}
             stage={genui.stage}
             status={genui.status}

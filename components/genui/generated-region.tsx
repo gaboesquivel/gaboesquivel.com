@@ -3,6 +3,8 @@
 import { Shimmer } from "components/ai-elements/shimmer";
 import { useSiteSearchOptional } from "components/search/site-search-context";
 import type { SearchRecord } from "components/search/types";
+import { press } from "components/shared/motion";
+import { CoverMorphOff } from "components/work/cover-morph";
 import type { CompositionEnvelope } from "lib/genui/envelope";
 import { curatedGenuiQuerySuggestions } from "lib/genui/query-suggestions";
 import { announcementFor, searchError } from "lib/search/compose-outcome";
@@ -16,6 +18,7 @@ import {
 } from "lib/search/copy";
 import type { ComposeStage } from "lib/search/copy";
 import { rankSearchRecords } from "lib/search/rank-records";
+import { cn } from "lib/utils";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Component, useEffect, useMemo, useState } from "react";
@@ -53,7 +56,10 @@ const ProgressLine = ({
       </div>
       {onStop ? (
         <button
-          className="min-h-11 shrink-0 cursor-pointer rounded-md border border-hairline px-4 text-neutral-200 transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"
+          className={cn(
+            "min-h-11 shrink-0 cursor-pointer rounded-md border border-hairline px-4 text-neutral-200 hover:border-accent/50 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent",
+            press
+          )}
           data-search-stop=""
           onClick={onStop}
           type="button"
@@ -346,14 +352,16 @@ export const GeneratedRegion = ({
             key={envelope.openuiText}
             onError={() => reportFailure(searchCopy.renderFailed)}
           >
-            <OpenUiExperienceRenderer
-              complete={status === "result"}
-              fallbackText={envelope.fallbackText}
-              isStreaming={status === "composing"}
-              onRenderFailure={reportFailure}
-              records={envelope.records}
-              response={envelope.openuiText}
-            />
+            <CoverMorphOff>
+              <OpenUiExperienceRenderer
+                complete={status === "result"}
+                fallbackText={envelope.fallbackText}
+                isStreaming={status === "composing"}
+                onRenderFailure={reportFailure}
+                records={envelope.records}
+                response={envelope.openuiText}
+              />
+            </CoverMorphOff>
           </RegionErrorBoundary>
           {status === "result" && sourceLineFor(envelope) ? (
             <p className="text-xs text-neutral-400" data-search-source="">
