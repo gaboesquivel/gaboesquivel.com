@@ -37,9 +37,7 @@ export function BioTimelineEntry({
           <p className="m-0 text-lg font-semibold text-white">
             {chapter.startYear}
           </p>
-          <p className="mt-1 text-xs tracking-wide text-neutral-400 uppercase">
-            {chapter.category}
-          </p>
+          <p className="mt-1 text-xs text-neutral-400">{chapter.category}</p>
         </div>
       </div>
 

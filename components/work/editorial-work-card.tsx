@@ -87,9 +87,6 @@ export function EditorialWorkCard({
             layout === "landscape" && "flex-1 px-5 py-5 sm:px-6 sm:py-6"
           )}
         >
-          {layout === "feature" ? (
-            <p className="text-sm text-neutral-400">Featured work</p>
-          ) : null}
           <Heading
             className={cn(
               "font-semibold tracking-tight text-balance",

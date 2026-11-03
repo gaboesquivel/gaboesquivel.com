@@ -24,10 +24,9 @@ export function FeaturedProjectCard({
 
   return (
     <article>
-      <p className="text-sm text-neutral-400">Featured work</p>
       <Link
         href={`/project/${project.slug}`}
-        className={cn("group mt-4 block", editorialLink)}
+        className={cn("group block", editorialLink)}
       >
         {image ? (
           <ViewTransition
