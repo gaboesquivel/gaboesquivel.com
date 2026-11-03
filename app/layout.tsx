@@ -3,8 +3,8 @@ import { SiteSearchShell } from "components/search/site-search-shell";
 import { getSiteSearchRecords } from "lib/site-search-records";
 import type { Metadata } from "next";
 
+import { SiteHeader } from "@/components/layout/site-header";
 import { SiteWidth } from "@/components/layout/site-width";
-import { headerColumnPadding } from "@/components/shared/spacing";
 import {
   siteMetadataTitle,
   sitePublicDescription,
@@ -14,7 +14,6 @@ import { siteOrigin } from "@/lib/site-path";
 
 import { DeferredAnalytics } from "../components/layout/deferred-analytics";
 import { Footer } from "../components/layout/footer";
-import Navbar from "../components/layout/navbar";
 
 const siteSearchRecords = getSiteSearchRecords();
 
@@ -84,12 +83,7 @@ export default function RootLayout({
         </a>
         <SiteSearchShell records={siteSearchRecords}>
           <div className="flex min-h-0 flex-1 flex-col">
-            <header className="bg-black print:hidden preview-print:hidden">
-              <div className="h-0.5 w-full bg-accent" />
-              <SiteWidth className={headerColumnPadding}>
-                <Navbar />
-              </SiteWidth>
-            </header>
+            <SiteHeader />
             <SiteWidth
               as="main"
               id="main"

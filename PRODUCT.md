@@ -16,7 +16,7 @@ The current brand headline is **Agentic Software Engineer**. Historical employme
 
 ## Implemented surfaces
 
-- Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “blog”)
+- Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “blog”). Omitted on `/cv`, with the accent bar.
 - Capability and context pages: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institutions`, `/lead`
 - Projects: `/work`, `/work/[type]`, `/project/[slug]`
 - Technologies: `/tech` and `/tech/[category]`, which serves both category pages and single-technology pages (`/tech/[slug]`). A technology with no project evidence redirects to `/tech`.
@@ -113,7 +113,7 @@ The route redirects to `/`. Notes and bookings are the contact form, the homepag
 
 ### `/cv` and `/tech`
 
-- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy. A screen-only focus switcher and PDF download sit under the title; no writing list is appended.
+- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy. A PDF download sits under the title; the page has no focus switcher and no primary nav. No writing list is appended.
 - `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/page-breaks.ts` and `lib/cv-paths.ts` add print breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Each variant's page title and description come from its package `metadata`. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs
 - `/tech/[slug]`: implementation evidence and named projects; not a capability thesis page

@@ -30,7 +30,6 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](../../../com
 | Writing index | `WritingIndex`, `WritingFeaturedPost`, `WritingRecentList` | `components/blog/writing-*.tsx` |
 | Project case study | `ProjectCaseStudy` | `components/work/project-case-study.tsx` |
 | In-post image width | `BlogImage` `layout="prose" \| "wide" \| "breakout"` | `components/mdx.tsx`, `app/global.css` |
-| CV focus switcher | `FilterNav` (screen only, `print:hidden`) | `app/cv/page.tsx` |
 | Section CTA | `ctaLink` / `sectionAction` | `components/shared/spacing.ts` |
 | In-prose link | `proseLink` | `components/shared/spacing.ts` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
