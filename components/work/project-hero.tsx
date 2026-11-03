@@ -1,4 +1,5 @@
 import { imageHover } from "components/shared/motion";
+import { newTabProps } from "components/shared/new-tab-cue";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import {
@@ -60,9 +61,8 @@ export function ProjectHero({
       className="group block"
       {...(href.startsWith("http")
         ? {
-            "aria-label": `Open ${project.title} website`,
-            rel: "noopener noreferrer",
-            target: "_blank",
+            "aria-label": `Open ${project.title} website (opens in new tab)`,
+            ...newTabProps,
           }
         : {})}
     >
