@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import type { Locator, Page } from "@playwright/test";
 import { LAB_RATE_LIMIT_MESSAGE } from "lib/genui/fixtures/registry";
-import { searchCopy } from "lib/search/copy";
+import { composeStageCopy, searchCopy } from "lib/search/copy";
 
 /**
  * Every state of the shared search and agent-surface contracts, reached in
@@ -89,6 +89,38 @@ test.describe("search states in the fixture lab", () => {
     await expect(page.locator('a[href="/project/wink"]').first()).toBeVisible();
     await expect(page.locator("[data-search-composing]")).toHaveCount(0);
     await expectAnnouncedOnce(page, [searchCopy.composing]);
+  });
+
+  test("staged: the status line shows the stage label beside Stop", async ({
+    page,
+  }) => {
+    await lab(page, "search-staged");
+    const progress = page.locator("[data-search-progress]");
+    await expect(progress).toContainText(composeStageCopy.projects);
+    await expect(
+      progress.getByRole("button", { name: searchCopy.stop })
+    ).toBeVisible();
+    // The label is quiet: the live region says "Composing results…" once.
+    await expectAnnouncedOnce(page, [searchCopy.composing]);
+    await progress.getByRole("button", { name: searchCopy.stop }).click();
+    await expect(page.locator("[data-search-state=stopped]")).toContainText(
+      searchCopy.stopped
+    );
+    await expect(field(page)).toHaveValue(
+      "What agentic AI products have you shipped?"
+    );
+  });
+
+  test("stopped: Stopped. with Try again; Try again refocuses the field", async ({
+    page,
+  }) => {
+    await lab(page, "search-stopped");
+    const stopped = page.locator("[data-search-state=stopped]");
+    await expect(stopped).toContainText(searchCopy.stopped);
+    await expectAnnouncedOnce(page, [searchCopy.stopped]);
+    await stopped.getByRole("button", { name: searchCopy.retry }).click();
+    await expect(field(page)).toBeFocused();
+    expect(await labSearches(page)).toEqual(["explore my work"]);
   });
 
   test("empty: sentence, examples and browse links; never ready", async ({

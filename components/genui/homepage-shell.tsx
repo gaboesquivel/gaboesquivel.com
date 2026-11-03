@@ -26,11 +26,11 @@ const HomepageGenUiBodyContent = ({
   const promptAnchorRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const run = (value: string) => {
+  const run = (value: string, label?: string) => {
     requestAnimationFrame(() => {
       scrollPromptToViewportTop({ element: promptAnchorRef.current });
     });
-    runQuery(value).catch(() => {});
+    runQuery(value, label).catch(() => {});
   };
 
   const handleClear = () => {
@@ -64,14 +64,17 @@ const HomepageGenUiBodyContent = ({
           <GeneratedRegion
             envelope={envelope}
             error={error}
-            onExample={(example) => {
-              run(example);
+            onExample={(example, label) => {
+              run(example, label);
               inputRef.current?.focus();
             }}
             onRetry={() => {
               genui.retry();
               inputRef.current?.focus();
             }}
+            onStop={() => genui.stop()}
+            revealKey={genui.requestKey}
+            stage={genui.stage}
             status={genui.status}
             submitted={genui.submitted}
           />

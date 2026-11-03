@@ -25,6 +25,22 @@ const getFinePointer = () => window.matchMedia("(pointer: fine)").matches;
 const useFinePointer = () =>
   useSyncExternalStore(subscribePointer, getFinePointer, () => false);
 
+const SM_QUERY = "(min-width: 640px)";
+
+const subscribeSm = (onStoreChange: () => void) => {
+  const media = window.matchMedia(SM_QUERY);
+  media.addEventListener("change", onStoreChange);
+  return () => media.removeEventListener("change", onStoreChange);
+};
+
+/** Server render assumes `sm` and up; phones swap to the short placeholder on hydration. */
+const useSmUp = () =>
+  useSyncExternalStore(
+    subscribeSm,
+    () => window.matchMedia(SM_QUERY).matches,
+    () => true
+  );
+
 /**
  * The search field shared by the homepage prompt and the dialog: a
  * `type="text"` combobox (no native clear button, so Escape never erases
@@ -75,6 +91,7 @@ export function SiteSearchField({
 }) {
   const hydrated = useHydrated();
   const finePointer = useFinePointer();
+  const smUp = useSmUp();
   const showKbd = showShortcutHint && hydrated && finePointer;
   const isMac =
     hydrated &&
@@ -112,7 +129,10 @@ export function SiteSearchField({
           autoCorrect="off"
           spellCheck={false}
           autoFocus={autoFocus}
-          placeholder={placeholder ?? searchCopy.placeholder}
+          placeholder={
+            placeholder ??
+            (smUp ? searchCopy.placeholder : searchCopy.placeholderShort)
+          }
           value={query}
           role="combobox"
           aria-autocomplete="list"

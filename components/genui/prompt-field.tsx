@@ -38,7 +38,7 @@ export const PromptField = ({
   inputRef?: RefObject<HTMLInputElement | null>;
   onChange: (query: string) => void;
   onClear?: () => void;
-  onSubmit: (query: string) => void;
+  onSubmit: (query: string, label: string) => void;
   value: string;
 }) => (
   <>

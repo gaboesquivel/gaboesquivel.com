@@ -9,6 +9,7 @@ import {
   identityForAttempt,
   isSettledWrite,
   newRetryIdentity,
+  settleAttempt,
   timeZoneNames,
   writeErrorMessage,
 } from "lib/genui/write-flow";
@@ -111,6 +112,9 @@ export const GenuiBookingFlow = () => {
     : [];
   const zone = hydrated ? timeZoneNames({ timeZone: booking.timeZone }) : null;
   const locked = !writesEnabled || pending;
+  // After a network failure the booking may exist: edits wait for an answer
+  // so a retry cannot become a second, different booking.
+  const editLocked = locked || Boolean(attempts.booking.unresolved);
 
   const slotLabel = (start: string) =>
     booking.duration
@@ -155,6 +159,7 @@ export const GenuiBookingFlow = () => {
         input: { ...input, retryIdentity: attempt.identity },
         operation: "book_call",
       });
+      setAttempt("booking", settleAttempt({ state: attempt }));
       if (isSettledWrite(payload)) {
         setReceipt("booking", {
           lines: [slotLabel(input.start), `${input.name} · ${input.email}`],
@@ -168,6 +173,7 @@ export const GenuiBookingFlow = () => {
       }
       setFailure(payload.message ?? BOOKING_FAILED);
     } catch (error) {
+      setAttempt("booking", settleAttempt({ error, state: attempt }));
       setFailure(writeErrorMessage(error));
     } finally {
       inFlight.current = false;
@@ -185,7 +191,7 @@ export const GenuiBookingFlow = () => {
         <span>Duration</span>
         <select
           className={inputClass}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => {
             setShowMore(false);
             setBooking({
@@ -233,7 +239,7 @@ export const GenuiBookingFlow = () => {
         ) : null}
         <select
           className={inputClass}
-          disabled={locked || !ready}
+          disabled={editLocked || !ready}
           aria-describedby={zone ? "genui-booking-zone" : undefined}
           id="genui-booking-start"
           onChange={(event) => setBooking({ start: event.target.value })}
@@ -266,7 +272,7 @@ export const GenuiBookingFlow = () => {
         <input
           autoComplete="name"
           className={inputClass}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => setBooking({ name: event.target.value })}
           value={booking.name}
         />
@@ -276,7 +282,7 @@ export const GenuiBookingFlow = () => {
         <input
           autoComplete="email"
           className={inputClass}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => setBooking({ email: event.target.value })}
           type="email"
           value={booking.email}
@@ -286,7 +292,7 @@ export const GenuiBookingFlow = () => {
         <span>Agenda</span>
         <textarea
           className={`min-h-24 ${inputClass}`}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => setBooking({ description: event.target.value })}
           value={booking.description}
         />
@@ -294,7 +300,7 @@ export const GenuiBookingFlow = () => {
       <label className="flex items-center gap-2">
         <input
           checked={booking.reviewed}
-          disabled={locked}
+          disabled={editLocked}
           onChange={(event) => setBooking({ reviewed: event.target.checked })}
           type="checkbox"
         />

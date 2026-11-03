@@ -703,6 +703,44 @@ body:has([data-connect]) [data-slot="input-group"] textarea {
   }
 }
 
+/*
+ * M-I: GenUI result reveal. The `enter` token's values (components/shared/
+ * motion.ts) on each generated block as it mounts: the items of an
+ * experience stack, or the single experience under the OpenUI renderer's two
+ * wrappers, plus the source line. The wrapper is keyed by request, so each
+ * query reveals once. CSS, not <ViewTransition>: streamed updates are not
+ * transition-scoped. Reduced motion: 120ms opacity only.
+ */
+:is(
+  [data-genui-reveal] [data-genui-blocks] > *,
+  [data-genui-reveal] > * > * > :not([data-genui-blocks]),
+  [data-genui-reveal] > [data-search-source]
+) {
+  transition:
+    opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    scale 200ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    [data-genui-reveal] [data-genui-blocks] > *,
+    [data-genui-reveal] > * > * > :not([data-genui-blocks]),
+    [data-genui-reveal] > [data-search-source]
+  ) {
+    transition: opacity 120ms cubic-bezier(0.23, 1, 0.32, 1);
+
+    @starting-style {
+      opacity: 0;
+      scale: none;
+    }
+  }
+}
+
 /* View transitions (Work filter indicator; add named groups here) */
 ::view-transition {
   pointer-events: none;

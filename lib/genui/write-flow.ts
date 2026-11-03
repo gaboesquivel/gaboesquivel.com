@@ -28,7 +28,10 @@ export class CapabilityRequestError extends Error {
 }
 
 export const WRITE_ERROR_COPY: Record<CapabilityFailure, string> = {
-  network: "Could not reach the server. Your details are kept; try again.",
+  // It may have gone through, so the details stay locked until a retry gets
+  // an answer (see `settleAttempt`).
+  network:
+    "Could not reach the server. Your details are kept and locked until it answers; try again.",
   server: "Something went wrong on our side. Your details are kept; try again.",
 };
 
@@ -86,6 +89,12 @@ export interface RetryIdentityState {
   /** Fingerprint of the payload last sent with `identity`, if any. */
   fingerprint: string | null;
   identity: string;
+  /**
+   * The last send failed before any server answer (network), so it may have
+   * been written. Until a definite response arrives the identity is kept and
+   * the draft is locked against edits.
+   */
+  unresolved?: boolean;
 }
 
 export const writeFingerprint = (payload: Record<string, unknown>) =>
@@ -96,7 +105,10 @@ export const writeFingerprint = (payload: Record<string, unknown>) =>
 /**
  * One retry identity per draft. Retries of the same payload reuse it (the
  * server replays instead of writing twice). A changed payload is a new draft,
- * because the server binds an identity to its first payload.
+ * because the server binds an identity to its first payload, but only after a
+ * definite server response: while the last send is unresolved (a network
+ * failure that may have reached the server) the identity is kept, so the
+ * server answers with the first write instead of making a second one.
  */
 export const identityForAttempt = ({
   create,
@@ -108,12 +120,33 @@ export const identityForAttempt = ({
   state: RetryIdentityState;
 }): RetryIdentityState => {
   const fingerprint = writeFingerprint(payload);
+  if (state.unresolved) {
+    return { ...state, fingerprint: state.fingerprint ?? fingerprint };
+  }
   if (state.fingerprint === null || state.fingerprint === fingerprint) {
     return { fingerprint, identity: state.identity };
   }
   return { fingerprint, identity: create() };
 };
 
+/**
+ * The attempt after a send settles. A network failure leaves it unresolved
+ * (edits lock, the identity stays); any server answer resolves it. A server
+ * error (5xx or a non-JSON body) changes nothing: it is not proof either way.
+ */
+export const settleAttempt = ({
+  error,
+  state,
+}: {
+  /** The thrown value, or undefined when the server answered. */
+  error?: unknown;
+  state: RetryIdentityState;
+}): RetryIdentityState => {
+  if (error === undefined) return { ...state, unresolved: false };
+  const network =
+    !(error instanceof CapabilityRequestError) || error.kind === "network";
+  return network ? { ...state, unresolved: true } : state;
+};
 export const newRetryIdentity = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()

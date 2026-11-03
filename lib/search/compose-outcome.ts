@@ -1,7 +1,19 @@
 import { searchCopy } from "./copy";
 
-/** idle → composing → result | empty | error (shared by both search surfaces). */
-export type SearchStatus = "idle" | "composing" | "result" | "empty" | "error";
+/**
+ * idle → composing → result | empty | error | stopped (shared by both search
+ * surfaces). `stopped` is the visitor pressing Stop.
+ */
+export type SearchStatus =
+  | "idle"
+  | "composing"
+  | "result"
+  | "empty"
+  | "error"
+  | "stopped";
+
+/** The client gives up on a compose request after 20s (the server's deadline is 15s). */
+export const CLIENT_COMPOSE_TIMEOUT_MS = 20_000;
 
 export type SearchErrorKind = "rate_limited" | "timed_out" | "failed";
 
@@ -49,6 +61,7 @@ export const announcementFor = ({
   if (status === "composing") return searchCopy.composing;
   if (status === "result") return searchCopy.resultReady;
   if (status === "empty") return searchCopy.empty;
+  if (status === "stopped") return searchCopy.stopped;
   if (status === "error") return error?.message ?? searchCopy.errorFailed;
   return "";
 };

@@ -1,14 +1,11 @@
 "use client";
 
 import { GeneratedRegion } from "components/genui/generated-region";
+import { useGenuiDraft } from "components/genui/genui-draft-context";
 import { GenuiSearchCombobox } from "components/genui/genui-search-combobox";
-import {
-  GenuiReceipt,
-  GenuiSessionProvider,
-  genuiWritesEnabled,
-} from "components/genui/genui-session";
+import { GenuiReceipt } from "components/genui/genui-session";
 import { ClearSearchButton } from "components/genui/prompt-field";
-import { useGenuiComposition } from "components/genui/use-genui-composition";
+import type { GenuiComposition } from "components/genui/use-genui-composition";
 import {
   dialogGenuiSearchScopeId,
   dialogGenuiSuggestionsListboxId,
@@ -19,24 +16,31 @@ import { searchCopy } from "lib/search/copy";
 import type { ReactNode } from "react";
 import { useRef } from "react";
 
-/** The dialog presentation of site search (same state machine and outcome region as `/`). */
+/**
+ * The dialog presentation of site search (same state machine and outcome
+ * region as `/`). The composition and the draft session live in
+ * `SiteSearchShell`, above the dialog, so closing and reopening it keeps the
+ * last result, drafts and receipts for the session; "Clear search" resets.
+ */
 export function SiteSearchPanel({
   closeControl,
+  genui,
   onNavigate,
 }: {
   /** Visible close control placed beside the field. */
   closeControl?: ReactNode;
+  genui: GenuiComposition;
   onNavigate?: () => void;
 }) {
   const hydrated = useHydrated();
-  const genui = useGenuiComposition();
+  const { clear } = useGenuiDraft();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const focusField = () => inputRef.current?.focus();
   const handleQueryChange = (value: string) => genui.setQuery(value);
 
   return (
-    <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
+    <>
       <div
         className="sticky top-0 z-10 -mx-4 bg-black px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-2 sm:pt-4"
         data-search-field-bar=""
@@ -55,6 +59,7 @@ export function SiteSearchPanel({
                   <ClearSearchButton
                     onClear={() => {
                       genui.reset();
+                      clear();
                       focusField();
                     }}
                   />
@@ -62,8 +67,8 @@ export function SiteSearchPanel({
               }
               listboxId={dialogGenuiSuggestionsListboxId}
               onQueryChange={handleQueryChange}
-              onSearchSubmit={(value) => {
-                genui.runQuery(value).catch(() => {});
+              onSearchSubmit={(value, label) => {
+                genui.runQuery(value, label).catch(() => {});
               }}
               query={genui.query}
             />
@@ -81,8 +86,8 @@ export function SiteSearchPanel({
           <GeneratedRegion
             envelope={genui.envelope}
             error={genui.error}
-            onExample={(example) => {
-              genui.runQuery(example).catch(() => {});
+            onExample={(example, label) => {
+              genui.runQuery(example, label).catch(() => {});
               focusField();
             }}
             onNavigate={onNavigate}
@@ -90,11 +95,14 @@ export function SiteSearchPanel({
               genui.retry();
               focusField();
             }}
+            onStop={() => genui.stop()}
+            revealKey={genui.requestKey}
+            stage={genui.stage}
             status={genui.status}
             submitted={genui.submitted}
           />
         </div>
       ) : null}
-    </GenuiSessionProvider>
+    </>
   );
 }
