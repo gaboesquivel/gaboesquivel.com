@@ -67,26 +67,8 @@ Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): 
 
 ## Flow
 
-This project uses Flow skills: say a phrase below to load its skill. The installed `flow` skill owns this block; delete it to opt out.
-
-Do the work yourself: CLI, then MCP, then API, then browser. Hand the user only sign-in, secrets, payment, consent, or permission changes, once, as one command each (`write-agents` Tools).
-
-Before merge, a second agent reviews the diff in a fresh context, with effort matched to risk; every finding is fixed or answered. CI, Git hook, auth, billing, and release changes ship only on the user's yes.
+This project uses Flow skills, reached by plain language ("explore this", "spec it", "build it", "ship it"; each skill's description lists its phrases). The installed `flow` skill owns this block; delete it to opt out.
 
 Delivery: github
-
-| Say                                                  | Skill       |
-| ---------------------------------------------------- | ----------- |
-| "explore this"                                       | `explore`   |
-| "interview me"                                       | `interview` |
-| "grill this"                                         | `grill`     |
-| "spec it"                                            | `to-spec`   |
-| "share the draft"                                    | `to-spec`   |
-| "break it down"                                      | `to-tasks`  |
-| "build it"                                           | `build`     |
-| "check it against the spec"                          | `review`    |
-| "ship it" (add "local" or "with GitHub" for one run) | `ship`      |
-| "push it"                                            | `push`      |
-| "update the docs"                                    | `flow`      |
 
 <!-- END FLOW -->
