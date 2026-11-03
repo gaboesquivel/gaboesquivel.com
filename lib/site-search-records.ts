@@ -1,35 +1,13 @@
 import type { SearchRecord } from "components/search/types";
-import { projects } from "gaboesquivel";
-import { allBlogs } from "lib/blog";
 
-const staticRecords: SearchRecord[] = [
-  {
-    title: "Career story",
-    description: "Gabo's background and experience",
-    href: "/bio",
-  },
-  {
-    title: "Résumé / CV",
-    description: "Roles, experience and CV downloads",
-    href: "/cv",
-  },
-  {
-    title: "Work together",
-    description: "Contact Gabo about hiring or a project",
-    href: "/contact",
-  },
-];
+import index from "../generated/agent-index.json";
+import type { RankSection } from "./connect/rank";
+import { searchRecordFromSection } from "./search/rank-records";
 
-export const getSiteSearchRecords = (): SearchRecord[] => [
-  ...projects.map((project) => ({
-    title: project.title,
-    description: project.description,
-    href: `/project/${project.slug}`,
-  })),
-  ...allBlogs.map((post) => ({
-    title: post.title,
-    description: post.summary || "",
-    href: `/blog/${post.slug}`,
-  })),
-  ...staticRecords,
-];
+/**
+ * The site search records the layout sends to the client: the same agent
+ * index MCP `search_site` ranks (`lib/search/agent-sections.ts`), in the same
+ * order, so keyword matches and `search_site` agree for the same text.
+ */
+export const getSiteSearchRecords = (): SearchRecord[] =>
+  (index as RankSection[]).map((section) => searchRecordFromSection(section));

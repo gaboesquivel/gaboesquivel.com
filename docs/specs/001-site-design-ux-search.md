@@ -165,7 +165,7 @@ Site curve: `cubic-bezier(0.23, 1, 0.32, 1)`. Tokens in `components/shared/motio
 | --- | --- | --- |
 | M-B | Card-to-detail cover morph | `<ViewTransition name={projectViewTransitionName(slug)} share="morph" default="none">` around the cover in the editorial card, featured card and project hero. `::view-transition-group(.morph) { animation-duration: 240ms; animation-timing-function: <site curve> }`; `::view-transition-old(.morph), ::view-transition-new(.morph) { object-fit: cover; height: 100% }`. `default="none"` keeps filter clicks clean. Reduced motion: the existing 0s rule |
 | M-H | `/bio` disclosure | Arrow `motion-safe:transition-[rotate] duration-200` on the site curve. Content, CSS only inside `@media (prefers-reduced-motion: no-preference)`: `:root { interpolate-size: allow-keywords }`; `details::details-content { block-size: 0; overflow: clip; transition: block-size 240ms <site curve>, content-visibility 240ms allow-discrete }`; `details[open]::details-content { block-size: auto }`. Unsupported browsers open instantly. Reference: Emil Kowalski's hover-to-define pattern ([post](https://x.com/emilkowalski/status/2115425807388619022)) for a later glossary popover, not this task |
-| M-I | GenUI result reveal | The existing `enter` token (200ms, opacity 0→1, scale 0.97→1, site curve) on each generated block, keyed by query. Reduced motion: 120ms opacity only. CSS, not `<ViewTransition>`: streamed updates are not transition-scoped, and a transition would snapshot the sticky prompt. Reference: Jakub Antalik's single generative effect across surfaces ([post](https://x.com/Jakubantalik/status/2113656694303551906)) |
+| M-I | GenUI result reveal | The existing `enter` token (200ms, opacity 0→1, scale 0.97→1, site curve) on each generated block, keyed by query. Reduced motion: 120ms opacity only. CSS, not `<ViewTransition>`: streamed updates are not transition-scoped, and a transition would snapshot the sticky prompt. ✓ Approved and built with task 16 (a scoped `@starting-style` block in `app/global.css`). Reference: Jakub Antalik's single generative effect across surfaces ([post](https://x.com/Jakubantalik/status/2113656694303551906)) |
 | M-J | Nav search button press | The existing `press` token (160ms, scale 0.97) |
 
 Rejected from the references: pinned scroll, preloaders and cinematic page-load sequences (details.so categories, [Viktor Oddy](https://x.com/viktoroddy/status/2114684257109254434)); any Motion dependency ([Animate UI](https://x.com/animate_ui/status/2111882479774896338) informs only "add motion to existing headless components at the call site", used in M-E).
@@ -249,7 +249,7 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 - [x] 13: Checkable design rules and fixture coverage
 - [ ] 14: Docs match the code — waiting on D-1 and D-2
 - [ ] 15: Approved motion additions (gated) — waiting on M-B, M-H, M-I, M-J
-- [ ] 16: Approved agent-surface additions (gated) — waiting on S-P1, S-P2, S-P3, A-P1
+- [x] 16: Approved agent-surface additions (S-P1, S-P2, S-P3, A-P1; plus M-I from 15)
 
 ### 01: Site chrome accessibility and colour scheme
 
@@ -472,10 +472,15 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 **Blocked by:** 09, 10; user approval per item
 
-- [ ] S-P1: closing and reopening the dialog shows the last result and any receipt
-- [ ] S-P2: the field and Recent show the clicked label; canonical routing is unchanged
-- [ ] A-P1: Stop keeps the query and drafts and shows "Stopped." with Try again; a 20s stall shows the timed-out error; stages show human labels
-- [ ] DESIGN.md is updated for each approved item
+- [x] S-P1: closing and reopening the dialog shows the last result and any receipt
+- [x] S-P2: the field and Recent show the clicked label; canonical routing is unchanged
+- [x] S-P3: below 640px the placeholder is "Ask about my work…"; the full placeholder stays at `sm` and up; the accessible name is unchanged
+- [x] A-P1: Stop keeps the query and drafts and shows "Stopped." with Try again; a 20s stall shows the timed-out error; stages show human labels
+- [x] Settled results show a source line from their records ("Based on N projects and M posts"; contract item 3, scenario step 3)
+- [x] M-I (approved with this task): each generated block reveals with the `enter` values, keyed by request; 120ms opacity only under reduced motion
+- [x] DESIGN.md is updated for each approved item (core motion budget; `docs/agents/design/home.md` search contract)
+
+Evidence: `tests/genui/browser/functional/agent-search.spec.ts` and the `search-staged` / `search-stopped` lab states in `lab-states.spec.ts`.
 
 ## Out of Scope
 
@@ -490,6 +495,7 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 ## Further Notes
 
 - Build notes (2026-11-02): the acceptance scenario's "source line" under results (step 3, contract item 3) has no owning task; it is left for task 16 or a follow-up. Review follow-ups not fixed in this build: editing a write after a network failure creates a new retry identity, so a request that reached the server could repeat (keep the identity until a definite response); dialog keyword matches rank site search records while MCP `search_site` ranks the agent index, so results are close but not identical (feed both from one record set). `lib/genui/writing-topic.ts:28` has a pre-existing type error on `main`.
+- Build notes (2026-11-03, task 16): the source line and both review follow-ups are fixed. After a network failure a write keeps its retry identity and locks its fields until a retry gets a server answer (`settleAttempt` in `lib/genui/write-flow.ts`). The layout sends the agent index as the site search records (`lib/site-search-records.ts`), and `rankSearchMatches` ranks it for keyword matches, suggestions and `search_site` alike; a parity test in `lib/search/keyword-rank.test.ts` checks equal top results. Stage labels come from a new `stage` stream event that compose emits before slow steps (planning, then the evidence stage of the first planned task).
 
 - Local only, not a site bug: `/llms.txt` and `/llms-full.txt` returned 500 in the audit worktree because the gitignored, generated `public/llms.txt` collides with `app/llms.txt/route.ts`. Check whether `dev:app`'s export step should write elsewhere.
 - Worth confirming during task 09: `/api/genui/compose` has a rate limit and a spend cap (raised by the chatbot-template security notes).

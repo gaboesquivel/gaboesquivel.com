@@ -6,6 +6,8 @@ export const searchCopy = {
   /** Accessible name of the nav trigger and of both search fields. */
   accessibleName: "Search this site (beta)",
   placeholder: "Ask about my work, writing, CV, or booking…",
+  /** Below 640px; the accessible name stays `accessibleName`. */
+  placeholderShort: "Ask about my work…",
   homeHint: "Press Enter to search. Results replace the sections below.",
   dialogHint: "Press Enter to search. Results appear below.",
   suggestionsHint:
@@ -17,6 +19,8 @@ export const searchCopy = {
   pages: "Pages",
 
   composing: "Composing results…",
+  stop: "Stop",
+  stopped: "Stopped.",
   resultReady: "Results ready.",
   empty: "No answer for that on this site.",
   emptyExamples: "Try one of these:",
@@ -40,6 +44,45 @@ export const searchCopy = {
   serverTimedOut: "Composition timed out.",
   serverNoAnswer: "No matching experience.",
 } as const;
+
+/**
+ * Quiet status line per compose stage (stream `stage` events). Never a raw
+ * tool or model name.
+ */
+export const composeStageCopy = {
+  planning: "Planning…",
+  projects: "Finding projects…",
+  writing: "Finding posts…",
+  career: "Checking the résumé…",
+  availability: "Checking availability…",
+  answer: "Writing the answer…",
+} as const;
+
+export type ComposeStage = keyof typeof composeStageCopy;
+
+export const isComposeStage = (value: unknown): value is ComposeStage =>
+  typeof value === "string" && Object.hasOwn(composeStageCopy, value);
+
+const counted = (count: number, one: string, many: string) =>
+  `${count} ${count === 1 ? one : many}`;
+
+/**
+ * The settled result's evidence: "Based on 4 projects and 2 posts". Null
+ * when the result cites no projects or posts.
+ */
+export const sourceLine = ({
+  posts,
+  projects,
+}: {
+  posts: number;
+  projects: number;
+}) => {
+  const parts = [
+    projects ? counted(projects, "project", "projects") : null,
+    posts ? counted(posts, "post", "posts") : null,
+  ].filter(Boolean);
+  return parts.length ? `Based on ${parts.join(" and ")}` : null;
+};
 
 export const browseLinks = [
   { href: "/work", label: "work" },

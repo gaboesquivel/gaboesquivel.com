@@ -1,6 +1,11 @@
 "use client";
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import {
+  GenuiSessionProvider,
+  genuiWritesEnabled,
+} from "components/genui/genui-session";
+import { useGenuiComposition } from "components/genui/use-genui-composition";
 import { homepageGenuiSearchInputId } from "components/search/search-ids";
 import { SiteSearchProvider } from "components/search/site-search-context";
 import { SiteSearchPanel } from "components/search/site-search-panel";
@@ -60,6 +65,9 @@ export function SiteSearchShell({
 }) {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
+  // Above the dialog, so closing it (which unmounts the panel) keeps the last
+  // result, drafts and receipts for the session (S-P1).
+  const genui = useGenuiComposition();
   /** The element that opened the dialog gets focus back when it closes. */
   const returnFocusRef = useRef<HTMLElement | null>(null);
 
@@ -95,42 +103,45 @@ export function SiteSearchShell({
   return (
     <SiteSearchProvider value={{ records, requestSearch }}>
       {children}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogPortal>
-          <DialogOverlay className={searchOverlay} />
-          <DialogPrimitive.Popup
-            className={searchPanel}
-            data-slot="dialog-content"
-            finalFocus={returnFocusRef}
-          >
-            <DialogHeader className="sr-only">
-              <DialogTitle>{searchCopy.dialogTitle}</DialogTitle>
-              <DialogDescription>
-                {searchCopy.dialogDescription}
-              </DialogDescription>
-            </DialogHeader>
-            {open ? (
-              <SiteSearchPanel
-                closeControl={
-                  <DialogClose
-                    render={
-                      <Button
-                        className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
-                        size="icon"
-                        variant="ghost"
-                      />
-                    }
-                  >
-                    <XIcon aria-hidden="true" strokeWidth={1.5} />
-                    <span className="sr-only">{searchCopy.close}</span>
-                  </DialogClose>
-                }
-                onNavigate={() => setOpen(false)}
-              />
-            ) : null}
-          </DialogPrimitive.Popup>
-        </DialogPortal>
-      </Dialog>
+      <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogPortal>
+            <DialogOverlay className={searchOverlay} />
+            <DialogPrimitive.Popup
+              className={searchPanel}
+              data-slot="dialog-content"
+              finalFocus={returnFocusRef}
+            >
+              <DialogHeader className="sr-only">
+                <DialogTitle>{searchCopy.dialogTitle}</DialogTitle>
+                <DialogDescription>
+                  {searchCopy.dialogDescription}
+                </DialogDescription>
+              </DialogHeader>
+              {open ? (
+                <SiteSearchPanel
+                  closeControl={
+                    <DialogClose
+                      render={
+                        <Button
+                          className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
+                          size="icon"
+                          variant="ghost"
+                        />
+                      }
+                    >
+                      <XIcon aria-hidden="true" strokeWidth={1.5} />
+                      <span className="sr-only">{searchCopy.close}</span>
+                    </DialogClose>
+                  }
+                  genui={genui}
+                  onNavigate={() => setOpen(false)}
+                />
+              ) : null}
+            </DialogPrimitive.Popup>
+          </DialogPortal>
+        </Dialog>
+      </GenuiSessionProvider>
     </SiteSearchProvider>
   );
 }
