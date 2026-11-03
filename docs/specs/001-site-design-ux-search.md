@@ -444,12 +444,12 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 **Blocked by:** D-1 and D-2 answers; 07 (motion section), 09 (search paragraph)
 
-- [ ] No document mentions a nav chat sheet unless D-1(b) is chosen and built
-- [ ] DESIGN.md describes the mounted booking and contact UX; if D-2(a), `app/connect/*` and the unused Eve web channel are deleted and SPEC-openui-experiences is amended
-- [ ] DESIGN.md states the real `rounded-lg` value, the `/bio` layout, `object-cover` usage, the external-link rule (U9) and the resolved `neutral-500` position
-- [ ] DESIGN.md Editorial homepage paragraph matches the shared search contract
-- [ ] Coding skills are removed from the runtime `agent/skills`
-- [ ] `bun run test:llms` passes
+- [x] No document mentions a nav chat sheet unless D-1(b) is chosen and built
+- [x] DESIGN.md describes the mounted booking and contact UX; if D-2(a), `app/connect/*` and the unused Eve web channel are deleted and SPEC-openui-experiences is amended
+- [x] DESIGN.md states the real `rounded-lg` value, the `/bio` layout, `object-cover` usage, the external-link rule (U9) and the resolved `neutral-500` position
+- [x] DESIGN.md Editorial homepage paragraph matches the shared search contract
+- [x] Coding skills are removed from the runtime `agent/skills`
+- [x] `bun run test:llms` passes
 
 ### 15: Approved motion additions (gated)
 

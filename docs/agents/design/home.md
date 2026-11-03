@@ -1,6 +1,6 @@
 # Homepage design
 
-Surface detail split from [DESIGN.md](../../../../../../DESIGN.md), which holds the identity, tokens, and rules for every page and wins on conflict. Read this file when changing this surface.
+Surface detail split from [DESIGN.md](../../../DESIGN.md), which holds the identity, tokens, and rules for every page and wins on conflict. Read this file when changing this surface.
 
 ## Homepage portrait hero
 

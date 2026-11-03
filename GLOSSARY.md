@@ -20,7 +20,7 @@ The [`gaboesquivel-skills`](https://github.com/gaboesquivel/gaboesquivel-skills)
 
 ## Connect
 
-`app/connect/` holds contact and booking UI used by generative flows. Homepage search (`/`) is the public generative surface; `/ask` redirects to `/`. `/contact` is the human outreach page and form. `/connect` redirects to `/contact`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the `/` and `/contact` jobs in [PRODUCT.md](PRODUCT.md).
+Booking and contact render as GenUI forms inside homepage search (`/`) and the search dialog; there is no separate connect UI. Homepage search is the public generative surface; `/ask` redirects to `/`. `/contact` is the human outreach page and form. `/connect` redirects to `/contact`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the `/` and `/contact` jobs in [PRODUCT.md](PRODUCT.md).
 
 ## Archive
 

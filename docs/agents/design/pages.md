@@ -1,6 +1,6 @@
 # Narrative page design
 
-Surface detail split from [DESIGN.md](../../../../../../DESIGN.md), which holds the identity, tokens, and rules for every page and wins on conflict. Read this file when changing this surface.
+Surface detail split from [DESIGN.md](../../../DESIGN.md), which holds the identity, tokens, and rules for every page and wins on conflict. Read this file when changing this surface.
 
 ## AI, Web3, and biography pages
 
@@ -8,7 +8,7 @@ The `/ai`, `/web3`, and `/bio` pages are editorial portfolio narratives, not dia
 
 Use the homepage shell, monochrome type, turquoise links, hairline borders, and `rounded-lg` media. Introductions are one left-aligned block (`PageIntro` `narrative`): `heroTitle`, then `narrativeLead`, then supporting `narrativeCopy`. No second text column and no intro image. The first section uses `narrativeIntroGap` (56px mobile, 80px desktop). Later sections use `narrativeSectionGap` (64px mobile, 96px desktop). Whitespace separates chapters. Do not rule every chapter.
 
-`/ai` and `/web3` present LegalAgent and ZTX with `EditorialWorkCard` `layout="feature"` (about 40% copy and 60% media, full shell width). Masterbots, Bitlauncher, Bitcash, Opyn, and RareMint use `layout="landscape"` in a two-up grid. `/web3` protocols are `ProjectTextRow` links, not image cards. The editorial description lives in the card. Do not repeat it beside a thumbnail. `/bio` renders its chapters with `BioTimeline`. NodeSchool is a full-width photograph at its real aspect ratio. Wink is media-left, about 55–58% of the row. The 2017 chapter is text-left with the Opyn project cover on the right, linking to `/project/opyn`. The 2024 chapter ends with `layout="banner"`, quieter than the `/ai` feature. Covers come from `resolveProjectImage`. Use `object-cover` and adjust focal position when a frame would letterbox; do not edit the asset.
+`/ai` and `/web3` present LegalAgent and ZTX with `EditorialWorkCard` `layout="feature"` (about 40% copy and 60% media, full shell width). Masterbots, Bitlauncher, Bitcash, Opyn, and RareMint use `layout="landscape"` in a two-up grid. `/web3` protocols are `ProjectTextRow` links, not image cards. The editorial description lives in the card. Do not repeat it beside a thumbnail. `/bio` renders its four chapters with `BioTimeline`, every chapter with its media on the right at `lg+` (see Career story below); it uses no `EditorialWorkCard` layouts. Covers come from `resolveProjectImage`. Use `object-cover` and adjust focal position when a frame would letterbox; do not edit the asset.
 
 End these pages with résumé and conversation links. Do not repeat `LetsConnect` above the footer. Open Graph for `/ai` and `/web3` uses their generated landing cards (see [docs/agents/images.md](../images.md#landing-og)).
 
