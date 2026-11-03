@@ -5,7 +5,7 @@ colors:
   primary: "#000000"
   secondary: "#ffffff"
   tertiary: "#5cded6"
-  muted: "#737373"
+  muted: "#a3a3a3"
   border: "rgba(255, 255, 255, 0.14)"
   hover-fill: "#262626"
 typography:
@@ -24,7 +24,9 @@ typography:
     fontWeight: 600
     letterSpacing: -0.025em
 rounded:
+  sm: 6px
   md: 8px
+  lg: 10px
 spacing:
   block: 2rem
   section: 3rem
@@ -49,7 +51,7 @@ Everything in this file applies to every page. Detail for one surface lives in i
 - Work index: [docs/agents/design/work.md](docs/agents/design/work.md)
 - `/ai`, `/web3`, `/bio`, and `/contact`: [docs/agents/design/pages.md](docs/agents/design/pages.md)
 - Editorial images: [docs/agents/design/editorial-images.md](docs/agents/design/editorial-images.md)
-- `/ask` generative UI: [docs/agents/design/ask.md](docs/agents/design/ask.md)
+- GenUI booking and contact forms (homepage search and the search dialog): [docs/agents/design/ask.md](docs/agents/design/ask.md)
 
 ## Colors
 
@@ -58,7 +60,7 @@ Everything in this file applies to every page. Detail for one surface lives in i
 | Canvas / primary | `#000000` (`bg-black`) | Page background |
 | Text / secondary | `#ffffff` (`text-white`) | Body and headings |
 | Accent / tertiary | `#5cded6` (`accent`, `text-accent`, `bg-accent`) | Top bar, active nav, `ctaLink`, focus rings |
-| Muted | Tailwind `neutral-400` / `neutral-500` | Meta, URLs, secondary labels |
+| Muted | Tailwind `neutral-400` (`#a3a3a3`) | Meta, URLs, secondary labels. Not `neutral-500` for text (see Accessibility) |
 | Hairline / border | `rgba(255, 255, 255, 0.14)` (`hairline`, `border-hairline`) | Cards, form fields, code blocks |
 | Hover fill | `neutral-100` / `neutral-800` (`#262626`) | Card and path-link hover |
 
@@ -91,9 +93,9 @@ Source: [`app/layout.tsx`](app/layout.tsx) and [`components/shared/spacing.ts`](
 - **Exception:** `/explore` featured row uses `md:grid-cols-3` in `app/explore/page.tsx`; do not spread 3-up card grids elsewhere without an explicit task. The footer's three link columns are not a card grid.
 - Homepage H1: all-white “Software for humans and agents.”, display scale in `heroTitle`; signature immediately beneath, name muted and current role turquoise. Do not restyle that hero. `/work` and all `/work/[type]` routes share one persistent `WorkIndexHero` (display `heroTitle`, two-line responsive lede, `PageTrail`) inside `app/work/layout.tsx`. `/ai`, `/web3`, `/bio`, `/blog`, capability routes, `/explore`, `/tech`, `/about`, and `/contact` open with `InnerPageHero` at the same display scale and `heroPitch`. Writing categories, technology pages, and project pages use the compact `pageTitle` form. `/cv`, `/docs`, and `/privacy` keep their own title treatments. `/ask` redirects to `/`.
 - The primary nav wraps onto more lines on narrow screens (`flex-wrap`); there is no menu toggle. The items are `gabo`, `work`, `ai`, `web3`, `bio`, and `blog` (`components/layout/navbar.tsx`). `/ask` is not a nav item.
-- `/ask` redirects to `/`. Connect transcript styles in `app/connect/` are not mounted on that route.
+- `/ask` redirects to `/`. Booking and contact render as GenUI forms inside homepage search and the search dialog ([docs/agents/design/ask.md](docs/agents/design/ask.md)).
 - Footer link lists use two columns below `sm`; the hire note spans the full width until `sm`, then the footer is three columns
-- Page and project media: 16:9, `rounded-lg`, via `projectMedia`. Project covers use `object-cover`; per-slug focal positions and the intrinsic-width cap for small legacy sources live in `lib/work/project-cover.ts`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
+- Page and project media: 16:9, `rounded-lg`, via `projectMedia`. Covers, project heroes, cards, GenUI project cards, and `/bio` chapter media use `object-cover`; per-slug focal positions and the intrinsic-width cap for small legacy sources live in `lib/work/project-cover.ts`. Adjust the focal position when a frame would crop the subject; do not edit the asset. The one `object-contain` frame is the project-page Artifacts gallery (`components/work/project-case-study.tsx`), which shows full screenshots on `bg-black`. Optional blog hero images and social exports follow the image rules below; do not bake rounded corners into image files.
 
 ## Elevation & Depth
 
@@ -101,8 +103,11 @@ None. No shadows, glows, glass, or grain. Hover is background fill or a 1px bord
 
 ## Shapes
 
-- Surfaces and images: `rounded-lg` (8px)
-- Filter chips: `rounded-md`
+Radii derive from `--radius: 0.625rem` in `app/global.css` (`--radius-lg: var(--radius)`, `--radius-md` 0.8×, `--radius-sm` 0.6×).
+
+- Surfaces, images, and the search dialog: `rounded-lg` (10px)
+- Filter chips, form fields, and buttons: `rounded-md` (8px)
+- `rounded-sm` is 6px; `rounded-xl` (14px) and larger are banned in site-authored code (`check:design`)
 - Blog chips may stay `rounded-full`; do not introduce `rounded-2xl` or new full-pill surfaces elsewhere
 
 ## Components
@@ -125,7 +130,6 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Text-first project row | `ProjectTextRow` | `components/interior/project-text-row.tsx` |
 | Work flagship | `FeaturedProjectCard` | `components/work/featured-project-card.tsx` |
 | Work featured gallery | `WorkProjectGallery` | `components/work/work-project-gallery.tsx` |
-| Chat project row | `ProjectMedia` / `ProjectMediaStack` on `Card` | `components/work/project-media.tsx` |
 | Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
 | Interior editorial shell | `InteriorPageShell` | `components/interior/interior-page-shell.tsx` |
 | Editorial intro | `PageIntro` (`narrative` on `/ai`, `/web3`, `/bio`) | `components/interior/page-intro.tsx` |
@@ -140,18 +144,18 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 | Section CTA | `ctaLink` / `sectionAction` | `components/shared/spacing.ts` |
 | In-prose link | `proseLink` | `components/shared/spacing.ts` |
 | Card grids | `CardGrid` or `blockGrid` | `components/shared/card-grid.tsx`, `spacing.ts` |
-| Forms | `Field`, `Input`, `Textarea`; hairline + turquoise focus via `siteFieldClass` | `components/ui/field.tsx`, `app/contact/contact-form.tsx`, `app/connect/connect-fields.tsx` |
-| Connect generative cards | `ConnectCard` (`Card`), `Button` (`siteAccent` / `siteQuiet`), `ToggleGroup` chips | `app/connect/connect-gen-ui.tsx` |
+| Forms | `Field`, `Input`, `Textarea`; hairline + turquoise focus via `siteFieldClass` | `components/ui/field.tsx`, `app/contact/contact-form.tsx` |
+| GenUI booking and contact forms | `GenuiBookingFlow`, `GenuiContactForm`, `WriteError`, `WriteReceiptCard` in a `WriteRail` | `components/genui/genui-booking-flow.tsx`, `genui-contact-form.tsx`, `genui-write-status.tsx` |
 
 `PathLink` and `PageCard` use `SiteCardLink` and share the `cardArrow` nudge in `spacing.ts`.
 
 Icons: Lucide only where already used (contact, print). Do not add icon-led feature rows.
 
-Motion budget: color/underline transitions, project-card image hover via `imageHover` in `components/shared/motion.ts` (`1.02` scale, `motion-safe:`), `→` nudge with `motion-safe:` (cards, path links, and the writing index), connect status, approval card, and connect generative cards (`starting:` fade + scale via `enter` in the same file), connect starter, Send, Stop, approval, filter chips, and the CV download `:active` scale, and `siteCardInteractive` `:active` scale (`press` in the same file). The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
+Motion budget: color/underline transitions, project-card image hover via `imageHover` in `components/shared/motion.ts` (`1.02` scale, `motion-safe:`), `→` nudge with `motion-safe:` (cards, path links, and the writing index), the `/contact` form status (`starting:` fade + scale via `enter` in the same file), `Button`, filter chips, path links, and the print button `:active` scale (`press` in the same file), and the `siteCardInteractive` `:active` scale. The current nav item is `text-accent` with `aria-current="page"` and has no underline. Use `emil-design-eng` for easing and press scale (`0.97`, `cubic-bezier(0.23, 1, 0.32, 1)`) inside this budget only — no page-load sequences or scroll hijack. If we add `:active` scale, use `0.97`, not `better-ui`'s `0.96`.
 
 ## Motion & View Transitions
 
-**Status (2026-11-02):** Work category navigation uses React `<ViewTransition name="work-filter-indicator">` on the active filter chip (`components/work/work-filter-nav.tsx`), with 180ms easing scoped in `app/global.css`; the active label stays above the indicator during the morph (`view-transition-class: work-filter-label`, Chromium 137+ and Safari 18.4). Covers carry no view-transition names, so filter clicks animate only the indicator; a card-to-detail cover morph is not built. The root crossfade runs 180ms on the site curve, and `::view-transition { pointer-events: none }` keeps clicks reaching the page during a transition. Elsewhere, motion stays the budget above (CSS transitions, Tailwind `starting:` / `motion-safe:`, and `components/shared/motion.ts`). Connect loading shimmer uses CSS in `app/global.css` (`components/ai-elements/shimmer.tsx`). No `document.startViewTransition()` or global `@view-transition { navigation: auto; }`. No runtime animation libraries in site-authored code.
+**Status (2026-11-02):** Work category navigation uses React `<ViewTransition name="work-filter-indicator">` on the active filter chip (`components/work/work-filter-nav.tsx`), with 180ms easing scoped in `app/global.css`; the active label stays above the indicator during the morph (`view-transition-class: work-filter-label`, Chromium 137+ and Safari 18.4). Covers carry no view-transition names, so filter clicks animate only the indicator; a card-to-detail cover morph is not built. The root crossfade runs 180ms on the site curve, and `::view-transition { pointer-events: none }` keeps clicks reaching the page during a transition. Elsewhere, motion stays the budget above (CSS transitions, Tailwind `starting:` / `motion-safe:`, and `components/shared/motion.ts`). The search "Composing results…" shimmer uses CSS in `app/global.css` (`components/ai-elements/shimmer.tsx`). No `document.startViewTransition()` or global `@view-transition { navigation: auto; }`. No runtime animation libraries in site-authored code.
 
 **Compatibility:** React `19.3.1` and Next.js App Router (`^16.4`) expose `<ViewTransition>` from `react`. Unsupported browsers keep route updates and active styling without animating the indicator. Transition types and `view-transition-class` need Chromium 125+ and recent Safari/Firefox; verify Safari when changing Work filter motion.
 
@@ -170,13 +174,14 @@ Motion budget: color/underline transitions, project-card image hover via `imageH
 
 ## Accessibility
 
-- Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` is about 8:1. `neutral-500` (the `muted` token) is about 4.4:1, just under. Inactive nav items use `neutral-400` (`navbar.tsx`). Some meta text still uses `neutral-500`. See Open questions.
-- Focus: `SiteCardLink` surfaces (`PageCard`, `PathLink`, `ProjectCard`, blog cards) and `/ask` fields draw an accent ring via `siteCardInteractive` or field primitives. Primary nav links keep the browser's default outline.
+- Contrast: text needs 4.5:1 on the black canvas (WCAG AA). `neutral-400` (the `muted` token) is about 8:1 and is the floor for text. `neutral-500` is about 4.4:1, just under, so no site-authored text uses it; `check:design` fails on `text-neutral-500`. It may still appear as a border or hover tint.
+- Focus: `SiteCardLink` surfaces (`PageCard`, `PathLink`, `ProjectCard`, blog cards) and form fields draw an accent ring via `siteCardInteractive` or field primitives. Primary nav links keep the browser's default outline.
+- External links: site chrome (nav, footer, including the footer's GitHub, X, and LinkedIn links) opens in the same tab. In-content external links (MDX posts, project links, technology official links) open in a new tab with `target="_blank"`, `rel="noopener noreferrer"`, and a visually hidden " (opens in new tab)" cue; use `newTabProps` and `NewTabCue` from `components/shared/new-tab-cue.tsx`. `mailto:`, `#` anchors, and site-relative links stay in the same tab.
 - Navigation: the primary nav has `aria-label="Primary navigation"` and marks the current page with `aria-current="page"`.
 - Skip link and landmarks: the first tab stop on every route is a "Skip to content" link to `<main id="main">` (`app/layout.tsx`). The footer renders after `<main>`, not inside it, so it exposes the `contentinfo` landmark.
 - Colour scheme: `<html>` sets `scheme-dark`, so scrollbars and native inputs stay dark under an OS light theme; `components/tweet.css` keys its dark values to `.dark`, not `prefers-color-scheme`.
 - Images: every `next/image` needs `alt`; describe what the photo shows.
-- Reduced motion: the `cardArrow` nudge, connect status, approval card, slot picker, starter and send press, and `siteCardInteractive` press use `motion-safe:` / `motion-reduce:`. Cover imagery uses `imageHover` (`1.02` under `motion-safe:` only).
+- Reduced motion: the `cardArrow` nudge, the `/contact` form status, `press`, and `siteCardInteractive` use `motion-safe:` / `motion-reduce:`. Cover imagery uses `imageHover` (`1.02` under `motion-safe:` only).
 - Print: the top bar, nav, and footer are `print:hidden`.
 
 ## Do's and Don'ts
@@ -214,4 +219,4 @@ Intended surface border is `border-hairline`. Intended color family otherwise is
 
 ## Open questions
 
-- Resolved (2026-10-29): small meta text in shared templates uses `neutral-400` (AA on black). `neutral-500` remains only in files not yet touched; raise it when editing them.
+- Resolved (2026-11-03): text uses `neutral-400` or lighter. No site-authored `text-neutral-500` remains, and `check:design` keeps it out.

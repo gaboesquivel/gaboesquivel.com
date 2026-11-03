@@ -1,5 +1,6 @@
 import { LatestPosts } from "components/blog/latest-posts";
 import { InnerPageHero } from "components/shared/inner-page-hero";
+import { NewTabCue, newTabProps } from "components/shared/new-tab-cue";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import { ProjectsMasonry } from "components/work/projects-masonry";
 import type { TechStackItemWithProjects } from "gaboesquivel";
@@ -45,11 +46,11 @@ export default function TechStack({
         <p className="mt-6 text-sm text-neutral-400">
           <a
             href={tech.link}
-            target="_blank"
-            rel="noopener noreferrer"
+            {...newTabProps}
             className="underline-offset-2 hover:underline"
           >
             {officialLinkLabel(tech.link)}
+            <NewTabCue />
           </a>
         </p>
       ) : null}

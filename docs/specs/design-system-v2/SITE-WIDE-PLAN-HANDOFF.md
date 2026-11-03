@@ -43,7 +43,7 @@ Deliverable format: markdown plan in `docs/specs/design-system-v2/` (suggested f
 | Homepage width | `max-w-6xl` via `homeColumn` + [`SiteWidth`](../../../components/layout/site-width.tsx) on `/` only |
 | Reading width | `max-w-4xl` `siteColumn` on all other routes (blog prose, CV print unchanged) |
 | Search (static phase) | Full shell width; Lucide search left; **no** right-side submit/chat control; Enter → local index; approved **placeholder** for sighted users; accessible name/hint describe keyword search (not live chat) |
-| Nav | `gabo`, `work`, `ai`, `web3`, `bio`, `writing`; **no** theme toggle; top-right **chat sheet** (staged link to `/ask`) |
+| Nav | `gabo`, `work`, `ai`, `web3`, `bio`, `writing`; **no** theme toggle; top-right **chat sheet** (staged link to `/ask`) _(Superseded, spec 001 D-1, 2026-11-03: no nav chat sheet exists; the nav ends with the search trigger.)_ |
 | Selected work | Editorial 2×2: `legal-agent`, `wink`, `ztx`, `bitlauncher`; card = image, name, package role, package description; whole card links to project |
 | Default composition | **Editorial Grid only** on homepage SSR; other layouts are **future GenUI composites**, not parallel homepage sections |
 
@@ -79,7 +79,7 @@ Deliverable format: markdown plan in `docs/specs/design-system-v2/` (suggested f
 ## Open blockers (plan must acknowledge)
 
 1. **ZTX homepage cover:** Approved **purple character-led** direction; shipped asset is truthful **Genesis Home Mint** fallback until verified character source is supplied. Do not generate fake character art.
-2. **Global chat:** Sheet is navigation to `/ask`; inline conversation in sidebar is **P7** / migration work.
+2. **Global chat:** Sheet is navigation to `/ask`; inline conversation in sidebar is **P7** / migration work. _(Superseded, spec 001 D-1, 2026-11-03: no nav chat sheet exists; the nav ends with the search trigger.)_
 3. **Eve agent copy:** `agent/` runtime may still say “Agentic Product Engineer”; public site metadata uses **Agentic Software Engineer** — plan identity propagation separately from visual rollout if needed.
 4. **GenUI:** No model on first homepage paint; sticky replacement and OpenUI library are **homepage-genui** stages, not DS v2 site skin.
 

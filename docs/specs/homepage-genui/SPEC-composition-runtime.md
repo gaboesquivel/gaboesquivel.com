@@ -24,7 +24,7 @@ No generated-result reuse: a repeat query routes again. Do not memoize query-to-
 | --- | --- | --- | --- |
 | 0 | Exact controlled suggestion or explicit known operation | Zero model calls | Deterministic document |
 | 1 | Non-exact query with bounded intent | One Jev request, zero Sonnet | Deterministic document from validated decision |
-| 2 | Synthesis, uncertain/contradictory decision, or Jev failure | At most one Jev attempt and one Sonnet generation | Eve streams OpenUI |
+| 2 | Synthesis, uncertain/contradictory decision, or Jev failure | At most one Jev attempt and one Sonnet generation | AI SDK structured plan (`lib/genui/semantic-plan.ts`), compiled to OpenUI and streamed by `/api/genui/compose` (_amended by spec 001, 2026-11-03: compose does not use Eve_) |
 
 The tiny exact-match map must not grow into a homemade natural-language classifier. Normalize only controlled spelling/case/whitespace; paraphrases go through the decision route. Unknown topics cannot map to invented project evidence.
 
