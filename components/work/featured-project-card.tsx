@@ -8,8 +8,10 @@ import {
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { resolveProjectImage, workCoverSizes } from "lib/work/project-cover";
+import { projectViewTransitionName } from "lib/work/project-view-transition";
 import Image from "next/image";
 import Link from "next/link";
+import { ViewTransition } from "react";
 
 export function FeaturedProjectCard({
   project,
@@ -28,18 +30,24 @@ export function FeaturedProjectCard({
         className={cn("group mt-4 block", editorialLink)}
       >
         {image ? (
-          <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-neutral-900 sm:aspect-video">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes={workCoverSizes}
-              preload={priority}
-              loading={priority ? "eager" : undefined}
-              fetchPriority={priority ? "high" : undefined}
-              className={cn("object-cover", imageHover)}
-            />
-          </div>
+          <ViewTransition
+            name={projectViewTransitionName(project.slug)}
+            share="morph"
+            default="none"
+          >
+            <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-neutral-900 sm:aspect-video">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes={workCoverSizes}
+                preload={priority}
+                loading={priority ? "eager" : undefined}
+                fetchPriority={priority ? "high" : undefined}
+                className={cn("object-cover", imageHover)}
+              />
+            </div>
+          </ViewTransition>
         ) : null}
         <div className="mt-6 flex items-start justify-between gap-4 border-t border-hairline pt-6">
           <div className="min-w-0">

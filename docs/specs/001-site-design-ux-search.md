@@ -459,10 +459,10 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 **Blocked by:** 07; user approval per item
 
-- [ ] Each approved item matches its values in a mid-transition capture
-- [ ] Reduced motion makes each instant (M-I: 120ms opacity only)
-- [ ] `/work` filter clicks still create no cover groups (M-B uses `default="none"`)
-- [ ] The DESIGN.md motion budget lists each approved item
+- [x] Each approved item matches its values in a mid-transition capture (M-B, M-H, M-J; M-I pending)
+- [x] Reduced motion makes each instant (M-I: 120ms opacity only) (M-B, M-H, M-J; M-I pending)
+- [x] `/work` filter clicks still create no cover groups (M-B uses `default="none"`)
+- [x] The DESIGN.md motion budget lists each approved item (M-B, M-H, M-J)
 
 ### 16: Approved agent-surface additions (gated)
 
