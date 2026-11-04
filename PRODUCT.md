@@ -113,7 +113,7 @@ The route redirects to `/`. Notes and bookings are the contact form, the homepag
 
 ### `/cv` and `/tech`
 
-- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy. A PDF download sits under the title; the page has no focus switcher and no primary nav. No writing list is appended.
+- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy. A PDF download sits under the title; the page has no focus switcher. No writing list is appended.
 - `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/page-breaks.ts` and `lib/cv-paths.ts` add print breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Each variant's page title and description come from its package `metadata`. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs
 - `/tech/[slug]`: implementation evidence and named projects; not a capability thesis page

@@ -84,7 +84,7 @@ Type scale and spacing tokens live in [`components/shared/spacing.ts`](component
 
 ## Layout
 
-One `max-w-6xl` shell (`homeColumn` / `siteColumn`) on every route, with nav and footer at the same width, so the site reads as one column. `/cv` omits the nav and accent bar on screen. Four interior families (index, editorial, article, utility reading) and the hero rules are in [layout.md](docs/agents/design/layout.md). Card grids are two-up at `md`, not bento; `/explore` is the one 3-up exception. Media is 16:9 `rounded-lg` via `projectMedia`; never bake corners or crops into image files. All **look**.
+One `max-w-6xl` shell (`homeColumn` / `siteColumn`) on every route, with nav and footer at the same width, so the site reads as one column. Four interior families (index, editorial, article, utility reading) and the hero rules are in [layout.md](docs/agents/design/layout.md). Card grids are two-up at `md`, not bento; `/explore` is the one 3-up exception. Media is 16:9 `rounded-lg` via `projectMedia`; never bake corners or crops into image files. All **look**.
 
 ## Elevation and shapes
 
