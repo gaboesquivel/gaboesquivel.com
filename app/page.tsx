@@ -95,6 +95,9 @@ export default function HomePage() {
             </Link>
           </div>
         </PageSection>
+        <PageSection title="Work together" className={homeSection}>
+          <LetsConnect />
+        </PageSection>
         <LatestPosts
           limit={4}
           title="Writing"
@@ -104,25 +107,6 @@ export default function HomePage() {
             </Link>
           }
         />
-        <PageSection title="Career" className={homeSection}>
-          <div className="flex flex-wrap gap-x-12 gap-y-4">
-            <Link
-              href="/bio"
-              className={cn(editorialLink, "inline-flex min-h-11 items-center")}
-            >
-              Career story
-            </Link>
-            <Link
-              href="/cv"
-              className={cn(editorialLink, "inline-flex min-h-11 items-center")}
-            >
-              Résumé / CV
-            </Link>
-          </div>
-        </PageSection>
-        <PageSection title="Work together" className={homeSection}>
-          <LetsConnect />
-        </PageSection>
       </HomepageGenUiShell>
     </section>
   );
