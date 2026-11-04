@@ -14,7 +14,7 @@ End these pages with résumé and conversation links. Do not repeat `LetsConnect
 
 ## Contact (`/contact`)
 
-`InnerPageHero` stays full width, same display scale as the other inner pages. From `lg`, the hire facts and the form sit side by side (`1fr` and a 26rem column). The form is part of the server render, so the first paint includes the fields. The message box is `h-44` / `sm:h-52` so the column stays close to the copy. Email and a call link sit under the title. Mobile stacks the hire facts, then the form, then the invitation and context links; from `lg` the form spans both rows beside the facts and the invitation.
+`InnerPageHero` stays full width, same display scale as the other inner pages. The page is one full-width column: the invitation line with context links, then the form. There is no hire-terms paragraph. The form is part of the server render, so the first paint includes the fields. Email and a call link sit under the title.
 
 ## Career story (`/bio`)
 

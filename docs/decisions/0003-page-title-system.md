@@ -1,6 +1,6 @@
 # 0003. One page-title system and one section gap
 
-Status: accepted (2026-11-04). Amends the homepage-hero line in [DESIGN.md](../../DESIGN.md) ("do not restyle that hero") for its top edge only.
+Status: accepted (2026-11-04). Amends the homepage-hero line in [docs/agents/design/layout.md](../agents/design/layout.md) ("do not restyle that hero") for its top edge only.
 
 ## Context
 

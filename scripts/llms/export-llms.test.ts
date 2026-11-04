@@ -190,15 +190,12 @@ describe("llms export helpers", () => {
     }
   });
 
-  test("loadNarrativePages emits W-2 hire copy on /contact only", () => {
-    const ask = loadNarrativePages().find((page) => page.path === "/ask");
-    const contact = loadNarrativePages().find(
-      (page) => page.path === "/contact"
-    );
-    const ai = loadNarrativePages().find((page) => page.path === "/ai");
-    expect(ask?.body ?? "").not.toContain("Cannot work under W-2");
-    expect(contact?.body).toContain("can't work under W-2");
-    expect(ai?.body).not.toContain("work under W-2");
+  test("loadNarrativePages keeps W-2 hire copy off the page exports", () => {
+    const pages = loadNarrativePages();
+    for (const path of ["/ask", "/contact", "/ai"]) {
+      const body = pages.find((page) => page.path === path)?.body ?? "";
+      expect(body).not.toContain("work under W-2");
+    }
   });
 
   test("llms index includes when-to-use guidance", () => {
@@ -218,12 +215,12 @@ describe("llms export helpers", () => {
     expect(index).toContain("book_call");
   });
 
-  test("homepage corpus includes focus and bio preview", () => {
+  test("homepage corpus includes focus and Connect, no Career section", () => {
     const home = loadNarrativePages().find((page) => page.path === "/");
     expect(home?.body).toContain("/ai");
     expect(home?.body).toContain("/web3");
-    expect(home?.body).toContain("/bio");
-    expect(home?.body).toContain("/cv");
+    expect(home?.body).toContain("## Connect");
+    expect(home?.body).not.toContain("## Career");
     expect(home?.body).not.toContain("/startups");
     expect(home?.body).not.toContain("/lead");
   });

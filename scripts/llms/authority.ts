@@ -41,7 +41,7 @@ Blog posts reflect views and technology at \`publishedAt\` unless an update note
 
 Blog metrics and reach are not CV metrics. Pre-2020 writing lives on \`/blog\` and is historical.
 
-For working with Gabo, \`/contact\` and \`/ask\` carry hire terms, including that Gabo cannot work under W-2. Other pages' on-site CTAs point at \`/contact\` and are not exported. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`;
+For working with Gabo, the full hire terms, including that Gabo cannot work under W-2, are stated in this index; \`/contact\` is the contact form and the homepage Connect section is a shorter line. Other pages' on-site CTAs point at \`/contact\` and are not exported. The 1099 contracting post describes Gabo's personal setup, not legal or tax guidance.`;
 
 export const LLMS_PREAMBLE_INDEX = `${LLMS_PREAMBLE_FULL}
 
