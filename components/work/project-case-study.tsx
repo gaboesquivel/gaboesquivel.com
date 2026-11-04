@@ -90,7 +90,7 @@ export function ProjectCaseStudy({
   return (
     <InteriorPageShell>
       <PageIntro
-        compact
+        compact={Boolean(genui)}
         density={genui ? "panel" : "default"}
         description={project.description.replaceAll("\n", " ")}
         title={project.title}

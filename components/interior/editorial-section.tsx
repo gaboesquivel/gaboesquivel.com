@@ -1,5 +1,5 @@
 import {
-  interiorSectionGap,
+  sectionGap,
   sectionHeadingSpacing,
   sectionTitle,
 } from "components/shared/spacing";
@@ -18,7 +18,7 @@ export function EditorialSection({
   titleClassName?: string;
 }) {
   return (
-    <section className={cn(interiorSectionGap, className)}>
+    <section className={cn(sectionGap, className)}>
       {title ? (
         <h2
           className={cn(

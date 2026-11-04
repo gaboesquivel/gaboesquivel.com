@@ -3,7 +3,7 @@ import { LatestPosts } from "components/blog/latest-posts";
 import { ArticleShell } from "components/interior/article-shell";
 import { ArticleTocInline } from "components/interior/article-toc-inline";
 import { Mdx } from "components/mdx";
-import { indexTitle } from "components/shared/page-layout";
+import { PageEyebrow, PageTitle } from "components/shared/page-layout";
 import { PageTrail } from "components/shared/page-trail";
 import { allBlogs } from "lib/blog";
 import { showBlogToc } from "lib/blog-headings";
@@ -116,10 +116,8 @@ export default async function Blog({
         toc={toc}
         header={
           <>
-            <PageTrail segments={trail} />
-            <h1 className={cn(indexTitle, "mt-4 mb-2 max-w-none text-balance")}>
-              {post.title}
-            </h1>
+            <PageEyebrow trail={trail} />
+            <PageTitle className="mb-2 text-balance">{post.title}</PageTitle>
             <p
               className={cn(
                 "text-sm text-neutral-600 dark:text-neutral-400",

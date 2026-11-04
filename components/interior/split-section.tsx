@@ -1,4 +1,4 @@
-import { editorialGrid12, interiorSectionGap } from "components/shared/spacing";
+import { editorialGrid12, sectionGap } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
@@ -44,7 +44,7 @@ export function SplitSection({
   return (
     <section
       className={cn(
-        sectionSpacing && interiorSectionGap,
+        sectionSpacing && sectionGap,
         editorialGrid12,
         align === "center" && "items-center",
         align === "end" && "items-end",

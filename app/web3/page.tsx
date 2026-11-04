@@ -8,7 +8,7 @@ import {
   editorialMeasure,
   narrativeCopy,
   narrativeIntroGap,
-  narrativeSectionGap,
+  sectionGap,
   sectionHeadingSpacing,
   sectionTitle,
 } from "components/shared/spacing";
@@ -48,7 +48,7 @@ export default function Web3ExperiencePage() {
         />
       </section>
 
-      <section className={narrativeSectionGap}>
+      <section className={sectionGap}>
         <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
           Trading and financial products
         </h2>
@@ -99,7 +99,7 @@ export default function Web3ExperiencePage() {
         </ul>
       </section>
 
-      <section className={narrativeSectionGap}>
+      <section className={sectionGap}>
         <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
           Protocols and infrastructure
         </h2>
@@ -127,12 +127,12 @@ export default function Web3ExperiencePage() {
       <LatestPosts
         arrow
         category="Web3"
-        className={narrativeSectionGap}
+        className={sectionGap}
         limit={4}
         title="Writing about Web3 systems"
       />
 
-      <section className={narrativeSectionGap}>
+      <section className={sectionGap}>
         <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
           Explore more
         </h2>

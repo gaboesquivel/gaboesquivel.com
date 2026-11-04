@@ -1,7 +1,8 @@
 import { ReadingPageShell } from "components/interior/reading-page-shell";
 import {
-  IndexHeading,
+  PageEyebrow,
   PageSection,
+  PageTitle,
   proseLink,
   Prose,
 } from "components/shared/page-layout";
@@ -13,9 +14,10 @@ const code = "text-neutral-200";
 export default function DocsPage() {
   return (
     <ReadingPageShell>
-      <IndexHeading>
+      <PageEyebrow />
+      <PageTitle>
         Gabo Esquivel MCP and Site API — developer documentation
-      </IndexHeading>
+      </PageTitle>
       <Prose>
         The Gabo Esquivel MCP server publishes the site&apos;s public capability
         registry over Streamable HTTP: profile, projects, writing, search, CV

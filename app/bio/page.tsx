@@ -8,7 +8,7 @@ import {
   editorialMeasure,
   narrativeCopy,
   narrativeIntroGap,
-  narrativeSectionGap,
+  sectionGap,
   sectionHeadingSpacing,
   sectionTitle,
 } from "components/shared/spacing";
@@ -31,12 +31,12 @@ export default function BioPage() {
 
       <LatestPosts
         arrow
-        className={narrativeSectionGap}
+        className={sectionGap}
         limit={4}
         title="Selected writing"
       />
 
-      <section className={narrativeSectionGap}>
+      <section className={sectionGap}>
         <div className={editorialMeasure}>
           <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
             What I&apos;m focused on

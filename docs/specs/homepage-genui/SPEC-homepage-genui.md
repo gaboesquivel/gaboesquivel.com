@@ -46,7 +46,7 @@ Contact and booking inherit the shared container rules: wide contextual left rai
 Reuse existing primitives. Real excerpt from `app/page.tsx`:
 
 ```tsx
-<PageSection title="Work together">
+<PageSection title="Connect">
   <LetsConnect />
 </PageSection>
 ```

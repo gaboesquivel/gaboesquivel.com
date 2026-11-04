@@ -39,7 +39,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Question: who is Gabo, and is the work real?
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
-- Order: split hero, full-width search, selected work, focus, writing, career links, work together
+- Order: split hero, full-width search, selected work, focus, connect, writing
 - Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search (the homepage field, Cmd/Ctrl+K or nav Search all open the same full-screen overlay) submits on Enter and renders a validated GenUI result in the overlay (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
 
 ### `/bio`
@@ -68,9 +68,9 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 
 ### `/contact`
 
-- Job: human outreach — hire framing and the contact form (name, email, subject, message via Resend to contact@gaboesquivel.com)
+- Job: human outreach — a one-line ask and the full-width contact form (name, email, subject, message via Resend to contact@gaboesquivel.com)
 - Visitor: founder, product or technical lead, or recruiter ready to write
-- Message: same hire facts as `LetsConnect` (direct hire, international hire, Blockmatic Labs LLC, cannot work under W-2, Costa Rica, US Mountain Time); also email, `/cal`, and `/work`
+- Message: what are you building and where is it stuck; also email, `/cal`, `/work`, and `/bio`. The homepage Connect section carries a short hire line and the footer a hire note; the full terms (including that Gabo cannot work under W-2) live in the 1099 post, the CV and the llms index, not here
 - `/ask` redirects to `/`; the public MCP tools at `/mcp` are documented on `/docs`
 
 ### `/work` and `/project/[slug]`

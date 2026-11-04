@@ -16,9 +16,6 @@ export const editorialMeasure = "max-w-[72ch]";
 /** First section after an editorial introduction: 56px mobile, 80px desktop. */
 export const narrativeIntroGap = "mt-14 lg:mt-20";
 
-/** Later sections on those routes: 64px mobile, 96px desktop. */
-export const narrativeSectionGap = "mt-16 lg:mt-24";
-
 export const narrativeLead =
   "mt-6 text-base leading-[1.65] text-neutral-300 lg:text-lg";
 
@@ -27,7 +24,8 @@ export const narrativeCopy = "text-base leading-[1.75] text-neutral-300";
 /** Blog article region: aligns with `siteColumn` while fitting prose + TOC rail. */
 export const articleLayoutRegion = "w-full max-w-6xl";
 
-export const interiorSectionGap = "mt-16 lg:mt-20";
+/** Major gap between sections on every route: 64px mobile, 96px desktop. */
+export const sectionGap = "mt-16 lg:mt-24";
 
 /** Article grid: prose column + optional TOC rail (xl+). */
 export const articleProseColumn = "max-w-[52rem] min-w-0 w-full";
@@ -64,7 +62,8 @@ export const pageTitle = cn(
   "text-2xl font-bold tracking-tighter sm:text-3xl"
 );
 
-export const indexTitle = cn(pageTitle, "max-w-[650px]");
+/** One row above every page title (breadcrumb or empty spacer): 36px, so all h1s start at the same y. */
+export const pageEyebrow = "flex h-9 items-start text-sm text-neutral-400";
 
 export const sectionTitle = "text-2xl font-semibold tracking-tight";
 
@@ -99,7 +98,6 @@ export const projectMedia =
 
 /** Homepage shell. Alias of `siteColumn` so `/` and every other route share one width. */
 export const homeColumn = siteColumn;
-export const homeSection = "mt-16 lg:mt-24";
 /** Named container. Column count lives on a child via `editorialGrid`, because a container cannot query itself. */
 export const editorialContainer = "@container/editorial";
 export const editorialGrid =

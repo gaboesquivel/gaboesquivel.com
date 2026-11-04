@@ -726,6 +726,20 @@ a {
   animation: none;
 }
 
+/* Page title opening word: a pair of pages that open with the same word keeps it painted in place (no fade, no move) */
+::view-transition-group(.title-lead) {
+  animation: none;
+  z-index: 1;
+}
+
+::view-transition-old(.title-lead) {
+  display: none;
+}
+
+::view-transition-new(.title-lead) {
+  animation: none;
+}
+
 /* Project cover morph: card ↔ project hero (<ViewTransition share="morph" default="none">) */
 ::view-transition-group(.morph) {
   animation-duration: 240ms;

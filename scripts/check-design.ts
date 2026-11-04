@@ -64,6 +64,12 @@ const rules = [
     why: "DESIGN.md Typography: no eyebrow labels, all-caps, or wide tracking",
   },
   {
+    name: "raw page title",
+    // Every page h1 is `PageTitle` (display scale); only `/cv` and GenUI panels use the small `pageTitle`.
+    pattern: /<h1\b|\bindexTitle\b/,
+    why: "DESIGN.md Layout: use PageTitle (heroTitle), not a raw h1",
+  },
+  {
     name: "second accent",
     pattern:
       /\b(text|bg|border|ring|outline|fill|stroke|decoration|from|via|to)-(\[#|(orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d)/,
@@ -77,6 +83,7 @@ const allowed: Record<string, string[]> = {
   "components/tweet.css": ["gradient fill", "zinc/gray/slate class"],
   "components/shared/contact-info.tsx": ["second accent"],
   "components/work/work-filter-nav.tsx": ["gradient fill"],
+  "components/shared/page-layout.tsx": ["raw page title"],
 };
 
 const walk = async (dir: string): Promise<string[]> => {

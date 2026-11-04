@@ -1,12 +1,7 @@
-import { PageTitle } from "components/shared/page-layout";
+import { PageEyebrow, PageTitle } from "components/shared/page-layout";
 import { PageTrail } from "components/shared/page-trail";
 import type { PageTrailSegment } from "components/shared/page-trail";
-import {
-  heroPitch,
-  heroTitle,
-  pageTitle,
-  proseClass,
-} from "components/shared/spacing";
+import { heroPitch, pageTitle, proseClass } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
@@ -41,17 +36,26 @@ export function InnerPageHero({
         className
       )}
     >
-      {hasTrail ? <PageTrail segments={trail ?? []} /> : null}
-      <PageTitle
-        className={cn(
-          compact
-            ? cn(pageTitle, "mb-0 max-w-none")
-            : cn(heroTitle, "mb-0 max-w-none"),
-          hasTrail && (panel ? "mt-2" : "mt-4")
-        )}
-      >
-        {title}
-      </PageTitle>
+      {compact ? (
+        <>
+          {hasTrail ? <PageTrail segments={trail ?? []} /> : null}
+          <PageTitle
+            className={cn(
+              pageTitle,
+              "mb-0 max-w-none",
+              hasTrail && (panel ? "mt-2" : "mt-4")
+            )}
+            variant="document"
+          >
+            {title}
+          </PageTitle>
+        </>
+      ) : (
+        <>
+          <PageEyebrow trail={trail} />
+          <PageTitle>{title}</PageTitle>
+        </>
+      )}
       {meta ? <div className={panel ? "mt-2" : "mt-3"}>{meta}</div> : null}
       {description ? (
         <p
