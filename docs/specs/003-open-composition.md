@@ -1,6 +1,6 @@
 # 003: Open composition for requested forms
 
-Status: accepted (2026-11-04). First increment delivered; items under "Deferred" remain. Depends on [decision 0005](../decisions/0005-three-tiers-of-ui-generation.md) (accepted).
+Status: accepted (2026-11-04). Datasets and fields amended by [spec 004](004-flexible-fields.md). First increment delivered; items under "Deferred" remain. Depends on [decision 0005](../decisions/0005-three-tiers-of-ui-generation.md) (accepted).
 
 ## Problem Statement
 

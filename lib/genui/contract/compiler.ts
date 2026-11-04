@@ -2,6 +2,7 @@ import { createParser } from "@openuidev/lang-core";
 
 import type { GenuiDataset } from "../dataset";
 import { validateViewDocument } from "../design-knowledge/view-rules";
+import type { SourceUnitsResolver } from "../design-knowledge/view-rules";
 import { GENUI_LIBRARY_VERSION } from "../envelope";
 import type { PublicRecord } from "../envelope";
 import type { ExperienceName } from "../experience-contract";
@@ -67,11 +68,13 @@ export const compileExperience = ({
   document,
   libraryVersion,
   records,
+  sourceUnits,
 }: {
   datasets?: GenuiDataset[];
   document: unknown;
   libraryVersion: number;
   records: PublicRecord[];
+  sourceUnits?: SourceUnitsResolver;
 }): CompileExperienceResult => {
   if (typeof document !== "string") {
     return { ok: false, code: "malformed_grammar" };
@@ -160,7 +163,12 @@ export const compileExperience = ({
   }
 
   if (policy.name === "ViewExperience") {
-    const view = validateViewDocument({ datasets, props, records });
+    const view = validateViewDocument({
+      datasets,
+      props,
+      records,
+      sourceUnits,
+    });
     if (!view.ok) {
       return { ok: false, code: view.code, detail: view.detail };
     }
@@ -207,6 +215,7 @@ export const compileExperience = ({
 
 export const compileCompositionEnvelope = ({
   envelope,
+  sourceUnits,
 }: {
   envelope: {
     datasets?: GenuiDataset[];
@@ -214,10 +223,12 @@ export const compileCompositionEnvelope = ({
     openuiText: string;
     records: PublicRecord[];
   };
+  sourceUnits?: SourceUnitsResolver;
 }) =>
   compileExperience({
     datasets: envelope.datasets,
     document: envelope.openuiText,
     libraryVersion: envelope.libraryVersion,
     records: envelope.records,
+    sourceUnits,
   });
