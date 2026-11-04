@@ -107,13 +107,13 @@ Legend: **V** visual, **U** UX/a11y, **M** motion, **S** search, **A** agent sur
 
 ## Shared search contract
 
-Applies to the homepage inline prompt and the dialog on every other route. One component (`SiteSearch`) in two presentations (inline on `/`, modal elsewhere), one state machine and one copy table.
+Applies to the homepage inline prompt and the dialog on every other route. One component (`SiteSearch`) in one presentation: a full-screen overlay on every route (superseded by [decision 0002](../decisions/0002-unified-search-overlay.md); originally inline on `/`, modal elsewhere), one state machine and one copy table.
 
 **States:** `idle → composing → result | empty | error`, plus `stopped` if A-P1 is approved.
 
 | Concern | Behaviour |
 | --- | --- |
-| Trigger | 44px nav icon, accessible name "Search this site (beta)", shortcut tooltip on fine pointers. On `/` it focuses the inline field; elsewhere it opens the modal |
+| Trigger | 44px nav icon, accessible name "Search this site (beta)", shortcut tooltip on fine pointers. It opens the overlay on every route; the homepage field is a trigger that animates to the top (decision 0002) |
 | Shortcut | Cmd/Ctrl+K from anywhere, including inside inputs. It toggles the modal closed when open. One hint, shown only when the field is idle and empty, never below 640px |
 | Field | `type="text"` combobox (no native clear button). The visible Beta badge is `aria-hidden`; the accessible name carries "beta". Enter-only and IME-safe, no send button (unchanged) |
 | Escape | First closes suggestions, then closes the modal. Never clears text. On `/`, with suggestions closed, it does nothing |

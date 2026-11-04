@@ -105,7 +105,7 @@ export function SiteSearchField({
       </label>
       <InputGroup
         className={cn(
-          "h-auto min-h-16 gap-3 rounded-lg border-accent/50 bg-transparent px-4 shadow-none! sm:gap-4 sm:px-5 dark:bg-transparent",
+          "h-auto min-h-16 gap-2 rounded-lg border-accent/50 bg-transparent px-3 shadow-none! sm:gap-4 sm:px-5 dark:bg-transparent",
           "has-[[data-slot=input-group-control]:focus-visible]:border-accent/50 has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot=input-group-control]:focus-visible]:ring-accent has-[[data-slot=input-group-control]:focus-visible]:ring-offset-0"
         )}
       >
@@ -158,7 +158,7 @@ export function SiteSearchField({
           className="min-h-16 min-w-0 py-4 text-base text-white placeholder:text-neutral-400"
           aria-describedby={describedById}
         />
-        <InputGroupAddon align="inline-end" className="pr-0">
+        <InputGroupAddon align="inline-end" className="hidden pr-0 sm:flex">
           <GenuiSearchBetaBadge />
         </InputGroupAddon>
         {showKbd ? (

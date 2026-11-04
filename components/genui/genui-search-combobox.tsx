@@ -296,7 +296,8 @@ export const GenuiSearchCombobox = ({
                         }
                       }}
                       onMouseDown={(event) => event.preventDefault()}
-                      onMouseEnter={() => setActiveIndex(index)}
+                      // Move, not enter: an overlay that opens under a still cursor must not highlight an option.
+                      onMouseMove={() => setActiveIndex(index)}
                       role="option"
                       tabIndex={-1}
                     >

@@ -1,6 +1,6 @@
 # /ask, notes, bookings, and MCP
 
-`/ask` redirects to `/`. Homepage search and the search dialog are the generative UI; booking and contact render there as GenUI forms that call `/api/capabilities`. This file covers credentials and booking limits for those capability tools and the public MCP endpoint at `/mcp`.
+`/ask` redirects to `/`. The full-screen search overlay (opened from the homepage field, the nav, or Cmd/Ctrl+K) is the generative UI; booking and contact render there as GenUI forms that call `/api/capabilities`. This file covers credentials and booking limits for those capability tools and the public MCP endpoint at `/mcp`.
 
 Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md). Form appearance is in [docs/agents/design/ask.md](design/ask.md). Trust rules, credential roles, and the booking limit are in [ARCHITECTURE.md](../../ARCHITECTURE.md).
 
