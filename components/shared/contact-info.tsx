@@ -51,15 +51,6 @@ export function ContactInfo({ hidden = true }) {
 
         <div className="cv-contact-grid grid grid-cols-2 gap-x-8 pt-4">
           <Link
-            href="tel:17865537670"
-            className="group flex items-center gap-2 no-underline"
-          >
-            <Phone className="h-4 w-4 shrink-0" />
-            <span className="!m-0 prose !p-0 prose-neutral hover:text-accent dark:prose-invert">
-              US: +1 (786) 229 4440
-            </span>
-          </Link>
-          <Link
             href="https://wa.me/50670367089"
             className="group prose flex items-center gap-2 no-underline prose-neutral dark:prose-invert"
           >
