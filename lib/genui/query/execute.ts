@@ -148,6 +148,11 @@ const groupValues = (row: BaseRow, field: (typeof groupByFields)[number]) => {
   return row[field];
 };
 
+const byName = (a: { label: string }, b: { label: string }) =>
+  a.label.localeCompare(b.label, undefined, { numeric: true });
+const byCount = (a: { count: number }, b: { count: number }) =>
+  a.count - b.count;
+
 export const datasetColumns = (name: QuerySpec["dataset"]): DatasetColumn[] =>
   name === "projects"
     ? projectColumns
@@ -222,10 +227,6 @@ export const executeQuery = ({
       ids,
       label,
     }));
-    const byName = (a: { label: string }, b: { label: string }) =>
-      a.label.localeCompare(b.label, undefined, { numeric: true });
-    const byCount = (a: { count: number }, b: { count: number }) =>
-      a.count - b.count;
     let rows: typeof entries;
     if (chronological) {
       const recent = [...entries].sort((a, b) => byName(b, a)).slice(0, limit);
