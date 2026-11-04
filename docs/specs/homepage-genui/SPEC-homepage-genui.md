@@ -2,7 +2,7 @@
 
 Module: `homepage-genui`. Status: **largely implemented on `main`** — `HomepageGenUiShell`, sticky prompt, generated region, reset, `/api/genui/compose` on submit; SSR portfolio preserved. Outstanding: DESIGN.md motion budget, bundle baseline report, formal HP-01–HP-09 audit. Gap note: [explore](../../research/2026-10-27-explore-composition-homepage-mcp-gap.md). Depends on: `composition-runtime` (largely shipped). Index: [capability map](CAPABILITIES-homepage-genui.md).
 
-Design System v2 SSR baseline and homepage GenUI search share `/`. Nav sheet may still link to `/ask` (redirects to `/`). Global Eve chat remains on connect surfaces, not the homepage transcript model.
+Design System v2 SSR baseline and homepage GenUI search share `/`. The nav has no chat button or sheet; its Search control focuses the homepage prompt on `/` and opens the shared search dialog elsewhere. `/ask` redirects to `/`. There is no global Eve chat or connect surface: booking and contact render as GenUI forms in homepage search and the dialog. _Amended by spec 001, 2026-11-03 (D-1, D-2)._
 
 ## Objective
 
@@ -46,7 +46,7 @@ Contact and booking inherit the shared container rules: wide contextual left rai
 Reuse existing primitives. Real excerpt from `app/page.tsx`:
 
 ```tsx
-<PageSection title="Work together">
+<PageSection title="Connect">
   <LetsConnect />
 </PageSection>
 ```

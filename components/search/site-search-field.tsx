@@ -25,6 +25,22 @@ const getFinePointer = () => window.matchMedia("(pointer: fine)").matches;
 const useFinePointer = () =>
   useSyncExternalStore(subscribePointer, getFinePointer, () => false);
 
+const SM_QUERY = "(min-width: 640px)";
+
+const subscribeSm = (onStoreChange: () => void) => {
+  const media = window.matchMedia(SM_QUERY);
+  media.addEventListener("change", onStoreChange);
+  return () => media.removeEventListener("change", onStoreChange);
+};
+
+/** Server render assumes `sm` and up; phones swap to the short placeholder on hydration. */
+const useSmUp = () =>
+  useSyncExternalStore(
+    subscribeSm,
+    () => window.matchMedia(SM_QUERY).matches,
+    () => true
+  );
+
 /**
  * The search field shared by the homepage prompt and the dialog: a
  * `type="text"` combobox (no native clear button, so Escape never erases
@@ -75,6 +91,7 @@ export function SiteSearchField({
 }) {
   const hydrated = useHydrated();
   const finePointer = useFinePointer();
+  const smUp = useSmUp();
   const showKbd = showShortcutHint && hydrated && finePointer;
   const isMac =
     hydrated &&
@@ -88,7 +105,7 @@ export function SiteSearchField({
       </label>
       <InputGroup
         className={cn(
-          "h-auto min-h-16 gap-3 rounded-lg border-accent/50 bg-transparent px-4 shadow-none! sm:gap-4 sm:px-5 dark:bg-transparent",
+          "h-auto min-h-16 gap-2 rounded-lg border-accent/50 bg-transparent px-3 shadow-none! sm:gap-4 sm:px-5 dark:bg-transparent",
           "has-[[data-slot=input-group-control]:focus-visible]:border-accent/50 has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot=input-group-control]:focus-visible]:ring-accent has-[[data-slot=input-group-control]:focus-visible]:ring-offset-0"
         )}
       >
@@ -112,7 +129,10 @@ export function SiteSearchField({
           autoCorrect="off"
           spellCheck={false}
           autoFocus={autoFocus}
-          placeholder={placeholder ?? searchCopy.placeholder}
+          placeholder={
+            placeholder ??
+            (smUp ? searchCopy.placeholder : searchCopy.placeholderShort)
+          }
           value={query}
           role="combobox"
           aria-autocomplete="list"
@@ -138,7 +158,7 @@ export function SiteSearchField({
           className="min-h-16 min-w-0 py-4 text-base text-white placeholder:text-neutral-400"
           aria-describedby={describedById}
         />
-        <InputGroupAddon align="inline-end" className="pr-0">
+        <InputGroupAddon align="inline-end" className="hidden pr-0 sm:flex">
           <GenuiSearchBetaBadge />
         </InputGroupAddon>
         {showKbd ? (

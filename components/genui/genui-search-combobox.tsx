@@ -57,7 +57,8 @@ export const GenuiSearchCombobox = ({
   leadingAction?: ReactNode;
   listboxId: string;
   onQueryChange: (query: string) => void;
-  onSearchSubmit: (query: string) => void;
+  /** `query` is what compose routes on; `label` is the visitor's words. */
+  onSearchSubmit: (query: string, label: string) => void;
   query: string;
   showShortcutHint?: boolean;
 }) => {
@@ -90,16 +91,17 @@ export const GenuiSearchCombobox = ({
     setActiveIndex(-1);
   };
 
-  const submitQuery = (value: string) => {
+  const submitQuery = (value: string, label?: string) => {
     const trimmed = value.trim();
     if (!trimmed) return;
-    onSearchSubmit(trimmed);
+    onSearchSubmit(trimmed, label?.trim() || trimmed);
   };
 
+  /** The field echoes the clicked label; compose routes on its query. */
   const selectSuggestion = (item: GenuiQuerySuggestion) => {
-    onQueryChange(item.query);
+    onQueryChange(item.label);
     closeSuggestions();
-    submitQuery(item.query);
+    submitQuery(item.query, item.label);
     inputRef.current?.focus();
   };
 
@@ -285,7 +287,7 @@ export const GenuiSearchCombobox = ({
                           "bg-white/5 outline-2 outline-offset-[-2px] outline-accent"
                       )}
                       id={suggestionOptionId(listboxId, index)}
-                      key={`${item.source}-${item.query}`}
+                      key={`${item.source}-${item.label}`}
                       onClick={() => selectSuggestion(item)}
                       onKeyDown={(event) => {
                         if (event.key === "Enter" || event.key === " ") {
@@ -294,7 +296,8 @@ export const GenuiSearchCombobox = ({
                         }
                       }}
                       onMouseDown={(event) => event.preventDefault()}
-                      onMouseEnter={() => setActiveIndex(index)}
+                      // Move, not enter: an overlay that opens under a still cursor must not highlight an option.
+                      onMouseMove={() => setActiveIndex(index)}
                       role="option"
                       tabIndex={-1}
                     >

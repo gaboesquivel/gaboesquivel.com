@@ -14,20 +14,9 @@ Narrative site. Voice, identity, and claims: installed `gabo` skill, which outra
 
 Prefer a CLI to interact with a product or service. Use MCP when no CLI covers the operation.
 
-## Web platform (motion and interactivity)
-
-Default to standards that work across browsers and deployment targets without tying behavior to a single framework or animation library.
-
-- Prefer modern CSS for motion and UI state: `transition` / `animation`, `@starting-style`, named `transition` properties, `motion-safe` / `motion-reduce`, and view-transition pseudo-elements where appropriate.
-- Prefer the View Transitions API via React `<ViewTransition>` and transition-scoped updates (`startTransition`, Suspense, `useDeferredValue`, framework navigations) over imperative `document.startViewTransition()` or global `navigation: auto` unless product and [DESIGN.md](DESIGN.md) explicitly approve.
-- Reach for other native Web APIs (Web Animations API, `IntersectionObserver`, `Popover` / `dialog`, Scroll-driven animations) before polyfills or third-party packages.
-- Do not add animation libraries (for example Framer Motion or GSAP) for effects CSS or built-in view transitions can carry. Existing dependencies and [DESIGN.md](DESIGN.md) exceptions (for example connect UI) stay as documented.
-- Ship progressive enhancement: interaction and layout must work with motion off; unsupported browsers get instant updates; always respect `prefers-reduced-motion`.
-- For new view transitions on this site, read Next’s bundled view-transitions guide under `node_modules/next/dist/docs/` and [docs/agents/motion.md](docs/agents/motion.md). Site-specific motion limits remain in [DESIGN.md](DESIGN.md).
-
 ## `__dev`
 
-`__dev/` is a local bucket for temporary files only. Do not reference it from application or library code, imports, routes, or anything that ships. Do not commit its contents (it is gitignored). Do not treat paths under `__dev/` as source of truth for the site.
+`__dev/` holds local temporary files only (gitignored). Never reference it from anything that ships, commit it, or treat it as a source of truth.
 
 ## Decisions
 
@@ -58,7 +47,7 @@ Where each kind of fact lives across this site, the `gaboesquivel` package, and 
 Read the matching document before editing:
 
 - **Product** — page jobs, routes, metadata, blog links, keyword owners, or discoverability: [PRODUCT.md](PRODUCT.md).
-- **Design** — visual design, layout, motion, components, editorial images, social assets, or OG images: [DESIGN.md](DESIGN.md). Motion tokens and checks: [docs/agents/motion.md](docs/agents/motion.md). For image production, also read [docs/agents/images.md](docs/agents/images.md).
+- **Design** — visual design, layout, motion, components, editorial images, social assets, or OG images: [DESIGN.md](DESIGN.md). Motion policy, budget, and checks: [docs/agents/motion.md](docs/agents/motion.md) (web standards over animation libraries; always respect `prefers-reduced-motion`). For image production, also read [docs/agents/images.md](docs/agents/images.md).
 - **Architecture** — data flow, integrations, generated outputs, or system boundaries: [ARCHITECTURE.md](ARCHITECTURE.md).
 - **Glossary** — a project term's meaning is unclear: [GLOSSARY.md](GLOSSARY.md).
 - **Content** — editing copy, a landing page, or a blog post: [docs/agents/content.md](docs/agents/content.md).
@@ -78,26 +67,8 @@ Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): 
 
 ## Flow
 
-This project uses Flow skills: say a phrase below to load its skill. The installed `flow` skill owns this block; delete it to opt out.
-
-Do the work yourself: CLI, then MCP, then API, then browser. Hand the user only sign-in, secrets, payment, consent, or permission changes, once, as one command each (`write-agents` Tools).
-
-Before merge, a second agent reviews the diff in a fresh context, with effort matched to risk; every finding is fixed or answered. CI, Git hook, auth, billing, and release changes ship only on the user's yes.
+This project uses Flow skills, reached by plain language ("explore this", "spec it", "build it", "ship it"; each skill's description lists its phrases). The installed `flow` skill owns this block; delete it to opt out.
 
 Delivery: github
-
-| Say                                                  | Skill       |
-| ---------------------------------------------------- | ----------- |
-| "explore this"                                       | `explore`   |
-| "interview me"                                       | `interview` |
-| "grill this"                                         | `grill`     |
-| "spec it"                                            | `to-spec`   |
-| "share the draft"                                    | `to-spec`   |
-| "break it down"                                      | `to-tasks`  |
-| "build it"                                           | `build`     |
-| "check it against the spec"                          | `review`    |
-| "ship it" (add "local" or "with GitHub" for one run) | `ship`      |
-| "push it"                                            | `push`      |
-| "update the docs"                                    | `flow`      |
 
 <!-- END FLOW -->

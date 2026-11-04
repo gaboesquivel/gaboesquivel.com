@@ -1,7 +1,11 @@
 "use client";
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { homepageGenuiSearchInputId } from "components/search/search-ids";
+import {
+  GenuiSessionProvider,
+  genuiWritesEnabled,
+} from "components/genui/genui-session";
+import { useGenuiComposition } from "components/genui/use-genui-composition";
 import { SiteSearchProvider } from "components/search/site-search-context";
 import { SiteSearchPanel } from "components/search/site-search-panel";
 import type { SearchRecord } from "components/search/types";
@@ -17,39 +21,21 @@ import {
 } from "components/ui/dialog";
 import { searchCopy } from "lib/search/copy";
 import { XIcon } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * Call-site overrides (vendor `components/ui` stays untouched). Overlay: solid
- * scrim, no blur. Panel: the site column (`max-w-6xl` less gutters),
- * `rounded-lg`, hairline, solid black; full height with safe-area padding
- * below 640px. Motion: 150ms from the top on the site curve, none under
- * reduced motion.
+ * Call-site overrides (vendor `components/ui` stays untouched). One full-screen
+ * overlay on every route: solid black, no blur. Motion: the scrim fades in over
+ * 200ms on the site curve while the field bar glides up from its trigger (see
+ * `SiteSearchPanel`); closing fades out in 150ms. None under reduced motion.
  */
 const searchOverlay =
-  "bg-black/60 duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] supports-backdrop-filter:backdrop-blur-none motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none";
+  "bg-black/60 duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] supports-backdrop-filter:backdrop-blur-none motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none";
 
 const searchPanel = [
-  "fixed inset-0 z-50 flex h-dvh w-full flex-col overflow-y-auto overscroll-contain bg-black px-4 text-sm text-white outline-none",
-  "sm:inset-auto sm:top-4 sm:left-1/2 sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-3rem)] sm:max-w-[68rem] sm:-translate-x-1/2 sm:rounded-lg sm:border sm:border-hairline lg:w-[calc(100%-4rem)]",
-  "origin-top duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none",
+  "fixed inset-0 z-50 flex h-dvh w-full flex-col overflow-y-auto overscroll-contain bg-black px-4 text-sm text-white outline-none sm:px-6 lg:px-8",
+  "duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-closed:duration-150 motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none",
 ].join(" ");
-
-const focusHomeSearchField = () => {
-  const field = document.querySelector<HTMLInputElement>(
-    `#${homepageGenuiSearchInputId}`
-  );
-  if (!field) return;
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-  field.scrollIntoView({
-    behavior: prefersReducedMotion ? "auto" : "smooth",
-    block: "center",
-  });
-  field.focus();
-};
 
 export function SiteSearchShell({
   records,
@@ -58,25 +44,28 @@ export function SiteSearchShell({
   records: SearchRecord[];
   children: React.ReactNode;
 }) {
-  const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
+  // Above the dialog, so closing it (which unmounts the panel) keeps the last
+  // result, drafts and receipts for the session (S-P1).
+  const genui = useGenuiComposition();
   /** The element that opened the dialog gets focus back when it closes. */
   const returnFocusRef = useRef<HTMLElement | null>(null);
 
-  const openDialog = useCallback(() => {
+  /** Where the field animates from: the clicked trigger's rect. */
+  const originRef = useRef<DOMRect | null>(null);
+
+  const requestSearch = useCallback((origin?: DOMRect) => {
     const active = document.activeElement;
     // Safari does not focus buttons on click, so fall back to the nav trigger.
     returnFocusRef.current =
       active instanceof HTMLElement && active !== document.body
         ? active
-        : document.querySelector<HTMLElement>("[data-site-search-trigger]");
+        : document.querySelector<HTMLElement>(
+            "[data-site-search-trigger], [data-home-search-trigger]"
+          );
+    originRef.current = origin ?? null;
     setOpen(true);
   }, []);
-
-  const requestSearch = useCallback(() => {
-    if (pathname === "/") focusHomeSearchField();
-    else openDialog();
-  }, [openDialog, pathname]);
 
   useEffect(() => {
     // Cmd/Ctrl+K works everywhere, including inside inputs, and toggles the
@@ -95,42 +84,46 @@ export function SiteSearchShell({
   return (
     <SiteSearchProvider value={{ records, requestSearch }}>
       {children}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogPortal>
-          <DialogOverlay className={searchOverlay} />
-          <DialogPrimitive.Popup
-            className={searchPanel}
-            data-slot="dialog-content"
-            finalFocus={returnFocusRef}
-          >
-            <DialogHeader className="sr-only">
-              <DialogTitle>{searchCopy.dialogTitle}</DialogTitle>
-              <DialogDescription>
-                {searchCopy.dialogDescription}
-              </DialogDescription>
-            </DialogHeader>
-            {open ? (
-              <SiteSearchPanel
-                closeControl={
-                  <DialogClose
-                    render={
-                      <Button
-                        className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
-                        size="icon"
-                        variant="ghost"
-                      />
-                    }
-                  >
-                    <XIcon aria-hidden="true" strokeWidth={1.5} />
-                    <span className="sr-only">{searchCopy.close}</span>
-                  </DialogClose>
-                }
-                onNavigate={() => setOpen(false)}
-              />
-            ) : null}
-          </DialogPrimitive.Popup>
-        </DialogPortal>
-      </Dialog>
+      <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogPortal>
+            <DialogOverlay className={searchOverlay} />
+            <DialogPrimitive.Popup
+              className={searchPanel}
+              data-slot="dialog-content"
+              finalFocus={returnFocusRef}
+            >
+              <DialogHeader className="sr-only">
+                <DialogTitle>{searchCopy.dialogTitle}</DialogTitle>
+                <DialogDescription>
+                  {searchCopy.dialogDescription}
+                </DialogDescription>
+              </DialogHeader>
+              {open ? (
+                <SiteSearchPanel
+                  originRef={originRef}
+                  closeControl={
+                    <DialogClose
+                      render={
+                        <Button
+                          className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
+                          size="icon"
+                          variant="ghost"
+                        />
+                      }
+                    >
+                      <XIcon aria-hidden="true" strokeWidth={1.5} />
+                      <span className="sr-only">{searchCopy.close}</span>
+                    </DialogClose>
+                  }
+                  genui={genui}
+                  onNavigate={() => setOpen(false)}
+                />
+              ) : null}
+            </DialogPrimitive.Popup>
+          </DialogPortal>
+        </Dialog>
+      </GenuiSessionProvider>
     </SiteSearchProvider>
   );
 }

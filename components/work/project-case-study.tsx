@@ -8,6 +8,7 @@ import {
   SplitSectionContent,
   SplitSectionMedia,
 } from "components/interior/split-section";
+import { NewTabCue, newTabProps } from "components/shared/new-tab-cue";
 import {
   PageSection,
   proseLink,
@@ -89,7 +90,7 @@ export function ProjectCaseStudy({
   return (
     <InteriorPageShell>
       <PageIntro
-        compact
+        compact={Boolean(genui)}
         density={genui ? "panel" : "default"}
         description={project.description.replaceAll("\n", " ")}
         title={project.title}
@@ -189,10 +190,10 @@ export function ProjectCaseStudy({
               <a
                 className={cn(proseLink, "break-all")}
                 href={project.link}
-                rel="noopener noreferrer"
-                target="_blank"
+                {...newTabProps}
               >
                 {project.link}
+                <NewTabCue />
               </a>
             </p>
           ) : null}
@@ -201,10 +202,10 @@ export function ProjectCaseStudy({
               <a
                 className={cn(proseLink, "break-all")}
                 href={project.repo}
-                rel="noopener noreferrer"
-                target="_blank"
+                {...newTabProps}
               >
                 {project.repo}
+                <NewTabCue />
               </a>
             </p>
           ) : null}

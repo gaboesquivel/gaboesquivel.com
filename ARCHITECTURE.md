@@ -4,7 +4,7 @@ This document maps the implemented system and its ownership boundaries. Read it 
 
 ## System overview
 
-The site is a Next.js App Router application with three connected surfaces: a portfolio and publishing site, machine-readable representations of its content, and an Eve agent for questions, notes, and scheduling. React renders the interface; Bun runs development, generation, and checks. Vercel hosts the application and Eve service. Exact dependency versions and executable commands belong to [package.json](package.json) and the lockfile.
+The site is a Next.js App Router application with three connected surfaces: a portfolio and publishing site, machine-readable representations of its content, and generative search with booking and contact over a public capability registry (also served to agents at `/mcp`). React renders the interface; Bun runs development, generation, and checks. Vercel hosts the application. Exact dependency versions and executable commands belong to [package.json](package.json) and the lockfile.
 
 ```mermaid
 flowchart TD
@@ -51,17 +51,17 @@ The HTML narrative and its machine-readable representation share facts but inclu
 | `components/work/`, `components/blog/`, `components/mdx.tsx` | Project evidence, post listings, and compiled MDX rendering. |
 | `lib/blog*`, `lib/tech-evidence.ts`, `lib/work-types.ts` | Content selection, taxonomy, related posts, and evidence filtering. |
 | `lib/api/`, `lib/accept-markdown.ts`, `lib/markdown-*` | Public read contracts, content negotiation, canonicalization, and error responses. |
-| `app/connect/` | Contact and booking card UI. `/ask` does not mount it; that route redirects to `/`. |
-| `agent/` | Eve model, channels, instructions, retrieval hooks, tools, and runtime skills. |
-| `lib/connect/` | Shared contact-domain logic: schemas, intent, retrieval ranking, caps, CV cards, notes, and bookings. |
+| `components/genui/`, `lib/genui/` | Homepage and dialog generative search: composition, OpenUI rendering, and the booking and contact write forms (`genui-booking-flow.tsx`, `genui-contact-form.tsx`, `lib/genui/write-flow.ts`). |
+| `agent/` | Eve model, MCP channel, instructions, retrieval hooks, tools, and the runtime `gabo` skill. The default Eve web channel (`/eve/v1`) is disabled in `agent/channels/eve.ts`. |
+| `lib/connect/` | Shared contact-domain logic: schemas, intent, retrieval ranking, caps, CV downloads, slot display, notes, and bookings. |
 | `lib/mcp/`, `app/mcp/` | Public MCP transport, tool metadata, and app resources. `app/mcp/cv/` returns 410 for the retired endpoint. |
 | `scripts/` | Content/API export, CV printing, verification, and operational helpers. |
 
-Coding-agent skills in `.agents/skills/` guide repository work. The skills in `agent/skills/` belong to the application's Eve runtime. Their consumers and installation paths are different; changing development guidance does not require changing the runtime agent.
+Coding-agent skills in `.agents/skills/` guide repository work. The skills in `agent/skills/` belong to the application's Eve runtime; only `gabo` ships there, and coding-oriented skills do not belong in it. Their consumers and installation paths are different; changing development guidance does not require changing the runtime agent.
 
 ## Design System v2 presentation
 
-`components/layout/site-width.tsx` applies the homepage `max-w-6xl` shell on every route. `app/page.tsx` remains a Server Component reading package projects and Velite posts, wrapped by `HomepageGenUiShell` for generative search. The OpenUI renderer loads only after submit via `/api/genui/compose`; first paint does not initialize Eve, MCP, or the renderer. Public reads and writes flow through `lib/capabilities/` and `/api/capabilities`. `/mcp` is served by `app/mcp/route.ts` (nine registry tools); Eve no longer intercepts that path. `/ask` redirects to `/`.
+`components/layout/site-width.tsx` applies the homepage `max-w-6xl` shell on every route. `app/page.tsx` remains a Server Component reading package projects and Velite posts, wrapped by `HomepageGenUiShell`, which renders the homepage search trigger. The OpenUI renderer loads only after submit via `/api/genui/compose`; first paint does not initialize Eve, MCP, or the renderer. Public reads and writes flow through `lib/capabilities/` and `/api/capabilities`. `/mcp` is served by `app/mcp/route.ts` (nine registry tools); Eve no longer intercepts that path. `/ask` redirects to `/`.
 
 `lib/work/project-cover.ts` holds homepage selected-work slugs, `resolveProjectImage` (package `image` URLs made site-relative via `lib/site-path.ts`), and shared `sizes` strings; project image paths stay in the package. `EditorialProjectCard` and `EditorialProjectList` are Server Components. The list receives resolved project records and does not call `getProjectBySlug`. `lib/genui/contract/` is the shared OpenUI compiler (schemas, parser validation, record grounding, composite allowlists). `lib/genui/experience-contract.ts` retains lightweight prop policy helpers. `ExperienceStack` composes a bounded list of validated child experiences (no nested stacks); the shared compiler validates each subtree and the renderer maps children to the same experience views as single-intent results. Automated quality layers, fixture lab, and MCP Apps harness are documented in [docs/testing/README.md](docs/testing/README.md). The homepage portrait ships as `public/images/gabo-portrait.webp`, separate from the existing OG master. Project hero/OG sources are unchanged.
 
@@ -95,7 +95,7 @@ The read-only JSON surface is `/api/v1/profile`, `/api/v1/pages`, and `/api/v1/p
 
 ## Agent and action flow
 
-`/ask` redirects to `/` (`app/ask/page.tsx` and a non-permanent redirect in `next.config.js`). The nav Search control focuses the homepage prompt or opens the shared search dialog on other routes. Homepage and dialog search submit to `/api/genui/compose`. `next.config.js` still wraps the Next config with `withEve`; that wrapper is not the public tool list.
+`/ask` redirects to `/` (`app/ask/page.tsx` and a non-permanent redirect in `next.config.js`). Every search trigger (the homepage field, the nav Search control, Cmd/Ctrl+K) opens the one full-screen search overlay (`SiteSearchShell`). Homepage and dialog search submit to `/api/genui/compose`. `next.config.js` still wraps the Next config with `withEve` for the agent build; that wrapper is not the public tool list, and no browser UI talks to Eve.
 
 `app/mcp/route.ts` serves the capability registry in `lib/capabilities/registry.ts`: `book_call`, `contact_gabo`, `get_cv`, `get_profile`, `list_availability`, `list_projects`, `list_writing`, `search_site`, and `send_note`. `lib/mcp/public-server.ts` adapts each result to MCP: text content is a summary from `lib/mcp/tool-metadata.ts` plus the serialized result, `structuredContent` is the result, and `error`/`failed` outcomes set `isError`. Titles and read/write annotations live in `lib/mcp/tool-metadata.ts`; output schemas in `lib/capabilities/output-schemas.ts`. `/mcp/cv` returns 410; clients obtain CV links through `get_cv` on `/mcp`. `/docs` is the integration page. The llms export still contains older `/ask` agent wording; the route behavior above is the source of truth until that export is revised.
 
@@ -103,15 +103,13 @@ The read-only JSON surface is `/api/v1/profile`, `/api/v1/pages`, and `/api/v1/p
 
 Retrieval uses `generated/agent-index.json` and `generated/markdown-routes.json`, with selection and ranking logic in the agent hooks and `lib/connect/`. This is generated corpus retrieval, not a vector database. Changes to facts or exports must reach these artifacts before the agent can use them.
 
-The connect UI in `app/connect/` can display a CV download card, project media, a note form, and a booking flow. It is not mounted at `/ask`. The note opener is handled by the UI; `NOTE_FORM_LEAD` owns the form introduction. While the form is visible, the thread suppresses the replying indicator. Preserve this boundary when changing conversational behavior.
-
-The booking picker combines real availability with deterministic React UI in `app/connect/slot-picker.tsx`. `list_slots` returns structured `slotState` for the picker; server-side booking logic owns validation and the Calendar write. A generated UI payload is not authorization to perform an action.
+Booking and contact are GenUI experiences in homepage search and the search dialog (`components/genui/genui-booking-flow.tsx`, `genui-contact-form.tsx`). They read availability and write through `/api/capabilities` (`list_availability`, `book_call`, `send_note`) with one retry identity per draft (`lib/genui/write-flow.ts`), so a retried write replays instead of duplicating. Server-side capability logic owns validation, caps, and the Calendar and email side effects. A generated UI payload is not authorization to perform an action; the visitor's submit is. Accepted writes keep their receipt in `GenuiSessionProvider` (`components/genui/genui-session.tsx`).
 
 External agents call the capability registry at `/mcp`. `/mcp/cv` is a retired endpoint with a migration response pointing clients to `/mcp` and `get_cv`. The integration page is `/docs`.
 
 ## State, credentials, and external effects
 
-The portfolio's durable content is repository files and the published package. Eve manages conversation/session behavior; `lib/connect/store.ts` does not implement a conversation database. Browser session handling is in `app/connect/session-cookie.ts`.
+The portfolio's durable content is repository files and the published package. There is no conversation store; `lib/connect/store.ts` holds caps and idempotency records only, and GenUI drafts and receipts live in browser memory for the session.
 
 Upstash Redis stores action caps and idempotency state through `lib/connect/store.ts` and `caps.ts`. These records expire. Local development can use an in-memory store; Vercel Production and Preview require configured Redis for these controls. Local daily caps are skipped unless explicitly enabled for testing. Provisioning and environment names are in [docs/agents/ask.md](docs/agents/ask.md).
 
@@ -124,7 +122,7 @@ Upstash Redis stores action caps and idempotency state through `lib/connect/stor
 | Vercel Edge Config | Optional additional redirects at configuration time. |
 | Vercel Analytics | Browser analytics loaded through `components/layout/deferred-analytics.tsx`. |
 
-Treat chat text, MCP inputs, form fields, and model output as untrusted input. Tool schemas, approval handling, and domain checks mediate actions. Browser bookings require Eve approval; structured note-form submissions bypass an additional approval, and MCP calls do not use browser approval. Inspect the owning tool and domain helper together when changing a write operation; a UI-only check cannot protect the MCP path. Keep credentials server-side and use the documented configuration procedure without copying values into documentation.
+Treat search queries, MCP inputs, form fields, and model output as untrusted input. Tool schemas, approval handling, and domain checks mediate actions. Browser bookings require the visitor to tick "Reviewed details" and confirm in the GenUI form; notes send on submit; MCP calls do not use browser approval. Inspect the owning tool and domain helper together when changing a write operation; a UI-only check cannot protect the MCP path. Keep credentials server-side and use the documented configuration procedure without copying values into documentation.
 
 Booking rechecks availability before inserting an event and uses Redis to coordinate duplicate requests. Redis and Google Calendar do not share a transaction, so these guards do not establish an exactly-once or collision-free guarantee.
 

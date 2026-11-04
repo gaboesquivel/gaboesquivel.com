@@ -5,7 +5,8 @@ import { createContext, useContext } from "react";
 
 interface SiteSearchContextValue {
   records: SearchRecord[];
-  requestSearch: () => void;
+  /** `origin` is the trigger's rect; the field animates from it to the top. */
+  requestSearch: (origin?: DOMRect) => void;
 }
 
 const SiteSearchContext = createContext<SiteSearchContextValue | null>(null);

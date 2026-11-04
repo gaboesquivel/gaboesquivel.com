@@ -85,6 +85,14 @@ export const curatedGenuiQuerySuggestions: readonly {
   },
 ];
 
+/** The canonical query behind a curated example's visible label, if any. */
+export const curatedQueryForLabel = (label: string) => {
+  const key = normalizeGenuiQuery(label);
+  return curatedGenuiQuerySuggestions.find(
+    (item) => normalizeGenuiQuery(item.label) === key
+  )?.query;
+};
+
 export const filterCuratedGenuiSuggestions = (raw: string) => {
   const normalized = normalizeGenuiQuery(raw);
   if (!normalized) return [];
@@ -120,7 +128,9 @@ export const buildGenuiAutosuggest = ({
     limit,
   }).map((item) => ({
     label: item,
-    query: item,
+    // Recent stores the visitor's words; a clicked example routes on its
+    // canonical query again.
+    query: curatedQueryForLabel(item) ?? item,
     source: "history" as const,
   }));
 

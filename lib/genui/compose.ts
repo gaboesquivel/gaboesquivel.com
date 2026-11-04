@@ -1,4 +1,5 @@
 import { searchCopy } from "lib/search/copy";
+import type { ComposeStage } from "lib/search/copy";
 import { siteOrigin } from "lib/site-path";
 import { nanoid } from "nanoid";
 
@@ -39,6 +40,13 @@ export interface ComposeInput {
 export type ComposeStreamEvent =
   | { requestId: string; sequence: number; type: "start" }
   | {
+      /** A slow step began; the client shows its human label, never this id. */
+      requestId: string;
+      sequence: number;
+      stage: ComposeStage;
+      type: "stage";
+    }
+  | {
       envelope: CompositionEnvelope;
       requestId: string;
       sequence: number;
@@ -61,6 +69,20 @@ export type ComposeStreamEvent =
     };
 
 const queryCodePoints = (query: string) => [...query].length;
+
+/** The evidence stage the first planned task waits on. */
+export const stageForTasks = (
+  tasks: readonly { kind: string }[]
+): ComposeStage => {
+  const kind = tasks[0]?.kind;
+  if (kind === "booking") return "availability";
+  if (kind === "projects" || kind === "compare" || kind === "count") {
+    return "projects";
+  }
+  if (kind === "writing") return "writing";
+  if (kind === "timeline" || kind === "cv") return "career";
+  return "answer";
+};
 
 const documentFromDecision = ({
   decision,
@@ -163,6 +185,13 @@ export const composeQuery = async ({
     onEvent?.(event);
   };
   emit({ requestId, sequence: sequence++, type: "start" });
+  let lastStage: ComposeStage | null = null;
+  /** Announces a slow step (model or decision calls) once per change. */
+  const emitStage = (stage: ComposeStage) => {
+    if (stage === lastStage) return;
+    lastStage = stage;
+    emit({ requestId, sequence: sequence++, stage, type: "stage" });
+  };
   let modelCalls = 0;
   let jevCalls = 0;
   let parseErrors = 0;
@@ -282,6 +311,7 @@ export const composeQuery = async ({
 
   if (requestPlan.disposition === "compose") {
     if (requestPlan.needsSemanticPlanning && genuiProviderConfigured()) {
+      emitStage("planning");
       const resolved = await resolveSemanticPlan({ plan: requestPlan, signal });
       modelCalls += resolved.modelCalls;
       requestPlan = resolved.plan;
@@ -291,6 +321,7 @@ export const composeQuery = async ({
     }
     if (requestPlan.needsSemanticPlanning && genuiProviderConfigured()) {
       tier = 2;
+      emitStage(stageForTasks(requestPlan.tasks));
       const semantic = await generateSemanticDocument({
         plan: requestPlan,
         query,
@@ -345,6 +376,7 @@ export const composeQuery = async ({
   }
 
   tier = 1;
+  emitStage("planning");
   const decision = await evaluateWithJev({ query, signal });
   if (decision) jevCalls += 1;
   if (signal?.aborted) {
@@ -364,6 +396,7 @@ export const composeQuery = async ({
     resolvedTaskIntent === "explain-experience" ||
     requestPlan.requiresSynthesis
   ) {
+    emitStage(stageForTasks(requestPlan.tasks));
     const evidenceRecords = retrievePlanEvidence(requestPlan);
     const semantic = await generateSemanticDocument({
       query,
@@ -398,15 +431,18 @@ export const composeQuery = async ({
       return record ? [record] : [];
     }
   );
-  const semantic =
+  const runFallbackSemantic = !(
     resolvedTaskIntent === "explain-experience" || requestPlan.requiresSynthesis
-      ? null
-      : await generateSemanticDocument({
-          query,
-          records: evidenceRecords,
-          requestId,
-          signal,
-        });
+  );
+  if (runFallbackSemantic) emitStage("answer");
+  const semantic = runFallbackSemantic
+    ? await generateSemanticDocument({
+        query,
+        records: evidenceRecords,
+        requestId,
+        signal,
+      })
+    : null;
   if (semantic) {
     modelCalls += semantic.modelCalls;
     emitSemantic(semantic.envelope, semantic.recovered);

@@ -9,6 +9,7 @@ import {
   groupSlotsByDay,
   identityForAttempt,
   isSettledWrite,
+  settleAttempt,
   timeZoneNames,
   writeErrorMessage,
 } from "./write-flow";
@@ -89,6 +90,41 @@ describe("identityForAttempt", () => {
       create,
       payload: { ...payload, name: "Grace" },
       state: { fingerprint: JSON.stringify(payload), identity: "draft-1" },
+    });
+    expect(next.identity).not.toBe("draft-1");
+  });
+
+  test("after a network failure an edit keeps the identity until the server answers", () => {
+    const sent = identityForAttempt({
+      create,
+      payload,
+      state: { fingerprint: null, identity: "draft-1" },
+    });
+    const failed = settleAttempt({
+      error: new CapabilityRequestError("network"),
+      state: sent,
+    });
+    expect(failed.unresolved).toBe(true);
+    const edited = identityForAttempt({
+      create,
+      payload: { ...payload, name: "Grace" },
+      state: failed,
+    });
+    expect(edited.identity).toBe("draft-1");
+    expect(edited.fingerprint).toBe(sent.fingerprint);
+    // A 5xx or non-JSON body is not a definite answer either.
+    const stillUnresolved = settleAttempt({
+      error: new CapabilityRequestError("server"),
+      state: edited,
+    });
+    expect(stillUnresolved.unresolved).toBe(true);
+    // A server answer resolves it; only then does an edit start a new draft.
+    const answered = settleAttempt({ state: stillUnresolved });
+    expect(answered.unresolved).toBe(false);
+    const next = identityForAttempt({
+      create,
+      payload: { ...payload, name: "Grace" },
+      state: answered,
     });
     expect(next.identity).not.toBe("draft-1");
   });

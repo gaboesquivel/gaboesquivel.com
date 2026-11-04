@@ -1,12 +1,12 @@
 # /ask, notes, bookings, and MCP
 
-`/ask` redirects to `/`. Homepage search is the generative UI. This file covers credentials and booking limits for the capability tools and the connect code that is not mounted on that route.
+`/ask` redirects to `/`. The full-screen search overlay (opened from the homepage field, the nav, or Cmd/Ctrl+K) is the generative UI; booking and contact render there as GenUI forms that call `/api/capabilities`. This file covers credentials and booking limits for those capability tools and the public MCP endpoint at `/mcp`.
 
-Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md). Card appearance is in [DESIGN.md](../../DESIGN.md). Trust rules, credential roles, and the booking limit are in [ARCHITECTURE.md](../../ARCHITECTURE.md).
+Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md). Form appearance is in [docs/agents/design/ask.md](design/ask.md). Trust rules, credential roles, and the booking limit are in [ARCHITECTURE.md](../../ARCHITECTURE.md).
 
 ## Skills and scaffold
 
-Read the installed `eve`, `ai-sdk`, and `typesafe-ai` skills (bundled docs in `node_modules`, not memory). Then read Eve's Web Chat scaffold source in `node_modules/eve/dist/src/setup/scaffold/create/web-template.js` (`agent-chat.tsx` / `agent-message.tsx` strings).
+Read the installed `eve`, `ai-sdk`, and `typesafe-ai` skills (bundled docs in `node_modules`, not memory). No browser UI talks to Eve: `agent/channels/eve.ts` disables the default `/eve/v1` web channel. Do not re-enable it or add a chat transcript without a spec. The runtime agent ships only the `gabo` skill in `agent/skills/`.
 
 ## Credentials
 

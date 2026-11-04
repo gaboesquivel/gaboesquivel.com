@@ -42,7 +42,7 @@ export const bioChapters: readonly BioChapter[] = [
     id: "foundations",
     startYear: "2010",
     period: "2010 — 2014",
-    category: "FOUNDATIONS",
+    category: "Foundations",
     navLabel: "Foundations",
     title: "Interfaces and a JavaScript community",
     summaryParagraphs: [
@@ -80,7 +80,7 @@ export const bioChapters: readonly BioChapter[] = [
     id: "product",
     startYear: "2015",
     period: "2015 — 2016",
-    category: "PRODUCT",
+    category: "Product",
     navLabel: "Product",
     title: "From interfaces to a banking product",
     summaryParagraphs: [
@@ -104,7 +104,7 @@ export const bioChapters: readonly BioChapter[] = [
     id: "systems",
     startYear: "2017",
     period: "2017 — 2023",
-    category: "SYSTEMS",
+    category: "Systems",
     navLabel: "Systems",
     title: "Financial products and blockchain systems",
     summaryParagraphs: [
@@ -139,7 +139,7 @@ export const bioChapters: readonly BioChapter[] = [
     id: "intelligent-interfaces",
     startYear: "2024",
     period: "2024 — Present",
-    category: "AI & AGENTS",
+    category: "AI & agents",
     navLabel: "AI & agents",
     title: "Intelligent interfaces and agentic products",
     summaryParagraphs: [

@@ -5,6 +5,7 @@ import {
   projectCardDescription,
   projectRoleInCard,
 } from "components/shared/spacing";
+import { CoverMorph } from "components/work/cover-morph";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import { resolveProjectImage, workCoverSizes } from "lib/work/project-cover";
@@ -22,24 +23,25 @@ export function FeaturedProjectCard({
 
   return (
     <article>
-      <p className="text-sm text-neutral-400">Featured work</p>
       <Link
         href={`/project/${project.slug}`}
-        className={cn("group mt-4 block", editorialLink)}
+        className={cn("group block", editorialLink)}
       >
         {image ? (
-          <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-neutral-900 sm:aspect-video">
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes={workCoverSizes}
-              preload={priority}
-              loading={priority ? "eager" : undefined}
-              fetchPriority={priority ? "high" : undefined}
-              className={cn("object-cover", imageHover)}
-            />
-          </div>
+          <CoverMorph slug={project.slug}>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-neutral-900 sm:aspect-video">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes={workCoverSizes}
+                preload={priority}
+                loading={priority ? "eager" : undefined}
+                fetchPriority={priority ? "high" : undefined}
+                className={cn("object-cover", imageHover)}
+              />
+            </div>
+          </CoverMorph>
         ) : null}
         <div className="mt-6 flex items-start justify-between gap-4 border-t border-hairline pt-6">
           <div className="min-w-0">

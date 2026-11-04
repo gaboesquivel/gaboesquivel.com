@@ -2,12 +2,16 @@ import { LatestPosts } from "components/blog/latest-posts";
 import { HomepageGenUiShell } from "components/genui/homepage-shell";
 import { PortraitMedia } from "components/home/portrait-media";
 import { LetsConnect } from "components/shared/lets-connect";
-import { PageTitle, PageSection } from "components/shared/page-layout";
+import {
+  PageEyebrow,
+  PageTitle,
+  PageSection,
+} from "components/shared/page-layout";
 import {
   editorialLink,
   heroTitle,
   heroPitch,
-  homeSection,
+  sectionGap,
   sectionAction,
 } from "components/shared/spacing";
 import { EditorialProjectList } from "components/work/editorial-project-list";
@@ -35,9 +39,10 @@ export default function HomePage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
-      <div className="grid items-center gap-6 lg:grid-cols-[1.08fr_1fr] lg:gap-0">
-        <div className="relative z-10 py-6 lg:py-12">
-          <PageTitle className={cn(heroTitle, "mb-0 max-w-none")}>
+      <div className="grid items-start gap-6 lg:grid-cols-[1.08fr_1fr] lg:gap-0">
+        <div className="relative z-10 pb-6 lg:pb-12">
+          <PageEyebrow />
+          <PageTitle>
             Software for
             <br />
             humans and agents.
@@ -56,7 +61,7 @@ export default function HomePage() {
       <HomepageGenUiShell>
         <PageSection
           title="Selected work"
-          className={homeSection}
+          className={sectionGap}
           action={
             <Link href="/work" className={sectionAction}>
               View all work
@@ -65,7 +70,7 @@ export default function HomePage() {
         >
           <EditorialProjectList projects={selectedProjects} />
         </PageSection>
-        <PageSection title="Focus" className={homeSection}>
+        <PageSection title="Focus" className={sectionGap}>
           <div className="grid gap-8 lg:grid-cols-2">
             <Link
               href="/ai"
@@ -95,6 +100,9 @@ export default function HomePage() {
             </Link>
           </div>
         </PageSection>
+        <PageSection title="Connect" className={sectionGap}>
+          <LetsConnect />
+        </PageSection>
         <LatestPosts
           limit={4}
           title="Writing"
@@ -104,25 +112,6 @@ export default function HomePage() {
             </Link>
           }
         />
-        <PageSection title="Career" className={homeSection}>
-          <div className="flex flex-wrap gap-x-12 gap-y-4">
-            <Link
-              href="/bio"
-              className={cn(editorialLink, "inline-flex min-h-11 items-center")}
-            >
-              Career story
-            </Link>
-            <Link
-              href="/cv"
-              className={cn(editorialLink, "inline-flex min-h-11 items-center")}
-            >
-              Résumé / CV
-            </Link>
-          </div>
-        </PageSection>
-        <PageSection title="Work together" className={homeSection}>
-          <LetsConnect />
-        </PageSection>
       </HomepageGenUiShell>
     </section>
   );

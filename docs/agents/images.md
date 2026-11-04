@@ -124,7 +124,7 @@ Every post without `ogImage` gets the same 1200 × 630 card from `lib/og/generat
 
 ## Homepage portrait hero
 
-Photographic hero composition (exception to flat editorial hero rules). Source: `assets/homepage/v2/gabo-portrait.png`. Replace that PNG, then run `bun run hero:optimize` to write `public/images/gabo-portrait.webp` (full size, WebP quality 90) and `bun run og:generate` to refresh the personal OG. When the source dimensions change, update `portraitWidth` and `portraitHeight` in `lib/portrait-overlay.ts`. The homepage, `/bio`, and the personal OG all read the portrait path and size from that module. Layout and delivery: [DESIGN.md](design/home.md#homepage-portrait-hero). The legacy URL `/images/gaboesquivel-homepage.webp` redirects to the current portrait.
+Photographic hero composition (exception to flat editorial hero rules). Source: `assets/homepage/v2/gabo-portrait.png`. Replace that PNG, then run `bun run hero:optimize` to write `public/images/gabo-portrait.webp` (full size, WebP quality 90) and `bun run og:generate` to refresh the personal OG. When the source dimensions change, update `portraitWidth` and `portraitHeight` in `lib/portrait-overlay.ts`. The homepage and the personal OG read the portrait path and size from that module. Layout and delivery: [DESIGN.md](design/home.md#homepage-portrait-hero). The legacy URL `/images/gaboesquivel-homepage.webp` redirects to the current portrait.
 
 ## Project images
 

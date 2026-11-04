@@ -1,84 +1,80 @@
 "use client";
 
-import { useRef } from "react";
+import { useSiteSearchOptional } from "components/search/site-search-context";
+import { Kbd, KbdGroup } from "components/ui/kbd";
+import { useHydrated } from "hooks/use-hydrated";
+import { searchCopy } from "lib/search/copy";
+import { Search } from "lucide-react";
+import Link from "next/link";
+import { useSyncExternalStore } from "react";
 
-import { GeneratedRegion } from "./generated-region";
-import { useGenuiDraft } from "./genui-draft-context";
-import {
-  GenuiReceipt,
-  GenuiSessionProvider,
-  genuiWritesEnabled,
-} from "./genui-session";
-import { PromptField } from "./prompt-field";
-import { scrollPromptToViewportTop } from "./scroll-prompt";
-import { useGenuiComposition } from "./use-genui-composition";
-import type { GenuiComposition } from "./use-genui-composition";
+import { GenuiSearchBetaBadge } from "./genui-search-beta-badge";
 
-const HomepageGenUiBodyContent = ({
-  children,
-  genui,
-}: {
-  children: React.ReactNode;
-  genui: GenuiComposition;
-}) => {
-  const { clear } = useGenuiDraft();
-  const { active, envelope, error, query, reset, runQuery, setQuery } = genui;
-  const promptAnchorRef = useRef<HTMLDivElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+const finePointerQuery = "(pointer: fine)";
 
-  const run = (value: string) => {
-    requestAnimationFrame(() => {
-      scrollPromptToViewportTop({ element: promptAnchorRef.current });
-    });
-    runQuery(value).catch(() => {});
-  };
+const subscribeFinePointer = (onChange: () => void) => {
+  const media = window.matchMedia(finePointerQuery);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+};
 
-  const handleClear = () => {
-    reset();
-    clear();
-    inputRef.current?.focus();
-  };
+/**
+ * The homepage "Ask me something" entry. It looks like the search field but is
+ * a trigger for the one search overlay (nav icon and Cmd/Ctrl+K open the same
+ * surface): on click the field animates up to the top of the full-screen
+ * search. Without JavaScript it falls back to browse/contact copy.
+ */
+const HomeSearchTrigger = () => {
+  const siteSearch = useSiteSearchOptional();
+  const hydrated = useHydrated();
+  const finePointer = useSyncExternalStore(
+    subscribeFinePointer,
+    () => window.matchMedia(finePointerQuery).matches,
+    () => false
+  );
+  const showKbd = hydrated && finePointer;
+  const isMac = hydrated && /Mac/.test(navigator.platform);
 
   return (
-    <div className="relative">
-      <div
-        className={
-          active
-            ? "sticky top-0 z-20 border-b border-hairline bg-black px-0 py-4"
-            : "mt-8 lg:mt-10"
+    <div className="mt-8 lg:mt-10">
+      <button
+        aria-haspopup="dialog"
+        aria-keyshortcuts="Meta+K Control+K"
+        className="flex h-auto min-h-16 w-full cursor-text items-center gap-3 rounded-lg border border-accent/50 bg-transparent px-4 text-left text-base text-neutral-400 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent sm:gap-4 sm:px-5"
+        data-home-search-trigger=""
+        disabled={!siteSearch}
+        onClick={(event) =>
+          siteSearch?.requestSearch(event.currentTarget.getBoundingClientRect())
         }
-        ref={promptAnchorRef}
+        type="button"
       >
-        <PromptField
-          idle={!active}
-          inputRef={inputRef}
-          onChange={setQuery}
-          onClear={active ? handleClear : undefined}
-          onSubmit={run}
-          value={query}
+        <span className="sr-only">{searchCopy.accessibleName}</span>
+        <Search
+          aria-hidden="true"
+          className="size-6 shrink-0 text-neutral-300"
+          strokeWidth={1.5}
         />
-        <GenuiReceipt />
-      </div>
-      {active ? (
-        <div className="min-h-[100vh] pt-6">
-          <GeneratedRegion
-            envelope={envelope}
-            error={error}
-            onExample={(example) => {
-              run(example);
-              inputRef.current?.focus();
-            }}
-            onRetry={() => {
-              genui.retry();
-              inputRef.current?.focus();
-            }}
-            status={genui.status}
-            submitted={genui.submitted}
-          />
-        </div>
-      ) : (
-        children
-      )}
+        <span aria-hidden="true" className="min-w-0 flex-1 truncate">
+          <span className="hidden sm:inline">{searchCopy.placeholder}</span>
+          <span className="sm:hidden">{searchCopy.placeholderShort}</span>
+        </span>
+        <GenuiSearchBetaBadge />
+        {showKbd ? (
+          <KbdGroup aria-hidden="true" className="hidden sm:flex">
+            {isMac ? <Kbd>⌘</Kbd> : <Kbd>Ctrl</Kbd>}
+            <Kbd>K</Kbd>
+          </KbdGroup>
+        ) : null}
+      </button>
+      <noscript>
+        <p className="mt-2 text-xs text-neutral-400">
+          Browse the sections below, or{" "}
+          <Link className="text-accent hover:underline" href="/contact">
+            contact
+          </Link>{" "}
+          to reach out.
+        </p>
+      </noscript>
     </div>
   );
 };
@@ -87,14 +83,9 @@ export const HomepageGenUiShell = ({
   children,
 }: {
   children: React.ReactNode;
-}) => {
-  const genui = useGenuiComposition();
-
-  return (
-    <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
-      <HomepageGenUiBodyContent genui={genui}>
-        {children}
-      </HomepageGenUiBodyContent>
-    </GenuiSessionProvider>
-  );
-};
+}) => (
+  <div className="relative">
+    <HomeSearchTrigger />
+    {children}
+  </div>
+);

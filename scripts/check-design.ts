@@ -12,7 +12,8 @@ const skipDir = (name: string) =>
 const rules = [
   {
     name: "gradient fill",
-    pattern: /bg-gradient-|linear-gradient\(|radial-gradient\(/,
+    pattern:
+      /bg-(gradient|linear|radial|conic)-|linear-gradient\(|radial-gradient\(|conic-gradient\(/,
     why: "DESIGN.md Don'ts: no gradients",
   },
   {
@@ -23,40 +24,66 @@ const rules = [
   {
     name: "shadow",
     pattern: /\bshadow-(?!none\b)[a-z0-9[]/,
-    why: "DESIGN.md Elevation & Depth: no shadows",
+    why: "DESIGN.md Elevation and shapes: no shadows",
   },
   {
     name: "backdrop blur",
     pattern: /\bbackdrop-blur(?!-none\b)/,
-    why: "DESIGN.md Elevation & Depth: no glass",
+    why: "DESIGN.md Elevation and shapes: no glass",
   },
   {
     name: "oversized radius",
     pattern: /\brounded-(xl|2xl)\b/,
-    why: "DESIGN.md Shapes: rounded-lg surfaces, no rounded-2xl",
+    why: "DESIGN.md Elevation and shapes: rounded-lg surfaces, no rounded-2xl",
   },
   {
     name: "inline viewTransitionName",
     pattern: /viewTransitionName/,
-    why: "DESIGN.md Motion & View Transitions: React <ViewTransition>, not raw names",
+    why: "DESIGN.md Motion: React <ViewTransition>, not raw names",
   },
   {
     name: "neutral-500 text",
     pattern: /\btext-neutral-500\b/,
-    why: "DESIGN.md Colors: neutral-400 for muted text (AA on black)",
+    why: "DESIGN.md Accessibility: neutral-400 for text (AA on black)",
   },
   {
     name: "display serif",
     pattern: /\bfont-serif\b/,
     why: "DESIGN.md Don'ts: no display serif",
   },
+  {
+    name: "numbered marker",
+    // A list index rendered as 01, 02, … (clock and date padding stay allowed).
+    pattern:
+      /\w+\s*\+\s*1\)\)?\.padStart\(2|>\s*0[1-9]\s*[.<]|["']0[1-9]\.?["']/,
+    why: "DESIGN.md Don'ts: no 01/02/03 markers",
+  },
+  {
+    name: "eyebrow label",
+    pattern: /\buppercase\b|\btracking-(wider|widest)\b/,
+    why: "DESIGN.md Typography: no eyebrow labels, all-caps, or wide tracking",
+  },
+  {
+    name: "raw page title",
+    // Every page h1 is `PageTitle` (display scale); only `/cv` and GenUI panels use the small `pageTitle`.
+    pattern: /<h1\b|\bindexTitle\b/,
+    why: "DESIGN.md Layout: use PageTitle (heroTitle), not a raw h1",
+  },
+  {
+    name: "second accent",
+    pattern:
+      /\b(text|bg|border|ring|outline|fill|stroke|decoration|from|via|to)-(\[#|(orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d)/,
+    why: "DESIGN.md Colors: one accent (accent token); red only for errors",
+  },
 ];
 
 // Existing exceptions, listed in DESIGN.md Drift. Do not add to this list to pass a new change.
 const allowed: Record<string, string[]> = {
-  "app/global.css": ["gradient fill", "zinc/gray/slate class"],
+  "app/global.css": ["gradient fill", "zinc/gray/slate class", "second accent"],
   "components/tweet.css": ["gradient fill", "zinc/gray/slate class"],
+  "components/shared/contact-info.tsx": ["second accent"],
   "components/work/work-filter-nav.tsx": ["gradient fill"],
+  "components/shared/page-layout.tsx": ["raw page title"],
 };
 
 const walk = async (dir: string): Promise<string[]> => {

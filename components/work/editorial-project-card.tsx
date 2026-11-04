@@ -4,6 +4,7 @@ import {
   projectCardDescription,
   projectRoleInCard,
 } from "components/shared/spacing";
+import { CoverMorph } from "components/work/cover-morph";
 import type { Project } from "gaboesquivel";
 import { cn } from "lib/utils";
 import {
@@ -36,24 +37,26 @@ export function EditorialProjectCard({
       className={cn("group block h-full", editorialLink)}
     >
       {image ? (
-        <div
-          className={cn(
-            "relative overflow-hidden rounded-lg bg-black",
-            wide ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-video"
-          )}
-        >
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes={sizes}
-            preload={priority}
-            loading={priority ? "eager" : undefined}
-            fetchPriority={priority ? "high" : undefined}
-            className={cn("bg-neutral-900 object-cover", imageHover)}
-            style={{ objectPosition: projectCoverPosition(project) }}
-          />
-        </div>
+        <CoverMorph slug={project.slug}>
+          <div
+            className={cn(
+              "relative overflow-hidden rounded-lg bg-black",
+              wide ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-video"
+            )}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes={sizes}
+              preload={priority}
+              loading={priority ? "eager" : undefined}
+              fetchPriority={priority ? "high" : undefined}
+              className={cn("bg-neutral-900 object-cover", imageHover)}
+              style={{ objectPosition: projectCoverPosition(project) }}
+            />
+          </div>
+        </CoverMorph>
       ) : null}
       <h3 className="mt-4 text-2xl font-semibold tracking-tight">
         {project.title}

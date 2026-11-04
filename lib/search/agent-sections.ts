@@ -3,30 +3,12 @@ import { siteOrigin } from "lib/site-path";
 import index from "../../generated/agent-index.json";
 import bodies from "../../generated/markdown-routes.json";
 import type { RankSection } from "../connect/rank";
-import { kindBoost, pathKeywords, rankByKeywords } from "./keyword-rank";
+import { rankSearchMatches, searchRecordFromSection } from "./rank-records";
 
 export const agentSections = index as RankSection[];
 const corpus = bodies as Record<string, string>;
 
-const ARCHIVE_BEFORE = "2020";
-
-/** Archive posts stay out unless the query names them or their year. */
-const eligible = (section: RankSection, query: string) => {
-  if (section.kind !== "post" || section.publishedAt >= ARCHIVE_BEFORE) {
-    return true;
-  }
-  const title = section.title.toLowerCase();
-  if (title.length > 4 && query.toLowerCase().includes(title)) return true;
-  return [...query.matchAll(/\b(?:19|20)\d{2}\b/g)].some(
-    ([year]) => year < ARCHIVE_BEFORE && section.publishedAt.startsWith(year)
-  );
-};
-
-const sectionPath = (section: RankSection) =>
-  section.path.startsWith("/") ? section.path : `/${section.path}`;
-
-const sectionExcerpt = (section: RankSection) => {
-  const path = sectionPath(section);
+const sectionExcerpt = (section: RankSection, path: string) => {
   const body = corpus[section.bodyKey ?? path] ?? corpus[path] ?? "";
   return (section.summary || body.slice(0, 240)).trim();
 };
@@ -41,27 +23,20 @@ export const rankAgentSections = ({
   query: string;
   sections?: RankSection[];
 }) =>
-  rankByKeywords({
-    boost: (section) => kindBoost[section.kind],
-    fields: (section) => ({
-      keywords: [
-        ...section.tags,
-        ...section.categories,
-        section.company,
-        ...pathKeywords(sectionPath(section)),
-      ],
-      text: section.summary,
-      title: section.title,
-    }),
-    items: sections.filter((section) => eligible(section, query)),
-    limit,
+  rankSearchMatches(
+    sections.map((section) => ({
+      ...searchRecordFromSection(section),
+      section,
+    })),
     query,
-  }).map(({ item, score }) => ({
-    excerpt: sectionExcerpt(item),
-    id: sectionPath(item),
-    kind: item.kind,
-    publishedAt: item.kind === "post" ? item.publishedAt : undefined,
+    { limit }
+  ).map(({ item, score }) => ({
+    excerpt: sectionExcerpt(item.section, item.href),
+    id: item.href,
+    kind: item.section.kind,
+    publishedAt:
+      item.section.kind === "post" ? item.section.publishedAt : undefined,
     score,
     title: item.title,
-    url: `${siteOrigin}${sectionPath(item)}`,
+    url: `${siteOrigin}${item.href}`,
   }));

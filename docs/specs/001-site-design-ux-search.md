@@ -1,6 +1,6 @@
 # 001: Site design, UX, motion and search consistency
 
-Status: accepted (2026-11-02). Acceptance covers tasks 01–14 as scoped. Each item under [Needs approval](#needs-approval) still needs its own yes before its task starts.
+Status: implemented (2026-11-03). Every item under [Needs approval](#needs-approval) was approved by the user on 2026-11-03: D-1(a), D-2(a), V2 (already shipped by #19's landing OG cards), U-P1, U-P2, S-P1, S-P2, S-P3, A-P1, M-B, M-H, M-I and M-J.
 
 Evidence: a site-wide audit on 2026-11-02 against `next dev` at `http://localhost:3099`. It covered 31 routes at 1440×900 and 390×844, spot checks at 768, emulated light colour scheme and reduced motion, the fixture lab, and the public MCP endpoint. Each finding below cites its source (`file:line`, a measured value, or a screenshot name from the evidence gallery linked in the pull request). Screenshots stay out of the repository, per [verify.md](../agents/verify.md).
 
@@ -107,13 +107,13 @@ Legend: **V** visual, **U** UX/a11y, **M** motion, **S** search, **A** agent sur
 
 ## Shared search contract
 
-Applies to the homepage inline prompt and the dialog on every other route. One component (`SiteSearch`) in two presentations (inline on `/`, modal elsewhere), one state machine and one copy table.
+Applies to the homepage inline prompt and the dialog on every other route. One component (`SiteSearch`) in one presentation: a full-screen overlay on every route (superseded by [decision 0002](../decisions/0002-unified-search-overlay.md); originally inline on `/`, modal elsewhere), one state machine and one copy table.
 
 **States:** `idle → composing → result | empty | error`, plus `stopped` if A-P1 is approved.
 
 | Concern | Behaviour |
 | --- | --- |
-| Trigger | 44px nav icon, accessible name "Search this site (beta)", shortcut tooltip on fine pointers. On `/` it focuses the inline field; elsewhere it opens the modal |
+| Trigger | 44px nav icon, accessible name "Search this site (beta)", shortcut tooltip on fine pointers. It opens the overlay on every route; the homepage field is a trigger that animates to the top (decision 0002) |
 | Shortcut | Cmd/Ctrl+K from anywhere, including inside inputs. It toggles the modal closed when open. One hint, shown only when the field is idle and empty, never below 640px |
 | Field | `type="text"` combobox (no native clear button). The visible Beta badge is `aria-hidden`; the accessible name carries "beta". Enter-only and IME-safe, no send button (unchanged) |
 | Escape | First closes suggestions, then closes the modal. Never clears text. On `/`, with suggestions closed, it does nothing |
@@ -165,7 +165,7 @@ Site curve: `cubic-bezier(0.23, 1, 0.32, 1)`. Tokens in `components/shared/motio
 | --- | --- | --- |
 | M-B | Card-to-detail cover morph | `<ViewTransition name={projectViewTransitionName(slug)} share="morph" default="none">` around the cover in the editorial card, featured card and project hero. `::view-transition-group(.morph) { animation-duration: 240ms; animation-timing-function: <site curve> }`; `::view-transition-old(.morph), ::view-transition-new(.morph) { object-fit: cover; height: 100% }`. `default="none"` keeps filter clicks clean. Reduced motion: the existing 0s rule |
 | M-H | `/bio` disclosure | Arrow `motion-safe:transition-[rotate] duration-200` on the site curve. Content, CSS only inside `@media (prefers-reduced-motion: no-preference)`: `:root { interpolate-size: allow-keywords }`; `details::details-content { block-size: 0; overflow: clip; transition: block-size 240ms <site curve>, content-visibility 240ms allow-discrete }`; `details[open]::details-content { block-size: auto }`. Unsupported browsers open instantly. Reference: Emil Kowalski's hover-to-define pattern ([post](https://x.com/emilkowalski/status/2115425807388619022)) for a later glossary popover, not this task |
-| M-I | GenUI result reveal | The existing `enter` token (200ms, opacity 0→1, scale 0.97→1, site curve) on each generated block, keyed by query. Reduced motion: 120ms opacity only. CSS, not `<ViewTransition>`: streamed updates are not transition-scoped, and a transition would snapshot the sticky prompt. Reference: Jakub Antalik's single generative effect across surfaces ([post](https://x.com/Jakubantalik/status/2113656694303551906)) |
+| M-I | GenUI result reveal | The existing `enter` token (200ms, opacity 0→1, scale 0.97→1, site curve) on each generated block, keyed by query. Reduced motion: 120ms opacity only. CSS, not `<ViewTransition>`: streamed updates are not transition-scoped, and a transition would snapshot the sticky prompt. ✓ Approved and built with task 16 (a scoped `@starting-style` block in `app/global.css`). Reference: Jakub Antalik's single generative effect across surfaces ([post](https://x.com/Jakubantalik/status/2113656694303551906)) |
 | M-J | Nav search button press | The existing `press` token (160ms, scale 0.97) |
 
 Rejected from the references: pinned scroll, preloaders and cinematic page-load sequences (details.so categories, [Viktor Oddy](https://x.com/viktoroddy/status/2114684257109254434)); any Motion dependency ([Animate UI](https://x.com/animate_ui/status/2111882479774896338) informs only "add motion to existing headless components at the call site", used in M-E).
@@ -247,9 +247,9 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 - [x] 11: GenUI write flows and rail
 - [x] 12: MCP result parity
 - [x] 13: Checkable design rules and fixture coverage
-- [ ] 14: Docs match the code — waiting on D-1 and D-2
-- [ ] 15: Approved motion additions (gated) — waiting on M-B, M-H, M-I, M-J
-- [ ] 16: Approved agent-surface additions (gated) — waiting on S-P1, S-P2, S-P3, A-P1
+- [x] 14: Docs match the code (D-1(a), D-2(a))
+- [x] 15: Approved motion additions (M-B, M-H, M-J; M-I built with 16), plus U-P1 and U-P2
+- [x] 16: Approved agent-surface additions (S-P1, S-P2, S-P3, A-P1; plus M-I from 15)
 
 ### 01: Site chrome accessibility and colour scheme
 
@@ -444,12 +444,12 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 **Blocked by:** D-1 and D-2 answers; 07 (motion section), 09 (search paragraph)
 
-- [ ] No document mentions a nav chat sheet unless D-1(b) is chosen and built
-- [ ] DESIGN.md describes the mounted booking and contact UX; if D-2(a), `app/connect/*` and the unused Eve web channel are deleted and SPEC-openui-experiences is amended
-- [ ] DESIGN.md states the real `rounded-lg` value, the `/bio` layout, `object-cover` usage, the external-link rule (U9) and the resolved `neutral-500` position
-- [ ] DESIGN.md Editorial homepage paragraph matches the shared search contract
-- [ ] Coding skills are removed from the runtime `agent/skills`
-- [ ] `bun run test:llms` passes
+- [x] No document mentions a nav chat sheet unless D-1(b) is chosen and built
+- [x] DESIGN.md describes the mounted booking and contact UX; if D-2(a), `app/connect/*` and the unused Eve web channel are deleted and SPEC-openui-experiences is amended
+- [x] DESIGN.md states the real `rounded-lg` value, the `/bio` layout, `object-cover` usage, the external-link rule (U9) and the resolved `neutral-500` position
+- [x] DESIGN.md Editorial homepage paragraph matches the shared search contract
+- [x] Coding skills are removed from the runtime `agent/skills`
+- [x] `bun run test:llms` passes
 
 ### 15: Approved motion additions (gated)
 
@@ -459,10 +459,10 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 **Blocked by:** 07; user approval per item
 
-- [ ] Each approved item matches its values in a mid-transition capture
-- [ ] Reduced motion makes each instant (M-I: 120ms opacity only)
-- [ ] `/work` filter clicks still create no cover groups (M-B uses `default="none"`)
-- [ ] The DESIGN.md motion budget lists each approved item
+- [x] Each approved item matches its values in a mid-transition capture (M-B, M-H, M-J; M-I pending)
+- [x] Reduced motion makes each instant (M-I: 120ms opacity only) (M-B, M-H, M-J; M-I pending)
+- [x] `/work` filter clicks still create no cover groups (M-B uses `default="none"`)
+- [x] The DESIGN.md motion budget lists each approved item (M-B, M-H, M-J)
 
 ### 16: Approved agent-surface additions (gated)
 
@@ -472,10 +472,15 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 
 **Blocked by:** 09, 10; user approval per item
 
-- [ ] S-P1: closing and reopening the dialog shows the last result and any receipt
-- [ ] S-P2: the field and Recent show the clicked label; canonical routing is unchanged
-- [ ] A-P1: Stop keeps the query and drafts and shows "Stopped." with Try again; a 20s stall shows the timed-out error; stages show human labels
-- [ ] DESIGN.md is updated for each approved item
+- [x] S-P1: closing and reopening the dialog shows the last result and any receipt
+- [x] S-P2: the field and Recent show the clicked label; canonical routing is unchanged
+- [x] S-P3: below 640px the placeholder is "Ask about my work…"; the full placeholder stays at `sm` and up; the accessible name is unchanged
+- [x] A-P1: Stop keeps the query and drafts and shows "Stopped." with Try again; a 20s stall shows the timed-out error; stages show human labels
+- [x] Settled results show a source line from their records ("Based on N projects and M posts"; contract item 3, scenario step 3)
+- [x] M-I (approved with this task): each generated block reveals with the `enter` values, keyed by request; 120ms opacity only under reduced motion
+- [x] DESIGN.md is updated for each approved item (core motion budget; `docs/agents/design/home.md` search contract)
+
+Evidence: `tests/genui/browser/functional/agent-search.spec.ts` and the `search-staged` / `search-stopped` lab states in `lab-states.spec.ts`.
 
 ## Out of Scope
 
@@ -490,6 +495,7 @@ Actor: a founder on a 390×844 phone with reduced motion on, then on a 1440×900
 ## Further Notes
 
 - Build notes (2026-11-02): the acceptance scenario's "source line" under results (step 3, contract item 3) has no owning task; it is left for task 16 or a follow-up. Review follow-ups not fixed in this build: editing a write after a network failure creates a new retry identity, so a request that reached the server could repeat (keep the identity until a definite response); dialog keyword matches rank site search records while MCP `search_site` ranks the agent index, so results are close but not identical (feed both from one record set). `lib/genui/writing-topic.ts:28` has a pre-existing type error on `main`.
+- Build notes (2026-11-03, task 16): the source line and both review follow-ups are fixed. After a network failure a write keeps its retry identity and locks its fields until a retry gets a server answer (`settleAttempt` in `lib/genui/write-flow.ts`). The layout sends the agent index as the site search records (`lib/site-search-records.ts`), and `rankSearchMatches` ranks it for keyword matches, suggestions and `search_site` alike; a parity test in `lib/search/keyword-rank.test.ts` checks equal top results. Stage labels come from a new `stage` stream event that compose emits before slow steps (planning, then the evidence stage of the first planned task).
 
 - Local only, not a site bug: `/llms.txt` and `/llms-full.txt` returned 500 in the audit worktree because the gitignored, generated `public/llms.txt` collides with `app/llms.txt/route.ts`. Check whether `dev:app`'s export step should write elsewhere.
 - Worth confirming during task 09: `/api/genui/compose` has a rate limit and a spend cap (raised by the chatbot-template security notes).

@@ -371,7 +371,7 @@ const renderStackChild = (
 export const ExperienceStackView = ({ items }: { items: unknown[] }) => {
   const shownIds = items.flatMap(evidenceIdsOf);
   return (
-    <div className="space-y-10">
+    <div className="space-y-10" data-genui-blocks="">
       {items.map((child, index) => renderStackChild(child, index, shownIds))}
     </div>
   );

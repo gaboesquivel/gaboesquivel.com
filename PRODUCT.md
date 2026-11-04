@@ -12,11 +12,11 @@ Gabo Esquivel's personal site. It shows founders and technical or product leader
 
 Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
-The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav Search button focuses the homepage search field on `/` and opens the shared search dialog on other routes. `/ask` redirects to `/`. Homepage and dialog search are the public generative surfaces.
+The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. Every search trigger (the homepage "Ask me something" field, the nav Search button, Cmd/Ctrl+K) opens the same full-screen search overlay with a fixed input at the top, on every route. `/ask` redirects to `/`. The overlay is the public generative surface.
 
 ## Implemented surfaces
 
-- Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “blog”)
+- Primary nav (`components/layout/navbar.tsx`): `/` (labeled “gabo”), `/work`, `/ai`, `/web3`, `/bio`, `/blog` (labeled “blog”). Omitted on `/cv`, with the accent bar.
 - Capability and context pages: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institutions`, `/lead`
 - Projects: `/work`, `/work/[type]`, `/project/[slug]`
 - Technologies: `/tech` and `/tech/[category]`, which serves both category pages and single-technology pages (`/tech/[slug]`). A technology with no project evidence redirects to `/tech`.
@@ -39,8 +39,8 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Question: who is Gabo, and is the work real?
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
-- Order: split hero, full-width search, selected work, focus, writing, career links, work together
-- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search on the homepage (and the same UI via Cmd/Ctrl+K or nav Search site-wide) submits on Enter and replaces the region below the hero with a validated GenUI result (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
+- Order: split hero, full-width search, selected work, focus, connect, writing
+- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search (the homepage field, Cmd/Ctrl+K or nav Search all open the same full-screen overlay) submits on Enter and renders a validated GenUI result in the overlay (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
 
 ### `/bio`
 
@@ -68,9 +68,9 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 
 ### `/contact`
 
-- Job: human outreach — hire framing and the contact form (name, email, subject, message via Resend to contact@gaboesquivel.com)
+- Job: human outreach — a one-line ask and the full-width contact form (name, email, subject, message via Resend to contact@gaboesquivel.com)
 - Visitor: founder, product or technical lead, or recruiter ready to write
-- Message: same hire facts as `LetsConnect` (direct hire, international hire, Blockmatic Labs LLC, cannot work under W-2, Costa Rica, US Mountain Time); also email, `/cal`, and `/work`
+- Message: what are you building and where is it stuck; also email, `/cal`, `/work`, and `/bio`. The homepage Connect section carries a short hire line and the footer a hire note; the full terms (including that Gabo cannot work under W-2) live in the 1099 post, the CV and the llms index, not here
 - `/ask` redirects to `/`; the public MCP tools at `/mcp` are documented on `/docs`
 
 ### `/work` and `/project/[slug]`
@@ -113,7 +113,7 @@ The route redirects to `/`. Notes and bookings are the contact form, the homepag
 
 ### `/cv` and `/tech`
 
-- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy. A screen-only focus switcher and PDF download sit under the title; no writing list is appended.
+- `/cv`: default five-role product-engineering CV (AI + Web3). It stays a CV, not narrative copy. A PDF download sits under the title; the page has no focus switcher. No writing list is appended.
 - `/cv?focus=ai|web3|fullstack`: specialized variants in package `content/cv/`; site `app/cv/page-breaks.ts` and `lib/cv-paths.ts` add print breaks and PDF paths. Five roles each plus one dated closing paragraph. Employment facts stay in package `content/experience`; variants select roles and override bullets only. Each variant's page title and description come from its package `metadata`. Canonical stays `/cv`
 - `/tech`: grouped stack index; preserve existing category URLs
 - `/tech/[slug]`: implementation evidence and named projects; not a capability thesis page

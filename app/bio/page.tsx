@@ -1,14 +1,14 @@
-import { BioHero } from "components/bio/bio-hero";
 import { BioTimeline } from "components/bio/bio-timeline";
 import { LatestPosts } from "components/blog/latest-posts";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
+import { PageIntro } from "components/interior/page-intro";
 import {
   ctaLink,
   editorialLink,
   editorialMeasure,
   narrativeCopy,
   narrativeIntroGap,
-  narrativeSectionGap,
+  sectionGap,
   sectionHeadingSpacing,
   sectionTitle,
 } from "components/shared/spacing";
@@ -21,18 +21,22 @@ const actionLink = cn(ctaLink, editorialLink, "text-sm");
 export default function BioPage() {
   return (
     <InteriorPageShell>
-      <BioHero />
+      <PageIntro
+        description="A 15+ year journey building products across web, fintech, Web3, and AI. Different chapters, the same interest: making complex technology useful to people."
+        narrative
+        title="My journey"
+      />
 
       <BioTimeline className={narrativeIntroGap} />
 
       <LatestPosts
         arrow
-        className={narrativeSectionGap}
+        className={sectionGap}
         limit={4}
         title="Selected writing"
       />
 
-      <section className={narrativeSectionGap}>
+      <section className={sectionGap}>
         <div className={editorialMeasure}>
           <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
             What I&apos;m focused on
