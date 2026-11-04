@@ -17,8 +17,7 @@ const surfaces: { name: Surface; path: string }[] = [
   { name: "dialog", path: "/blog" },
 ];
 
-const fieldId = (surface: Surface) =>
-  surface === "home" ? "#homepage-genui-search" : "#site-search-dialog";
+const fieldId = () => "#site-search-dialog";
 
 const ndjson = (events: Record<string, unknown>[]) =>
   `${events.map((event) => JSON.stringify(event)).join("\n")}\n`;
@@ -43,11 +42,15 @@ const fulfillResult = (route: Route) =>
 
 const openField = async (page: Page, surface: Surface, path: string) => {
   await page.goto(path);
-  if (surface === "dialog") {
-    await page.getByRole("button", { name: searchCopy.accessibleName }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
-  }
-  const input = page.locator(fieldId(surface));
+  await page
+    .locator(
+      surface === "dialog"
+        ? "[data-site-search-trigger]"
+        : "[data-home-search-trigger]"
+    )
+    .click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  const input = page.locator(fieldId());
   await input.scrollIntoViewIfNeeded();
   await input.focus();
   return input;
@@ -109,18 +112,16 @@ for (const { name: surface, path } of surfaces) {
       await input.press("Escape");
       await expect(listbox).toHaveCount(0);
       await expect(input).toHaveValue("agentic");
-      if (surface === "dialog") {
-        await expect(page.getByRole("dialog")).toBeVisible();
-        await input.press("Escape");
-        await expect(page.getByRole("dialog")).toHaveCount(0);
-        await expect(
-          page.getByRole("button", { name: searchCopy.accessibleName })
-        ).toBeFocused();
-      } else {
-        await input.press("Escape");
-        await expect(input).toHaveValue("agentic");
-        await expect(input).toBeFocused();
-      }
+      await expect(page.getByRole("dialog")).toBeVisible();
+      await input.press("Escape");
+      await expect(page.getByRole("dialog")).toHaveCount(0);
+      await expect(
+        page.locator(
+          surface === "dialog"
+            ? "[data-site-search-trigger]"
+            : "[data-home-search-trigger]"
+        )
+      ).toBeFocused();
     });
 
     test("result announces once and stores Recent; Clear search refocuses", async ({
@@ -296,13 +297,14 @@ test("Cmd/Ctrl+K toggles the dialog closed from inside its field", async ({
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });
 
-test("homepage ⌘K hint shows only when idle and empty", async ({ page }) => {
+test("the homepage trigger shows the ⌘K hint; the overlay does not", async ({
+  page,
+}) => {
   await page.goto("/");
-  const hint = page.locator("[data-search-shortcut-hint]");
-  await expect(hint).toBeVisible();
-  const input = page.locator("#homepage-genui-search");
-  await input.fill("a");
-  await expect(hint).toHaveCount(0);
+  const trigger = page.locator("[data-home-search-trigger]");
+  await expect(trigger.locator("kbd").first()).toBeVisible();
+  await trigger.click();
+  await expect(page.locator("[data-search-shortcut-hint]")).toHaveCount(0);
 });
 
 const dialogPanel = (page: Page) => page.locator("[data-slot=dialog-content]");
@@ -329,20 +331,18 @@ const runningOpenCloseKeyframes = (page: Page) =>
   );
 
 test.describe("search dialog surface", () => {
-  test("desktop panel matches the site column with no glass", async ({
+  test("desktop panel is full screen, solid, with no glass", async ({
     page,
   }) => {
     await openDialog(page);
-    const column = await page.locator("main").evaluate((main) => {
-      const style = getComputedStyle(main);
-      return (
-        main.clientWidth -
-        Number.parseFloat(style.paddingLeft) -
-        Number.parseFloat(style.paddingRight)
-      );
-    });
     const box = await dialogPanel(page).boundingBox();
-    expect(Math.abs((box?.width ?? 0) - column)).toBeLessThanOrEqual(2);
+    const viewport = page.viewportSize();
+    expect(box).toMatchObject({
+      height: viewport?.height,
+      width: viewport?.width,
+      x: 0,
+      y: 0,
+    });
     const panelStyle = await dialogPanel(page).evaluate((element) => {
       const style = getComputedStyle(element);
       return {
@@ -350,7 +350,7 @@ test.describe("search dialog surface", () => {
         radius: style.borderTopLeftRadius,
       };
     });
-    expect(["8px", "10px"]).toContain(panelStyle.radius);
+    expect(panelStyle.radius).toBe("0px");
     expect(panelStyle.background).toBe("rgb(0, 0, 0)");
     const overlayStyle = await dialogOverlay(page).evaluate((element) => {
       const style = getComputedStyle(element);
@@ -387,21 +387,17 @@ test.describe("search dialog surface", () => {
     await expect(dialogPanel(page)).toHaveCount(0);
   });
 
-  test("with motion, the panel opens from the top in 150ms", async ({
-    page,
-  }) => {
+  test("with motion, the panel fades in over 200ms", async ({ page }) => {
     await openDialog(page);
     const style = await dialogPanel(page).evaluate((element) => {
       const computed = getComputedStyle(element);
       return {
         duration: computed.animationDuration,
         easing: computed.animationTimingFunction,
-        origin: computed.transformOrigin,
       };
     });
-    expect(style.duration).toBe("0.15s");
+    expect(style.duration).toBe("0.2s");
     expect(style.easing).toBe("cubic-bezier(0.23, 1, 0.32, 1)");
-    expect(style.origin.split(" ")[1]).toBe("0px");
   });
 });
 
@@ -420,7 +416,8 @@ test.describe("search surfaces at 390px", () => {
 
   test("the homepage field shows at least 20 characters", async ({ page }) => {
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.fill("abcdefghijklmnopqrst");
     const fits = await input.evaluate(
       (element: HTMLInputElement) => element.scrollWidth <= element.clientWidth

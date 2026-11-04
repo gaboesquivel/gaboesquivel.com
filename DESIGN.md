@@ -89,7 +89,7 @@ One `max-w-6xl` shell (`homeColumn` / `siteColumn`) on every route, with nav and
 ## Elevation and shapes
 
 - No shadows, glows, glass, or grain: depth comes from hierarchy, and these effects read as a template. Hover is a background fill or a 1px border shift. `shadow-*` and `backdrop-blur` are **checked**; glows and grain are **look**.
-- Radii derive from `--radius: 0.625rem`: surfaces, images, and the search dialog `rounded-lg` (10px); chips, fields, buttons `rounded-md` (8px). `rounded-xl` and larger are **checked**. Blog chips may stay `rounded-full`; no new pill surfaces (**look**).
+- Radii derive from `--radius: 0.625rem`: surfaces and images `rounded-lg` (10px); the search overlay is full screen (no radius); chips, fields, buttons `rounded-md` (8px). `rounded-xl` and larger are **checked**. Blog chips may stay `rounded-full`; no new pill surfaces (**look**).
 
 ## Components
 
@@ -97,7 +97,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](components/s
 
 ## Motion
 
-Motion is a fixed budget, listed with its values in [docs/agents/motion.md](docs/agents/motion.md): color and underline transitions, press scale `0.97`, `enter` reveals, the cover image hover, and the named view transitions. Site curve `cubic-bezier(0.23, 1, 0.32, 1)`. No page-load sequences, scroll hijack, or new signature motion, because motion here confirms an action and never decorates. Animation libraries are **checked** by `bun run check:motion`; inline `viewTransitionName` is **checked**; staying inside the budget is **look**. Every motion respects `prefers-reduced-motion`.
+Motion is a fixed budget, listed with its values in [docs/agents/motion.md](docs/agents/motion.md): color and underline transitions, press scale `0.97`, `enter` reveals, the cover image hover, the named view transitions, and the search overlay (a 200ms fade in, 150ms out, and the field bar gliding 320ms from its trigger). Site curve `cubic-bezier(0.23, 1, 0.32, 1)`. No page-load sequences, scroll hijack, or new signature motion, because motion here confirms an action and never decorates. Animation libraries are **checked** by `bun run check:motion`; inline `viewTransitionName` is **checked**; staying inside the budget is **look**. Every motion respects `prefers-reduced-motion`.
 
 ## Accessibility
 

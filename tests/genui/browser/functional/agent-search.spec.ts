@@ -38,7 +38,7 @@ const bookingEnvelope = genuiFixtures["booking-hire"].envelope;
 const status = (page: Page) =>
   page.locator("[data-search-status] [role=status]");
 const dialogField = (page: Page) => page.locator("#site-search-dialog");
-const homeField = (page: Page) => page.locator("#homepage-genui-search");
+const homeField = (page: Page) => page.locator("#site-search-dialog");
 const trigger = (page: Page) =>
   page.getByRole("button", { name: searchCopy.accessibleName });
 
@@ -150,6 +150,7 @@ test.describe("S-P2: echo the visitor's words", () => {
       );
       await page.goto(path);
       if (name === "dialog") await openDialog(page);
+      else await page.locator("[data-home-search-trigger]").click();
       const input = field(page);
       await input.scrollIntoViewIfNeeded();
       await input.focus();
@@ -184,6 +185,7 @@ test.describe("S-P3: short placeholder below 640px", () => {
   }) => {
     await page.setViewportSize({ height: 844, width: 390 });
     await page.goto("/");
+    await page.locator("[data-home-search-trigger]").click();
     await expect(homeField(page)).toHaveAttribute(
       "placeholder",
       searchCopy.placeholderShort
@@ -202,6 +204,7 @@ test.describe("S-P3: short placeholder below 640px", () => {
   test("640px and up keep the full placeholder", async ({ page }) => {
     await page.setViewportSize({ height: 900, width: 1440 });
     await page.goto("/");
+    await page.locator("[data-home-search-trigger]").click();
     await expect(homeField(page)).toHaveAttribute(
       "placeholder",
       searchCopy.placeholder
@@ -254,6 +257,7 @@ test.describe("A-P1: progress, Stop and the client timeout", () => {
   }) => {
     await installStreamingCompose(page);
     await page.goto("/");
+    await page.locator("[data-home-search-trigger]").click();
     await homeField(page).fill("which projects used agents");
     await homeField(page).press("Enter");
     const progress = page.locator("[data-search-progress]");
@@ -315,6 +319,7 @@ test.describe("A-P1: progress, Stop and the client timeout", () => {
       })
     );
     await page.goto("/");
+    await page.locator("[data-home-search-trigger]").click();
     await homeField(page).fill("I want to book a meeting.");
     await homeField(page).press("Enter");
     await page.getByLabel("Name").fill("Mock Visitor");
@@ -358,6 +363,7 @@ test.describe("A-P1: progress, Stop and the client timeout", () => {
       // Never answers: only the client timeout can end it.
     });
     await page.goto("/");
+    await page.locator("[data-home-search-trigger]").click();
     await homeField(page).fill("explore my work");
     await homeField(page).press("Enter");
     await expect(page.locator("[data-search-progress]")).toBeVisible();
@@ -381,6 +387,7 @@ const revealStyle = async (page: Page) => {
     fulfillEnvelope(route, gallery)
   );
   await page.goto("/");
+  await page.locator("[data-home-search-trigger]").click();
   await homeField(page).fill("explore my work");
   await homeField(page).press("Enter");
   await expect(page.locator("[data-search-source]")).toBeVisible();

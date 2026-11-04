@@ -20,6 +20,7 @@ Reduced motion: the `cardArrow` nudge, the `/contact` form status, `press`, and 
 
 | Token | Use |
 | --- | --- |
+| Search overlay | Scrim and panel fade in 200ms (150ms out) on the site curve; the field bar glides from its trigger (`translateY`, 320ms, Web Animations API, `SiteSearchPanel`). Reduced motion: none |
 | `press` | Buttons, chips, filter links, nav search — 160ms press scale `0.97` (transitions `scale`) |
 | `enter` | Mount / reveal — 200ms `@starting-style` fade + scale |
 | Title opening word | Shared `<ViewTransition name="title-lead-<word>" share="title-lead" default="none">` (`components/shared/title-lead.tsx`): old snapshot hidden, new one unanimated (`::view-transition-*(.title-lead)` in `app/global.css`), so a matching word (`/` and `/work`: "Software") never moves or fades. Proof: `title-geometry.spec.ts` |
