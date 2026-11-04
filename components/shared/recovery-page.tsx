@@ -1,4 +1,9 @@
-import { blockGrid, PageTitle, Prose } from "components/shared/page-layout";
+import {
+  blockGrid,
+  PageEyebrow,
+  PageTitle,
+  Prose,
+} from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
 import { Button } from "components/ui/button";
 import type { ReactNode } from "react";
@@ -30,6 +35,7 @@ export function RecoveryPage({
   return (
     <section>
       {documentTitle ? <title>{documentTitle}</title> : null}
+      <PageEyebrow />
       <PageTitle>{title}</PageTitle>
       <Prose>{children}</Prose>
       {onRetry ? (

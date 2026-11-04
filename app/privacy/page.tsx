@@ -1,11 +1,17 @@
 import { ReadingPageShell } from "components/interior/reading-page-shell";
-import { PageTitle, proseLink, Prose } from "components/shared/page-layout";
+import {
+  PageEyebrow,
+  PageTitle,
+  proseLink,
+  Prose,
+} from "components/shared/page-layout";
 import { pageMetadata } from "lib/page-metadata";
 import Link from "next/link";
 
 export default function PrivacyPage() {
   return (
     <ReadingPageShell>
+      <PageEyebrow />
       <PageTitle>Privacy</PageTitle>
       <Prose>
         This site is gaboesquivel.com, a public portfolio and writing site

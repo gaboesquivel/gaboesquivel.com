@@ -1,6 +1,6 @@
 import { EditorialBlogList } from "components/blog/editorial-blog-list";
 import { PageSection } from "components/shared/page-layout";
-import { interiorSectionGap } from "components/shared/spacing";
+import { sectionGap } from "components/shared/spacing";
 import type { Blog } from "lib/blog";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
@@ -25,7 +25,7 @@ export function WritingPostsSection({
     <PageSection
       title={title}
       action={action}
-      className={cn(interiorSectionGap, className)}
+      className={cn(sectionGap, className)}
     >
       <EditorialBlogList arrow={arrow} posts={posts} />
     </PageSection>

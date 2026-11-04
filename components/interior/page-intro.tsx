@@ -1,11 +1,7 @@
 import { InnerPageHero } from "components/shared/inner-page-hero";
-import { PageTitle } from "components/shared/page-layout";
+import { PageEyebrow, PageTitle } from "components/shared/page-layout";
 import type { PageTrailSegment } from "components/shared/page-trail";
-import {
-  editorialMeasure,
-  heroTitle,
-  narrativeLead,
-} from "components/shared/spacing";
+import { editorialMeasure, narrativeLead } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
@@ -37,9 +33,8 @@ export function PageIntro({
   if (narrative) {
     return (
       <header className={cn(editorialMeasure, className)}>
-        <PageTitle className={cn(heroTitle, "mb-0 max-w-none", titleClassName)}>
-          {title}
-        </PageTitle>
+        <PageEyebrow trail={trail} />
+        <PageTitle className={titleClassName}>{title}</PageTitle>
         {description ? <p className={narrativeLead}>{description}</p> : null}
         {children ? (
           <div className="mt-4 space-y-5 text-base leading-[1.75] text-neutral-300 lg:mt-5 [&_p]:m-0">

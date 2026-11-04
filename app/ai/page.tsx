@@ -7,7 +7,7 @@ import {
   editorialMeasure,
   narrativeCopy,
   narrativeIntroGap,
-  narrativeSectionGap,
+  sectionGap,
   proseLink,
   sectionHeadingSpacing,
   sectionTitle,
@@ -47,7 +47,7 @@ export default function AIExperiencePage() {
         />
       </section>
 
-      <section className={narrativeSectionGap}>
+      <section className={sectionGap}>
         <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
           Domain-specific assistants
         </h2>
@@ -91,12 +91,12 @@ export default function AIExperiencePage() {
       <LatestPosts
         arrow
         category="Artificial Intelligence"
-        className={narrativeSectionGap}
+        className={sectionGap}
         limit={4}
         title="Writing about AI products"
       />
 
-      <section className={narrativeSectionGap}>
+      <section className={sectionGap}>
         <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
           Explore more
         </h2>

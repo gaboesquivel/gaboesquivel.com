@@ -3,9 +3,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { press } from "./motion";
+import { PageTrail } from "./page-trail";
+import type { PageTrailSegment } from "./page-trail";
 import {
   blockSpacing,
-  indexTitle,
+  heroTitle,
+  pageEyebrow,
   pageTitle,
   proseClass,
   readingMeasure,
@@ -13,6 +16,7 @@ import {
   sectionSpacing,
   sectionTitle,
 } from "./spacing";
+import { TitleLead } from "./title-lead";
 
 export {
   blockGrid,
@@ -22,7 +26,7 @@ export {
   headingSpacing,
   proseLink,
   readingMeasure,
-  indexTitle,
+  pageEyebrow,
   pageTitle,
   projectMedia,
   proseClass,
@@ -52,26 +56,56 @@ export function Prose({
   );
 }
 
-export function IndexHeading({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+/**
+ * The row above every page title: the breadcrumb, or an empty spacer. Fixed
+ * height, so every h1 starts at the same y.
+ */
+export function PageEyebrow({ trail }: { trail?: PageTrailSegment[] }) {
   return (
-    <h1 className={cn(indexTitle, "text-balance", className)}>{children}</h1>
+    <div className={pageEyebrow}>
+      {trail?.length ? <PageTrail segments={trail} /> : null}
+    </div>
   );
 }
 
+const splitLead = (children: ReactNode): [string, ReactNode] | null => {
+  const [first, ...rest] = Array.isArray(children) ? children : [children];
+  if (typeof first !== "string") return null;
+  const space = first.indexOf(" ");
+  if (space === -1) return [first, rest.length ? rest : null];
+  return [first.slice(0, space), [first.slice(space), ...rest]];
+};
+
+/**
+ * The page h1. One scale on every page (`heroTitle`, or the smaller
+ * `document` size for the print-stable CV). The opening word is a shared
+ * view-transition element so a matching word never moves or flickers.
+ */
 export function PageTitle({
   children,
   className,
+  variant = "display",
 }: {
   children: ReactNode;
   className?: string;
+  variant?: "display" | "document";
 }) {
-  return <h1 className={cn(pageTitle, className)}>{children}</h1>;
+  if (variant === "document") {
+    return <h1 className={cn(pageTitle, className)}>{children}</h1>;
+  }
+  const split = splitLead(children);
+  return (
+    <h1 className={cn(heroTitle, "mb-0 max-w-none", className)}>
+      {split ? (
+        <>
+          <TitleLead word={split[0]} />
+          {split[1]}
+        </>
+      ) : (
+        children
+      )}
+    </h1>
+  );
 }
 
 export function PageSection({

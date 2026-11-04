@@ -78,7 +78,9 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           )}
         >
           <div className="mb-0 flex items-baseline justify-between gap-4 leading-none">
-            <PageTitle className="mb-0">Gabo Esquivel</PageTitle>
+            <PageTitle className="mb-0" variant="document">
+              Gabo Esquivel
+            </PageTitle>
             <PrintButton file={cvPdfFile({ key })} />
           </div>
           <p className="cv-print-professional-title mt-0 mb-0 font-medium tracking-tight text-neutral-400">

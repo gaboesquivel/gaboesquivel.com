@@ -10,7 +10,7 @@ The split layout uses normal grid flow. The left column contains the white H1, m
 
 ## Editorial homepage
 
-`homeColumn`, `homeSection`, `editorialGrid`, `editorialLink`, `heroTitle` and `heroPitch` extend the existing spacing system. `SiteWidth` applies that homepage shell on every route. It does not import page content into a client graph. Navigation, main and footer share width. Narrative copy stays on `readingMeasure`. The résumé keeps its screen measure. CV print width stays unchanged.
+`homeColumn`, `sectionGap`, `editorialGrid`, `editorialLink`, `heroTitle` and `heroPitch` extend the existing spacing system. `SiteWidth` applies that homepage shell on every route. It does not import page content into a client graph. Navigation, main and footer share width. Narrative copy stays on `readingMeasure`. The résumé keeps its screen measure. CV print width stays unchanged.
 
 Selected work is LegalAgent, Wink, ZTX and Bitlauncher in `EditorialProjectList`. The grid is one column until the editorial container is `48rem` wide, then two columns. `EditorialProjectCard` shows the package `image` URL (site-relative via `resolveProjectImage`) in a 16:9 frame, plus name, verified `role`, and description in `projectCardDescription` (`line-clamp-3`, shared with `FeaturedProjectCard` and filtered work grids). Package facts remain authoritative for image paths and alt text uses the project title.
 

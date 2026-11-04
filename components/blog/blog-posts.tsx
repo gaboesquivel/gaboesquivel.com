@@ -75,12 +75,7 @@ export function BlogPosts({
   return (
     <InteriorPageShell>
       {heading || trail ? (
-        <PageIntro
-          compact={Boolean(trail?.length)}
-          description={intro}
-          title={pageTitle}
-          trail={trail}
-        />
+        <PageIntro description={intro} title={pageTitle} trail={trail} />
       ) : null}
 
       <FilterNav
