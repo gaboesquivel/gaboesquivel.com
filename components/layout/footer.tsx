@@ -1,5 +1,4 @@
 import { ctaLink, siteColumn } from "components/shared/spacing";
-import { hireContractBlogPath } from "lib/hire-terms";
 import { cn } from "lib/utils";
 import Link from "next/link";
 
@@ -90,11 +89,7 @@ export function Footer() {
         <div className="col-span-2 sm:col-span-1">
           <ul className="space-y-2">
             <li className="text-neutral-300">
-              Open to direct hire, international hire, or{" "}
-              <Link href={hireContractBlogPath} className={footerLink}>
-                contracting through Blockmatic Labs LLC
-              </Link>
-              .
+              Open to hire or contracting through Blockmatic Labs LLC.
               <br />
               <br />
             </li>
