@@ -1,46 +1,17 @@
 import type { CompileErrorCode } from "../contract/errors";
 import {
+  GENUI_EXCERPT_MAX_CHARS,
   GENUI_MAX_BOARD_COLUMNS,
   GENUI_MAX_DATASET_ROWS,
   GENUI_MAX_DATASETS,
   GENUI_MAX_STAT_TILES,
-  GENUI_MAX_VIEW_BLOCKS,
   GENUI_MAX_VIEW_CHARTS,
   isChartKind,
-  isViewBlockName,
 } from "../dataset";
-import type { GenuiDataset, ViewBlockName } from "../dataset";
+import type { GenuiDataset } from "../dataset";
 import type { PublicRecord } from "../envelope";
-
-export interface ViewBlock {
-  props: Record<string, unknown>;
-  typeName: ViewBlockName;
-}
-
-export const parseViewBlocks = (
-  raw: unknown
-): { blocks: ViewBlock[]; ok: true } | { ok: false } => {
-  if (!Array.isArray(raw)) return { ok: false };
-  if (raw.length < 1 || raw.length > GENUI_MAX_VIEW_BLOCKS)
-    return { ok: false };
-  const blocks: ViewBlock[] = [];
-  for (const item of raw) {
-    if (
-      !item ||
-      typeof item !== "object" ||
-      (item as { type?: string }).type !== "element"
-    ) {
-      return { ok: false };
-    }
-    const { props, typeName } = item as {
-      props?: Record<string, unknown>;
-      typeName?: unknown;
-    };
-    if (!isViewBlockName(typeName) || !props) return { ok: false };
-    blocks.push({ props, typeName });
-  }
-  return { blocks, ok: true };
-};
+import { declaredColumnKeys, excerptColumn } from "../query/fields";
+import { parseViewBlocks } from "./view-blocks";
 
 type RuleResult =
   | { ok: true; referencedRecordIds: string[] }
@@ -61,6 +32,76 @@ const hasColumn = (
     (column) => column.key === key && (!type || column.type === type)
   );
 
+/** Reads a record's published text; the server supplies it, the browser does not. */
+export type SourceUnitsResolver = (input: {
+  field: string;
+  recordId: string;
+}) => string[];
+
+const EXCERPT_SOURCE_FIELDS = new Set(["achievements", "story", "summary"]);
+
+const normalizeSpace = (text: string) => text.replace(/\s+/gu, " ").trim();
+
+/**
+ * Columns must be declared in the field registry. The quoted "mentions" column
+ * must carry its excerpt marker and no other column may, so a hand-edited
+ * envelope cannot smuggle free text through an unchecked column. Where the
+ * caller supplies the sources (the server), every excerpt must be a substring
+ * of its record's text; the browser skips that read to keep published text out
+ * of the compile path, and the server already validated the same envelope.
+ */
+const checkDatasetColumns = ({
+  dataset,
+  sourceUnits,
+}: {
+  dataset: GenuiDataset;
+  sourceUnits?: SourceUnitsResolver;
+}): RuleResult => {
+  for (const column of dataset.columns) {
+    if (!declaredColumnKeys.has(column.key)) {
+      return fail("invalid_dataset_field", column.key);
+    }
+    const quoted = column.key === excerptColumn.key;
+    if (quoted !== Boolean(column.excerpt)) {
+      return fail("view_rule_violation", `excerpt marker on ${column.key}`);
+    }
+    if (!column.excerpt) continue;
+    if (
+      column.excerpt.fields.length === 0 ||
+      !column.excerpt.fields.every((field) => EXCERPT_SOURCE_FIELDS.has(field))
+    ) {
+      return fail("view_rule_violation", "excerpt source field");
+    }
+    if (dataset.recordIds.length !== dataset.rows.length) {
+      return fail(
+        "view_rule_violation",
+        "excerpt rows must cite one record each"
+      );
+    }
+    for (const [index, row] of dataset.rows.entries()) {
+      const value = row[column.key];
+      if (value === null || value === undefined) continue;
+      if (
+        typeof value !== "string" ||
+        value.length > GENUI_EXCERPT_MAX_CHARS + 2
+      ) {
+        return fail("view_rule_violation", "excerpt shape");
+      }
+      const quote = normalizeSpace(value.replace(/^…/u, "").replace(/…$/u, ""));
+      if (!quote) return fail("view_rule_violation", "empty excerpt");
+      if (!sourceUnits) continue;
+      const recordId = dataset.recordIds[index] ?? "";
+      const found = column.excerpt.fields.some((field) =>
+        sourceUnits({ field, recordId }).some((unit) =>
+          normalizeSpace(unit).includes(quote)
+        )
+      );
+      if (!found) return fail("view_rule_violation", "excerpt not in source");
+    }
+  }
+  return { ok: true, referencedRecordIds: [] };
+};
+
 /**
  * Design knowledge for generated views: validity rules for primitives and
  * their relationships, checked on the whole composed document. These encode
@@ -71,10 +112,12 @@ export const validateViewDocument = ({
   datasets,
   props,
   records,
+  sourceUnits,
 }: {
   datasets: readonly GenuiDataset[];
   props: Record<string, unknown>;
   records: readonly PublicRecord[];
+  sourceUnits?: SourceUnitsResolver;
 }): RuleResult => {
   if (typeof props.title !== "string" || !props.title.trim()) {
     return fail("view_rule_violation", "view needs a title for its heading");
@@ -100,6 +143,8 @@ export const validateViewDocument = ({
     for (const recordId of dataset.recordIds) {
       if (!recordIds.has(recordId)) return fail("missing_record", recordId);
     }
+    const excerpts = checkDatasetColumns({ dataset, sourceUnits });
+    if (!excerpts.ok) return excerpts;
   }
 
   const used = new Set<string>();

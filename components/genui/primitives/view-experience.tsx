@@ -2,8 +2,8 @@
 
 import { isChartKind, isViewArrangement } from "lib/genui/dataset";
 import type { ViewArrangement } from "lib/genui/dataset";
-import { parseViewBlocks } from "lib/genui/design-knowledge/view-rules";
-import type { ViewBlock } from "lib/genui/design-knowledge/view-rules";
+import { parseViewBlocks } from "lib/genui/design-knowledge/view-blocks";
+import type { ViewBlock } from "lib/genui/design-knowledge/view-blocks";
 import { cn } from "lib/utils";
 
 import { DataBoardView } from "./data-board";

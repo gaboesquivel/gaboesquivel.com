@@ -30,6 +30,10 @@ How much the model shapes a result: fixed (code chooses everything, zero model c
 
 A view is a `ViewExperience`: tables, charts, stats or a board in an approved arrangement. A dataset is a set of rows the application computed from published records, each citing its records. The model names datasets; it never writes their values. [Spec 003](docs/specs/003-open-composition.md).
 
+## Field registry
+
+The one declaration of what a view can query: each field's type, allowed operations, grouping and table column. Prompt, executor and validator all read it. [Decision 0006](docs/decisions/0006-field-registry-and-verbatim-excerpts.md).
+
 ## Archive
 
 Blog posts published before 2020. They stay on the site. `/llms-full.txt` omits them. Rewrite one only when the task names that post. See [PRODUCT.md](PRODUCT.md) and [docs/agents/content.md](docs/agents/content.md).

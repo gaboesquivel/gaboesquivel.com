@@ -1,6 +1,6 @@
 # 0005. Three tiers of UI generation, one OpenUI Lang representation
 
-Status: accepted (2026-11-04). Amends the "closed vocabulary, no model-chosen layout" position in [ADR task planning](../adr/ADR-genui-task-planning.md), [ADR shared compiler](../adr/ADR-genui-shared-compiler.md) and [SPEC composition runtime](../specs/homepage-genui/SPEC-composition-runtime.md).
+Status: accepted (2026-11-04). Amended in part by [0006](0006-field-registry-and-verbatim-excerpts.md): datasets expose declared fields from a registry. Amends the "closed vocabulary, no model-chosen layout" position in [ADR task planning](../adr/ADR-genui-task-planning.md), [ADR shared compiler](../adr/ADR-genui-shared-compiler.md) and [SPEC composition runtime](../specs/homepage-genui/SPEC-composition-runtime.md).
 
 ## Context
 
