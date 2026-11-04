@@ -1,8 +1,8 @@
 # 004: Flexible fields and grounded text for views
 
-Status: draft (2026-11-04).
+Status: accepted (2026-11-04).
 
-Builds on [spec 003](003-open-composition.md) (views) and [decision 0005](../decisions/0005-three-tiers-of-ui-generation.md). Links the proposed [decision 0006](../decisions/0006-field-registry-and-verbatim-excerpts.md).
+Builds on [spec 003](003-open-composition.md) (views) and [decision 0005](../decisions/0005-three-tiers-of-ui-generation.md). Links the accepted [decision 0006](../decisions/0006-field-registry-and-verbatim-excerpts.md).
 
 ## Problem
 
@@ -24,7 +24,7 @@ A visitor asks for a view over any published field and the site answers from tha
 - **Registry over a model-authored query language.** The model chooses among declared fields and operations; it does not write SQL, expressions or code. Alternatives: keep adding hard-coded filters per request (does not scale, caused the recent-work bug); let the model write a query language (a new injection and validation surface). Recorded in [0006](../decisions/0006-field-registry-and-verbatim-excerpts.md).
 - **Excerpts are verbatim or absent.** An excerpt is a substring of the source field, checked by the compiler. Alternative: model-summarized cells (ungrounded, rejected in [0005](../decisions/0005-three-tiers-of-ui-generation.md)). A prose summary stays an `Answer` with source IDs.
 - **Only fields the site already publishes are exposed.** Assumption, to confirm: `story`, `achievements`, `experienceCompany`, `link`, `repo` and post text are all public on `/project/*` and `/blog/*`. Anything not rendered publicly stays out.
-- **Bounds (initial, for review).** Up to 6 filters per block, 8 shown fields per table, 3 excerpts of at most 240 characters per row, 50 rows, and the existing limits on blocks, charts and document size.
+- **Bounds (initial, for review).** Up to 6 filters per block, 8 shown fields per table, one excerpt of at most 240 characters per row (several per row later), 50 rows, and the existing limits on blocks, charts and document size.
 - **Aggregates stay counts** in this increment (assumption). Sums and averages wait for a field that needs them.
 
 **Exposure.** Runs in the existing `POST /api/genui/compose` route on the public site. Read-only, with the same admission caps and no new route, tool or write. There is no authentication, so nothing here can write. A plan naming an undeclared field or operator fails validation and renders nothing. No new data leaves the site; excerpts come from records already on public pages.
@@ -39,7 +39,7 @@ A visitor asks for a view over any published field and the site answers from tha
 2. They search "What I shipped at each company since 2021" as a board. Cards group by company, each project is from 2021 or later, and the total card count equals the count of projects with that company and year computed independently from the package.
 3. They search "recent work" and "where to start". Results match spec 003 exactly: the newest three years, and the featured set led by homepage selected work.
 4. They search "chart of your self-rated skill levels". The site says it holds no such field and offers technology usage across projects instead.
-5. A hand-edited envelope whose excerpt is not a substring of its source, or that names an undeclared field or an operation the field does not allow, is rejected and nothing renders.
+5. A hand-edited envelope whose excerpt is not a substring of its source, or whose dataset names an undeclared column, is rejected and nothing renders. A plan that asks for an operation the field does not allow (for example contains on a year) is dropped before any view is built.
 
 **Invariants and evidence.**
 

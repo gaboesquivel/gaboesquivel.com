@@ -1,6 +1,6 @@
 # 0006. A field registry and verbatim excerpts for generated views
 
-Status: proposed (2026-11-04). Extends [decision 0005](0005-three-tiers-of-ui-generation.md); drives [spec 004](../specs/004-flexible-fields.md). Not in force until accepted.
+Status: accepted (2026-11-04). Extends [decision 0005](0005-three-tiers-of-ui-generation.md); drives [spec 004](../specs/004-flexible-fields.md).
 
 ## Context
 
