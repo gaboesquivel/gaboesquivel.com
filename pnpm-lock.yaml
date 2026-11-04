@@ -87,8 +87,8 @@ importers:
         specifier: ^0.83.2
         version: 0.83.3(@opentelemetry/api@1.10.0)(ai@7.0.143(zod@4.6.7))(next@16.4.2(@babel/core@7.29.7(supports-color@10.2.2))(@opentelemetry/api@1.10.0)(@playwright/test@1.64.1)(@types/node@24.19.2)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
       gaboesquivel:
-        specifier: ^8.0.5
-        version: 8.0.5
+        specifier: ^9.0.0
+        version: 9.0.0
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -4476,8 +4476,8 @@ packages:
   fuzzysort@3.1.0:
     resolution: {integrity: sha512-sR9BNCjBg6LNgwvxlBd0sBABvQitkLzoVY9MYYROQVX/FvfJ4Mai9LsGhDgd8qYdds0bY77VzYd5iuB+v5rwQQ==}
 
-  gaboesquivel@8.0.5:
-    resolution: {integrity: sha512-6hga/CpD+9dfga7vdudWjSEdfbcr/2KGKBHDLQ4k4zCpPiD4LaPdgtmuZZwNaaeeUZBZyUZy7Q1zDphoohVlzw==}
+  gaboesquivel@9.0.0:
+    resolution: {integrity: sha512-52yF4k+uLT88LM7XdE5udyilR6i+WEF2/axZ6pFtsSDuaWJa0CB7ZIJyNfbRrlfakUqxDvQEjyhWTYTYWYkx5g==}
     hasBin: true
 
   gaxios@8.3.1:
@@ -11035,7 +11035,7 @@ snapshots:
 
   fuzzysort@3.1.0: {}
 
-  gaboesquivel@8.0.5:
+  gaboesquivel@9.0.0:
     dependencies:
       chalk: 6.0.1
       prompts: 2.4.2

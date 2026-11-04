@@ -352,7 +352,7 @@ describe("composition and coverage", () => {
     expect(coverage.some((task) => task.status === "failed")).toBe(true);
   });
 
-  test("comparison rows show a missing role instead of inventing one", () => {
+  test("comparison rows always carry a role, defaulting to Software Engineer", () => {
     const its = projects.find((project) => project.slug === "its");
     const wink = projects.find((project) => project.slug === "wink");
     if (!its || !wink) throw new Error("expected projects");
@@ -362,8 +362,9 @@ describe("composition and coverage", () => {
     const winkRole = comparisonRows({ project: wink }).find(
       (row) => row.dimension === "role"
     );
-    expect(itsRole?.value).toBeNull();
-    expect(winkRole?.value).toBeTruthy();
+    expect(its.role).toBe("Software Engineer");
+    expect(itsRole?.value).toContain("Software Engineer");
+    expect(winkRole?.value).toContain("Lead Engineer");
     expect(missingComparisonValue).toBe("Not recorded");
   });
 });
