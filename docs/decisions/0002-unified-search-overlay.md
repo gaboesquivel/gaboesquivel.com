@@ -10,7 +10,7 @@ Spec 001 shipped one state machine in two presentations. On `/` the nav icon scr
 
 All triggers (homepage "Ask me something" field, nav icon, Cmd/Ctrl+K) open one full-screen search overlay with a fixed input at the top. The homepage field is a trigger, not a separate surface. Results render in the overlay.
 
-Motion is professional and Netflix-style: the field moves from its resting spot to the top as a shared element (FLIP with CSS and Web Animations, no new library), about 250ms on the site curve, while the scrim fades in and results stagger in below. Closing fades the overlay out. Reduced motion means no movement, a short opacity change at most. One entry is added to the DESIGN.md motion budget.
+Motion is professional and Netflix-style: the field moves from its resting spot to the top as a shared element (FLIP with CSS and Web Animations, no new library), 320ms on the site curve, while the scrim fades in and results stagger in below. Closing fades the overlay out. Reduced motion means no movement, a short opacity change at most. One entry is added to the DESIGN.md motion budget.
 
 ## Rationale
 

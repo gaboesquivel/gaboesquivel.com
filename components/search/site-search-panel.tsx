@@ -55,10 +55,7 @@ export function SiteSearchPanel({
     const dy = wide ? origin.top - target.top : -12;
     if (!dy) return;
     const animation = bar.animate(
-      [
-        { opacity: wide ? 1 : 0, transform: `translateY(${dy}px)` },
-        { opacity: 1, transform: "translateY(0)" },
-      ],
+      [{ transform: `translateY(${dy}px)` }, { transform: "translateY(0)" }],
       { duration: 320, easing: "cubic-bezier(0.23, 1, 0.32, 1)" }
     );
     return () => animation.cancel();

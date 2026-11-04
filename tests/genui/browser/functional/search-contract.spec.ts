@@ -17,8 +17,7 @@ const surfaces: { name: Surface; path: string }[] = [
   { name: "dialog", path: "/blog" },
 ];
 
-const fieldId = (surface: Surface) =>
-  surface === "home" ? "#site-search-dialog" : "#site-search-dialog";
+const fieldId = () => "#site-search-dialog";
 
 const ndjson = (events: Record<string, unknown>[]) =>
   `${events.map((event) => JSON.stringify(event)).join("\n")}\n`;
@@ -51,7 +50,7 @@ const openField = async (page: Page, surface: Surface, path: string) => {
     )
     .click();
   await expect(page.getByRole("dialog")).toBeVisible();
-  const input = page.locator(fieldId(surface));
+  const input = page.locator(fieldId());
   await input.scrollIntoViewIfNeeded();
   await input.focus();
   return input;

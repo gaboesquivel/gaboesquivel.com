@@ -42,7 +42,7 @@ const HomeSearchTrigger = () => {
         aria-keyshortcuts="Meta+K Control+K"
         className="flex h-auto min-h-16 w-full cursor-text items-center gap-3 rounded-lg border border-accent/50 bg-transparent px-4 text-left text-base text-neutral-400 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent sm:gap-4 sm:px-5"
         data-home-search-trigger=""
-        disabled={!hydrated || !siteSearch}
+        disabled={!siteSearch}
         onClick={(event) =>
           siteSearch?.requestSearch(event.currentTarget.getBoundingClientRect())
         }
