@@ -12,7 +12,7 @@ Gabo Esquivel's personal site. It shows founders and technical or product leader
 
 Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
-The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav Search button focuses the homepage search field on `/` and opens the shared search dialog on other routes. `/ask` redirects to `/`. Homepage and dialog search are the public generative surfaces.
+The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. Every search trigger (the homepage "Ask me something" field, the nav Search button, Cmd/Ctrl+K) opens the same full-screen search overlay with a fixed input at the top, on every route. `/ask` redirects to `/`. The overlay is the public generative surface.
 
 ## Implemented surfaces
 
@@ -40,7 +40,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
 - Order: split hero, full-width search, selected work, focus, writing, career links, work together
-- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search on the homepage (and the same UI via Cmd/Ctrl+K or nav Search site-wide) submits on Enter and replaces the region below the hero with a validated GenUI result (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
+- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search (the homepage field, Cmd/Ctrl+K or nav Search all open the same full-screen overlay) submits on Enter and renders a validated GenUI result in the overlay (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
 
 ### `/bio`
 

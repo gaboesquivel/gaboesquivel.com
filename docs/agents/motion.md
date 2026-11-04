@@ -20,6 +20,7 @@ Reduced motion: the `cardArrow` nudge, the `/contact` form status, `press`, and 
 
 | Token | Use |
 | --- | --- |
+| Search overlay | Scrim and panel fade in 200ms (150ms out) on the site curve; the field bar glides from its trigger (`translateY`, 320ms, Web Animations API, `SiteSearchPanel`). Reduced motion: none |
 | `press` | Buttons, chips, filter links, nav search — 160ms press scale `0.97` (transitions `scale`) |
 | `enter` | Mount / reveal — 200ms `@starting-style` fade + scale |
 | `imageHover` | Cover imagery — 500ms hover scale `1.02`, site curve |

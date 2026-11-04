@@ -9,7 +9,8 @@ test.describe("homepage GenUI shell", () => {
     page,
   }) => {
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await expect(input).toBeVisible();
     await expect(input).toHaveAttribute("type", "text");
@@ -25,13 +26,14 @@ test.describe("homepage GenUI shell", () => {
     page,
   }) => {
     await page.goto("/");
+    await page.locator("[data-home-search-trigger]").click();
     await page.evaluate((key) => {
       window.localStorage.setItem(
         key,
         JSON.stringify(["your cv", "Show me your AI projects"])
       );
     }, GENUI_SEARCH_HISTORY_KEY);
-    const input = page.locator("#homepage-genui-search");
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await input.focus();
     await input.fill("your cv");
@@ -70,12 +72,16 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await input.focus();
+    // The overlay opens under the cursor; move it so hover does not pick an option.
+    await page.mouse.move(0, 0);
+    await expect(page.getByRole("listbox")).toBeVisible();
     await input.press("ArrowDown");
     const firstOption = page
-      .locator('[id^="homepage-genui-suggestions-option-"]')
+      .locator('[id^="site-genui-search-suggestions-option-"]')
       .first();
     await expect(input).toBeFocused();
     await expect(input).toHaveAttribute(
@@ -98,7 +104,8 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await input.fill("   ");
     await input.press("Enter");
@@ -127,7 +134,8 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await input.fill("Show me your AI projects");
     await input.press("Enter");
@@ -147,7 +155,7 @@ test.describe("homepage GenUI shell", () => {
     });
   });
 
-  test("mocked compose replaces homepage sections", async ({ page }) => {
+  test("mocked compose renders in the overlay", async ({ page }) => {
     const fixture = genuiFixtures["project-gallery"];
     await page.route("**/api/genui/compose", async (route) => {
       const events = [
@@ -166,14 +174,14 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await input.fill("explore my work");
     await input.press("Enter");
     await expect(page.getByRole("status")).toContainText("Results ready.", {
       timeout: 15_000,
     });
-    await expect(page.getByText("Selected work")).toHaveCount(0);
     await expect(
       page.getByRole("button", { name: "Clear search" })
     ).toBeVisible();
@@ -181,7 +189,8 @@ test.describe("homepage GenUI shell", () => {
 
   test("live compose routes CV without mocking", async ({ page }) => {
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await input.fill("Can I see your CV?");
     await input.press("Enter");
@@ -197,7 +206,8 @@ test.describe("homepage GenUI shell", () => {
     page,
   }) => {
     await page.goto("/");
-    const input = page.locator("#homepage-genui-search");
+    await page.locator("[data-home-search-trigger]").click();
+    const input = page.locator("#site-search-dialog");
     await input.scrollIntoViewIfNeeded();
     await input.fill("How can I contact you?");
     await input.press("Enter");

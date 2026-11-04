@@ -8,7 +8,6 @@ export const searchCopy = {
   placeholder: "Ask about my work, writing, CV, or booking…",
   /** Below 640px; the accessible name stays `accessibleName`. */
   placeholderShort: "Ask about my work…",
-  homeHint: "Press Enter to search. Results replace the sections below.",
   dialogHint: "Press Enter to search. Results appear below.",
   suggestionsHint:
     " Arrow keys choose a suggestion; Enter runs it; Escape closes the list.",
