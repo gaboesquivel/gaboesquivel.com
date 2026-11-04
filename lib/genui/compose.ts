@@ -27,6 +27,7 @@ import { generateSemanticDocument } from "./semantic";
 import { genuiProviderConfigured, resolveSemanticPlan } from "./semantic-plan";
 import { classifyTaskIntent } from "./task-intent";
 import { validateCompositionEnvelope } from "./validate-envelope";
+import { composeViewDocument, formCue } from "./view-plan";
 
 const MAX_QUERY_CODE_POINTS = 2000;
 
@@ -297,6 +298,31 @@ export const composeQuery = async ({
   if (safety) {
     emitValidated({ envelope: safety, type: "complete" });
     return result({ envelope: safety });
+  }
+
+  // A named form (spreadsheet, dashboard, chart, board) must not be claimed by
+  // the card fast path. The planner decides whether a view is supported; when
+  // it is not, the request continues through the existing routes.
+  if (
+    formCue(query) &&
+    genuiProviderConfigured() &&
+    !tierZeroDocument({ query, requestId })
+  ) {
+    tier = 2;
+    emitStage("planning");
+    const view = await composeViewDocument({ query, requestId, signal });
+    modelCalls += view.modelCalls;
+    if (signal?.aborted) {
+      return result({ envelope: null });
+    }
+    if (view.envelope) {
+      emitValidated({ envelope: view.envelope, type: "complete" });
+      return result({
+        envelope: view.envelope,
+        planningPath: "semantic",
+      });
+    }
+    tier = 0;
   }
 
   const exact =

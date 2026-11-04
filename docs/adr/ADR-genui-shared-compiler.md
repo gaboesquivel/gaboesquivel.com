@@ -27,3 +27,5 @@ Model output is probabilistic; acceptance gates must be deterministic. One schem
 - Invalid documents fail before streaming `complete` events and before write-capable UI mounts.
 - Adding a composite requires updating `contract/catalog.ts`, renderer views, fixtures, and contract tests together.
 - `ExperienceStack` remains in the library for forward compatibility but is blocked for generated documents.
+
+- Amended by [decision 0005](../decisions/0005-three-tiers-of-ui-generation.md) (2026-11-04): `ViewExperience` and its blocks are in the contract. The envelope carries optional `datasets`, and `compileExperience` takes them. `ViewExperience` is root-only; stack children cannot validate datasets.

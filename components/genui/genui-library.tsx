@@ -10,7 +10,12 @@ import {
   contactExperiencePropsSchema,
   cvExperiencePropsSchema,
   experienceStackPropsSchema,
+  dataBoardPropsSchema,
+  dataChartPropsSchema,
+  dataTablePropsSchema,
   projectExperiencePropsSchema,
+  statRowPropsSchema,
+  viewExperiencePropsSchema,
   writingExperiencePropsSchema,
 } from "lib/genui/contract/schemas";
 
@@ -26,6 +31,7 @@ import {
   ProjectExperienceView,
   WritingExperienceView,
 } from "./genui-experience-views";
+import { ViewExperienceView } from "./primitives/view-experience";
 
 const Answer = defineComponent({
   component: ({ props }) => (
@@ -126,6 +132,50 @@ const ExperienceStack = defineComponent({
   props: experienceStackPropsSchema,
 });
 
+const ViewExperience = defineComponent({
+  component: ({ props }) => (
+    <ViewExperienceView
+      arrangement={String(props.arrangement ?? "stack")}
+      blocks={props.blocks}
+      note={typeof props.note === "string" ? props.note : undefined}
+      title={String(props.title ?? "")}
+    />
+  ),
+  description:
+    "Requested-form view of application-computed datasets: tables, charts, stats or a board.",
+  name: "ViewExperience",
+  props: viewExperiencePropsSchema,
+});
+
+/** Blocks render inside ViewExperience; the library only needs their schemas. */
+const DataTable = defineComponent({
+  component: () => null,
+  description: "Sortable table of one dataset.",
+  name: "DataTable",
+  props: dataTablePropsSchema,
+});
+
+const DataChart = defineComponent({
+  component: () => null,
+  description: "Bar, line, area or pie chart of a grouped dataset.",
+  name: "DataChart",
+  props: dataChartPropsSchema,
+});
+
+const StatRow = defineComponent({
+  component: () => null,
+  description: "Headline numbers from the overview dataset.",
+  name: "StatRow",
+  props: statRowPropsSchema,
+});
+
+const DataBoard = defineComponent({
+  component: () => null,
+  description: "Read-only board grouped by a text column.",
+  name: "DataBoard",
+  props: dataBoardPropsSchema,
+});
+
 export const genuiLibrary = createLibrary({
   components: [
     Answer,
@@ -138,6 +188,11 @@ export const genuiLibrary = createLibrary({
     BookingExperience,
     CVExperience,
     ExperienceStack,
+    ViewExperience,
+    DataTable,
+    DataChart,
+    StatRow,
+    DataBoard,
   ],
   root: "CVExperience",
 });

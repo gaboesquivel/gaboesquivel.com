@@ -220,6 +220,10 @@ export const validateExperienceSubtree = ({
   props: Record<string, unknown>;
   records: PublicRecord[];
 }) => {
+  // Views read envelope datasets, which stack children cannot validate.
+  if (experience === "ViewExperience") {
+    return { ok: false as const, code: "unsupported_experience" as const };
+  }
   const policy = validateExperiencePropsPolicy({ name: experience, props });
   if (!policy.ok) return policy;
 

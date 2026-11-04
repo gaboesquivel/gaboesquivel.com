@@ -1,6 +1,6 @@
 export type QueryPriority = "P0" | "P1" | "P2";
 
-export type QueryCategory = "R" | "C" | "L" | "E" | "P";
+export type QueryCategory = "R" | "C" | "L" | "E" | "P" | "F";
 
 export type CompositeFamily =
   | "answer"
@@ -9,7 +9,8 @@ export type CompositeFamily =
   | "book"
   | "note"
   | "cv"
-  | "capability-showcase";
+  | "capability-showcase"
+  | "data-view";
 
 export interface QueryMatrixFixture {
   id: string;
@@ -41,4 +42,5 @@ export const experienceForFamily: Record<CompositeFamily, readonly string[]> = {
   note: ["ContactExperience"],
   cv: ["CVExperience"],
   "capability-showcase": ["CapabilityShowcaseExperience"],
+  "data-view": ["ViewExperience"],
 };

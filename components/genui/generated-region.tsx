@@ -358,6 +358,7 @@ export const GeneratedRegion = ({
                 fallbackText={envelope.fallbackText}
                 isStreaming={status === "composing"}
                 onRenderFailure={reportFailure}
+                datasets={envelope.datasets}
                 records={envelope.records}
                 response={envelope.openuiText}
               />

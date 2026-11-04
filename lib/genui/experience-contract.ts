@@ -11,6 +11,7 @@ export const experienceNames = [
   "BookingExperience",
   "CVExperience",
   "ExperienceStack",
+  "ViewExperience",
 ] as const;
 
 export type ExperienceName = (typeof experienceNames)[number];

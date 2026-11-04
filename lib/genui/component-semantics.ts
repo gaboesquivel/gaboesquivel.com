@@ -111,6 +111,25 @@ export const componentSemantics = {
     requiredFields: ["sourceId"],
     suits: ["evidence-then-action"],
   },
+  ViewExperience: {
+    avoid: [
+      "Model-authored values: every row and number comes from application datasets.",
+      "Stack children: a view reads envelope datasets that stacks cannot validate.",
+      "Charts without a category column, a numeric column and two rows.",
+    ],
+    cardinality: { max: 6, min: 1 },
+    density: "evidence",
+    evidence:
+      "Datasets computed from published records, each row citing its record.",
+    fallback:
+      "Continue through the ordinary routes and name the unsupported form.",
+    interactions: ["sort a table", "open a record"],
+    purpose:
+      "Show published records in the form the visitor named: table, chart, stats or board.",
+    recordKinds: ["project", "post"],
+    requiredFields: ["arrangement", "title", "blocks"],
+    suits: ["primary-with-support"],
+  },
   ExperienceStack: {
     avoid: [
       "Nested stacks.",

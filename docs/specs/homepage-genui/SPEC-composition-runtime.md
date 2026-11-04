@@ -100,6 +100,8 @@ Task intent (browse, explain, compare, architecture, writing, CV, contact, booki
 
 Approved project composition recipes (`project-bento`, `project-feature-grid`, `project-asymmetric-closing`, `project-compact-list`, `project-comparison`) are declared in `lib/genui/composition-plan.ts`. The compiler validates recipe cardinality and duplicate record IDs. Semantic slot roles are assigned before rendering; the React showcase layouts own responsive geometry. Diagrams (`CapabilityShowcaseExperience`) require explicit architecture intent.
 
+_Amended by [decision 0005](../../decisions/0005-three-tiers-of-ui-generation.md), 2026-11-04: a request that names a form makes one planner call before the fast path and may compile to `ViewExperience`. The model chooses among enumerated arrangements and application datasets, not CSS or values. See [spec 003](../003-open-composition.md)._
+
 ## Boundaries
 
 - Always: separate decision probabilities from confidence, ground output in sources, enforce limits, record actual calls and failures.
