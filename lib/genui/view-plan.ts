@@ -57,13 +57,6 @@ export const noteCopy: Record<Exclude<NoteKind, "none">, string> = {
 export const limitationCopy =
   "I can't show that from the published projects and posts. Browse /work or /blog.";
 
-/**
- * Whether a request goes to the registry planner before the card fast path: it
- * names a form, or the keyword planner would otherwise end in the closed
- * "I cannot filter" answer (unresolved filters with no semantic route to serve
- * them). Requests the semantic route already serves are left alone, so no
- * extra model call is added to them.
- */
 /** The task kinds whose unresolved filters end in the closed limitation. */
 const limitationKinds: ReadonlySet<string> = new Set([
   "compare",
@@ -71,6 +64,11 @@ const limitationKinds: ReadonlySet<string> = new Set([
   "projects",
 ]);
 
+/**
+ * True when the keyword planner would end in the closed "I cannot filter"
+ * answer: a projects, compare or count task has unresolved predicates and no
+ * semantic route serves it.
+ */
 export const isDeadEndPlan = (plan: {
   needsSemanticPlanning: boolean;
   tasks: readonly {
@@ -86,6 +84,11 @@ export const isDeadEndPlan = (plan: {
       (task.unsupported.length > 0 || task.filter.unresolved.length > 0)
   );
 
+/**
+ * Whether a request goes to the registry planner before the card fast path: it
+ * names a form, or it is a dead end. Requests the semantic route already
+ * serves are left alone, so no extra model call is added to them.
+ */
 export const routesToViewPlanner = ({
   plan,
   query,
