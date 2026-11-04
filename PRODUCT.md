@@ -68,9 +68,9 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 
 ### `/contact`
 
-- Job: human outreach — hire framing and the contact form (name, email, subject, message via Resend to contact@gaboesquivel.com)
+- Job: human outreach — a one-line ask and the full-width contact form (name, email, subject, message via Resend to contact@gaboesquivel.com)
 - Visitor: founder, product or technical lead, or recruiter ready to write
-- Message: full hire terms (direct hire, international hire, Blockmatic Labs LLC, cannot work under W-2, Costa Rica, US Mountain Time); the homepage Connect section carries a shorter line; also email, `/cal`, and `/work`
+- Message: what are you building and where is it stuck; also email, `/cal`, `/work`, and `/bio`. Hire terms live on the homepage Connect section and the footer, not here
 - `/ask` redirects to `/`; the public MCP tools at `/mcp` are documented on `/docs`
 
 ### `/work` and `/project/[slug]`
