@@ -588,6 +588,31 @@ export const queryMatrixFixtures: QueryMatrixFixture[] = [
       "offers technology usage across projects instead",
     ],
   }),
+  fixture({
+    id: "F06",
+    priority: "P0",
+    category: "F",
+    query: "Projects that mention payments, with the line that says so",
+    evaluationMode: "live",
+    expectedCompositeFamilies: ["data-view"],
+    forbiddenRootExperiences: ["Answer"],
+    requiresRealCatalogData: true,
+    evaluationRubric: [
+      "a table with a quoted line per project",
+      "every quoted line is verbatim from the project's story or achievements",
+      "no project without the word",
+    ],
+  }),
+  fixture({
+    id: "F07",
+    priority: "P1",
+    category: "F",
+    query: "What I shipped at each company since 2021, as a board",
+    evaluationMode: "live",
+    expectedCompositeFamilies: ["data-view"],
+    requiresRealCatalogData: true,
+    evaluationRubric: ["a board grouped by company", "only 2021 or later"],
+  }),
 ];
 
 export const queryMatrixFixtureCount = queryMatrixFixtures.length;

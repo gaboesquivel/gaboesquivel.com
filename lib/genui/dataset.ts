@@ -2,6 +2,8 @@
 export type DatasetValue = string | number | null;
 
 export interface DatasetColumn {
+  /** Cells quote these source fields verbatim; the compiler checks they do. */
+  excerpt?: { fields: string[] };
   key: string;
   label: string;
   type: "number" | "text";
@@ -23,6 +25,7 @@ export interface GenuiDataset {
 export const missingDatasetValue = "Not recorded";
 
 export const GENUI_MAX_DATASETS = 6;
+export const GENUI_EXCERPT_MAX_CHARS = 240;
 export const GENUI_MAX_DATASET_ROWS = 50;
 export const GENUI_MAX_VIEW_BLOCKS = 6;
 export const GENUI_MAX_VIEW_CHARTS = 4;

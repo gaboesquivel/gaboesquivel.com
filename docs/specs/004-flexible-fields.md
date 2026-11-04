@@ -37,7 +37,7 @@ A visitor asks for a view over any published field and the site answers from tha
 
 1. They search "Projects that mention payments, with the line that says so". A table appears with a project column and an excerpt column. Every row's excerpt is a verbatim substring of that project's `story` or `achievements`, contains the word, and links to the project. A project without the word is absent.
 2. They search "What I shipped at each company since 2021" as a board. Cards group by company, each project is from 2021 or later, and the total card count equals the count of projects with that company and year computed independently from the package.
-3. They search "recent work" and "where to start". Results match spec 003 exactly: the newest three years, and the featured set led by homepage selected work.
+3. They search "infographic about recent work" and "where to start as a table". Results match spec 003: stats, charts and tables limited to the newest three years, and the featured set led by homepage selected work.
 4. They search "chart of your self-rated skill levels". The site says it holds no such field and offers technology usage across projects instead.
 5. A hand-edited envelope whose excerpt is not a substring of its source, or whose dataset names an undeclared column, is rejected and nothing renders. A plan that asks for an operation the field does not allow (for example contains on a year) is dropped before any view is built.
 
@@ -49,6 +49,17 @@ A visitor asks for a view over any published field and the site answers from tha
 - Parity with spec 003. Evidence: the existing view tests pass unchanged, plus a recent-work and featured regression test.
 - Limits hold. Evidence: oversize and over-count tests fail closed.
 - Query matrix gains cases for the five scenario steps (live mode), with a grounding grader.
+
+## Delivered in the first slice
+
+- `lib/genui/query/fields.ts` declares every queryable field (type, operations, grouping, column); the plan schema, the executor, the validator and the planner prompt all derive from it. Fields added: `company` (the project's recorded employer or client), `achievements` and `story` (search), post `summary` (search), post `recent`.
+- Operators: equals, any of, contains, from (`gte`), until (`lte`) and newest N years (`lastYears`). `featured` and `recent` keep their behaviour as flags in the registry.
+- A contains-search over long text adds a quoted "Mentions" column. The compiler checks each excerpt is a substring of the cited record's source and rejects undeclared dataset columns.
+- A request the keyword planner cannot parse now reaches the registry planner before the closed "I cannot filter" answer. A request for data the site does not hold gets the nearest grounded view plus a stated limitation.
+
+Deferred: post-body search and post date ranges, several excerpts per row, links and repos as fields (not confirmed public), aggregates beyond count.
+
+A bare "recent work" with no form word is still served by the older keyword router and can return an unrelated case study. That predates this spec and is not changed here.
 
 ## Out of Scope
 

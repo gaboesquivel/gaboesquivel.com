@@ -1,5 +1,6 @@
 import type { CompileErrorCode } from "../contract/errors";
 import {
+  GENUI_EXCERPT_MAX_CHARS,
   GENUI_MAX_BOARD_COLUMNS,
   GENUI_MAX_DATASET_ROWS,
   GENUI_MAX_DATASETS,
@@ -11,6 +12,8 @@ import {
 } from "../dataset";
 import type { GenuiDataset, ViewBlockName } from "../dataset";
 import type { PublicRecord } from "../envelope";
+import { declaredColumnKeys } from "../query/fields";
+import { normalizeSpace, sourceUnits } from "../query/source-text";
 
 export interface ViewBlock {
   props: Record<string, unknown>;
@@ -62,6 +65,44 @@ const hasColumn = (
   );
 
 /**
+ * Columns must be declared in the field registry, and an excerpt column must
+ * quote its record's source text verbatim: the model never writes a cell.
+ */
+const checkDatasetColumns = (dataset: GenuiDataset): RuleResult => {
+  for (const column of dataset.columns) {
+    if (!declaredColumnKeys.has(column.key)) {
+      return fail("invalid_dataset_field", column.key);
+    }
+    if (!column.excerpt) continue;
+    if (dataset.recordIds.length !== dataset.rows.length) {
+      return fail(
+        "view_rule_violation",
+        "excerpt rows must cite one record each"
+      );
+    }
+    for (const [index, row] of dataset.rows.entries()) {
+      const value = row[column.key];
+      if (value === null || value === undefined) continue;
+      if (
+        typeof value !== "string" ||
+        value.length > GENUI_EXCERPT_MAX_CHARS + 2
+      ) {
+        return fail("view_rule_violation", "excerpt shape");
+      }
+      const quote = normalizeSpace(value.replace(/^…/u, "").replace(/…$/u, ""));
+      const recordId = dataset.recordIds[index] ?? "";
+      const quoted = column.excerpt.fields.some((field) =>
+        sourceUnits({ field, recordId }).some((unit) =>
+          normalizeSpace(unit).includes(quote)
+        )
+      );
+      if (!quoted) return fail("view_rule_violation", "excerpt not in source");
+    }
+  }
+  return { ok: true, referencedRecordIds: [] };
+};
+
+/**
  * Design knowledge for generated views: validity rules for primitives and
  * their relationships, checked on the whole composed document. These encode
  * what makes a table, chart or board usable and accessible, so a
@@ -100,6 +141,8 @@ export const validateViewDocument = ({
     for (const recordId of dataset.recordIds) {
       if (!recordIds.has(recordId)) return fail("missing_record", recordId);
     }
+    const excerpts = checkDatasetColumns(dataset);
+    if (!excerpts.ok) return excerpts;
   }
 
   const used = new Set<string>();

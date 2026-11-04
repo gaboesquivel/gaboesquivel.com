@@ -80,7 +80,7 @@ describe("executeQuery", () => {
     const all = executeQuery({ id: "d1", spec: spec({}) });
     const ai = executeQuery({
       id: "d1",
-      spec: spec({ filters: [{ field: "domain", value: "ai" }] }),
+      spec: spec({ filters: [{ field: "domain", op: "equals", value: "ai" }] }),
     });
     expect(ai.rows.length).toBeLessThan(all.rows.length);
   });
@@ -293,7 +293,9 @@ describe("lead order and table taste", () => {
   test("the featured filter keeps only the lead set", () => {
     const dataset = executeQuery({
       id: "d1",
-      spec: spec({ filters: [{ field: "featured", value: "yes" }] }),
+      spec: spec({
+        filters: [{ field: "featured", op: "equals", value: "yes" }],
+      }),
     });
     expect(dataset.rows).toHaveLength(6);
   });
@@ -322,7 +324,9 @@ describe("featured filter values", () => {
   test("an unrecognised value matches nothing instead of inverting the filter", () => {
     const dataset = executeQuery({
       id: "d1",
-      spec: spec({ filters: [{ field: "featured", value: "ys" }] }),
+      spec: spec({
+        filters: [{ field: "featured", op: "equals", value: "ys" }],
+      }),
     });
     expect(dataset.rows).toHaveLength(0);
   });
@@ -331,14 +335,16 @@ describe("featured filter values", () => {
     const all = executeQuery({ id: "d1", spec: spec({}) });
     const rest = executeQuery({
       id: "d1",
-      spec: spec({ filters: [{ field: "featured", value: "no" }] }),
+      spec: spec({
+        filters: [{ field: "featured", op: "equals", value: "no" }],
+      }),
     });
     expect(rest.rows.length).toBe(all.rows.length - 6);
   });
 });
 
 describe("recent requests", () => {
-  const recent = { field: "recent", value: "yes" } as const;
+  const recent = { field: "recent", op: "equals", value: "yes" } as const;
 
   test("recent keeps only the newest three years of projects", () => {
     const all = executeQuery({ id: "d1", spec: spec({}) });
@@ -377,7 +383,9 @@ describe("recent requests", () => {
   test("an unrecognised recent value matches nothing", () => {
     const dataset = executeQuery({
       id: "d1",
-      spec: spec({ filters: [{ field: "recent", value: "soon" }] }),
+      spec: spec({
+        filters: [{ field: "recent", op: "equals", value: "soon" }],
+      }),
     });
     expect(dataset.rows).toHaveLength(0);
   });

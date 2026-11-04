@@ -4,7 +4,12 @@ import { siteOrigin } from "lib/site-path";
 import { nanoid } from "nanoid";
 
 import type { CapabilityContext } from "../capabilities/types";
-import { contactDocument, cvDocument, projectDocument } from "./builders";
+import {
+  answerDocument,
+  contactDocument,
+  cvDocument,
+  projectDocument,
+} from "./builders";
 import { catalogOperationDocument } from "./catalog-operation";
 import type { ComposeResultMetadata } from "./compose-metadata";
 import { metadataFromEnvelope } from "./compose-metadata";
@@ -303,8 +308,14 @@ export const composeQuery = async ({
   // A named form (spreadsheet, dashboard, chart, board) must not be claimed by
   // the card fast path. The planner decides whether a view is supported; when
   // it is not, the request continues through the existing routes.
+  // A request the keyword planner cannot parse (an unsupported predicate such
+  // as "mention payments") also goes to the registry planner before the closed
+  // limitation answer.
+  const unparsed = requestPlan.tasks.some(
+    (task) => task.unsupported.length > 0 || task.filter.unresolved.length > 0
+  );
   if (
-    formCue(query) &&
+    (formCue(query) || unparsed) &&
     genuiProviderConfigured() &&
     !tierZeroDocument({ query, requestId })
   ) {
@@ -321,6 +332,16 @@ export const composeQuery = async ({
         envelope: view.envelope,
         planningPath: "semantic",
       });
+    }
+    if (view.limitation) {
+      const limitation = answerDocument({
+        body: view.limitation,
+        records: [],
+        requestId,
+        sourceIds: [],
+      });
+      emitValidated({ envelope: limitation, type: "complete" });
+      return result({ envelope: limitation, planningPath: "semantic" });
     }
     tier = 0;
   }
