@@ -134,12 +134,13 @@ export const DataTableView = ({
                   const href =
                     columnIndex === 0 ? rowHref(dataset, index) : null;
                   const text = cellText(row[column.key]);
+                  const missing = text === "Not recorded";
                   return (
                     <TableCell
                       className={cn(
                         "px-0 py-3 pr-4 align-top whitespace-normal",
                         column.type === "number" && "text-right tabular-nums",
-                        text === "Not recorded" && "text-neutral-400"
+                        missing && "text-neutral-400"
                       )}
                       key={column.key}
                     >

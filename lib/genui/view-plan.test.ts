@@ -273,3 +273,47 @@ describe("review regressions", () => {
     ).toBeNull();
   });
 });
+
+describe("lead order and table taste", () => {
+  test("projects lead with the homepage selected work, then the featured set", () => {
+    const dataset = executeQuery({ id: "d1", spec: spec({}) });
+    const lead = dataset.recordIds.slice(0, 4);
+    expect(lead).toEqual([
+      "/project/legal-agent",
+      "/project/wink",
+      "/project/ztx",
+      "/project/bitlauncher",
+    ]);
+    expect(dataset.recordIds.slice(4, 6)).toEqual([
+      "/project/opyn",
+      "/project/eos-costa-rica",
+    ]);
+  });
+
+  test("the featured filter keeps only the lead set", () => {
+    const dataset = executeQuery({
+      id: "d1",
+      spec: spec({ filters: [{ field: "featured", value: "yes" }] }),
+    });
+    expect(dataset.rows).toHaveLength(6);
+  });
+
+  test("a long stack is previewed, not dumped", () => {
+    const dataset = executeQuery({ id: "d1", spec: spec({}) });
+    const stack = String(dataset.rows[0]?.technologies ?? "");
+    expect(stack.split(",").length).toBeLessThanOrEqual(4);
+    expect(stack).toMatch(/\+\d+$/);
+  });
+
+  test("a project table defaults to scannable columns without raw types", () => {
+    const envelope = built(
+      viewEnvelopeFromPlan({
+        plan: plan([table()]),
+        query: "table",
+        requestId: "r14",
+      })
+    );
+    expect(envelope.openuiText).toContain('"technologies"');
+    expect(envelope.openuiText).not.toContain('"type"');
+  });
+});

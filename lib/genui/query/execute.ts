@@ -1,5 +1,7 @@
 import { projects } from "gaboesquivel";
 import type { Project } from "gaboesquivel";
+import { featuredProjectSlugs } from "lib/work-types";
+import { homepageEditorialSlugs } from "lib/work/project-cover";
 import { z } from "zod";
 
 import { postRecord, publishedPosts } from "../content-records";
@@ -24,6 +26,7 @@ export const groupByFields = [
 ] as const;
 
 export const filterFields = [
+  "featured",
   "technology",
   "domain",
   "type",
@@ -51,6 +54,7 @@ export type QuerySpec = z.infer<typeof querySpecSchema>;
 
 interface BaseRow {
   category: string[];
+  featured: boolean;
   domain: string[];
   recordId: string;
   technology: string[];
@@ -68,21 +72,41 @@ const domainsOf = (project: Project) => {
   return domains;
 };
 
+/**
+ * The site's own answer to "where to start": homepage selected work first,
+ * then the rest of the featured set, then everything else in catalog order.
+ */
+const leadRank = (slug: string) => {
+  const home = (homepageEditorialSlugs as readonly string[]).indexOf(slug);
+  if (home !== -1) return home;
+  const featured = (featuredProjectSlugs as readonly string[]).indexOf(slug);
+  if (featured !== -1) return homepageEditorialSlugs.length + featured;
+  return Number.MAX_SAFE_INTEGER;
+};
+
+const STACK_PREVIEW = 4;
+
+const stackPreview = (tech: readonly string[]) =>
+  tech.length > STACK_PREVIEW
+    ? `${tech.slice(0, STACK_PREVIEW).join(", ")} +${tech.length - STACK_PREVIEW}`
+    : tech.join(", ");
+
 const projectRows = (): BaseRow[] =>
   [...projects]
-    .sort((a, b) => a.order - b.order)
+    .sort((a, b) => leadRank(a.slug) - leadRank(b.slug) || a.order - b.order)
     .map((project) => {
       const domain = domainsOf(project);
       return {
         category: [],
         domain,
+        featured: leadRank(project.slug) !== Number.MAX_SAFE_INTEGER,
         recordId: projectToPublicRecord(project).id,
         technology: [...project.tech],
         type: [...project.type],
         values: {
           domain: domain.join(", ") || null,
           role: project.role ?? null,
-          technologies: project.tech.join(", ") || null,
+          technologies: stackPreview(project.tech) || null,
           title: project.title,
           type: project.type.join(", ") || null,
           year: project.year ?? null,
@@ -100,6 +124,7 @@ const postRows = (): BaseRow[] =>
   publishedPosts().map((post) => ({
     category: [...(post.category ?? [])],
     domain: [],
+    featured: false,
     recordId: postRecord(post).id,
     technology: [],
     type: [],
@@ -138,6 +163,9 @@ const matches = (row: BaseRow, field: string, value: string) => {
   const needle = value.trim().toLowerCase();
   if (!needle) return true;
   if (field === "year") return String(row.year ?? "") === needle;
+  if (field === "featured") {
+    return needle === "yes" || needle === "true" ? row.featured : !row.featured;
+  }
   const haystack = row[field as "technology" | "domain" | "type" | "category"];
   if (!Array.isArray(haystack)) return false;
   return haystack.some((item) => item.toLowerCase() === needle);
