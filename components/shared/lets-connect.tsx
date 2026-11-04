@@ -7,8 +7,8 @@ export function LetsConnect() {
   return (
     <>
       <Prose className="max-w-none print:hidden">
-        Open to direct hire, international hire, or contracting through
-        Blockmatic Labs LLC. Cannot work under W-2. {hireTermsLocationLine}
+        Open to hire or contracting through Blockmatic Labs LLC.{" "}
+        {hireTermsLocationLine}
       </Prose>
       <Prose className="max-w-none print:hidden">
         Have a project in mind? Let’s talk about how I can help.{" "}

@@ -95,7 +95,7 @@ export default function HomePage() {
             </Link>
           </div>
         </PageSection>
-        <PageSection title="Work together" className={homeSection}>
+        <PageSection title="Connect" className={homeSection}>
           <LetsConnect />
         </PageSection>
         <LatestPosts
