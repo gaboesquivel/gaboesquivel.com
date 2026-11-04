@@ -29,6 +29,61 @@ export const formCue = (query: string) =>
     query
   );
 
+/**
+ * What the short line under a view's title may say. The application owns the
+ * wording: the model picks a kind, never writes a sentence the site then
+ * says in its own voice.
+ */
+export const noteKinds = [
+  "none",
+  "missing-data",
+  "featured-set",
+  "recent-window",
+  "search-excerpts",
+] as const;
+
+export type NoteKind = (typeof noteKinds)[number];
+
+export const noteCopy: Record<Exclude<NoteKind, "none">, string> = {
+  "featured-set":
+    "This is the site's own featured set, led by the homepage selected work.",
+  "missing-data":
+    "The site does not hold exactly that, so this shows the nearest published records instead.",
+  "recent-window": "Recent means the newest three years of published work.",
+  "search-excerpts":
+    "Each row quotes the line that matched, verbatim from the published project text.",
+};
+
+export const limitationCopy =
+  "I can't show that from the published projects and posts. Browse /work or /blog.";
+
+/**
+ * Whether a request goes to the registry planner before the card fast path: it
+ * names a form, or the keyword planner would otherwise end in the closed
+ * "I cannot filter" answer (unresolved filters with no semantic route to serve
+ * them). Requests the semantic route already serves are left alone, so no
+ * extra model call is added to them.
+ */
+export const isDeadEndPlan = (plan: {
+  needsSemanticPlanning: boolean;
+  tasks: readonly {
+    filter: { unresolved: readonly string[] };
+    unsupported: readonly string[];
+  }[];
+}) =>
+  !plan.needsSemanticPlanning &&
+  plan.tasks.some(
+    (task) => task.unsupported.length > 0 || task.filter.unresolved.length > 0
+  );
+
+export const routesToViewPlanner = ({
+  plan,
+  query,
+}: {
+  plan: Parameters<typeof isDeadEndPlan>[0];
+  query: string;
+}) => formCue(query) || isDeadEndPlan(plan);
+
 const blockSchema = z.object({
   boardGroupField: z.string().max(30).nullable(),
   chartKind: z.enum(chartKinds).nullable(),
@@ -41,7 +96,7 @@ const blockSchema = z.object({
 export const viewPlanSchema = z.object({
   arrangement: z.enum(viewArrangements),
   blocks: z.array(blockSchema).max(GENUI_MAX_VIEW_BLOCKS),
-  note: z.string().max(240).nullable(),
+  noteKind: z.enum(noteKinds),
   supported: z.boolean(),
   title: z.string().max(120),
 });
@@ -54,13 +109,13 @@ You choose structure only. The application reads published records and fills eve
 Datasets: "projects", "posts", and "overview" (headline counts, for stats blocks). ${registryDigest()}
 Filters have a field, an op and a value. Ops: equals, anyOf (values joined with |), contains (text and list fields; searches long text such as achievements and story, and adds a quoted "mentions" column), gte and lte (numbers), lastYears (the newest N years, value N). Only use an op listed for the field.
 Projects come ordered the way the site presents them: homepage selected work first, then the rest of the featured set, then the remaining projects. The featured filter (field "featured", value "yes") keeps only that lead set.
-For "where to start", "best work" or "what to look at first", use a projects table filtered to featured=yes, and say in the note that this is the site's own featured set. Never claim the site has no ranking.
+For "where to start", "best work" or "what to look at first", use a projects table filtered to featured=yes, and set noteKind to "featured-set". Never claim the site has no ranking.
 Recency: when the request says recent, latest, lately, new or current, add the filter field "recent" with value "yes" to every block, stats included. The application defines recent as the newest three years of published work, so never guess years yourself and never add a year filter for it. A recent request must not show all-time data.
 Query: groupBy counts rows by technology, domain, type, year (projects) or category (posts); filters narrow rows with the field, op and value described above. Company is the employer or client recorded for a project.
 Blocks: "table" lists rows (columns: dataset column keys; leave empty for the default scannable set, and add "type" only when the request asks for it); "chart" needs a query with groupBy and a chartKind (bar, line, area, pie; use line or area only for year); "stats" uses the overview dataset; "board" lists rows grouped by boardGroupField (a text column such as domain or type).
 Arrangement: stack, columns-2, columns-3, split-2-1, split-1-2. Follow explicit layout words in the request; otherwise choose the simplest.
 A skillset or stack request maps to a chart or table of projects grouped by technology. Interests map to domain, type or post category. Do not claim self-rated skill levels.
-When the request asks for data the site does not hold (for example self-rated skill levels), still set supported=true: build the nearest grounded view (for example technology usage across projects) and state the limitation plainly in the note. Set supported=false only when no grounded view of projects, posts or overview could answer at all, and then put a one-sentence limitation in the note. Keep titles plain and factual.`;
+When the request asks for data the site does not hold (for example self-rated skill levels), still set supported=true: build the nearest grounded view (for example technology usage across projects) and set noteKind to "missing-data". Set supported=false only when no grounded view of projects, posts or overview could answer at all. Use noteKind "recent-window" for a recent request, "search-excerpts" for a contains-search, otherwise "none". You never write the note text. Keep titles plain and factual.`;
 
 export const generateViewPlan = async ({
   query,
@@ -138,6 +193,33 @@ const blockExpression = ({
  * A block the application cannot ground is dropped, never guessed. Returns
  * null unless the whole view passes the shared compiler.
  */
+const dropMissingLane = ({
+  dataset,
+  field,
+}: {
+  dataset: GenuiDataset;
+  field: string;
+}): { dataset: GenuiDataset; dropped: number; label: string } => {
+  const column = dataset.columns.find((item) => item.key === field);
+  const rowDataset = dataset.recordIds.length === dataset.rows.length;
+  if (!column || !rowDataset) return { dataset, dropped: 0, label: "" };
+  const keep = dataset.rows.map((row) => {
+    const value = row[field];
+    return value !== null && value !== undefined && value !== "";
+  });
+  const dropped = keep.filter((kept) => !kept).length;
+  if (dropped === 0) return { dataset, dropped: 0, label: column.label };
+  return {
+    dataset: {
+      ...dataset,
+      recordIds: dataset.recordIds.filter((_, index) => keep[index]),
+      rows: dataset.rows.filter((_, index) => keep[index]),
+    },
+    dropped,
+    label: column.label.toLowerCase(),
+  };
+};
+
 export const viewEnvelopeFromPlan = ({
   plan,
   query,
@@ -164,9 +246,19 @@ export const viewEnvelopeFromPlan = ({
         : block.query;
     // An undeclared field or an operation the field disallows drops the block.
     if (!checkQuerySpec(spec).ok) continue;
-    const dataset = executeQuery({ id: `d${datasets.length + 1}`, spec });
+    let dataset = executeQuery({ id: `d${datasets.length + 1}`, spec });
+    let title = block.title;
+    // A board has no "Not recorded" lane: rows without the grouping value are
+    // left out, and the title says how many, so card counts stay honest.
+    if (block.type === "board" && block.boardGroupField) {
+      const lane = dropMissingLane({ dataset, field: block.boardGroupField });
+      dataset = lane.dataset;
+      if (lane.dropped > 0) {
+        title = `${block.title} (${lane.dropped} without a recorded ${lane.label} not shown)`;
+      }
+    }
     const expression = blockExpression({
-      block: { ...block, query: spec },
+      block: { ...block, query: spec, title },
       dataset,
     });
     if (!expression || dataset.rows.length === 0) continue;
@@ -175,7 +267,12 @@ export const viewEnvelopeFromPlan = ({
   }
   if (!expressions.length) return null;
 
-  const note = plan.note?.trim();
+  const quoted = datasets.some((dataset) =>
+    dataset.columns.some((column) => column.excerpt)
+  );
+  const kind: NoteKind =
+    plan.noteKind === "none" && quoted ? "search-excerpts" : plan.noteKind;
+  const note = kind === "none" ? "" : noteCopy[kind];
   const envelope: CompositionEnvelope = {
     datasets,
     fallbackText: query.slice(0, 160),
@@ -199,17 +296,16 @@ export const composeViewDocument = async ({
   signal?: AbortSignal;
 }): Promise<{
   envelope: CompositionEnvelope | null;
-  /** A stated limitation when the planner found nothing grounded to show. */
+  /** The fixed limitation sentence when the planner found nothing grounded. */
   limitation: string | null;
   modelCalls: number;
 }> => {
   const { modelCalls, plan } = await generate({ query, signal });
   if (!plan) return { envelope: null, limitation: null, modelCalls };
   const envelope = viewEnvelopeFromPlan({ plan, query, requestId });
-  const note = plan.note?.trim() ?? "";
   return {
     envelope,
-    limitation: !envelope && !plan.supported && note ? note : null,
+    limitation: !envelope && !plan.supported ? limitationCopy : null,
     modelCalls,
   };
 };

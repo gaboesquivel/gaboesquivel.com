@@ -32,7 +32,11 @@ import { generateSemanticDocument } from "./semantic";
 import { genuiProviderConfigured, resolveSemanticPlan } from "./semantic-plan";
 import { classifyTaskIntent } from "./task-intent";
 import { validateCompositionEnvelope } from "./validate-envelope";
-import { composeViewDocument, formCue } from "./view-plan";
+import {
+  composeViewDocument,
+  isDeadEndPlan,
+  routesToViewPlanner,
+} from "./view-plan";
 
 const MAX_QUERY_CODE_POINTS = 2000;
 
@@ -308,14 +312,12 @@ export const composeQuery = async ({
   // A named form (spreadsheet, dashboard, chart, board) must not be claimed by
   // the card fast path. The planner decides whether a view is supported; when
   // it is not, the request continues through the existing routes.
-  // A request the keyword planner cannot parse (an unsupported predicate such
-  // as "mention payments") also goes to the registry planner before the closed
-  // limitation answer.
-  const unparsed = requestPlan.tasks.some(
-    (task) => task.unsupported.length > 0 || task.filter.unresolved.length > 0
-  );
+  // A request the keyword planner would answer with the closed "I cannot
+  // filter" limitation (an unsupported predicate such as "mention payments")
+  // goes to the registry planner first. A named form does too.
+  const deadEnd = isDeadEndPlan(requestPlan);
   if (
-    (formCue(query) || unparsed) &&
+    routesToViewPlanner({ plan: requestPlan, query }) &&
     genuiProviderConfigured() &&
     !tierZeroDocument({ query, requestId })
   ) {
@@ -333,7 +335,9 @@ export const composeQuery = async ({
         planningPath: "semantic",
       });
     }
-    if (view.limitation) {
+    // The fixed limitation replaces the dead end only; a request that merely
+    // contained a form word continues through the existing routes.
+    if (view.limitation && deadEnd) {
       const limitation = answerDocument({
         body: view.limitation,
         records: [],

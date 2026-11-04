@@ -21,7 +21,7 @@ const plan = (blocks: ViewPlan["blocks"], extra: Partial<ViewPlan> = {}) =>
   ({
     arrangement: "stack",
     blocks,
-    note: null,
+    noteKind: "none",
     supported: true,
     title: "Portfolio view",
     ...extra,

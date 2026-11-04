@@ -223,8 +223,9 @@ const matchesAll = ({
 }) =>
   filters.every((filter) => {
     const def = findField(dataset, filter.field);
-    if (!def?.ops.includes(filter.op)) return false;
-    return matchesFilter({ def, filter, newest, row });
+    // A flag has one meaning, so any op the model picked is read as equals.
+    if (def?.type !== "flag" && !def?.ops.includes(filter.op)) return false;
+    return def ? matchesFilter({ def, filter, newest, row }) : false;
   });
 
 export type QueryCheck = { ok: true } | { ok: false; reason: string };
@@ -247,7 +248,9 @@ export const checkQuerySpec = (spec: QuerySpec): QueryCheck => {
     if (!defs.length) {
       return { ok: false, reason: `unknown field ${filter.field}` };
     }
-    if (!defs.some((def) => def.ops.includes(filter.op))) {
+    if (
+      !defs.some((def) => def.type === "flag" || def.ops.includes(filter.op))
+    ) {
       return {
         ok: false,
         reason: `${filter.op} is not allowed on ${filter.field}`,
@@ -300,10 +303,17 @@ export const excerptFor = ({
   units: readonly string[];
 }): string | null => {
   const lowered = norm(needle);
-  const unit = units.find((item) => item.toLowerCase().includes(lowered));
+  if (!lowered) return null;
+  // Search the original text so a character whose lowercase form changes
+  // length cannot shift the window off the match.
+  const pattern = new RegExp(
+    lowered.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"),
+    "iu"
+  );
+  const unit = units.find((item) => pattern.test(item));
   if (!unit) return null;
   if (unit.length <= GENUI_EXCERPT_MAX_CHARS) return unit.trim();
-  const at = unit.toLowerCase().indexOf(lowered);
+  const at = unit.search(pattern);
   let start = Math.max(0, at - 100);
   let end = Math.min(unit.length, start + GENUI_EXCERPT_MAX_CHARS);
   if (start > 0) {
