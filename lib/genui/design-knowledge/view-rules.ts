@@ -186,5 +186,11 @@ export const validateViewDocument = ({
   for (const dataset of datasets) {
     for (const recordId of dataset.recordIds) referenced.add(recordId);
   }
+  // A record no dataset cites would be unsupported evidence in the envelope.
+  for (const record of records) {
+    if (!referenced.has(record.id)) {
+      return fail("view_rule_violation", `uncited record ${record.id}`);
+    }
+  }
   return { ok: true, referencedRecordIds: [...referenced] };
 };

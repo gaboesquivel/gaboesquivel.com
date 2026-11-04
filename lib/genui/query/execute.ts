@@ -91,6 +91,11 @@ const projectRows = (): BaseRow[] =>
       };
     });
 
+const postYear = (publishedAt: string | undefined) => {
+  const year = Number(publishedAt?.slice(0, 4));
+  return Number.isFinite(year) && year > 0 ? year : null;
+};
+
 const postRows = (): BaseRow[] =>
   publishedPosts().map((post) => ({
     category: [...(post.category ?? [])],
@@ -103,7 +108,7 @@ const postRows = (): BaseRow[] =>
       published: post.publishedAt ?? null,
       title: post.title,
     },
-    year: post.publishedAt ? Number(post.publishedAt.slice(0, 4)) : null,
+    year: postYear(post.publishedAt),
   }));
 
 const projectColumns: DatasetColumn[] = [
@@ -203,18 +208,37 @@ export const executeQuery = ({
         groups.set(value, ids);
       }
     }
-    const direction = spec.sortDirection === "asc" ? 1 : -1;
+    // Years are an ordered axis: default to chronological, and when a limit
+    // applies keep the most recent years, shown in order.
+    const chronological = field === "year";
     const byLabel =
-      spec.sortBy === "label" || spec.sortBy === groupLabels[field];
-    const rows = [...groups.entries()]
-      .map(([label, ids]) => ({ count: ids.size, ids, label }))
-      .sort((a, b) =>
-        byLabel
-          ? direction *
-            a.label.localeCompare(b.label, undefined, { numeric: true })
-          : direction * (a.count - b.count) || a.label.localeCompare(b.label)
-      )
-      .slice(0, limit);
+      chronological ||
+      spec.sortBy === "label" ||
+      spec.sortBy === groupLabels[field];
+    const direction =
+      (spec.sortDirection ?? (byLabel ? "asc" : "desc")) === "asc" ? 1 : -1;
+    const entries = [...groups.entries()].map(([label, ids]) => ({
+      count: ids.size,
+      ids,
+      label,
+    }));
+    const byName = (a: { label: string }, b: { label: string }) =>
+      a.label.localeCompare(b.label, undefined, { numeric: true });
+    const byCount = (a: { count: number }, b: { count: number }) =>
+      a.count - b.count;
+    let rows: typeof entries;
+    if (chronological) {
+      const recent = [...entries].sort((a, b) => byName(b, a)).slice(0, limit);
+      rows = recent.sort((a, b) => direction * byName(a, b));
+    } else {
+      rows = entries
+        .sort((a, b) =>
+          byLabel
+            ? direction * byName(a, b)
+            : direction * byCount(a, b) || byName(a, b)
+        )
+        .slice(0, limit);
+    }
     return {
       columns: [
         { key: "label", label: groupLabels[field], type: "text" },

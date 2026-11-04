@@ -44,8 +44,12 @@ export const DataTableView = ({
     return [...indexed].sort((a, b) => {
       const left = a.row[sort.key];
       const right = b.row[sort.key];
-      if (left === null || left === undefined) return 1;
-      if (right === null || right === undefined) return -1;
+      const leftMissing = left === null || left === undefined;
+      const rightMissing = right === null || right === undefined;
+      // Missing values sort last in either direction.
+      if (leftMissing || rightMissing) {
+        return leftMissing === rightMissing ? 0 : leftMissing ? 1 : -1;
+      }
       const order =
         column?.type === "number"
           ? Number(left) - Number(right)

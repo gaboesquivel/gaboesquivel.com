@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
+import { compileExperience } from "./contract/compiler";
 import { executeQuery } from "./query/execute";
 import type { QuerySpec } from "./query/execute";
 import { validateCompositionEnvelope } from "./validate-envelope";
@@ -175,5 +176,100 @@ describe("viewEnvelopeFromPlan", () => {
       requestId: "r7",
     });
     expect(envelope).toBeNull();
+  });
+});
+
+describe("review regressions", () => {
+  test("years group chronologically and a limit keeps the most recent years", () => {
+    const all = executeQuery({ id: "d1", spec: spec({ groupBy: "year" }) });
+    const years = all.rows.map((row) => Number(row.label));
+    expect(years).toEqual([...years].sort((a, b) => a - b));
+    const recent = executeQuery({
+      id: "d1",
+      spec: spec({ groupBy: "year", limit: 3 }),
+    });
+    const kept = recent.rows.map((row) => Number(row.label));
+    expect(kept).toEqual(years.slice(-3));
+  });
+
+  test("a board grouped on a field the executed dataset lacks is dropped", () => {
+    const envelope = viewEnvelopeFromPlan({
+      plan: plan([
+        {
+          ...table(spec({ groupBy: "technology" })),
+          boardGroupField: "domain",
+          type: "board",
+        },
+      ]),
+      query: "board",
+      requestId: "r8",
+    });
+    expect(envelope).toBeNull();
+  });
+
+  test("a chart on the overview dataset is dropped", () => {
+    const envelope = viewEnvelopeFromPlan({
+      plan: plan([
+        {
+          ...table(spec({ dataset: "overview" })),
+          chartKind: "bar",
+          type: "chart",
+        },
+      ]),
+      query: "chart",
+      requestId: "r9",
+    });
+    expect(envelope).toBeNull();
+  });
+
+  test("a record no dataset cites is rejected", () => {
+    const base = built(
+      viewEnvelopeFromPlan({
+        plan: plan([table(spec({ limit: 2 }))]),
+        query: "table",
+        requestId: "r10",
+      })
+    );
+    const extra = built(
+      viewEnvelopeFromPlan({
+        plan: plan([table(spec({ limit: 6 }))]),
+        query: "table",
+        requestId: "r11",
+      })
+    );
+    const uncited = extra.records.find(
+      (record) => !base.records.some((item) => item.id === record.id)
+    );
+    if (!uncited) throw new Error("expected an extra record");
+    const tampered = { ...base, records: [...base.records, uncited] };
+    expect(validateCompositionEnvelope({ envelope: tampered }).ok).toBe(false);
+  });
+
+  test("a view cannot be a stack child", () => {
+    const base = built(
+      viewEnvelopeFromPlan({
+        plan: plan([table()]),
+        query: "table",
+        requestId: "r12",
+      })
+    );
+    const inner = base.openuiText.replace(/^root = /, "");
+    const compiled = compileExperience({
+      datasets: base.datasets,
+      document: `root = ExperienceStack([${inner}])`,
+      libraryVersion: base.libraryVersion,
+      records: base.records,
+    });
+    expect(compiled.ok).toBe(false);
+  });
+
+  test("an endpoint in a view title is rejected", () => {
+    expect(
+      viewEnvelopeFromPlan({
+        plan: plan([{ ...table(), title: "https://evil.example/x" }]),
+        query: "table",
+        requestId: "r13",
+      })
+    ).toBeNull();
   });
 });

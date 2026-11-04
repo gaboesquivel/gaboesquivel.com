@@ -8,7 +8,6 @@ import type { GenuiDataset } from "./dataset";
 import { GENUI_LIBRARY_VERSION } from "./envelope";
 import type { CompositionEnvelope } from "./envelope";
 import {
-  datasetColumns,
   executeQuery,
   querySpecSchema,
   recordsForDatasets,
@@ -84,8 +83,8 @@ export const generateViewPlan = async ({
   return { modelCalls: 1, plan: parsed.success ? parsed.data : null };
 };
 
-const textColumn = (dataset: QuerySpec["dataset"], key: string) =>
-  datasetColumns(dataset).some(
+const textColumn = (dataset: GenuiDataset, key: string) =>
+  dataset.columns.some(
     (column) => column.key === key && column.type === "text"
   );
 
@@ -99,13 +98,15 @@ const blockExpression = ({
   const id = openUiStringLiteral(dataset.id);
   const title = openUiStringLiteral(block.title);
   if (block.type === "stats") return `StatRow(${id}, ${title})`;
+  // The overview dataset is four unrelated headline counts: stats only.
+  if (block.query.dataset === "overview") return null;
   if (block.type === "chart") {
     if (!block.query.groupBy || !block.chartKind) return null;
     return `DataChart(${openUiStringLiteral(block.chartKind)}, ${id}, ${title})`;
   }
   if (block.type === "board") {
     const field = block.boardGroupField;
-    if (!field || !textColumn(block.query.dataset, field)) return null;
+    if (!field || !textColumn(dataset, field)) return null;
     return `DataBoard(${id}, ${title}, ${openUiStringLiteral(field)})`;
   }
   const known = new Set(dataset.columns.map((column) => column.key));
