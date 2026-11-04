@@ -64,16 +64,26 @@ export const limitationCopy =
  * them). Requests the semantic route already serves are left alone, so no
  * extra model call is added to them.
  */
+/** The task kinds whose unresolved filters end in the closed limitation. */
+const limitationKinds: ReadonlySet<string> = new Set([
+  "compare",
+  "count",
+  "projects",
+]);
+
 export const isDeadEndPlan = (plan: {
   needsSemanticPlanning: boolean;
   tasks: readonly {
     filter: { unresolved: readonly string[] };
+    kind: string;
     unsupported: readonly string[];
   }[];
 }) =>
   !plan.needsSemanticPlanning &&
   plan.tasks.some(
-    (task) => task.unsupported.length > 0 || task.filter.unresolved.length > 0
+    (task) =>
+      limitationKinds.has(task.kind) &&
+      (task.unsupported.length > 0 || task.filter.unresolved.length > 0)
   );
 
 export const routesToViewPlanner = ({

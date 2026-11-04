@@ -3,6 +3,7 @@ import { describe, expect, test } from "bun:test";
 import { projects } from "gaboesquivel";
 
 import { compileExperience } from "../contract/compiler";
+import { buildRequestPlan } from "../request-plan";
 import { validateCompositionEnvelope } from "../validate-envelope";
 import {
   composeViewDocument,
@@ -401,18 +402,30 @@ describe("review regressions (spec 004)", () => {
 
   test("routing: a named form or a dead end reaches the registry planner, nothing else", () => {
     const dead = {
-      disposition: "fast-path" as const,
+      needsSemanticPlanning: false,
       tasks: [
-        { filter: { unresolved: ["mention payments"] }, unsupported: [] },
+        {
+          filter: { unresolved: ["mention payments"] },
+          kind: "projects",
+          unsupported: [],
+        },
       ],
     };
     const semantic = {
       needsSemanticPlanning: true,
-      tasks: [{ filter: { unresolved: ["python"] }, unsupported: [] }],
+      tasks: [
+        {
+          filter: { unresolved: ["python"] },
+          kind: "explain",
+          unsupported: [],
+        },
+      ],
     };
     const clean = {
       needsSemanticPlanning: false,
-      tasks: [{ filter: { unresolved: [] }, unsupported: [] }],
+      tasks: [
+        { filter: { unresolved: [] }, kind: "projects", unsupported: [] },
+      ],
     };
     expect(isDeadEndPlan(dead)).toBe(true);
     expect(
@@ -449,5 +462,23 @@ describe("review regressions (spec 004)", () => {
     expect(unit.includes(excerpt.replace(/^…/u, "").replace(/…$/u, ""))).toBe(
       true
     );
+  });
+
+  test("a dead end that the planned route serves with a CV or booking is left alone", () => {
+    for (const query of [
+      "projects that mention payments and send me your CV",
+      "projects that mention payments and book a call",
+    ]) {
+      const planned = buildRequestPlan(query);
+      expect(isDeadEndPlan(planned)).toBe(false);
+      expect(routesToViewPlanner({ plan: planned, query })).toBe(false);
+    }
+  });
+
+  test("a projects-only unresolved predicate is still a dead end", () => {
+    const planned = buildRequestPlan(
+      "Projects that mention payments, with the line that says so"
+    );
+    expect(isDeadEndPlan(planned)).toBe(true);
   });
 });
