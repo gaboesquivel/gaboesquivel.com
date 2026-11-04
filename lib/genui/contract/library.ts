@@ -10,6 +10,11 @@ import {
   cvExperiencePropsSchema,
   experienceStackPropsSchema,
   projectExperiencePropsSchema,
+  dataBoardPropsSchema,
+  dataChartPropsSchema,
+  dataTablePropsSchema,
+  statRowPropsSchema,
+  viewExperiencePropsSchema,
   writingExperiencePropsSchema,
 } from "./schemas";
 
@@ -87,6 +92,45 @@ const ExperienceStack = defineComponent({
   props: experienceStackPropsSchema,
 });
 
+const DataTable = defineComponent({
+  component: noop,
+  description:
+    "Sortable table of one dataset. Columns name dataset column keys; omit for all.",
+  name: "DataTable",
+  props: dataTablePropsSchema,
+});
+
+const DataChart = defineComponent({
+  component: noop,
+  description:
+    "Bar, line, area or pie chart of a grouped dataset (label and count columns).",
+  name: "DataChart",
+  props: dataChartPropsSchema,
+});
+
+const StatRow = defineComponent({
+  component: noop,
+  description: "Up to four headline numbers from the overview dataset.",
+  name: "StatRow",
+  props: statRowPropsSchema,
+});
+
+const DataBoard = defineComponent({
+  component: noop,
+  description:
+    "Read-only board: dataset rows as cards in columns grouped by a text column.",
+  name: "DataBoard",
+  props: dataBoardPropsSchema,
+});
+
+const ViewExperience = defineComponent({
+  component: noop,
+  description:
+    "Requested-form view: tables, charts, stats or a board arranged by an approved arrangement. Blocks only name datasets the application computed.",
+  name: "ViewExperience",
+  props: viewExperiencePropsSchema,
+});
+
 export const genuiContractLibrary = createLibrary({
   components: [
     Answer,
@@ -99,6 +143,11 @@ export const genuiContractLibrary = createLibrary({
     BookingExperience,
     CVExperience,
     ExperienceStack,
+    ViewExperience,
+    DataTable,
+    DataChart,
+    StatRow,
+    DataBoard,
   ],
   root: "CVExperience",
 });

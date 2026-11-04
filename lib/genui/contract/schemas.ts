@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { comparisonDimensions } from "../comparison-dimensions";
 import { compositeNames } from "../composites";
+import { chartKinds, viewArrangements } from "../dataset";
 
 export const compositeSchema = z.enum(compositeNames);
 
@@ -55,4 +56,34 @@ export const cvExperiencePropsSchema = z.object({
 
 export const experienceStackPropsSchema = z.object({
   children: z.array(z.unknown()).default([]),
+});
+
+export const dataTablePropsSchema = z.object({
+  datasetId: z.string(),
+  title: z.string().max(120),
+  columns: z.array(z.string()).max(8).optional(),
+});
+
+export const dataChartPropsSchema = z.object({
+  kind: z.enum(chartKinds),
+  datasetId: z.string(),
+  title: z.string().max(120),
+});
+
+export const statRowPropsSchema = z.object({
+  datasetId: z.string(),
+  title: z.string().max(120),
+});
+
+export const dataBoardPropsSchema = z.object({
+  datasetId: z.string(),
+  title: z.string().max(120),
+  groupField: z.string(),
+});
+
+export const viewExperiencePropsSchema = z.object({
+  arrangement: z.enum(viewArrangements),
+  title: z.string().max(120),
+  blocks: z.array(z.unknown()).default([]),
+  note: z.string().max(240).optional(),
 });

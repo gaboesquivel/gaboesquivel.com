@@ -1,3 +1,4 @@
+import type { GenuiDataset } from "./dataset";
 import { experienceNames } from "./experience-contract";
 
 export const GENUI_LIBRARY_VERSION = 1;
@@ -37,6 +38,8 @@ export type PublicRecord =
     };
 
 export interface CompositionEnvelope {
+  /** Application-computed rows a ViewExperience reads; never model-written. */
+  datasets?: GenuiDataset[];
   fallbackText: string;
   libraryVersion: number;
   openuiText: string;

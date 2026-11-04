@@ -22,6 +22,14 @@ The [`gaboesquivel-skills`](https://github.com/gaboesquivel/gaboesquivel-skills)
 
 Booking and contact render as GenUI forms inside homepage search (`/`) and the search dialog; there is no separate connect UI. Homepage search is the public generative surface; `/ask` redirects to `/`. `/contact` is the human outreach page and form. `/connect` redirects to `/contact`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the `/` and `/contact` jobs in [PRODUCT.md](PRODUCT.md).
 
+## Generation tier
+
+How much the model shapes a result: fixed (code chooses everything, zero model calls), declarative (the model composes approved primitives over application datasets), or fully generative (not built). [Decision 0005](docs/decisions/0005-three-tiers-of-ui-generation.md).
+
+## View and dataset
+
+A view is a `ViewExperience`: tables, charts, stats or a board in an approved arrangement. A dataset is a set of rows the application computed from published records, each citing its records. The model names datasets; it never writes their values. [Spec 003](docs/specs/003-open-composition.md).
+
 ## Archive
 
 Blog posts published before 2020. They stay on the site. `/llms-full.txt` omits them. Rewrite one only when the task names that post. See [PRODUCT.md](PRODUCT.md) and [docs/agents/content.md](docs/agents/content.md).

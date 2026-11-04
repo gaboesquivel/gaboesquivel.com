@@ -1,5 +1,7 @@
 import { createParser } from "@openuidev/lang-core";
 
+import type { GenuiDataset } from "../dataset";
+import { validateViewDocument } from "../design-knowledge/view-rules";
 import { GENUI_LIBRARY_VERSION } from "../envelope";
 import type { PublicRecord } from "../envelope";
 import type { ExperienceName } from "../experience-contract";
@@ -61,10 +63,12 @@ const compositeFromProps = (
 };
 
 export const compileExperience = ({
+  datasets = [],
   document,
   libraryVersion,
   records,
 }: {
+  datasets?: GenuiDataset[];
   document: unknown;
   libraryVersion: number;
   records: PublicRecord[];
@@ -155,6 +159,20 @@ export const compileExperience = ({
     return { ok: false, code: recipeCheck.code };
   }
 
+  if (policy.name === "ViewExperience") {
+    const view = validateViewDocument({ datasets, props, records });
+    if (!view.ok) {
+      return { ok: false, code: view.code, detail: view.detail };
+    }
+    return {
+      ok: true,
+      composite: null,
+      experience,
+      props,
+      referencedRecordIds: view.referencedRecordIds,
+    };
+  }
+
   if (policy.name === "ExperienceStack") {
     const stack = validateExperienceStackChildren({ props, records });
     if (!stack.ok) {
@@ -191,12 +209,14 @@ export const compileCompositionEnvelope = ({
   envelope,
 }: {
   envelope: {
+    datasets?: GenuiDataset[];
     libraryVersion: number;
     openuiText: string;
     records: PublicRecord[];
   };
 }) =>
   compileExperience({
+    datasets: envelope.datasets,
     document: envelope.openuiText,
     libraryVersion: envelope.libraryVersion,
     records: envelope.records,

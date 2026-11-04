@@ -23,6 +23,9 @@ export type CompileErrorCode =
   | "unauthorized_endpoint"
   | "truncated_document"
   | "unexpected_trailing_content"
+  | "missing_dataset"
+  | "invalid_dataset_field"
+  | "view_rule_violation"
   | "parse";
 
 export interface CompileExperienceFailure {
