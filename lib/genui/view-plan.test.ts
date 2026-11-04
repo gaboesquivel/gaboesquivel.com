@@ -336,3 +336,49 @@ describe("featured filter values", () => {
     expect(rest.rows.length).toBe(all.rows.length - 6);
   });
 });
+
+describe("recent requests", () => {
+  const recent = { field: "recent", value: "yes" } as const;
+
+  test("recent keeps only the newest three years of projects", () => {
+    const all = executeQuery({ id: "d1", spec: spec({}) });
+    const newest = Math.max(...all.rows.map((row) => Number(row.year ?? 0)));
+    const dataset = executeQuery({
+      id: "d1",
+      spec: spec({ filters: [recent] }),
+    });
+    expect(dataset.rows.length).toBeGreaterThan(0);
+    expect(dataset.rows.length).toBeLessThan(all.rows.length);
+    for (const row of dataset.rows) {
+      expect(Number(row.year)).toBeGreaterThan(newest - 3);
+    }
+  });
+
+  test("a recent year chart spans at most three years", () => {
+    const dataset = executeQuery({
+      id: "d1",
+      spec: spec({ filters: [recent], groupBy: "year" }),
+    });
+    expect(dataset.rows.length).toBeLessThanOrEqual(3);
+  });
+
+  test("overview stats honour the recent filter instead of showing all-time counts", () => {
+    const all = executeQuery({ id: "d1", spec: spec({ dataset: "overview" }) });
+    const scoped = executeQuery({
+      id: "d1",
+      spec: spec({ dataset: "overview", filters: [recent] }),
+    });
+    expect(Number(scoped.rows[0]?.value)).toBeLessThan(
+      Number(all.rows[0]?.value)
+    );
+    expect(Number(scoped.rows[2]?.value)).toBeLessThanOrEqual(3);
+  });
+
+  test("an unrecognised recent value matches nothing", () => {
+    const dataset = executeQuery({
+      id: "d1",
+      spec: spec({ filters: [{ field: "recent", value: "soon" }] }),
+    });
+    expect(dataset.rows).toHaveLength(0);
+  });
+});

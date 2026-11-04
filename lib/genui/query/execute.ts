@@ -27,6 +27,7 @@ export const groupByFields = [
 
 export const filterFields = [
   "featured",
+  "recent",
   "technology",
   "domain",
   "type",
@@ -159,9 +160,29 @@ const groupLabels: Record<(typeof groupByFields)[number], string> = {
   year: "Year",
 };
 
-const matches = (row: BaseRow, field: string, value: string) => {
+/** "Recent" is the newest few years in the data, so the application owns it. */
+export const RECENT_YEARS = 3;
+
+const newestYear = (rows: readonly BaseRow[]) => {
+  let newest = 0;
+  for (const row of rows) newest = Math.max(newest, row.year ?? 0);
+  return newest;
+};
+
+const matches = (
+  row: BaseRow,
+  field: string,
+  value: string,
+  newest: number
+) => {
   const needle = value.trim().toLowerCase();
   if (!needle) return true;
+  if (field === "recent") {
+    const recent = row.year !== null && row.year > newest - RECENT_YEARS;
+    if (needle === "yes" || needle === "true") return recent;
+    if (needle === "no" || needle === "false") return !recent;
+    return false;
+  }
   if (field === "year") return String(row.year ?? "") === needle;
   if (field === "featured") {
     if (needle === "yes" || needle === "true") return row.featured;
@@ -193,9 +214,23 @@ export const datasetColumns = (name: QuerySpec["dataset"]): DatasetColumn[] =>
           { key: "value", label: "Value", type: "number" },
         ];
 
-const overviewDataset = ({ id }: { id: string }): GenuiDataset => {
-  const rows = projectRows();
-  const posts = postRows();
+const overviewDataset = ({
+  filters,
+  id,
+}: {
+  filters: QuerySpec["filters"];
+  id: string;
+}): GenuiDataset => {
+  const apply = (all: BaseRow[]) => {
+    const newest = newestYear(all);
+    return all.filter((row) =>
+      filters.every((filter) =>
+        matches(row, filter.field, filter.value, newest)
+      )
+    );
+  };
+  const rows = apply(projectRows());
+  const posts = apply(postRows());
   const technologies = new Set(rows.flatMap((row) => row.technology));
   const years = rows.flatMap((row) => (row.year === null ? [] : [row.year]));
   const span = years.length ? Math.max(...years) - Math.min(...years) + 1 : 0;
@@ -225,11 +260,16 @@ export const executeQuery = ({
   id: string;
   spec: QuerySpec;
 }): GenuiDataset => {
-  if (spec.dataset === "overview") return overviewDataset({ id });
+  if (spec.dataset === "overview") {
+    return overviewDataset({ filters: spec.filters, id });
+  }
 
   const base = spec.dataset === "projects" ? projectRows() : postRows();
+  const newest = newestYear(base);
   const filtered = base.filter((row) =>
-    spec.filters.every((filter) => matches(row, filter.field, filter.value))
+    spec.filters.every((filter) =>
+      matches(row, filter.field, filter.value, newest)
+    )
   );
   const limit = spec.limit ?? GENUI_MAX_DATASET_ROWS;
 

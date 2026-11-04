@@ -52,7 +52,8 @@ You choose structure only. The application reads published records and fills eve
 Datasets: "projects" (columns: title, role, year, domain, technologies, type), "posts" (title, published, category), "overview" (headline counts, for stats blocks).
 Projects come ordered the way the site presents them: homepage selected work first, then the rest of the featured set, then the remaining projects. The featured filter (field "featured", value "yes") keeps only that lead set.
 For "where to start", "best work" or "what to look at first", use a projects table filtered to featured=yes, and say in the note that this is the site's own featured set. Never claim the site has no ranking.
-Query: groupBy counts rows by technology, domain, type, year (projects) or category (posts); filters narrow rows by featured, technology, domain, type, year or category with an exact value.
+Recency: when the request says recent, latest, lately, new or current, add the filter field "recent" with value "yes" to every block, stats included. The application defines recent as the newest three years of published work, so never guess years yourself and never add a year filter for it. A recent request must not show all-time data.
+Query: groupBy counts rows by technology, domain, type, year (projects) or category (posts); filters narrow rows by featured, recent, technology, domain, type, year or category with an exact value.
 Blocks: "table" lists rows (columns: dataset column keys; leave empty for the default scannable set, and add "type" only when the request asks for it); "chart" needs a query with groupBy and a chartKind (bar, line, area, pie; use line or area only for year); "stats" uses the overview dataset; "board" lists rows grouped by boardGroupField (a text column such as domain or type).
 Arrangement: stack, columns-2, columns-3, split-2-1, split-1-2. Follow explicit layout words in the request; otherwise choose the simplest.
 A skillset or stack request maps to a chart or table of projects grouped by technology. Interests map to domain, type or post category. Do not claim self-rated skill levels.
@@ -148,7 +149,7 @@ export const viewEnvelopeFromPlan = ({
       block.type === "stats"
         ? {
             dataset: "overview",
-            filters: [],
+            filters: block.query.filters,
             groupBy: null,
             limit: null,
             sortBy: null,
