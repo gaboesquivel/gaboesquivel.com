@@ -1,4 +1,4 @@
-# 0002: Bounded motion for editorial explainers
+# 0004: Bounded motion for editorial explainers
 
 Status: Proposed (2026-11-03).
 

@@ -14,11 +14,11 @@ Replace only the existing `#harness-diagram` figure in `/blog/2026-09-context-en
 
 The first increment includes one authored scenario, reusable playback/state primitives, two responsive arrangements, accessible text, and static fallbacks. A reader can play once, pause, advance a step, select a phase, and reset. Every motion communicates a transfer or state change. The result should read as a technical figure inside an article, not a workflow editor or a marketing card.
 
-Drafting this spec does not authorize implementation. Its motion and content-policy additions are proposed in [decision 0002](../decisions/0002-editorial-explainer-motion.md). Acceptance must update the owning documents before implementation starts.
+Drafting this spec does not authorize implementation. Its motion and content-policy additions are proposed in [decision 0004](../decisions/0004-editorial-explainer-motion.md). Acceptance must update the owning documents before implementation starts.
 
 ## Evidence and current baseline
 
-Inspected `origin/main` at `69a8e9db` on 2026-11-03, after fetching origin. The original local main was one commit behind. Checked all local and fetched remote branch trees: spec 002 and decision 0002 were unused.
+Inspected `origin/main` at `69a8e9db` on 2026-11-03, after fetching origin. The original local main was one commit behind. Checked all local and fetched remote branch trees: spec 002 and decision 0004 were unused.
 
 - [Spec 001](001-site-design-ux-search.md) is accepted with individually gated follow-ups. [PR #22](https://github.com/gaboesquivel/gaboesquivel.com/pull/22) merged its tasks 01–13; [#23](https://github.com/gaboesquivel/gaboesquivel.com/pull/23) split design rules and added identity checks; [#24](https://github.com/gaboesquivel/gaboesquivel.com/pull/24) corrected stale nav/MCP documentation. No open PRs at inspection. Remote `build/001-approved-followups` had no commits ahead of main. This spec does not approve spec 001's outstanding motion/search items.
 - `components/diagrams/ai-system.tsx` and `web3-boundary.tsx` are static SVG components. `diagram-scroll.tsx` supplies horizontal scrolling, not simulation. They are consumed by `components/genui/capability-showcase.tsx`; preserve their behavior.
@@ -156,7 +156,7 @@ Paths marked new are proposed; others exist at the inspected baseline. Keep chan
 | `playwright.diagrams.config.ts` (new) | Isolated `tests/diagrams` configuration using a prestarted local server, Chromium/Firefox/WebKit, no GenUI fixture server or CI changes |
 | `lib/diagrams/explainer.test.ts` (new) | State/clock/validation invariants, independent controller instances, and deterministic scenario assertions |
 | `tests/diagrams/agent-loop.spec.ts` (new) | Article controls, fallbacks, responsive/a11y/motion lifecycle checks |
-| `DESIGN.md`, `docs/agents/motion.md`, `docs/agents/content.md`, `docs/agents/design/editorial-images.md` | On acceptance, add the narrow explainer allowance and component convention from decision 0002 |
+| `DESIGN.md`, `docs/agents/motion.md`, `docs/agents/content.md`, `docs/agents/design/editorial-images.md` | On acceptance, add the narrow explainer allowance and component convention from decision 0004 |
 | `ARCHITECTURE.md` | When implemented, document local scene → controller → SVG/text flow and no GenUI exposure |
 
 Read the installed Next guides before implementation; the local `use-client` guide confirms the interactive boundary and serializable props. No new View Transition is proposed. Do not modify `DiagramScroll` to carry the new figure: its horizontal-scroll behavior conflicts with the article's no-scroll requirement. Do not refactor the existing static capability diagrams as a prerequisite.
@@ -195,7 +195,7 @@ After implementing: `bun run verify` and `bun run test:llms` are the repository 
 
 Target: three focused implementation days after acceptance; actual time not measured. Zero runtime service/model cost and no new package dependency. No product analytics or invented engagement metric is required: success is the demonstrated acceptance journey and the reader's ability to identify who selects context, requests tools, enforces execution access, and incorporates results.
 
-1. **Accept the bounded change:** accept this draft and decision 0002; update owning policy documents. No broad “motion is now allowed” relaxation.
+1. **Accept the bounded change:** accept this draft and decision 0004; update owning policy documents. No broad “motion is now allowed” relaxation.
 2. **Static first:** build the scene, responsive topology, captions, text/export fallback and pure transition model. Verify EX-01/03/07/09 before adding motion. This is the first verifiable slice, not a separate product bet.
 3. **Controlled playback:** add controls, single clock, connector motion, lifecycle and accessibility. Verify EX-02/04/05/06/08/10/11. If appetite runs out, defer publication rather than cutting static fallback, reduced motion, permission semantics or keyboard controls.
 4. **Article-only release:** after independent review and the normal authorized shipping process, replace the one article figure. No homepage, capability page or GenUI rollout. Rollback restores the original figure block and SVG reference; shared primitives can remain unused or be reverted together.
@@ -203,7 +203,7 @@ Target: three focused implementation days after acceptance; actual time not meas
 
 ## Direction changes
 
-The user has selected the explainer direction and Animdiagram's visual style. Detailed behavior remains a draft. Decision 0002 proposes a tightly scoped extension to the enumerated motion budget and static article-figure convention. Current canonical documents remain unchanged until acceptance. Nothing here supersedes the diagram ban on `/ai`, `/web3`, `/bio`, the homepage identity, or spec 001's independently gated work.
+The user has selected the explainer direction and Animdiagram's visual style. Detailed behavior remains a draft. Decision 0004 proposes a tightly scoped extension to the enumerated motion budget and static article-figure convention. Current canonical documents remain unchanged until acceptance. Nothing here supersedes the diagram ban on `/ai`, `/web3`, `/bio`, the homepage identity, or spec 001's independently gated work.
 
 ## Out of Scope
 
