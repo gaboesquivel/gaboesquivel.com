@@ -164,7 +164,9 @@ const matches = (row: BaseRow, field: string, value: string) => {
   if (!needle) return true;
   if (field === "year") return String(row.year ?? "") === needle;
   if (field === "featured") {
-    return needle === "yes" || needle === "true" ? row.featured : !row.featured;
+    if (needle === "yes" || needle === "true") return row.featured;
+    if (needle === "no" || needle === "false") return !row.featured;
+    return false;
   }
   const haystack = row[field as "technology" | "domain" | "type" | "category"];
   if (!Array.isArray(haystack)) return false;

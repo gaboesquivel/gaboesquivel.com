@@ -317,3 +317,22 @@ describe("lead order and table taste", () => {
     expect(envelope.openuiText).not.toContain('"type"');
   });
 });
+
+describe("featured filter values", () => {
+  test("an unrecognised value matches nothing instead of inverting the filter", () => {
+    const dataset = executeQuery({
+      id: "d1",
+      spec: spec({ filters: [{ field: "featured", value: "ys" }] }),
+    });
+    expect(dataset.rows).toHaveLength(0);
+  });
+
+  test("no keeps only projects outside the lead set", () => {
+    const all = executeQuery({ id: "d1", spec: spec({}) });
+    const rest = executeQuery({
+      id: "d1",
+      spec: spec({ filters: [{ field: "featured", value: "no" }] }),
+    });
+    expect(rest.rows.length).toBe(all.rows.length - 6);
+  });
+});

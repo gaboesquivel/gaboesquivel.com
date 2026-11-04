@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { useGenuiDataset } from "../genui-dataset-context";
-import { cellText, rowHref } from "./dataset-cell";
+import { cellText, isMissing, rowHref } from "./dataset-cell";
 
 export const DataBoardView = ({
   datasetId,
@@ -69,8 +69,8 @@ export const DataBoardView = ({
                     )}
                     <p className="mt-1 text-neutral-400">
                       {detail
+                        .filter((column) => !isMissing(data?.[column.key]))
                         .map((column) => cellText(data?.[column.key]))
-                        .filter((text) => text !== "Not recorded")
                         .join(" · ")}
                     </p>
                   </li>

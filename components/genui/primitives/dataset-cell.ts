@@ -1,6 +1,9 @@
 import type { DatasetValue, GenuiDataset } from "lib/genui/dataset";
 import { missingDatasetValue } from "lib/genui/dataset";
 
+export const isMissing = (value: DatasetValue | undefined) =>
+  value === null || value === undefined || value === "";
+
 export const cellText = (value: DatasetValue | undefined) =>
   value === null || value === undefined || value === ""
     ? missingDatasetValue

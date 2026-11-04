@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { useGenuiDataset } from "../genui-dataset-context";
-import { cellText, rowHref } from "./dataset-cell";
+import { cellText, isMissing, rowHref } from "./dataset-cell";
 
 type Sort = { direction: "asc" | "desc"; key: string } | null;
 
@@ -134,7 +134,7 @@ export const DataTableView = ({
                   const href =
                     columnIndex === 0 ? rowHref(dataset, index) : null;
                   const text = cellText(row[column.key]);
-                  const missing = text === "Not recorded";
+                  const missing = isMissing(row[column.key]);
                   return (
                     <TableCell
                       className={cn(
@@ -151,6 +151,11 @@ export const DataTableView = ({
                         >
                           {text}
                         </Link>
+                      ) : missing ? (
+                        <>
+                          <span aria-hidden="true">—</span>
+                          <span className="sr-only">{text}</span>
+                        </>
                       ) : (
                         text
                       )}
