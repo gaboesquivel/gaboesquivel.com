@@ -44,7 +44,7 @@ export const DataBoardView = ({
           <li className="min-w-0" key={group}>
             <h4 className="mb-2 flex items-baseline justify-between border-b border-hairline pb-2 font-mono text-sm text-neutral-300">
               <span>{group}</span>
-              <span className="text-neutral-500 tabular-nums">
+              <span className="text-neutral-400 tabular-nums">
                 {cards.length}
               </span>
             </h4>

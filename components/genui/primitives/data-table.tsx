@@ -139,7 +139,7 @@ export const DataTableView = ({
                       className={cn(
                         "px-0 py-3 pr-4 align-top whitespace-normal",
                         column.type === "number" && "text-right tabular-nums",
-                        text === "Not recorded" && "text-neutral-500"
+                        text === "Not recorded" && "text-neutral-400"
                       )}
                       key={column.key}
                     >
