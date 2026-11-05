@@ -27,6 +27,7 @@ export type GenuiFixtureId =
   | "project-case-study"
   | "project-bento"
   | "project-asymmetric-closing"
+  | "project-asymmetric-closing-eight"
   | "writing-dated"
   | "contact-hire"
   | "booking-hire"
@@ -218,6 +219,34 @@ export const genuiFixtures: Record<GenuiFixtureId, GenuiFixtureDefinition> = {
       requestId,
     }),
     id: "project-asymmetric-closing",
+  },
+  "project-asymmetric-closing-eight": {
+    envelope: projectDocument({
+      composite: "project-asymmetric-closing",
+      domain: "all",
+      projectIds: [
+        "/project/legal-agent",
+        "/project/masterbots",
+        "/project/bitlauncher",
+        "/project/wizard-world",
+        "/project/wink",
+        "/project/its",
+        "/project/chaingraph",
+        "/project/emanate",
+      ],
+      records: [
+        sampleProjectRecord("legal-agent", "LegalAgent"),
+        sampleProjectRecord("masterbots", "Masterbots"),
+        sampleProjectRecord("bitlauncher", "Bitlauncher"),
+        sampleProjectRecord("wizard-world", "Wizard World"),
+        sampleProjectRecord("wink", "Wink"),
+        sampleProjectRecord("its", "ITS"),
+        sampleProjectRecord("chaingraph", "ChainGraph"),
+        sampleProjectRecord("emanate", "Emanate"),
+      ],
+      requestId,
+    }),
+    id: "project-asymmetric-closing-eight",
   },
   "mixed-task": {
     envelope: stackDocument({

@@ -19,6 +19,7 @@ import {
   DialogPortal,
   DialogTitle,
 } from "components/ui/dialog";
+import { CoverMorphScoped } from "components/work/cover-morph";
 import { searchCopy } from "lib/search/copy";
 import { XIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -83,7 +84,9 @@ export function SiteSearchShell({
 
   return (
     <SiteSearchProvider value={{ records, requestSearch }}>
-      {children}
+      <CoverMorphScoped suffix={open ? "-page" : ""}>
+        {children}
+      </CoverMorphScoped>
       <GenuiSessionProvider writesEnabled={genuiWritesEnabled(genui)}>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogPortal>

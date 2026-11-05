@@ -16,6 +16,9 @@ for (const viewport of viewports) {
     await expect(page.locator("[data-fixture-id]")).toBeVisible();
     await expect(page.locator('a[href^="/project/"]')).toHaveCount(4);
     await expect(page.getByText("Composing results")).toHaveCount(0);
+    await page.evaluate(() =>
+      Promise.all(document.getAnimations().map((a) => a.finished))
+    );
     await expect(page).toHaveScreenshot(`project-bento-${viewport.label}.png`, {
       fullPage: true,
       maxDiffPixelRatio: 0.02,
