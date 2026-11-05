@@ -10,7 +10,9 @@ import {
 } from "components/interior/split-section";
 import { NewTabCue, newTabProps } from "components/shared/new-tab-cue";
 import {
+  PageEyebrow,
   PageSection,
+  PageTitle,
   proseLink,
   Prose,
   projectMedia,
@@ -84,39 +86,98 @@ export function ProjectCaseStudy({
       </ul>
     ) : null;
 
+  const description = project.description.replaceAll("\n", " ");
+  const meta =
+    project.role || project.year ? (
+      <p className="max-w-3xl text-sm">
+        {project.role ? (
+          <span className={projectRole}>{project.role}</span>
+        ) : null}
+        {project.role && project.year ? (
+          <span aria-hidden="true" className="text-neutral-400">
+            {" · "}
+          </span>
+        ) : null}
+        {project.year ? (
+          <span className="text-neutral-400">{project.year}</span>
+        ) : null}
+      </p>
+    ) : undefined;
+
   const storyLead = project.story?.[0];
   const storyRest = project.story?.slice(1) ?? [];
 
   return (
     <InteriorPageShell>
-      <PageIntro
-        compact={Boolean(genui)}
-        density={genui ? "panel" : "default"}
-        eyebrowSpace
-        description={project.description.replaceAll("\n", " ")}
-        title={project.title}
-        meta={
-          project.role || project.year ? (
-            <p className="max-w-3xl text-sm">
-              {project.role ? (
-                <span className={projectRole}>{project.role}</span>
+      {genui ? (
+        <>
+          <PageIntro
+            compact
+            density="panel"
+            eyebrowSpace
+            description={description}
+            title={project.title}
+            meta={meta}
+          />
+          <FullBleedMedia className="mt-6">
+            <ProjectHero href={primaryImageHref} preload project={project} />
+          </FullBleedMedia>
+        </>
+      ) : (
+        <>
+          <header>
+            <PageEyebrow />
+            <div className="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-8">
+              <PageTitle>{project.title}</PageTitle>
+              {meta ? (
+                <p className="shrink-0 text-sm leading-relaxed md:text-right">
+                  {project.role ? (
+                    <span className={cn(projectRole, "block")}>
+                      {project.role}
+                    </span>
+                  ) : null}
+                  {project.year ? (
+                    <span className="block text-neutral-400">
+                      {project.year}
+                    </span>
+                  ) : null}
+                </p>
               ) : null}
-              {project.role && project.year ? (
-                <span aria-hidden="true" className="text-neutral-400">
-                  {" · "}
-                </span>
-              ) : null}
-              {project.year ? (
-                <span className="text-neutral-400">{project.year}</span>
-              ) : null}
-            </p>
-          ) : undefined
-        }
-      />
+            </div>
+          </header>
 
-      <FullBleedMedia className={genui ? "mt-6" : "mt-10"}>
-        <ProjectHero href={primaryImageHref} preload project={project} />
-      </FullBleedMedia>
+          <FullBleedMedia className="mt-8 mb-0 lg:mt-10 lg:mb-0">
+            <ProjectHero href={primaryImageHref} preload project={project} />
+          </FullBleedMedia>
+
+          <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 lg:mt-10 lg:grid-cols-12">
+            {validExperienceTypes.length > 0 ? (
+              <ul className="flex flex-wrap gap-x-2 text-sm lg:col-span-6">
+                {validExperienceTypes.map((item, index) => (
+                  <li key={`${project.slug}-type-${item.url}`}>
+                    <Link className={editorialLink} href={item.url}>
+                      {item.display}
+                    </Link>
+                    {index < validExperienceTypes.length - 1 ? (
+                      <span
+                        aria-hidden="true"
+                        className="ml-2 text-neutral-400"
+                      >
+                        /
+                      </span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {description ? (
+              <p className="max-w-[55ch] text-base leading-relaxed text-neutral-300 lg:col-span-6 lg:col-start-7">
+                {description}
+              </p>
+            ) : null}
+          </div>
+        </>
+      )}
 
       {storyLead ? (
         <EditorialSection className={sectionGap}>
@@ -235,7 +296,7 @@ export function ProjectCaseStudy({
         </PageSection>
       ) : null}
 
-      {validExperienceTypes.length > 0 ? (
+      {genui && validExperienceTypes.length > 0 ? (
         <PageSection className={sectionGap} title="Experience">
           <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             {validExperienceTypes.map((item) => (
