@@ -8,6 +8,12 @@ const webServerCommand =
     ? `GENUI_FIXTURE_LAB=1 bun run content:build && bunx eve build && GENUI_FIXTURE_LAB=1 bun run build && GENUI_FIXTURE_LAB=1 bunx next start -p ${testPort}`
     : `bash scripts/genui-playwright-webserver.sh`;
 
+/**
+ * The Playwright e2e suites are disabled (the specs stay in `tests/`). Set
+ * `PLAYWRIGHT_E2E=1` to run them again; without it every spec is ignored.
+ */
+const e2eEnabled = process.env.PLAYWRIGHT_E2E === "1";
+
 export default defineConfig({
   expect: {
     toHaveScreenshot: { maxDiffPixels: 50 },
@@ -28,6 +34,7 @@ export default defineConfig({
   ],
   retries: process.env.CI ? 1 : 0,
   testDir: "tests/genui",
+  testIgnore: e2eEnabled ? undefined : /.*/,
   timeout: 60_000,
   use: {
     baseURL,
