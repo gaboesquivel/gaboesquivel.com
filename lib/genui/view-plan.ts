@@ -84,8 +84,10 @@ export const backedNoteKind = ({
     ),
     "search-excerpts": quoted,
   };
-  const wanted = requested === "none" && quoted ? "search-excerpts" : requested;
-  return backed[wanted] ? wanted : "none";
+  // A quoted column always says where its text comes from, whatever else the
+  // planner asked for: an unbacked request falls back to that, not to silence.
+  if (requested !== "none" && backed[requested]) return requested;
+  return quoted ? "search-excerpts" : "none";
 };
 
 export const limitationCopy =

@@ -554,6 +554,44 @@ describe("a note is shown only when the view backs it", () => {
     expect(envelope?.openuiText).not.toContain(noteCopy["featured-set"]);
   });
 
+  test("a search table whose planner note is unbacked still says where the quotes come from", () => {
+    const search = spec({
+      filters: [filter("story", "contains", storyWord())],
+    });
+    for (const kind of ["recent-window", "featured-set"] as const) {
+      const envelope = withNote(kind, search);
+      expect(envelope?.openuiText).toContain(noteCopy["search-excerpts"]);
+      expect(envelope?.openuiText).not.toContain(noteCopy[kind]);
+    }
+  });
+
+  test("backedNoteKind resolves each combination", () => {
+    const featured = [{ filters: [filter("featured", "equals", "yes")] }];
+    expect(
+      backedNoteKind({ quoted: true, requested: "recent-window", specs: [] })
+    ).toBe("search-excerpts");
+    expect(
+      backedNoteKind({ quoted: true, requested: "missing-data", specs: [] })
+    ).toBe("missing-data");
+    expect(
+      backedNoteKind({
+        quoted: true,
+        requested: "featured-set",
+        specs: featured,
+      })
+    ).toBe("featured-set");
+    expect(
+      backedNoteKind({ quoted: false, requested: "search-excerpts", specs: [] })
+    ).toBe("none");
+    expect(
+      backedNoteKind({
+        quoted: false,
+        requested: "recent-window",
+        specs: featured,
+      })
+    ).toBe("none");
+  });
+
   test("backedNoteKind keeps the always-true kinds", () => {
     expect(
       backedNoteKind({ quoted: false, requested: "none", specs: [] })
