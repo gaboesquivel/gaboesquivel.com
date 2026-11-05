@@ -20,6 +20,7 @@ import { projectSlugFromPublicId } from "lib/genui/project-from-id";
 import { cn } from "lib/utils";
 
 import { ProjectShowcaseCard } from "./project-showcase-card";
+import { ProjectTimeline } from "./project-timeline";
 
 const showcaseSizes = {
   lead: "(max-width: 47.99rem) 100vw, (max-width: 63.99rem) 50vw, 36rem",
@@ -53,6 +54,8 @@ const flowSpans = (count: number) =>
 /** Two columns from 36rem; a trailing odd card spans both so it never floats. */
 const flowGrid =
   "grid grid-cols-1 gap-4 @min-[36rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:grid-cols-12 @min-[64rem]/project-showcase:gap-6";
+/** Cards in one row share its height; no card is ever taller than its row. */
+const rowCard = "[&>article]:h-full";
 const flowOrphan =
   "@min-[36rem]/project-showcase:@max-[63.99rem]/project-showcase:[&:last-child:nth-child(odd)]:col-span-2";
 
@@ -170,6 +173,10 @@ export const ProjectShowcaseLayout = ({
     );
   }
 
+  if (composite === "project-timeline") {
+    return <ProjectTimeline projects={ordered.map(({ project }) => project)} />;
+  }
+
   if (composite === "project-comparison") {
     return (
       <ProjectComparison
@@ -196,7 +203,10 @@ export const ProjectShowcaseLayout = ({
         ) : null}
         <div className="grid grid-cols-1 gap-4 @min-[36rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:gap-6">
           {supporting.map(({ project, role }, index) => (
-            <div className={cn("min-w-0", flowOrphan)} key={project.slug}>
+            <div
+              className={cn("min-w-0", rowCard, flowOrphan)}
+              key={project.slug}
+            >
               <ProjectShowcaseCard
                 index={index + 1}
                 project={project}
@@ -213,52 +223,34 @@ export const ProjectShowcaseLayout = ({
   if (composite === "project-bento") {
     const byRole = new Map(ordered.map((item) => [item.role, item]));
     const lead = byRole.get("lead");
-    const topRight = byRole.get("top-right");
-    const bottomLeft = byRole.get("bottom-left");
-    const bottomRight = byRole.get("bottom-right");
+    const rest = (
+      ["top-right", "bottom-left", "bottom-right"] as const
+    ).flatMap((role) => byRole.get(role) ?? []);
     return (
-      <div className="@container/project-showcase min-w-0">
-        <div className="grid grid-cols-1 gap-4 @min-[36rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:grid-cols-12 @min-[64rem]/project-showcase:grid-rows-2 @min-[64rem]/project-showcase:gap-4">
-          {lead ? (
-            <div className="min-w-0 @min-[64rem]/project-showcase:col-span-6 @min-[64rem]/project-showcase:row-span-2">
+      <div className="@container/project-showcase min-w-0 space-y-4 @min-[64rem]/project-showcase:space-y-6">
+        {lead ? (
+          <ProjectShowcaseCard
+            project={lead.project}
+            role={lead.role}
+            sizes={showcaseSizes.lead}
+            priority
+            wide
+          />
+        ) : null}
+        <div className="grid grid-cols-1 gap-4 @min-[36rem]/project-showcase:grid-cols-2 @min-[64rem]/project-showcase:grid-cols-3 @min-[64rem]/project-showcase:gap-6">
+          {rest.map(({ project, role }, index) => (
+            <div
+              className={cn("min-w-0", rowCard, flowOrphan)}
+              key={project.slug}
+            >
               <ProjectShowcaseCard
-                project={lead.project}
-                role={lead.role}
-                sizes={showcaseSizes.lead}
-                priority
-              />
-            </div>
-          ) : null}
-          {topRight ? (
-            <div className="min-w-0 @min-[64rem]/project-showcase:col-span-6">
-              <ProjectShowcaseCard
-                index={1}
-                project={topRight.project}
-                role={topRight.role}
+                index={index + 1}
+                project={project}
+                role={role}
                 sizes={showcaseSizes.secondary}
               />
             </div>
-          ) : null}
-          {bottomLeft ? (
-            <div className="min-w-0 @min-[64rem]/project-showcase:col-span-3">
-              <ProjectShowcaseCard
-                index={2}
-                project={bottomLeft.project}
-                role={bottomLeft.role}
-                sizes={showcaseSizes.secondary}
-              />
-            </div>
-          ) : null}
-          {bottomRight ? (
-            <div className="min-w-0 @min-[64rem]/project-showcase:col-span-3">
-              <ProjectShowcaseCard
-                index={3}
-                project={bottomRight.project}
-                role={bottomRight.role}
-                sizes={showcaseSizes.secondary}
-              />
-            </div>
-          ) : null}
+          ))}
         </div>
       </div>
     );
@@ -302,7 +294,7 @@ export const ProjectShowcaseLayout = ({
           <div className={flowGrid}>
             {flow.map(({ project, role }, index) => (
               <div
-                className={cn("min-w-0", flowOrphan, spans[index])}
+                className={cn("min-w-0", rowCard, flowOrphan, spans[index])}
                 key={project.slug}
               >
                 <ProjectShowcaseCard

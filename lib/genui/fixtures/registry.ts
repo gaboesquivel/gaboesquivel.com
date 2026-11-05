@@ -25,6 +25,7 @@ export type GenuiFixtureId =
   | "cv-full"
   | "project-gallery"
   | "project-case-study"
+  | "project-timeline"
   | "project-bento"
   | "project-asymmetric-closing"
   | "project-asymmetric-closing-eight"
@@ -177,6 +178,26 @@ export const genuiFixtures: Record<GenuiFixtureId, GenuiFixtureDefinition> = {
       requestId,
     }),
     id: "project-gallery",
+  },
+  "project-timeline": {
+    envelope: projectDocument({
+      composite: "project-timeline",
+      domain: "ai",
+      projectIds: [
+        "/project/legal-agent",
+        "/project/masterbots",
+        "/project/bitlauncher",
+        "/project/wizard-world",
+      ],
+      records: [
+        sampleProjectRecord("legal-agent", "LegalAgent"),
+        sampleProjectRecord("masterbots", "Masterbots"),
+        sampleProjectRecord("bitlauncher", "Bitlauncher"),
+        sampleProjectRecord("wizard-world", "Wizard World"),
+      ],
+      requestId,
+    }),
+    id: "project-timeline",
   },
   "project-bento": {
     envelope: projectDocument({

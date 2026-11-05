@@ -9,7 +9,7 @@ describe("composeIntentDocument", () => {
       requestId: "r",
     });
     expect(doc?.openuiText).toContain("ProjectExperience");
-    expect(doc?.openuiText).toContain("project-bento");
+    expect(doc?.openuiText).toContain("project-timeline");
     expect(doc?.openuiText).not.toContain("CapabilityShowcaseExperience");
     expect(doc?.openuiText).toContain('"ai"');
   });
@@ -37,7 +37,7 @@ describe("composeIntentDocument", () => {
       query: "show   me   your AI projects!!!",
       requestId: "r",
     });
-    expect(doc?.openuiText).toContain("project-bento");
+    expect(doc?.openuiText).toContain("project-timeline");
   });
 
   test("experience question uses evidence answer with projects", () => {
