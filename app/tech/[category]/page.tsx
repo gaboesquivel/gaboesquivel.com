@@ -81,10 +81,7 @@ export default async function TechCategoryPage({
               </Prose>
             ) : undefined
           }
-          trail={[
-            { label: "tech", href: "/tech" },
-            { label: techCategoryLabels[category].toLowerCase() },
-          ]}
+          hero
         />
         {filteredPosts.length > 0 ? (
           <PageSection title={`Writing about ${techCategoryLabels[category]}`}>

@@ -9,7 +9,6 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](../../../com
 | Primary nav | `<nav>` of `Link` rows (wrap, lowercase, `aria-current`) | `components/layout/navbar.tsx` |
 | Page h1 | `PageTitle` (display `heroTitle`, shared `TitleLead`) with `PageEyebrow` above | `components/shared/page-layout.tsx` |
 | Inner-page hero | `InnerPageHero` (display `heroTitle`; compact only inside GenUI panels) | `components/shared/inner-page-hero.tsx` |
-| Location / breadcrumb | `PageTrail` (slash-separated, mono meta; parent links only) | `components/shared/page-trail.tsx` |
 | Section | `PageSection` | `components/shared/page-layout.tsx` |
 | Body paragraph | `Prose` | `components/shared/page-layout.tsx` |
 | Filter | `FilterNav` (plain `Link` with `aria-current`) | `components/shared/page-layout.tsx` |

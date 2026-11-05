@@ -62,7 +62,7 @@ export const pageTitle = cn(
   "text-2xl font-bold tracking-tighter sm:text-3xl"
 );
 
-/** One row above every page title (breadcrumb or empty spacer): 36px, so all h1s start at the same y. */
+/** One row above every page title (an empty spacer): 36px, so all h1s start at the same y. */
 export const pageEyebrow = "flex h-9 items-start text-sm text-neutral-400";
 
 export const sectionTitle = "text-2xl font-semibold tracking-tight";

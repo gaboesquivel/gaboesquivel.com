@@ -24,9 +24,9 @@ export default function TechStack({
     <section>
       <InnerPageHero
         compact
+        eyebrowSpace
         description={tech.description}
         title={tech.name}
-        trail={[{ href: "/tech", label: "tech" }, { label: tech.name }]}
       />
 
       {tech.experience.length > 0 ? (

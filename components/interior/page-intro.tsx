@@ -1,6 +1,5 @@
 import { InnerPageHero } from "components/shared/inner-page-hero";
 import { PageEyebrow, PageTitle } from "components/shared/page-layout";
-import type { PageTrailSegment } from "components/shared/page-trail";
 import { editorialMeasure, narrativeLead } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
@@ -10,8 +9,8 @@ export function PageIntro({
   description,
   className,
   titleClassName,
-  trail,
   compact,
+  eyebrowSpace,
   density = "default",
   narrative = false,
   meta,
@@ -21,8 +20,9 @@ export function PageIntro({
   description?: string;
   className?: string;
   titleClassName?: string;
-  trail?: PageTrailSegment[];
   compact?: boolean;
+  /** Compact only: keep the blank row above the title. */
+  eyebrowSpace?: boolean;
   density?: "default" | "panel";
   /** One left-aligned reading block. No second column and no intro image. */
   narrative?: boolean;
@@ -33,7 +33,7 @@ export function PageIntro({
   if (narrative) {
     return (
       <header className={cn(editorialMeasure, className)}>
-        <PageEyebrow trail={trail} />
+        <PageEyebrow />
         <PageTitle className={titleClassName}>{title}</PageTitle>
         {description ? <p className={narrativeLead}>{description}</p> : null}
         {children ? (
@@ -51,10 +51,10 @@ export function PageIntro({
         className={titleClassName}
         compact={compact}
         density={density}
+        eyebrowSpace={eyebrowSpace}
         description={description}
         meta={meta}
         title={title}
-        trail={trail}
       >
         {children}
       </InnerPageHero>
