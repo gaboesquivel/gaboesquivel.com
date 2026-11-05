@@ -22,6 +22,7 @@ import {
 import { CoverMorphScoped } from "components/work/cover-morph";
 import { searchCopy } from "lib/search/copy";
 import { XIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
@@ -45,7 +46,17 @@ export function SiteSearchShell({
   records: SearchRecord[];
   children: React.ReactNode;
 }) {
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  // The dialog is open only on the route it was opened from. Following a link
+  // changes the route, so it closes in the same commit as the new page: the
+  // cover morph then runs from the result card to the project hero instead of
+  // the overlay lingering over the destination.
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const open = openPath === pathname;
+  const setOpen = useCallback(
+    (next: boolean) => setOpenPath(next ? pathname : null),
+    [pathname]
+  );
   // Above the dialog, so closing it (which unmounts the panel) keeps the last
   // result, drafts and receipts for the session (S-P1).
   const genui = useGenuiComposition();
@@ -55,18 +66,21 @@ export function SiteSearchShell({
   /** Where the field animates from: the clicked trigger's rect. */
   const originRef = useRef<DOMRect | null>(null);
 
-  const requestSearch = useCallback((origin?: DOMRect) => {
-    const active = document.activeElement;
-    // Safari does not focus buttons on click, so fall back to the nav trigger.
-    returnFocusRef.current =
-      active instanceof HTMLElement && active !== document.body
-        ? active
-        : document.querySelector<HTMLElement>(
-            "[data-site-search-trigger], [data-home-search-trigger]"
-          );
-    originRef.current = origin ?? null;
-    setOpen(true);
-  }, []);
+  const requestSearch = useCallback(
+    (origin?: DOMRect) => {
+      const active = document.activeElement;
+      // Safari does not focus buttons on click, so fall back to the nav trigger.
+      returnFocusRef.current =
+        active instanceof HTMLElement && active !== document.body
+          ? active
+          : document.querySelector<HTMLElement>(
+              "[data-site-search-trigger], [data-home-search-trigger]"
+            );
+      originRef.current = origin ?? null;
+      setOpen(true);
+    },
+    [setOpen]
+  );
 
   useEffect(() => {
     // Cmd/Ctrl+K works everywhere, including inside inputs, and toggles the
@@ -80,7 +94,7 @@ export function SiteSearchShell({
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, requestSearch]);
+  }, [open, requestSearch, setOpen]);
 
   return (
     <SiteSearchProvider value={{ records, requestSearch }}>
