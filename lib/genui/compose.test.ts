@@ -71,7 +71,7 @@ describe("composeQuery", () => {
     expect(result.metadata.taskIntent).toBe("browse-projects");
     if (complete?.type === "complete") {
       expect(complete.envelope.openuiText).toContain("ProjectExperience");
-      expect(complete.envelope.openuiText).toContain("project-bento");
+      expect(complete.envelope.openuiText).toContain("project-timeline");
       expect(complete.envelope.openuiText).not.toContain(
         "CapabilityShowcaseExperience"
       );

@@ -17,6 +17,7 @@ export const compositeNames = [
   "cv-document",
   "cv-preview",
   "capability-showcase",
+  "project-timeline",
   "project-bento",
   "project-feature-grid",
   "project-asymmetric-closing",

@@ -1,4 +1,5 @@
 export const projectCompositionRecipes = [
+  "project-timeline",
   "project-bento",
   "project-feature-grid",
   "project-asymmetric-closing",
@@ -18,7 +19,8 @@ export type ProjectCompositionRole =
   | "right-feature"
   | "closing-feature"
   | "comparison-item"
-  | "list-item";
+  | "list-item"
+  | "timeline-item";
 
 export interface ProjectCompositionSlot {
   projectId: string;
@@ -56,6 +58,9 @@ const assertCardinality = ({
   recipe: ProjectCompositionRecipe;
   count: number;
 }) => {
+  if (recipe === "project-timeline" && (count < 2 || count > 8)) {
+    throw new CompositionPlanError("invalid_recipe_cardinality");
+  }
   if (recipe === "project-bento" && count !== 4) {
     throw new CompositionPlanError("invalid_recipe_cardinality");
   }
@@ -85,6 +90,16 @@ export const materializeProjectSlots = (
     throw new CompositionPlanError("duplicate_project_ids");
   }
   assertCardinality({ recipe, count: projectIds.length });
+
+  if (recipe === "project-timeline") {
+    return {
+      recipe,
+      slots: projectIds.map((projectId) => ({
+        projectId,
+        role: "timeline-item",
+      })),
+    };
+  }
 
   if (recipe === "project-bento") {
     return {

@@ -9,6 +9,7 @@ export const projectComposites: readonly CompositeName[] = [
   "wide-lead",
   "evidence-grid",
   "case-study",
+  "project-timeline",
   "project-bento",
   "project-feature-grid",
   "project-asymmetric-closing",

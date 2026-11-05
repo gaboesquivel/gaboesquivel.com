@@ -32,11 +32,8 @@ export const selectProjectComposition = ({
   if (count === 3) {
     return "project-feature-grid";
   }
-  if (count === 4) {
-    return "project-bento";
-  }
-  if (count >= 5) {
-    return "project-asymmetric-closing";
+  if (count >= 4) {
+    return "project-timeline";
   }
   return "project-compact-list";
 };

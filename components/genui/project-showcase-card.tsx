@@ -39,14 +39,14 @@ export const ProjectShowcaseCard = ({
       data-showcase-card=""
       style={{ "--card-index": Math.min(index, 8) } as React.CSSProperties}
       className={cn(
-        "@container/showcase-card h-full min-w-0 rounded-lg border border-hairline bg-black p-4 motion-safe:transition-colors motion-safe:duration-150 motion-reduce:transition-none",
+        "@container/showcase-card min-w-0 rounded-lg border border-hairline bg-black p-4 motion-safe:transition-colors motion-safe:duration-150 motion-reduce:transition-none",
         "focus-within:border-neutral-500 hover:border-neutral-600"
       )}
     >
       <Link
         href={`/project/${project.slug}`}
         className={cn(
-          "group flex h-full flex-col",
+          "group flex flex-col",
           wide &&
             "@min-[44rem]/showcase-card:grid @min-[44rem]/showcase-card:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] @min-[44rem]/showcase-card:items-center @min-[44rem]/showcase-card:gap-8",
           editorialLink
@@ -73,7 +73,7 @@ export const ProjectShowcaseCard = ({
             )}
           </div>
         </CoverMorph>
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-w-0 flex-col">
           <h3
             className={cn(
               "mt-4 font-semibold tracking-tight [overflow-wrap:anywhere] text-white",
