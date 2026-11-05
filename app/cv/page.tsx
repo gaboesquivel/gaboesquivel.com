@@ -12,8 +12,8 @@ import {
   sectionTitle,
   titleSpacing,
 } from "components/shared/page-layout";
-import { resolveCv as resolveCvBase } from "gaboesquivel";
 import { articleColumn } from "components/shared/spacing";
+import { resolveCv as resolveCvBase } from "gaboesquivel";
 import { cvPdfFile } from "lib/cv-paths";
 import { markdownSiblingPath } from "lib/markdown-sibling";
 import { landingOgImages } from "lib/og/landing";
