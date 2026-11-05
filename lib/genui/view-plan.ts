@@ -48,10 +48,44 @@ export const noteCopy: Record<Exclude<NoteKind, "none">, string> = {
   "featured-set":
     "This is the site's own featured set, led by the homepage selected work.",
   "missing-data":
-    "The site does not hold exactly that, so this shows the nearest published records instead.",
+    "This is the closest view the published projects and posts can support.",
   "recent-window": "Recent means the newest three years of published work.",
   "search-excerpts":
     "Each row quotes the line that matched, verbatim from the published project text.",
+};
+
+const isYes = (value: string) =>
+  ["yes", "true"].includes(value.trim().toLowerCase());
+
+/**
+ * A note is a claim about the view, so it is shown only when the view backs
+ * it: the featured note needs a featured filter, the recent note needs the
+ * recent filter (three years, as the copy says), and the excerpts note needs a
+ * quoted column. Anything else the planner asked for is dropped.
+ */
+export const backedNoteKind = ({
+  quoted,
+  requested,
+  specs,
+}: {
+  quoted: boolean;
+  requested: NoteKind;
+  specs: readonly Pick<QuerySpec, "filters">[];
+}): NoteKind => {
+  const filters = specs.flatMap((spec) => spec.filters);
+  const backed: Record<NoteKind, boolean> = {
+    "featured-set": filters.some(
+      (filter) => filter.field === "featured" && isYes(filter.value)
+    ),
+    "missing-data": true,
+    none: true,
+    "recent-window": filters.some(
+      (filter) => filter.field === "recent" && isYes(filter.value)
+    ),
+    "search-excerpts": quoted,
+  };
+  const wanted = requested === "none" && quoted ? "search-excerpts" : requested;
+  return backed[wanted] ? wanted : "none";
 };
 
 export const limitationCopy =
@@ -245,6 +279,7 @@ export const viewEnvelopeFromPlan = ({
   if (!plan.supported || plan.blocks.length === 0) return null;
   const datasets: GenuiDataset[] = [];
   const expressions: string[] = [];
+  const keptSpecs: QuerySpec[] = [];
   for (const block of plan.blocks) {
     const spec: QuerySpec =
       block.type === "stats"
@@ -277,14 +312,18 @@ export const viewEnvelopeFromPlan = ({
     if (!expression || dataset.rows.length === 0) continue;
     datasets.push(dataset);
     expressions.push(expression);
+    keptSpecs.push(spec);
   }
   if (!expressions.length) return null;
 
   const quoted = datasets.some((dataset) =>
     dataset.columns.some((column) => column.excerpt)
   );
-  const kind: NoteKind =
-    plan.noteKind === "none" && quoted ? "search-excerpts" : plan.noteKind;
+  const kind = backedNoteKind({
+    quoted,
+    requested: plan.noteKind,
+    specs: keptSpecs,
+  });
   const note = kind === "none" ? "" : noteCopy[kind];
   const envelope: CompositionEnvelope = {
     datasets,

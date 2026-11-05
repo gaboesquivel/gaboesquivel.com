@@ -6,6 +6,7 @@ import { compileExperience } from "../contract/compiler";
 import { buildRequestPlan } from "../request-plan";
 import { validateCompositionEnvelope } from "../validate-envelope";
 import {
+  backedNoteKind,
   composeViewDocument,
   isDeadEndPlan,
   limitationCopy,
@@ -480,5 +481,86 @@ describe("review regressions (spec 004)", () => {
       "Projects that mention payments, with the line that says so"
     );
     expect(isDeadEndPlan(planned)).toBe(true);
+  });
+});
+
+const withNote = (
+  noteKind: ViewPlan["noteKind"],
+  query: QuerySpec,
+  extra: Partial<ViewPlan["blocks"][number]> = {}
+) =>
+  viewEnvelopeFromPlan({
+    plan: { ...plan([{ ...tableBlock(query), ...extra }]), noteKind },
+    query: "table",
+    requestId: "n1",
+  });
+
+describe("a note is shown only when the view backs it", () => {
+  test("the excerpts note is dropped from a table with no search", () => {
+    const envelope = withNote("search-excerpts", spec({}));
+    expect(envelope).not.toBeNull();
+    expect(envelope?.openuiText).not.toContain(noteCopy["search-excerpts"]);
+  });
+
+  test("a search table gets the excerpts note even when the planner asked for none", () => {
+    const envelope = withNote(
+      "none",
+      spec({ filters: [filter("story", "contains", storyWord())] })
+    );
+    expect(envelope?.openuiText).toContain(noteCopy["search-excerpts"]);
+  });
+
+  test("the featured note needs a featured filter", () => {
+    const bare = withNote("featured-set", spec({}));
+    expect(bare?.openuiText).not.toContain(noteCopy["featured-set"]);
+    const backed = withNote(
+      "featured-set",
+      spec({ filters: [filter("featured", "equals", "yes")] })
+    );
+    expect(backed?.openuiText).toContain(noteCopy["featured-set"]);
+  });
+
+  test("the recent note needs the three-year recent filter, not another window", () => {
+    const bare = withNote("recent-window", spec({}));
+    expect(bare?.openuiText).not.toContain(noteCopy["recent-window"]);
+    const twoYears = withNote(
+      "recent-window",
+      spec({ filters: [filter("year", "lastYears", "2")] })
+    );
+    expect(twoYears?.openuiText).not.toContain(noteCopy["recent-window"]);
+    const backed = withNote(
+      "recent-window",
+      spec({ filters: [filter("recent", "equals", "yes")] })
+    );
+    expect(backed?.openuiText).toContain(noteCopy["recent-window"]);
+  });
+
+  test("a filter on a block that was dropped does not back a note", () => {
+    const dropped = tableBlock(
+      spec({
+        filters: [
+          filter("featured", "equals", "yes"),
+          filter("year", "contains", "20"),
+        ],
+      })
+    );
+    const kept = tableBlock(spec({}));
+    const envelope = viewEnvelopeFromPlan({
+      plan: { ...plan([dropped, kept]), noteKind: "featured-set" },
+      query: "table",
+      requestId: "n2",
+    });
+    expect(envelope).not.toBeNull();
+    expect(envelope?.openuiText).not.toContain(noteCopy["featured-set"]);
+  });
+
+  test("backedNoteKind keeps the always-true kinds", () => {
+    expect(
+      backedNoteKind({ quoted: false, requested: "none", specs: [] })
+    ).toBe("none");
+    expect(
+      backedNoteKind({ quoted: false, requested: "missing-data", specs: [] })
+    ).toBe("missing-data");
+    expect(noteCopy["missing-data"]).not.toContain("does not hold");
   });
 });
