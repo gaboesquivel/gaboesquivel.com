@@ -10,16 +10,22 @@ colors:
   hover-fill: "#262626"
 typography:
   body:
-    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1rem
     fontWeight: 400
+  display-title:
+    fontFamily: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontSize: clamp(2.5rem, 7.2vw, 5.25rem)
+    fontWeight: 800
+    lineHeight: 1.04
+    letterSpacing: -0.055em
   page-title:
-    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1.5rem
     fontWeight: 700
     letterSpacing: -0.05em
   section-title:
-    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1.5rem
     fontWeight: 600
     letterSpacing: -0.025em
@@ -77,7 +83,7 @@ Theme colors live in [`tailwind.config.mts`](tailwind.config.mts).
 
 ## Typography
 
-- System mono at 400 for everything (`font-mono font-normal` on `html`); page titles 700, section titles 600. Graphik is mapped to `font-sans` but **not loaded**: do not restore it, pair a display serif, or add a typeface unless the task loads a font. Reason: the mono column is the identity. Display serif is **checked**; a new typeface is **look**.
+- JetBrains Mono (`next/font`, weights 400, 600, 700, 800, variable `--font-mono`) at 400 for everything (`font-mono font-normal` on `html`), with the system mono stack as fallback. Display h1 (`heroTitle`) is 800, `clamp(2.5rem, 7.2vw, 5.25rem)` (84px max), line height 1.04, tracking `-0.055em`; document page titles 700, section titles 600. Graphik is mapped to `font-sans` but **not loaded**: do not restore it, pair a display serif or a second family, or add a typeface unless the task loads a font. Reason: one mono family is the identity, and a big h1 is its signature ([decision 0007](docs/decisions/0007-jetbrains-mono-display-h1.md)). Display serif is **checked**; a second typeface is **look**.
 - Nav: lowercase mono, `tracking-tight`. No all-caps or wide tracking anywhere, because those make eyebrow labels. **Checked** (`uppercase`, `tracking-wider`, `tracking-widest`).
 
 Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts).
