@@ -2,6 +2,7 @@ import "./cv.css";
 import { PrintButton } from "components/print-button";
 import { ContactInfo } from "components/shared/contact-info";
 import {
+  PageEyebrow,
   PageSection,
   PageTitle,
   Prose,
@@ -11,6 +12,7 @@ import {
   sectionTitle,
   titleSpacing,
 } from "components/shared/page-layout";
+import { articleColumn } from "components/shared/spacing";
 import { resolveCv as resolveCvBase } from "gaboesquivel";
 import { cvPdfFile } from "lib/cv-paths";
 import { markdownSiblingPath } from "lib/markdown-sibling";
@@ -60,7 +62,10 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
   return (
     <section
-      className="cv-content cv-print m-0 w-full max-w-4xl p-0 print:block print:w-full print:max-w-none preview-print:max-w-none"
+      className={cn(
+        "cv-content cv-print m-0 mx-auto p-0 print:mx-0 print:block print:w-full print:max-w-none preview-print:max-w-none",
+        articleColumn
+      )}
       {...(isPreviewPrint ? { "data-cv-preview": "print" } : {})}
     >
       {/* Bundlers ignore `@import … print`; load print tokens via real media attr */}
@@ -69,6 +74,9 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         href="/cv-print.css"
         media={isPreviewPrint ? "all" : "print"}
       />
+      <div className="print:hidden preview-print:hidden">
+        <PageEyebrow />
+      </div>
       <div className="no-break-inside" data-cv-block="intro">
         <header
           className={cn(
@@ -78,9 +86,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
           )}
         >
           <div className="mb-0 flex items-baseline justify-between gap-4 leading-none">
-            <PageTitle className="mb-0" variant="document">
-              Gabo Esquivel
-            </PageTitle>
+            <PageTitle>Gabo Esquivel</PageTitle>
             <PrintButton file={cvPdfFile({ key })} />
           </div>
           <p className="cv-print-professional-title mt-0 mb-0 font-medium tracking-tight text-neutral-400">

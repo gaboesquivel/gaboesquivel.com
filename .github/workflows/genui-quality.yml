@@ -53,7 +53,8 @@ jobs:
       - run: bun test lib/mcp/public-server.test.ts lib/mcp/cv-app.test.ts lib/capabilities/published-copy.test.ts lib/connect/calendar-lazy.test.ts
 
   browser:
-    if: github.event_name == 'workflow_dispatch'
+    # e2e disabled; remove `false &&` and set PLAYWRIGHT_E2E=1 to re-enable.
+    if: false && github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

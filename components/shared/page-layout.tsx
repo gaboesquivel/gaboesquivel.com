@@ -3,8 +3,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { press } from "./motion";
-import { PageTrail } from "./page-trail";
-import type { PageTrailSegment } from "./page-trail";
 import {
   blockSpacing,
   heroTitle,
@@ -57,15 +55,11 @@ export function Prose({
 }
 
 /**
- * The row above every page title: the breadcrumb, or an empty spacer. Fixed
- * height, so every h1 starts at the same y.
+ * The empty row above every page title. Fixed height, so every h1 starts at
+ * the same y.
  */
-export function PageEyebrow({ trail }: { trail?: PageTrailSegment[] }) {
-  return (
-    <div className={pageEyebrow}>
-      {trail?.length ? <PageTrail segments={trail} /> : null}
-    </div>
-  );
+export function PageEyebrow() {
+  return <div aria-hidden="true" className={pageEyebrow} />;
 }
 
 const splitLead = (children: ReactNode): [string, ReactNode] | null => {

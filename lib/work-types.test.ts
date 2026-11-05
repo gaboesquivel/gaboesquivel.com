@@ -71,7 +71,6 @@ describe("workTypeCopy editorial fields", () => {
       expect(copy.mobileLines[0].length).toBeGreaterThan(0);
       expect(copy.mobileLines[1].length).toBeGreaterThan(0);
       expect(copy.heroTitle.length).toBeGreaterThan(0);
-      expect(copy.trailLabel.length).toBeGreaterThan(0);
     });
 
     test(`${type} mobile lines fit ~${MOBILE_VIEWPORT_PX}px width`, () => {

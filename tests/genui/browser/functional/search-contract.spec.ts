@@ -40,20 +40,43 @@ const fulfillResult = (route: Route) =>
     status: 200,
   });
 
+const homeFieldId = "#home-genui-search";
+
+/**
+ * The field a visitor starts typing in: the inline homepage field, or the
+ * overlay's field once the nav trigger opens it.
+ */
 const openField = async (page: Page, surface: Surface, path: string) => {
   await page.goto(path);
-  await page
-    .locator(
-      surface === "dialog"
-        ? "[data-site-search-trigger]"
-        : "[data-home-search-trigger]"
-    )
-    .click();
+  if (surface === "home") {
+    const home = page.locator(homeFieldId);
+    await expect(home).toBeEnabled();
+    await home.focus();
+    return home;
+  }
+  await page.locator("[data-site-search-trigger]").click();
   await expect(page.getByRole("dialog")).toBeVisible();
   const input = page.locator(fieldId());
   await input.scrollIntoViewIfNeeded();
   await input.focus();
   return input;
+};
+
+/**
+ * Searches from the surface's own field and returns the overlay field the
+ * result lands in (the homepage field hands off to it on Enter).
+ */
+const search = async (
+  page: Page,
+  surface: Surface,
+  path: string,
+  text: string
+) => {
+  const start = await openField(page, surface, path);
+  await start.fill(text);
+  await start.press("Enter");
+  await expect(page.getByRole("dialog")).toBeVisible();
+  return page.locator(fieldId());
 };
 
 const status = (page: Page) =>
@@ -68,7 +91,6 @@ for (const { name: surface, path } of surfaces) {
       await expect(
         page.getByRole("combobox", { name: searchCopy.accessibleName })
       ).toBeVisible();
-      await expect(page.getByLabel("Beta", { exact: true })).toHaveCount(0);
     });
 
     test("suggestions are grouped and keep focus in the field", async ({
@@ -112,25 +134,22 @@ for (const { name: surface, path } of surfaces) {
       await input.press("Escape");
       await expect(listbox).toHaveCount(0);
       await expect(input).toHaveValue("agentic");
+      if (surface === "home") {
+        // Inline: no overlay opens until the visitor searches.
+        await expect(page.getByRole("dialog")).toHaveCount(0);
+        return;
+      }
       await expect(page.getByRole("dialog")).toBeVisible();
       await input.press("Escape");
       await expect(page.getByRole("dialog")).toHaveCount(0);
-      await expect(
-        page.locator(
-          surface === "dialog"
-            ? "[data-site-search-trigger]"
-            : "[data-home-search-trigger]"
-        )
-      ).toBeFocused();
+      await expect(page.locator("[data-site-search-trigger]")).toBeFocused();
     });
 
     test("result announces once and stores Recent; Clear search refocuses", async ({
       page,
     }) => {
       await page.route("**/api/genui/compose", fulfillResult);
-      const input = await openField(page, surface, path);
-      await input.fill("explore my work");
-      await input.press("Enter");
+      const input = await search(page, surface, path, "explore my work");
       await expect(status(page)).toHaveText(searchCopy.resultReady);
       const history = await page.evaluate(
         (key) => localStorage.getItem(key),
@@ -140,6 +159,11 @@ for (const { name: surface, path } of surfaces) {
       // Emptying the field does not reset results.
       await input.fill("");
       await expect(status(page)).toHaveText(searchCopy.resultReady);
+      // The in-field × shows only while there is text.
+      await expect(
+        page.getByRole("button", { name: searchCopy.clear })
+      ).toHaveCount(0);
+      await input.fill("another question");
       await page.getByRole("button", { name: searchCopy.clear }).click();
       await expect(input).toBeFocused();
       await expect(input).toHaveValue("");
@@ -154,9 +178,7 @@ for (const { name: surface, path } of surfaces) {
         await gate.promise;
         await fulfillResult(route);
       });
-      const input = await openField(page, surface, path);
-      await input.fill("explore my work");
-      await input.press("Enter");
+      const input = await search(page, surface, path, "explore my work");
       const line = page.locator("[data-search-composing]");
       await expect(line).toBeVisible({ timeout: 100 });
       await expect(line.locator(".text-shimmer")).toHaveCount(0);
@@ -188,9 +210,7 @@ for (const { name: surface, path } of surfaces) {
           status: 200,
         })
       );
-      const input = await openField(page, surface, path);
-      await input.fill("best pizza in Denver");
-      await input.press("Enter");
+      const input = await search(page, surface, path, "best pizza in Denver");
       const empty = page.locator("[data-search-state=empty]");
       await expect(empty).toContainText(searchCopy.empty);
       await expect(status(page)).toHaveText(searchCopy.empty);
@@ -213,9 +233,7 @@ for (const { name: surface, path } of surfaces) {
         bodies.push(route.request().postDataJSON().query as string);
         return route.abort();
       });
-      const input = await openField(page, surface, path);
-      await input.fill("show me web3 work");
-      await input.press("Enter");
+      const input = await search(page, surface, path, "show me web3 work");
       const error = page.locator("[data-search-state=error]");
       await expect(error).toContainText(searchCopy.errorFailed);
       await expect(status(page)).toHaveText(searchCopy.errorFailed);
@@ -248,9 +266,7 @@ for (const { name: surface, path } of surfaces) {
           status: 429,
         })
       );
-      const input = await openField(page, surface, path);
-      await input.fill("explore my work");
-      await input.press("Enter");
+      const input = await search(page, surface, path, "explore my work");
       await expect(page.locator("[data-search-state=error]")).toContainText(
         "Daily search limit reached."
       );
@@ -274,9 +290,7 @@ for (const { name: surface, path } of surfaces) {
           status: 200,
         })
       );
-      const input = await openField(page, surface, path);
-      await input.fill("explore my work");
-      await input.press("Enter");
+      const input = await search(page, surface, path, "explore my work");
       await expect(page.locator("[data-search-state=error]")).toContainText(
         searchCopy.errorTimedOut
       );
@@ -297,14 +311,22 @@ test("Cmd/Ctrl+K toggles the dialog closed from inside its field", async ({
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });
 
-test("the homepage trigger shows the ⌘K hint; the overlay does not", async ({
+test("the ⌘K hint shows while a field is empty and gives way to the clear ×", async ({
   page,
 }) => {
   await page.goto("/");
-  const trigger = page.locator("[data-home-search-trigger]");
-  await expect(trigger.locator("kbd").first()).toBeVisible();
-  await trigger.click();
-  await expect(page.locator("[data-search-shortcut-hint]")).toHaveCount(0);
+  await expect(
+    page.locator("[data-home-search-field] kbd").first()
+  ).toBeVisible();
+  await page.locator("body").press("ControlOrMeta+k");
+  await expect(page.getByRole("dialog")).toBeVisible();
+  const hint = dialogPanel(page).locator("[data-search-shortcut-hint]");
+  await expect(hint).toBeVisible();
+  await page.locator("#site-search-dialog").fill("agentic");
+  await expect(hint).toHaveCount(0);
+  await expect(
+    dialogPanel(page).getByRole("button", { name: searchCopy.clear })
+  ).toBeVisible();
 });
 
 const dialogPanel = (page: Page) => page.locator("[data-slot=dialog-content]");
@@ -416,8 +438,7 @@ test.describe("search surfaces at 390px", () => {
 
   test("the homepage field shows at least 20 characters", async ({ page }) => {
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator(homeFieldId);
     await input.fill("abcdefghijklmnopqrst");
     const fits = await input.evaluate(
       (element: HTMLInputElement) => element.scrollWidth <= element.clientWidth

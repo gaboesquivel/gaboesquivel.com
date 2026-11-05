@@ -55,8 +55,7 @@ test("homepage career prompt renders the real composition endpoint", async ({
   page,
 }) => {
   await page.goto("/");
-  await page.locator("[data-home-search-trigger]").click();
-  const input = page.locator("#site-search-dialog");
+  const input = page.locator("#home-genui-search");
   await input.fill("Show me your career timeline");
   await input.press("Enter");
   await expect(page.locator("[data-career-timeline]")).toBeVisible();

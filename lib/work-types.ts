@@ -26,7 +26,6 @@ interface WorkTypeEditorialCopy {
   heroTitle: string;
   desktopLines: readonly [string, string];
   mobileLines: readonly [string, string];
-  trailLabel: string;
 }
 
 export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
@@ -40,7 +39,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "AI projects",
     heroTitle: "Applied AI.",
     mobileLines: ["Voice, retrieval, and", "agentic AI systems."],
-    trailLabel: "ai",
   },
   all: {
     description:
@@ -52,7 +50,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "All projects",
     heroTitle: "Complete archive.",
     mobileLines: ["Every shipped project,", "from web to agentic AI."],
-    trailLabel: "all",
   },
   contract: {
     description:
@@ -64,7 +61,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "Contract projects",
     heroTitle: "Independent work.",
     mobileLines: ["Independent engineering", "for products and platforms."],
-    trailLabel: "contract",
   },
   featured: {
     description:
@@ -76,7 +72,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "Software that ships.",
     heroTitle: "Software that ships.",
     mobileLines: ["Products across AI, banking,", "Web3, and infrastructure."],
-    trailLabel: "selected projects",
   },
   "full-time": {
     description:
@@ -88,7 +83,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "Full-time projects",
     heroTitle: "Built in-house.",
     mobileLines: ["Products across banking,", "AI, and infrastructure."],
-    trailLabel: "full-time",
   },
   lead: {
     description:
@@ -100,7 +94,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "Leadership projects",
     heroTitle: "Technical leadership.",
     mobileLines: ["Engineering leadership", "from design to delivery."],
-    trailLabel: "lead",
   },
   oss: {
     description:
@@ -112,7 +105,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "Open-source projects",
     heroTitle: "Open-source work.",
     mobileLines: ["Open-source tools", "for builders and developers."],
-    trailLabel: "oss",
   },
   web3: {
     description:
@@ -124,7 +116,6 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
     heading: "Web3 projects",
     heroTitle: "Onchain systems.",
     mobileLines: ["Wallets, trading apps,", "and onchain systems."],
-    trailLabel: "web3",
   },
 };
 

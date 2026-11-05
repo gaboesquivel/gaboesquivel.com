@@ -1,16 +1,12 @@
 import { BlogPostChips } from "components/blog/blog-post-chips";
 import { LatestPosts } from "components/blog/latest-posts";
 import { ArticleShell } from "components/interior/article-shell";
-import { ArticleTocInline } from "components/interior/article-toc-inline";
 import { Mdx } from "components/mdx";
 import { PageEyebrow, PageTitle } from "components/shared/page-layout";
-import { PageTrail } from "components/shared/page-trail";
 import { allBlogs } from "lib/blog";
-import { showBlogToc } from "lib/blog-headings";
 import { blogJsonLd } from "lib/blog-json-ld";
 import { getRelatedPosts } from "lib/blog-related";
-import { categoryDisplayNames, isArchivePost } from "lib/blog-taxonomy";
-import { primaryBrowseCategory } from "lib/blog-trail";
+import { isArchivePost } from "lib/blog-taxonomy";
 import { blogOgMetadataImages } from "lib/og/resolve";
 import { metadataWithMarkdownAlternate } from "lib/page-metadata";
 import { siteOrigin } from "lib/site-path";
@@ -86,22 +82,6 @@ export default async function Blog({
 
   const relatedPosts = getRelatedPosts({ allPosts: allBlogs, post });
   const archived = isArchivePost(post.publishedAt);
-  const browseCategory = primaryBrowseCategory({ categories: post.category });
-  const trail = [
-    { label: "writing", href: "/blog" },
-    ...(browseCategory
-      ? [
-          {
-            label: categoryDisplayNames[browseCategory].toLowerCase(),
-            href: `/blog/category/${browseCategory}`,
-          },
-        ]
-      : []),
-    { label: post.title },
-  ];
-
-  const toc = post.toc ?? [];
-  const hasToc = showBlogToc(toc);
 
   return (
     <section>
@@ -113,10 +93,9 @@ export default async function Blog({
         }}
       />
       <ArticleShell
-        toc={toc}
         header={
           <>
-            <PageEyebrow trail={trail} />
+            <PageEyebrow />
             <PageTitle className="mb-2 text-balance">{post.title}</PageTitle>
             <p
               className={cn(
@@ -133,7 +112,6 @@ export default async function Blog({
                 Historical post — views and technology at time of publication.
               </p>
             ) : null}
-            {hasToc ? <ArticleTocInline items={toc} /> : null}
           </>
         }
       >

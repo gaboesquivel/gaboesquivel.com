@@ -1,12 +1,10 @@
 import { PageEyebrow, PageTitle } from "components/shared/page-layout";
-import { PageTrail } from "components/shared/page-trail";
-import type { PageTrailSegment } from "components/shared/page-trail";
 import { heroPitch, pageTitle, proseClass } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
 export function InnerPageHero({
-  trail,
+  eyebrowSpace = false,
   title,
   description,
   compact = false,
@@ -15,7 +13,8 @@ export function InnerPageHero({
   meta,
   children,
 }: {
-  trail?: PageTrailSegment[];
+  /** Compact only: the blank row above the title that detail pages keep (the h1 stays where it was). */
+  eyebrowSpace?: boolean;
   title: ReactNode;
   description?: string;
   compact?: boolean;
@@ -26,7 +25,6 @@ export function InnerPageHero({
   meta?: ReactNode;
   children?: ReactNode;
 }) {
-  const hasTrail = Boolean(trail?.length);
   const panel = compact && density === "panel";
 
   return (
@@ -38,12 +36,12 @@ export function InnerPageHero({
     >
       {compact ? (
         <>
-          {hasTrail ? <PageTrail segments={trail ?? []} /> : null}
+          {eyebrowSpace ? <div aria-hidden="true" className="h-5" /> : null}
           <PageTitle
             className={cn(
               pageTitle,
               "mb-0 max-w-none",
-              hasTrail && (panel ? "mt-2" : "mt-4")
+              eyebrowSpace && (panel ? "mt-2" : "mt-4")
             )}
             variant="document"
           >
@@ -52,7 +50,7 @@ export function InnerPageHero({
         </>
       ) : (
         <>
-          <PageEyebrow trail={trail} />
+          <PageEyebrow />
           <PageTitle>{title}</PageTitle>
         </>
       )}

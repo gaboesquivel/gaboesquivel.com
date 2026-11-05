@@ -92,6 +92,7 @@ export function ProjectCaseStudy({
       <PageIntro
         compact={Boolean(genui)}
         density={genui ? "panel" : "default"}
+        eyebrowSpace
         description={project.description.replaceAll("\n", " ")}
         title={project.title}
         meta={
@@ -111,7 +112,6 @@ export function ProjectCaseStudy({
             </p>
           ) : undefined
         }
-        trail={[{ href: "/work", label: "work" }, { label: project.title }]}
       />
 
       <FullBleedMedia className={genui ? "mt-6" : "mt-10"}>
