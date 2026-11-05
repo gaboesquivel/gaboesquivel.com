@@ -18,6 +18,15 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-graphik)"],
+        mono: [
+          "var(--font-mono)",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "monospace",
+        ],
       },
       typography: {
         quoteless: {
