@@ -21,14 +21,11 @@ export const narrativeLead =
 
 export const narrativeCopy = "text-base leading-[1.75] text-neutral-300";
 
-/** Blog article region: aligns with `siteColumn` while fitting prose + TOC rail. */
-export const articleLayoutRegion = "w-full max-w-6xl";
-
 /** Major gap between sections on every route: 64px mobile, 96px desktop. */
 export const sectionGap = "mt-16 lg:mt-24";
 
-/** Article grid: prose column + optional TOC rail (xl+). */
-export const articleProseColumn = "max-w-[52rem] min-w-0 w-full";
+/** Blog article column: title, meta, and body centered at 3xl. */
+export const articleColumn = "w-full min-w-0 max-w-3xl";
 
 export const editorialGrid12 =
   "grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-x-8 xl:gap-x-10";
@@ -62,7 +59,7 @@ export const pageTitle = cn(
   "text-2xl font-bold tracking-tighter sm:text-3xl"
 );
 
-/** One row above every page title (breadcrumb or empty spacer): 36px, so all h1s start at the same y. */
+/** One row above every page title (an empty spacer): 36px, so all h1s start at the same y. */
 export const pageEyebrow = "flex h-9 items-start text-sm text-neutral-400";
 
 export const sectionTitle = "text-2xl font-semibold tracking-tight";

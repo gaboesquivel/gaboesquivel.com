@@ -1,71 +1,58 @@
 "use client";
 
+import { GenuiSearchCombobox } from "components/genui/genui-search-combobox";
+import {
+  homeGenuiSearchScopeId,
+  homeGenuiSuggestionsListboxId,
+  homeSearchInputId,
+} from "components/search/search-ids";
 import { useSiteSearchOptional } from "components/search/site-search-context";
-import { Kbd, KbdGroup } from "components/ui/kbd";
 import { useHydrated } from "hooks/use-hydrated";
 import { searchCopy } from "lib/search/copy";
-import { Search } from "lucide-react";
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
-
-import { GenuiSearchBetaBadge } from "./genui-search-beta-badge";
-
-const finePointerQuery = "(pointer: fine)";
-
-const subscribeFinePointer = (onChange: () => void) => {
-  const media = window.matchMedia(finePointerQuery);
-  media.addEventListener("change", onChange);
-  return () => media.removeEventListener("change", onChange);
-};
+import { useRef, useState } from "react";
 
 /**
- * The homepage "Ask me something" entry. It looks like the search field but is
- * a trigger for the one search overlay (nav icon and Cmd/Ctrl+K open the same
- * surface): on click the field animates up to the top of the full-screen
- * search. Without JavaScript it falls back to browse/contact copy.
+ * The homepage "Ask me something" field. It is a real field in place: the
+ * visitor types and picks suggestions here, and only when they search (Enter
+ * or a suggestion) does the one search overlay open, with the field gliding
+ * up to the top. The nav icon and Cmd/Ctrl+K open the overlay directly.
+ * Without JavaScript it falls back to browse/contact copy.
  */
-const HomeSearchTrigger = () => {
+const HomeSearchField = () => {
   const siteSearch = useSiteSearchOptional();
   const hydrated = useHydrated();
-  const finePointer = useSyncExternalStore(
-    subscribeFinePointer,
-    () => window.matchMedia(finePointerQuery).matches,
-    () => false
-  );
-  const showKbd = hydrated && finePointer;
-  const isMac = hydrated && /Mac/.test(navigator.platform);
+  const [query, setQuery] = useState("");
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="mt-8 lg:mt-10">
-      <button
-        aria-haspopup="dialog"
-        aria-keyshortcuts="Meta+K Control+K"
-        className="flex h-auto min-h-16 w-full cursor-text items-center gap-3 rounded-lg border border-accent/50 bg-transparent px-4 text-left text-base text-neutral-400 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent sm:gap-4 sm:px-5"
-        data-home-search-trigger=""
-        disabled={!siteSearch}
-        onClick={(event) =>
-          siteSearch?.requestSearch(event.currentTarget.getBoundingClientRect())
-        }
-        type="button"
-      >
-        <span className="sr-only">{searchCopy.accessibleName}</span>
-        <Search
-          aria-hidden="true"
-          className="size-6 shrink-0 text-neutral-300"
-          strokeWidth={1.5}
+      <div data-home-search-field="" ref={wrapRef}>
+        <GenuiSearchCombobox
+          describedById={homeGenuiSearchScopeId}
+          disabled={!(hydrated && siteSearch)}
+          inputId={homeSearchInputId}
+          listboxId={homeGenuiSuggestionsListboxId}
+          onClear={() => setQuery("")}
+          onQueryChange={setQuery}
+          onSearchSubmit={(value, label) => {
+            siteSearch?.requestSearch(
+              wrapRef.current?.getBoundingClientRect(),
+              {
+                label,
+                query: value,
+              }
+            );
+            setQuery("");
+          }}
+          query={query}
+          showShortcutHint={query.length === 0}
         />
-        <span aria-hidden="true" className="min-w-0 flex-1 truncate">
-          <span className="hidden sm:inline">{searchCopy.placeholder}</span>
-          <span className="sm:hidden">{searchCopy.placeholderShort}</span>
-        </span>
-        <GenuiSearchBetaBadge />
-        {showKbd ? (
-          <KbdGroup aria-hidden="true" className="hidden sm:flex">
-            {isMac ? <Kbd>⌘</Kbd> : <Kbd>Ctrl</Kbd>}
-            <Kbd>K</Kbd>
-          </KbdGroup>
-        ) : null}
-      </button>
+      </div>
+      <p className="sr-only" id={homeGenuiSearchScopeId}>
+        {searchCopy.dialogHint}
+        {searchCopy.suggestionsHint}
+      </p>
       <noscript>
         <p className="mt-2 text-xs text-neutral-400">
           Browse the sections below, or{" "}
@@ -85,7 +72,7 @@ export const HomepageGenUiShell = ({
   children: React.ReactNode;
 }) => (
   <div className="relative">
-    <HomeSearchTrigger />
+    <HomeSearchField />
     {children}
   </div>
 );

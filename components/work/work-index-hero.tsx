@@ -6,14 +6,10 @@ import type { WorkType } from "lib/work-types";
 
 export function WorkIndexHero({ type }: { type: WorkType }) {
   const copy = workTypeCopy[type];
-  const trail = [
-    type === "featured" ? { label: "work" } : { label: "work", href: "/work" },
-    { label: copy.trailLabel },
-  ];
 
   return (
     <header data-work-hero className="mb-12 lg:mb-16">
-      <PageEyebrow trail={trail} />
+      <PageEyebrow />
       <PageTitle className="work-hero-title">{copy.heroTitle}</PageTitle>
       <p className={cn(heroPitch, "work-hero-lede relative")}>
         <span className="sr-only">{copy.description}</span>

@@ -1,12 +1,17 @@
 "use client";
 
+import type { SearchSubmission } from "components/genui/use-genui-composition";
 import type { SearchRecord } from "components/search/types";
 import { createContext, useContext } from "react";
 
 interface SiteSearchContextValue {
   records: SearchRecord[];
-  /** `origin` is the trigger's rect; the field animates from it to the top. */
-  requestSearch: (origin?: DOMRect) => void;
+  /**
+   * `origin` is the trigger's rect; the field animates from it to the top.
+   * `submission` opens the overlay already running that query (the homepage
+   * field, which only animates once the visitor searches).
+   */
+  requestSearch: (origin?: DOMRect, submission?: SearchSubmission) => void;
 }
 
 const SiteSearchContext = createContext<SiteSearchContextValue | null>(null);

@@ -12,7 +12,7 @@ Gabo Esquivel's personal site. It shows founders and technical or product leader
 
 Only `/bio` tells the full career story. Other pages are not alternate resumes.
 
-The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. Every search trigger (the homepage "Ask me something" field, the nav Search button, Cmd/Ctrl+K) opens the same full-screen search overlay with a fixed input at the top, on every route. `/ask` redirects to `/`. The overlay is the public generative surface.
+The current brand headline is **Agentic Software Engineer**. Historical employment/CV titles remain source-owned. The nav Search button and Cmd/Ctrl+K open the full-screen search overlay with a fixed input at the top on every route; the homepage "Ask me something" field is inline and opens the same overlay only when the visitor searches. `/ask` redirects to `/`. The overlay is the public generative surface.
 
 ## Implemented surfaces
 

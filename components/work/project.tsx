@@ -21,9 +21,9 @@ export function ProjectDetails({
     <div className="mb-10">
       <InnerPageHero
         compact
+        eyebrowSpace
         description={project.description.replaceAll("\n", " ")}
         title={project.title}
-        trail={[{ href: "/work", label: "work" }, { label: project.title }]}
       />
 
       <div className="mt-8">

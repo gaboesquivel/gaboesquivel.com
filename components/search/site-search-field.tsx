@@ -1,6 +1,6 @@
 "use client";
 
-import { GenuiSearchBetaBadge } from "components/genui/genui-search-beta-badge";
+import { ClearSearchButton } from "components/genui/prompt-field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -11,7 +11,7 @@ import { useHydrated } from "hooks/use-hydrated";
 import { searchCopy } from "lib/search/copy";
 import { cn } from "lib/utils";
 import { Search } from "lucide-react";
-import type { KeyboardEvent, ReactNode, RefObject } from "react";
+import type { KeyboardEvent, RefObject } from "react";
 import { useSyncExternalStore } from "react";
 
 const subscribePointer = (onStoreChange: () => void) => {
@@ -56,8 +56,8 @@ export function SiteSearchField({
   disabled,
   inputId,
   inputRef,
-  leadingAction,
   onBlur,
+  onClear,
   onCompositionEnd,
   onCompositionStart,
   onFocus,
@@ -65,6 +65,7 @@ export function SiteSearchField({
   onQueryChange,
   placeholder,
   query,
+  quiet,
   showShortcutHint,
   suggestionsListboxId,
   suggestionsOpen,
@@ -76,8 +77,9 @@ export function SiteSearchField({
   disabled?: boolean;
   inputId: string;
   inputRef?: RefObject<HTMLInputElement | null>;
-  leadingAction?: ReactNode;
   onBlur?: () => void;
+  /** Shows the in-field clear control while the field has text. */
+  onClear?: () => void;
   onCompositionEnd: () => void;
   onCompositionStart: () => void;
   onFocus?: () => void;
@@ -85,6 +87,8 @@ export function SiteSearchField({
   onQueryChange: (value: string) => void;
   placeholder?: string;
   query: string;
+  /** Hides the focus ring while the field keeps focus (just after a search). */
+  quiet?: boolean;
   showShortcutHint?: boolean;
   suggestionsListboxId: string;
   suggestionsOpen: boolean;
@@ -92,7 +96,7 @@ export function SiteSearchField({
   const hydrated = useHydrated();
   const finePointer = useFinePointer();
   const smUp = useSmUp();
-  const showKbd = showShortcutHint && hydrated && finePointer;
+  const showKbd = showShortcutHint && !query && hydrated && finePointer;
   const isMac =
     hydrated &&
     typeof navigator !== "undefined" &&
@@ -106,17 +110,18 @@ export function SiteSearchField({
       <InputGroup
         className={cn(
           "h-auto min-h-16 gap-2 rounded-lg border-accent/50 bg-transparent px-3 shadow-none! sm:gap-4 sm:px-5 dark:bg-transparent",
-          "has-[[data-slot=input-group-control]:focus-visible]:border-accent/50 has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot=input-group-control]:focus-visible]:ring-accent has-[[data-slot=input-group-control]:focus-visible]:ring-offset-0"
+          "has-[[data-slot=input-group-control]:focus-visible]:border-accent/50 has-[[data-slot=input-group-control]:focus-visible]:ring-offset-0",
+          quiet
+            ? "has-[[data-slot=input-group-control]:focus-visible]:ring-0"
+            : "has-[[data-slot=input-group-control]:focus-visible]:ring-2 has-[[data-slot=input-group-control]:focus-visible]:ring-accent"
         )}
       >
         <InputGroupAddon align="inline-start" className="pl-0">
-          {leadingAction ?? (
-            <Search
-              aria-hidden="true"
-              className="size-6 shrink-0 text-neutral-300"
-              strokeWidth={1.5}
-            />
-          )}
+          <Search
+            aria-hidden="true"
+            className="size-6 shrink-0 text-neutral-300"
+            strokeWidth={1.5}
+          />
         </InputGroupAddon>
         <InputGroupInput
           ref={inputRef}
@@ -158,9 +163,11 @@ export function SiteSearchField({
           className="min-h-16 min-w-0 py-4 text-base text-white placeholder:text-neutral-400"
           aria-describedby={describedById}
         />
-        <InputGroupAddon align="inline-end" className="hidden pr-0 sm:flex">
-          <GenuiSearchBetaBadge />
-        </InputGroupAddon>
+        {onClear && query ? (
+          <InputGroupAddon align="inline-end" className="pr-0">
+            <ClearSearchButton onClear={onClear} />
+          </InputGroupAddon>
+        ) : null}
         {showKbd ? (
           <InputGroupAddon
             align="inline-end"

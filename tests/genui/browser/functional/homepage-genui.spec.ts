@@ -9,12 +9,10 @@ test.describe("homepage GenUI shell", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await expect(input).toBeVisible();
     await expect(input).toHaveAttribute("type", "text");
-    await expect(page.getByText("Beta", { exact: true }).first()).toBeVisible();
     const form = page.locator("form").filter({ has: input });
     await expect(
       form.getByRole("button", { name: /submit|search/i })
@@ -26,14 +24,13 @@ test.describe("homepage GenUI shell", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
     await page.evaluate((key) => {
       window.localStorage.setItem(
         key,
         JSON.stringify(["your cv", "Show me your AI projects"])
       );
     }, GENUI_SEARCH_HISTORY_KEY);
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.focus();
     await input.fill("your cv");
@@ -72,8 +69,7 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.focus();
     // The overlay opens under the cursor; move it so hover does not pick an option.
@@ -81,7 +77,7 @@ test.describe("homepage GenUI shell", () => {
     await expect(page.getByRole("listbox")).toBeVisible();
     await input.press("ArrowDown");
     const firstOption = page
-      .locator('[id^="site-genui-search-suggestions-option-"]')
+      .locator('[id^="home-genui-search-suggestions-option-"]')
       .first();
     await expect(input).toBeFocused();
     await expect(input).toHaveAttribute(
@@ -104,8 +100,7 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.fill("   ");
     await input.press("Enter");
@@ -134,8 +129,7 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.fill("Show me your AI projects");
     await input.press("Enter");
@@ -174,8 +168,7 @@ test.describe("homepage GenUI shell", () => {
       });
     });
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.fill("explore my work");
     await input.press("Enter");
@@ -189,8 +182,7 @@ test.describe("homepage GenUI shell", () => {
 
   test("live compose routes CV without mocking", async ({ page }) => {
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.fill("Can I see your CV?");
     await input.press("Enter");
@@ -206,8 +198,7 @@ test.describe("homepage GenUI shell", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.fill("How can I contact you?");
     await input.press("Enter");

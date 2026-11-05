@@ -5,7 +5,6 @@ import {
   sectionHeadingSpacing,
   sectionTitle,
 } from "components/shared/page-layout";
-import type { PageTrailSegment } from "components/shared/page-trail";
 import {
   techCategoryHref,
   techCategoryIds,
@@ -26,7 +25,7 @@ export function TechList({
   heading,
   intro,
   note,
-  trail,
+  hero = false,
   showNavigation = true,
   className,
 }: {
@@ -34,12 +33,12 @@ export function TechList({
   heading?: string;
   intro?: string;
   note?: ReactNode;
-  trail?: PageTrailSegment[];
+  /** Render the heading as the page hero (category pages) instead of a section heading. */
+  hero?: boolean;
   showNavigation?: boolean;
   className?: string;
 }) {
   const currentCategory = category ?? "featured";
-  const hasTrail = Boolean(trail?.length);
   const filteredTech = filterTechByCategory(techStack, currentCategory).filter(
     (tech) => !isEmptyTech(tech)
   );
@@ -62,12 +61,12 @@ export function TechList({
 
   return (
     <section className={cn(className)}>
-      {hasTrail ? (
+      {hero ? (
         <InnerPageHero
           compact
           description={intro}
+          eyebrowSpace
           title={heading ?? "Technologies"}
-          trail={trail}
         />
       ) : (
         <>
@@ -93,7 +92,7 @@ export function TechList({
         />
       ) : null}
 
-      {hasTrail ? <h2 className="sr-only">Technologies</h2> : null}
+      {hero ? <h2 className="sr-only">Technologies</h2> : null}
       <TechMasonry techStack={sortedTech} identifier={currentCategory} />
     </section>
   );

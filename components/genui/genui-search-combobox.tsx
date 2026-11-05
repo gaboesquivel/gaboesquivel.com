@@ -7,7 +7,7 @@ import { buildGenuiAutosuggest } from "lib/genui/query-suggestions";
 import type { GenuiQuerySuggestion } from "lib/genui/query-suggestions";
 import { searchCopy } from "lib/search/copy";
 import { cn } from "lib/utils";
-import type { ReactNode, RefObject } from "react";
+import type { RefObject } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useGenuiSearchHistory } from "./use-genui-search-history";
@@ -40,8 +40,8 @@ export const GenuiSearchCombobox = ({
   inlineSuggestions,
   inputId,
   inputRef: externalInputRef,
-  leadingAction,
   listboxId,
+  onClear,
   onQueryChange,
   onSearchSubmit,
   query,
@@ -54,8 +54,9 @@ export const GenuiSearchCombobox = ({
   inlineSuggestions?: boolean;
   inputId: string;
   inputRef?: RefObject<HTMLInputElement | null>;
-  leadingAction?: ReactNode;
   listboxId: string;
+  /** Shows the in-field clear control while the field has text. */
+  onClear?: () => void;
   onQueryChange: (query: string) => void;
   /** `query` is what compose routes on; `label` is the visitor's words. */
   onSearchSubmit: (query: string, label: string) => void;
@@ -68,6 +69,8 @@ export const GenuiSearchCombobox = ({
   const [focused, setFocused] = useState(false);
   const [listOpen, setListOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  /** After a search the focus ring hides; a click or typing brings it back. */
+  const [quiet, setQuiet] = useState(false);
   const { records } = useSiteSearch();
   const searchHistory = useGenuiSearchHistory();
   const hydrated = useHydrated();
@@ -94,6 +97,7 @@ export const GenuiSearchCombobox = ({
   const submitQuery = (value: string, label?: string) => {
     const trimmed = value.trim();
     if (!trimmed) return;
+    setQuiet(true);
     onSearchSubmit(trimmed, label?.trim() || trimmed);
   };
 
@@ -159,6 +163,7 @@ export const GenuiSearchCombobox = ({
   };
 
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== "Enter") setQuiet(false);
     if (event.key === "Escape") {
       if (!showSuggestions) return;
       // Close the list only; the dialog stays open and the text stays.
@@ -191,6 +196,7 @@ export const GenuiSearchCombobox = ({
   };
 
   const handleQueryChange = (next: string) => {
+    setQuiet(false);
     setActiveIndex(-1);
     if (next !== query) {
       setListOpen(true);
@@ -222,7 +228,12 @@ export const GenuiSearchCombobox = ({
 
   return (
     <form className="w-full" onSubmit={handleFormSubmit}>
-      <div className="relative" onBlur={handleRootBlur} ref={rootRef}>
+      <div
+        className="relative"
+        onBlur={handleRootBlur}
+        onPointerDown={() => setQuiet(false)}
+        ref={rootRef}
+      >
         <SiteSearchField
           activeSuggestionId={activeSuggestionId}
           autoFocus={autoFocus}
@@ -231,7 +242,7 @@ export const GenuiSearchCombobox = ({
           disabled={disabled}
           inputId={inputId}
           inputRef={inputRef}
-          leadingAction={leadingAction}
+          onClear={onClear}
           onCompositionEnd={() => {
             composing.current = false;
           }}
@@ -247,6 +258,7 @@ export const GenuiSearchCombobox = ({
           onInputKeyDown={handleInputKeyDown}
           onQueryChange={handleQueryChange}
           query={query}
+          quiet={quiet}
           showShortcutHint={showShortcutHint}
           suggestionsListboxId={listboxId}
           suggestionsOpen={showSuggestions}

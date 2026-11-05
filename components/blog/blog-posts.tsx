@@ -51,35 +51,24 @@ export function BlogPosts({
   const filteredPosts = getFilteredBlogPosts(category);
   const currentCategory = category ?? "all";
   const paginatedPosts = paginateBlogPosts(filteredPosts, page);
-  const trail =
-    currentCategory === "all"
-      ? undefined
-      : [
-          { label: "writing", href: "/blog" },
-          {
-            label:
-              categoryDisplayNames[
-                currentCategory as BrowseCategory
-              ].toLowerCase(),
-          },
-        ];
+  const filtered = currentCategory !== "all";
   const showPublicationIndex =
     currentCategory === "all" && page === 1 && paginatedPosts.length > 0;
 
   const pageTitle =
     heading ??
-    (trail
+    (filtered
       ? categoryDisplayNames[currentCategory as BrowseCategory]
       : "Writing");
 
   return (
     <InteriorPageShell>
-      {heading || trail ? (
-        <PageIntro description={intro} title={pageTitle} trail={trail} />
+      {heading || filtered ? (
+        <PageIntro description={intro} title={pageTitle} />
       ) : null}
 
       <FilterNav
-        className={heading || trail ? "mt-0" : undefined}
+        className={heading || filtered ? "mt-0" : undefined}
         label="Writing categories"
         current={currentCategory}
         items={[
