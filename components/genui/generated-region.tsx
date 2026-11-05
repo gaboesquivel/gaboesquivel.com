@@ -4,7 +4,6 @@ import { Shimmer } from "components/ai-elements/shimmer";
 import { useSiteSearchOptional } from "components/search/site-search-context";
 import type { SearchRecord } from "components/search/types";
 import { press } from "components/shared/motion";
-import { CoverMorphOff } from "components/work/cover-morph";
 import type { CompositionEnvelope } from "lib/genui/envelope";
 import { curatedGenuiQuerySuggestions } from "lib/genui/query-suggestions";
 import { announcementFor, searchError } from "lib/search/compose-outcome";
@@ -352,17 +351,15 @@ export const GeneratedRegion = ({
             key={envelope.openuiText}
             onError={() => reportFailure(searchCopy.renderFailed)}
           >
-            <CoverMorphOff>
-              <OpenUiExperienceRenderer
-                complete={status === "result"}
-                fallbackText={envelope.fallbackText}
-                isStreaming={status === "composing"}
-                onRenderFailure={reportFailure}
-                datasets={envelope.datasets}
-                records={envelope.records}
-                response={envelope.openuiText}
-              />
-            </CoverMorphOff>
+            <OpenUiExperienceRenderer
+              complete={status === "result"}
+              fallbackText={envelope.fallbackText}
+              isStreaming={status === "composing"}
+              onRenderFailure={reportFailure}
+              datasets={envelope.datasets}
+              records={envelope.records}
+              response={envelope.openuiText}
+            />
           </RegionErrorBoundary>
           {status === "result" && sourceLineFor(envelope) ? (
             <p className="text-xs text-neutral-400" data-search-source="">
