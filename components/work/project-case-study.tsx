@@ -63,7 +63,7 @@ export function ProjectCaseStudy({
   });
 
   const hasProjectLinks = Boolean(
-    project.repo || (project.link && project.link !== project.repo),
+    project.repo || (project.link && project.link !== project.repo)
   );
 
   const primaryImageHref = project.link ?? null;
@@ -226,7 +226,7 @@ export function ProjectCaseStudy({
                 key={image}
                 className={cn(
                   "relative overflow-hidden rounded-lg bg-black",
-                  index % 2 === 1 ? "ml-auto max-w-4xl" : "max-w-5xl",
+                  index % 2 === 1 ? "ml-auto max-w-4xl" : "max-w-5xl"
                 )}
               >
                 <div className="relative aspect-video w-full">
