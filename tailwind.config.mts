@@ -18,16 +18,6 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-graphik)"],
-        display: ["var(--font-display)", "Impact", "sans-serif"],
-        mono: [
-          "var(--font-mono)",
-          "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "Monaco",
-          "Consolas",
-          "monospace",
-        ],
       },
       typography: {
         quoteless: {
