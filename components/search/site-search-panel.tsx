@@ -4,13 +4,13 @@ import { GeneratedRegion } from "components/genui/generated-region";
 import { useGenuiDraft } from "components/genui/genui-draft-context";
 import { GenuiSearchCombobox } from "components/genui/genui-search-combobox";
 import { GenuiReceipt } from "components/genui/genui-session";
-import { ClearSearchButton } from "components/genui/prompt-field";
 import type { GenuiComposition } from "components/genui/use-genui-composition";
 import {
   dialogGenuiSearchScopeId,
   dialogGenuiSuggestionsListboxId,
   dialogSearchInputId,
 } from "components/search/search-ids";
+import { siteColumn } from "components/shared/spacing";
 import { useHydrated } from "hooks/use-hydrated";
 import { searchCopy } from "lib/search/copy";
 import type { ReactNode, RefObject } from "react";
@@ -20,7 +20,7 @@ import { useLayoutEffect, useRef } from "react";
  * The dialog presentation of site search (same state machine and outcome
  * region as `/`). The composition and the draft session live in
  * `SiteSearchShell`, above the dialog, so closing and reopening it keeps the
- * last result, drafts and receipts for the session; "Clear search" resets.
+ * last result, drafts and receipts for the session; the in-field × resets.
  */
 export function SiteSearchPanel({
   closeControl,
@@ -28,7 +28,7 @@ export function SiteSearchPanel({
   onNavigate,
   originRef,
 }: {
-  /** Visible close control placed beside the field. */
+  /** The back arrow left of the field: closes the overlay. */
   closeControl?: ReactNode;
   genui: GenuiComposition;
   onNavigate?: () => void;
@@ -65,13 +65,14 @@ export function SiteSearchPanel({
   const handleQueryChange = (value: string) => genui.setQuery(value);
 
   return (
-    <>
+    <div className={siteColumn}>
       <div
-        className="sticky top-0 z-10 -mx-4 bg-black px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-2 sm:-mx-6 sm:px-6 sm:pt-6 lg:-mx-8 lg:px-8"
+        className="sticky top-0 z-10 bg-black pt-[max(1rem,env(safe-area-inset-top))] pb-2 sm:pt-6"
         data-search-field-bar=""
         ref={barRef}
       >
-        <div className="flex items-start gap-2">
+        <div className="relative flex items-start gap-2">
+          {closeControl}
           <div className="min-w-0 flex-1">
             <GenuiSearchCombobox
               autoFocus
@@ -80,26 +81,20 @@ export function SiteSearchPanel({
               inlineSuggestions
               inputId={dialogSearchInputId}
               inputRef={inputRef}
-              leadingAction={
-                genui.active ? (
-                  <ClearSearchButton
-                    onClear={() => {
-                      genui.reset();
-                      clear();
-                      focusField();
-                    }}
-                  />
-                ) : undefined
-              }
               listboxId={dialogGenuiSuggestionsListboxId}
+              onClear={() => {
+                genui.reset();
+                clear();
+                focusField();
+              }}
               onQueryChange={handleQueryChange}
               onSearchSubmit={(value, label) => {
                 genui.runQuery(value, label).catch(() => {});
               }}
               query={genui.query}
+              showShortcutHint
             />
           </div>
-          {closeControl}
         </div>
         <p className="sr-only" id={dialogGenuiSearchScopeId}>
           {searchCopy.dialogHint}
@@ -108,7 +103,7 @@ export function SiteSearchPanel({
         <GenuiReceipt className="mt-2 space-y-1 text-xs text-neutral-400" />
       </div>
       {genui.active ? (
-        <div className="pt-2 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="pt-10 pb-[max(1rem,env(safe-area-inset-bottom))]">
           <GeneratedRegion
             envelope={genui.envelope}
             error={genui.error}
@@ -132,6 +127,6 @@ export function SiteSearchPanel({
           />
         </div>
       ) : null}
-    </>
+    </div>
   );
 }

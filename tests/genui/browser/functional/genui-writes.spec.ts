@@ -284,8 +284,7 @@ test.describe("receipt outside the result tree", () => {
     });
 
     await page.goto("/");
-    await page.locator("[data-home-search-trigger]").click();
-    const input = page.locator("#site-search-dialog");
+    const input = page.locator("#home-genui-search");
     await input.scrollIntoViewIfNeeded();
     await input.fill("I want to book a meeting.");
     await input.press("Enter");

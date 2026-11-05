@@ -6,6 +6,7 @@ import {
   genuiWritesEnabled,
 } from "components/genui/genui-session";
 import { useGenuiComposition } from "components/genui/use-genui-composition";
+import type { SearchSubmission } from "components/genui/use-genui-composition";
 import { SiteSearchProvider } from "components/search/site-search-context";
 import { SiteSearchPanel } from "components/search/site-search-panel";
 import type { SearchRecord } from "components/search/types";
@@ -21,7 +22,7 @@ import {
 } from "components/ui/dialog";
 import { CoverMorphScoped } from "components/work/cover-morph";
 import { searchCopy } from "lib/search/copy";
-import { XIcon } from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
@@ -34,7 +35,7 @@ const searchOverlay =
   "bg-black/60 duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] supports-backdrop-filter:backdrop-blur-none motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none";
 
 const searchPanel = [
-  "fixed inset-0 z-50 flex h-dvh w-full flex-col overflow-y-auto overscroll-contain bg-black px-4 text-sm text-white outline-none sm:px-6 lg:px-8",
+  "fixed inset-0 z-50 flex h-dvh w-full flex-col overflow-y-auto overscroll-contain bg-black text-sm text-white outline-none",
   "duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-closed:duration-150 motion-reduce:animate-none motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none",
 ].join(" ");
 
@@ -55,18 +56,26 @@ export function SiteSearchShell({
   /** Where the field animates from: the clicked trigger's rect. */
   const originRef = useRef<DOMRect | null>(null);
 
-  const requestSearch = useCallback((origin?: DOMRect) => {
-    const active = document.activeElement;
-    // Safari does not focus buttons on click, so fall back to the nav trigger.
-    returnFocusRef.current =
-      active instanceof HTMLElement && active !== document.body
-        ? active
-        : document.querySelector<HTMLElement>(
-            "[data-site-search-trigger], [data-home-search-trigger]"
-          );
-    originRef.current = origin ?? null;
-    setOpen(true);
-  }, []);
+  const { runQuery, setQuery } = genui;
+  const requestSearch = useCallback(
+    (origin?: DOMRect, submission?: SearchSubmission) => {
+      const active = document.activeElement;
+      // Safari does not focus buttons on click, so fall back to the nav trigger.
+      returnFocusRef.current =
+        active instanceof HTMLElement && active !== document.body
+          ? active
+          : document.querySelector<HTMLElement>(
+              "[data-site-search-trigger], [data-home-search-trigger]"
+            );
+      originRef.current = origin ?? null;
+      setOpen(true);
+      if (submission) {
+        setQuery(submission.label);
+        runQuery(submission.query, submission.label).catch(() => {});
+      }
+    },
+    [runQuery, setQuery]
+  );
 
   useEffect(() => {
     // Cmd/Ctrl+K works everywhere, including inside inputs, and toggles the
@@ -109,13 +118,13 @@ export function SiteSearchShell({
                     <DialogClose
                       render={
                         <Button
-                          className="mt-1.5 size-11 shrink-0 text-neutral-300 hover:text-accent focus-visible:ring-accent"
+                          className="absolute top-2.5 left-0.5 z-10 size-11 shrink-0 bg-black text-neutral-300 hover:bg-black hover:text-accent focus-visible:ring-accent sm:left-2.5 xl:static xl:-ml-13 xl:bg-transparent xl:hover:bg-transparent"
                           size="icon"
                           variant="ghost"
                         />
                       }
                     >
-                      <XIcon aria-hidden="true" strokeWidth={1.5} />
+                      <ArrowLeftIcon aria-hidden="true" strokeWidth={1.5} />
                       <span className="sr-only">{searchCopy.close}</span>
                     </DialogClose>
                   }
