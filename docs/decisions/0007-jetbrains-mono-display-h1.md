@@ -1,6 +1,6 @@
 # 0007 JetBrains Mono and a larger display h1
 
-Status: accepted
+Status: superseded by [0008](0008-martian-mono-width-axis.md)
 
 ## Context
 
