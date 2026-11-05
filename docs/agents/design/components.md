@@ -23,7 +23,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](../../../com
 | Interior editorial shell | `InteriorPageShell` | `components/interior/interior-page-shell.tsx` |
 | Editorial intro | `PageIntro` (`narrative` on `/ai`, `/web3`, `/bio`) | `components/interior/page-intro.tsx` |
 | Text/media split (12-col) | `SplitSection` + `SplitSectionContent` / `SplitSectionMedia` | `components/interior/split-section.tsx` |
-| Article + sticky TOC | `ArticleShell`, `ArticleTocNav`, `ArticleTocInline` | `components/interior/article-shell.tsx` |
+| Article column | `ArticleShell` | `components/interior/article-shell.tsx` |
 | Utility / legal reading | `ReadingPageShell` | `components/interior/reading-page-shell.tsx` |
 | Writing lists (home, related, work, etc.) | `WritingPostsSection`, `LatestPosts`, `EditorialBlogList` | `components/blog/writing-posts-section.tsx`, `latest-posts.tsx`, `editorial-blog-list.tsx` |
 | Writing index | `WritingIndex`, `WritingFeaturedPost`, `WritingRecentList` | `components/blog/writing-*.tsx` |

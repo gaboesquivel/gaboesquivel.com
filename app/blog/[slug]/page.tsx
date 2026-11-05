@@ -1,11 +1,9 @@
 import { BlogPostChips } from "components/blog/blog-post-chips";
 import { LatestPosts } from "components/blog/latest-posts";
 import { ArticleShell } from "components/interior/article-shell";
-import { ArticleTocInline } from "components/interior/article-toc-inline";
 import { Mdx } from "components/mdx";
 import { PageEyebrow, PageTitle } from "components/shared/page-layout";
 import { allBlogs } from "lib/blog";
-import { showBlogToc } from "lib/blog-headings";
 import { blogJsonLd } from "lib/blog-json-ld";
 import { getRelatedPosts } from "lib/blog-related";
 import { isArchivePost } from "lib/blog-taxonomy";
@@ -85,9 +83,6 @@ export default async function Blog({
   const relatedPosts = getRelatedPosts({ allPosts: allBlogs, post });
   const archived = isArchivePost(post.publishedAt);
 
-  const toc = post.toc ?? [];
-  const hasToc = showBlogToc(toc);
-
   return (
     <section>
       <script
@@ -98,7 +93,6 @@ export default async function Blog({
         }}
       />
       <ArticleShell
-        toc={toc}
         header={
           <>
             <PageEyebrow />
@@ -118,7 +112,6 @@ export default async function Blog({
                 Historical post — views and technology at time of publication.
               </p>
             ) : null}
-            {hasToc ? <ArticleTocInline items={toc} /> : null}
           </>
         }
       >

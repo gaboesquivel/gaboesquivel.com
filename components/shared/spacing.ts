@@ -21,14 +21,11 @@ export const narrativeLead =
 
 export const narrativeCopy = "text-base leading-[1.75] text-neutral-300";
 
-/** Blog article region: aligns with `siteColumn` while fitting prose + TOC rail. */
-export const articleLayoutRegion = "w-full max-w-6xl";
-
 /** Major gap between sections on every route: 64px mobile, 96px desktop. */
 export const sectionGap = "mt-16 lg:mt-24";
 
-/** Article grid: prose column + optional TOC rail (xl+). */
-export const articleProseColumn = "max-w-[52rem] min-w-0 w-full";
+/** Blog article column: title, meta, and body centered at 3xl. */
+export const articleColumn = "w-full min-w-0 max-w-3xl";
 
 export const editorialGrid12 =
   "grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-x-8 xl:gap-x-10";

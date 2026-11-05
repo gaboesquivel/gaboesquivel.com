@@ -5,23 +5,11 @@ import { join } from "node:path";
 const read = (path: string) => readFileSync(join(process.cwd(), path), "utf-8");
 
 describe("interior layout contracts", () => {
-  test("article shell uses two-track grid region without ghost column CSS", () => {
-    const css = read("app/global.css");
-    expect(css).toContain(
-      "grid-template-columns: minmax(0, 1fr) minmax(14rem, 17rem)"
-    );
-    expect(css).not.toContain("minmax(0, 52rem)\n    minmax(14rem, 17rem)");
-    expect(read("components/interior/article-shell.tsx")).toContain(
-      "articleLayoutRegion"
-    );
-  });
-
-  test("article TOC modes do not both default open on desktop", () => {
-    const inline = read("components/interior/article-toc-inline.tsx");
-    const nav = read("components/interior/article-toc-nav.tsx");
-    expect(inline).not.toMatch(/\bopen\b/);
-    expect(nav).toContain("hidden xl:block");
-    expect(inline).toContain("xl:hidden");
+  test("article shell centers title and body in one 3xl column without a TOC", () => {
+    const shell = read("components/interior/article-shell.tsx");
+    expect(shell).toContain("articleColumn");
+    expect(shell).not.toContain("ArticleToc");
+    expect(read("components/shared/spacing.ts")).toContain("max-w-3xl");
   });
 
   test("reading shell stays on site reading measure without editorial breakout", () => {
@@ -29,12 +17,6 @@ describe("interior layout contracts", () => {
     expect(shell).not.toContain("InteriorPageShell");
     expect(shell).not.toContain("interiorBreakout");
     expect(shell).toContain("readingMeasure");
-  });
-
-  test("article shell renders TOC nav when items qualify", () => {
-    const source = read("components/interior/article-shell.tsx");
-    expect(source).toContain("ArticleTocNav");
-    expect(source).toContain("showBlogToc");
   });
 
   test("interior shell stays inside site column without viewport breakout", () => {
