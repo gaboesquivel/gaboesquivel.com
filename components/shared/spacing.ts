@@ -56,7 +56,7 @@ export const sectionAction = cn(ctaLink, "-my-3 py-3 text-sm");
 
 export const pageTitle = cn(
   titleSpacing,
-  "text-2xl font-bold tracking-tighter sm:text-3xl"
+  "font-display text-4xl leading-[0.95] font-bold sm:text-5xl"
 );
 
 /** One row above every page title (an empty spacer): 36px, so all h1s start at the same y. */
@@ -102,7 +102,7 @@ export const editorialGrid =
 export const editorialLink =
   "rounded-sm transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 export const heroTitle =
-  "text-[clamp(2.5rem,7.2vw,5.25rem)] font-extrabold leading-[1.04] tracking-[-0.055em] text-white";
+  "font-display text-[clamp(3.25rem,10.5vw,7.5rem)] font-extrabold leading-[0.9] tracking-[-0.005em] text-white";
 export const heroPitch =
   "mt-6 max-w-[45ch] text-base leading-relaxed text-neutral-300 lg:text-lg";
 

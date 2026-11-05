@@ -18,6 +18,7 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-graphik)"],
+        display: ["var(--font-display)", "Impact", "sans-serif"],
         mono: [
           "var(--font-mono)",
           "ui-monospace",
