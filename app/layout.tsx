@@ -2,7 +2,6 @@ import "./global.css";
 import { SiteSearchShell } from "components/search/site-search-shell";
 import { getSiteSearchRecords } from "lib/site-search-records";
 import type { Metadata } from "next";
-import { Big_Shoulders, Martian_Mono } from "next/font/google";
 
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteWidth } from "@/components/layout/site-width";
@@ -15,21 +14,6 @@ import { siteOrigin } from "@/lib/site-path";
 
 import { DeferredAnalytics } from "../components/layout/deferred-analytics";
 import { Footer } from "../components/layout/footer";
-
-const martianMono = Martian_Mono({
-  subsets: ["latin"],
-  axes: ["wdth"],
-  weight: "variable",
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const bigShoulders = Big_Shoulders({
-  subsets: ["latin"],
-  weight: "variable",
-  variable: "--font-display",
-  display: "swap",
-});
 
 const siteSearchRecords = getSiteSearchRecords();
 
@@ -80,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${martianMono.variable} ${bigShoulders.variable} dark bg-black font-mono font-normal text-white [font-stretch:90%] scheme-dark`}
+      className="dark bg-black font-mono font-normal text-white scheme-dark"
     >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

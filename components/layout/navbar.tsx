@@ -36,7 +36,7 @@ export default function Navbar() {
                 href={path}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "inline-flex h-9 items-center justify-center rounded-lg px-1.5 py-1.5 align-middle text-sm transition-colors hover:text-neutral-800 focus-visible:outline-2 focus-visible:outline-accent sm:px-2 sm:text-base dark:hover:text-accent pointer-coarse:h-11",
+                  "inline-flex h-9 items-center justify-center rounded-lg px-2 py-1.5 align-middle transition-colors hover:text-neutral-800 focus-visible:outline-2 focus-visible:outline-accent dark:hover:text-accent pointer-coarse:h-11",
                   isActive ? "text-accent" : "text-neutral-400"
                 )}
               >
