@@ -60,7 +60,7 @@ export default async function CVPage({ searchParams }: CvPageProps) {
 
   return (
     <section
-      className="cv-content cv-print m-0 w-full max-w-4xl p-0 print:block print:w-full print:max-w-none preview-print:max-w-none"
+      className="cv-content cv-print mx-auto my-0 w-full max-w-3xl p-0 print:block print:w-full print:max-w-none preview-print:max-w-none"
       {...(isPreviewPrint ? { "data-cv-preview": "print" } : {})}
     >
       {/* Bundlers ignore `@import … print`; load print tokens via real media attr */}
