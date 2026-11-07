@@ -55,26 +55,25 @@ html {
   max-width: 100%;
 }
 
+/* Images, video, and embeds always span the full article column. */
 .blog-content figure {
-  max-width: 65ch;
-}
-
-.blog-content figure.blog-media-wide,
-.blog-content figure.max-w-3xl {
-  max-width: 100%;
-}
-
-.blog-content figure.blog-media-breakout {
   max-width: 100%;
   width: 100%;
 }
 
-.blog-content figure.blog-media-wide img,
-.blog-content figure.blog-media-breakout img,
-.blog-content figure.max-w-3xl img {
+.blog-content :where(img, video) {
   max-width: 100%;
   width: 100%;
   height: auto;
+}
+
+/* Raw iframes (legacy posts); VideoEmbed sizes its own frame. */
+.blog-content > iframe,
+.blog-content > p > iframe {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
 
 .prose li {

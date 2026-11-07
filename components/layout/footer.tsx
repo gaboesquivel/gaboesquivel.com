@@ -65,8 +65,8 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/cv" className={ctaLink}>
-                Resume
+              <Link href="/cv" className={footerLink}>
+                Résumé
               </Link>
             </li>
             <li>

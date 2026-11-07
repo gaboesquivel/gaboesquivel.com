@@ -3,6 +3,7 @@ import { HomepageGenUiShell } from "components/genui/homepage-shell";
 import { FeaturedWork } from "components/home/featured-work";
 import { FocusRow } from "components/home/focus-row";
 import { PortraitMedia } from "components/home/portrait-media";
+import { ScrambleTitle } from "components/home/scramble-title";
 import { PageEyebrow, PageTitle } from "components/shared/page-layout";
 import { narrativeIntroGap, sectionAction } from "components/shared/spacing";
 import { homeJsonLd } from "lib/home-json-ld";
@@ -30,6 +31,7 @@ export default function HomePage() {
       <div className="grid items-start gap-6 lg:mt-6 lg:grid-cols-[1.08fr_1fr] lg:items-center lg:gap-0">
         <div className="relative z-10 pb-6 lg:pb-0">
           <PageEyebrow />
+          <ScrambleTitle />
           <PageTitle>
             Software for
             <br />

@@ -76,7 +76,7 @@ function BlogImage({
       ? "(max-width: 768px) 100vw, min(90rem, 92vw)"
       : layout === "wide"
         ? "(max-width: 768px) 100vw, min(48rem, 90vw)"
-        : "(max-width: 768px) 100vw, min(100vw, 650px)";
+        : "(max-width: 768px) 100vw, min(48rem, 90vw)";
 
   return (
     <figure
@@ -88,7 +88,7 @@ function BlogImage({
     >
       <Image
         alt={alt ?? ""}
-        className="rounded-lg"
+        className="h-auto w-full rounded-lg"
         fetchPriority={priority ? "high" : undefined}
         height={675}
         loading={priority ? "eager" : undefined}
