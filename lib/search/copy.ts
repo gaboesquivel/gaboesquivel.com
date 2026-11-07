@@ -6,6 +6,8 @@ export const searchCopy = {
   /** Accessible name of the nav trigger and of both search fields. */
   accessibleName: "Search this site (beta)",
   placeholder: "Ask about my work, writing, CV, or booking…",
+  /** Homepage field only, 640px and up; the dialog keeps `placeholder`. */
+  homePlaceholder: "Ask me what I built for LegalAgent",
   /** Below 640px; the accessible name stays `accessibleName`. */
   placeholderShort: "Ask about my work…",
   dialogHint: "Press Enter to search. Results appear below.",

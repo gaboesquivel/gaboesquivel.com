@@ -13,7 +13,6 @@ export function LatestPosts({
   excludeSlug,
   action,
   className,
-  arrow = false,
 }: {
   limit?: number;
   title?: string;
@@ -23,7 +22,6 @@ export function LatestPosts({
   excludeSlug?: string;
   action?: ReactNode;
   className?: string;
-  arrow?: boolean;
 }) {
   const latestPosts = getLatestPosts({
     category,
@@ -39,7 +37,6 @@ export function LatestPosts({
 
   return (
     <WritingPostsSection
-      arrow={arrow}
       posts={latestPosts}
       title={title}
       action={action}

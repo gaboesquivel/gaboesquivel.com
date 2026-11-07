@@ -39,8 +39,8 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - Question: who is Gabo, and is the work real?
 - Message: I build useful and delightful software products (the `gabo` core line); current focus is agentic AI and onchain finance.
 - Evidence: `legal-agent`, `wink`, `ztx`, `bitlauncher`
-- Order: split hero, full-width search, selected work, focus, connect, writing
-- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, approved homepage pitch from the `gabo` skill (`lib/site-identity.ts`), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search (the homepage field, Cmd/Ctrl+K or nav Search all open the same full-screen overlay) submits on Enter and renders a validated GenUI result in the overlay (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
+- Order: split hero, full-width search, selected work (LegalAgent lead, then Wink, ZTX, Bitlauncher), an “Explore by focus” row, writing; the footer carries the “Start a conversation” invitation
+- Hero: all-white “Software for humans and agents.”, muted “GABO ESQUIVEL” and turquoise “Agentic Software Engineer”, no pitch paragraph (the headline carries the core line; `siteHeroPitch` in `lib/site-identity.ts` feeds the llms exports), real portrait and Product/Design/Engineering/Delivery geometry. A local published-content search (the homepage field, Cmd/Ctrl+K or nav Search all open the same full-screen overlay) submits on Enter and renders a validated GenUI result in the overlay (`/api/genui/compose`); curated suggestions and equivalent canonical queries route deterministically without model calls.
 
 ### `/bio`
 

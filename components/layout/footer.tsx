@@ -1,4 +1,5 @@
 import { ctaLink, siteColumn } from "components/shared/spacing";
+import { hireTermsLocationLine } from "lib/hire-terms";
 import { cn } from "lib/utils";
 import Link from "next/link";
 
@@ -39,13 +40,8 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/tech" className={footerLink}>
-                Tech Stack
-              </Link>
-            </li>
-            <li>
-              <Link href="/work" className={footerLink}>
-                Work
+              <Link href="/lead" className={footerLink}>
+                Leadership
               </Link>
             </li>
           </ul>
@@ -69,13 +65,8 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/about" className={footerLink}>
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className={footerLink}>
-                Contact
+              <Link href="/cv" className={ctaLink}>
+                Resume
               </Link>
             </li>
             <li>
@@ -87,19 +78,19 @@ export function Footer() {
         </div>
 
         <div className="col-span-2 sm:col-span-1">
-          <ul className="space-y-2">
-            <li className="text-neutral-300">
-              Open to hire or contracting through Blockmatic Labs LLC.
-              <br />
-              <br />
-            </li>
-            <li className="text-neutral-300">Have something in mind?</li>
-            <li>
-              <Link href="/contact" className={ctaLink}>
-                Let’s talk
-              </Link>
-            </li>
-          </ul>
+          <Link
+            href="/contact"
+            className={cn(
+              ctaLink,
+              "text-xl font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            )}
+          >
+            Start a conversation <span aria-hidden="true">↗</span>
+          </Link>
+          <p className="mt-4 text-sm leading-relaxed text-neutral-400">
+            Open to hire or contracting through Blockmatic Labs LLC.{" "}
+            {hireTermsLocationLine}
+          </p>
         </div>
       </div>
     </footer>

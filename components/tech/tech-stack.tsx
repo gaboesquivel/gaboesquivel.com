@@ -22,12 +22,7 @@ export default function TechStack({
 
   return (
     <section>
-      <InnerPageHero
-        compact
-        eyebrowSpace
-        description={tech.description}
-        title={tech.name}
-      />
+      <InnerPageHero description={tech.description} title={tech.name} />
 
       {tech.experience.length > 0 ? (
         <PageSection title="Implementation">

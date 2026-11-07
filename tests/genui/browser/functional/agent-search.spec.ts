@@ -213,7 +213,7 @@ test.describe("S-P3: short placeholder below 640px", () => {
     await page.goto("/");
     await expect(homeInput(page)).toHaveAttribute(
       "placeholder",
-      searchCopy.placeholder
+      searchCopy.homePlaceholder
     );
   });
 });

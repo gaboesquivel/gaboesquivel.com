@@ -64,6 +64,7 @@ export function SiteSearchField({
   onInputKeyDown,
   onQueryChange,
   placeholder,
+  placeholderFull,
   query,
   quiet,
   showShortcutHint,
@@ -86,6 +87,8 @@ export function SiteSearchField({
   onInputKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   onQueryChange: (value: string) => void;
   placeholder?: string;
+  /** Replaces the full placeholder from 640px up; phones keep the short one. */
+  placeholderFull?: string;
   query: string;
   /** Hides the focus ring while the field keeps focus (just after a search). */
   quiet?: boolean;
@@ -136,7 +139,9 @@ export function SiteSearchField({
           autoFocus={autoFocus}
           placeholder={
             placeholder ??
-            (smUp ? searchCopy.placeholder : searchCopy.placeholderShort)
+            (smUp
+              ? (placeholderFull ?? searchCopy.placeholder)
+              : searchCopy.placeholderShort)
           }
           value={query}
           role="combobox"

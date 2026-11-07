@@ -18,7 +18,7 @@ End these pages with résumé and conversation links. Do not repeat `LetsConnect
 
 ## Career story (`/bio`)
 
-`/bio` stays on `siteColumn` and does not use the `/ai` or `/web3` card sequence. `PageIntro` (`narrative`) opens with the “My journey” lede and no portrait. `BioTimeline` renders four chronological chapters from `lib/bio/chapters.ts`: a left rail (year and category) at `lg+` (below `lg` the rail hides and the period line carries the marker, period, and category), center narrative with native `details` progressive disclosure, and registry or authentic photography on the right at `lg+`. Hairline dividers and flat turquoise markers only — no glow, card chrome, or decorative gradients. Do not route `/bio` through `CapabilityPage`.
+`/bio` stays on `siteColumn` and does not use the `/ai` or `/web3` card sequence. `PageIntro` (`narrative`) opens with the “My journey” lede and no portrait. `BioTimeline` renders four chronological chapters from `lib/bio/chapters.ts`: a left rail (year and category) at `lg+` (below `lg` the rail hides and the period line carries the marker, period, and category), center narrative (summary paragraphs, then the chapter's project links; there is no “Read the full story” disclosure, the expanded text stays in the llms and career-timeline sources), and registry or authentic photography on the right at `lg+`. Hairline dividers and flat turquoise markers only — no glow, card chrome, or decorative gradients. Do not route `/bio` through `CapabilityPage`.
 
 ### GenUI career timeline
 

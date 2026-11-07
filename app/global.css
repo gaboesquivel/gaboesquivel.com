@@ -713,25 +713,6 @@ a {
   height: 100%;
 }
 
-/* /bio and GenUI career timeline story disclosure: animated open/close where supported */
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-    interpolate-size: allow-keywords;
-  }
-
-  details[data-bio-disclosure]::details-content {
-    block-size: 0;
-    overflow: clip;
-    transition:
-      block-size 240ms cubic-bezier(0.23, 1, 0.32, 1),
-      content-visibility 240ms allow-discrete;
-  }
-
-  details[data-bio-disclosure][open]::details-content {
-    block-size: auto;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(*),
   ::view-transition-new(*),

@@ -399,6 +399,26 @@ const jsxNodeToMarkdown = (
       ? node.openingElement.attributes
       : node.attributes;
 
+    if (tagName === "FeaturedWork") {
+      lines.push("## Selected work", "");
+      const links = renderProjectLinks([...homepageEditorialSlugs]);
+      if (links) {
+        lines.push(links, "");
+      }
+      return;
+    }
+
+    if (tagName === "FocusRow") {
+      lines.push(
+        "## Focus",
+        "",
+        `- [Agentic AI products](${absoluteUrl("/ai")})`,
+        `- [Onchain finance](${absoluteUrl("/web3")})`,
+        ""
+      );
+      return;
+    }
+
     if (tagName === "LetsConnect") {
       if (pagePath === "/ask") {
         lines.push(LETS_CONNECT_MARKDOWN, "");

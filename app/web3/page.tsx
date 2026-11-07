@@ -3,8 +3,6 @@ import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
 import { ProjectTextRow } from "components/interior/project-text-row";
 import {
-  ctaLink,
-  editorialLink,
   editorialMeasure,
   narrativeCopy,
   narrativeIntroGap,
@@ -13,12 +11,8 @@ import {
   sectionTitle,
 } from "components/shared/spacing";
 import { EditorialWorkCard } from "components/work/editorial-work-card";
-import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
 import { cn } from "lib/utils";
-import Link from "next/link";
-
-const actionLink = cn(ctaLink, editorialLink, "text-sm");
 
 export default function Web3ExperiencePage() {
   return (
@@ -125,30 +119,11 @@ export default function Web3ExperiencePage() {
       </section>
 
       <LatestPosts
-        arrow
         category="Web3"
         className={sectionGap}
         limit={4}
         title="Writing about Web3 systems"
       />
-
-      <section className={sectionGap}>
-        <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
-          Explore more
-        </h2>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
-          <p className="m-0">
-            <Link className={actionLink} href={cvPath({ key: "web3" })}>
-              Web3 résumé / CV →
-            </Link>
-          </p>
-          <p className="m-0">
-            <Link className={actionLink} href="/contact">
-              Start a conversation →
-            </Link>
-          </p>
-        </div>
-      </section>
     </InteriorPageShell>
   );
 }

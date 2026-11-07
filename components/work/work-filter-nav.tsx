@@ -2,7 +2,7 @@
 
 import { press } from "components/shared/motion";
 import { cn } from "lib/utils";
-import { workTypeHref, workTypeOptions } from "lib/work-types";
+import { workNavOptions, workTypeHref } from "lib/work-types";
 import type { WorkType } from "lib/work-types";
 import Link from "next/link";
 import {
@@ -88,7 +88,7 @@ export const WorkFilterNav = ({ type }: { type: WorkType }) => {
           className="relative flex min-w-0 flex-nowrap gap-1 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]"
           style={mask ? { maskImage: mask, WebkitMaskImage: mask } : undefined}
         >
-          {workTypeOptions.map((option) => {
+          {workNavOptions.map((option) => {
             const isActive = option === type;
             return (
               <Link

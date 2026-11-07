@@ -14,15 +14,9 @@ import {
   PageSection,
   PageTitle,
   proseLink,
-  Prose,
   projectMedia,
 } from "components/shared/page-layout";
-import {
-  editorialLink,
-  projectRole,
-  sectionHeadingSpacing,
-  sectionTitle,
-} from "components/shared/spacing";
+import { editorialLink, projectRole } from "components/shared/spacing";
 import { VimeoPlayer } from "components/vimeo";
 import { YouTubePlayer } from "components/youtube";
 import { getTechStackByTag } from "gaboesquivel";
@@ -77,9 +71,16 @@ export function ProjectCaseStudy({
 
   const contributions =
     project.achievements && project.achievements.length > 0 ? (
-      <ul className="max-w-3xl list-disc space-y-4 pl-5 text-base leading-relaxed">
+      <ul className="border-t border-neutral-800">
         {project.achievements.map((achievement) => (
-          <li key={`${project.slug}-achievement-${achievement}`}>
+          <li
+            key={`${project.slug}-achievement-${achievement}`}
+            className="flex items-baseline gap-4 border-b border-neutral-800 py-5 text-base leading-relaxed"
+          >
+            <span
+              aria-hidden="true"
+              className="size-1.5 shrink-0 translate-y-[-0.15em] bg-accent"
+            />
             {achievement}
           </li>
         ))}
@@ -127,7 +128,7 @@ export function ProjectCaseStudy({
         <>
           <header>
             <PageEyebrow />
-            <div className="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-8">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-8">
               <PageTitle>{project.title}</PageTitle>
               {meta ? (
                 <p className="shrink-0 text-sm leading-relaxed md:text-right">
@@ -150,32 +151,11 @@ export function ProjectCaseStudy({
             <ProjectHero href={primaryImageHref} preload project={project} />
           </FullBleedMedia>
 
-          <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 lg:mt-10 lg:grid-cols-12">
-            {validExperienceTypes.length > 0 ? (
-              <ul className="flex flex-wrap gap-x-2 text-sm lg:col-span-6">
-                {validExperienceTypes.map((item, index) => (
-                  <li key={`${project.slug}-type-${item.url}`}>
-                    <Link className={editorialLink} href={item.url}>
-                      {item.display}
-                    </Link>
-                    {index < validExperienceTypes.length - 1 ? (
-                      <span
-                        aria-hidden="true"
-                        className="ml-2 text-neutral-400"
-                      >
-                        /
-                      </span>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            {description ? (
-              <p className="max-w-[55ch] text-base leading-relaxed text-neutral-300 lg:col-span-6 lg:col-start-7">
-                {description}
-              </p>
-            ) : null}
-          </div>
+          {description && !storyLead ? (
+            <p className="mt-8 max-w-[55ch] text-base leading-relaxed text-neutral-300 lg:mt-10">
+              {description}
+            </p>
+          ) : null}
         </>
       )}
 
@@ -183,16 +163,22 @@ export function ProjectCaseStudy({
         <EditorialSection className={sectionGap}>
           <SplitSection sectionSpacing={false}>
             <SplitSectionContent mediaPosition="right" span={5}>
-              <Prose className="mt-0">{storyLead}</Prose>
+              {!genui && description ? (
+                <p className="mb-6 text-base leading-relaxed">{description}</p>
+              ) : null}
+              <p className="text-base leading-relaxed">{storyLead}</p>
               {storyRest.map((paragraph) => (
-                <Prose key={`${project.slug}-story-${paragraph}`}>
+                <p
+                  key={`${project.slug}-story-${paragraph}`}
+                  className="mt-6 text-base leading-relaxed"
+                >
                   {paragraph}
-                </Prose>
+                </p>
               ))}
             </SplitSectionContent>
             {contributions ? (
               <SplitSectionMedia mediaPosition="right" span={6}>
-                <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
+                <h2 className="mb-6 text-sm text-neutral-400">
                   Selected contributions
                 </h2>
                 {contributions}
