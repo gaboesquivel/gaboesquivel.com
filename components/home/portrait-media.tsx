@@ -70,7 +70,6 @@ export function PortraitMedia() {
               y={item.baselineY}
               fill={ogColors.gray}
               fontSize={label.fontSize}
-              fontFamily="ui-monospace, monospace"
             >
               {item.text}
             </text>

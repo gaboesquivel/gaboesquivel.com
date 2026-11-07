@@ -16,9 +16,6 @@ export default {
         accent: "#5cded6",
         hairline: "rgba(255, 255, 255, 0.14)",
       },
-      fontFamily: {
-        sans: ["var(--font-graphik)"],
-      },
       typography: {
         quoteless: {
           css: {

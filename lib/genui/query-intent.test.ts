@@ -3,6 +3,15 @@ import { describe, expect, test } from "bun:test";
 import { composeIntentDocument } from "./query-intent";
 
 describe("composeIntentDocument", () => {
+  test("routes the search placeholder question to AI projects", () => {
+    const doc = composeIntentDocument({
+      query: "what agentic products have you built ?",
+      requestId: "r",
+    });
+    expect(doc?.openuiText).toContain("ProjectExperience");
+    expect(doc?.openuiText).toContain("/project/legal-agent");
+  });
+
   test("routes AI projects to project bento", () => {
     const doc = composeIntentDocument({
       query: "Show me your AI projects",

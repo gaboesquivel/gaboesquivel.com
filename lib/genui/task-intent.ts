@@ -42,6 +42,14 @@ export const wantsBrowseProjects = (query: string) => {
   ) {
     return true;
   }
+  // "what agentic products have you built?" asks to browse without a verb.
+  if (
+    /\b(what|which)\b.*\b(have you (built|shipped|made)|did you (build|ship|make))\b/i.test(
+      query
+    )
+  ) {
+    return true;
+  }
   return false;
 };
 
