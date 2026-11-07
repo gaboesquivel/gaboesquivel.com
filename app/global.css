@@ -273,6 +273,7 @@ a {
 @page {
   size: A4;
   margin: 0.75in 0.5in;
+  background: #ffffff;
 }
 
 @media print {
