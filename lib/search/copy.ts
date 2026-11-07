@@ -7,7 +7,7 @@ export const searchCopy = {
   accessibleName: "Search this site (beta)",
   placeholder: "what agentic products have you built ?",
   /** Homepage field only, 640px and up; the dialog keeps `placeholder`. */
-  homePlaceholder: "Ask me what I built for LegalAgent",
+  homePlaceholder: "what agentic products have you built ?",
   /** Below 640px; the accessible name stays `accessibleName`. */
   placeholderShort: "Ask about my work…",
   dialogHint: "Press Enter to search. Results appear below.",
