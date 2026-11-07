@@ -4,6 +4,11 @@
     gap: 0.25rem;
   }
 
+  .cv-header h1 {
+    margin-bottom: 0;
+    line-height: 1;
+  }
+
   .cv-header .cv-print-professional-title {
     margin-top: 0;
     margin-bottom: 0;
@@ -25,5 +30,13 @@
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     line-height: 1.75;
+  }
+}
+
+/* Print preview on a wide screen: the A4 page margins from `@page` */
+@media screen and (min-width: 900px) {
+  html:has([data-cv-preview="print"]) .cv-print {
+    box-sizing: border-box;
+    padding: 0.75in 0.5in !important;
   }
 }
