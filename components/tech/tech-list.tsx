@@ -62,12 +62,7 @@ export function TechList({
   return (
     <section className={cn(className)}>
       {hero ? (
-        <InnerPageHero
-          compact
-          description={intro}
-          eyebrowSpace
-          title={heading ?? "Technologies"}
-        />
+        <InnerPageHero description={intro} title={heading ?? "Technologies"} />
       ) : (
         <>
           {heading ? (

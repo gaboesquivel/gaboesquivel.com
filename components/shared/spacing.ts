@@ -102,7 +102,7 @@ export const editorialGrid =
 export const editorialLink =
   "rounded-sm transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 export const heroTitle =
-  "text-[clamp(2.5rem,7.2vw,4.75rem)] font-extrabold leading-[1.04] tracking-[-0.055em] text-white";
+  "text-[clamp(2.75rem,8vw,5.25rem)] font-extrabold leading-[1.14] tracking-[-0.055em] text-white";
 export const heroPitch =
   "mt-6 max-w-[45ch] text-base leading-relaxed text-neutral-300 lg:text-lg";
 

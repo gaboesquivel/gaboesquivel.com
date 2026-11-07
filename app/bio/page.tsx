@@ -29,12 +29,7 @@ export default function BioPage() {
 
       <BioTimeline className={narrativeIntroGap} />
 
-      <LatestPosts
-        arrow
-        className={sectionGap}
-        limit={4}
-        title="Selected writing"
-      />
+      <LatestPosts className={sectionGap} limit={4} title="Selected writing" />
 
       <section className={sectionGap}>
         <div className={editorialMeasure}>

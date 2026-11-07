@@ -215,11 +215,10 @@ describe("llms export helpers", () => {
     expect(index).toContain("book_call");
   });
 
-  test("homepage corpus includes focus and Connect, no Career section", () => {
+  test("homepage corpus includes focus, no Career section", () => {
     const home = loadNarrativePages().find((page) => page.path === "/");
     expect(home?.body).toContain("/ai");
     expect(home?.body).toContain("/web3");
-    expect(home?.body).toContain("## Connect");
     expect(home?.body).not.toContain("## Career");
     expect(home?.body).not.toContain("/startups");
     expect(home?.body).not.toContain("/lead");

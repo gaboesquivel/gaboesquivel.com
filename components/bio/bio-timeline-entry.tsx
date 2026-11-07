@@ -1,6 +1,6 @@
+import { BioChapterLinks } from "components/bio/bio-chapter-links";
 import { BioChapterMediaBlock } from "components/bio/bio-chapter-media";
 import { BioNarrativeParagraph } from "components/bio/bio-paragraph";
-import { BioStoryDisclosure } from "components/bio/bio-story-disclosure";
 import { sectionTitle } from "components/shared/spacing";
 import type { BioChapter } from "lib/bio/chapters";
 import { cn } from "lib/utils";
@@ -72,7 +72,7 @@ export function BioTimelineEntry({
             />
           ))}
         </div>
-        <BioStoryDisclosure
+        <BioChapterLinks
           chapter={chapter}
           groundedProjectIds={groundedProjectIds}
         />

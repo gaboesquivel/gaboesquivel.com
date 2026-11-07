@@ -11,13 +11,11 @@ export function WritingPostsSection({
   title,
   action,
   className,
-  arrow = false,
 }: {
   posts: Blog[];
   title: ReactNode;
   action?: ReactNode;
   className?: string;
-  arrow?: boolean;
 }) {
   if (posts.length === 0) return null;
 
@@ -27,7 +25,7 @@ export function WritingPostsSection({
       action={action}
       className={cn(sectionGap, className)}
     >
-      <EditorialBlogList arrow={arrow} posts={posts} />
+      <EditorialBlogList posts={posts} />
     </PageSection>
   );
 }

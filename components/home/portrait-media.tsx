@@ -11,13 +11,13 @@ const { dots, label, labels, strokeGroups } = portraitOverlay;
 
 export function PortraitMedia() {
   return (
-    <div className="relative mx-auto w-full max-w-2xl lg:max-w-none">
+    <div className="relative mx-auto w-full max-w-2xl lg:max-w-none xl:w-[118%]">
       <Image
         src={portraitSrc}
         alt="Gabo Esquivel"
         width={portraitWidth}
         height={portraitHeight}
-        sizes="(min-width: 1152px) 532px, (min-width: 1024px) 46vw, (min-width: 672px) 672px, 100vw"
+        sizes="(min-width: 1152px) 640px, (min-width: 1024px) 54vw, (min-width: 672px) 672px, 100vw"
         preload
         className="block h-auto w-full"
       />

@@ -26,7 +26,7 @@ const HomeSearchField = () => {
   const wrapRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="mt-8 lg:mt-10">
+    <div className="mt-10 lg:mt-20 lg:px-8">
       <div data-home-search-field="" ref={wrapRef}>
         <GenuiSearchCombobox
           describedById={homeGenuiSearchScopeId}
@@ -45,6 +45,7 @@ const HomeSearchField = () => {
             );
             setQuery("");
           }}
+          placeholderFull={searchCopy.homePlaceholder}
           query={query}
           showShortcutHint={query.length === 0}
         />

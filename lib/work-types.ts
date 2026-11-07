@@ -20,6 +20,11 @@ export const workTypeOptions = [
 
 export type WorkType = (typeof workTypeOptions)[number];
 
+/** Filter chips on `/work`. `full-time` and `contract` keep their routes but are not offered in the nav. */
+export const workNavOptions: readonly WorkType[] = workTypeOptions.filter(
+  (type) => type !== "full-time" && type !== "contract"
+);
+
 interface WorkTypeEditorialCopy {
   heading: string;
   description: string;

@@ -2,8 +2,6 @@ import { LatestPosts } from "components/blog/latest-posts";
 import { InteriorPageShell } from "components/interior/interior-page-shell";
 import { PageIntro } from "components/interior/page-intro";
 import {
-  ctaLink,
-  editorialLink,
   editorialMeasure,
   narrativeCopy,
   narrativeIntroGap,
@@ -13,12 +11,9 @@ import {
   sectionTitle,
 } from "components/shared/spacing";
 import { EditorialWorkCard } from "components/work/editorial-work-card";
-import { cvPath } from "lib/cv-paths";
 import { pageMetadata } from "lib/page-metadata";
 import { cn } from "lib/utils";
 import Link from "next/link";
-
-const actionLink = cn(ctaLink, editorialLink, "text-sm");
 
 export default function AIExperiencePage() {
   return (
@@ -89,30 +84,11 @@ export default function AIExperiencePage() {
       </section>
 
       <LatestPosts
-        arrow
         category="Artificial Intelligence"
         className={sectionGap}
         limit={4}
         title="Writing about AI products"
       />
-
-      <section className={sectionGap}>
-        <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
-          Explore more
-        </h2>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
-          <p className="m-0">
-            <Link className={actionLink} href={cvPath({ key: "ai" })}>
-              AI résumé / CV →
-            </Link>
-          </p>
-          <p className="m-0">
-            <Link className={actionLink} href="/contact">
-              Start a conversation →
-            </Link>
-          </p>
-        </div>
-      </section>
     </InteriorPageShell>
   );
 }

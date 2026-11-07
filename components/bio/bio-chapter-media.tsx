@@ -39,19 +39,29 @@ export function BioChapterMediaBlock({
     );
   }
 
+  const photo = (
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg sm:aspect-[16/10]">
+      <Image
+        alt={media.alt}
+        className="object-cover object-center"
+        fetchPriority={priority ? "high" : undefined}
+        fill={true}
+        preload={priority}
+        sizes={priority ? editorialCoverSizes : timelineMediaSizes}
+        src={media.src}
+      />
+    </div>
+  );
+
   return (
     <figure className={cn("min-w-0", className)}>
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg sm:aspect-[16/10]">
-        <Image
-          alt={media.alt}
-          className="object-cover object-center"
-          fetchPriority={priority ? "high" : undefined}
-          fill={true}
-          preload={priority}
-          sizes={priority ? editorialCoverSizes : timelineMediaSizes}
-          src={media.src}
-        />
-      </div>
+      {media.href ? (
+        <Link className={cn(editorialLink, "block")} href={media.href}>
+          {photo}
+        </Link>
+      ) : (
+        photo
+      )}
       {media.caption ? (
         <figcaption className="mt-3">
           <p className="m-0 text-sm text-neutral-400">{media.caption}</p>

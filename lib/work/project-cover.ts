@@ -44,7 +44,6 @@ const smallCoverWidths: Record<string, number> = {
   "/images/work/amex.jpg": 660,
   "/images/work/arinc.png": 660,
   "/images/work/eatarcade.jpg": 660,
-  "/images/work/elder-scrolls.jpg": 660,
   "/images/work/jockey-hollow-menu.png": 660,
   "/images/work/jockey-hollow.png": 660,
   "/images/work/living-with-dryness.jpg": 660,

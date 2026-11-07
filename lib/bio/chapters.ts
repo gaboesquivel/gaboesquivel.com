@@ -15,6 +15,8 @@ export type BioChapterMedia =
       src: string;
       alt: string;
       caption?: string;
+      /** Makes the photo a link, like the project covers in the other chapters. */
+      href?: string;
     }
   | {
       kind: "project";
@@ -73,6 +75,7 @@ export const bioChapters: readonly BioChapter[] = [
       src: "/images/bio/nodeschool-costa-rica.jpg",
       alt: "Developers at a NodeSchool Costa Rica workshop",
       caption: "Learning together at NodeSchool Costa Rica.",
+      href: "/project/costa-rica-js",
     },
     projectSlugs: ["costa-rica-js", "american-express"],
   },

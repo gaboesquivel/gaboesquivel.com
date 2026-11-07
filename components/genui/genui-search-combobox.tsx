@@ -44,6 +44,7 @@ export const GenuiSearchCombobox = ({
   onClear,
   onQueryChange,
   onSearchSubmit,
+  placeholderFull,
   query,
   showShortcutHint,
 }: {
@@ -60,6 +61,8 @@ export const GenuiSearchCombobox = ({
   onQueryChange: (query: string) => void;
   /** `query` is what compose routes on; `label` is the visitor's words. */
   onSearchSubmit: (query: string, label: string) => void;
+  /** Surface-specific full placeholder (homepage); defaults to the shared one. */
+  placeholderFull?: string;
   query: string;
   showShortcutHint?: boolean;
 }) => {
@@ -257,6 +260,7 @@ export const GenuiSearchCombobox = ({
           }}
           onInputKeyDown={handleInputKeyDown}
           onQueryChange={handleQueryChange}
+          placeholderFull={placeholderFull}
           query={query}
           quiet={quiet}
           showShortcutHint={showShortcutHint}
