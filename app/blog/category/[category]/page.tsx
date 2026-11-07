@@ -39,7 +39,7 @@ export default async function BlogCategoryPage({
   return (
     <BlogPosts
       category={category}
-      heading={`Writing: ${categoryDisplayNames[category]}`}
+      heading={`${categoryDisplayNames[category]} Articles`}
       intro={categoryDescriptions[category]}
       page={parsedPage}
     />
@@ -65,6 +65,6 @@ export async function generateMetadata({
   return pageMetadata({
     description: categoryDescriptions[category],
     path: `/blog/category/${category}`,
-    title: `Writing: ${displayName} | Gabo Esquivel`,
+    title: `${displayName} Articles | Gabo Esquivel`,
   });
 }

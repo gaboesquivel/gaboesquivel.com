@@ -127,7 +127,7 @@ const renderBlogCategoryMarkdown = (
   return wrapSection({
     body: lines.join("\n"),
     path: `/blog/category/${slug}`,
-    title: `Writing: ${displayName}`,
+    title: `${displayName} Articles`,
   });
 };
 
