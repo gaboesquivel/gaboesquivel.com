@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const GLYPHS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#?*+-=_";
-const DURATION = 1200;
+const DURATION = 900;
 
 let played = false;
 
