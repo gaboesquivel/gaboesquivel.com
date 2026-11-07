@@ -1,5 +1,6 @@
 "use client";
 
+import { SiteChatTrigger } from "components/chat/site-chat";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -48,6 +49,7 @@ export default function Navbar() {
       </ul>
       <div className="flex shrink-0 items-start gap-0">
         <SiteSearchTrigger />
+        <SiteChatTrigger />
       </div>
     </nav>
   );
