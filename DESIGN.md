@@ -10,22 +10,16 @@ colors:
   hover-fill: "#262626"
 typography:
   body:
-    fontFamily: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1rem
     fontWeight: 400
-  display-title:
-    fontFamily: "Big Shoulders", Impact, sans-serif
-    fontSize: clamp(3.25rem, 10.5vw, 7.5rem)
-    fontWeight: 800
-    lineHeight: 0.9
-    letterSpacing: -0.005em
   page-title:
-    fontFamily: "Big Shoulders", Impact, sans-serif
-    fontSize: 2.25rem
+    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontSize: 1.5rem
     fontWeight: 700
-    lineHeight: 0.95
+    letterSpacing: -0.05em
   section-title:
-    fontFamily: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1.5rem
     fontWeight: 600
     letterSpacing: -0.025em
@@ -83,7 +77,7 @@ Theme colors live in [`tailwind.config.mts`](tailwind.config.mts).
 
 ## Typography
 
-- Two families. Martian Mono (`next/font`, variable weight and `wdth` axes, variable `--font-mono`) is body and chrome at 400 (`font-mono font-normal` on `html`), at 90% width (`[font-stretch:90%]`) so its wide letterforms keep a readable measure; the system mono stack is the fallback. Big Shoulders (`next/font`, variable, `--font-display`, `font-display`) is only for page h1s: `heroTitle` at weight 800, `clamp(3.25rem, 10.5vw, 7.5rem)`, line height 0.9, tracking `-0.005em`, and the smaller document `pageTitle` at 700, `text-4xl`/`sm:text-5xl`. Section titles and everything else stay mono (600/700). Graphik is mapped to `font-sans` but **not loaded**: do not restore it or add another typeface unless the task loads a font. Reason: a tall condensed display over a wide mono body gives the terminal-industrial contrast the references use ([decision 0008](docs/decisions/0008-martian-mono-width-axis.md), which supersedes [0007](docs/decisions/0007-jetbrains-mono-display-h1.md)). Display serif is **checked**; a third typeface is **look**.
+- System mono at 400 for everything (`font-mono font-normal` on `html`); page titles 700, section titles 600. Graphik is mapped to `font-sans` but **not loaded**: do not restore it, pair a display serif, or add a typeface unless the task loads a font. Reason: the mono column is the identity. Display serif is **checked**; a new typeface is **look**.
 - Nav: lowercase mono, `tracking-tight`. No all-caps or wide tracking anywhere, because those make eyebrow labels. **Checked** (`uppercase`, `tracking-wider`, `tracking-widest`).
 
 Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts).
