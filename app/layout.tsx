@@ -1,4 +1,5 @@
 import "./global.css";
+import { SiteChatProvider } from "components/chat/site-chat";
 import { SiteSearchShell } from "components/search/site-search-shell";
 import { getSiteSearchRecords } from "lib/site-search-records";
 import type { Metadata } from "next";
@@ -74,28 +75,30 @@ export default function RootLayout({
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>👩‍🚀</text></svg>"
         />
       </head>
-      <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased sm:mb-40">
+      <body className="relative mb-12 flex min-h-dvh max-w-full min-w-0 flex-col antialiased transition-[padding] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none sm:mb-40 [html[data-chat-open]_&]:md:pr-[28rem]">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-black focus:px-4 focus:py-3 focus:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-accent print:hidden"
         >
           Skip to content
         </a>
-        <SiteSearchShell records={siteSearchRecords}>
-          <div className="flex min-h-0 flex-1 flex-col">
-            <SiteHeader />
-            <SiteWidth
-              as="main"
-              id="main"
-              tabIndex={-1}
-              className="flex min-h-0 flex-1 flex-col outline-none print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
-            >
-              {children}
-            </SiteWidth>
-            <Footer />
-            <DeferredAnalytics />
-          </div>
-        </SiteSearchShell>
+        <SiteChatProvider>
+          <SiteSearchShell records={siteSearchRecords}>
+            <div className="flex min-h-0 flex-1 flex-col">
+              <SiteHeader />
+              <SiteWidth
+                as="main"
+                id="main"
+                tabIndex={-1}
+                className="flex min-h-0 flex-1 flex-col outline-none print:max-w-none print:px-0 preview-print:max-w-none preview-print:px-0"
+              >
+                {children}
+              </SiteWidth>
+              <Footer />
+              <DeferredAnalytics />
+            </div>
+          </SiteSearchShell>
+        </SiteChatProvider>
       </body>
     </html>
   );

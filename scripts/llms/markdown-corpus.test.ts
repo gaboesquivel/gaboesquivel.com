@@ -73,7 +73,7 @@ describe("markdown corpus", () => {
     expect(getMarkdownForPath({ pathname: "/blog" })).toContain("# Writing");
     expect(getMarkdownForPath({ pathname: "/explore" })).toContain("# Explore");
     expect(getMarkdownForPath({ pathname: "/blog/category/ai" })).toContain(
-      "Writing: AI"
+      "AI Articles"
     );
     expect(getMarkdownForPath({ pathname: "/tech/ai" })).toContain(
       "AI technologies"

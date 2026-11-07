@@ -6,7 +6,9 @@ Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md). Form app
 
 ## Skills and scaffold
 
-Read the installed `eve`, `ai-sdk`, and `typesafe-ai` skills (bundled docs in `node_modules`, not memory). No browser UI talks to Eve: `agent/channels/eve.ts` disables the default `/eve/v1` web channel. Do not re-enable it or add a chat transcript without a spec. The runtime agent ships only the `gabo` skill in `agent/skills/`.
+Read the installed `eve`, `ai-sdk`, and `typesafe-ai` skills (bundled docs in `node_modules`, not memory). No browser UI talks to Eve: `agent/channels/eve.ts` disables the default `/eve/v1` web channel. Do not re-enable it.
+
+The nav chat icon (`components/chat/`) opens a right dock (not a modal: from `md` up the page shifts left by the dock's 28rem, below `md` it covers the screen) built from the AI Elements in `components/ai-elements/` and `useChat`. It posts to `/api/chat` (`app/api/chat/route.ts`), a plain `streamText` call with `lib/ai/chat-instructions.ts`: no tools, no retrieval, same per-IP daily chat cap as GenUI (`admitChat`). The "Book a call" and "Send a message" pills, and typed requests the model answers with its `showBookingForm` / `showMessageForm` tools, render the GenUI forms (`GenuiBookingFlow`, `GenuiContactForm`) inline in the transcript; submissions go through `/api/capabilities` like the search overlay. The chat has its own `GenuiSessionProvider`, so receipts are not shared with the overlay. It is separate from Eve. The runtime agent ships only the `gabo` skill in `agent/skills/`.
 
 ## Credentials
 
