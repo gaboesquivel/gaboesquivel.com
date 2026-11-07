@@ -33,22 +33,10 @@ export function Web3BoundaryDiagram() {
           x="16"
           y="40"
         />
-        <text
-          fill={label}
-          fontFamily="ui-monospace, monospace"
-          fontSize="12"
-          x="32"
-          y="68"
-        >
+        <text fill={label} fontSize="12" x="32" y="68">
           Product surface
         </text>
-        <text
-          fill={muted}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          x="32"
-          y="92"
-        >
+        <text fill={muted} fontSize="11" x="32" y="92">
           Wallet, trading, auctions
         </text>
 
@@ -62,14 +50,7 @@ export function Web3BoundaryDiagram() {
           x="296"
           y="40"
         />
-        <text
-          fill={accent}
-          fontFamily="ui-monospace, monospace"
-          fontSize="12"
-          textAnchor="middle"
-          x="360"
-          y="106"
-        >
+        <text fill={accent} fontSize="12" textAnchor="middle" x="360" y="106">
           Signing
         </text>
 
@@ -82,22 +63,10 @@ export function Web3BoundaryDiagram() {
           x="452"
           y="40"
         />
-        <text
-          fill={label}
-          fontFamily="ui-monospace, monospace"
-          fontSize="12"
-          x="468"
-          y="68"
-        >
+        <text fill={label} fontSize="12" x="468" y="68">
           Chain &amp; index
         </text>
-        <text
-          fill={muted}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          x="468"
-          y="92"
-        >
+        <text fill={muted} fontSize="11" x="468" y="92">
           Protocols, GraphQL, streams
         </text>
 

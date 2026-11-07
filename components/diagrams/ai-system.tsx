@@ -33,22 +33,10 @@ export function AiSystemDiagram() {
           x="16"
           y="8"
         />
-        <text
-          fill={label}
-          fontFamily="ui-monospace, monospace"
-          fontSize="12"
-          x="32"
-          y="36"
-        >
+        <text fill={label} fontSize="12" x="32" y="36">
           Voice &amp; chat
         </text>
-        <text
-          fill={muted}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          x="32"
-          y="60"
-        >
+        <text fill={muted} fontSize="11" x="32" y="60">
           React Native app
         </text>
 
@@ -61,31 +49,13 @@ export function AiSystemDiagram() {
           x="260"
           y="8"
         />
-        <text
-          fill={label}
-          fontFamily="ui-monospace, monospace"
-          fontSize="12"
-          x="276"
-          y="36"
-        >
+        <text fill={label} fontSize="12" x="276" y="36">
           Retrieval
         </text>
-        <text
-          fill={muted}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          x="276"
-          y="60"
-        >
+        <text fill={muted} fontSize="11" x="276" y="60">
           Cases, documents,
         </text>
-        <text
-          fill={muted}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          x="276"
-          y="76"
-        >
+        <text fill={muted} fontSize="11" x="276" y="76">
           procedures
         </text>
 
@@ -98,31 +68,13 @@ export function AiSystemDiagram() {
           x="504"
           y="8"
         />
-        <text
-          fill={label}
-          fontFamily="ui-monospace, monospace"
-          fontSize="12"
-          x="520"
-          y="36"
-        >
+        <text fill={label} fontSize="12" x="520" y="36">
           Admin controls
         </text>
-        <text
-          fill={muted}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          x="520"
-          y="60"
-        >
+        <text fill={muted} fontSize="11" x="520" y="60">
           Prompts, documents,
         </text>
-        <text
-          fill={muted}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          x="520"
-          y="76"
-        >
+        <text fill={muted} fontSize="11" x="520" y="76">
           SSO, categories
         </text>
 
@@ -134,14 +86,7 @@ export function AiSystemDiagram() {
           stroke={accent}
           strokeWidth="1.5"
         />
-        <text
-          fill={accent}
-          fontFamily="ui-monospace, monospace"
-          fontSize="11"
-          textAnchor="middle"
-          x="360"
-          y="228"
-        >
+        <text fill={accent} fontSize="11" textAnchor="middle" x="360" y="228">
           operate after launch
         </text>
       </svg>

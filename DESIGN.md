@@ -10,16 +10,18 @@ colors:
   hover-fill: "#262626"
 typography:
   body:
-    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1rem
     fontWeight: 400
+  article-paragraph:
+    fontFamily: Geist, system-ui, sans-serif
   page-title:
-    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1.5rem
     fontWeight: 700
     letterSpacing: -0.05em
   section-title:
-    fontFamily: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontFamily: IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1.5rem
     fontWeight: 600
     letterSpacing: -0.025em
@@ -77,7 +79,8 @@ Theme colors live in [`tailwind.config.mts`](tailwind.config.mts).
 
 ## Typography
 
-- System mono at 400 for everything (`font-mono font-normal` on `html`); page titles 700, section titles 600. Graphik is mapped to `font-sans` but **not loaded**: do not restore it, pair a display serif, or add a typeface unless the task loads a font. Reason: the mono column is the identity. Display serif is **checked**; a new typeface is **look**.
+- IBM Plex Mono is the site face for navigation, titles, interface copy, code, and diagram labels. The site serves local regular (400), medium (500), semibold (600), and bold (700) files. Display headings requesting 800 use the bold face.
+- Blog article paragraphs use locally hosted Geist Sans for long-form reading. Article titles, metadata, and inline code use IBM Plex Mono. Font tokens and assets are wired in [app/global.css](app/global.css).
 - Nav: lowercase mono, `tracking-tight`. No all-caps or wide tracking anywhere, because those make eyebrow labels. **Checked** (`uppercase`, `tracking-wider`, `tracking-widest`).
 
 Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts).
