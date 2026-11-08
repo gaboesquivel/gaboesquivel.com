@@ -96,8 +96,8 @@ Four text roles. Headings keep their own responsive scale (`heroTitle`, `section
 
 | Role | Mobile | Desktop | Line height | Use |
 | --- | --- | --- | --- | --- |
-| Intro | 16px | 18px | 1.7 | Every paragraph of a page introduction (`introText`, `PageLead`) |
-| Body | 16px | 16px | 1.75 prose, 1.625 (`leading-relaxed`) in cards | Narrative copy, project and card descriptions, article paragraphs |
+| Intro | 16px | 18px | 1.7 | Every paragraph of a page introduction (`introText`, `PageLead`); blog article text (Geist paragraphs, mono lists and quotes) |
+| Body | 16px | 16px | 1.75 prose, 1.625 (`leading-relaxed`) in cards | Narrative copy, project and card descriptions |
 | Small | 14px | 14px | default; `leading-relaxed` when it wraps | CTA labels, route-card descriptions, footer note, roles, dates in lists |
 | Micro | 12px | 12px | default | Paths, technical metadata, mobile list dates |
 
@@ -112,7 +112,7 @@ An introduction is a group, not the first paragraph. Pass every paragraph to `Pa
 
 ### Measure and line length
 
-IBM Plex Mono is fixed-width, so `ch` is an exact character count. Running text stays between about 60 and 72 characters a line: `readingMeasure` (`65ch`) for intros, utility pages, and card descriptions; `editorialMeasure` (`72ch`) for 16px narrative copy on `/ai`, `/web3`, and `/bio`, which renders at about the same width as an 18px intro. Card text inside narrow grid cells keeps its cell width. Use `text-pretty` on intro paragraphs and `text-balance` on headings to avoid orphans; never hard-break running text. The `/work` hero lede is the one authored two-line block (fixed `2lh`, so filters never shift).
+IBM Plex Mono is fixed-width, so `ch` is an exact character count. Running text stays between about 60 and 72 characters a line: `readingMeasure` (`65ch`) for intros, utility pages, and card descriptions; `editorialMeasure` (`72ch`) for 16px narrative copy on `/ai`, `/web3`, and `/bio`, which renders at about the same width as an 18px intro. Card text inside narrow grid cells keeps its cell width. Use `text-pretty` on intro paragraphs and `text-balance` on headings to avoid orphans; never hard-break running text. The `/work` hero lede is the one authored two-line block (fixed `2lh`, so filters never shift). Blog articles set Geist text at `38rem` (about 75 characters at 18px) on the column's left edge; figures, code, and tables still span the `max-w-3xl` article column.
 
 ### Vertical rhythm
 

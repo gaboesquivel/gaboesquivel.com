@@ -98,12 +98,13 @@ describe("llms export helpers", () => {
   });
 
   test("renderProjectMarkdown omits Role when the field is missing", () => {
-    const project = projects.find((item) => !item.role);
+    // Every published project has a role now, so strip it from one.
+    const project = projects[0];
     expect(project).toBeDefined();
     if (!project) {
       return;
     }
-    const markdown = renderProjectMarkdown(project);
+    const markdown = renderProjectMarkdown({ ...project, role: undefined });
     expect(markdown).not.toContain("**Role:**");
   });
 
