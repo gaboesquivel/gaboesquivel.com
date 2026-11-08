@@ -1,11 +1,13 @@
 import {
   blockGrid,
   PageEyebrow,
+  introText,
   PageTitle,
-  Prose,
+  readingMeasure,
 } from "components/shared/page-layout";
 import { PathLink } from "components/shared/path-link";
 import { Button } from "components/ui/button";
+import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
 const exits = [
@@ -37,7 +39,7 @@ export function RecoveryPage({
       {documentTitle ? <title>{documentTitle}</title> : null}
       <PageEyebrow />
       <PageTitle>{title}</PageTitle>
-      <Prose>{children}</Prose>
+      <p className={cn(introText, readingMeasure, "mt-6")}>{children}</p>
       {onRetry ? (
         <Button
           className="mt-8"

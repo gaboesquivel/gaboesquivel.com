@@ -7,7 +7,7 @@ import {
   narrativeIntroGap,
   sectionGap,
   proseLink,
-  sectionHeadingSpacing,
+  headingSpacing,
   sectionTitle,
 } from "components/shared/spacing";
 import { EditorialWorkCard } from "components/work/editorial-work-card";
@@ -20,15 +20,12 @@ export default function AIExperiencePage() {
     <InteriorPageShell>
       <PageIntro
         narrative
-        description="I build AI products where the experience matters as much as the model. Voice and chat assistants, retrieval-backed workflows, and generative interfaces all serve the same goal: making intelligent systems useful and understandable."
+        description={[
+          "I build AI products where the experience matters as much as the model. Voice and chat assistants, retrieval-backed workflows, and generative interfaces all serve the same goal: making intelligent systems useful and understandable.",
+          "That work spans product, design, and engineering. I shape the context and tools a model receives, the actions it can take, and the controls teams need to evaluate, adjust, and operate the system after launch.",
+        ]}
         title="AI Engineering"
-      >
-        <p>
-          That work spans product, design, and engineering. I shape the context
-          and tools a model receives, the actions it can take, and the controls
-          teams need to evaluate, adjust, and operate the system after launch.
-        </p>
-      </PageIntro>
+      />
 
       <section className={narrativeIntroGap}>
         <EditorialWorkCard
@@ -43,7 +40,7 @@ export default function AIExperiencePage() {
       </section>
 
       <section className={sectionGap}>
-        <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
+        <h2 className={cn(sectionTitle, headingSpacing, "text-balance")}>
           Domain-specific assistants
         </h2>
         <p className={cn(editorialMeasure, narrativeCopy)}>

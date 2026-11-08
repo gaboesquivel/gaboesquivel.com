@@ -8,7 +8,7 @@ import {
   SplitSectionMedia,
 } from "components/interior/split-section";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
-import { heroPitch, sectionAction } from "components/shared/spacing";
+import { sectionAction } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -50,13 +50,7 @@ export function CapabilityPage({
 }) {
   return (
     <InteriorPageShell>
-      <PageIntro description={intro[0]} title={title}>
-        {intro.slice(1).map((paragraph) => (
-          <p key={paragraph} className={cn(heroPitch, "mt-4")}>
-            {paragraph}
-          </p>
-        ))}
-      </PageIntro>
+      <PageIntro description={intro} title={title} />
 
       {sections.map(({ heading, paragraphs, projectSlugs }, index) => {
         const layout = chapterLayouts[index % chapterLayouts.length];

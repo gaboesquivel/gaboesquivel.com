@@ -9,7 +9,7 @@ import {
   narrativeCopy,
   narrativeIntroGap,
   sectionGap,
-  sectionHeadingSpacing,
+  headingSpacing,
   sectionTitle,
 } from "components/shared/spacing";
 import { pageMetadata } from "lib/page-metadata";
@@ -33,7 +33,7 @@ export default function BioPage() {
 
       <section className={sectionGap}>
         <div className={editorialMeasure}>
-          <h2 className={cn(sectionTitle, sectionHeadingSpacing)}>
+          <h2 className={cn(sectionTitle, headingSpacing)}>
             What I&apos;m focused on
           </h2>
           <p className={narrativeCopy}>

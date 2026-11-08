@@ -4,7 +4,9 @@ import type { ReactNode } from "react";
 import {
   blockSpacing,
   heroTitle,
+  introText,
   pageEyebrow,
+  pageLead,
   pageTitle,
   proseClass,
   readingMeasure,
@@ -22,6 +24,8 @@ export {
   cardArrow,
   ctaLink,
   headingSpacing,
+  introText,
+  pageLead,
   proseLink,
   readingMeasure,
   pageEyebrow,
@@ -51,6 +55,32 @@ export function Prose({
     <p className={cn(proseClass, readingMeasure, blockSpacing, className)}>
       {children}
     </p>
+  );
+}
+
+/**
+ * A page introduction. Every paragraph renders at the intro size, so a
+ * two-paragraph introduction reads as one group.
+ */
+export function PageLead({
+  paragraphs,
+  className,
+}: {
+  paragraphs: string | readonly string[];
+  className?: string;
+}) {
+  const list = typeof paragraphs === "string" ? [paragraphs] : paragraphs;
+  return (
+    <div className={cn(pageLead, className)}>
+      {list.map((paragraph) => (
+        <p
+          key={paragraph}
+          className={cn(introText, readingMeasure, "m-0 text-pretty")}
+        >
+          {paragraph}
+        </p>
+      ))}
+    </div>
   );
 }
 

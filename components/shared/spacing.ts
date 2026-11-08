@@ -16,8 +16,14 @@ export const editorialMeasure = "max-w-[72ch]";
 /** First section after an editorial introduction: 56px mobile, 80px desktop. */
 export const narrativeIntroGap = "mt-14 lg:mt-20";
 
-export const narrativeLead =
-  "mt-6 text-base leading-[1.65] text-neutral-300 lg:text-lg";
+/**
+ * Every paragraph of a page introduction: 16px mobile, 18px desktop. The
+ * introduction is a group, not the first paragraph; render it with `PageLead`.
+ */
+export const introText = "text-base leading-[1.7] text-neutral-300 lg:text-lg";
+
+/** Title to introduction 24px; paragraphs inside it 16px mobile, 20px desktop. */
+export const pageLead = "mt-6 flex flex-col gap-4 lg:gap-5";
 
 export const narrativeCopy = "text-base leading-[1.75] text-neutral-300";
 
@@ -103,8 +109,6 @@ export const editorialLink =
   "rounded-sm transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 export const heroTitle =
   "text-[clamp(2.75rem,8vw,5.25rem)] font-extrabold leading-[1.14] tracking-[-0.055em] text-white";
-export const heroPitch =
-  "mt-6 max-w-[45ch] text-base leading-relaxed text-neutral-300 lg:text-lg";
 
 export const diagramScroll =
   "diagram-scroll w-full overflow-x-auto overscroll-x-contain pb-2 [-webkit-overflow-scrolling:touch] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
@@ -114,6 +118,8 @@ export const diagramSvg = "min-w-[720px] w-full max-w-none";
 export const projectRole = "text-sm text-accent";
 export const projectRoleInCard = cn(projectRole, "mt-2");
 
-/** Work listings: one measure and clamp so flagship, grid, and filtered pages align. */
-export const projectCardDescription =
-  "mt-3 line-clamp-3 text-base leading-relaxed text-neutral-300";
+/** Work listings: one measure and clamp so flagship, grid, and filtered pages align. Body size, never metadata. */
+export const projectCardDescription = cn(
+  readingMeasure,
+  "mt-3 line-clamp-3 text-base leading-relaxed text-neutral-300"
+);

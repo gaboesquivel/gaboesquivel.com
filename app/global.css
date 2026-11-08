@@ -309,11 +309,6 @@ table {
   @apply mt-0 rounded-t-none border-t-0;
 }
 
-p {
-  margin-bottom: 1em;
-  line-height: 1.75;
-}
-
 a {
   @apply !decoration-0 hover:text-accent;
 }
@@ -563,6 +558,11 @@ a {
   }
   body {
     @apply bg-black text-white;
+  }
+  /* Base paragraph rhythm. In the base layer, so `leading-*` and `m-*` utilities win. */
+  p {
+    margin-bottom: 1em;
+    line-height: 1.75;
   }
 }
 
