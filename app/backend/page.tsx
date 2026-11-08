@@ -5,7 +5,7 @@ const sections = [
   {
     heading: "Blockchain data and realtime APIs",
     paragraphs: [
-      "ChainGraph started as a side project while I was at Bitcash: a GraphQL subscription toolkit for indexing and streaming EOSIO and Antelope data. Bitlauncher later needed an indexer of its own for EOS EVM, so I built one on viem event subscriptions and a dFuse stream, with Supabase handling queries, aggregation, and realtime subscriptions.",
+      "ChainGraph started as a side project while I was at Bitcash: a GraphQL subscription toolkit for indexing and streaming EOSIO and Antelope data. Bitlauncher later needed an indexer of its own for EOS EVM, so I wrote one on viem event subscriptions and a dFuse stream, with Supabase handling queries, aggregation, and realtime subscriptions.",
     ],
     projectSlugs: ["chaingraph", "bitlauncher"],
   },

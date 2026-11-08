@@ -55,7 +55,7 @@ export default function AIExperiencePage() {
           <li className="h-full min-w-0">
             <EditorialWorkCard
               action="View Masterbots"
-              description="I built interfaces for specialized AI assistants and integrated AI SDK tooling, including workflows for multilingual content."
+              description="I worked on interfaces for specialized AI assistants and AI SDK tooling, and improved the magic prompt feature and how assistants keep context across a conversation."
               layout="landscape"
               objectClassName="object-top"
               slug="masterbots"
@@ -65,7 +65,7 @@ export default function AIExperiencePage() {
           <li className="h-full min-w-0">
             <EditorialWorkCard
               action="View Bitlauncher"
-              description="I built a retrieval-backed assistant for project research, news, and video content, with AI-assisted internationalization. Financial and transaction data remained grounded in the application's deterministic systems."
+              description="A retrieval-backed assistant for project research, news, and video content, with AI-assisted internationalization. Financial and transaction data remained grounded in the application's deterministic systems."
               layout="landscape"
               slug="bitlauncher"
               title="Bitlauncher"
