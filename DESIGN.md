@@ -96,7 +96,7 @@ Four text roles. Headings keep their own responsive scale (`heroTitle`, `section
 
 | Role | Mobile | Desktop | Line height | Use |
 | --- | --- | --- | --- | --- |
-| Intro | 16px | 18px | 1.7 | Every paragraph of a page introduction (`introText`, `PageLead`); blog article paragraphs, lists, and quotes (Geist) |
+| Intro | 16px | 18px | 1.7 | Every paragraph of a page introduction (`introText`, `PageLead`); blog article text (Geist paragraphs, mono lists and quotes) |
 | Body | 16px | 16px | 1.75 prose, 1.625 (`leading-relaxed`) in cards | Narrative copy, project and card descriptions |
 | Small | 14px | 14px | default; `leading-relaxed` when it wraps | CTA labels, route-card descriptions, footer note, roles, dates in lists |
 | Micro | 12px | 12px | default | Paths, technical metadata, mobile list dates |
