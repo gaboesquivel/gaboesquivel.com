@@ -24,7 +24,8 @@ const sameRoot = (word: string, term: string) =>
   (word.startsWith(stem(term)) || term.startsWith(stem(word)));
 
 const topicsOf = (text: string) => {
-  const words = (text.toLowerCase().match(/[a-z]+/g) ?? []).filter(
+  const tokens: string[] = text.toLowerCase().match(/[a-z]+/g) ?? [];
+  const words = tokens.filter(
     (word) => word.length > 2 && !stopwords.has(word)
   );
   return words.map((word) => {
