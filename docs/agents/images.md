@@ -15,7 +15,7 @@ A post **hero image** is optional editorial raster art referenced by MDX frontma
 - Keep meaningful content inside an 80px inset on all sides. Leave at least one third of the canvas empty. Separate unrelated elements by at least 40px. Use a front-facing, flat view with no perspective or simulated depth.
 - One focal relationship per hero image, at most five principal objects or groups. Turquoise highlights that relationship or the subject; it is not an overall color wash. White carries primary structure; gray carries supporting detail.
 - No text, article titles, numbers, logos, watermarks, signature, or full-bleed decorative grid in generated hero artwork. No humans, robots, brains, cityscapes, floating dashboards, photorealism, 3D objects, shadows, bloom, grain, gradients, or extra accent colors.
-- Exact diagrams use SVG or controlled layout, with manually specified connections and labels. Use the site's monospace stack for SVG text. In-article diagrams live in `public/images/diagrams/` and scale to the content column width (no horizontal scroll), not as 16:9 cover crops. Raster typography must use one explicitly selected installed monospace face consistently across the batch. Never ask the image model to typeset labels.
+- Exact diagrams use SVG or controlled layout, with manually specified connections and labels. Use the site's monospace stack for SVG text. In-article diagrams live in `public/images/diagrams/` and scale to the content column width (no horizontal scroll), not as 16:9 cover crops. Canvas width, the three-size type scale, and node and edge styling are fixed in [In-article diagrams](design/editorial-images.md#in-article-diagrams); never size SVG text up to compensate for a narrow viewBox. Raster typography must use one explicitly selected installed monospace face consistently across the batch. Never ask the image model to typeset labels.
 - Preserve source artwork when available. Deliver WebP hero images at the paths referenced by frontmatter `image`, targeting at most 300 KB without visibly damaged edges. PNG may be used as an intermediate. Inspect the output; do not merely rename another format to `.webp`.
 
 ## Fixed generation instruction
@@ -40,7 +40,7 @@ Composition: three small outlined document sheets form one source group at x=200
 
 Do not change the existing in-article harness diagram (`public/images/diagrams/2026-09-context-harness.svg`).
 
-### 2. Agentic Domain-Driven Design
+### 2. Domain-Driven Design
 
 Source: [article](../../content/2026-10-domain-driven-design.mdx). Destination: `public/images/2026/10/domain-driven-design.webp`.
 
