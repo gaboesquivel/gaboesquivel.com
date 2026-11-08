@@ -60,7 +60,7 @@ export function InnerPageHero({
         </>
       )}
       {meta ? <div className={panel ? "mt-2" : "mt-3"}>{meta}</div> : null}
-      {description && compact ? (
+      {description?.length && compact ? (
         <p
           className={
             panel
@@ -73,7 +73,9 @@ export function InnerPageHero({
             : description.join(" ")}
         </p>
       ) : null}
-      {description && !compact ? <PageLead paragraphs={description} /> : null}
+      {description?.length && !compact ? (
+        <PageLead paragraphs={description} />
+      ) : null}
       {children}
     </header>
   );

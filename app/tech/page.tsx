@@ -33,7 +33,9 @@ export default function TechStackPage() {
                   →
                 </span>
               </div>
-              <p className="text-sm text-neutral-400">{description}</p>
+              <p className="text-sm leading-relaxed text-neutral-400">
+                {description}
+              </p>
             </SiteCardLink>
           ))}
         </div>

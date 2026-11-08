@@ -72,9 +72,9 @@ export function PageLead({
   const list = typeof paragraphs === "string" ? [paragraphs] : paragraphs;
   return (
     <div className={cn(pageLead, className)}>
-      {list.map((paragraph) => (
+      {list.map((paragraph, index) => (
         <p
-          key={paragraph}
+          key={`${index}-${paragraph}`}
           className={cn(introText, readingMeasure, "m-0 text-pretty")}
         >
           {paragraph}

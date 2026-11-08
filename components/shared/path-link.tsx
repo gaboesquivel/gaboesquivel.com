@@ -21,7 +21,9 @@ export function PathLink({
       </div>
       <span className="font-mono text-xs text-neutral-400">{href}</span>
       {note ? (
-        <p className={cn(proseClass, "mt-2 flex-grow text-sm")}>{note}</p>
+        <p className={cn(proseClass, "mt-2 flex-grow text-sm leading-relaxed")}>
+          {note}
+        </p>
       ) : null}
     </SiteCardLink>
   );

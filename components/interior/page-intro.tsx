@@ -40,7 +40,7 @@ export function PageIntro({
       <header className={cn(editorialMeasure, className)}>
         <PageEyebrow />
         <PageTitle className={titleClassName}>{title}</PageTitle>
-        {description ? <PageLead paragraphs={description} /> : null}
+        {description?.length ? <PageLead paragraphs={description} /> : null}
         {children}
       </header>
     );

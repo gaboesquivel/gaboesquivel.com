@@ -21,7 +21,12 @@ export function TechCard({ tech }: TechCardProps) {
           →
         </span>
       </div>
-      <p className={cn(proseClass, "line-clamp-2 flex-grow text-sm")}>
+      <p
+        className={cn(
+          proseClass,
+          "line-clamp-2 flex-grow text-sm leading-relaxed"
+        )}
+      >
         {tech.description}
       </p>
     </SiteCardLink>
