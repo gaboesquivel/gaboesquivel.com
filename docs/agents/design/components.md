@@ -22,6 +22,7 @@ Reuse or extend primitives in [`components/shared/page-layout.tsx`](../../../com
 | Capability route shell | `CapabilityPage` | `components/work/capability-page.tsx` |
 | Interior editorial shell | `InteriorPageShell` | `components/interior/interior-page-shell.tsx` |
 | Editorial intro | `PageIntro` (`narrative` on `/ai`, `/web3`, `/bio`) | `components/interior/page-intro.tsx` |
+| Intro paragraphs | `PageLead` (via `description` on `PageIntro` / `InnerPageHero`) | `components/shared/page-layout.tsx` |
 | Text/media split (12-col) | `SplitSection` + `SplitSectionContent` / `SplitSectionMedia` | `components/interior/split-section.tsx` |
 | Article column | `ArticleShell` | `components/interior/article-shell.tsx` |
 | Utility / legal reading | `ReadingPageShell` | `components/interior/reading-page-shell.tsx` |

@@ -10,7 +10,7 @@ export function Footer() {
     <footer
       className={cn(
         siteColumn,
-        "mt-12 sm:mt-28 print:hidden preview-print:hidden"
+        "mt-20 sm:mt-28 print:hidden preview-print:hidden"
       )}
     >
       <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">

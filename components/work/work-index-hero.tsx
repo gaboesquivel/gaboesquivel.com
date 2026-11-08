@@ -1,5 +1,5 @@
 import { PageEyebrow, PageTitle } from "components/shared/page-layout";
-import { heroPitch } from "components/shared/spacing";
+import { introText } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import { workTypeCopy } from "lib/work-types";
 import type { WorkType } from "lib/work-types";
@@ -11,7 +11,7 @@ export function WorkIndexHero({ type }: { type: WorkType }) {
     <header data-work-hero className="mb-12 lg:mb-16">
       <PageEyebrow />
       <PageTitle className="work-hero-title">{copy.heroTitle}</PageTitle>
-      <p className={cn(heroPitch, "work-hero-lede relative")}>
+      <p className={cn(introText, "work-hero-lede relative mt-6")}>
         <span className="sr-only">{copy.description}</span>
         <span aria-hidden className="sm:hidden">
           <span className="block">{copy.mobileLines[0]}</span>

@@ -167,6 +167,16 @@ const getJsxAttributeValue = (
   return;
 };
 
+/** A page introduction's `description`: one string or an array of paragraphs. */
+const pushIntro = (lines: string[], description: unknown) => {
+  const paragraphs = Array.isArray(description) ? description : [description];
+  for (const paragraph of paragraphs) {
+    if (typeof paragraph === "string" && paragraph) {
+      lines.push(paragraph, "");
+    }
+  }
+};
+
 const collectVariables = (sourceFile: ts.SourceFile) => {
   const variables = new Map<string, unknown>();
 
@@ -492,9 +502,7 @@ const jsxNodeToMarkdown = (
       if (typeof title === "string" && title) {
         lines.push(`# ${title}`, "");
       }
-      if (typeof description === "string" && description) {
-        lines.push(description, "");
-      }
+      pushIntro(lines, description);
       return;
     }
 
@@ -519,9 +527,7 @@ const jsxNodeToMarkdown = (
         if (typeof title === "string" && title) {
           lines.push(`# ${title}`, "");
         }
-        if (typeof description === "string" && description) {
-          lines.push(description, "");
-        }
+        pushIntro(lines, description);
         if (ts.isJsxElement(node)) {
           jsxNodesToMarkdown(node.children, variables, lines, pagePath);
         }

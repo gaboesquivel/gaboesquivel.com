@@ -22,7 +22,7 @@ export function ProjectTextRow({
         )}
       >
         <span className="font-semibold tracking-tight">{title}</span>
-        <span className="col-span-2 text-sm leading-relaxed text-neutral-300 sm:col-span-1 sm:col-start-2 sm:text-base">
+        <span className="col-span-2 text-base leading-relaxed text-neutral-300 sm:col-span-1 sm:col-start-2">
           {children}
         </span>
         <span

@@ -13,6 +13,10 @@ typography:
     fontFamily: IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
     fontSize: 1rem
     fontWeight: 400
+  intro:
+    fontFamily: IBM Plex Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+    fontSize: 1.125rem
+    lineHeight: 1.7
   article-paragraph:
     fontFamily: Geist, system-ui, sans-serif
   page-title:
@@ -30,9 +34,10 @@ rounded:
   md: 8px
   lg: 10px
 spacing:
-  block: 2rem
-  section: 3rem
-  title: 1.5rem
+  title-to-intro: 1.5rem
+  intro-paragraph: 1.25rem
+  intro-to-content: 5rem
+  section: 6rem
   heading-row: 2rem
   grid-gap: 1rem
 ---
@@ -84,6 +89,46 @@ Theme colors live in [`tailwind.config.mts`](tailwind.config.mts).
 - Nav: lowercase mono, `tracking-tight`. No all-caps or wide tracking anywhere, because those make eyebrow labels. **Checked** (`uppercase`, `tracking-wider`, `tracking-widest`).
 
 Type scale and spacing tokens live in [`components/shared/spacing.ts`](components/shared/spacing.ts).
+
+### Type scale
+
+Four text roles. Headings keep their own responsive scale (`heroTitle`, `sectionTitle`, card titles). Do not add size variants or per-paragraph sizes; a new need maps to one of these roles.
+
+| Role | Mobile | Desktop | Line height | Use |
+| --- | --- | --- | --- | --- |
+| Intro | 16px | 18px | 1.7 | Every paragraph of a page introduction (`introText`, `PageLead`) |
+| Body | 16px | 16px | 1.75 prose, 1.625 (`leading-relaxed`) in cards | Narrative copy, project and card descriptions, article paragraphs |
+| Small | 14px | 14px | default; `leading-relaxed` when it wraps | CTA labels, route-card descriptions, footer note, roles, dates in lists |
+| Micro | 12px | 12px | default | Paths, technical metadata, mobile list dates |
+
+- Project descriptions are body copy, never small or micro: they carry the case for the work.
+- Base paragraph rhythm (`line-height: 1.75`, `margin-bottom: 1em`) sits in `@layer base` in `app/global.css`, so `leading-*` and `m-*` utilities on a paragraph win. Do not move it back out of the layer.
+
+### Page introductions
+
+An introduction is a group, not the first paragraph. Pass every paragraph to `PageIntro` or `InnerPageHero` as `description` (a string or an array); `PageLead` renders them all at the intro role with one gap (16px mobile, 20px desktop) and the same color. Never style the first or second paragraph by position. Introductions sit 24px under the title. GenUI panels (`compact`) keep their smaller body-size description.
+
+**Look:** a multi-paragraph introduction reads as one size and one block.
+
+### Measure and line length
+
+IBM Plex Mono is fixed-width, so `ch` is an exact character count. Running text stays between about 60 and 72 characters a line: `readingMeasure` (`65ch`) for intros, utility pages, and card descriptions; `editorialMeasure` (`72ch`) for 16px narrative copy on `/ai`, `/web3`, and `/bio`, which renders at about the same width as an 18px intro. Card text inside narrow grid cells keeps its cell width. Use `text-pretty` on intro paragraphs and `text-balance` on headings to avoid orphans; never hard-break running text. The `/work` hero lede is the one authored two-line block (fixed `2lh`, so filters never shift).
+
+### Vertical rhythm
+
+Spacing groups related content and separates chapters; gaps differ by relationship, not by page.
+
+| Relationship | Gap |
+| --- | --- |
+| Nav to title | 36px `PageEyebrow` row on every page |
+| Title to intro | 24px (`pageLead`) |
+| Paragraphs in an intro | 16px mobile, 20px desktop |
+| Intro to first content | 56/80px on narrative and project pages (`narrativeIntroGap`); 48/64px on index and capability pages (`InnerPageHero`) |
+| Section heading to its description | 16px (`headingSpacing`) |
+| Section heading or description to cards | 32px (`sectionHeadingSpacing`, `blockSpacing`) |
+| Cards in a grid | 16–32px, by density |
+| Section to section | 64px mobile, 96px desktop (`sectionGap`); index pages with card sections use 48px (`PageSection`) |
+| Last section to footer | 80px mobile, 112px from `sm` |
 
 ## Layout
 

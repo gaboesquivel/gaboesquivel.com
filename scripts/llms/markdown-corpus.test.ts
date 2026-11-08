@@ -41,6 +41,9 @@ describe("markdown corpus", () => {
   test("editorial portfolio pages keep narrative copy without hire boilerplate", () => {
     const ai = getMarkdownForPath({ pathname: "/ai" });
     expect(ai).toContain("# AI Engineering");
+    // Every paragraph of a multi-paragraph introduction exports.
+    expect(ai).toContain("I build AI products where the experience matters");
+    expect(ai).toContain("That work spans product, design, and engineering.");
     expect(ai).toContain("## LegalAgent");
     expect(ai).toContain("## Domain-specific assistants");
     expect(ai).toContain("## Writing about AI products");
@@ -49,6 +52,8 @@ describe("markdown corpus", () => {
 
     const web3 = getMarkdownForPath({ pathname: "/web3" });
     expect(web3).toContain("# Web3 Engineering");
+    expect(web3).toContain("I build the product layer around blockchain");
+    expect(web3).toContain("My focus is where complex protocols");
     expect(web3).toContain("## ZTX");
     expect(web3).toContain("## Trading and financial products");
     expect(web3).toContain("[Knowledge](");

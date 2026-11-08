@@ -33,7 +33,12 @@ export function PageCard({
         </span>
       </div>
       <p className="mb-2 font-mono text-xs text-neutral-400">{href}</p>
-      <p className={cn(proseClass, "line-clamp-3 flex-grow text-sm")}>
+      <p
+        className={cn(
+          proseClass,
+          "line-clamp-3 flex-grow text-sm leading-relaxed"
+        )}
+      >
         {description}
       </p>
     </SiteCardLink>

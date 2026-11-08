@@ -7,7 +7,7 @@ import {
   narrativeCopy,
   narrativeIntroGap,
   sectionGap,
-  sectionHeadingSpacing,
+  headingSpacing,
   sectionTitle,
 } from "components/shared/spacing";
 import { EditorialWorkCard } from "components/work/editorial-work-card";
@@ -19,17 +19,12 @@ export default function Web3ExperiencePage() {
     <InteriorPageShell>
       <PageIntro
         narrative
-        description="I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync."
+        description={[
+          "I build the product layer around blockchain systems: wallets, signing, exchanges, trading interfaces, auctions, and the data that keeps them in sync.",
+          "My focus is where complex protocols become usable products. People need to understand what they own, what happens when they sign, and the state of a transaction—not the complexity of the infrastructure behind it. My earlier work in financial products, including Wink, still shapes how I approach identity, security, and moving money.",
+        ]}
         title="Web3 Engineering"
-      >
-        <p>
-          My focus is where complex protocols become usable products. People
-          need to understand what they own, what happens when they sign, and the
-          state of a transaction—not the complexity of the infrastructure behind
-          it. My earlier work in financial products, including Wink, still
-          shapes how I approach identity, security, and moving money.
-        </p>
-      </PageIntro>
+      />
 
       <section className={narrativeIntroGap}>
         <EditorialWorkCard
@@ -43,7 +38,7 @@ export default function Web3ExperiencePage() {
       </section>
 
       <section className={sectionGap}>
-        <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
+        <h2 className={cn(sectionTitle, headingSpacing, "text-balance")}>
           Trading and financial products
         </h2>
         <p className={cn(editorialMeasure, narrativeCopy)}>
@@ -94,7 +89,7 @@ export default function Web3ExperiencePage() {
       </section>
 
       <section className={sectionGap}>
-        <h2 className={cn(sectionTitle, sectionHeadingSpacing, "text-balance")}>
+        <h2 className={cn(sectionTitle, headingSpacing, "text-balance")}>
           Protocols and infrastructure
         </h2>
         <p className={cn(editorialMeasure, narrativeCopy)}>

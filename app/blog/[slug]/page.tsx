@@ -96,11 +96,11 @@ export default async function Blog({
         header={
           <>
             <PageEyebrow />
-            <PageTitle className="mb-2 text-balance">{post.title}</PageTitle>
+            <PageTitle className="text-balance">{post.title}</PageTitle>
             <p
               className={cn(
-                "text-sm text-neutral-600 dark:text-neutral-400",
-                archived ? "mb-2" : "mb-6"
+                "mt-4 text-sm text-neutral-600 dark:text-neutral-400",
+                archived ? "mb-2" : "mb-8"
               )}
             >
               <time dateTime={post.publishedAt}>
@@ -108,7 +108,7 @@ export default async function Blog({
               </time>
             </p>
             {archived ? (
-              <p className="mb-6 text-sm text-neutral-400">
+              <p className="mb-8 text-sm text-neutral-400">
                 Historical post — views and technology at time of publication.
               </p>
             ) : null}

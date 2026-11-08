@@ -1,5 +1,9 @@
-import { PageEyebrow, PageTitle } from "components/shared/page-layout";
-import { heroPitch, pageTitle, proseClass } from "components/shared/spacing";
+import {
+  PageEyebrow,
+  PageLead,
+  PageTitle,
+} from "components/shared/page-layout";
+import { pageTitle, proseClass } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
@@ -16,7 +20,8 @@ export function InnerPageHero({
   /** Compact only: the blank row above the title that detail pages keep (the h1 stays where it was). */
   eyebrowSpace?: boolean;
   title: ReactNode;
-  description?: string;
+  /** The introduction. Pass every paragraph; they all render at the intro size. */
+  description?: string | readonly string[];
   compact?: boolean;
   /** Tighter intro for in-panel GenUI results; only applies with `compact`. */
   density?: "default" | "panel";
@@ -55,18 +60,21 @@ export function InnerPageHero({
         </>
       )}
       {meta ? <div className={panel ? "mt-2" : "mt-3"}>{meta}</div> : null}
-      {description ? (
+      {description?.length && compact ? (
         <p
           className={
-            compact
-              ? panel
-                ? "mt-3 max-w-[55ch] text-base leading-relaxed text-neutral-300"
-                : cn(proseClass, "mt-4 max-w-[55ch] text-neutral-300")
-              : heroPitch
+            panel
+              ? "mt-3 max-w-[55ch] text-base leading-relaxed text-neutral-300"
+              : cn(proseClass, "mt-4 max-w-[55ch] text-neutral-300")
           }
         >
-          {description}
+          {typeof description === "string"
+            ? description
+            : description.join(" ")}
         </p>
+      ) : null}
+      {description?.length && !compact ? (
+        <PageLead paragraphs={description} />
       ) : null}
       {children}
     </header>

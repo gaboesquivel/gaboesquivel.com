@@ -11,12 +11,18 @@ import {
 import { NewTabCue, newTabProps } from "components/shared/new-tab-cue";
 import {
   PageEyebrow,
+  PageLead,
   PageSection,
   PageTitle,
   proseLink,
   projectMedia,
 } from "components/shared/page-layout";
-import { editorialLink, projectRole } from "components/shared/spacing";
+import {
+  editorialLink,
+  narrativeIntroGap,
+  projectRole,
+  sectionGap,
+} from "components/shared/spacing";
 import { VimeoPlayer } from "components/vimeo";
 import { YouTubePlayer } from "components/youtube";
 import { getTechStackByTag } from "gaboesquivel";
@@ -50,7 +56,7 @@ export function ProjectCaseStudy({
   context?: "page" | "genui";
 }) {
   const genui = context === "genui";
-  const sectionGap = genui ? "mt-8 lg:mt-10" : undefined;
+  const sectionClass = genui ? "mt-8 lg:mt-10" : sectionGap;
   const validExperienceTypes = (project.type ?? []).flatMap((type) => {
     const mapped = capabilityTypeMap[type];
     return mapped ? [mapped] : [];
@@ -151,21 +157,16 @@ export function ProjectCaseStudy({
             <ProjectHero href={primaryImageHref} preload project={project} />
           </FullBleedMedia>
 
-          {description && !storyLead ? (
-            <p className="mt-8 max-w-[55ch] text-base leading-relaxed text-neutral-300 lg:mt-10">
-              {description}
-            </p>
+          {description ? (
+            <PageLead className="mt-8 lg:mt-10" paragraphs={description} />
           ) : null}
         </>
       )}
 
       {storyLead ? (
-        <EditorialSection className={sectionGap}>
+        <EditorialSection className={genui ? sectionClass : narrativeIntroGap}>
           <SplitSection sectionSpacing={false}>
             <SplitSectionContent mediaPosition="right" span={5}>
-              {!genui && description ? (
-                <p className="mb-6 text-base leading-relaxed">{description}</p>
-              ) : null}
               <p className="text-base leading-relaxed">{storyLead}</p>
               {storyRest.map((paragraph) => (
                 <p
@@ -189,7 +190,10 @@ export function ProjectCaseStudy({
       ) : null}
 
       {!storyLead && contributions ? (
-        <PageSection className={sectionGap} title="Selected contributions">
+        <PageSection
+          className={genui ? sectionClass : narrativeIntroGap}
+          title="Selected contributions"
+        >
           {contributions}
         </PageSection>
       ) : null}
@@ -205,7 +209,7 @@ export function ProjectCaseStudy({
       ) : null}
 
       {project.images && project.images.length > 0 ? (
-        <EditorialSection className={sectionGap} title="Artifacts">
+        <EditorialSection className={sectionClass} title="Artifacts">
           <div className="space-y-10">
             {project.images.map((image, index) => (
               <div
@@ -231,7 +235,7 @@ export function ProjectCaseStudy({
       ) : null}
 
       {hasProjectLinks ? (
-        <PageSection className={sectionGap} title="Project links">
+        <PageSection className={sectionClass} title="Project links">
           {project.link && project.link !== project.repo ? (
             <p className="text-sm">
               <a
@@ -260,7 +264,7 @@ export function ProjectCaseStudy({
       ) : null}
 
       {project.tech.length > 0 ? (
-        <PageSection className={sectionGap} title="Technologies">
+        <PageSection className={sectionClass} title="Technologies">
           <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             {project.tech.map((tech) => {
               const techItem = getTechStackByTag(tech as Tag);
@@ -283,7 +287,7 @@ export function ProjectCaseStudy({
       ) : null}
 
       {genui && validExperienceTypes.length > 0 ? (
-        <PageSection className={sectionGap} title="Experience">
+        <PageSection className={sectionClass} title="Experience">
           <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             {validExperienceTypes.map((item) => (
               <li key={`${project.slug}-type-${item.url}`}>

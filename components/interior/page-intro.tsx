@@ -1,6 +1,10 @@
 import { InnerPageHero } from "components/shared/inner-page-hero";
-import { PageEyebrow, PageTitle } from "components/shared/page-layout";
-import { editorialMeasure, narrativeLead } from "components/shared/spacing";
+import {
+  PageEyebrow,
+  PageLead,
+  PageTitle,
+} from "components/shared/page-layout";
+import { editorialMeasure } from "components/shared/spacing";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
@@ -17,7 +21,8 @@ export function PageIntro({
   children,
 }: {
   title: ReactNode;
-  description?: string;
+  /** The introduction. Pass every paragraph; they all render at the intro size. */
+  description?: string | readonly string[];
   className?: string;
   titleClassName?: string;
   compact?: boolean;
@@ -35,12 +40,8 @@ export function PageIntro({
       <header className={cn(editorialMeasure, className)}>
         <PageEyebrow />
         <PageTitle className={titleClassName}>{title}</PageTitle>
-        {description ? <p className={narrativeLead}>{description}</p> : null}
-        {children ? (
-          <div className="mt-4 space-y-5 text-base leading-[1.75] text-neutral-300 lg:mt-5 [&_p]:m-0">
-            {children}
-          </div>
-        ) : null}
+        {description?.length ? <PageLead paragraphs={description} /> : null}
+        {children}
       </header>
     );
   }
