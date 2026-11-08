@@ -49,7 +49,7 @@ export const bioChapters: readonly BioChapter[] = [
     title: "Interfaces and a JavaScript community",
     summaryParagraphs: [
       [
-        "At American Express, I worked on credit-card interfaces from 2010 to 2012, building interactive comparison tools and responsive landing pages, working with analytics and A/B testing, and helping move an older frontend toward modern JavaScript.",
+        "At American Express, I took on credit-card interfaces from 2010 to 2012, building interactive comparison tools and responsive landing pages, working with analytics and A/B testing, and helping move an older frontend toward modern JavaScript.",
       ],
       [
         "From 2012, I also helped organize ",
@@ -147,7 +147,7 @@ export const bioChapters: readonly BioChapter[] = [
     title: "Intelligent interfaces and agentic products",
     summaryParagraphs: [
       [
-        "By 2024, I was building specialized AI assistants at Masterbots and Bitlauncher. In 2025, I worked on LegalAgent, combining bilingual voice and chat, retrieval, and the operational controls needed to manage an AI product.",
+        "By 2024, I was building specialized AI assistants at Masterbots and Bitlauncher. In 2025 came LegalAgent, combining bilingual voice and chat, retrieval, and the operational controls needed to manage an AI product.",
       ],
       [
         "Today I work at the intersection of agentic AI, product engineering, and generative interfaces — still focused on the point where complex technology becomes useful to people.",

@@ -35,7 +35,7 @@ export default function Web3ExperiencePage() {
         <EditorialWorkCard
           priority
           action="View ZTX"
-          description="At ZTX, I built wallet connectivity inside a WebGL virtual world. Using MetaMask, Ethers.js, and a custom JavaScript event system, I connected the experience to EVM transactions so users could sign and trade NFTs without leaving the world."
+          description="At ZTX, I wired wallet connectivity inside a WebGL virtual world. Using MetaMask, Ethers.js, and a custom JavaScript event system, I connected the experience to EVM transactions so users could sign and trade NFTs without leaving the world."
           layout="feature"
           slug="ztx"
           title="ZTX"
@@ -64,7 +64,7 @@ export default function Web3ExperiencePage() {
           <li className="h-full min-w-0">
             <EditorialWorkCard
               action="View Bitlauncher"
-              description="I built token auction interfaces, wallet interactions, and transaction data integration across EOS EVM and EOS, including Gnosis auction contracts."
+              description="Token auction interfaces, wallet interactions, and transaction data integration across EOS EVM and EOS, including Gnosis auction contracts."
               layout="landscape"
               slug="bitlauncher"
               title="Bitlauncher"

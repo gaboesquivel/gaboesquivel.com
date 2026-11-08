@@ -5,7 +5,7 @@ const sections = [
   {
     heading: "Trading and auction interfaces",
     paragraphs: [
-      "Opyn's trading interface had to show what was happening on Arbitrum, so I built it in Next.js with React Server Components over Ponder-indexed protocol data. The Gnosis auctions at Bitlauncher are different: other people's bids land while you're looking at the screen, so that interface runs on wagmi balance subscriptions and Supabase realtime updates.",
+      "Opyn's trading interface had to show what was happening on Arbitrum, so it runs on Next.js with React Server Components over Ponder-indexed protocol data. The Gnosis auctions at Bitlauncher are different: other people's bids land while you're looking at the screen, so that interface runs on wagmi balance subscriptions and Supabase realtime updates.",
     ],
     projectSlugs: ["opyn", "bitlauncher"],
   },
@@ -31,7 +31,7 @@ export default function FrontendExperiencePage() {
       title="Frontend engineering"
       intro={[
         "Interfaces get hard when the state behind them is hard: a balance that's already stale, an auction closing while you type, a live wallet session inside a virtual world.",
-        "I build them in React, Next.js, TypeScript, TanStack Query, and Tailwind, and most of the design work is deciding what the screen needs to show about that state, and when.",
+        "React, Next.js, TypeScript, TanStack Query, and Tailwind carry them, and most of the design work is deciding what the screen needs to show about that state, and when.",
       ]}
       sections={sections}
       postSlugs={[
