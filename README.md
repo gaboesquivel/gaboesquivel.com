@@ -48,11 +48,9 @@ Use `http://localhost:3099` only to troubleshoot a blocked HTTPS connection or c
 - `bun run test:llms`: regenerate exports and run selected content, CV, API, and chat tests.
 - `bun run build`: generate content and machine-readable outputs, then build Next.js.
 
-See [docs/agents/checks.md](docs/agents/checks.md) for task-specific checks and CV regeneration.
-
 ## Docs
 
 - [PRODUCT.md](PRODUCT.md): audience, pages, and what each page is for
-- [AGENTS.md](AGENTS.md): pointers for coding agents. Procedures it points at live in [docs/agents/](docs/agents/checks.md).
+- [AGENTS.md](AGENTS.md): pointers for coding agents.
 
 Credits: leerob.io
