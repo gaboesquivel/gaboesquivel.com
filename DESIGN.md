@@ -112,7 +112,7 @@ An introduction is a group, not the first paragraph. Pass every paragraph to `Pa
 
 ### Measure and line length
 
-IBM Plex Mono is fixed-width, so `ch` is an exact character count. Running text stays between about 60 and 72 characters a line: `readingMeasure` (`65ch`) for intros, utility pages, and card descriptions; `editorialMeasure` (`72ch`) for 16px narrative copy on `/ai`, `/web3`, and `/bio`, which renders at about the same width as an 18px intro. Card text inside narrow grid cells keeps its cell width. Use `text-pretty` on intro paragraphs and `text-balance` on headings to avoid orphans; never hard-break running text. The `/work` hero lede is the one authored two-line block (fixed `2lh`, so filters never shift). Blog articles set Geist text at `38rem` (about 75 characters at 18px) on the column's left edge; figures, code, and tables still span the `max-w-3xl` article column.
+IBM Plex Mono is fixed-width, so `ch` is an exact character count. Running text stays between about 60 and 72 characters a line: `readingMeasure` (`65ch`) for intros, utility pages, and card descriptions; `editorialMeasure` (`72ch`) for 16px narrative copy on `/ai`, `/web3`, and `/bio`, which renders at about the same width as an 18px intro. Card text inside narrow grid cells keeps its cell width. Use `text-pretty` on intro paragraphs and `text-balance` on headings to avoid orphans; never hard-break running text. The `/work` hero lede is the one authored two-line block (fixed `2lh`, so filters never shift). Blog articles are the exception: Geist text fills the `max-w-3xl` article column at the same width as figures, code, and tables.
 
 ### Vertical rhythm
 
