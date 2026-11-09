@@ -9,8 +9,7 @@ import { GENUI_SEARCH_HISTORY_KEY } from "lib/genui/search-history";
 import { composeStageCopy, searchCopy, sourceLine } from "lib/search/copy";
 
 /**
- * Task 16 (S-P1, S-P2, S-P3, A-P1) and M-I from
- * docs/specs/001-site-design-ux-search.md. Compose and capabilities are
+ * Agent search contract. Compose and capabilities are
  * always mocked or routed: no model call, booking or email leaves the test.
  */
 

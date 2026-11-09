@@ -2,7 +2,6 @@ import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-// Rules: docs/agents/design/editorial-images.md#in-article-diagrams
 const dir = join(process.cwd(), "public", "images", "diagrams");
 const diagrams = readdirSync(dir).filter((file) => file.endsWith(".svg"));
 const fontSizes = new Set([12, 13, 16]);

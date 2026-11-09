@@ -2,7 +2,7 @@
 
 Use when closing the open **openui-experiences** / **mcp-app** gates. CI baseline: [acceptance record](../research/2026-10-27-acceptance-automated-record.md). Procedure: [mcp-apps-host-release-gate.md](mcp-apps-host-release-gate.md).
 
-Copy this table into your release notes or a dated file under `docs/research/` when done. Do not commit secrets, tokens, or visitor PII.
+Copy this table into your release notes when done. Do not commit secrets, tokens, or visitor PII.
 
 | Field | ChatGPT | Claude |
 | --- | --- | --- |

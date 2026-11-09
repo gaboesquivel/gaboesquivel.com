@@ -45,7 +45,7 @@ export function WritingFeaturedPost({ post }: { post: Blog }) {
             </time>
           </Link>
         </SplitSectionContent>
-        {/* Listings omit the hero when `image` is absent (DESIGN.md Editorial images). */}
+        {/* Listings omit the hero when `image` is absent. */}
         {post.image ? (
           <SplitSectionMedia mediaPosition="right" span={6}>
             <Link

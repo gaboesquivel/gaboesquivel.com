@@ -5,7 +5,7 @@ import { GENUI_SEARCH_HISTORY_KEY } from "lib/genui/search-history";
 import { searchCopy } from "lib/search/copy";
 
 /**
- * The shared search contract (docs/specs/001-site-design-ux-search.md) on
+ * The shared search contract on
  * both presentations: the inline homepage prompt and the dialog elsewhere.
  * Compose is always mocked, so no model is called.
  */

@@ -19,7 +19,7 @@ export const CoverMorphScoped = ({
   suffix: string;
 }) => <CoverMorphScope value={suffix}>{children}</CoverMorphScope>;
 
-/** Wraps a project cover in the card-to-detail morph (DESIGN.md, M-B). */
+/** Wraps a project cover in the card-to-detail morph. */
 export const CoverMorph = ({
   children,
   slug,

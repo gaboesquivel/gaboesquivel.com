@@ -2,7 +2,7 @@
 
 `/ask` redirects to `/`. The full-screen search overlay (opened from the homepage field, the nav, or Cmd/Ctrl+K) is the generative UI; booking and contact render there as GenUI forms that call `/api/capabilities`. This file covers credentials and booking limits for those capability tools and the public MCP endpoint at `/mcp`.
 
-Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md). Form appearance is in [docs/agents/design/ask.md](design/ask.md). Trust rules, credential roles, and the booking limit are in [ARCHITECTURE.md](../../ARCHITECTURE.md).
+Page jobs for `/ask` and `/docs` are in [PRODUCT.md](../../PRODUCT.md).
 
 ## Skills and scaffold
 
@@ -28,6 +28,6 @@ Follow the Calendar comments in `.env.example`. The key template is [scripts/goo
 
 ## Note form
 
-The send-email opener is not sent to the agent. `agent/instructions/rules.md` tells the model not to repeat the lead. The rest of that boundary is in [ARCHITECTURE.md](../../ARCHITECTURE.md) under agent and action flow.
+The send-email opener is not sent to the agent. `agent/instructions/rules.md` tells the model not to repeat the lead.
 
 Done when a missing documented env name stopped the task, no secret value was printed, and the note opener is still withheld from the agent.

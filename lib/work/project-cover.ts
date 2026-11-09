@@ -21,7 +21,7 @@ export const resolveProjectImage = ({
 
 /**
  * `object-position` per project slug when a centered `object-cover` crop would
- * clip the subject (DESIGN.md: adjust focal position, never edit the asset).
+ * clip the subject (adjust focal position, never edit the asset).
  */
 const coverFocus: Record<string, string> = {
   // Logos on the left edge of 2:1 legacy screenshots.
