@@ -73,7 +73,7 @@ describe("markdown corpus", () => {
 
   test("list pages and CV focus variant render", () => {
     expect(getMarkdownForPath({ pathname: "/work" })).toContain(
-      "Software that ships."
+      "# Selected work"
     );
     expect(getMarkdownForPath({ pathname: "/blog" })).toContain("# Writing");
     expect(getMarkdownForPath({ pathname: "/explore" })).toContain("# Explore");

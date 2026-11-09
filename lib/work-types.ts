@@ -74,8 +74,8 @@ export const workTypeCopy: Record<WorkType, WorkTypeEditorialCopy> = {
       "Selected products and systems across AI,",
       "banking, Web3, and infrastructure.",
     ],
-    heading: "Software that ships.",
-    heroTitle: "Software that ships.",
+    heading: "Selected work",
+    heroTitle: "Selected work.",
     mobileLines: ["Products across AI, banking,", "Web3, and infrastructure."],
   },
   "full-time": {
