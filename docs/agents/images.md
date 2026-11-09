@@ -4,48 +4,7 @@ Read [DESIGN.md](design/editorial-images.md) for the canonical direction. Read t
 
 ## Hero images (blog)
 
-A post **hero image** is an optional cinematic editorial photograph referenced by MDX frontmatter `image`. Omit `image` when there is no hero yet; do not treat hero production as a prerequisite for adding or shipping a post. **In-article diagrams** (SVG under `public/images/diagrams/`, screenshots, and similar) explain the article and follow the diagram rules below; they are not hero images.
-
-## Hero direction
-
-A hero is a cinematic, photographic illustration of the article's idea. **Color is the only fixed constant**; scene, subject, setting, and metaphor change with every post. Past heroes range from a rocket launch and a futuristic city to a trading floor and a real photo, and that variety is intended. Do not default to "a person at a desk looking at glowing panels": use it only when the article is about that work, and never twice in a row.
-
-- **Idea first.** Start from the article's central claim and find a concrete, visual metaphor for it: a place, an object, an action, or a moment someone could photograph. A reader who knows the title should get the connection without a caption. Prefer surprising and specific over generic tech imagery.
-- **Palette (fixed).** Night or low light. Near-black, charcoal, and deep teal-green shadows; the site turquoise `#5cded6` as the light that marks the article's key element; one warm amber light (a lamp, a window, a doorway) as the only warm accent. No daylight, no other saturated hues, no blue or purple sci-fi light.
-- **Look.** Photographic detail, cinematic lighting, shallow depth of field. One clear focal point, with the turquoise element on it.
-- **People and machines.** People are optional and never Gabo or a recognizable real person. Show agents as light, motion, or objects rather than humanoid robots, unless the article is about robots.
-- **No text.** No legible or pseudo text, signage, numbers, logos, or brand UI anywhere. Image models garble text; the Context Engineering hero's headings are the failure to avoid.
-- **Framing.** Keep the focal element clear of the outer 6% so listing thumbnails keep it.
-
-## Production
-
-- Generate with an image model at its nearest 16:9 size, then resize to 1600 × 900; never stretch. Opaque sRGB, no baked corner radius, frame, or watermark.
-- Deliver WebP at the path in frontmatter `image` (`public/images/YYYY/MM/<slug>.webp`), at most 300 KB with no visible banding in the dark areas.
-- Generate two or three different concepts per post, not variations of one, and pick with the author.
-- Social previews keep the title-led blog OG card; a hero does not become the OG image unless the post sets `ogImage`.
-- In-article diagrams follow the flat SVG rules in [editorial-images.md](design/editorial-images.md#in-article-diagrams), not this direction.
-
-## Fixed generation instruction
-
-Write a `Scene:` paragraph for the concept, then append this instruction unchanged. Do not attach earlier heroes as references; they pull every image toward the same composition.
-
-> Cinematic photographic illustration, 16:9 landscape. Night or low light. Palette: near-black, charcoal, and deep teal-green shadows; soft mint turquoise light (#5cded6) on the key element of the scene; one warm amber light source as the only warm accent. Photographic detail, shallow depth of field, one clear focal point. Absolutely no readable text, letters, numbers, signage, logos, or user interface text anywhere. No daylight, no blue or purple light, no humanoid robots.
-
-### Example: Building for Agents
-
-Source: [article](../../content/2026-11-building-for-agents.mdx). Destination: `public/images/2026/11/building-for-agents.webp`.
-
-Meaning: agents are a new kind of customer; the same business serves people through its front door and agents through a door built for them.
-
-> Scene: a small shop on a quiet street at night, seen from across the road. On the left, a warm amber front door with a window display, a person walking in. On the right side of the same building, a narrow service hatch outlined in turquoise light, where small floating points of turquoise light arrive and leave carrying tiny parcels. Both openings lead into the same lit interior.
-
-## Review and integration
-
-1. Check the output against the article's meaning and the `Scene:` paragraph. Reject legible or pseudo text, extra light colors, off-topic imagery, and clutter.
-2. View it at full size and at 320 × 180. The palette should match the site, the idea should still read small, and the scene should differ from the last few heroes.
-3. Preview the 1200 × 630 center crop and confirm the focal element survives it.
-4. Set frontmatter `image` and, when the post shows the hero in the body, the same path in an image with alt text that describes the scene and the idea.
-5. Follow [checks.md](checks.md) and [verify.md](verify.md) for the post. Report actual checks; do not claim generation or visual verification without evidence.
+A post **hero image** is optional 16:9 raster art referenced by MDX frontmatter `image` (WebP under `public/images/YYYY/MM/`). There is no fixed hero style. Omit `image` when there is no hero yet; do not treat hero production as a prerequisite for adding or shipping a post. **In-article diagrams** (SVG under `public/images/diagrams/`, screenshots, and similar) explain the article and follow [In-article diagrams](design/editorial-images.md#in-article-diagrams); they are not hero images.
 
 ## Homepage/default OG
 
@@ -101,7 +60,7 @@ Every post without `ogImage` gets the same 1200 × 630 card from `lib/og/generat
 
 ## Homepage portrait hero
 
-Photographic hero composition (exception to flat editorial hero rules). Source: `assets/homepage/v2/gabo-portrait.png`. Replace that PNG, then run `bun run hero:optimize` to write `public/images/gabo-portrait.webp` (full size, WebP quality 90) and `bun run og:generate` to refresh the personal OG. When the source dimensions change, update `portraitWidth` and `portraitHeight` in `lib/portrait-overlay.ts`. The homepage and the personal OG read the portrait path and size from that module. Layout and delivery: [DESIGN.md](design/home.md#homepage-portrait-hero). The legacy URL `/images/gaboesquivel-homepage.webp` redirects to the current portrait.
+Photographic hero composition. Source: `assets/homepage/v2/gabo-portrait.png`. Replace that PNG, then run `bun run hero:optimize` to write `public/images/gabo-portrait.webp` (full size, WebP quality 90) and `bun run og:generate` to refresh the personal OG. When the source dimensions change, update `portraitWidth` and `portraitHeight` in `lib/portrait-overlay.ts`. The homepage and the personal OG read the portrait path and size from that module. Layout and delivery: [DESIGN.md](design/home.md#homepage-portrait-hero). The legacy URL `/images/gaboesquivel-homepage.webp` redirects to the current portrait.
 
 ## Project images
 
