@@ -18,6 +18,16 @@ Prefer a CLI to interact with a product or service. Use MCP when no CLI covers t
 
 `__dev/` holds local temporary files only (gitignored). Never reference it from anything that ships, commit it, or treat it as a source of truth.
 
+## Decisions
+
+If a proposed change conflicts with or modifies an established documented decision, request approval before implementing it. Otherwise, proceed autonomously.
+
+Update the owning document in the same change. For **new** consequential rationale, prefer a numbered record in `docs/decisions/NNN-short-name.md` ([0001](docs/decisions/0001-flow-adopter-docs.md)). Existing `docs/pdr/` and `docs/adr/` records remain valid; add to those trees only when extending prior work already filed there. Include context, decision, rationale, consequences, and status. Canonical documents hold current direction. Create a record only when that rationale cannot be inferred from the code.
+
+## Specification storage
+
+For **new** bounded work, prefer flat `docs/specs/NNN-short-name.md` ([0001](docs/decisions/0001-flow-adopter-docs.md)). Existing feature folders stay authoritative for work already there — especially `docs/specs/homepage-genui/` (capability map and `SPEC-<module-id>.md` modules).
+
 ## Context
 
 Where each kind of fact lives across this site, the `gaboesquivel` package, and `gaboesquivel-skills`: [docs/agents/ownership.md](docs/agents/ownership.md).
