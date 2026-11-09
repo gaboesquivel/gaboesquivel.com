@@ -15,12 +15,6 @@ That assumption no longer holds. People increasingly describe what they want and
 
 Agents are a new kind of user, and I treat them as equally important. I build software for humans and agents, and for a growing number of products I'd start with the agent. Building with agents changes how we make software. Building for agents changes the software itself.
 
-## The third customer
-
-At [Vercel Ship 2026](https://vercel.com/blog/vercel-ship-2026-recap), Guillermo Rauch and Tobi Lütke described AI agents as the third customer, next to end users and developers: software that researches, compares, and buys on someone's behalf. Vercel reported a 28-fold increase in agent-triggered deployments over the previous year. Agents are already participants in the software lifecycle, not an experiment beside it.
-
-The consequence is direct. A marketplace shouldn't make an agent operate a visual search page to find products. A financial platform shouldn't require browser automation to read transaction history. A SaaS product shouldn't keep its most useful operations in the dashboard and give programmatic clients a fraction of them.
-
 ## Capabilities first, interfaces second
 
 API-first was always the right idea: business capabilities separate from any one presentation. When the API exists mostly to serve a web app, it drifts toward the screens. Endpoints follow pages, capabilities hide in the frontend, and documentation comes last.
@@ -65,7 +59,7 @@ An application used to be its interface. A marketplace was a website; a CRM was 
 
 Vercel's Shop template with Shopify shows the pattern. Agents discover products and build carts over MCP through the [Universal Commerce Protocol](/blog/2026-01-agentic-commerce), while shoppers keep using the storefront. Both paths run on the [same commerce backend](https://vercel.com/blog/vercel-and-shopify-make-agents-first-class-shoppers).
 
-This is why agents-first is a sound default for new work. Define the capabilities, their contracts, permissions, and verification first. The human interface then becomes a well-designed client of a solid core rather than the place where the logic hides. It doesn't make the human experience secondary. As Lütke put it at Ship, distinctive storefronts still matter; the undifferentiated ones are at risk.
+This is why agents-first is a sound default for new work. Define the capabilities, their contracts, permissions, and verification first. The human interface then becomes a well-designed client of a solid core rather than the place where the logic hides. It doesn't make the human experience secondary. As Tobi Lütke put it, distinctive storefronts still matter; the undifferentiated ones are at risk.
 
 ## Good engineering, newly visible
 
