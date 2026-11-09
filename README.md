@@ -42,8 +42,6 @@ agent-browser close
 
 Use `http://localhost:3099` only to troubleshoot a blocked HTTPS connection or certificate trust.
 
-Follow [docs/agents/verify.md](docs/agents/verify.md) for UI verification requirements.
-
 ## Development checks
 
 - `bun run verify`: build content and check lint/formatting.
@@ -54,10 +52,7 @@ See [docs/agents/checks.md](docs/agents/checks.md) for task-specific checks and 
 
 ## Docs
 
-- [ARCHITECTURE.md](ARCHITECTURE.md): system boundaries, data flow, integrations, and source ownership
 - [PRODUCT.md](PRODUCT.md): audience, pages, and what each page is for
-- [DESIGN.md](DESIGN.md): visual system, components, and accessibility
-- [GLOSSARY.md](GLOSSARY.md): shared terms
-- [AGENTS.md](AGENTS.md): lifecycle and pointers for coding agents. Procedures it points at live in [docs/agents/](docs/agents/checks.md).
+- [AGENTS.md](AGENTS.md): pointers for coding agents. Procedures it points at live in [docs/agents/](docs/agents/checks.md).
 
 Credits: leerob.io

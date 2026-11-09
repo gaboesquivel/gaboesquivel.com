@@ -12,7 +12,7 @@ When researching, one agent writes. Other agents, spawned read-only and in paral
 
 ## AI, Web3, and biography
 
-`/ai`, `/web3`, and `/bio` are editorial portfolio narratives. Do not add diagrams through components, SVGs, images, or embedded content. Do not restore two-column introductions, a split on every biography chapter, thumbnail captions, or a hire paragraph above the footer. Approved copy for this pass lives in the page files. If one fact conflicts with the `gaboesquivel` package, correct that fact only. Project images come from the registry. See [DESIGN.md](design/pages.md#ai-web3-and-biography-pages).
+`/ai`, `/web3`, and `/bio` are editorial portfolio narratives. Do not add diagrams through components, SVGs, images, or embedded content. Do not restore two-column introductions, a split on every biography chapter, thumbnail captions, or a hire paragraph above the footer. Approved copy for this pass lives in the page files. If one fact conflicts with the `gaboesquivel` package, correct that fact only. Project images come from the registry.
 
 `/bio` owns chronology and worldview. `/ai` and `/web3` explain their capabilities through the work in the cards. Do not repeat a card description in a paragraph beside it.
 
@@ -24,7 +24,7 @@ Start with the brief, the `gabo` skill's relevant guidance, and PRODUCT's blog c
 
 **Open Graph (blog).** Social previews use build-time title-led images (`public/images/og/blog/{slug}.png`) built from the title and `summary`, not the hero `image`. Optional frontmatter `ogImage` overrides that path when a post needs a dedicated social asset.
 
-**In-article diagrams.** Store explanatory SVGs under `public/images/diagrams/`. In MDX, wrap each diagram in `<figure className="mx-auto max-w-3xl">` with a `<figcaption>`, one blank line before and after the figure block, and no `overflow-x-auto`. The post scales diagrams to the content column; see [DESIGN.md](design/editorial-images.md).
+**In-article diagrams.** Store explanatory SVGs under `public/images/diagrams/`. In MDX, wrap each diagram in `<figure className="mx-auto max-w-3xl">` with a `<figcaption>`, one blank line before and after the figure block, and no `overflow-x-auto`. The post scales diagrams to the content column.
 
 For a draft-only request, deliver the draft. When adding MDX to the repository, inspect the content schema or one existing post only as needed for publishing conventions, then run the applicable checks in [checks.md](checks.md). Read framework code, design guidance, or export implementations only when the task changes their behavior.
 

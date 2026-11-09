@@ -1,5 +1,5 @@
 /**
- * In-content external links open in a new tab (DESIGN.md, Links). Spread
+ * In-content external links open in a new tab. Spread
  * `newTabProps` on the anchor and render `NewTabCue` as its last child so
  * screen readers hear the change of context. Site chrome stays same-tab.
  */

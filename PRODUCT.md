@@ -107,7 +107,7 @@ The route redirects to `/`. Notes and bookings are the contact form, the homepag
 - Visitor: founder or technical lead checking whether the writing is specific and current
 - Message: notes on AI, Web3, and engineering from real implementation work
 - Evidence: current-era posts in the masonry; archive posts stay visible and dated
-- Hero image: optional per-post editorial art via MDX `image`; not required to publish. In-article diagrams are separate. See [DESIGN.md](docs/agents/design/editorial-images.md) and [docs/agents/content.md](docs/agents/content.md)
+- Hero image: optional per-post editorial art via MDX `image`; not required to publish. In-article diagrams are separate. See [docs/agents/content.md](docs/agents/content.md)
 - Category pages name the writing slice only — do not target capability keywords owned by `/`, `/ai`, or `/web3`. `/blog/category/product` is writing about product work, not the “product engineer” capability claim owned by `/`
 - CTA: read a post, then `/contact` via site chrome
 

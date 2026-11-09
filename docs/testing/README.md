@@ -16,7 +16,6 @@ Related elsewhere:
 
 - [docs/adr/ADR-genui-shared-compiler.md](../adr/ADR-genui-shared-compiler.md) — shared compiler decision
 - [docs/agents/checks.md](../agents/checks.md) — when to run site-wide checks vs GenUI
-- [docs/agents/verify.md](../agents/verify.md) — browser verification for UI changes
 
 ## Quick command map
 
