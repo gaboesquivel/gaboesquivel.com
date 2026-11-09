@@ -31,7 +31,7 @@
         "date-fns": "^4.4.0",
         "embla-carousel-react": "^8.6.0",
         "eve": "^0.83.2",
-        "gaboesquivel": "9.0.4",
+        "gaboesquivel": "^9.0.5",
         "github-slugger": "^2.0.0",
         "input-otp": "^1.5.0",
         "lucide-react": "1.59.0",
@@ -1600,7 +1600,7 @@
 
     "fuzzysort": ["fuzzysort@3.1.0", "", {}, "sha512-sR9BNCjBg6LNgwvxlBd0sBABvQitkLzoVY9MYYROQVX/FvfJ4Mai9LsGhDgd8qYdds0bY77VzYd5iuB+v5rwQQ=="],
 
-    "gaboesquivel": ["gaboesquivel@9.0.4", "", { "dependencies": { "chalk": "^6.0.1", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-LOf1bJcrfqiZnymrgD0+73H2kB0t3OsDakQIFPHcKrkoCPZ2aWh6pX/DBtGU7lW2AeKGRSCKdewmwjIdAvB/cg=="],
+    "gaboesquivel": ["gaboesquivel@9.0.5", "", { "dependencies": { "chalk": "^6.0.1", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-I5CZs5WgwhpWhDW13/6n6kEOw51bnCeqWHU4M9Oqd0Y+ePATVbs13xoFDYSQSy+xUkQw7doznp9jYcTdtxTXZA=="],
 
     "gaxios": ["gaxios@8.3.1", "", { "dependencies": { "extend": "^3.0.2", "https-proxy-agent": "^7.0.1", "node-fetch": "^3.3.2" } }, "sha512-h4/R7ay7JFXU5kmAkp/Y4Y4Vmm7m83tD579GUgfQQsRRGQ4TzSedyHla6XgTWohQuVffT3ldN4FF6uCqlRGaEA=="],
 
