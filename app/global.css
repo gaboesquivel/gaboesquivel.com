@@ -73,7 +73,8 @@ html {
   --header-offset: 5.5rem;
 }
 
-.blog-content :where(p) {
+/* Body copy in posts is sans; lists and quotes match paragraphs. */
+.blog-content :where(p, li, blockquote) {
   font-family: var(--font-sans);
 }
 
