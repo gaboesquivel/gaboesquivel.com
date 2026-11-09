@@ -2,6 +2,7 @@ import "./cv.css";
 import { PrintButton } from "components/print-button";
 import { ContactInfo } from "components/shared/contact-info";
 import {
+  PageEyebrow,
   PageSection,
   PageTitle,
   Prose,
@@ -69,6 +70,9 @@ export default async function CVPage({ searchParams }: CvPageProps) {
         href="/cv-print.css"
         media={isPreviewPrint ? "all" : "print"}
       />
+      <div className="print:hidden preview-print:hidden">
+        <PageEyebrow />
+      </div>
       <div className="no-break-inside" data-cv-block="intro">
         <header
           className={cn(
