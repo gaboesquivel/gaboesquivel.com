@@ -1,0 +1,73 @@
+---
+title: Building for Agents
+publishedAt: 2026-11-08
+summary: Agents are a new kind of user. Building for them means exposing capabilities, readable content, explicit context, and clear boundaries alongside the interfaces people already use.
+category: ['Product', 'Artificial Intelligence', 'Engineering', 'UX']
+tech: []
+---
+
+For decades, software assumed a person on the other side of the screen. We built websites to browse, apps to tap, and dashboards to operate. When systems needed to talk to each other, we added APIs, usually as a second-class path behind the interface.
+
+That assumption no longer holds. People increasingly describe what they want and let an agent do the work: find a two-bedroom apartment near a good school, compare the best options, and schedule visits for Saturday. Today that means several marketplaces, filters, forms, and messages. An agent could handle most of it, but only if those services let it.
+
+Agents are a new kind of user, and I treat them as equally important. I build software for humans and agents, and for a growing number of products I'd start with the agent. Building with agents changes how we make software. Building for agents changes the software itself.
+
+## The third customer
+
+At [Vercel Ship 2026](https://vercel.com/blog/vercel-ship-2026-recap), Guillermo Rauch and Tobi Lütke described AI agents as the third customer, next to end users and developers: software that researches, compares, and buys on someone's behalf. Vercel reported a 28-fold increase in agent-triggered deployments over the previous year. Agents are already participants in the software lifecycle, not an experiment beside it.
+
+The consequence is direct. A marketplace shouldn't make an agent operate a visual search page to find products. A financial platform shouldn't require browser automation to read transaction history. A SaaS product shouldn't keep its most useful operations in the dashboard and give programmatic clients a fraction of them.
+
+## Capabilities first, interfaces second
+
+API-first was always the right idea: business capabilities separate from any one presentation. When the API exists mostly to serve a web app, it drifts toward the screens. Endpoints follow pages, capabilities hide in the frontend, and documentation comes last.
+
+Agents expose that drift. An agent doesn't want the dashboard. It wants to finish a task, so it needs to discover what's available, understand inputs and constraints, act, recover from failures, and verify the result. That makes API design a product decision.
+
+The same capabilities now reach clients through several doors. APIs carry them. MCP makes them discoverable as tools for compatible agents. CLIs make workflows scriptable and composable. None of these replaces the others, and no product needs all of them. What matters is that each door opens onto the same business logic instead of a duplicate. The Vercel CLI is a good example: JSON output and [integration discovery](https://vercel.com/changelog/vercel-cli-for-marketplace-integrations-optimized-for-agents) let an agent find a database integration, install it, read the setup instructions, and keep building, without touching the console.
+
+Your interface should be one way to use the product, not the only way to operate it.
+
+## Readable, not just renderable
+
+An agent reading a page doesn't need navigation, animation, or tracking scripts. It needs the information they wrap. HTTP already has an answer: content negotiation. The same URL can return HTML to a browser and Markdown to a client that sends `Accept: text/markdown`, with `Vary: Accept` so caches keep the two apart. Vercel [documented](https://vercel.com/blog/making-agent-friendly-pages-with-content-negotiation) a roughly 500 KB HTML page that became about 3 KB of Markdown, and [Accept Markdown](https://acceptmarkdown.com/) covers the standards behind it.
+
+This site works that way. Every public page answers a Markdown request, missing pages return a 404 with Markdown links to useful places, and `/llms.txt` gives tools a plain-text view of the whole site. Same content, two representations. A page can be designed for people and efficient for agents without either one suffering.
+
+## Context is part of the interface
+
+Access isn't understanding. Human documentation leans on readers who fill gaps with judgment. Agents do better with explicit context: what a capability is for, what it requires, how it fails, and how to tell it finished.
+
+Take a payment service. A list of endpoints tells an agent what exists. Documentation that explains authorization, transaction states, failure conditions, and how to confirm a payment settled tells it how to use those endpoints responsibly. That's also why Vercel keeps [product decisions in the repository](https://vercel.com/blog/teaching-agents-product-design-at-vercel), so coding agents learn why something was built, not just what the code does. If an agent can't discover or understand a capability, for that agent it doesn't exist.
+
+We already design for user experience and developer experience. Agent experience asks five more questions:
+
+- **Discoverable:** can an agent find what the product can do?
+- **Readable:** can it get the information a task needs?
+- **Operable:** can it act through stable, documented interfaces?
+- **Recoverable:** do errors say what went wrong and what to try next?
+- **Verifiable:** can it confirm the outcome it was asked for?
+
+An actionable error message often decides whether an agent completes a task or gives up.
+
+## Trust is designed, not assumed
+
+An agent acting for someone shouldn't inherit everything that person can do. Delegated authorization, least privilege, audit trails, and explicit approval for consequential actions are part of the product. Searching a catalog and building a cart can be autonomous; paying is a separate decision. Deploying a preview is routine; changing production infrastructure needs a person. Agents retry, chain tools, and work across systems, so one misunderstanding can travel. Malte Ubl's notes on [securing AI agents](https://vercel.com/blog/building-secure-ai-agents) make the same point about prompt injection: constrain what an agent can do even when its input is hostile.
+
+The [MCP server on this site](/docs) follows that split. Read tools such as `search_site`, `list_projects`, and `list_availability` are marked read-only. `book_call` and `send_note` are marked as writes that create a calendar event or send an email, so hosts confirm with the person first, and they report `pending`, `confirmed`, `uncertain`, or `failed` so an agent never has to guess whether something happened.
+
+## From websites to capabilities
+
+An application used to be its interface. A marketplace was a website; a CRM was a dashboard. Those were always representations. A real estate marketplace is really a set of capabilities: search properties, compare listings, schedule visits, message sellers. The same capabilities can power a website, a mobile app, an agent in WhatsApp, or an interface [generated around a single request](/blog/2026-10-generative-interfaces).
+
+Vercel's Shop template with Shopify shows the pattern. Agents discover products and build carts over MCP through the [Universal Commerce Protocol](/blog/2026-01-agentic-commerce), while shoppers keep using the storefront. Both paths run on the [same commerce backend](https://vercel.com/blog/vercel-and-shopify-make-agents-first-class-shoppers).
+
+This is why agents-first is a sound default for new work. Define the capabilities, their contracts, permissions, and verification first. The human interface then becomes a well-designed client of a solid core rather than the place where the logic hides. It doesn't make the human experience secondary. As Lütke put it at Ship, distinctive storefronts still matter; the undifferentiated ones are at risk.
+
+## Good engineering, newly visible
+
+Building for agents rarely requires a new stack. Reliable APIs, accurate documentation, semantic HTML, structured data, predictable errors, and programmatic access to meaningful operations were good practice long before agents. Their audience just grew. A content site may need only semantic HTML and Markdown responses. A developer platform needs a strong CLI. A SaaS product may get the most from scoped MCP tools over its existing API. The right shape depends on what the product does.
+
+There's a distribution shift underneath. Someone may never visit your homepage; their agent will find you, evaluate you, and start the interaction. Being agent-ready earns consideration. Accurate information, predictable behavior, and reliable outcomes earn the choice.
+
+This is the work I care about as a [product engineer](/blog/2026-09-product-engineering): software that's delightful for people and dependable for the agents working on their behalf, built on one set of capabilities. If you're designing a product for both, [let's talk](/contact).
