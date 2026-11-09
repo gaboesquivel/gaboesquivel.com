@@ -4,71 +4,48 @@ Read [DESIGN.md](design/editorial-images.md) for the canonical direction. Read t
 
 ## Hero images (blog)
 
-A post **hero image** is optional editorial raster art referenced by MDX frontmatter `image`. Omit `image` when there is no hero yet; do not treat hero production as a prerequisite for adding or shipping a post. **In-article diagrams** (SVG under `public/images/diagrams/`, screenshots, and similar) explain the article and follow the diagram rules below; they are not hero images.
+A post **hero image** is an optional cinematic editorial photograph referenced by MDX frontmatter `image`. Omit `image` when there is no hero yet; do not treat hero production as a prerequisite for adding or shipping a post. **In-article diagrams** (SVG under `public/images/diagrams/`, screenshots, and similar) explain the article and follow the diagram rules below; they are not hero images.
 
-## Fixed production specification
+## Hero direction
 
-- Hero master: 1600 × 900, opaque sRGB, pure black `#000000` background, no outer frame or baked corner radius.
-- OG export: 1200 × 630. Recompose from the master; preserve all meaningful objects. Social post variants may be square or portrait when requested. Profile banners require their own platform-specific layout and avatar-safe area.
-- Artwork colors: white `#ffffff`, gray `#a3a3a3`, dark gray `#404040`, and turquoise `#5cded6`. Antialiasing may introduce intermediate edge pixels. No other intentional colors.
-- At 1600 × 900: 4px primary strokes, 2px secondary strokes, round caps and joins, 12px radius for rectangular containers. Scale these proportionally for other exports. Generated approximations must be visually consistent; use controlled vector construction when exact geometry is required.
-- Keep meaningful content inside an 80px inset on all sides. Leave at least one third of the canvas empty. Separate unrelated elements by at least 40px. Use a front-facing, flat view with no perspective or simulated depth.
-- One focal relationship per hero image, at most five principal objects or groups. Turquoise highlights that relationship or the subject; it is not an overall color wash. White carries primary structure; gray carries supporting detail.
-- No text, article titles, numbers, logos, watermarks, signature, or full-bleed decorative grid in generated hero artwork. No humans, robots, brains, cityscapes, floating dashboards, photorealism, 3D objects, shadows, bloom, grain, gradients, or extra accent colors.
-- Exact diagrams use SVG or controlled layout, with manually specified connections and labels. Use the site's monospace stack for SVG text. In-article diagrams live in `public/images/diagrams/` and scale to the content column width (no horizontal scroll), not as 16:9 cover crops. Canvas width, the three-size type scale, and node and edge styling are fixed in [In-article diagrams](design/editorial-images.md#in-article-diagrams); never size SVG text up to compensate for a narrow viewBox. Raster typography must use one explicitly selected installed monospace face consistently across the batch. Never ask the image model to typeset labels.
-- Preserve source artwork when available. Deliver WebP hero images at the paths referenced by frontmatter `image`, targeting at most 300 KB without visibly damaged edges. PNG may be used as an intermediate. Inspect the output; do not merely rename another format to `.webp`.
+A hero is a cinematic, photographic illustration of the article's idea. **Color is the only fixed constant**; scene, subject, setting, and metaphor change with every post. Past heroes range from a rocket launch and a futuristic city to a trading floor and a real photo, and that variety is intended. Do not default to "a person at a desk looking at glowing panels": use it only when the article is about that work, and never twice in a row.
+
+- **Idea first.** Start from the article's central claim and find a concrete, visual metaphor for it: a place, an object, an action, or a moment someone could photograph. A reader who knows the title should get the connection without a caption. Prefer surprising and specific over generic tech imagery.
+- **Palette (fixed).** Night or low light. Near-black, charcoal, and deep teal-green shadows; the site turquoise `#5cded6` as the light that marks the article's key element; one warm amber light (a lamp, a window, a doorway) as the only warm accent. No daylight, no other saturated hues, no blue or purple sci-fi light.
+- **Look.** Photographic detail, cinematic lighting, shallow depth of field. One clear focal point, with the turquoise element on it.
+- **People and machines.** People are optional and never Gabo or a recognizable real person. Show agents as light, motion, or objects rather than humanoid robots, unless the article is about robots.
+- **No text.** No legible or pseudo text, signage, numbers, logos, or brand UI anywhere. Image models garble text; the Context Engineering hero's headings are the failure to avoid.
+- **Framing.** Keep the focal element clear of the outer 6% so listing thumbnails keep it.
+
+## Production
+
+- Generate with an image model at its nearest 16:9 size, then resize to 1600 × 900; never stretch. Opaque sRGB, no baked corner radius, frame, or watermark.
+- Deliver WebP at the path in frontmatter `image` (`public/images/YYYY/MM/<slug>.webp`), at most 300 KB with no visible banding in the dark areas.
+- Generate two or three different concepts per post, not variations of one, and pick with the author.
+- Social previews keep the title-led blog OG card; a hero does not become the OG image unless the post sets `ogImage`.
+- In-article diagrams follow the flat SVG rules in [editorial-images.md](design/editorial-images.md#in-article-diagrams), not this direction.
 
 ## Fixed generation instruction
 
-Use this instruction unchanged, followed by exactly one approved composition below. Attach the first accepted hero image as a style reference for subsequent hero images; do not use the older cinematic hero artwork as style references.
+Write a `Scene:` paragraph for the concept, then append this instruction unchanged. Do not attach earlier heroes as references; they pull every image toward the same composition.
 
-> Create a flat editorial illustration for Gabo Esquivel's website. Landscape 16:9, target 1600 × 900. Pure black background. Use only white, neutral gray, dark gray, and turquoise #5cded6. Clean vector-like outlines, consistent round-ended strokes, sparse flat shapes, no perspective, no depth effects. At the target size use 4px primary strokes and 2px secondary strokes. Leave an 80px outer safe area and at least one third of the canvas empty. Turquoise identifies the main relationship or subject. Follow the supplied composition exactly. Draw only the specified objects. No text, letters, numbers, titles, logos, watermarks, people, robots, brains, cityscapes, dashboards, decorative code, grids, photography, 3D rendering, shadows, glow, glass, grain, gradients, or additional colors. Do not invent supporting objects or change the composition.
+> Cinematic photographic illustration, 16:9 landscape. Night or low light. Palette: near-black, charcoal, and deep teal-green shadows; soft mint turquoise light (#5cded6) on the key element of the scene; one warm amber light source as the only warm accent. Photographic detail, shallow depth of field, one clear focal point. Absolutely no readable text, letters, numbers, signage, logos, or user interface text anywhere. No daylight, no blue or purple light, no humanoid robots.
 
-These are text-free editorial metaphors, not substitutes for explanatory diagrams. Generation must not fabricate technical connections. If a requested image requires accurate labels or topology, build that portion deterministically.
+### Example: Building for Agents
 
-## First batch: three hero images
+Source: [article](../../content/2026-11-building-for-agents.mdx). Destination: `public/images/2026/11/building-for-agents.webp`.
 
-Generate in this order. Coordinates refer to the 1600 × 900 master. They specify object placement, not text to render. Keep the same stroke treatment and visual density across all three.
+Meaning: agents are a new kind of customer; the same business serves people through its front door and agents through a door built for them.
 
-### 1. Context Engineering
-
-Source: [article](../../content/2026-09-context-engineering.mdx). Destination: `public/images/2026/09/context-engineering.webp`.
-
-Meaning: the harness selects useful material for the model's current context; available information is not all included automatically.
-
-Composition: three small outlined document sheets form one source group at x=200–450, y=280–620. The top and bottom sheets are gray; the middle sheet is white. Each sheet has two short abstract horizontal strokes, no writing. A large white outlined rounded rectangle occupies x=650–1120, y=250–650 and represents the working context. Inside it, draw two small white document sheets neatly aligned. A single turquoise path runs from the middle source sheet through a turquoise opening in the rectangle's left boundary and ends at the first internal sheet. The unused source sheets have no connections. Leave the rightmost portion of the canvas empty. No arrows, additional nodes, or implied model-to-tool connections.
-
-Do not change the existing in-article harness diagram (`public/images/diagrams/2026-09-context-harness.svg`).
-
-### 2. Domain-Driven Design
-
-Source: [article](../../content/2026-10-domain-driven-design.mdx). Destination: `public/images/2026/10/domain-driven-design.webp`.
-
-Meaning: distinct contexts maintain their own internal models and connect through an explicit boundary.
-
-Composition: two equally sized white outlined rounded rectangles at x=260–660 and x=940–1340, both y=280–620. Inside the left rectangle place three small white circles in a triangle arrangement. Inside the right rectangle place three small white squares in a vertical arrangement. Use gray internal connections within each group. At the midpoint of each facing boundary, create one small turquoise port. Connect these two ports with exactly one straight horizontal turquoise line across the gap. No other connection crosses either boundary. No arrows, labels, enclosing third container, or extra modules.
-
-This is a boundary metaphor, not a literal architecture from a shipped project.
-
-### 3. Touch Grass, Activate Clarity
-
-Source: [article](../../content/2024-09-touch-grass.mdx). Destination: `public/images/2024/09/touch-grass.webp`.
-
-Meaning: deliberately leaving the screen for a morning walk creates space for reflection.
-
-Composition: one small gray outlined monitor with a black, empty screen and a simple stand at x=220–480, y=370–570. A single turquoise trail starts beneath and just to the right of the monitor at x=500, y=620, curves gently through x=800, y=560, and rises toward x=1120, y=400. Draw three sparse turquoise grass tufts beside the trail between x=820 and x=1180. Each tuft has three short strokes. Add one short gray curved hill contour near the trail's far end and one small white semicircle sun above that contour at approximately x=1190, y=320. Leave the upper half mostly empty. No desk, room, human figure, mountains, trees, arrows, productivity indicators, or return loop.
-
-The sunrise and trail come from the author's morning hike. Do not imply a medical outcome or a measured performance improvement.
+> Scene: a small shop on a quiet street at night, seen from across the road. On the left, a warm amber front door with a window display, a person walking in. On the right side of the same building, a narrow service hatch outlined in turquoise light, where small floating points of turquoise light arrive and leave carrying tiny parcels. Both openings lead into the same lit interior.
 
 ## Review and integration
 
-1. Check each hero image against its article and exact composition. Reject invented objects, misleading relationships, incorrect palette, inconsistent strokes, clutter, and any generated text.
-2. Inspect all three together at full size and at 320 × 180. Objects and the principal relationship must remain recognizable; the three hero images must feel related without becoming interchangeable.
-3. Produce a 1200 × 630 OG crop preview for each, keeping every meaningful object visible. This preview verifies crop safety; do not add new metadata fields or exports to the site during this batch.
-4. Replace only the three destination WebP files after review. Their existing frontmatter and inline references already point to those paths. Leave article text, diagrams, dates, metadata, routes, and listing components unchanged.
-5. Follow [checks.md](checks.md) and [verify.md](verify.md) for the affected pages. Confirm image dimensions, format, size, browser rendering, and social crop previews. Report actual checks and any unavailable generation or browser capability; do not claim generation or visual verification succeeded without evidence.
-
-This batch establishes the first reusable visual references. Profile banners, logos, and additional post replacements require separate briefs.
+1. Check the output against the article's meaning and the `Scene:` paragraph. Reject legible or pseudo text, extra light colors, off-topic imagery, and clutter.
+2. View it at full size and at 320 × 180. The palette should match the site, the idea should still read small, and the scene should differ from the last few heroes.
+3. Preview the 1200 × 630 center crop and confirm the focal element survives it.
+4. Set frontmatter `image` and, when the post shows the hero in the body, the same path in an image with alt text that describes the scene and the idea.
+5. Follow [checks.md](checks.md) and [verify.md](verify.md) for the post. Report actual checks; do not claim generation or visual verification without evidence.
 
 ## Homepage/default OG
 
