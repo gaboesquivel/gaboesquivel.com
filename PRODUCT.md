@@ -203,4 +203,4 @@ Link to the most useful next step: a related blog post, domain capability (`/ai`
 
 ## Open questions
 
-- `/cv` keyword owner is “Senior Product Engineer CV”. Package `content/cv/full.md` metadata title is “Gabo Esquivel — Product Engineering CV”. Align keyword owner with that metadata in a dedicated SEO pass if needed.
+- `/cv` keyword owner is “Senior Product Engineer CV”. Package `content/cv/full.md` metadata title is “Gabo Esquivel — Software Engineering CV”. Align keyword owner with that metadata in a dedicated SEO pass if needed.

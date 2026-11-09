@@ -8,7 +8,7 @@ Record of automated quality layers for OpenUI composition, the fixture lab, MCP 
 | --- | --- |
 | [genui-quality.md](genui-quality.md) | Layered architecture, fixture lab, evals, telemetry, contributor workflows |
 | [inventory.md](inventory.md) | Test paths, harness code, readiness flags, what is / is not asserted |
-| [ci-genui-quality.md](ci-genui-quality.md) | GitHub Actions workflow jobs and local parity |
+| [ci-genui-quality.md](ci-genui-quality.md) | CI scope (oxlint and oxfmt only) and the local commands for everything else |
 | [mcp-apps-host-release-gate.md](mcp-apps-host-release-gate.md) | Deterministic MCP host CI vs manual ChatGPT/Claude gate |
 | [live-mcp-host-checklist.md](live-mcp-host-checklist.md) | Blank table for recording ChatGPT/Claude smoke (manual) |
 
@@ -29,13 +29,13 @@ Related elsewhere:
 | Prompt matrix (deterministic cases, no API keys) | `bun run eval:genui:matrix` |
 | Live Promptfoo eval | `bun run eval:genui:live` (requires `GENUI_EVAL_LIVE=1`) |
 
-**The Playwright e2e suites are disabled** (specs kept; `playwright.config.ts` ignores them unless `PLAYWRIGHT_E2E=1`, and the CI `browser` job is off). Optional / not gated in CI by default: `test:genui:browser`, `test:genui:mcp-apps:host` (manual workflow dispatch), `test:genui:visual`, `test:genui:a11y`, `test:genui:mcp-apps:basic-host`, `mcp-apps:ensure-basic-host`, `mcp-apps:test-server`.
+**The Playwright e2e suites are disabled** (specs kept; `playwright.config.ts` ignores them unless `PLAYWRIGHT_E2E=1`, and CI does not run them). Optional / not gated in CI by default: `test:genui:browser`, `test:genui:mcp-apps:host` (manual workflow dispatch), `test:genui:visual`, `test:genui:a11y`, `test:genui:mcp-apps:basic-host`, `mcp-apps:ensure-basic-host`, `mcp-apps:test-server`.
 
 ## Local prerequisites
 
 - **Fixture lab:** `GENUI_FIXTURE_LAB=1` on the Next server (Playwright sets this via `playwright.config.ts`).
 - **Playwright:** default dev URL `http://localhost:3199` (`PLAYWRIGHT_PORT`, `PLAYWRIGHT_BASE_URL`, `PLAYWRIGHT_SKIP_WEBSERVER`).
 - **Site dev:** production-style dev remains port `3099`; do not confuse with the GenUI Playwright port. The fixture lab builds into `.next-genui-lab` (`NEXT_DIST_DIR`), so Playwright runs beside a running `bun run dev` without stopping it.
-- **Generated inputs:** `generated/*.json` is gitignored. `bun run prepare:generated` (Velite + `scripts/export-llms.ts`) creates it; CI and the Playwright web server run it first.
+- **Generated inputs:** `generated/*.json` is gitignored. `bun run prepare:generated` (Velite + `scripts/export-llms.ts`) creates it; the Playwright web server runs it first.
 - **Contract states in the lab:** `/__genui__/fixtures/search-composing`, `search-streaming`, `search-empty`, `search-error`, `search-timed-out`, `search-rate-limited`, `search-staged` (a stage label beside Stop) and `search-stopped` show each shared search state with a lab field; Try again and example chips refocus it and record the query instead of calling compose. Write failure is `contact-hire?writes=failure` or `booking-hire?writes=failure`. `functional/lab-states.spec.ts` asserts copy (`lib/search/copy.ts`), one live-region announcement per state, and the focus target; live-surface flows stay in `search-contract.spec.ts` and `genui-writes.spec.ts`.
 - **Planner paraphrases:** add a row to `lib/genui/planner-paraphrases.test.ts` for every new planner keyword rule, including a query it must not capture.
