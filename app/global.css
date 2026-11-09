@@ -100,10 +100,9 @@ html {
   max-width: 65ch;
 }
 
-/* Article text shares the column's left edge with the title and figures but
-   stops at about 75 characters; figures, code, and tables span the 3xl column. */
+/* Posts fill the 3xl article column, so text and figures share one width. */
 .blog-content > :where(p, ul, ol, blockquote, h2, h3, h4) {
-  max-width: 38rem;
+  max-width: 100%;
 }
 
 /* Long-form reading size: the intro role (16px mobile, 18px desktop). */
