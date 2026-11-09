@@ -15,7 +15,6 @@ Record of automated quality layers for OpenUI composition, the fixture lab, MCP 
 Related elsewhere:
 
 - [docs/adr/ADR-genui-shared-compiler.md](../adr/ADR-genui-shared-compiler.md) — shared compiler decision
-- [docs/agents/checks.md](../agents/checks.md) — when to run site-wide checks vs GenUI
 
 ## Quick command map
 

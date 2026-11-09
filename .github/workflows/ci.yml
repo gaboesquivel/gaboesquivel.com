@@ -1,4 +1,4 @@
-# Site-wide lint, format, content schema, and motion-stack check on every PR (docs/agents/checks.md: CI checks without writing).
+# Site-wide lint, format, content schema, and motion-stack check on every PR.
 name: CI
 
 on:

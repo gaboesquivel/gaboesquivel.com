@@ -30,17 +30,9 @@ For **new** bounded work, prefer flat `docs/specs/NNN-short-name.md` ([0001](doc
 
 ## Context
 
-Where each kind of fact lives across this site, the `gaboesquivel` package, and `gaboesquivel-skills`: [docs/agents/ownership.md](docs/agents/ownership.md).
-
 Read the matching document before editing:
 
 - **Product** — page jobs, routes, metadata, blog links, keyword owners, or discoverability: [PRODUCT.md](PRODUCT.md).
-- **Images** — editorial images, social assets, or OG images: [docs/agents/images.md](docs/agents/images.md).
-- **Checks** — what to run for a change: [docs/agents/checks.md](docs/agents/checks.md).
-- **Content** — editing copy, a landing page, or a blog post: [docs/agents/content.md](docs/agents/content.md).
-- **Propagation** — adding, renaming, or re-scoping a page, or changing hire terms, identity facts, or the featured set: [docs/agents/propagation.md](docs/agents/propagation.md).
-- **Package** — project, technology, employment, or CV facts, or project-card copy: [docs/agents/package.md](docs/agents/package.md).
-- **Ask** — the Eve agent, `/ask`, Jev slots, bookings, notes, or `/mcp`: [docs/agents/ask.md](docs/agents/ask.md).
 - **GenUI / MCP quality** — contract, fixture lab, evals, protocol, or MCP Apps host tests: [docs/testing/README.md](docs/testing/README.md).
 - **Setup** — install, the dev server, or certificate trust: [README.md](README.md).
 
