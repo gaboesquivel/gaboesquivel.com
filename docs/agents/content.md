@@ -20,7 +20,7 @@ When researching, one agent writes. Other agents, spawned read-only and in paral
 
 Start with the brief, the `gabo` skill's relevant guidance, and PRODUCT's blog conventions and internal linking rules. Draft once the article's claims are supported. Look up only specific missing facts. For related posts, search titles, descriptions, or topic keywords and read only promising matches, stopping when useful links are supported. A single article does not require a whole-site scan.
 
-**Hero image (optional).** The editorial 16:9 artwork for a post is its hero image. Set it with optional frontmatter `image` (path under `public/images/`, usually WebP). Omit `image` when the post has no hero yet; publishing does not require one. In-article SVG diagrams and screenshots are separate assets and do not substitute for a hero. Production rules live in [DESIGN.md](design/editorial-images.md) and [images.md](images.md). Do not generate or block shipping on a hero unless the task explicitly asks for one.
+**Hero image (optional).** The editorial 16:9 artwork for a post is its hero image. Set it with optional frontmatter `image` (path under `public/images/`, usually WebP). Omit `image` when the post has no hero yet; publishing does not require one. In-article SVG diagrams and screenshots are separate assets and do not substitute for a hero. There is no fixed hero style. Do not generate or block shipping on a hero unless the task explicitly asks for one.
 
 **Open Graph (blog).** Social previews use build-time title-led images (`public/images/og/blog/{slug}.png`) built from the title and `summary`, not the hero `image`. Optional frontmatter `ogImage` overrides that path when a post needs a dedicated social asset.
 
