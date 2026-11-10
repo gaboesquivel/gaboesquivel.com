@@ -74,7 +74,7 @@ export const admitChat = async ({
   return { message: "", ok: true };
 };
 
-export const admitChatOnce = ({
+const admitChatOnce = ({
   enforce = true,
   ip,
   key,

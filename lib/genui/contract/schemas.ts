@@ -4,7 +4,7 @@ import { comparisonDimensions } from "../comparison-dimensions";
 import { compositeNames } from "../composites";
 import { chartKinds, viewArrangements } from "../dataset";
 
-export const compositeSchema = z.enum(compositeNames);
+const compositeSchema = z.enum(compositeNames);
 
 export const answerPropsSchema = z.object({
   body: z.string(),

@@ -2,7 +2,7 @@
 export const siteBrandRole = "Agentic Software Engineer";
 
 /** The `gabo` core line. The homepage headline already carries it, so the hero pitch below does not repeat it. */
-export const siteCoreLine =
+const siteCoreLine =
   "I build useful and delightful software products, designed for humans and agents alike.";
 
 export const siteHeroPitch =

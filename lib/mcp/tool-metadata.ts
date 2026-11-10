@@ -116,7 +116,7 @@ const summarizers: Record<string, (data: Data) => string | undefined> = {
 };
 
 /** One or two plain lines a model can read before the JSON. */
-export const summarizeToolResult = (name: string, result: Envelope) => {
+const summarizeToolResult = (name: string, result: Envelope) => {
   const message = result.message ?? "Done.";
   const data =
     result.data && typeof result.data === "object"

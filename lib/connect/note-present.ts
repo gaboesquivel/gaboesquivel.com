@@ -13,14 +13,14 @@ const safeHref = ({ href }: { href: string }) => {
   }
 };
 
-export interface NoteSegment {
+interface NoteSegment {
   href?: string;
   text: string;
 }
 
 const pattern = /\[([^\]]+)\]\(([^)\s]+)\)|https?:\/\/[^\s<]+/g;
 
-export const noteMessageLines = ({ text }: { text: string }) =>
+const noteMessageLines = ({ text }: { text: string }) =>
   text
     .replace(/\r\n/g, "\n")
     .split(/\n{2,}/)
@@ -28,7 +28,7 @@ export const noteMessageLines = ({ text }: { text: string }) =>
       paragraph.split("\n").map((line) => noteMessageSegments({ text: line }))
     );
 
-export const noteMessageSegments = ({ text }: { text: string }) => {
+const noteMessageSegments = ({ text }: { text: string }) => {
   const segments: NoteSegment[] = [];
   let last = 0;
   for (const match of text.matchAll(pattern)) {

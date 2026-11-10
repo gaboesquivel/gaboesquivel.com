@@ -5,17 +5,8 @@
 /.pnp
 .pnp.js
 
-
-# testing
-/coverage
-tests/genui/browser/report/
-tests/genui/browser/test-results/
-tests/genui/evals/reports/
-tests/genui/mcp-apps/vendor/
-
 # next.js
 /.next/
-/.next-genui-lab/
 /out/
 
 # production
@@ -52,9 +43,6 @@ generated/markdown-routes.json
 generated/agent-index.json
 generated/api/profile.json
 generated/api/pages.json
-
-# contentlayer (legacy)
-.contentlayer
 
 .eve/
 

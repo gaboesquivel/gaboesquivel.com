@@ -14,12 +14,12 @@ let cached: TokenCache | undefined;
 
 const base64url = (value: string) => Buffer.from(value).toString("base64url");
 
-export const calendarScopes = [
+const calendarScopes = [
   "https://www.googleapis.com/auth/calendar.events",
   "https://www.googleapis.com/auth/calendar.freebusy",
 ].join(" ");
 
-export const calendarJwtClaims = ({
+const calendarJwtClaims = ({
   account,
   now = Math.floor(Date.now() / 1000),
   subject,

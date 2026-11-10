@@ -4,7 +4,7 @@ import type { WriteOutcome } from "./types";
 
 const receiptPrefix = "capability:receipt:";
 
-export interface StoredReceipt {
+interface StoredReceipt {
   operation: string;
   payloadHash: string;
   providerRef?: string;

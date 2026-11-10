@@ -28,7 +28,7 @@ export const forbiddenExperienceKeys = [
   "endpoint",
 ] as const;
 
-export type ForbiddenExperienceKey = (typeof forbiddenExperienceKeys)[number];
+type ForbiddenExperienceKey = (typeof forbiddenExperienceKeys)[number];
 
 const experienceNameSet = new Set<string>(experienceNames);
 

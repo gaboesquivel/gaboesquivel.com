@@ -29,7 +29,7 @@ import type { PlannedTask } from "./task-plan";
 import { validateCompositionEnvelope } from "./validate-envelope";
 import { writingForTopic } from "./writing-topic";
 
-export interface PlannedComposition {
+interface PlannedComposition {
   bindings: {
     relationship: CompositionRelationship;
     taskId: string;

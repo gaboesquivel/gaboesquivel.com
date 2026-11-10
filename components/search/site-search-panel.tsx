@@ -68,7 +68,6 @@ export function SiteSearchPanel({
     <div className={siteColumn}>
       <div
         className="sticky top-0 z-10 bg-black pt-[max(1rem,env(safe-area-inset-top))] pb-2 sm:pt-6"
-        data-search-field-bar=""
         ref={barRef}
       >
         <div className="relative flex items-start gap-2">

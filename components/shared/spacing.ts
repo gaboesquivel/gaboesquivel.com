@@ -70,14 +70,6 @@ export const pageEyebrow = "flex h-9 items-start text-sm text-neutral-400";
 
 export const sectionTitle = "text-2xl font-semibold tracking-tight";
 
-export const subHeading = cn(headingSpacing, blockSpacing, "text-xl font-bold");
-
-export const subHeadingSm = cn(
-  headingSpacing,
-  blockSpacing,
-  "text-base font-bold tracking-tighter"
-);
-
 export const twoColGrid = "grid grid-cols-1 gap-4 md:grid-cols-2";
 
 export const singleColGrid = "grid grid-cols-1 gap-4";
@@ -99,8 +91,6 @@ export const siteFieldClass =
 export const projectMedia =
   "relative mb-6 aspect-[16/9] h-auto w-full max-h-[400px]";
 
-/** Homepage shell. Alias of `siteColumn` so `/` and every other route share one width. */
-export const homeColumn = siteColumn;
 /** Named container. Column count lives on a child via `editorialGrid`, because a container cannot query itself. */
 export const editorialContainer = "@container/editorial";
 export const editorialGrid =

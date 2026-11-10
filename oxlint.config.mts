@@ -61,12 +61,10 @@ export default defineConfig({
   extends: [core, react, next],
   ignorePatterns: [
     ...core.ignorePatterns,
-    "contracts/**",
     "components/ai-elements/**",
     "components/ui/**",
     ".eve/**",
-    "lib/mcp/mcp-host-timing.ts",
-    "components/mcp-apps/**",
+    ".claude/**",
   ],
   // Progressive migration: remove a rule as its problems are fixed.
   rules: migrationRules,

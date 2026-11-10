@@ -21,27 +21,16 @@ export { FilterNav } from "./filter-nav";
 export {
   blockGrid,
   blockSpacing,
-  cardArrow,
-  ctaLink,
-  headingSpacing,
   introText,
-  pageLead,
   proseLink,
   readingMeasure,
-  pageEyebrow,
-  pageTitle,
   projectMedia,
   proseClass,
-  sectionAction,
   sectionHeadingRow,
   sectionHeadingSpacing,
   sectionSpacing,
   sectionTitle,
-  singleColGrid,
-  subHeading,
-  subHeadingSm,
   titleSpacing,
-  twoColGrid,
 } from "./spacing";
 
 export function Prose({

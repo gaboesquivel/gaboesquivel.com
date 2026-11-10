@@ -1,6 +1,6 @@
 import GithubSlugger from "github-slugger";
 
-export interface BlogTocItem {
+interface BlogTocItem {
   id: string;
   text: string;
   level: 2 | 3;
@@ -48,5 +48,3 @@ export const extractBlogToc = (source: string): BlogTocItem[] => {
 
   return items;
 };
-
-export const showBlogToc = (items: readonly BlogTocItem[]) => items.length >= 2;

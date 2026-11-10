@@ -46,7 +46,7 @@ export const chartKinds = ["bar", "line", "area", "pie"] as const;
 
 export type ChartKind = (typeof chartKinds)[number];
 
-export const viewBlockNames = [
+const viewBlockNames = [
   "DataTable",
   "DataChart",
   "StatRow",

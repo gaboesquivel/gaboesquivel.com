@@ -93,7 +93,7 @@ export const curatedQueryForLabel = (label: string) => {
   )?.query;
 };
 
-export const filterCuratedGenuiSuggestions = (raw: string) => {
+const filterCuratedGenuiSuggestions = (raw: string) => {
   const normalized = normalizeGenuiQuery(raw);
   if (!normalized) return [];
   const terms = normalized

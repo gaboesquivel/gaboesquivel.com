@@ -56,7 +56,7 @@ const zoneOffsetMs = ({
   return asUtc - instant.getTime();
 };
 
-export const zonedInstant = ({
+const zonedInstant = ({
   date,
   time,
   timeZone,
@@ -74,7 +74,7 @@ export const zonedInstant = ({
   );
 };
 
-export const addIsoDate = ({ date, days }: { date: string; days: number }) => {
+const addIsoDate = ({ date, days }: { date: string; days: number }) => {
   const [year, month, day] = date.split("-").map(Number);
   return new Date(Date.UTC(year, (month ?? 1) - 1, (day ?? 1) + days))
     .toISOString()

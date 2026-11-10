@@ -60,9 +60,6 @@ const smallCoverWidths: Record<string, number> = {
   "/images/work/wordpress-earth-pai.jpg": 660,
 };
 
-/** Smallest frame width below which covers count as small (CSS px). */
-export const smallCoverThreshold = 1200;
-
 export const projectCoverMaxWidth = ({ src }: { src: string }) =>
   smallCoverWidths[src];
 

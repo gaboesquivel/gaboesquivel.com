@@ -12,18 +12,15 @@ interface GenuiInteraction {
 const GenuiInteractionContext = createContext<GenuiInteraction | null>(null);
 
 export const GenuiInteractionProvider = ({
-  callCapability = defaultCapabilityCaller,
   children,
   writesEnabled,
 }: {
-  /** The fixture lab injects a scripted caller; production uses the API. */
-  callCapability?: CapabilityCaller;
   children: React.ReactNode;
   writesEnabled: boolean;
 }) => {
   const value = useMemo(
-    () => ({ callCapability, writesEnabled }),
-    [callCapability, writesEnabled]
+    () => ({ callCapability: defaultCapabilityCaller, writesEnabled }),
+    [writesEnabled]
   );
   return (
     <GenuiInteractionContext.Provider value={value}>

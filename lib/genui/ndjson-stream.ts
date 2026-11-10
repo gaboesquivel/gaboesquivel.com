@@ -1,7 +1,3 @@
-export type NdjsonParseResult =
-  | { ok: true; events: Record<string, unknown>[] }
-  | { ok: false; error: "malformed_line" | "empty_stream"; line?: string };
-
 const parseNdjsonLine = (
   line: string
 ): { ok: true; event: Record<string, unknown> } | { ok: false } => {
@@ -10,19 +6,6 @@ const parseNdjsonLine = (
   } catch {
     return { ok: false };
   }
-};
-
-export const parseNdjsonText = (text: string): NdjsonParseResult => {
-  const events: Record<string, unknown>[] = [];
-  const lines = text.split("\n");
-  for (const line of lines) {
-    if (!line.trim()) continue;
-    const parsed = parseNdjsonLine(line);
-    if (!parsed.ok) return { ok: false, error: "malformed_line", line };
-    events.push(parsed.event);
-  }
-  if (!events.length) return { ok: false, error: "empty_stream" };
-  return { ok: true, events };
 };
 
 export const consumeNdjsonResponse = async ({

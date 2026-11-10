@@ -22,9 +22,6 @@ export interface SearchError {
   message: string;
 }
 
-/** Error codes the compose stream may attach to an `error` event. */
-export type ComposeErrorCode = "timed_out" | "failed";
-
 export const searchError = (
   kind: SearchErrorKind,
   serverMessage?: string

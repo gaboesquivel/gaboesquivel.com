@@ -1,4 +1,4 @@
-export const BLOG_POSTS_PER_PAGE = 12;
+const BLOG_POSTS_PER_PAGE = 12;
 
 export const parseBlogPageParam = (
   raw: string | string[] | undefined

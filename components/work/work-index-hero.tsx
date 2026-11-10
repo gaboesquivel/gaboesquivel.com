@@ -8,7 +8,7 @@ export function WorkIndexHero({ type }: { type: WorkType }) {
   const copy = workTypeCopy[type];
 
   return (
-    <header data-work-hero className="mb-12 lg:mb-16">
+    <header className="mb-12 lg:mb-16">
       <PageEyebrow />
       <PageTitle className="work-hero-title">{copy.heroTitle}</PageTitle>
       <p className={cn(introText, "work-hero-lede relative mt-6")}>

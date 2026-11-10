@@ -23,11 +23,7 @@ export const WriteError = ({
   onRetry?: () => void;
   retryLabel?: string;
 }) => (
-  <div
-    className="flex flex-wrap items-center gap-3 text-sm"
-    data-genui-write-error
-    role="alert"
-  >
+  <div className="flex flex-wrap items-center gap-3 text-sm" role="alert">
     <p className="text-red-400">{message}</p>
     {onRetry ? (
       <button className={retryButtonClass} onClick={onRetry} type="button">
@@ -52,7 +48,6 @@ export const WriteReceiptCard = ({ receipt }: { receipt: WriteReceipt }) => {
   return (
     <div
       className="space-y-2 rounded-lg border border-hairline p-4 text-sm outline-none"
-      data-genui-receipt
       ref={ref}
       role="status"
       tabIndex={-1}

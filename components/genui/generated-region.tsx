@@ -44,13 +44,10 @@ const ProgressLine = ({
   }, []);
   const label = stage ? composeStageCopy[stage] : searchCopy.composing;
   return (
-    <div
-      className="flex min-h-11 items-center justify-between gap-4"
-      data-search-progress=""
-    >
+    <div className="flex min-h-11 items-center justify-between gap-4">
       {/* `text-*` utilities would be merged away from `text-shimmer`, so size
           and colour sit on the wrapper. */}
-      <div aria-hidden="true" data-search-stage={stage ?? "composing"}>
+      <div aria-hidden="true">
         {shimmer ? <Shimmer>{label}</Shimmer> : <p>{label}</p>}
       </div>
       {onStop ? (
@@ -59,7 +56,6 @@ const ProgressLine = ({
             "min-h-11 shrink-0 cursor-pointer rounded-md border border-hairline px-4 text-neutral-200 hover:border-accent/50 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent",
             press
           )}
-          data-search-stop=""
           onClick={onStop}
           type="button"
         >
@@ -78,10 +74,7 @@ const ComposingLine = ({
   onStop?: () => void;
   stage?: ComposeStage | null;
 }) => (
-  <div
-    className="min-h-[12rem] rounded-md border border-hairline px-6 py-4 text-sm text-neutral-300"
-    data-search-composing=""
-  >
+  <div className="min-h-[12rem] rounded-md border border-hairline px-6 py-4 text-sm text-neutral-300">
     <ProgressLine onStop={onStop} stage={stage} />
   </div>
 );
@@ -182,7 +175,7 @@ const ErrorPanel = ({
   onNavigate?: () => void;
   onRetry?: () => void;
 }) => (
-  <div className={outcomePanel} data-search-state="error">
+  <div className={outcomePanel}>
     <p>{error.message}</p>
     {onRetry ? (
       <button
@@ -207,7 +200,7 @@ const EmptyPanel = ({
   onExample?: (query: string, label: string) => void;
   onNavigate?: () => void;
 }) => (
-  <div className={outcomePanel} data-search-state="empty">
+  <div className={outcomePanel}>
     <p>{searchCopy.empty}</p>
     <KeywordMatches matches={matches} onNavigate={onNavigate} />
     {onExample ? (
@@ -235,7 +228,7 @@ const EmptyPanel = ({
 );
 
 const StoppedPanel = ({ onRetry }: { onRetry?: () => void }) => (
-  <div className={outcomePanel} data-search-state="stopped">
+  <div className={outcomePanel}>
     <p>{searchCopy.stopped}</p>
     {onRetry ? (
       <button
@@ -250,7 +243,7 @@ const StoppedPanel = ({ onRetry }: { onRetry?: () => void }) => (
 );
 
 /**
- * The shared search outcome region (homepage, dialog and fixture lab): one
+ * The shared search outcome region (homepage and dialog): one
  * live region, the status line with Stop, the generated result with its
  * source line, and the explicit empty, error and stopped states with keyword
  * matches for the submitted text.
@@ -318,7 +311,6 @@ export const GeneratedRegion = ({
     <section
       aria-busy={status === "composing"}
       className="min-h-[12rem] space-y-4"
-      data-search-status={shownStatus}
     >
       <p aria-live="polite" className="sr-only" role="status">
         {announcementFor({ error: shownError, status: shownStatus })}

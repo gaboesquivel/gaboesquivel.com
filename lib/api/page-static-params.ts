@@ -3,7 +3,7 @@ import {
   listPublishedPagePaths,
 } from "./markdown-corpus";
 
-export const routeKeyToPathSegments = (routeKey: string) => {
+const routeKeyToPathSegments = (routeKey: string) => {
   const pathname = routeKey.split("?")[0];
   if (pathname === "/") {
     return ["_root"];

@@ -22,9 +22,9 @@ import { searchSite } from "./search-site";
 import { sendNoteCapability } from "./send-note";
 import type { CapabilityContext } from "./types";
 
-export type CapabilityKind = "read" | "write";
+type CapabilityKind = "read" | "write";
 
-export interface CapabilityEntry {
+interface CapabilityEntry {
   description: string;
   execute: (args: {
     context: CapabilityContext;

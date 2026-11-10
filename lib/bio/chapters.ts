@@ -1,11 +1,9 @@
-export interface BioLink {
+interface BioLink {
   href: string;
   label: string;
 }
 
-export type BioTextSegment =
-  | string
-  | { type: "link"; href: string; label: string };
+type BioTextSegment = string | { type: "link"; href: string; label: string };
 
 export type BioParagraph = readonly BioTextSegment[];
 

@@ -1,6 +1,6 @@
 import type { Project } from "gaboesquivel";
 
-export const aiBrowsePrioritySlugs = [
+const aiBrowsePrioritySlugs = [
   "legal-agent",
   "masterbots",
   "bitlauncher",

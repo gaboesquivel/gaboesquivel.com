@@ -102,16 +102,3 @@ export const comparisonValue = ({
   const work = story.length > 1 ? story.slice(1) : story;
   return work.length ? work : null;
 };
-
-export const comparisonRows = ({
-  dimensions = comparisonDimensions,
-  project,
-}: {
-  dimensions?: readonly ComparisonDimension[];
-  project: Project;
-}) =>
-  dimensions.map((dimension) => ({
-    dimension,
-    label: labels[dimension],
-    value: comparisonValue({ dimension, project }),
-  }));

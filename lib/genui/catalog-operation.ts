@@ -219,7 +219,7 @@ const filterPattern =
   /^(?:show|list|which)(?: me)?(?: your| the)? projects (?:that |have |used |use |using |with )?(react|typescript|next\.js)(?: (?:but )?(?:not|without|excluding) (blockchain|web3))?[.!?]?$/i;
 
 /** Closed grammar retained as an explicit fast path. Anything else stays unresolved. */
-export const parseCatalogOperation = (query: string) => {
+const parseCatalogOperation = (query: string) => {
   const count = query.trim().match(countPattern);
   if (count) {
     return {

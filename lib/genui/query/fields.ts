@@ -4,7 +4,7 @@
  * a data change here plus tests. Only fields the site already shows publicly
  * are declared. This module holds no published data.
  */
-export type FieldType = "flag" | "list" | "longtext" | "number" | "text";
+type FieldType = "flag" | "list" | "longtext" | "number" | "text";
 
 export const operations = [
   "equals",
@@ -15,7 +15,7 @@ export const operations = [
   "lastYears",
 ] as const;
 
-export type Operation = (typeof operations)[number];
+type Operation = (typeof operations)[number];
 
 export type QueryDatasetName = "posts" | "projects";
 
@@ -46,7 +46,7 @@ const col = (
   type: "number" | "text" = "text"
 ): FieldColumn => ({ key, label, type });
 
-export const fieldRegistry: readonly FieldDef[] = [
+const fieldRegistry: readonly FieldDef[] = [
   {
     column: col("title", "Project"),
     dataset: "projects",

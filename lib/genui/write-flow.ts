@@ -15,9 +15,9 @@ export type CapabilityCaller = (request: {
   operation: string;
 }) => Promise<CapabilityPayload>;
 
-export type CapabilityFailure = "network" | "server";
+type CapabilityFailure = "network" | "server";
 
-export class CapabilityRequestError extends Error {
+class CapabilityRequestError extends Error {
   readonly kind: CapabilityFailure;
 
   constructor(kind: CapabilityFailure) {
@@ -27,7 +27,7 @@ export class CapabilityRequestError extends Error {
   }
 }
 
-export const WRITE_ERROR_COPY: Record<CapabilityFailure, string> = {
+const WRITE_ERROR_COPY: Record<CapabilityFailure, string> = {
   // It may have gone through, so the details stay locked until a retry gets
   // an answer (see `settleAttempt`).
   network:
@@ -59,7 +59,7 @@ const readJson = async (response: Response) => {
  * POST a capability. Network failures and non-JSON responses throw a
  * `CapabilityRequestError`; JSON bodies (including 4xx with a message) return.
  */
-export const fetchCapability =
+const fetchCapability =
   (endpoint = "/api/capabilities"): CapabilityCaller =>
   async ({ input, operation }) => {
     let response: Response;
@@ -97,7 +97,7 @@ export interface RetryIdentityState {
   unresolved?: boolean;
 }
 
-export const writeFingerprint = (payload: Record<string, unknown>) =>
+const writeFingerprint = (payload: Record<string, unknown>) =>
   JSON.stringify(
     Object.entries(payload).toSorted(([a], [b]) => a.localeCompare(b))
   );

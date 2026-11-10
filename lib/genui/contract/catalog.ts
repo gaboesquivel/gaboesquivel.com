@@ -2,7 +2,7 @@ import type { CompositeName } from "../composites";
 import type { ExperienceName } from "../experience-contract";
 
 /** Composites with distinct rendering for each experience (no silent fallback). */
-export const projectComposites: readonly CompositeName[] = [
+const projectComposites: readonly CompositeName[] = [
   "editorial-grid",
   "work-gallery",
   "featured-pair",
@@ -17,19 +17,16 @@ export const projectComposites: readonly CompositeName[] = [
   "project-comparison",
 ];
 
-export const writingComposites: readonly CompositeName[] = [
+const writingComposites: readonly CompositeName[] = [
   "dated-row",
   "featured-writing",
 ];
 
-export const contactComposites: readonly CompositeName[] = ["hire-split"];
+const contactComposites: readonly CompositeName[] = ["hire-split"];
 
-export const bookingComposites: readonly CompositeName[] = ["hire-split"];
+const bookingComposites: readonly CompositeName[] = ["hire-split"];
 
-export const cvComposites: readonly CompositeName[] = [
-  "cv-document",
-  "cv-preview",
-];
+const cvComposites: readonly CompositeName[] = ["cv-document", "cv-preview"];
 
 export const experienceCompositeAllowlist: Partial<
   Record<ExperienceName, readonly CompositeName[]>

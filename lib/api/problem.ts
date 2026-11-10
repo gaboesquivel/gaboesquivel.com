@@ -2,7 +2,7 @@ import { siteOrigin } from "lib/site-path";
 
 const BASE_URL = siteOrigin;
 
-export type ApiErrorCode = "not_found" | "method_not_allowed" | "invalid_path";
+type ApiErrorCode = "not_found" | "method_not_allowed" | "invalid_path";
 
 const titles: Record<ApiErrorCode, string> = {
   invalid_path: "Invalid path",
@@ -10,7 +10,7 @@ const titles: Record<ApiErrorCode, string> = {
   not_found: "Not found",
 };
 
-export const apiProblem = ({
+const apiProblem = ({
   code,
   status,
   detail,
@@ -30,7 +30,7 @@ export const apiProblem = ({
   type: `${BASE_URL}/docs#api-errors`,
 });
 
-export const problemResponse = (
+const problemResponse = (
   problem: ReturnType<typeof apiProblem>,
   headers?: HeadersInit
 ) =>

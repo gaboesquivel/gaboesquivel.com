@@ -211,7 +211,7 @@ const compositeFromProps = (
   return typeof composite === "string" ? composite : null;
 };
 
-export const validateExperienceSubtree = ({
+const validateExperienceSubtree = ({
   experience,
   props,
   records,

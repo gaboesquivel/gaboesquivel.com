@@ -8,7 +8,7 @@ import {
   rankByKeywords,
 } from "./keyword-rank";
 
-export const KEYWORD_MATCH_LIMIT = 8;
+const KEYWORD_MATCH_LIMIT = 8;
 
 const ARCHIVE_BEFORE = "2020";
 

@@ -23,7 +23,7 @@ export function CareerTimeline({
   );
 
   return (
-    <div className="min-w-0 text-white" data-career-timeline>
+    <div className="min-w-0 text-white">
       <header className="max-w-[65ch]">
         <h2
           id={`${prefix}-title`}
