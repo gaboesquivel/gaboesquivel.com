@@ -174,11 +174,7 @@ export function SiteSearchField({
           </InputGroupAddon>
         ) : null}
         {showKbd ? (
-          <InputGroupAddon
-            align="inline-end"
-            className="hidden pr-0 sm:flex"
-            data-search-shortcut-hint=""
-          >
+          <InputGroupAddon align="inline-end" className="hidden pr-0 sm:flex">
             <KbdGroup aria-hidden="true">
               {isMac ? <Kbd>⌘</Kbd> : <Kbd>Ctrl</Kbd>}
               <Kbd>K</Kbd>

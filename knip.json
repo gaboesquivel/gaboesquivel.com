@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["scripts/**/*.ts", "agent/**/*.ts", "velite.config.ts"],
+  "project": ["**/*.{ts,tsx,js,mjs}"],
+  "ignoreDependencies": [
+    "@tailwindcss/typography",
+    "concurrently",
+    "shadcn",
+    "tw-animate-css"
+  ],
+  "paths": {
+    "#velite": ["./.velite"],
+    "@/*": ["./*"],
+    "*": ["./*"]
+  }
+}

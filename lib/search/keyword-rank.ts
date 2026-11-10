@@ -4,7 +4,7 @@
  * text finds the same pages everywhere. Pure: no I/O, no globals.
  */
 
-export interface KeywordFields {
+interface KeywordFields {
   /** Highest weight. */
   title: string;
   /** Tags, categories, company, path words. */
@@ -13,7 +13,7 @@ export interface KeywordFields {
   text?: string;
 }
 
-export interface KeywordMatch<T> {
+interface KeywordMatch<T> {
   item: T;
   /** Number of distinct query terms the item matched. */
   matched: number;
@@ -27,7 +27,7 @@ const TEXT_WEIGHT = 1;
 const SYNONYM_FACTOR = 0.8;
 
 /** Each group is one concept; any member finds the others. */
-export const synonymGroups: readonly (readonly string[])[] = [
+const synonymGroups: readonly (readonly string[])[] = [
   [
     "ai",
     "agent",
@@ -103,7 +103,7 @@ const wordsOf = (value: string) =>
     .filter(Boolean);
 
 /** Meaningful query terms: folded, deduplicated, stop words removed. */
-export const queryTerms = (query: string) => [
+const queryTerms = (query: string) => [
   ...new Set(
     wordsOf(query).filter((word) => word.length > 1 && !stopWords.has(word))
   ),
@@ -113,7 +113,7 @@ const groupFor = (term: string) =>
   synonymGroups.find((group) => group.includes(term));
 
 /** The term itself first, then its synonyms (single words and phrases). */
-export const expandTerm = (term: string): string[] => {
+const expandTerm = (term: string): string[] => {
   const group = groupFor(term);
   return group ? [term, ...group.filter((entry) => entry !== term)] : [term];
 };

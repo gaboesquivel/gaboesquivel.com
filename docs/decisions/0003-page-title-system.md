@@ -20,4 +20,3 @@ Identical geometry makes the existing 180ms root crossfade read as the title sta
 ## Consequences
 
 - `/blog`, `/privacy`, `/docs`, blog posts and project pages get larger titles; editorial and split sections get a larger desktop gap (96px, was 80px).
-- Guarded by `tests/genui/browser/functional/title-geometry.spec.ts` (geometry at 390/768/1440 and a frame-by-frame check that the shared word is never animated).

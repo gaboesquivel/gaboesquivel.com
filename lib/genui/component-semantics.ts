@@ -10,7 +10,7 @@ export type CompositionRelationship =
   | "chronology"
   | "concise-fact";
 
-export interface ComponentSemantic {
+interface ComponentSemantic {
   avoid: string[];
   cardinality: { max: number; min: number };
   density: "concise" | "evidence" | "document" | "chronology";

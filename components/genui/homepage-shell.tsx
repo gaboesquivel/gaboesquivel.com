@@ -27,7 +27,7 @@ const HomeSearchField = () => {
 
   return (
     <div className="mt-10 lg:mt-20 lg:px-8">
-      <div data-home-search-field="" ref={wrapRef}>
+      <div ref={wrapRef}>
         <GenuiSearchCombobox
           describedById={homeGenuiSearchScopeId}
           disabled={!(hydrated && siteSearch)}

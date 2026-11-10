@@ -31,6 +31,3 @@ export const sourceUnits = ({
   }
   return [];
 };
-
-export const normalizeSpace = (text: string) =>
-  text.replace(/\s+/gu, " ").trim();

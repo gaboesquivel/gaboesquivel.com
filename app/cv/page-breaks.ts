@@ -1,6 +1,6 @@
 import type { CvKey } from "gaboesquivel";
 
-export const cvPageBreaks: Record<CvKey, string[]> = {
+const cvPageBreaks: Record<CvKey, string[]> = {
   full: ["Opyn"],
   ai: ["Bitcash"],
   web3: ["RareMint"],

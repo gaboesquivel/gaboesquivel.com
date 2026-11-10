@@ -107,7 +107,7 @@ const ProjectComparison = ({
       </div>
       <dl className="divide-y divide-hairline border-y border-hairline text-sm">
         {dimensions.map((dimension) => (
-          <div key={dimension} className="py-5" data-comparison-row={dimension}>
+          <div key={dimension} className="py-5">
             <dt className="mb-3 font-semibold text-white">
               {comparisonDimensionLabel(dimension)}
             </dt>

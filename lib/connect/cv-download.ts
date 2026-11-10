@@ -3,13 +3,13 @@ import type { CvKey } from "gaboesquivel";
 import { cvPath, cvPdfFile, cvSectionTitles } from "lib/cv-paths";
 import { siteOrigin } from "lib/site-path";
 
-export const normalizeCvFocus = (focus?: string | null): CvKey =>
+const normalizeCvFocus = (focus?: string | null): CvKey =>
   resolveCv({
     focus:
       focus === null || focus === undefined || focus === "" ? undefined : focus,
   }).key;
 
-export interface CvDownloadPayload {
+interface CvDownloadPayload {
   filename: string;
   pageUrl: string;
   pdfUrl: string;

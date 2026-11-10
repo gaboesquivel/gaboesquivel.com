@@ -27,24 +27,3 @@ export const SiteCardLink = ({
     <Card className={cn("h-full gap-2 p-4", cardClassName)}>{children}</Card>
   </Link>
 );
-
-export const SiteCardAnchor = ({
-  cardClassName,
-  className,
-  children,
-  ...props
-}: ComponentProps<"a"> & {
-  cardClassName?: string;
-  children: ReactNode;
-}) => (
-  <a
-    className={cn(
-      siteCardInteractive,
-      "block rounded-lg focus-visible:outline-none",
-      className
-    )}
-    {...props}
-  >
-    <Card className={cn("gap-2", cardClassName)}>{children}</Card>
-  </a>
-);

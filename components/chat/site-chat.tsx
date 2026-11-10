@@ -104,7 +104,6 @@ export function SiteChatTrigger() {
       type="button"
       aria-label="Open AI chat"
       aria-expanded={chat.open}
-      data-site-chat-trigger=""
       onClick={handleToggle}
       className={cn(
         "hidden size-11 shrink-0 items-center justify-center rounded-md text-neutral-300 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent print:hidden",

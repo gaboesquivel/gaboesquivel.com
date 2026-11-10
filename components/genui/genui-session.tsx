@@ -1,9 +1,6 @@
 "use client";
 
-import type { CapabilityCaller } from "lib/genui/write-flow";
-
 import { GenuiDraftProvider, useGenuiDraft } from "./genui-draft-context";
-import type { BookingDraft, NoteDraft } from "./genui-draft-context";
 import { GenuiInteractionProvider } from "./genui-interaction-context";
 
 /** Writes (booking, notes) unlock only after a settled, error-free result. */
@@ -25,23 +22,14 @@ export const genuiWritesEnabled = ({
  * keep their receipt here, outside any replaced component, and render in place.
  */
 export const GenuiSessionProvider = ({
-  callCapability,
   children,
-  initialBooking,
-  initialNote,
   writesEnabled,
 }: {
-  callCapability?: CapabilityCaller;
   children: React.ReactNode;
-  initialBooking?: Partial<BookingDraft>;
-  initialNote?: Partial<NoteDraft>;
   writesEnabled: boolean;
 }) => (
-  <GenuiDraftProvider initialBooking={initialBooking} initialNote={initialNote}>
-    <GenuiInteractionProvider
-      callCapability={callCapability}
-      writesEnabled={writesEnabled}
-    >
+  <GenuiDraftProvider>
+    <GenuiInteractionProvider writesEnabled={writesEnabled}>
       {children}
     </GenuiInteractionProvider>
   </GenuiDraftProvider>
@@ -59,10 +47,7 @@ export const GenuiReceipt = ({ className }: { className?: string }) => {
   );
   if (lines.length === 0) return null;
   return (
-    <ul
-      className={className ?? "mt-3 space-y-1 text-xs text-neutral-400"}
-      data-genui-receipt-line
-    >
+    <ul className={className ?? "mt-3 space-y-1 text-xs text-neutral-400"}>
       {lines.map((line) => (
         <li key={line}>{line}</li>
       ))}

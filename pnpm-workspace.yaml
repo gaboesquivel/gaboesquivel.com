@@ -1,8 +1,0 @@
-allowBuilds:
-  "@openuidev/lang-core": set this to true or false
-  esbuild: true
-  sharp: true
-minimumReleaseAgeExclude:
-  - postcss@8.5.31
-  - react-resizable-panels@4.14.7
-  - gaboesquivel@8.0.1 || 8.0.2 || 8.0.3 || 8.0.4 || 8.0.5 || 9.0.0 || 9.0.1 || 9.0.2

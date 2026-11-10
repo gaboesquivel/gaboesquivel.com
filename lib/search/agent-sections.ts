@@ -5,7 +5,7 @@ import bodies from "../../generated/markdown-routes.json";
 import type { RankSection } from "../connect/rank";
 import { rankSearchMatches, searchRecordFromSection } from "./rank-records";
 
-export const agentSections = index as RankSection[];
+const agentSections = index as RankSection[];
 const corpus = bodies as Record<string, string>;
 
 const sectionExcerpt = (section: RankSection, path: string) => {

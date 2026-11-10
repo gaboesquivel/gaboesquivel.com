@@ -40,14 +40,14 @@ import {
 
 const MAX_QUERY_CODE_POINTS = 2000;
 
-export interface ComposeInput {
+interface ComposeInput {
   clientRequestId: string;
   locale?: string;
   query: string;
   version: number;
 }
 
-export type ComposeStreamEvent =
+type ComposeStreamEvent =
   | { requestId: string; sequence: number; type: "start" }
   | {
       /** A slow step began; the client shows its human label, never this id. */
@@ -81,9 +81,7 @@ export type ComposeStreamEvent =
 const queryCodePoints = (query: string) => [...query].length;
 
 /** The evidence stage the first planned task waits on. */
-export const stageForTasks = (
-  tasks: readonly { kind: string }[]
-): ComposeStage => {
+const stageForTasks = (tasks: readonly { kind: string }[]): ComposeStage => {
   const kind = tasks[0]?.kind;
   if (kind === "booking") return "availability";
   if (kind === "projects" || kind === "compare" || kind === "count") {

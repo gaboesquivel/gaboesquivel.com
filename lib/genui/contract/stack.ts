@@ -1,7 +1,7 @@
 import type { ExperienceName } from "../experience-contract";
 import { GENUI_MAX_STACK_CHILDREN } from "./catalog";
 
-export interface ParsedExperienceChild {
+interface ParsedExperienceChild {
   props: Record<string, unknown>;
   typeName: ExperienceName;
 }

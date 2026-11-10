@@ -267,11 +267,6 @@ input[type="search"] {
   appearance: none;
 }
 
-.prose .tweet a {
-  text-decoration: inherit;
-  font-weight: inherit;
-}
-
 table {
   display: block;
   width: 100%;

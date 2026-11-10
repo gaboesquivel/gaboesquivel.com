@@ -8,7 +8,7 @@ const LOCAL_DEV_HOSTS = new Set([
 export const requestHost = (request: Request) =>
   new URL(request.url).hostname.toLowerCase();
 
-export const isLocalDevHost = (host: string) =>
+const isLocalDevHost = (host: string) =>
   LOCAL_DEV_HOSTS.has(host.toLowerCase());
 
 export const capsEnforced = ({ host }: { host: string }) => {

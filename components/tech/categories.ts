@@ -8,7 +8,7 @@ export const techCategoryIds = [
   "all",
 ] as const;
 
-export type TechCategoryId = (typeof techCategoryIds)[number];
+type TechCategoryId = (typeof techCategoryIds)[number];
 
 export const techCategoryLabels: Record<TechCategoryId, string> = {
   ai: "AI",
@@ -23,7 +23,7 @@ export const techCategoryLabels: Record<TechCategoryId, string> = {
 export const techCategoryHref = (id: TechCategoryId) =>
   id === "featured" ? "/tech" : `/tech/${id}`;
 
-export const techCapabilityHref: Partial<Record<TechCategoryId, string>> = {
+const techCapabilityHref: Partial<Record<TechCategoryId, string>> = {
   ai: "/ai",
   backend: "/backend",
   frontend: "/frontend",

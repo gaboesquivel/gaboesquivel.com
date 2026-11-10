@@ -74,7 +74,7 @@ const resolveNames = (labels: string[]) => {
 };
 
 /** Validates model output before any catalog read. Unknown predicates stay unresolved. */
-export const tasksFromPlannerOutput = ({
+const tasksFromPlannerOutput = ({
   output,
 }: {
   output: z.infer<typeof plannerSchema>;

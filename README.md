@@ -44,8 +44,7 @@ Use `http://localhost:3099` only to troubleshoot a blocked HTTPS connection or c
 
 ## Development checks
 
-- `bun run verify`: build content and check lint/formatting.
-- `bun run test:llms`: regenerate exports and run selected content, CV, API, and chat tests.
+- `bun run verify`: build content, check lint and formatting, and find unused files, exports, and dependencies with knip.
 - `bun run build`: generate content and machine-readable outputs, then build Next.js.
 
 ## Docs

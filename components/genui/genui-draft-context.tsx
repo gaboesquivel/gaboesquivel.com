@@ -28,7 +28,7 @@ export interface WriteReceipt {
   summary: string;
 }
 
-export type WriteKind = "booking" | "note";
+type WriteKind = "booking" | "note";
 
 interface DraftState {
   attempts: Record<WriteKind, RetryIdentityState>;
@@ -73,22 +73,11 @@ const DraftContext = createContext<DraftState | null>(null);
 
 export const GenuiDraftProvider = ({
   children,
-  initialBooking,
-  initialNote,
 }: {
   children: React.ReactNode;
-  /** Fixture-lab prefill only; production drafts start empty. */
-  initialBooking?: Partial<BookingDraft>;
-  initialNote?: Partial<NoteDraft>;
 }) => {
-  const [note, setNoteState] = useState(() => ({
-    ...emptyNote(),
-    ...initialNote,
-  }));
-  const [booking, setBookingState] = useState(() => ({
-    ...emptyBooking(),
-    ...initialBooking,
-  }));
+  const [note, setNoteState] = useState(emptyNote);
+  const [booking, setBookingState] = useState(emptyBooking);
   const [attempts, setAttempts] = useState(freshAttempts);
   const [receipts, setReceipts] = useState(noReceipts);
   const value = useMemo(

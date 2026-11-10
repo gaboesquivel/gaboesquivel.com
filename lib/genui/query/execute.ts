@@ -26,11 +26,11 @@ import { sourceUnits } from "./source-text";
  * `fields.ts`; each maps to one package or published-post field, so a table
  * cell is never written by the model.
  */
-export const datasetNames = ["projects", "posts", "overview"] as const;
+const datasetNames = ["projects", "posts", "overview"] as const;
 
-export const GENUI_MAX_FILTERS = 6;
+const GENUI_MAX_FILTERS = 6;
 
-export const filterSchema = z.object({
+const filterSchema = z.object({
   field: z.enum(fieldKeys),
   op: z.enum(operations),
   value: z.string().max(60),
@@ -46,7 +46,7 @@ export const querySpecSchema = z.object({
 });
 
 export type QuerySpec = z.infer<typeof querySpecSchema>;
-export type QueryFilter = z.infer<typeof filterSchema>;
+type QueryFilter = z.infer<typeof filterSchema>;
 
 type FieldValue = number | string | string[] | null;
 
@@ -145,7 +145,7 @@ const rowsFor = (dataset: QueryDatasetName) =>
   dataset === "projects" ? projectRows() : postRows();
 
 /** "Recent" is the newest few years in the data, so the application owns it. */
-export const RECENT_YEARS = 3;
+const RECENT_YEARS = 3;
 
 const newestYear = (rows: readonly DataRow[]) => {
   let newest = 0;
@@ -228,7 +228,7 @@ const matchesAll = ({
     return def ? matchesFilter({ def, filter, newest, row }) : false;
   });
 
-export type QueryCheck = { ok: true } | { ok: false; reason: string };
+type QueryCheck = { ok: true } | { ok: false; reason: string };
 
 /**
  * Rejects a query the registry does not declare: an unknown field, an
@@ -282,7 +282,7 @@ const columnsFor = (dataset: QueryDatasetName): DatasetColumn[] => {
   return columns;
 };
 
-export const datasetColumns = (name: QuerySpec["dataset"]): DatasetColumn[] =>
+const datasetColumns = (name: QuerySpec["dataset"]): DatasetColumn[] =>
   name === "overview"
     ? [
         { key: "label", label: "Measure", type: "text" },
@@ -295,7 +295,7 @@ export const datasetColumns = (name: QuerySpec["dataset"]): DatasetColumn[] =>
  * GENUI_EXCERPT_MAX_CHARS, trimmed to word boundaries. It is always a substring of
  * the unit; the compiler re-checks that against the source.
  */
-export const excerptFor = ({
+const excerptFor = ({
   needle,
   units,
 }: {

@@ -49,7 +49,7 @@ const redisStore = ({
 
 const envValue = (value?: string) => value?.trim() || undefined;
 
-export const restRedisEnv = () => {
+const restRedisEnv = () => {
   const url =
     envValue(process.env.UPSTASH_REDIS_REST_URL) ??
     envValue(process.env.KV_REST_API_URL);

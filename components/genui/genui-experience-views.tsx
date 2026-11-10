@@ -223,7 +223,7 @@ const WriteRail = ({
   children: React.ReactNode;
 }) => (
   <div className="@container/genui max-w-full min-w-0">
-    <div className={wideRail} data-genui-rail>
+    <div className={wideRail}>
       <aside className="space-y-3 text-sm text-neutral-400">{aside}</aside>
       <div className="min-w-0">{children}</div>
     </div>
@@ -260,7 +260,7 @@ export const ContactExperienceView = () => {
 export const BookingExperienceView = () => (
   <WriteRail
     aside={
-      <p data-genui-approval>
+      <p>
         Pick a 15- or 30-minute slot. Times show in your time zone. Review your
         details before confirming—booking is not created until you approve.
       </p>

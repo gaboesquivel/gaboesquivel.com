@@ -3,10 +3,9 @@ import type { Blog } from "lib/blog";
 
 import { ogHeight, ogWidth, personalOgImage } from "./constants";
 
-export const blogOgImagePath = (slug: string) => `/images/og/blog/${slug}.png`;
+const blogOgImagePath = (slug: string) => `/images/og/blog/${slug}.png`;
 
-export const projectOgImagePath = (slug: string) =>
-  `/images/og/projects/${slug}.png`;
+const projectOgImagePath = (slug: string) => `/images/og/projects/${slug}.png`;
 
 const absolute = (url: string, siteOrigin: string) =>
   url.startsWith("http") ? url : `${siteOrigin}${url}`;

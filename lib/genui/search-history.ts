@@ -2,8 +2,8 @@ import { normalizeGenuiQuery } from "./normalize-query";
 
 export const GENUI_SEARCH_HISTORY_KEY = "gaboesquivel:genui-search-history";
 export const GENUI_SEARCH_HISTORY_EVENT = "genui-search-history-updated";
-export const GENUI_SEARCH_HISTORY_MAX = 12;
-export const GENUI_SEARCH_HISTORY_QUERY_MAX = 240;
+const GENUI_SEARCH_HISTORY_MAX = 12;
+const GENUI_SEARCH_HISTORY_QUERY_MAX = 240;
 
 const stopTerms = new Set([
   "a",
@@ -21,14 +21,14 @@ const stopTerms = new Set([
   "about",
 ]);
 
-export const sanitizeGenuiSearchHistoryEntry = (query: string) => {
+const sanitizeGenuiSearchHistoryEntry = (query: string) => {
   const trimmed = query.trim().replace(/\s+/g, " ");
   if (!trimmed) return null;
   if (trimmed.length > GENUI_SEARCH_HISTORY_QUERY_MAX) return null;
   return trimmed;
 };
 
-export const mergeGenuiSearchHistory = ({
+const mergeGenuiSearchHistory = ({
   history,
   query,
   max = GENUI_SEARCH_HISTORY_MAX,
@@ -59,14 +59,14 @@ export const parseGenuiSearchHistory = (raw: string | null) => {
   }
 };
 
-export const readGenuiSearchHistory = () => {
+const readGenuiSearchHistory = () => {
   if (typeof window === "undefined") return [];
   return parseGenuiSearchHistory(
     window.localStorage.getItem(GENUI_SEARCH_HISTORY_KEY)
   );
 };
 
-export const writeGenuiSearchHistory = (history: string[]) => {
+const writeGenuiSearchHistory = (history: string[]) => {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.setItem(

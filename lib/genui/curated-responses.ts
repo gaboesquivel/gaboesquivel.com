@@ -32,7 +32,7 @@ const labelToCanonical = () => {
 
 const canonicalKeys = labelToCanonical();
 
-export const resolveCuratedQueryKey = (query: string) =>
+const resolveCuratedQueryKey = (query: string) =>
   canonicalKeys.get(normalizeGenuiQuery(query)) ?? null;
 
 const aiProjectsIntro =

@@ -1,6 +1,6 @@
 import { calendarId, googleAccessToken } from "./calendar-auth";
 
-export interface BusyInterval {
+interface BusyInterval {
   end: number;
   start: number;
 }

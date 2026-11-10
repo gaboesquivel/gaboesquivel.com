@@ -218,11 +218,7 @@ export const GenuiBookingFlow = () => {
           </p>
         ) : null}
         {availability.state === "loading" ? (
-          <p
-            className="text-neutral-400"
-            data-genui-availability="loading"
-            role="status"
-          >
+          <p className="text-neutral-400" role="status">
             Checking open times…
           </p>
         ) : null}

@@ -53,10 +53,10 @@ export const wantsBrowseProjects = (query: string) => {
   return false;
 };
 
-export const wantsCompareProjects = (query: string) =>
+const wantsCompareProjects = (query: string) =>
   /\b(compare|versus|vs\.?)\b/i.test(query) && wantsProjectsLanguage(query);
 
-export const wantsExplainExperience = (query: string) =>
+const wantsExplainExperience = (query: string) =>
   /\b(what is your experience|experience building|how do you build|tell me about your experience)\b/i.test(
     query
   ) && !wantsBrowseProjects(query);

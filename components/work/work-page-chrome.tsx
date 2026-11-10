@@ -14,9 +14,7 @@ export function WorkPageChrome({ children }: { children: ReactNode }) {
     <section data-work-shell>
       <WorkIndexHero type={type} />
       <WorkFilterNav type={type} />
-      <div data-work-results id="work-results">
-        {children}
-      </div>
+      <div id="work-results">{children}</div>
     </section>
   );
 }

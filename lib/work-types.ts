@@ -130,10 +130,6 @@ export const isWorkType = (type: string): type is WorkType =>
 export const workTypeHref = ({ type }: { type: WorkType }) =>
   type === "featured" ? "/work" : `/work/${type}`;
 
-export const workTypeRoutes = workTypeOptions.map((type) =>
-  workTypeHref({ type })
-);
-
 export const activeWorkTypeFromPathname = (
   pathname: string | null | undefined
 ): WorkType => workTypeFromPathname(pathname ?? "") ?? "featured";
@@ -143,7 +139,7 @@ const normalizePathname = (pathname: string) => {
   return trimmed === "" ? "/" : trimmed;
 };
 
-export const workTypeFromPathname = (pathname: string): WorkType | null => {
+const workTypeFromPathname = (pathname: string): WorkType | null => {
   const path = normalizePathname(pathname);
   if (path === "/work") return "featured";
   const match = /^\/work\/([^/]+)$/.exec(path);

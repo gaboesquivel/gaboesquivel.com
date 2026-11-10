@@ -28,7 +28,7 @@ export type CompileErrorCode =
   | "view_rule_violation"
   | "parse";
 
-export interface CompileExperienceFailure {
+interface CompileExperienceFailure {
   ok: false;
   code: CompileErrorCode;
   detail?: string;

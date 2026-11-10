@@ -52,7 +52,7 @@ const usePrefersReducedMotion = () =>
     () => true
   );
 
-export const chartPoints = (dataset: GenuiDataset) => {
+const chartPoints = (dataset: GenuiDataset) => {
   const label = dataset.columns.find((column) => column.type === "text");
   const value = dataset.columns.find((column) => column.type === "number");
   if (!label || !value) return null;

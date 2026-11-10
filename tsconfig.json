@@ -32,9 +32,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".velite/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    ".next-genui-lab/types/**/*.ts",
-    ".next-genui-lab/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "scripts", "**/*.test.ts"]
+  "exclude": ["node_modules", "scripts"]
 }

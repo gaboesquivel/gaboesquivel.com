@@ -26,7 +26,6 @@ export function BioTimeline({
     <section
       aria-label="Career timeline"
       className={cn("@container min-w-0", className)}
-      data-bio-timeline
     >
       {showChapterNav ? (
         <nav aria-label="Career chapters" className="mb-10">

@@ -22,17 +22,17 @@ export type ProjectCompositionRole =
   | "list-item"
   | "timeline-item";
 
-export interface ProjectCompositionSlot {
+interface ProjectCompositionSlot {
   projectId: string;
   role: ProjectCompositionRole;
 }
 
-export interface ProjectCompositionPlan {
+interface ProjectCompositionPlan {
   recipe: ProjectCompositionRecipe;
   slots: ProjectCompositionSlot[];
 }
 
-export class CompositionPlanError extends Error {
+class CompositionPlanError extends Error {
   code:
     | "duplicate_project_ids"
     | "invalid_recipe_cardinality"

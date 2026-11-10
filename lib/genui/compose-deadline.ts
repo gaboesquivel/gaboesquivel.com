@@ -1,7 +1,7 @@
 import { searchCopy } from "lib/search/copy";
 
 /** The compose route's overall deadline. */
-export const COMPOSE_DEADLINE_MS = 15_000;
+const COMPOSE_DEADLINE_MS = 15_000;
 
 /** The explicit event the client maps to "That took too long. Try again.". */
 export const timedOutEvent = (requestId: string) => ({

@@ -33,7 +33,6 @@ For **new** bounded work, prefer flat `docs/specs/NNN-short-name.md` ([0001](doc
 Read the matching document before editing:
 
 - **Product** — page jobs, routes, metadata, blog links, keyword owners, or discoverability: [PRODUCT.md](PRODUCT.md).
-- **GenUI / MCP quality** — contract, fixture lab, evals, protocol, or MCP Apps host tests: [docs/testing/README.md](docs/testing/README.md).
 - **Setup** — install, the dev server, or certificate trust: [README.md](README.md).
 
 ## Git

@@ -9,7 +9,7 @@ import { namedProjectsInText } from "./named-projects";
 import type { GenuiProjectDomain } from "./project-domain";
 import { resolveTechnology } from "./tech-identity";
 
-export type PlannedTaskKind =
+type PlannedTaskKind =
   | "explain"
   | "compare"
   | "projects"
@@ -20,7 +20,7 @@ export type PlannedTaskKind =
   | "contact"
   | "count";
 
-export type TaskPresentation =
+type TaskPresentation =
   | "concise-fact"
   | "projects"
   | "comparison"
@@ -61,13 +61,13 @@ export interface PlannedTask {
   unsupported: string[];
 }
 
-export type TaskCoverageStatus =
+type TaskCoverageStatus =
   | "completed"
   | "partially-completed"
   | "unsupported"
   | "failed";
 
-export interface TaskCoverage {
+interface TaskCoverage {
   kind: PlannedTaskKind;
   reason: string;
   status: TaskCoverageStatus;
@@ -233,7 +233,7 @@ const projectBrowsePattern =
 const agentDevelopmentPattern =
   /\b(?:process|workflow|method|approach|how (?:do )?you)\b.*\b(?:develop\w*|build\w*|ship\w*|creat\w*|cod(?:e|ing)|engineer\w*)\b.*\b(?:with|using|via)\s+(?:coding\s+|ai\s+)?agents?\b|\bagentic (?:development|engineering|coding)\b/i;
 
-export const agentDevelopmentClause = {
+const agentDevelopmentClause = {
   test: (clause: string) =>
     agentDevelopmentPattern.test(clause) && !projectBrowsePattern.test(clause),
 };
@@ -316,7 +316,7 @@ const splitAnd = (clause: string) => {
   return groups;
 };
 
-export const requestClauses = (query: string) =>
+const requestClauses = (query: string) =>
   splitSequence(query).flatMap((part) =>
     splitCommas(part).flatMap((clause) => splitAnd(clause))
   );

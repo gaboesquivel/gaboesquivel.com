@@ -1,5 +1,5 @@
 /** Escape a value for OpenUI double-quoted string literals. */
-export const escapeOpenUiString = (value: string) =>
+const escapeOpenUiString = (value: string) =>
   value
     .replace(/\\/g, "\\\\")
     .replace(/"/g, '\\"')

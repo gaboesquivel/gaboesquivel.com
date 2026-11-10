@@ -70,11 +70,7 @@ export const ViewExperienceView = ({
   if (!parsed.ok) return null;
   const layout = isViewArrangement(arrangement) ? arrangement : "stack";
   return (
-    <section
-      aria-labelledby="genui-view-title"
-      className="min-w-0 space-y-6"
-      data-genui-view={layout}
-    >
+    <section aria-labelledby="genui-view-title" className="min-w-0 space-y-6">
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold text-white" id="genui-view-title">
           {title}

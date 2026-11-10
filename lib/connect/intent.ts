@@ -1,8 +1,7 @@
-export const EXPERIENCE_QUESTION =
-  "What have you shipped, and where did you lead?";
+const EXPERIENCE_QUESTION = "What have you shipped, and where did you lead?";
 
-export const CONNECT_TOOLS = ["list_slots", "book", "send"] as const;
-export type ConnectTool = (typeof CONNECT_TOOLS)[number];
+const CONNECT_TOOLS = ["list_slots", "book", "send"] as const;
+type ConnectTool = (typeof CONNECT_TOOLS)[number];
 
 const BOOK_TOOLS: ConnectTool[] = ["list_slots", "book"];
 const NOTE_TOOLS: ConnectTool[] = ["send"];
@@ -11,28 +10,24 @@ const bookPattern =
   /\b(book|booking|calendar|schedule|time slot|weekdays|15[-\s]?minutes?|30[-\s]?minutes?)\b/i;
 const notePattern = /\b(note|email|pass along|contact@)\b/i;
 
-export const typedBookingIntent = (text: string) => bookPattern.test(text);
+const typedBookingIntent = (text: string) => bookPattern.test(text);
 
-export const typedNoteIntent = (text: string) => notePattern.test(text.trim());
-
-export const noteOpener = (text: string) =>
-  /^(send email|pass it along)[.!]?$/i.test(stripMarker(text));
 const continuationPattern = /@|\b\d{1,2}:\d{2}\b/;
 
-export const affirmativeBookingReply = (text: string) =>
+const affirmativeBookingReply = (text: string) =>
   /^(yes|sure|ok|okay|let'?s book|yep|yeah)[.!]?$/i.test(text.trim());
 
-export const assistantOfferedCall = (text: string) =>
+const assistantOfferedCall = (text: string) =>
   /\b(15[-\s]?or[-\s]?30[-\s]?minute|book a (15|30)|book a call|on this page)\b/i.test(
     text
   );
 
-export const markerIntent = (text: string) => {
+const markerIntent = (text: string) => {
   const match = text.match(/\[site:(book|note|ask)\s+[^\]]+\]/);
   return match?.[1];
 };
 
-export const stripMarker = (text: string) =>
+const stripMarker = (text: string) =>
   text.replace(/\[site:(?:book|note|ask)\s+[^\]]+\]\n?/g, "").trim();
 
 const contentText = (content: unknown) => {
@@ -145,16 +140,6 @@ export const sessionCapsEnforced = (attributes: unknown) => {
   return true;
 };
 
-export const channelMessage = ({
-  mode,
-  text,
-  timeZone,
-}: {
-  mode: "book" | "note";
-  text: string;
-  timeZone: string;
-}) => (text.includes("[site:") ? text : `[site:${mode} ${timeZone}]\n${text}`);
-
 export const visitorZone = (texts: string[]) => {
   for (const text of texts) {
     const match = text.match(/\[site:(?:book|note|ask)\s+([^\]]+)\]/);
@@ -162,6 +147,3 @@ export const visitorZone = (texts: string[]) => {
   }
   return "";
 };
-
-export const browserTimeZone = () =>
-  new Intl.DateTimeFormat().resolvedOptions().timeZone;

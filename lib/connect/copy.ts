@@ -5,7 +5,7 @@ export const NOTE_CAP = "5 notes today. Nothing was sent.";
 
 export const CHAT_CAP = "30 messages today. The limit resets tomorrow.";
 
-export const CALENDAR_FAILED =
+const CALENDAR_FAILED =
   "The calendar did not book that time. Nothing was booked.";
 
 export const EMAIL_FAILED = "The note did not send. Nothing was sent.";
@@ -21,19 +21,10 @@ export const STORE_UNAVAILABLE_NOTE =
 export const STORE_UNAVAILABLE_CHAT =
   "The conversation is unavailable. Nothing was sent.";
 
-export const NOTE_FORM_LEAD =
-  "I'm ready to take a note. What would you like to discuss?";
-
-export const BOOK_SLOT_LEAD =
-  "Share your details and I will confirm the call on the next step.";
-
-export const STREAM_FAILED =
-  "The reply stopped. The text above is what arrived. Send again to retry.";
-
-export const CALENDAR_UNCONNECTED =
+const CALENDAR_UNCONNECTED =
   "The calendar is not connected. Open times are not available.";
 
-export const SLOTS_FAILED =
+const SLOTS_FAILED =
   "The calendar did not return open times. Nothing was booked.";
 
 export const slotsMessageForError = (error: unknown) => {

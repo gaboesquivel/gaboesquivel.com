@@ -80,7 +80,6 @@ const rules = [
 // Existing exceptions, Do not add to this list to pass a new change.
 const allowed: Record<string, string[]> = {
   "app/global.css": ["gradient fill", "zinc/gray/slate class", "second accent"],
-  "components/tweet.css": ["gradient fill", "zinc/gray/slate class"],
   "components/shared/contact-info.tsx": ["second accent"],
   "components/work/work-filter-nav.tsx": ["gradient fill"],
   "components/shared/page-layout.tsx": ["raw page title"],

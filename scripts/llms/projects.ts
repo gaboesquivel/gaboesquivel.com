@@ -1,7 +1,6 @@
 import type { Project, TechStackItem } from "gaboesquivel";
 import {
   experience,
-  getProjectBySlug,
   getTechStackBySlug,
   projects,
   techStack,

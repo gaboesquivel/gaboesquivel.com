@@ -26,20 +26,8 @@ const blogTechRedirects = techStack.flatMap((tech) => [
   },
 ]);
 
-const genuiFixtureRewrites =
-  process.env.GENUI_FIXTURE_LAB === "1"
-    ? [
-        {
-          destination: "/genui-lab/fixtures/:fixtureId",
-          source: "/__genui__/fixtures/:fixtureId",
-        },
-      ]
-    : [];
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // The GenUI fixture lab runs beside `bun run dev` with its own build dir.
-  distDir: process.env.NEXT_DIST_DIR || ".next",
   allowedDevOrigins: [
     "gaboesquivel.localhost",
     "*.gaboesquivel.localhost",
@@ -50,17 +38,12 @@ const nextConfig = {
     imageSizes: [32, 48, 64, 96, 128, 256, 384, 448, 512],
   },
   transpilePackages: [
-    "@modelcontextprotocol/client",
     "@modelcontextprotocol/core",
-    "@modelcontextprotocol/ext-apps",
     ...(isGaboesquivelLinked ? ["gaboesquivel"] : []),
   ],
   ...(isGaboesquivelLinked && {
     outputFileTracingRoot: path.join(__dirname, ".."),
   }),
-  async rewrites() {
-    return genuiFixtureRewrites;
-  },
   async redirects() {
     const baseRedirects = [
       {

@@ -1,4 +1,4 @@
-export type ComposeSpanName =
+type ComposeSpanName =
   | "composition.request"
   | "composition.route"
   | "composition.retrieve"
@@ -18,15 +18,7 @@ export interface ComposeSpanEvent {
 
 const spanListeners: ((event: ComposeSpanEvent) => void)[] = [];
 
-export const onComposeSpan = (listener: (event: ComposeSpanEvent) => void) => {
-  spanListeners.push(listener);
-  return () => {
-    const index = spanListeners.indexOf(listener);
-    if (index !== -1) spanListeners.splice(index, 1);
-  };
-};
-
-export const emitComposeSpan = (event: ComposeSpanEvent) => {
+const emitComposeSpan = (event: ComposeSpanEvent) => {
   for (const listener of spanListeners) listener(event);
   if (process.env.LANGFUSE_PUBLIC_KEY && process.env.LANGFUSE_SECRET_KEY) {
     // Optional export: failures must not affect composition.
@@ -36,7 +28,7 @@ export const emitComposeSpan = (event: ComposeSpanEvent) => {
   }
 };
 
-export interface ComposeTelemetry {
+interface ComposeTelemetry {
   cancellation?: string;
   catalogOperationTypes?: string[];
   correlationId: string;

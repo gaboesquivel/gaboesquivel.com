@@ -15,7 +15,7 @@ const APP_RESOURCE_URI = PUBLIC_MCP_APP_RESOURCE_URI;
 
 const FAILED = new Set(["error", "failed"]);
 
-export const toolResult = (name: string, result: unknown) => {
+const toolResult = (name: string, result: unknown) => {
   const payload = result as Record<string, unknown> & {
     message?: string;
     status?: string;
@@ -43,7 +43,7 @@ const humanError = (error: unknown, correlationId: string) => {
   return `The tool failed. Try again. Reference ${correlationId}.`;
 };
 
-export const createPublicMcpServer = ({ ip }: { ip: string }) => {
+const createPublicMcpServer = ({ ip }: { ip: string }) => {
   const server = new McpServer(
     { name: "gaboesquivel", version: "2.0.0" },
     {

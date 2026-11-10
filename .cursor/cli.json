@@ -15,8 +15,7 @@
       "Shell(vercel:env pull *)",
       "Shell(bun:run lint)",
       "Shell(bun:run verify)",
-      "Shell(bun:run build)",
-      "Shell(bun:run test:genui:unit)"
+      "Shell(bun:run build)"
     ],
     "deny": []
   }

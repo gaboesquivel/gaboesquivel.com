@@ -9,7 +9,6 @@ import {
 } from "components/interior/split-section";
 import { PageSection, proseLink, Prose } from "components/shared/page-layout";
 import { sectionAction } from "components/shared/spacing";
-import { cn } from "lib/utils";
 import Link from "next/link";
 import type { ReactNode } from "react";
 

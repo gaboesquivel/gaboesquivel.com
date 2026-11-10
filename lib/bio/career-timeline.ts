@@ -28,5 +28,4 @@ export const careerChapters = bioChapters.map((chapter) => ({
   projectSlugs: chapter.projectSlugs,
 }));
 
-export type CareerChapter = (typeof careerChapters)[number];
 export const careerProjectSlugs = bioProjectSlugs;

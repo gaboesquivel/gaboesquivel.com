@@ -14,9 +14,7 @@ export interface JevDecision {
 const YES = 0.82;
 const NO = 0.18;
 
-export const thresholds = { domain: YES, no: NO, yes: YES };
-
-export const decisionFromScores = ({
+const decisionFromScores = ({
   domain,
   domainConfidence,
   intent,
