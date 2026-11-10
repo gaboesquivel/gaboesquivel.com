@@ -145,7 +145,7 @@ export const serializeCvPageBreaks = ({
 
   return `import type { CvKey } from "gaboesquivel";
 
-export const cvPageBreaks: Record<CvKey, string[]> = {
+const cvPageBreaks: Record<CvKey, string[]> = {
 ${body}
 };
 

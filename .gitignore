@@ -9,6 +9,9 @@
 /.next/
 /out/
 
+# eve production output (eve build)
+/.output/
+
 # production
 /build
 
