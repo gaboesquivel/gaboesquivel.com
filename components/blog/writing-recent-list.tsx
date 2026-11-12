@@ -1,5 +1,5 @@
 import { WritingPostsSection } from "components/blog/writing-posts-section";
-import type { Blog } from "lib/blog";
+import type { BlogCard } from "lib/blog-cards";
 import type { ReactNode } from "react";
 
 export function WritingRecentList({
@@ -8,7 +8,7 @@ export function WritingRecentList({
   title = "Recent writing",
   action,
 }: {
-  posts: Blog[];
+  posts: BlogCard[];
   className?: string;
   title?: string;
   action?: ReactNode;

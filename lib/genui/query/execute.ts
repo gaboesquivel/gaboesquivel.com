@@ -141,18 +141,29 @@ const postRows = (): DataRow[] =>
     },
   }));
 
-const rowsFor = (dataset: QueryDatasetName) =>
-  dataset === "projects" ? projectRows() : postRows();
+/** Published content is static per deployment, so each dataset is built once. */
+const rowCache = new Map<QueryDatasetName, readonly DataRow[]>();
+
+const rowsFor = (dataset: QueryDatasetName): readonly DataRow[] => {
+  let rows = rowCache.get(dataset);
+  if (!rows) {
+    rows = dataset === "projects" ? projectRows() : postRows();
+    rowCache.set(dataset, rows);
+  }
+  return rows;
+};
 
 /** "Recent" is the newest few years in the data, so the application owns it. */
 const RECENT_YEARS = 3;
 
+const yearOf = (row: DataRow) => {
+  const year = row.fields.year;
+  return typeof year === "number" ? year : null;
+};
+
 const newestYear = (rows: readonly DataRow[]) => {
   let newest = 0;
-  for (const row of rows) {
-    const year = row.fields.year;
-    if (typeof year === "number") newest = Math.max(newest, year);
-  }
+  for (const row of rows) newest = Math.max(newest, yearOf(row) ?? 0);
   return newest;
 };
 
@@ -162,11 +173,6 @@ const valuesOf = (raw: FieldValue | undefined): string[] => {
   if (raw === null || raw === undefined) return [];
   if (Array.isArray(raw)) return raw;
   return [String(raw)];
-};
-
-const yearOf = (row: DataRow) => {
-  const year = row.fields.year;
-  return typeof year === "number" ? year : null;
 };
 
 const matchesFilter = ({
@@ -223,9 +229,10 @@ const matchesAll = ({
 }) =>
   filters.every((filter) => {
     const def = findField(dataset, filter.field);
+    if (!def) return false;
     // A flag has one meaning, so any op the model picked is read as equals.
-    if (def?.type !== "flag" && !def?.ops.includes(filter.op)) return false;
-    return def ? matchesFilter({ def, filter, newest, row }) : false;
+    if (def.type !== "flag" && !def.ops.includes(filter.op)) return false;
+    return matchesFilter({ def, filter, newest, row });
   });
 
 type QueryCheck = { ok: true } | { ok: false; reason: string };
@@ -282,13 +289,15 @@ const columnsFor = (dataset: QueryDatasetName): DatasetColumn[] => {
   return columns;
 };
 
-const datasetColumns = (name: QuerySpec["dataset"]): DatasetColumn[] =>
-  name === "overview"
-    ? [
-        { key: "label", label: "Measure", type: "text" },
-        { key: "value", label: "Value", type: "number" },
-      ]
-    : columnsFor(name);
+/** Rows of a dataset that pass every filter. */
+const filterRows = (
+  dataset: QueryDatasetName,
+  filters: readonly QueryFilter[]
+) => {
+  const all = rowsFor(dataset);
+  const newest = newestYear(all);
+  return all.filter((row) => matchesAll({ dataset, filters, newest, row }));
+};
 
 /**
  * A verbatim excerpt of the first source unit containing the needle, at most
@@ -336,13 +345,8 @@ const overviewDataset = ({
   filters: QuerySpec["filters"];
   id: string;
 }): GenuiDataset => {
-  const apply = (dataset: QueryDatasetName) => {
-    const all = rowsFor(dataset);
-    const newest = newestYear(all);
-    return all.filter((row) => matchesAll({ dataset, filters, newest, row }));
-  };
-  const rows = apply("projects");
-  const posts = apply("posts");
+  const rows = filterRows("projects", filters);
+  const posts = filterRows("posts", filters);
   const technologies = new Set(
     rows.flatMap((row) => valuesOf(row.fields.technology))
   );
@@ -352,7 +356,10 @@ const overviewDataset = ({
   });
   const span = years.length ? Math.max(...years) - Math.min(...years) + 1 : 0;
   return {
-    columns: datasetColumns("overview"),
+    columns: [
+      { key: "label", label: "Measure", type: "text" },
+      { key: "value", label: "Value", type: "number" },
+    ],
     id,
     recordIds: [...rows, ...posts].map((row) => row.recordId),
     rows: [
@@ -381,11 +388,7 @@ export const executeQuery = ({
     return overviewDataset({ filters: spec.filters, id });
   }
   const dataset = spec.dataset;
-  const base = rowsFor(dataset);
-  const newest = newestYear(base);
-  const filtered = base.filter((row) =>
-    matchesAll({ dataset, filters: spec.filters, newest, row })
-  );
+  const filtered = filterRows(dataset, spec.filters);
   const limit = spec.limit ?? GENUI_MAX_DATASET_ROWS;
   const noun = dataset === "projects" ? "Projects" : "Posts";
 

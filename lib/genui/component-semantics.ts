@@ -2,7 +2,7 @@ import { missingComparisonValue } from "./comparison-dimensions";
 import type { PublicRecord } from "./envelope";
 import type { ExperienceName } from "./experience-contract";
 
-export type CompositionRelationship =
+type CompositionRelationship =
   | "explanation-then-evidence"
   | "comparison-then-interpretation"
   | "primary-with-support"

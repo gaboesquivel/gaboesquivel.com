@@ -1,5 +1,5 @@
 import { cardArrow, editorialLink } from "components/shared/spacing";
-import type { Blog } from "lib/blog";
+import type { BlogCard } from "lib/blog-cards";
 import { cn, formatBlogListDate } from "lib/utils";
 import Link from "next/link";
 
@@ -8,7 +8,7 @@ export function EditorialBlogList({
   posts,
   className,
 }: {
-  posts: Blog[];
+  posts: BlogCard[];
   className?: string;
 }) {
   return (

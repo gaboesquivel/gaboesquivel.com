@@ -1,11 +1,12 @@
 import type { composeSearchSections } from "./compose-search";
 import type { PublicRecord } from "./envelope";
+import { projectSlugFromPublicId } from "./project-from-id";
 
 export const sectionToRecord = (
   item: ReturnType<typeof composeSearchSections>[number]
 ): PublicRecord | null => {
   if (item.kind === "project") {
-    const slug = item.id.replace("/project/", "");
+    const slug = projectSlugFromPublicId(item.id);
     return {
       description: item.excerpt,
       id: item.id,

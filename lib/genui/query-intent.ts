@@ -5,6 +5,7 @@ import {
   answerDocument,
   bookingDocument,
   capabilityShowcaseDocument,
+  limitationDocument,
   projectDocument,
   stackDocument,
   writingDocument,
@@ -92,36 +93,25 @@ export const safetyDocument = ({
     const body = isOutOfScopeRealtime(trimmed)
       ? "I do not have live weather or market data on this site. Browse /work, /cv, or /contact for published work and ways to reach me."
       : "I can only use published site content and approved flows here. Browse /work, /cv, or /contact, or use the contact and booking forms when you are ready.";
-    return answerDocument({
-      body,
-      records: [],
-      requestId,
-      sourceIds: [],
-    });
+    return limitationDocument(body, requestId);
   }
   if (isEmptyIntentNoise(trimmed)) {
-    return answerDocument({
-      body: "Your message was very short. Try asking about AI or Web3 projects, latest writing, my CV, booking a call, or sending a note.",
-      records: [],
-      requestId,
-      sourceIds: [],
-    });
+    return limitationDocument(
+      "Your message was very short. Try asking about AI or Web3 projects, latest writing, my CV, booking a call, or sending a note.",
+      requestId
+    );
   }
   if (wantsQuantum(trimmed)) {
-    return answerDocument({
-      body: "No published quantum computing projects are listed on this site. Browse /work for the full public portfolio.",
-      records: [],
-      requestId,
-      sourceIds: [],
-    });
+    return limitationDocument(
+      "No published quantum computing projects are listed on this site. Browse /work for the full public portfolio.",
+      requestId
+    );
   }
   if (wantsUnpublished(trimmed) || wantsFabrication(trimmed)) {
-    return answerDocument({
-      body: "I only share published projects and writing from this site. I will not invent or disclose unpublished work.",
-      records: [],
-      requestId,
-      sourceIds: [],
-    });
+    return limitationDocument(
+      "I only share published projects and writing from this site. I will not invent or disclose unpublished work.",
+      requestId
+    );
   }
   return null;
 };
@@ -148,12 +138,10 @@ export const composeIntentDocument = ({
       project.tech.some((tag) => tag.toLowerCase().includes("typescript"))
     );
     if (!matched.length) {
-      return answerDocument({
-        body: "No projects with verified TypeScript metadata matched that filter. Browse /work for the public catalog.",
-        records: [],
-        requestId,
-        sourceIds: [],
-      });
+      return limitationDocument(
+        "No projects with verified TypeScript metadata matched that filter. Browse /work for the public catalog.",
+        requestId
+      );
     }
     const records = matched.map(projectToPublicRecord);
     const projectIds = records.map((record) => record.id);

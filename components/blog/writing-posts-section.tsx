@@ -1,7 +1,7 @@
 import { EditorialBlogList } from "components/blog/editorial-blog-list";
 import { PageSection } from "components/shared/page-layout";
 import { sectionGap } from "components/shared/spacing";
-import type { Blog } from "lib/blog";
+import type { BlogCard } from "lib/blog-cards";
 import { cn } from "lib/utils";
 import type { ReactNode } from "react";
 
@@ -12,7 +12,7 @@ export function WritingPostsSection({
   action,
   className,
 }: {
-  posts: Blog[];
+  posts: BlogCard[];
   title: ReactNode;
   action?: ReactNode;
   className?: string;

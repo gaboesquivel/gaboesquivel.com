@@ -7,6 +7,7 @@ import {
   childExpressionsFromOpenUi,
   contactDocument,
   cvDocument,
+  limitationDocument,
   projectDocument,
   stackDocument,
   timelineDocument,
@@ -19,7 +20,6 @@ import {
   comparisonDimensionsInText,
 } from "./comparison-dimensions";
 import { componentSemantics } from "./component-semantics";
-import type { CompositionRelationship } from "./component-semantics";
 import { postRecord, profileRecord, publishedPosts } from "./content-records";
 import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { cvPublicRecord, projectToPublicRecord } from "./public-records";
@@ -30,37 +30,9 @@ import { validateCompositionEnvelope } from "./validate-envelope";
 import { writingForTopic } from "./writing-topic";
 
 interface PlannedComposition {
-  bindings: {
-    relationship: CompositionRelationship;
-    taskId: string;
-  }[];
   envelope: CompositionEnvelope;
   executions: CatalogExecution[];
 }
-
-const relationshipFor = (task: PlannedTask): CompositionRelationship => {
-  if (task.presentation === "concise-fact") return "concise-fact";
-  if (
-    task.presentation === "comparison" ||
-    task.presentation === "comparison-then-interpretation"
-  ) {
-    return "comparison-then-interpretation";
-  }
-  if (task.presentation === "explanation-then-evidence") {
-    return "explanation-then-evidence";
-  }
-  if (task.presentation === "primary-with-support")
-    return "primary-with-support";
-  if (task.presentation === "timeline") return "chronology";
-  if (
-    task.kind === "cv" ||
-    task.kind === "booking" ||
-    task.kind === "contact"
-  ) {
-    return "evidence-then-action";
-  }
-  return "primary-with-support";
-};
 
 const compositeFor = (list: Project[]) =>
   list.length > 8
@@ -70,13 +42,15 @@ const compositeFor = (list: Project[]) =>
         projects: list,
       });
 
-const limitation = (body: string, requestId: string) =>
-  answerDocument({
-    body,
-    records: [],
-    requestId,
-    sourceIds: [],
-  });
+interface TaskDocuments {
+  documents: CompositionEnvelope[];
+  execution: CatalogExecution | null;
+}
+
+const single = (
+  document: CompositionEnvelope,
+  execution: CatalogExecution | null = null
+): TaskDocuments => ({ documents: [document], execution });
 
 const taskDocuments = ({
   requestId,
@@ -84,25 +58,20 @@ const taskDocuments = ({
 }: {
   requestId: string;
   task: PlannedTask;
-}): {
-  documents: CompositionEnvelope[];
-  execution: CatalogExecution | null;
-} => {
+}): TaskDocuments => {
+  const limit = (body: string, execution: CatalogExecution | null = null) =>
+    single(limitationDocument(body, requestId), execution);
+
   if (task.kind === "count") {
     const execution = executeTaskFilter({
       filter: task.filter,
       operationType: "count",
     });
     if (execution.blocked) {
-      return {
-        documents: [
-          limitation(
-            "I cannot count that condition against the published catalog, so I am not substituting the full portfolio.",
-            requestId
-          ),
-        ],
-        execution,
-      };
+      return limit(
+        "I cannot count that condition against the published catalog, so I am not substituting the full portfolio.",
+        execution
+      );
     }
     const slice = task.filter.domains.length
       ? ` in the ${task.filter.domains.join(" and ")} slice`
@@ -112,17 +81,15 @@ const taskDocuments = ({
       title: "Browse all work",
       url: `${siteOrigin}/work`,
     });
-    return {
-      documents: [
-        answerDocument({
-          body: `The published portfolio documents ${execution.matchedCount} projects${slice}. That is what this site records, not a lifetime total or a count of independently founded products.`,
-          records: [work],
-          requestId,
-          sourceIds: [work.id],
-        }),
-      ],
-      execution,
-    };
+    return single(
+      answerDocument({
+        body: `The published portfolio documents ${execution.matchedCount} projects${slice}. That is what this site records, not a lifetime total or a count of independently founded products.`,
+        records: [work],
+        requestId,
+        sourceIds: [work.id],
+      }),
+      execution
+    );
   }
 
   if (task.kind === "projects" || task.kind === "compare") {
@@ -134,15 +101,10 @@ const taskDocuments = ({
           : "filter",
     });
     if (task.filter.unresolved.length || execution.blocked) {
-      return {
-        documents: [
-          limitation(
-            "I cannot filter the catalog by that condition, so I am not showing an unfiltered list in its place.",
-            requestId
-          ),
-        ],
-        execution,
-      };
+      return limit(
+        "I cannot filter the catalog by that condition, so I am not showing an unfiltered list in its place.",
+        execution
+      );
     }
     if (
       task.kind === "compare" &&
@@ -188,37 +150,22 @@ const taskDocuments = ({
             `${entry.domain}: ${entry.count} published portfolio records`
         )
         .join(". ");
-      return {
-        documents: [
-          limitation(
-            `This compares published catalog slices, not a ranking. ${counts}. ${catalogScope}`,
-            requestId
-          ),
-        ],
-        execution,
-      };
+      return limit(
+        `This compares published catalog slices, not a ranking. ${counts}. ${catalogScope}`,
+        execution
+      );
     }
     if (task.kind === "compare") {
-      return {
-        documents: [
-          limitation(
-            "I can compare two or three published projects when those names resolve, or two catalog slices such as AI and fintech. I am not widening this to the whole portfolio.",
-            requestId
-          ),
-        ],
-        execution,
-      };
+      return limit(
+        "I can compare two or three published projects when those names resolve, or two catalog slices such as AI and fintech. I am not widening this to the whole portfolio.",
+        execution
+      );
     }
     if (!execution.projects.length) {
-      return {
-        documents: [
-          limitation(
-            `0 published portfolio records match this request. ${catalogScope}`,
-            requestId
-          ),
-        ],
-        execution,
-      };
+      return limit(
+        `0 published portfolio records match this request. ${catalogScope}`,
+        execution
+      );
     }
     const records = execution.projects.map(projectToPublicRecord);
     const project = projectDocument({
@@ -247,49 +194,37 @@ const taskDocuments = ({
   }
 
   if (task.kind === "cv") {
-    return {
-      documents: [cvDocument({ record: cvPublicRecord(), requestId })],
-      execution: null,
-    };
+    return single(cvDocument({ record: cvPublicRecord(), requestId }));
   }
   if (task.kind === "timeline") {
-    return {
-      documents: [timelineDocument({ requestId })],
-      execution: null,
-    };
+    return single(timelineDocument({ requestId }));
   }
   if (task.kind === "booking") {
-    return {
-      documents: [
-        bookingDocument({
-          records: [
-            profileRecord({
-              title: "Book a call",
-              url: `${siteOrigin}/contact`,
-            }),
-          ],
-          requestId,
-        }),
-      ],
-      execution: null,
-    };
+    return single(
+      bookingDocument({
+        records: [
+          profileRecord({
+            title: "Book a call",
+            url: `${siteOrigin}/contact`,
+          }),
+        ],
+        requestId,
+      })
+    );
   }
   if (task.kind === "contact") {
-    return {
-      documents: [
-        contactDocument({
-          records: [
-            profileRecord({
-              id: "/contact",
-              title: "Contact",
-              url: `${siteOrigin}/contact`,
-            }),
-          ],
-          requestId,
-        }),
-      ],
-      execution: null,
-    };
+    return single(
+      contactDocument({
+        records: [
+          profileRecord({
+            id: "/contact",
+            title: "Contact",
+            url: `${siteOrigin}/contact`,
+          }),
+        ],
+        requestId,
+      })
+    );
   }
   if (task.kind === "writing") {
     const posts = publishedPosts()
@@ -304,63 +239,37 @@ const taskDocuments = ({
       )
       .slice(0, task.filter.limit ?? 4);
     if (!posts.length) {
-      return {
-        documents: [
-          limitation("No published post matches that request.", requestId),
-        ],
-        execution: null,
-      };
+      return limit("No published post matches that request.");
     }
     const records = posts.map(postRecord);
-    return {
-      documents: [
-        writingDocument({
-          composite: "dated-row",
-          postIds: records.map((record) => record.id),
-          records,
-          requestId,
-        }),
-      ],
-      execution: null,
-    };
+    return single(
+      writingDocument({
+        composite: "dated-row",
+        postIds: records.map((record) => record.id),
+        records,
+        requestId,
+      })
+    );
   }
 
   if (task.closedLimitation && prideClause.test(task.purpose)) {
-    return {
-      documents: [
-        limitation(
-          "I have not published a ranking of what I am most proud of. Featured placement is an editorial choice, and I am not treating it as a personal ranking.",
-          requestId
-        ),
-      ],
-      execution: null,
-    };
+    return limit(
+      "I have not published a ranking of what I am most proud of. Featured placement is an editorial choice, and I am not treating it as a personal ranking."
+    );
   }
   if (task.closedLimitation && incidentClause.test(task.purpose)) {
-    return {
-      documents: [
-        limitation(
-          "I have not published an account of a specific production problem and how I solved it, so I am not reconstructing one from a project title. The case studies on /work describe what each project shipped.",
-          requestId
-        ),
-      ],
-      execution: null,
-    };
+    return limit(
+      "I have not published an account of a specific production problem and how I solved it, so I am not reconstructing one from a project title. The case studies on /work describe what each project shipped."
+    );
   }
   if (task.closedLimitation && /process|agents/i.test(task.purpose)) {
     // Process questions rank process writing first.
     const posts = writingForTopic(`${task.purpose} process`);
     const lead = posts[0];
     if (!lead) {
-      return {
-        documents: [
-          limitation(
-            "I have not published a general method for developing applications with agents.",
-            requestId
-          ),
-        ],
-        execution: null,
-      };
+      return limit(
+        "I have not published a general method for developing applications with agents."
+      );
     }
     const records = posts.map(postRecord);
     return {
@@ -382,25 +291,13 @@ const taskDocuments = ({
     };
   }
   if (/\brelat/i.test(task.purpose)) {
-    return {
-      documents: [
-        limitation(
-          "I am not inferring how this writing relates to shipped work from a title or a shared topic. Where a post does not state that connection, I leave it unstated.",
-          requestId
-        ),
-      ],
-      execution: null,
-    };
+    return limit(
+      "I am not inferring how this writing relates to shipped work from a title or a shared topic. Where a post does not state that connection, I leave it unstated."
+    );
   }
-  return {
-    documents: [
-      limitation(
-        "I do not have a published passage that answers that directly, so I am not filling it in.",
-        requestId
-      ),
-    ],
-    execution: null,
-  };
+  return limit(
+    "I do not have a published passage that answers that directly, so I am not filling it in."
+  );
 };
 
 const dedupeProjectExpressions = (documents: CompositionEnvelope[]) => {
@@ -440,11 +337,7 @@ export const composePlannedDocument = ({
   tasks: PlannedTask[];
 }): PlannedComposition | null => {
   if (!tasks.length) return null;
-  const rendered = tasks.map((task) => ({
-    relationship: relationshipFor(task),
-    task,
-    ...taskDocuments({ requestId, task }),
-  }));
+  const rendered = tasks.map((task) => taskDocuments({ requestId, task }));
   const documents = dedupeProjectExpressions(
     rendered.flatMap((item) => item.documents)
   ).filter(
@@ -477,24 +370,16 @@ export const composePlannedDocument = ({
           records,
           requestId,
         });
-  if (!envelope) return null;
-  const validated = validateCompositionEnvelope({ envelope });
-  if (!validated.ok) {
-    const safe = limitation(
-      "I could not assemble the complete response.",
-      requestId
-    );
+  if (!validateCompositionEnvelope({ envelope }).ok) {
     return {
-      bindings: [],
-      envelope: safe,
+      envelope: limitationDocument(
+        "I could not assemble the complete response.",
+        requestId
+      ),
       executions: [],
     };
   }
   return {
-    bindings: rendered.map((item) => ({
-      relationship: item.relationship,
-      taskId: item.task.id,
-    })),
     envelope,
     executions: rendered.flatMap((item) =>
       item.execution ? [item.execution] : []

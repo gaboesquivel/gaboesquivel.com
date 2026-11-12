@@ -3,17 +3,14 @@ import { comparePublishedAtDesc } from "lib/blog-order";
 import type { BrowseCategory } from "lib/blog-taxonomy";
 import { postMatchesBrowseCategory } from "lib/blog-taxonomy";
 
-export const getFilteredBlogPosts = (category?: string) => {
-  let filtered = [...allBlogs];
+const postsByDate = [...allBlogs].sort(comparePublishedAtDesc);
 
-  if (category && category !== "all") {
-    filtered = filtered.filter((post) =>
-      postMatchesBrowseCategory({
-        categories: post.category,
-        slug: category as BrowseCategory,
-      })
-    );
-  }
-
-  return filtered.sort(comparePublishedAtDesc);
-};
+export const getFilteredBlogPosts = (category?: string) =>
+  category && category !== "all"
+    ? postsByDate.filter((post) =>
+        postMatchesBrowseCategory({
+          categories: post.category,
+          slug: category as BrowseCategory,
+        })
+      )
+    : [...postsByDate];

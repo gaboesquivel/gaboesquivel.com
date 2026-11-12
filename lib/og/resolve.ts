@@ -1,5 +1,6 @@
 import type { Project } from "gaboesquivel";
 import type { Blog } from "lib/blog";
+import { absoluteUrl, siteRelativePath } from "lib/site-path";
 
 import { ogHeight, ogWidth, personalOgImage } from "./constants";
 
@@ -7,17 +8,13 @@ const blogOgImagePath = (slug: string) => `/images/og/blog/${slug}.png`;
 
 const projectOgImagePath = (slug: string) => `/images/og/projects/${slug}.png`;
 
-const absolute = (url: string, siteOrigin: string) =>
-  url.startsWith("http") ? url : `${siteOrigin}${url}`;
-
 /** Frontmatter `ogImage` wins; otherwise the generated title card. */
 export const blogOgMetadataImages = ({
   slug,
   ogImage,
-  siteOrigin,
-}: Pick<Blog, "slug"> & { ogImage?: string; siteOrigin: string }) => [
+}: Pick<Blog, "slug"> & { ogImage?: string }) => [
   {
-    url: absolute(ogImage || blogOgImagePath(slug), siteOrigin),
+    url: absoluteUrl(ogImage || blogOgImagePath(slug)),
     width: ogWidth,
     height: ogHeight,
     alt: "Article preview",
@@ -28,25 +25,18 @@ export const blogOgMetadataImages = ({
 export const projectOgMetadataImages = ({
   slug,
   image,
-  siteOrigin,
-}: Pick<Project, "slug" | "image"> & { siteOrigin: string }) => [
+}: Pick<Project, "slug" | "image">) => [
   image?.trim()
     ? {
-        url: `${siteOrigin}${projectOgImagePath(slug)}`,
+        url: absoluteUrl(projectOgImagePath(slug)),
         width: ogWidth,
         height: ogHeight,
         alt: "Project preview",
       }
-    : { ...personalOgImage, url: `${siteOrigin}${personalOgImage.url}` },
+    : { ...personalOgImage, url: absoluteUrl(personalOgImage.url) },
 ];
 
-export const projectOgPublicSourcePath = ({
-  image,
-  siteOrigin,
-}: {
-  image: string;
-  siteOrigin: string;
-}) => {
-  const relative = image.replace(siteOrigin, "");
+export const projectOgPublicSourcePath = ({ image }: { image: string }) => {
+  const relative = siteRelativePath(image);
   return relative.startsWith("/") ? `public${relative}` : `public/${relative}`;
 };

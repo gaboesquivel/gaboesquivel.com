@@ -22,13 +22,17 @@ const assistantOfferedCall = (text: string) =>
     text
   );
 
-const markerIntent = (text: string) => {
-  const match = text.match(/\[site:(book|note|ask)\s+[^\]]+\]/);
-  return match?.[1];
-};
+/** `[site:<intent> <visitor time zone>]`, prepended to a turn by the site UI. */
+const SITE_MARKER = /\[site:(book|note|ask)\s+([^\]]+)\]\n?/;
+const SITE_MARKERS = new RegExp(SITE_MARKER.source, "g");
 
-const stripMarker = (text: string) =>
-  text.replace(/\[site:(?:book|note|ask)\s+[^\]]+\]\n?/g, "").trim();
+const markerIntent = (text: string) => text.match(SITE_MARKER)?.[1];
+
+/** The turn text with every site marker removed (not trimmed). */
+export const stripSiteMarkers = (text: string) =>
+  text.replace(SITE_MARKERS, "");
+
+const stripMarker = (text: string) => stripSiteMarkers(text).trim();
 
 const contentText = (content: unknown) => {
   if (typeof content === "string") return content;
@@ -142,8 +146,8 @@ export const sessionCapsEnforced = (attributes: unknown) => {
 
 export const visitorZone = (texts: string[]) => {
   for (const text of texts) {
-    const match = text.match(/\[site:(?:book|note|ask)\s+([^\]]+)\]/);
-    if (match?.[1]) return match[1];
+    const zone = text.match(SITE_MARKER)?.[2];
+    if (zone) return zone;
   }
   return "";
 };

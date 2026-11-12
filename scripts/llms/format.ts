@@ -1,16 +1,8 @@
-import { siteOrigin } from "../../lib/site-path";
+import { absoluteUrl, siteOrigin } from "../../lib/site-path";
 
 export const BASE_URL = siteOrigin;
 
-export const absoluteUrl = (href: string) => {
-  if (href.startsWith("http://") || href.startsWith("https://")) {
-    return href;
-  }
-  if (href.startsWith("/")) {
-    return `${BASE_URL}${href}`;
-  }
-  return `${BASE_URL}/${href}`;
-};
+export { absoluteUrl } from "../../lib/site-path";
 
 export const rewriteLinks = (text: string) =>
   text.replaceAll(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_, label, path) => {

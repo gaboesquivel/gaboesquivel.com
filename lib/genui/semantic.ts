@@ -1,7 +1,7 @@
 import { generateText } from "ai";
 
 import { resolveChatModel } from "../ai/resolve-chat-model";
-import { answerDocument } from "./builders";
+import { limitationDocument } from "./builders";
 import {
   componentSemantics,
   compositionRelationships,
@@ -65,12 +65,10 @@ export const generateSemanticDocument = async ({
   if (signal?.aborted) return null;
   if (!records.length) {
     return {
-      envelope: answerDocument({
-        body: "I do not have enough on-site evidence for that question. Browse /work, /cv, or /contact.",
-        records: [],
-        requestId,
-        sourceIds: [],
-      }),
+      envelope: limitationDocument(
+        "I do not have enough on-site evidence for that question. Browse /work, /cv, or /contact.",
+        requestId
+      ),
       modelCalls: 0,
       recovered: true,
     };

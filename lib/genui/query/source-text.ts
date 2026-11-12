@@ -2,6 +2,13 @@ import { projects } from "gaboesquivel";
 
 import { postRecord, publishedPosts } from "../content-records";
 
+const projectsById = new Map(
+  projects.map((project) => [`/project/${project.slug}`, project])
+);
+const postsById = new Map(
+  publishedPosts().map((post) => [postRecord(post).id, post])
+);
+
 /**
  * The published text a record's excerpt fields quote. The executor builds
  * excerpts from it and the compiler re-reads it to prove each excerpt is a
@@ -15,18 +22,14 @@ export const sourceUnits = ({
   recordId: string;
 }): string[] => {
   if (recordId.startsWith("/project/")) {
-    const project = projects.find(
-      (item) => `/project/${item.slug}` === recordId
-    );
+    const project = projectsById.get(recordId);
     if (!project) return [];
     if (field === "story") return [...project.story];
     if (field === "achievements") return [...project.achievements];
     return [];
   }
   if (recordId.startsWith("/blog/") && field === "summary") {
-    const post = publishedPosts().find(
-      (item) => postRecord(item).id === recordId
-    );
+    const post = postsById.get(recordId);
     return post?.summary ? [post.summary] : [];
   }
   return [];

@@ -41,15 +41,19 @@ const topicsOf = (text: string) => {
  * Requires at least two matching topics, so a single shared word is not
  * treated as an answer.
  */
+const postWords = publishedPosts().map((post) => ({
+  haystack: [
+    ...(post.title.toLowerCase().match(/[a-z]+/g) ?? []),
+    ...(post.summary?.toLowerCase().match(/[a-z]+/g) ?? []),
+  ],
+  post,
+}));
+
 export const writingForTopic = (text: string, limit = 3) => {
   const topics = topicsOf(text);
   if (!topics.length) return [];
-  return publishedPosts()
-    .map((post) => {
-      const haystack: string[] = [
-        ...(post.title.toLowerCase().match(/[a-z]+/g) ?? []),
-        ...(post.summary?.toLowerCase().match(/[a-z]+/g) ?? []),
-      ];
+  return postWords
+    .map(({ haystack, post }) => {
       const score = new Set(
         topics
           .filter((terms) =>

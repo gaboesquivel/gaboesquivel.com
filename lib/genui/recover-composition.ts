@@ -1,6 +1,6 @@
 import {
-  answerDocument,
   childExpressionsFromOpenUi,
+  limitationDocument,
   stackDocument,
 } from "./builders";
 import { composePlannedDocument } from "./compose-planned";
@@ -9,14 +9,6 @@ import type { CompositionEnvelope, PublicRecord } from "./envelope";
 import { assessTaskCoverage } from "./task-plan";
 import type { PlannedTask } from "./task-plan";
 import { validateCompositionEnvelope } from "./validate-envelope";
-
-const safeAnswer = ({ body, requestId }: { body: string; requestId: string }) =>
-  answerDocument({
-    body,
-    records: [],
-    requestId,
-    sourceIds: [],
-  });
 
 const asChildren = (envelope: CompositionEnvelope) =>
   childExpressionsFromOpenUi(envelope.openuiText).flatMap((expression) => {
@@ -57,7 +49,7 @@ const stackOf = ({
   requestId: string;
 }) => {
   const limited = documents.slice(0, GENUI_MAX_STACK_CHILDREN);
-  if (!limited.length) return safeAnswer({ body: fallbackText, requestId });
+  if (!limited.length) return limitationDocument(fallbackText, requestId);
   return stackDocument({
     childExpressions: limited.flatMap((document) =>
       childExpressionsFromOpenUi(document.openuiText)
@@ -118,15 +110,11 @@ export const recoverComposition = ({
     requestId,
   });
   if (validateCompositionEnvelope({ envelope }).ok) return envelope;
+  // A planned composition is either validated or a fixed limitation.
   const planned = composePlannedDocument({ requestId, tasks });
-  if (
-    planned &&
-    validateCompositionEnvelope({ envelope: planned.envelope }).ok
-  ) {
-    return planned.envelope;
-  }
-  return safeAnswer({
-    body: "I could not assemble the complete response.",
-    requestId,
-  });
+  if (planned) return planned.envelope;
+  return limitationDocument(
+    "I could not assemble the complete response.",
+    requestId
+  );
 };

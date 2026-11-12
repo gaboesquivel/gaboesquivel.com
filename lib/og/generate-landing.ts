@@ -16,6 +16,28 @@ const portraitOgHeight = 560;
 /** Homepage H1 (`app/page.tsx`); the personal card at `/og`. */
 export const homeHeadline = "Software for humans and agents.";
 
+/** The resized portrait is the same on every card; decode and resize it once per root. */
+const portraitCache = new Map<string, Promise<Buffer>>();
+
+const resizedPortrait = ({
+  height,
+  root,
+  width,
+}: {
+  height: number;
+  root: string;
+  width: number;
+}) => {
+  let portrait = portraitCache.get(root);
+  if (!portrait) {
+    portrait = sharp(path.join(root, "public", portraitSrc))
+      .resize({ width, height, fit: "fill" })
+      .toBuffer();
+    portraitCache.set(root, portrait);
+  }
+  return portrait;
+};
+
 /** Portrait card: page headline on the left, homepage portrait on the right. */
 export const landingOgPng = async ({
   root,
@@ -29,9 +51,7 @@ export const landingOgPng = async ({
   const left = ogWidth - width;
   const top = Math.round((ogHeight - height) / 2);
 
-  const portrait = await sharp(path.join(root, "public", portraitSrc))
-    .resize({ width, height, fit: "fill" })
-    .toBuffer();
+  const portrait = await resizedPortrait({ height, root, width });
   const overlay = Buffer.from(
     `<svg width="${width}" height="${height}" viewBox="0 0 ${portraitWidth} ${portraitHeight}" xmlns="http://www.w3.org/2000/svg">${portraitOverlaySvg()}</svg>`
   );

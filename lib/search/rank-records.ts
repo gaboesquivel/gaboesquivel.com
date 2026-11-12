@@ -54,6 +54,13 @@ const eligible = (record: SearchRecord, query: string) => {
   );
 };
 
+/** Stable identity so the ranker's per-record cache hits across calls. */
+const searchFields = (record: SearchRecord) => ({
+  keywords: [...(record.keywords ?? []), ...pathKeywords(record.href)],
+  text: record.description,
+  title: record.title,
+});
+
 /** Records ranked by the shared ranker, with scores (best first). */
 export const rankSearchMatches = <R extends SearchRecord>(
   records: readonly R[],
@@ -69,13 +76,9 @@ export const rankSearchMatches = <R extends SearchRecord>(
   // Several records can share a page (every CV role links to /cv); keep the
   // best-ranked one per href so a match list never repeats a destination.
   const seen = new Set<string>();
-  const unique = rankByKeywords({
+  const unique = rankByKeywords<R>({
     boost: (record) => kindBoost[record.kind ?? kindOfPath(record.href)],
-    fields: (record) => ({
-      keywords: [...(record.keywords ?? []), ...pathKeywords(record.href)],
-      text: record.description,
-      title: record.title,
-    }),
+    fields: searchFields,
     items: records.filter((record) => eligible(record, query)),
     match,
     query,

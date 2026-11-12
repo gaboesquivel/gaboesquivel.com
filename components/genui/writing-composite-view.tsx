@@ -3,7 +3,7 @@
 import { EditorialBlogList } from "components/blog/editorial-blog-list";
 import { WritingFeaturedPost } from "components/blog/writing-featured-post";
 import { WritingRecentList } from "components/blog/writing-recent-list";
-import { allBlogs } from "lib/blog";
+import { allBlogCards } from "lib/blog-cards";
 import type { CompositeName } from "lib/genui/composites";
 
 export const WritingCompositeView = ({
@@ -15,7 +15,7 @@ export const WritingCompositeView = ({
 }) => {
   const posts = postIds.flatMap((id) => {
     const slug = id.replace("/blog/", "");
-    const blog = allBlogs.find((post) => post.slug === slug);
+    const blog = allBlogCards.find((post) => post.slug === slug);
     return blog ? [blog] : [];
   });
 

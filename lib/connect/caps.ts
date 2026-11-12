@@ -48,7 +48,9 @@ export const digest = (value: string) =>
 export const denverDay = (now: Date) =>
   zonedDate({ instant: now, timeZone: DENVER });
 
+/** This instance's chat counts for the current Denver day; reset when the day turns. */
 const localCounts = new Map<string, number>();
+let localCountsDay = "";
 const inflight = new Map<string, Promise<{ message: string; ok: boolean }>>();
 
 export const admitChat = async ({
@@ -63,7 +65,12 @@ export const admitChat = async ({
   store: CapStore | null;
 }) => {
   if (!enforce) return { message: "", ok: true };
-  const key = `connect:chat:ip:${ip}:${denverDay(now)}`;
+  const day = denverDay(now);
+  if (day !== localCountsDay) {
+    localCounts.clear();
+    localCountsDay = day;
+  }
+  const key = `connect:chat:ip:${ip}:${day}`;
   if ((localCounts.get(key) ?? 0) >= 30) {
     return { message: CHAT_CAP, ok: false };
   }

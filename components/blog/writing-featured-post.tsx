@@ -5,14 +5,14 @@ import {
   SplitSectionMedia,
 } from "components/interior/split-section";
 import { editorialLink } from "components/shared/spacing";
-import type { Blog } from "lib/blog";
+import type { BlogCard } from "lib/blog-cards";
 import { categoryDisplayNames } from "lib/blog-taxonomy";
 import { primaryBrowseCategory } from "lib/blog-trail";
 import { cn, formatBlogListDate } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-export function WritingFeaturedPost({ post }: { post: Blog }) {
+export function WritingFeaturedPost({ post }: { post: BlogCard }) {
   const category = primaryBrowseCategory({ categories: post.category });
   const categoryLabel = category
     ? categoryDisplayNames[category].toLowerCase()

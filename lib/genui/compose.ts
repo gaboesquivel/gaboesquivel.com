@@ -5,9 +5,9 @@ import { nanoid } from "nanoid";
 
 import type { CapabilityContext } from "../capabilities/types";
 import {
-  answerDocument,
   contactDocument,
   cvDocument,
+  limitationDocument,
   projectDocument,
 } from "./builders";
 import { catalogOperationDocument } from "./catalog-operation";
@@ -150,16 +150,6 @@ const documentFromDecision = ({
   return null;
 };
 
-const lastEnvelope = (events: ComposeStreamEvent[]) => {
-  for (let index = events.length - 1; index >= 0; index -= 1) {
-    const event = events[index];
-    if (event && (event.type === "complete" || event.type === "partial")) {
-      return event.envelope;
-    }
-  }
-  return null;
-};
-
 export const composeQuery = async ({
   context,
   input,
@@ -237,11 +227,12 @@ export const composeQuery = async ({
   const emitValidated = ({
     envelope,
     type,
+    validated = validateCompositionEnvelope({ envelope }),
   }: {
     envelope: CompositionEnvelope;
     type: "partial" | "complete";
+    validated?: ReturnType<typeof validateCompositionEnvelope>;
   }) => {
-    const validated = validateCompositionEnvelope({ envelope });
     if (!validated.ok) {
       parseErrors += 1;
       emit({
@@ -286,7 +277,7 @@ export const composeQuery = async ({
       });
       return;
     }
-    emitValidated({ envelope, type: "complete" });
+    emitValidated({ envelope, type: "complete", validated });
   };
 
   const result = (meta: Parameters<typeof composeMetadata>[0]) => ({
@@ -336,12 +327,7 @@ export const composeQuery = async ({
     // The fixed limitation replaces the dead end only; a request that merely
     // contained a form word continues through the existing routes.
     if (view.limitation && deadEnd) {
-      const limitation = answerDocument({
-        body: view.limitation,
-        records: [],
-        requestId,
-        sourceIds: [],
-      });
+      const limitation = limitationDocument(view.limitation, requestId);
       emitValidated({ envelope: limitation, type: "complete" });
       return result({ envelope: limitation, planningPath: "semantic" });
     }
@@ -420,7 +406,11 @@ export const composeQuery = async ({
     !requestPlan.requiresSynthesis || policyLimitation ? candidate : null;
   if (intent) {
     tier = 1;
-    emitValidated({ envelope: intent, type: "complete" });
+    emitValidated({
+      envelope: intent,
+      type: "complete",
+      validated: candidateCheck ?? undefined,
+    });
     return result({ envelope: intent });
   }
 
@@ -441,15 +431,14 @@ export const composeQuery = async ({
 
   tier = 2;
   const resolvedTaskIntent = decision?.taskIntent ?? taskIntent;
-  if (
+  const synthesize =
     resolvedTaskIntent === "explain-experience" ||
-    requestPlan.requiresSynthesis
-  ) {
+    requestPlan.requiresSynthesis;
+  if (synthesize) {
     emitStage(stageForTasks(requestPlan.tasks));
-    const evidenceRecords = retrievePlanEvidence(requestPlan);
     const semantic = await generateSemanticDocument({
       query,
-      records: evidenceRecords,
+      records: retrievePlanEvidence(requestPlan),
       requestId,
       signal,
     });
@@ -468,30 +457,25 @@ export const composeQuery = async ({
         taskIntent: resolvedTaskIntent,
       });
   if (searched) {
-    if (emitValidated({ envelope: searched, type: "partial" })) {
-      emitValidated({ envelope: searched, type: "complete" });
+    const validated = validateCompositionEnvelope({ envelope: searched });
+    if (emitValidated({ envelope: searched, type: "partial", validated })) {
+      emitValidated({ envelope: searched, type: "complete", validated });
     }
     return result({ envelope: searched });
   }
 
-  const evidenceRecords = composeSearchSections({ limit: 6, query }).flatMap(
-    (item) => {
-      const record = sectionToRecord(item);
-      return record ? [record] : [];
-    }
-  );
-  const runFallbackSemantic = !(
-    resolvedTaskIntent === "explain-experience" || requestPlan.requiresSynthesis
-  );
-  if (runFallbackSemantic) emitStage("answer");
-  const semantic = runFallbackSemantic
-    ? await generateSemanticDocument({
+  if (!synthesize) emitStage("answer");
+  const semantic = synthesize
+    ? null
+    : await generateSemanticDocument({
         query,
-        records: evidenceRecords,
+        records: composeSearchSections({ limit: 6, query }).flatMap((item) => {
+          const record = sectionToRecord(item);
+          return record ? [record] : [];
+        }),
         requestId,
         signal,
-      })
-    : null;
+      });
   if (semantic) {
     modelCalls += semantic.modelCalls;
     emitSemantic(semantic.envelope, semantic.recovered);
@@ -505,7 +489,7 @@ export const composeQuery = async ({
     type: "empty",
   });
   return result({
-    envelope: lastEnvelope(events),
+    envelope: null,
     validationOk: false,
   });
 };

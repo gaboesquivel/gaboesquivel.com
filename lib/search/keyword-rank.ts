@@ -135,6 +135,30 @@ const prepare = (fields: KeywordFields): PreparedField[] =>
   });
 
 /**
+ * Prepared fields per `fields` function and item. Callers rank the same
+ * record lists on every keystroke, so only the query terms vary per call.
+ */
+const preparedCache = new WeakMap<
+  (item: never) => KeywordFields,
+  WeakMap<object, PreparedField[]>
+>();
+
+const preparedFor = <T>(fields: (item: T) => KeywordFields, item: T) => {
+  if (typeof item !== "object" || item === null) return prepare(fields(item));
+  let byItem = preparedCache.get(fields);
+  if (!byItem) {
+    byItem = new WeakMap();
+    preparedCache.set(fields, byItem);
+  }
+  let prepared = byItem.get(item);
+  if (!prepared) {
+    prepared = prepare(fields(item));
+    byItem.set(item, prepared);
+  }
+  return prepared;
+};
+
+/**
  * Whole-word match for short terms ("ai" never matches "mail"); prefix match
  * from three characters so partial typing and plurals still hit; substring
  * match from five so compound names ("LegalAgent") still hit. Short synonyms
@@ -195,7 +219,7 @@ export const rankByKeywords = <T>({
   if (!terms.length) return [];
   const ranked = items
     .map((item, index) => {
-      const prepared = prepare(fields(item));
+      const prepared = preparedFor(fields, item);
       let matched = 0;
       let score = 0;
       for (const term of terms) {

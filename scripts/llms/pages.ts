@@ -125,11 +125,8 @@ const literalValue = (node: ts.Expression | undefined): unknown => {
       })
     );
   }
-  if (ts.isIdentifier(node) && node.text === "sections") {
-    return "sections-ref";
-  }
   if (ts.isCallExpression(node)) {
-    const callee = node.expression.getText(sourceFile);
+    const callee = node.expression.getText();
     if (callee === "cvPath" && node.arguments.length === 1) {
       const arg = literalValue(node.arguments[0]);
       if (arg && typeof arg === "object" && "key" in arg) {
@@ -278,8 +275,6 @@ const renderFeaturedTechLinks = () => {
     .join("\n");
 };
 
-let sourceFile: ts.SourceFile;
-
 const jsxChildrenToText = (
   children: readonly ts.JsxChild[],
   variables: Map<string, unknown>
@@ -288,7 +283,7 @@ const jsxChildrenToText = (
 
   for (const child of children) {
     if (ts.isJsxText(child)) {
-      const text = decodeText(child.getText(sourceFile));
+      const text = decodeText(child.getText());
       if (text) {
         parts.push(text);
       }
@@ -327,8 +322,8 @@ const jsxChildrenToText = (
     }
 
     const tagName = ts.isJsxElement(child)
-      ? child.openingElement.tagName.getText(sourceFile)
-      : child.tagName.getText(sourceFile);
+      ? child.openingElement.tagName.getText()
+      : child.tagName.getText();
 
     if (SKIP_COMPONENTS.has(tagName)) {
       continue;
@@ -377,8 +372,8 @@ const jsxNodeToMarkdown = (
 ) => {
   if (ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node)) {
     const tagName = ts.isJsxElement(node)
-      ? node.openingElement.tagName.getText(sourceFile)
-      : node.tagName.getText(sourceFile);
+      ? node.openingElement.tagName.getText()
+      : node.tagName.getText();
 
     if (pagePath === "/" && tagName === "LatestPosts") {
       lines.push("## Writing", "", renderPostLinks({ limit: 4 }), "");
@@ -686,11 +681,7 @@ const renderCapabilityPage = ({
   writingTitle?: string;
   childrenMarkdown?: string;
 }) => {
-  const lines = [
-    `# ${title}`,
-    "",
-    ...intro.flatMap((paragraph) => [paragraph, ""]),
-  ];
+  const lines = intro.flatMap((paragraph) => [paragraph, ""]);
 
   for (const section of sections) {
     lines.push(
@@ -719,7 +710,7 @@ const renderCapabilityPage = ({
     lines.push(childrenMarkdown, "");
   }
 
-  return lines.join("\n").trim();
+  return { body: lines.join("\n").trim(), title };
 };
 
 const renderCategoryGroups = (
@@ -832,7 +823,7 @@ const parsePageFile = ({
 }) => {
   const filePath = join(APP_DIR, file);
   const content = readFileSync(filePath, "utf-8");
-  sourceFile = ts.createSourceFile(
+  const sourceFile = ts.createSourceFile(
     filePath,
     content,
     ts.ScriptTarget.Latest,
@@ -844,9 +835,9 @@ const parsePageFile = ({
   const capability = parseCapabilityPage(sourceFile, variables);
   if (capability) {
     return {
+      body: rewriteLinks(capability.body),
       path,
-      title: capability.match(/^# (.+)/m)?.[1] ?? fallbackTitle ?? path,
-      body: rewriteLinks(capability.replace(/^# .+\n\n?/, "")),
+      title: capability.title,
     };
   }
 

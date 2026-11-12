@@ -1,4 +1,4 @@
-import { allBlogs } from "lib/blog";
+import { publishedPosts } from "lib/genui/content-records";
 import { siteOrigin } from "lib/site-path";
 import { isWorkType } from "lib/work-types";
 
@@ -41,14 +41,11 @@ export const listWriting = ({
     });
   }
   const category = domain ? categoryForDomain(domain) : null;
-  const posts = allBlogs
-    .filter((post) => post.publishedAt >= "2020")
-    .filter((post) =>
-      category
-        ? (post.category ?? []).some((item) => item.toLowerCase() === category)
-        : true
-    )
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  const posts = publishedPosts().filter((post) =>
+    category
+      ? (post.category ?? []).some((item) => item.toLowerCase() === category)
+      : true
+  );
   const page = paginate({ cursor, items: posts, limit });
   if ("error" in page) {
     return readResult({

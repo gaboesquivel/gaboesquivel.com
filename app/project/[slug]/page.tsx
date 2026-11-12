@@ -2,7 +2,6 @@ import { ProjectDetails } from "components/work/project";
 import { getProjectBySlug, projects } from "gaboesquivel";
 import { projectOgMetadataImages } from "lib/og/resolve";
 import { pageMetadata } from "lib/page-metadata";
-import { siteOrigin } from "lib/site-path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -39,7 +38,6 @@ export async function generateMetadata({
 
   const images = projectOgMetadataImages({
     image: project.image,
-    siteOrigin,
     slug: project.slug,
   }).map((img) => ({ ...img, alt: project.title }));
 

@@ -51,8 +51,10 @@ export const bookCall = async ({
 
   const capKey = `connect:bookings:${denverDay(now)}`;
   const releaseCap = async () => {
-    if (enforce) await store.decr(capKey);
-    await store.del(key);
+    await Promise.all([
+      ...(enforce ? [store.decr(capKey)] : []),
+      store.del(key),
+    ]);
   };
   if (enforce) {
     const count = await store.incr(capKey);

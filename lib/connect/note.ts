@@ -47,11 +47,10 @@ export const sendNote = async ({
   const emailKey = `connect:notes:email:${note.email.toLowerCase()}:${day}`;
   const ipKey = `connect:notes:ip:${ip}:${day}`;
   const release = async () => {
-    if (enforce) {
-      await store.decr(emailKey);
-      await store.decr(ipKey);
-    }
-    await store.del(key);
+    await Promise.all([
+      ...(enforce ? [store.decr(emailKey), store.decr(ipKey)] : []),
+      store.del(key),
+    ]);
   };
 
   if (enforce) {

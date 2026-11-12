@@ -1,4 +1,9 @@
-import { hireTermsLanguages, hireTermsLocationLine } from "lib/hire-terms";
+import { proseClass } from "components/shared/spacing";
+import {
+  hireTermsLanguages,
+  hireTermsLocationLine,
+  publicBookingUrl,
+} from "lib/hire-terms";
 import { Calendar, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 
@@ -42,7 +47,7 @@ export function ContactInfo({ hidden = true }) {
         </h2>
 
         <div className="cv-contact-lede">
-          <p className="prose prose-neutral dark:prose-invert">
+          <p className={proseClass}>
             Open to direct hire, international hire, or contracting through
             Blockmatic Labs LLC. Cannot work under W-2. {hireTermsLocationLine}{" "}
             Fluent in {hireTermsLanguages}.
@@ -69,7 +74,7 @@ export function ContactInfo({ hidden = true }) {
             </span>
           </Link>
           <Link
-            href="https://gaboesquivel.com/cal"
+            href={publicBookingUrl}
             className="group prose flex items-center gap-2 no-underline prose-neutral dark:prose-invert"
           >
             <Calendar className="h-4 w-4 shrink-0" />

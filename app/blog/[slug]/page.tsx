@@ -38,12 +38,9 @@ export async function generateMetadata({
   } = post;
   const images = blogOgMetadataImages({
     ogImage,
-    siteOrigin,
     slug: postSlug,
   });
-  const twitterImages = images.map((img) =>
-    img.url.startsWith("http") ? img.url : `${siteOrigin}${img.url}`
-  );
+  const twitterImages = images.map((img) => img.url);
 
   return metadataWithMarkdownAlternate({
     metadata: {

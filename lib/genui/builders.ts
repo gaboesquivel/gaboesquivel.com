@@ -1,6 +1,6 @@
-import { getProjectBySlug } from "gaboesquivel";
 import { careerChapters, careerProjectSlugs } from "lib/bio/career-timeline";
 import { siteOrigin } from "lib/site-path";
+import { projectsFromSlugs } from "lib/work/projects-from-slugs";
 
 import type { ComparisonDimension } from "./comparison-dimensions";
 import type { CompositeName } from "./composites";
@@ -62,6 +62,10 @@ export const answerDocument = ({
     records,
     requestId,
   });
+
+/** An answer that cites no records: a fixed limitation or refusal. */
+export const limitationDocument = (body: string, requestId: string) =>
+  answerDocument({ body, records: [], requestId, sourceIds: [] });
 
 export const projectDocument = ({
   composite,
@@ -230,10 +234,9 @@ export const evidenceAnswerDocument = ({
 };
 
 export const timelineDocument = ({ requestId }: { requestId: string }) => {
-  const projects = careerProjectSlugs.flatMap((slug) => {
-    const project = getProjectBySlug(slug);
-    return project ? [projectToPublicRecord(project)] : [];
-  });
+  const projects = projectsFromSlugs(careerProjectSlugs).map(
+    projectToPublicRecord
+  );
   return envelope({
     fallbackText: careerChapters
       .map(

@@ -37,8 +37,12 @@ const redisStore = ({
       return String(value);
     },
     incr: async (key) => {
-      const count = await redis.incr(key);
-      await redis.expire(key, CAP_REDIS_TTL_SECONDS);
+      // One round trip: the counter and its TTL travel in a single transaction.
+      const [count] = await redis
+        .multi()
+        .incr(key)
+        .expire(key, CAP_REDIS_TTL_SECONDS)
+        .exec<[number, number]>();
       return count;
     },
     set: async (key, value) => {

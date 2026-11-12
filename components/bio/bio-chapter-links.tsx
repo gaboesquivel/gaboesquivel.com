@@ -1,7 +1,7 @@
 import { ctaLink, editorialLink } from "components/shared/spacing";
-import { getProjectBySlug } from "gaboesquivel";
 import type { BioChapter } from "lib/bio/chapters";
 import { cn } from "lib/utils";
+import { projectsFromSlugs } from "lib/work/projects-from-slugs";
 import Link from "next/link";
 
 const actionLink = cn(ctaLink, editorialLink, "text-sm");
@@ -16,11 +16,11 @@ export function BioChapterLinks({
   groundedProjectIds?: readonly string[];
 }) {
   if (groundedProjectIds) {
-    const projects = chapter.projectSlugs.flatMap((slug) => {
-      if (!groundedProjectIds.includes(`/project/${slug}`)) return [];
-      const project = getProjectBySlug(slug);
-      return project ? [project] : [];
-    });
+    const projects = projectsFromSlugs(
+      chapter.projectSlugs.filter((slug) =>
+        groundedProjectIds.includes(`/project/${slug}`)
+      )
+    );
     if (projects.length === 0) return null;
 
     return (

@@ -6,6 +6,7 @@ import { namedProjectsInText } from "./named-projects";
 import { orderBrowseProjects } from "./project-browse";
 import { filterProjectsByDomain } from "./project-domain";
 import type { GenuiProjectDomain } from "./project-domain";
+import { projectsFromPublicIds } from "./project-from-id";
 import { projectToPublicRecord } from "./public-records";
 import type { TaskFilter } from "./task-plan";
 import {
@@ -91,11 +92,7 @@ export const executeTaskFilter = ({
 
   let matched =
     operationType === "select"
-      ? filter.namedProjectIds.flatMap((id) => {
-          const slug = id.replace(/^\/project\//, "");
-          const project = projects.find((item) => item.slug === slug);
-          return project ? [project] : [];
-        })
+      ? projectsFromPublicIds(filter.namedProjectIds)
       : filter.domains.length
         ? domainUnion(filter.domains)
         : [...projects];
@@ -280,10 +277,9 @@ export const executeCatalogOperation = (query: string) => {
       count: execution.matchedCount,
       execution,
       operation,
-      records: execution.matchedIds.flatMap((id) => {
-        const project = projects.find((item) => `/project/${item.slug}` === id);
-        return project ? [projectToPublicRecord(project)] : [];
-      }),
+      records: projectsFromPublicIds(execution.matchedIds).map(
+        projectToPublicRecord
+      ),
       scope: catalogScope,
     };
   }

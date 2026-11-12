@@ -1,6 +1,8 @@
+import { siteOrigin } from "lib/site-path";
+
 export const hireContractBlogPath = "/blog/2025-11-1099-contracting";
 
-export const publicBookingUrl = "https://gaboesquivel.com/cal";
+export const publicBookingUrl = `${siteOrigin}/cal`;
 
 export const hireTermsLanguages = "English, Spanish, Portuguese, and Italian";
 

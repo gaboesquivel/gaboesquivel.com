@@ -1,5 +1,6 @@
 import { projects } from "gaboesquivel";
 import { featuredProjectSlugs, isWorkType } from "lib/work-types";
+import { projectsFromSlugs } from "lib/work/projects-from-slugs";
 
 import { paginate } from "./pagination";
 import { readResult } from "./result";
@@ -45,10 +46,7 @@ export const listProjects = ({
     domain === undefined
       ? projects
       : domain === "featured"
-        ? featuredProjectSlugs.flatMap((slug) => {
-            const project = projects.find((item) => item.slug === slug);
-            return project ? [project] : [];
-          })
+        ? projectsFromSlugs(featuredProjectSlugs)
         : domain === "all"
           ? projects
           : projects.filter((project) => project.type.includes(domain));

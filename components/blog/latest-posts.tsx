@@ -1,5 +1,5 @@
 import { WritingPostsSection } from "components/blog/writing-posts-section";
-import { allBlogs } from "lib/blog";
+import { allBlogCards } from "lib/blog-cards";
 import { newestPosts } from "lib/blog-order";
 import { postMatchesBrowseCategory, toBrowseSlug } from "lib/blog-taxonomy";
 import type { ReactNode } from "react";
@@ -58,7 +58,7 @@ function getLatestPosts({
   slugs?: string[];
   excludeSlug?: string;
 }) {
-  let pool = [...allBlogs];
+  let pool = [...allBlogCards];
   if (category) {
     const browseSlug = toBrowseSlug(category);
     pool = browseSlug

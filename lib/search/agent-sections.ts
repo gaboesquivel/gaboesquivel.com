@@ -7,6 +7,10 @@ import { rankSearchMatches, searchRecordFromSection } from "./rank-records";
 
 const agentSections = index as RankSection[];
 const corpus = bodies as Record<string, string>;
+const agentRecords = agentSections.map((section) => ({
+  ...searchRecordFromSection(section),
+  section,
+}));
 
 const sectionExcerpt = (section: RankSection, path: string) => {
   const body = corpus[section.bodyKey ?? path] ?? corpus[path] ?? "";
@@ -17,20 +21,11 @@ const sectionExcerpt = (section: RankSection, path: string) => {
 export const rankAgentSections = ({
   limit,
   query,
-  sections = agentSections,
 }: {
   limit?: number;
   query: string;
-  sections?: RankSection[];
 }) =>
-  rankSearchMatches(
-    sections.map((section) => ({
-      ...searchRecordFromSection(section),
-      section,
-    })),
-    query,
-    { limit }
-  ).map(({ item, score }) => ({
+  rankSearchMatches(agentRecords, query, { limit }).map(({ item, score }) => ({
     excerpt: sectionExcerpt(item.section, item.href),
     id: item.href,
     kind: item.section.kind,

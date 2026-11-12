@@ -58,8 +58,26 @@ const blogs = defineCollection({
     }),
 });
 
+/**
+ * Listing fields only (no compiled body), for client components that render
+ * post cards. Importing `blogs` there would ship every post body to the browser.
+ */
+const blogCards = defineCollection({
+  name: "BlogCard",
+  pattern: "**/*.mdx",
+  schema: s.object({
+    category: s.array(s.string()).optional(),
+    image: s.string().optional(),
+    publishedAt: s.string(),
+    slug: s.path(),
+    summary: s.string(),
+    tech: s.array(s.string()).optional(),
+    title: s.string(),
+  }),
+});
+
 export default defineConfig({
-  collections: { blogs },
+  collections: { blogCards, blogs },
   mdx: {
     rehypePlugins: rehypePlugins as never[],
     remarkPlugins,

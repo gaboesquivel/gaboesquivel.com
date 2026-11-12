@@ -7,6 +7,7 @@ import { parseStackChildren } from "./contract/stack";
 import type { ExperienceName } from "./experience-contract";
 import { namedProjectsInText } from "./named-projects";
 import type { GenuiProjectDomain } from "./project-domain";
+import { wantsCv } from "./task-intent";
 import { resolveTechnology } from "./tech-identity";
 
 type PlannedTaskKind =
@@ -395,10 +396,7 @@ const classifyClause = ({
   let kind: PlannedTaskKind | null = null;
   if (/\b(compare|versus|vs\.?)\b/i.test(clause)) kind = "compare";
   else if (/\b(how many|count(?:\s+of)?)\b/i.test(clause)) kind = "count";
-  else if (
-    /\b(cv|curriculum|curr[ií]culum|r[eé]sum[eé]|resume|résumé)\b/i.test(clause)
-  )
-    kind = "cv";
+  else if (wantsCv(clause)) kind = "cv";
   else if (
     /\b(timeline|career story|career chronology|career journey)\b/i.test(clause)
   )
@@ -472,7 +470,7 @@ const classifyClause = ({
           : [],
       technologies: techs.tags,
       types,
-      unresolved: [...new Set([...exclusions.unresolved, ...unsupported])],
+      unresolved: [...new Set(unsupported)],
     },
     kind,
     presentation: presentationFor({
@@ -489,16 +487,13 @@ const classifyClause = ({
 export const planTasks = (query: string): PlannedTask[] => {
   const clauses = requestClauses(query);
   const tasks: PlannedTask[] = [];
+  const sequenced = /\bthen\b/i.test(query);
   let inherited: GenuiProjectDomain[] = [];
-  let previousId: string | null = null;
-  let ordered = false;
   for (const clause of clauses) {
-    const sequenced = /\bthen\b/i.test(query) && tasks.length > 0;
-    if (sequenced) ordered = true;
     const draft = classifyClause({
       clause,
       inheritedDomains: inherited,
-      orderedAfter: ordered ? previousId : null,
+      orderedAfter: sequenced ? (tasks.at(-1)?.id ?? null) : null,
     });
     const last = tasks.at(-1);
     // "Compare A and B: role, challenges, and what shipped" splits into
@@ -516,7 +511,6 @@ export const planTasks = (query: string): PlannedTask[] => {
     const position = tasks.length + 1;
     const task = { ...draft, id: `task-${position}`, position };
     tasks.push(task);
-    previousId = task.id;
     if (task.filter.domains.length) inherited = task.filter.domains;
   }
   return tasks;

@@ -1,6 +1,7 @@
 "use client";
 
 import { BioTimeline } from "components/bio/bio-timeline";
+import { readingMeasure } from "components/shared/spacing";
 import { useId } from "react";
 
 import { useGenuiRecords } from "./genui-record-context";
@@ -24,7 +25,7 @@ export function CareerTimeline({
 
   return (
     <div className="min-w-0 text-white">
-      <header className="max-w-[65ch]">
+      <header className={readingMeasure}>
         <h2
           id={`${prefix}-title`}
           className="text-3xl font-semibold tracking-tight @min-[48rem]:text-4xl"

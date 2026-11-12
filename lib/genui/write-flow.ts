@@ -3,6 +3,7 @@
  * capability transport, retry identity per draft, slot grouping, and the
  * time-zone names shown beside slot labels. Pure except `fetchCapability`.
  */
+import { zonedDate } from "lib/connect/slots";
 
 export interface CapabilityPayload {
   data?: Record<string, unknown> | null;
@@ -152,14 +153,6 @@ export const newRetryIdentity = () =>
     ? crypto.randomUUID()
     : `draft-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 
-const dayKey = (iso: string, timeZone: string) =>
-  new Intl.DateTimeFormat("en-CA", {
-    day: "2-digit",
-    month: "2-digit",
-    timeZone,
-    year: "numeric",
-  }).format(new Date(iso));
-
 export interface SlotDayGroup {
   day: string;
   label: string;
@@ -192,7 +185,7 @@ export const groupSlotsByDay = ({
   });
   const groups: SlotDayGroup[] = [];
   for (const iso of unique) {
-    const day = dayKey(iso, timeZone);
+    const day = zonedDate({ instant: new Date(iso), timeZone });
     const last = groups.at(-1);
     if (last?.day === day) {
       last.starts.push(iso);

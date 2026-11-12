@@ -18,10 +18,12 @@ export const profileRecord = ({
   url,
 });
 
-export const publishedPosts = () =>
-  allBlogs
-    .filter((post) => post.publishedAt >= "2020")
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+const published: readonly (typeof allBlogs)[number][] = allBlogs
+  .filter((post) => post.publishedAt >= "2020")
+  .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+
+/** Non-archive posts, newest first. Computed once; callers must not mutate it. */
+export const publishedPosts = () => published;
 
 export const postRecord = (post: (typeof allBlogs)[number]): PublicRecord => ({
   excerpt: post.summary ?? "",

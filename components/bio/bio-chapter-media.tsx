@@ -1,5 +1,3 @@
-"use client";
-
 import { editorialLink } from "components/shared/spacing";
 import { ProjectCover } from "components/work/editorial-work-card";
 import type { BioChapterMedia } from "lib/bio/chapters";

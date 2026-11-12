@@ -1,5 +1,6 @@
-import { getProjectBySlug, projects } from "gaboesquivel";
+import { projects } from "gaboesquivel";
 import type { Project } from "gaboesquivel";
+import { projectsFromSlugs } from "lib/work/projects-from-slugs";
 
 import { fintechProjectSlugs } from "./fintech-projects";
 
@@ -15,10 +16,7 @@ export const filterProjectsByDomain = ({
     return projects.filter((project) => project.type.includes(domain));
   }
   if (domain === "fintech") {
-    return fintechProjectSlugs.flatMap((slug) => {
-      const project = getProjectBySlug(slug);
-      return project ? [project] : [];
-    });
+    return projectsFromSlugs(fintechProjectSlugs);
   }
   return [];
 };

@@ -43,6 +43,17 @@ const humanError = (error: unknown, correlationId: string) => {
   return `The tool failed. Try again. Reference ${correlationId}.`;
 };
 
+/** Output schemas are static; build them once rather than per request. */
+const outputSchemas = new Map(
+  Object.values(capabilityRegistry).map((entry) => [
+    entry.name,
+    capabilityOutputSchema({
+      kind: entry.kind,
+      name: entry.name as CapabilityName,
+    }),
+  ])
+);
+
 const createPublicMcpServer = ({ ip }: { ip: string }) => {
   const server = new McpServer(
     { name: "gaboesquivel", version: "2.0.0" },
@@ -71,7 +82,7 @@ const createPublicMcpServer = ({ ip }: { ip: string }) => {
         annotations: meta.annotations,
         description: entry.description,
         inputSchema: entry.inputSchema,
-        outputSchema: capabilityOutputSchema({ kind: entry.kind, name }),
+        outputSchema: outputSchemas.get(entry.name),
         title: meta.title,
       },
       async (input) => {

@@ -106,11 +106,12 @@ export const sendNoteCapability = async ({
   const emailKey = `connect:notes:email:${note.email.toLowerCase()}:${day}`;
   const ipKey = `connect:notes:ip:${context.ip}:${day}`;
   const release = async () => {
-    if (context.rateLimitEnforced) {
-      await store.decr(emailKey);
-      await store.decr(ipKey);
-    }
-    await store.del(key);
+    await Promise.all([
+      ...(context.rateLimitEnforced
+        ? [store.decr(emailKey), store.decr(ipKey)]
+        : []),
+      store.del(key),
+    ]);
   };
 
   if (context.rateLimitEnforced) {

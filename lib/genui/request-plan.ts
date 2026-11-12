@@ -4,6 +4,7 @@ import { executeCatalogOperation } from "./catalog-operation";
 import { postRecord, profileRecord, publishedPosts } from "./content-records";
 import type { PublicRecord } from "./envelope";
 import { namedProjectsInText } from "./named-projects";
+import { projectSlugFromPublicId } from "./project-from-id";
 import { cvPublicRecord } from "./public-records";
 import {
   classifyTaskIntent,
@@ -117,7 +118,7 @@ const taskRecords = (task: PlannedTask): PublicRecord[] => {
   }
   return task.filter.namedProjectIds.flatMap((id) => {
     const record = namedProjectsInText({
-      text: id.replace("/project/", "").replace(/-/g, " "),
+      text: projectSlugFromPublicId(id).replace(/-/g, " "),
     })[0];
     if (!record) return [];
     return [
