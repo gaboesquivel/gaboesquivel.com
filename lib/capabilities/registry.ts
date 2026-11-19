@@ -8,6 +8,7 @@ import { getProfile } from "./get-profile";
 import { listAvailability } from "./list-availability";
 import { listProjects } from "./list-projects";
 import { listWriting } from "./list-writing";
+import { retryKeyFor } from "./retry";
 import {
   bookCallInput,
   contactGaboInput,
@@ -120,7 +121,7 @@ export const runCapability = async ({
     throw new Error(parsed.error.issues[0]?.message ?? "invalid-input");
   }
   const result = await entry.execute({ context, input: parsed.data });
-  recordCapabilityContact({ context, name, result });
+  recordCapabilityContact({ context, input: parsed.data, name, result });
   return result;
 };
 
@@ -132,10 +133,12 @@ const CONTACT_CAPABILITIES: Record<string, "call_booked" | "note_sent"> = {
 /** Confirmed notes and bookings count once per provider id, so replays add nothing. */
 const recordCapabilityContact = ({
   context,
+  input,
   name,
   result,
 }: {
   context: CapabilityContext;
+  input: unknown;
   name: string;
   result: unknown;
 }) => {
@@ -148,11 +151,11 @@ const recordCapabilityContact = ({
   if (!event || !context.measure || outcome?.status !== "confirmed") return;
   const data = outcome.data ?? {};
   const providerId = data.eventId ?? data.receiptId;
-  // Without a provider id, the request id still keeps one request from counting twice.
+  // Without a provider id, the retry key (operation + payload) keeps replays from counting twice.
   const dedupeId =
     typeof providerId === "string" && providerId
       ? providerId
-      : `request:${outcome.requestId ?? context.correlationId}`;
+      : retryKeyFor({ operation: name, payload: input });
   recordContactAction({
     channel: context.measure.channel,
     country: context.measure.country,

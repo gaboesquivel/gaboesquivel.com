@@ -104,3 +104,6 @@ About two focused days of agent work. The first verifiable slice is the recordin
 - Homepage GenUI notes and bookings count alongside MCP ones, attributed by channel (confirmed 2026-11-19; PRODUCT.md updated on this branch).
 - Verified 2026-11-19: Calendly webhooks (`invitee.created`) are on all plans including Free; the signature is `t=<unix>,v1=<hex>` over `${t}.${rawBody}`; Umami Cloud's send endpoint is `gateway.umami.is/api/send`.
 - **Gabo's setup steps:** Umami and Clarity accounts, the Calendly token, and choosing the password.
+- `/cal` counts only human clicks: prefetch and router requests, HEAD, and bot user agents redirect without counting, and site links to `/cal` are plain anchors so `<Link>` never prefetches it. Browsers that cached the old permanent `/cal` redirect go straight to Calendly, so early `cal_click` counts run low.
+- Umami geolocates server-side events by Vercel's IP, so its country view of contact events is wrong; the country is in each event's data, and the Redis counters (the dashboard's source) are right.
+- Calendly reschedules (`payload.old_invitee` set) are not counted as new bookings.

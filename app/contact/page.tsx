@@ -25,7 +25,11 @@ export default function ContactPage() {
             </a>
           </li>
           <li>
-            <Link className={cn(ctaLink, editorialLink)} href="/cal">
+            <Link
+              className={cn(ctaLink, editorialLink)}
+              href="/cal"
+              prefetch={false}
+            >
               Book a call →
             </Link>
           </li>

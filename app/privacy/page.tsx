@@ -50,20 +50,21 @@ export default function PrivacyPage() {
       <Prose>
         The site loads Vercel Web Analytics and Speed Insights to understand
         aggregate traffic and page speed, and Umami to count visits, how far
-        people scroll, and which pages lead to contact. Neither sets cookies.
-        Microsoft Clarity records how pages are used (clicks, scrolling, and
-        session replays with form fields masked). In the European Economic Area,
-        the United Kingdom, and Switzerland, Clarity limits what it collects and
-        sets no cookies unless you consent; elsewhere it may set cookies.
-        Analytics runs from the root layout on public pages.
+        people scroll, and which pages lead to contact. None of these three sets
+        cookies. Microsoft Clarity records how pages are used (clicks,
+        scrolling, and session replays with form fields masked). In the European
+        Economic Area, the United Kingdom, and Switzerland, Clarity limits what
+        it collects and sets no cookies unless you consent; elsewhere it may set
+        cookies. Analytics runs from the root layout on public pages.
       </Prose>
       <Prose>
-        Sent contact forms, clicks on /cal, Calendly bookings, notes, and
-        bookings are counted by month, by type, and by country (from Vercel’s
-        location header) in Upstash and Umami. The counts store no name, email
-        address, IP address, or message. Standard server and CDN logs on Vercel
-        may also record IP addresses, URLs, and request headers for security and
-        reliability.
+        Sent contact forms, clicks on /cal, Calendly bookings, and notes or
+        calls booked through the homepage or MCP are counted by month, by type,
+        and by country (from Vercel’s location header) in Upstash and Umami. The
+        counts store no name, email address, IP address, or message; the report
+        to Umami passes along your browser’s user agent. Standard server and CDN
+        logs on Vercel may also record IP addresses, URLs, and request headers
+        for security and reliability.
       </Prose>
       <Prose>
         Public pages, CV PDFs, and the llms corpus at{" "}

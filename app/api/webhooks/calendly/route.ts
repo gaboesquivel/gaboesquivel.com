@@ -18,12 +18,23 @@ export async function POST(request: Request) {
   if (!valid) {
     return new Response("Invalid signature", { status: 401 });
   }
-  const parsed = JSON.parse(body) as {
+  let parsed: {
     event?: string;
-    payload?: { uri?: unknown };
+    payload?: { old_invitee?: unknown; uri?: unknown };
   };
+  try {
+    parsed = JSON.parse(body);
+  } catch {
+    return new Response("Invalid JSON", { status: 400 });
+  }
   const inviteeUri = parsed.payload?.uri;
-  if (parsed.event === "invitee.created" && typeof inviteeUri === "string") {
+  // A reschedule creates a new invitee that points at the old one; it is not a new booking.
+  const rescheduled = Boolean(parsed.payload?.old_invitee);
+  if (
+    parsed.event === "invitee.created" &&
+    typeof inviteeUri === "string" &&
+    !rescheduled
+  ) {
     recordContactAction({
       channel: "calendly",
       dedupeId: inviteeUri,

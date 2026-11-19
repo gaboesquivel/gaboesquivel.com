@@ -2,16 +2,44 @@ import { recordContactAction, requestCountry } from "lib/measurement/record";
 
 const CALENDLY_URL = "https://calendly.com/gaboesquivel/30min";
 
-// A route, not a next.config redirect, so the click is counted (docs/specs/005).
-export function GET(request: Request) {
-  recordContactAction({
-    channel: "site",
-    country: requestCountry(request.headers),
-    event: "cal_click",
-    userAgent: request.headers.get("user-agent"),
-  });
-  return new Response(null, {
+const BOT_PATTERN =
+  /bot|crawl|spider|slurp|preview|fetch|monitor|curl|wget|python|headless|facebookexternalhit|embedly|whatsapp|slack|discord|telegram/i;
+
+// Prefetches, router fetches, and link unfurlers are not clicks.
+const isHumanClick = (request: Request) => {
+  const { headers } = request;
+  if (
+    headers.has("rsc") ||
+    headers.has("next-router-prefetch") ||
+    headers.has("next-router-segment-prefetch") ||
+    headers.get("sec-purpose")?.includes("prefetch") ||
+    headers.get("purpose") === "prefetch"
+  ) {
+    return false;
+  }
+  const userAgent = headers.get("user-agent") ?? "";
+  return userAgent.length > 0 && !BOT_PATTERN.test(userAgent);
+};
+
+const redirectToCalendly = () =>
+  new Response(null, {
     headers: { "Cache-Control": "no-store", Location: CALENDLY_URL },
     status: 307,
   });
+
+// A route, not a next.config redirect, so the click is counted (docs/specs/005).
+export function GET(request: Request) {
+  if (isHumanClick(request)) {
+    recordContactAction({
+      channel: "site",
+      country: requestCountry(request.headers),
+      event: "cal_click",
+      userAgent: request.headers.get("user-agent"),
+    });
+  }
+  return redirectToCalendly();
+}
+
+export function HEAD() {
+  return redirectToCalendly();
 }

@@ -34,25 +34,38 @@ declare global {
 const clarityBootstrap = (projectId: string) =>
   `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",${JSON.stringify(projectId)});`;
 
-/** One Umami event per depth mark per page view. */
-function useScrollDepth(pathname: string, enabled: boolean) {
+/** One Umami event per depth mark per page view (remounted per path), once Umami has loaded. */
+function ScrollDepth() {
   useEffect(() => {
-    if (!enabled) return;
     const sent = new Set<number>();
-    const onScroll = () => {
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const tracker = window.umami;
+      if (!tracker) return;
       const doc = document.documentElement;
       const scrollable = doc.scrollHeight - window.innerHeight;
       const depth = scrollable <= 0 ? 100 : (window.scrollY / scrollable) * 100;
       for (const mark of SCROLL_MARKS) {
         if (depth >= mark && !sent.has(mark)) {
           sent.add(mark);
-          window.umami?.track("scroll_depth", { depth: mark, path: pathname });
+          tracker.track("scroll_depth", { depth: mark });
         }
       }
+      if (sent.size === SCROLL_MARKS.length) {
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    const onScroll = () => {
+      frame ||= window.requestAnimationFrame(measure);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [enabled, pathname]);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+  return null;
 }
 
 export function DeferredAnalytics() {
@@ -64,12 +77,12 @@ export function DeferredAnalytics() {
     Boolean(CLARITY_PROJECT_ID) &&
     /^[a-z0-9]+$/i.test(CLARITY_PROJECT_ID ?? "") &&
     visitorPage;
-  useScrollDepth(pathname, umami);
 
   return (
     <>
       <Analytics />
       <SpeedInsights />
+      {umami ? <ScrollDepth key={pathname} /> : null}
       {umami ? (
         <Script
           data-website-id={UMAMI_WEBSITE_ID}

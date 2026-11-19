@@ -67,11 +67,21 @@ const countInRedis = async ({
     );
     if (fresh !== "OK") return false;
   }
-  await client.hincrby(
-    contactHashKey(monthKey(new Date())),
-    contactCounterField({ channel, country, event }),
-    1
-  );
+  try {
+    await client.hincrby(
+      contactHashKey(monthKey(new Date())),
+      contactCounterField({ channel, country, event }),
+      1
+    );
+  } catch (error) {
+    // Let a retry or replay count it instead of treating it as a duplicate.
+    if (dedupeId) {
+      await client
+        .del(measurementKey(`measure:seen:${event}:${dedupeId}`))
+        .catch(() => null);
+    }
+    throw error;
+  }
   return true;
 };
 

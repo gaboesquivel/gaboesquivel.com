@@ -169,7 +169,7 @@ export default function DocsPage() {
           <code className={code}>list_availability</code> first. Open weekday
           slots are 9:00–17:00 America/Denver. When two bookings are already on
           the calendar for that Denver day, use{" "}
-          <Link href="/cal" className={proseLink}>
+          <Link href="/cal" className={proseLink} prefetch={false}>
             gaboesquivel.com/cal
           </Link>
           .

@@ -21,7 +21,7 @@ export const ownerAccess = (
   } catch {
     return "denied";
   }
-  const given = decoded.slice(decoded.indexOf(":") + 1);
+  const given = decoded.slice(decoded.indexOf(":") + 1).trim();
   return timingSafeEqual(digest(given), digest(password))
     ? "granted"
     : "denied";
