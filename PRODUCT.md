@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Gabo Esquivel's personal site. It shows founders and technical or product leaders what Gabo has shipped, so they can decide whether to hire him directly, hire him internationally, or contract through Blockmatic Labs LLC. Project, technology, employment, and CV facts come from the `gaboesquivel` package; the site owns narrative, routes, presentation, and print layout.
+Gabo Esquivel's personal site. It shows founders and technical or product leaders what Gabo has shipped, so they can decide whether to hire him directly, hire him internationally, or contract through Blockmatic Labs LLC. Project, technology, employment, and CV facts come from the `gaboesquivel` package, and identity, positioning, and voice from the `gabo` skill in the same repo; the site owns narrative, routes, presentation, and print layout.
 
 ## Audience
 

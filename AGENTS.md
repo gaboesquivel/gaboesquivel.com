@@ -10,7 +10,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # gaboesquivel.com
 
-Narrative site. Voice, identity, and claims: installed `gabo` skill, which outranks any other writing skill on those three.
+Narrative site. Voice, identity, and claims: installed `gabo` skill, which outranks any other writing skill on those three. Its source is `skills/gabo/` in [gaboesquivel/gaboesquivel](https://github.com/gaboesquivel/gaboesquivel), the same repo as the `gaboesquivel` package; change identity, positioning, or voice there, not here.
+
+`skills-lock.json` pins it for coding agents (`.claude/skills` links to the ignored `.agents/skills`). The site agent cannot read that install, so `agent/skills/gabo/` commits a runtime copy of `SKILL.md` and `references/`. After a skill change lands upstream, run `bunx skills@latest update gabo -p -y`, then `cp .agents/skills/gabo/SKILL.md agent/skills/gabo/` and `cp .agents/skills/gabo/references/*.md agent/skills/gabo/references/`, and commit the lock and the copy together.
 
 Prefer a CLI to interact with a product or service. Use MCP when no CLI covers the operation.
 
