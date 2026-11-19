@@ -1,6 +1,6 @@
 # 005: Contact measurement and owner dashboard
 
-Status: accepted (2026-11-19)
+Status: implemented (2026-11-19)
 
 Implements the Measurement section of [PRODUCT.md](../../PRODUCT.md): primary metric, supporting signals, and the `/analytics` dashboard. Quality guardrails are [006](006-quality-guardrails.md). Tool choice: [0009](../decisions/0009-free-analytics-stack.md).
 
