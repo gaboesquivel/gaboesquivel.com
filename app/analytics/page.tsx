@@ -12,7 +12,7 @@ import {
   loadIsAgentic,
   loadLatestLighthouse,
 } from "lib/measurement/dashboard";
-import type { MonthSummary } from "lib/measurement/dashboard";
+import type { LighthouseRow, MonthSummary } from "lib/measurement/dashboard";
 import { ownerAccess } from "lib/measurement/owner-auth";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
@@ -61,6 +61,16 @@ const LINKS = [
 ];
 
 const cell = "border-b border-border px-2 py-1.5 text-left tabular-nums";
+
+type ScoreColumn = "accessibility" | "best_practices" | "performance" | "seo";
+
+/** "88 (95)" when the score moved since the previous week. */
+const withTrend = (row: LighthouseRow, column: ScoreColumn) => {
+  const before = row.previous?.[column];
+  return before && before !== row[column]
+    ? `${row[column]} (${before})`
+    : row[column];
+};
 
 function MonthTable({ summary }: { summary: MonthSummary }) {
   return (
@@ -141,7 +151,8 @@ export default async function AnalyticsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <caption className="mb-2 text-left font-medium">
-                Lighthouse, {lighthouse[0]?.date}
+                PageSpeed, {lighthouse[0]?.date} (last week in brackets when it
+                moved)
               </caption>
               <thead>
                 <tr>
@@ -159,10 +170,10 @@ export default async function AnalyticsPage() {
                   <tr key={`${row.page}-${row.form_factor}`}>
                     <td className={cell}>{row.page}</td>
                     <td className={cell}>{row.form_factor}</td>
-                    <td className={cell}>{row.performance}</td>
-                    <td className={cell}>{row.accessibility}</td>
-                    <td className={cell}>{row.best_practices}</td>
-                    <td className={cell}>{row.seo}</td>
+                    <td className={cell}>{withTrend(row, "performance")}</td>
+                    <td className={cell}>{withTrend(row, "accessibility")}</td>
+                    <td className={cell}>{withTrend(row, "best_practices")}</td>
+                    <td className={cell}>{withTrend(row, "seo")}</td>
                   </tr>
                 ))}
               </tbody>

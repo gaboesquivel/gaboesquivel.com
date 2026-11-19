@@ -73,6 +73,11 @@ export interface LighthouseRow {
   form_factor: string;
   page: string;
   performance: string;
+  /** The same page and device on the previous measured date, for the trend. */
+  previous?: Pick<
+    LighthouseRow,
+    "accessibility" | "best_practices" | "performance" | "seo"
+  >;
   seo: string;
 }
 
@@ -96,7 +101,19 @@ export const loadLatestLighthouse = async (): Promise<
         ) as unknown as LighthouseRow
     );
     const latest = rows.at(-1)?.date;
-    return rows.filter((row) => row.date === latest);
+    const earlier = rows.filter((row) => row.date !== latest);
+    const prior = earlier.at(-1)?.date;
+    return rows
+      .filter((row) => row.date === latest)
+      .map((row) => ({
+        ...row,
+        previous: earlier.find(
+          (before) =>
+            before.date === prior &&
+            before.page === row.page &&
+            before.form_factor === row.form_factor
+        ),
+      }));
   } catch {
     return null;
   }
