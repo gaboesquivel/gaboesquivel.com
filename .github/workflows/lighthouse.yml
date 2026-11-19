@@ -25,10 +25,10 @@ jobs:
           PREVIEW_URL: ${{ github.event.deployment_status.environment_url }}
         run: |
           base="${PREVIEW_URL%/}"
-          case "$base" in
-            https://*.vercel.app) ;;
-            *) echo "Unexpected preview URL" >&2; exit 1 ;;
-          esac
+          if ! [[ "$base" =~ ^https://[a-z0-9-]+\.vercel\.app$ ]]; then
+            echo "Unexpected preview URL" >&2
+            exit 1
+          fi
           {
             echo "list<<EOF"
             jq -r --arg base "$base" '.[] | $base + .' perf/pages.json

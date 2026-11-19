@@ -82,4 +82,6 @@ About one day of agent work. The first verifiable slice is the PR check (steps 1
 - **Unverified:** PageSpeed Insights' daily quota, and whether a Google Cloud project can issue the key without billing enabled. Don't enable billing.
 - Repository secret to add: `PSI_API_KEY`. Previews are public (HTTP 200 on 2026-11-19), so the Lighthouse workflow sends no bypass header; if Vercel Deployment Protection is turned on later, add `VERCEL_AUTOMATION_BYPASS_SECRET` and pass it as `x-vercel-protection-bypass`.
 - Built (2026-11-19): pages live in `perf/pages.json`, assertions in `perf/lighthouserc.json`. CrUX field data comes from PageSpeed Insights' `loadingExperience` (per URL, `none` until Google has data), so the separate CrUX History API call was deferred, as the Appetite allows. Scores are stored 0–100. `/analytics` shows the latest PageSpeed rows with the previous week's score in brackets when it moved.
+- Vercel sends `x-robots-tag: noindex` on every preview, so the Lighthouse check skips the `is-crawlable` audit; otherwise SEO would fail on every PR. Production crawlability is covered by the weekly PageSpeed run.
+- Each weekly bot commit triggers a Vercel production deploy; accepted (one a week) rather than adding an ignored-build-step config.
 - The weekly workflow runs only from the default branch, so acceptance steps 3 and 4 run after merge.

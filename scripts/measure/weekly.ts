@@ -92,9 +92,8 @@ const cruxValue = (
     : "none";
 };
 
-const runPsi = async (page: string, formFactor: string): Promise<Row> => {
+const fetchPsi = async (page: string, formFactor: string) => {
   const params = new URLSearchParams({
-    key: apiKey,
     strategy: formFactor,
     url: `${ORIGIN}${page}`,
   });
@@ -106,17 +105,47 @@ const runPsi = async (page: string, formFactor: string): Promise<Row> => {
   ]) {
     params.append("category", category);
   }
+  // The key goes in a header, never the URL, so no error or log can carry it.
   const response = await fetch(
     `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?${params}`,
-    { signal: AbortSignal.timeout(120_000) }
+    {
+      headers: { "X-Goog-Api-Key": apiKey },
+      signal: AbortSignal.timeout(120_000),
+    }
   );
-  if (!response.ok) {
-    throw new Error(`PageSpeed ${page} ${formFactor}: HTTP ${response.status}`);
-  }
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const body = (await response.json()) as PsiResponse;
   const categories = body.lighthouseResult?.categories ?? {};
-  const audits = body.lighthouseResult?.audits ?? {};
-  const metrics = body.loadingExperience?.metrics;
+  const scores = [
+    categories.performance?.score,
+    categories.accessibility?.score,
+    categories["best-practices"]?.score,
+    categories.seo?.score,
+  ];
+  if (scores.some((value) => typeof value !== "number")) {
+    throw new TypeError("audit returned no scores");
+  }
+  return body;
+};
+
+const runPsi = async (page: string, formFactor: string): Promise<Row> => {
+  let body: PsiResponse | undefined;
+  for (let attempt = 1; attempt <= 3 && !body; attempt += 1) {
+    try {
+      body = await fetchPsi(page, formFactor);
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : String(error);
+      if (attempt === 3) {
+        throw new Error(`PageSpeed ${page} ${formFactor}: ${reason}`, {
+          cause: error,
+        });
+      }
+      await Bun.sleep(attempt * 15_000);
+    }
+  }
+  const categories = body?.lighthouseResult?.categories ?? {};
+  const audits = body?.lighthouseResult?.audits ?? {};
+  const metrics = body?.loadingExperience?.metrics;
   return {
     accessibility: score(categories.accessibility?.score),
     best_practices: score(categories["best-practices"]?.score),
