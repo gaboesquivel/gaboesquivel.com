@@ -101,6 +101,6 @@ About two focused days of agent work. The first verifiable slice is the recordin
 
 ## Further Notes
 
-- **Open assumption:** PRODUCT.md lists "MCP `send_note` and `book_call`". The homepage GenUI flow uses the same capabilities, so this spec counts both and attributes them by channel. Confirm, or limit it to `mcp`. On acceptance, update the PRODUCT.md line to match.
+- Homepage GenUI notes and bookings count alongside MCP ones, attributed by channel (confirmed 2026-11-19; PRODUCT.md updated on this branch).
 - **Unverified:** that Calendly's free plan allows webhook subscriptions through the API, and the exact Calendly signature header format. Check both before building the webhook.
 - **Gabo's setup steps:** Umami and Clarity accounts, the Calendly token, and choosing the password.

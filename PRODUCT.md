@@ -17,9 +17,9 @@ Counted as Umami Cloud (free Hobby plan) events, sent server-side so ad blockers
 - `contact_sent`: the contact route handler, after Resend accepts the message.
 - `cal_click`: `/cal` is a route handler that records the click, then redirects to Calendly (a `next.config` redirect runs no code).
 - `booking`: a Calendly `invitee.created` webhook (free plan).
-- MCP `send_note` and `book_call` successes.
+- `send_note` and `book_call` successes, from MCP or the homepage booking and note flow, attributed by channel (`mcp` or `site`).
 
-Each event also increments an Upstash Redis counter by month, event and country (`x-vercel-ip-country`), because Umami's free plan has no API and the dashboard needs the numbers.
+Each event also increments an Upstash Redis counter by month, event, channel and country (`x-vercel-ip-country`), because Umami's free plan has no API and the dashboard needs the numbers.
 
 Quarterly ground truth, by hand: how many contacts became paid work. Baseline and target: unknown until the events have a month of data.
 
