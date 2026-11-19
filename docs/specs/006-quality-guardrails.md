@@ -1,6 +1,6 @@
 # 006: Quality guardrails
 
-Status: draft (2026-11-19)
+Status: accepted (2026-11-19)
 
 Implements the Quality guardrails in the Measurement section of [PRODUCT.md](../../PRODUCT.md). [005](005-contact-measurement.md) reads the history this spec produces.
 

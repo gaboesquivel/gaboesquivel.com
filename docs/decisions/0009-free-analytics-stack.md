@@ -1,6 +1,6 @@
 # 0009: Free analytics stack
 
-Status: Proposed (2026-11-19)
+Status: Accepted (2026-11-19)
 
 ## Context
 
