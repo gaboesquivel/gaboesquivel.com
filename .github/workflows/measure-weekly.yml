@@ -1,0 +1,44 @@
+# Weekly quality history (docs/specs/006): PageSpeed Insights, CrUX field data, is-agentic.com.
+name: Measure weekly
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: measure-weekly
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    # Worst case: 4 batches of 3 attempts at 120 s plus backoff (~27 min).
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            perf
+            scripts/measure
+      - uses: oven-sh/setup-bun@v2
+      - name: Measure
+        env:
+          PSI_API_KEY: ${{ secrets.PSI_API_KEY }}
+        run: bun scripts/measure/weekly.ts
+      - name: Commit history
+        if: always()
+        run: |
+          git add perf/history.csv perf/is-agentic.csv 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No history changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(perf): weekly measurement $(date -u +%F)"
+          git pull --rebase
+          git push

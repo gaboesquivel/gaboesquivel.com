@@ -1,0 +1,41 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 5,
+      "settings": { "skipAudits": ["is-crawlable"] }
+    },
+    "assert": {
+      "assertions": {
+        "categories:accessibility": [
+          "error",
+          { "aggregationMethod": "median-run", "minScore": 0.95 }
+        ],
+        "categories:best-practices": [
+          "error",
+          { "aggregationMethod": "median-run", "minScore": 0.95 }
+        ],
+        "categories:seo": [
+          "error",
+          { "aggregationMethod": "median-run", "minScore": 0.95 }
+        ],
+        "categories:performance": [
+          "warn",
+          { "aggregationMethod": "median-run", "minScore": 0.85 }
+        ],
+        "cumulative-layout-shift": [
+          "error",
+          { "aggregationMethod": "median-run", "maxNumericValue": 0.1 }
+        ],
+        "largest-contentful-paint": [
+          "warn",
+          { "aggregationMethod": "median-run", "maxNumericValue": 2500 }
+        ],
+        "total-blocking-time": [
+          "warn",
+          { "aggregationMethod": "median-run", "maxNumericValue": 300 }
+        ]
+      }
+    },
+    "upload": { "target": "temporary-public-storage" }
+  }
+}

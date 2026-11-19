@@ -8,6 +8,7 @@ import type { CapabilityName } from "../capabilities/output-schemas";
 import { capabilityRegistry, runCapability } from "../capabilities/registry";
 import { capabilityContextFromRequest } from "../capabilities/server-context";
 import { readRequestIp } from "../connect/ip";
+import { requestCountry } from "../measurement/record";
 import { PUBLIC_MCP_APP_RESOURCE_URI } from "./constants";
 import { mcpToolMetadata, toolResultText } from "./tool-metadata";
 
@@ -54,7 +55,13 @@ const outputSchemas = new Map(
   ])
 );
 
-const createPublicMcpServer = ({ ip }: { ip: string }) => {
+const createPublicMcpServer = ({
+  country,
+  ip,
+}: {
+  country: string;
+  ip: string;
+}) => {
   const server = new McpServer(
     { name: "gaboesquivel", version: "2.0.0" },
     {
@@ -89,7 +96,11 @@ const createPublicMcpServer = ({ ip }: { ip: string }) => {
         const correlationId = crypto.randomUUID();
         try {
           const result = await runCapability({
-            context: capabilityContextFromRequest({ correlationId, ip }),
+            context: capabilityContextFromRequest({
+              correlationId,
+              ip,
+              measure: { channel: "mcp", country },
+            }),
             input,
             name: entry.name,
           });
@@ -130,7 +141,10 @@ export const handlePublicMcpRequest = async (request: Request) => {
   const transport = new WebStandardStreamableHTTPServerTransport({
     enableJsonResponse: true,
   });
-  const server = createPublicMcpServer({ ip: readRequestIp(request) });
+  const server = createPublicMcpServer({
+    country: requestCountry(request.headers),
+    ip: readRequestIp(request),
+  });
   await server.connect(transport);
   return ensureJsonErrorBody(await transport.handleRequest(request));
 };

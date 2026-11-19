@@ -4,6 +4,48 @@
 
 Gabo Esquivel's personal site. It shows founders and technical or product leaders what Gabo has shipped, so they can decide whether to hire him directly, hire him internationally, or contract through Blockmatic Labs LLC. Project, technology, employment, and CV facts come from the `gaboesquivel` package, and identity, positioning, and voice from the `gabo` skill in the same repo; the site owns narrative, routes, presentation, and print layout.
 
+## Measurement
+
+All on free tiers. Target markets are the US and Latin America; compare them against everyone else.
+
+### Primary metric
+
+**Contact actions per month**: a visitor starting a conversation about work. The site exists to bring in paid work, which cannot be measured automatically; reaching out is the closest automatic signal of that decision. Pageviews show reach, not value, so they only explain changes in this number.
+
+Counted as Umami Cloud (free Hobby plan) events, sent server-side so ad blockers cannot hide them:
+
+- `contact_sent`: the contact route handler, after Resend accepts the message.
+- `cal_click`: `/cal` is a route handler that records the click, then redirects to Calendly (a `next.config` redirect runs no code).
+- `booking`: a Calendly `invitee.created` webhook (free plan).
+- `send_note` and `book_call` successes, from MCP or the homepage booking and note flow, attributed by channel (`mcp` or `site`).
+
+Each event also increments an Upstash Redis counter by month, event, channel and country (`x-vercel-ip-country`), because Umami's free plan has no API and the dashboard needs the numbers.
+
+Quarterly ground truth, by hand: how many contacts became paid work. Baseline and target: unknown until the events have a month of data.
+
+### Supporting signals
+
+Watched to explain the primary metric, never optimized on their own:
+
+- Umami: country, referrers, visit duration, scroll depth, and which pages lead to `/contact`.
+- Microsoft Clarity: recordings, heatmaps and scroll maps, to see why visitors stop before `/contact`. Loaded lazily; EEA, UK and Swiss visitors get its cookieless mode unless they opt in. `/privacy` discloses it.
+- Vercel Web Analytics and Speed Insights: quick traffic view and real-user speed (short Hobby history).
+
+### Quality guardrails
+
+Regressions block; scores are not goals.
+
+- Lighthouse on every pull request against the Vercel preview: median of 5 mobile runs; accessibility, best practices and SEO fail below 95; performance warns below 85 until a baseline exists.
+- Weekly scheduled job: PageSpeed Insights (mobile and desktop) and CrUX field data when the site qualifies, plus the is-agentic.com score from its read-only report API, appended to history in the repo. is-agentic.com was 100/100 on 2026-11-09; a drop is the signal.
+
+### Dashboard
+
+`/analytics` is a private owner page, not part of the public site: Basic Auth with a password from an environment variable, `noindex`, and left out of the sitemap, search, `/explore`, the llms corpus and Markdown negotiation. It is a summary that links out:
+
+- Contact actions this month and last, by event, with the US and Latin America apart from the rest (Redis counters).
+- Latest Lighthouse scores with a short trend, and the current is-agentic.com score.
+- Links to Umami, Clarity, Vercel and Calendly for engagement, recordings and traffic. Their charts are not rebuilt here.
+
 ## Audience
 
 - **Founders and technical or product leads** check whether the work is real and relevant. Landing pages answer with named, verified projects.
@@ -200,7 +242,11 @@ Link to the most useful next step: a related blog post, domain capability (`/ai`
 
 - Owning project, technology, employment, or CV facts. They come from the package, and project cards use package descriptions instead of separate essays.
 - A second career narrative outside `/bio`.
+- Paid analytics (Vercel Pro, paid Umami or PostHog tiers). Free tiers cover this traffic.
+- Google Analytics 4. Heavy script and cookies for no signal the free stack lacks.
 
 ## Open questions
 
 - `/cv` keyword owner is “Senior Product Engineer CV”. Package `content/cv/full.md` metadata title is “Gabo Esquivel — Software Engineering CV”. Align keyword owner with that metadata in a dedicated SEO pass if needed.
+- Contact-action baseline and target are unknown until the Umami events have a month of data.
+- Not verified: whether Umami's free plan shows visit duration, and whether gaboesquivel.com has CrUX field data yet.

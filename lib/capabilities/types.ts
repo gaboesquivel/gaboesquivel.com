@@ -24,6 +24,12 @@ export interface CapabilityContext {
   correlationId: string;
   ip: string;
   mailer: NoteMailer;
+  /** Where contact actions are attributed (docs/specs/005); absent means not counted. */
+  measure?: {
+    channel: "mcp" | "site";
+    country: string;
+    userAgent?: string | null;
+  };
   rateLimitEnforced: boolean;
   store: CapStore | null;
 }

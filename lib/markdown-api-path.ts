@@ -10,6 +10,8 @@ export const skipMarkdownNegotiation = (pathname: string) =>
   pathname.startsWith("/_eve_internal") ||
   pathname === "/eve" ||
   pathname.startsWith("/eve/") ||
+  pathname === "/cal" ||
+  pathname === "/analytics" ||
   pathname === "/mcp" ||
   pathname.startsWith("/mcp/") ||
   pathname === "/llms.txt" ||

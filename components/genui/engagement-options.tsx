@@ -9,7 +9,11 @@ export const EngagementOptions = () => {
   return (
     <ul className="space-y-3 text-sm text-neutral-300">
       <li>
-        <Link className="text-accent hover:underline" href={publicBookingUrl}>
+        <Link
+          className="text-accent hover:underline"
+          href={publicBookingUrl}
+          prefetch={false}
+        >
           Book a short intro call
         </Link>
         <span className="text-neutral-400">
