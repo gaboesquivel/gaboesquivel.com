@@ -16,7 +16,8 @@ permissions:
 jobs:
   measure:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Worst case: 4 batches of 3 attempts at 120 s plus backoff (~27 min).
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:

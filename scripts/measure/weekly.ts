@@ -113,7 +113,12 @@ const fetchPsi = async (page: string, formFactor: string) => {
       signal: AbortSignal.timeout(120_000),
     }
   );
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  if (!response.ok) {
+    // 400/403 (bad URL or key) will not get better on retry.
+    throw new Error(`HTTP ${response.status}`, {
+      cause: { permanent: response.status < 500 && response.status !== 429 },
+    });
+  }
   const body = (await response.json()) as PsiResponse;
   const categories = body.lighthouseResult?.categories ?? {};
   const scores = [
@@ -135,7 +140,11 @@ const runPsi = async (page: string, formFactor: string): Promise<Row> => {
       body = await fetchPsi(page, formFactor);
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);
-      if (attempt === 3) {
+      const permanent =
+        error instanceof Error &&
+        (error.cause as { permanent?: boolean } | undefined)?.permanent ===
+          true;
+      if (attempt === 3 || permanent) {
         throw new Error(`PageSpeed ${page} ${formFactor}: ${reason}`, {
           cause: error,
         });
