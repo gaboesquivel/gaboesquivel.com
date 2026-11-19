@@ -6,15 +6,18 @@ import type { CapabilityContext } from "./types";
 export const capabilityContextFromRequest = ({
   correlationId,
   ip,
+  measure,
 }: {
   correlationId: string;
   ip: string;
+  measure?: CapabilityContext["measure"];
 }): CapabilityContext => ({
   calendar: googleCalendar(),
   clock: new Date(),
   correlationId,
   ip,
   mailer: resendNote,
+  measure,
   rateLimitEnforced: true,
   store: liveCapStore(),
 });

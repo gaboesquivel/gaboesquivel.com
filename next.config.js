@@ -46,11 +46,6 @@ const nextConfig = {
   }),
   async redirects() {
     const baseRedirects = [
-      {
-        destination: "https://calendly.com/gaboesquivel/30min",
-        permanent: true,
-        source: "/cal",
-      },
       { destination: "/contact", permanent: true, source: "/connect" },
       {
         destination: "/images/gabo-portrait.webp",
@@ -103,7 +98,7 @@ const nextConfig = {
 
 const ContentSecurityPolicy = `
     default-src 'self' vercel.live;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live https://cloud.umami.is https://*.clarity.ms https://c.bing.com;
     style-src 'self' 'unsafe-inline';
     frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com data:;
     img-src * blob: data:;

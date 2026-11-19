@@ -1,6 +1,7 @@
 import { capabilityRegistry, runCapability } from "lib/capabilities/registry";
 import { capabilityContextFromRequest } from "lib/capabilities/server-context";
 import { readRequestIp } from "lib/connect/ip";
+import { requestCountry } from "lib/measurement/record";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 
@@ -22,7 +23,15 @@ export async function POST(request: Request) {
   const ip = readRequestIp(request);
   try {
     const result = await runCapability({
-      context: capabilityContextFromRequest({ correlationId, ip }),
+      context: capabilityContextFromRequest({
+        correlationId,
+        ip,
+        measure: {
+          channel: "site",
+          country: requestCountry(request.headers),
+          userAgent: request.headers.get("user-agent"),
+        },
+      }),
       input: body?.input ?? {},
       name: operation,
     });

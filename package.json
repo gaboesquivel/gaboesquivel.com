@@ -16,6 +16,7 @@
     "check:design": "bun scripts/check-design.ts",
     "verify:routes": "sh scripts/verify-routes.sh",
     "verify:calendar": "bun scripts/verify-google-calendar.ts",
+    "verify:measurement": "bun scripts/verify-measurement.ts",
     "lint": "ultracite check",
     "lint:fix": "ultracite fix",
     "knip": "knip",

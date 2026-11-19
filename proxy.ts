@@ -7,11 +7,31 @@ import {
   markdownApiRewritePath,
   skipMarkdownNegotiation,
 } from "lib/markdown-api-path";
+import { ANALYTICS_REALM, ownerAccess } from "lib/measurement/owner-auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export const proxy = (req: NextRequest) => {
   const { pathname } = req.nextUrl;
+  if (pathname === "/analytics" || pathname.startsWith("/analytics/")) {
+    const access = ownerAccess(req.headers.get("authorization"));
+    if (access === "disabled") {
+      return new Response("Not found", { status: 404 });
+    }
+    if (access === "denied") {
+      return new Response("Authentication required", {
+        headers: {
+          "Cache-Control": "no-store",
+          "WWW-Authenticate": `Basic realm="${ANALYTICS_REALM}", charset="UTF-8"`,
+        },
+        status: 401,
+      });
+    }
+    const res = NextResponse.next();
+    res.headers.set("Cache-Control", "no-store");
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
   if (skipMarkdownNegotiation(pathname)) {
     return NextResponse.next();
   }

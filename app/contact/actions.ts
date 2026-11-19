@@ -1,5 +1,6 @@
 "use server";
 
+import { recordContactAction, requestCountry } from "lib/measurement/record";
 import { headers } from "next/headers";
 import { Resend } from "resend";
 import { z } from "zod";
@@ -81,6 +82,13 @@ export async function submitContactForm(formData: FormData) {
         success: false,
       };
     }
+
+    recordContactAction({
+      channel: "site",
+      country: requestCountry(requestHeaders),
+      event: "contact_sent",
+      userAgent: requestHeaders.get("user-agent"),
+    });
 
     return {
       message: "Thank you! Your message has been sent successfully.",

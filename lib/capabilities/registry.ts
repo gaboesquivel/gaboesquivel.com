@@ -1,5 +1,6 @@
 import type { z } from "zod";
 
+import { recordContactAction } from "../measurement/record";
 import { bookCallCapability } from "./book-call";
 import { contactGabo } from "./contact-gabo";
 import { getCv } from "./get-cv";
@@ -118,5 +119,45 @@ export const runCapability = async ({
   if (!parsed.success) {
     throw new Error(parsed.error.issues[0]?.message ?? "invalid-input");
   }
-  return entry.execute({ context, input: parsed.data });
+  const result = await entry.execute({ context, input: parsed.data });
+  recordCapabilityContact({ context, name, result });
+  return result;
+};
+
+const CONTACT_CAPABILITIES: Record<string, "call_booked" | "note_sent"> = {
+  book_call: "call_booked",
+  send_note: "note_sent",
+};
+
+/** Confirmed notes and bookings count once per provider id, so replays add nothing. */
+const recordCapabilityContact = ({
+  context,
+  name,
+  result,
+}: {
+  context: CapabilityContext;
+  name: string;
+  result: unknown;
+}) => {
+  const event = CONTACT_CAPABILITIES[name];
+  const outcome = result as {
+    data?: { eventId?: unknown; receiptId?: unknown } | null;
+    requestId?: string;
+    status?: string;
+  } | null;
+  if (!event || !context.measure || outcome?.status !== "confirmed") return;
+  const data = outcome.data ?? {};
+  const providerId = data.eventId ?? data.receiptId;
+  // Without a provider id, the request id still keeps one request from counting twice.
+  const dedupeId =
+    typeof providerId === "string" && providerId
+      ? providerId
+      : `request:${outcome.requestId ?? context.correlationId}`;
+  recordContactAction({
+    channel: context.measure.channel,
+    country: context.measure.country,
+    dedupeId,
+    event,
+    userAgent: context.measure.userAgent,
+  });
 };

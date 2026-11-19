@@ -5,6 +5,12 @@
       "name": "dev",
       "url": "https://gaboesquivel.localhost",
       "port": 443
+    },
+    {
+      "name": "dev-app",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run", "dev:app"],
+      "port": 3099
     }
   ]
 }

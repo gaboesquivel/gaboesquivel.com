@@ -32,7 +32,7 @@ type ContactEvent =
 type Channel = "site" | "mcp" | "calendly";
 ```
 
-It sends an Umami event with `POST https://gateway.umami.is/api/send` (website ID from env, real User-Agent) and runs `HINCRBY measure:contact:<YYYY-MM> <event>:<channel>:<country> 1` on the Upstash client already used by `lib/connect/store.ts`. Months are UTC. Country comes from `x-vercel-ip-country`, or `XX` when it is missing. Recording runs after the response with `after()` (check the bundled Next docs), never throws, and never blocks or changes the user-facing result. A Redis or Umami failure is logged and dropped.
+It sends an Umami event with `POST https://gateway.umami.is/api/send` (website ID from env, real User-Agent) and runs `HINCRBY measure:contact:<YYYY-MM> <event>:<channel>:<country> 1` on the Upstash client already used by `lib/connect/store.ts`. Months are UTC. Country comes from `x-vercel-ip-country`, or `XX` when it is missing. Recording runs after the response with `after()` (check the bundled Next docs), never throws, and never blocks or changes the user-facing result. A Redis or Umami failure is logged and dropped. Redis decides duplicates (`SET NX` on the provider id), and Umami hears only first-time counts. Outside production, keys carry a `dev:` prefix and nothing goes to Umami, because local and preview runs share the production Upstash database.
 
 **Call sites.**
 
@@ -41,9 +41,9 @@ It sends an Umami event with `POST https://gateway.umami.is/api/send` (website I
 - `runCapability` in `lib/capabilities/registry.ts`: `note_sent` or `call_booked` when the outcome is `confirmed` and was not a replay. Channel is `mcp` from `/mcp` and `site` from `/api/capabilities` (the homepage GenUI flow). `book_call` writes to Google Calendar, not Calendly, so it never double-counts with `booking`.
 - Calendly webhook route (for example `app/api/webhooks/calendly/route.ts`): verifies the `Calendly-Webhook-Signature` header against `CALENDLY_WEBHOOK_SIGNING_KEY` and records `booking`/`calendly` on `invitee.created`. Country is `XX`, since the request comes from Calendly. Duplicate deliveries are deduplicated by invitee URI with `SET NX` and a TTL.
 
-**Clarity.** Loaded lazily through the existing `components/layout/deferred-analytics.tsx`. For EEA, UK, and CH visitors (from the country header) it gets no consent signal, so Clarity stays in its cookieless mode. Other visitors get `consentv2` granted. The Clarity project ID comes from env, and nothing loads when it is unset. `/privacy` names Umami, Clarity, and Vercel Analytics, what they collect, and the EEA behaviour.
+**Clarity.** Loaded lazily through the existing `components/layout/deferred-analytics.tsx`. The site sends no consent signal: Clarity's default Consent Mode already limits collection and sets no cookies for EEA, UK, and CH visitors until they consent, and other regions need no signal. The Clarity project ID comes from env, and nothing loads when it is unset or on `/analytics`. The CSP allows `*.clarity.ms` and `c.bing.com`. `/privacy` names Umami, Clarity, and Vercel Analytics, what they collect, and the EEA behaviour.
 
-**Umami client script.** It loads with `next/script` and is proxied through a same-origin rewrite to reduce blocking. Client-side Umami covers pageviews, engagement, funnels, and scroll depth (25/50/75/100 events, at most one of each per pageview). Server-side events are the source of truth for the metric.
+**Umami client script.** It loads with `next/script` from `cloud.umami.is`, not through a same-origin proxy: Umami does not document whether a Next.js rewrite keeps visitor geolocation, and the US and Latin America split matters more than the visits ad blockers hide. Client-side Umami covers pageviews, engagement, funnels, and scroll depth (25/50/75/100 events, at most one of each per pageview). Server-side events are the source of truth for the metric.
 
 **`/analytics`.** A server component, dynamic and uncached.
 
@@ -102,5 +102,5 @@ About two focused days of agent work. The first verifiable slice is the recordin
 ## Further Notes
 
 - Homepage GenUI notes and bookings count alongside MCP ones, attributed by channel (confirmed 2026-11-19; PRODUCT.md updated on this branch).
-- **Unverified:** that Calendly's free plan allows webhook subscriptions through the API, and the exact Calendly signature header format. Check both before building the webhook.
+- Verified 2026-11-19: Calendly webhooks (`invitee.created`) are on all plans including Free; the signature is `t=<unix>,v1=<hex>` over `${t}.${rawBody}`; Umami Cloud's send endpoint is `gateway.umami.is/api/send`.
 - **Gabo's setup steps:** Umami and Clarity accounts, the Calendly token, and choosing the password.
