@@ -2,8 +2,9 @@ import { recordContactAction, requestCountry } from "lib/measurement/record";
 
 const CALENDLY_URL = "https://calendly.com/gaboesquivel/30min";
 
+// Crawlers and link unfurlers (Slackbot, Discordbot, TelegramBot, Googlebot…); not in-app browsers.
 const BOT_PATTERN =
-  /bot|crawl|spider|slurp|preview|fetch|monitor|curl|wget|python|headless|facebookexternalhit|embedly|whatsapp|slack|discord|telegram/i;
+  /(?<!cu)bot\b|crawl|spider|slurp|preview|monitor|curl|wget|python|headless|facebookexternalhit|embedly/i;
 
 // Prefetches, router fetches, and link unfurlers are not clicks.
 const isHumanClick = (request: Request) => {

@@ -60,7 +60,14 @@ function ScrollDepth() {
       frame ||= window.requestAnimationFrame(measure);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    // Catch marks already reached (short pages, restored scroll) once Umami loads.
+    const waitForUmami = window.setInterval(() => {
+      if (!window.umami) return;
+      window.clearInterval(waitForUmami);
+      measure();
+    }, 1000);
     return () => {
+      window.clearInterval(waitForUmami);
       window.removeEventListener("scroll", onScroll);
       if (frame) window.cancelAnimationFrame(frame);
     };

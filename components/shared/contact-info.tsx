@@ -75,6 +75,7 @@ export function ContactInfo({ hidden = true }) {
           </Link>
           <Link
             href={publicBookingUrl}
+            prefetch={false}
             className="group prose flex items-center gap-2 no-underline prose-neutral dark:prose-invert"
           >
             <Calendar className="h-4 w-4 shrink-0" />

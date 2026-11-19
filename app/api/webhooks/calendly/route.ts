@@ -21,11 +21,14 @@ export async function POST(request: Request) {
   let parsed: {
     event?: string;
     payload?: { old_invitee?: unknown; uri?: unknown };
-  };
+  } | null;
   try {
     parsed = JSON.parse(body);
   } catch {
     return new Response("Invalid JSON", { status: 400 });
+  }
+  if (!parsed || typeof parsed !== "object") {
+    return new Response("Invalid payload", { status: 400 });
   }
   const inviteeUri = parsed.payload?.uri;
   // A reschedule creates a new invitee that points at the old one; it is not a new booking.
