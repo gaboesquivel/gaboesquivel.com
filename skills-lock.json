@@ -44,10 +44,10 @@
       "computedHash": "89496d5dd00f4810205f351759594fc2742bf8eea85a2f2b2d1de59f4bd91576"
     },
     "gabo": {
-      "source": "gaboesquivel/gaboesquivel-skills",
+      "source": "gaboesquivel/gaboesquivel",
       "sourceType": "github",
       "skillPath": "skills/gabo/SKILL.md",
-      "computedHash": "94862df9655ada2c704c26603b0e69bb58202ff0263361be263727d29eec8216"
+      "computedHash": "d144d534a315652e6124b50bc7b2028c8123c4deaba51468a0a7ff1b98bd3d8d"
     },
     "mcp-builder": {
       "source": "anthropics/skills",
