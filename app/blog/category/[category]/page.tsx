@@ -1,6 +1,10 @@
 import { BlogPosts } from "components/blog/blog-posts";
 import { getFilteredBlogPosts } from "lib/blog-filter";
-import { isBlogPageInRange, parseBlogPageParam } from "lib/blog-pagination";
+import {
+  blogListingHref,
+  isBlogPageInRange,
+  parseBlogPageParam,
+} from "lib/blog-pagination";
 import {
   browseCategories,
   categoryDescriptions,
@@ -52,8 +56,10 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ category: string }>;
+  searchParams?: Promise<{ page?: string | string[] }>;
 }): Promise<Metadata> {
   const { category } = await params;
   if (!isBrowseCategory(category)) {
@@ -62,9 +68,21 @@ export async function generateMetadata({
 
   const displayName = categoryDisplayNames[category];
 
-  return pageMetadata({
+  const base = pageMetadata({
     description: categoryDescriptions[category],
     path: `/blog/category/${category}`,
     title: `${displayName} Articles | Gabo Esquivel`,
   });
+  const page = parseBlogPageParam((await searchParams)?.page);
+  if (page === "invalid" || page <= 1) {
+    return base;
+  }
+  // Each page lists different posts, so it is its own canonical.
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      canonical: blogListingHref({ category, page }),
+    },
+  };
 }

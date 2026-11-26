@@ -1,15 +1,35 @@
 import { BlogPosts } from "components/blog/blog-posts";
 import { getFilteredBlogPosts } from "lib/blog-filter";
 import { blogIndexDescription } from "lib/blog-index";
-import { isBlogPageInRange, parseBlogPageParam } from "lib/blog-pagination";
+import {
+  blogListingHref,
+  isBlogPageInRange,
+  parseBlogPageParam,
+} from "lib/blog-pagination";
 import { pageMetadata } from "lib/page-metadata";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-export const metadata = pageMetadata({
-  description: blogIndexDescription,
-  path: "/blog",
-  title: "Writing | Gabo Esquivel",
-});
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: Promise<{ page?: string | string[] }>;
+}): Promise<Metadata> {
+  const base = pageMetadata({
+    description: blogIndexDescription,
+    path: "/blog",
+    title: "Writing | Gabo Esquivel",
+  });
+  const page = parseBlogPageParam((await searchParams)?.page);
+  if (page === "invalid" || page <= 1) {
+    return base;
+  }
+  // Each page lists different posts, so it is its own canonical, not /blog.
+  return {
+    ...base,
+    alternates: { ...base.alternates, canonical: blogListingHref({ page }) },
+  };
+}
 
 export default async function BlogPage({
   searchParams,
