@@ -44,6 +44,7 @@ export async function generateMetadata({
 
   return metadataWithMarkdownAlternate({
     metadata: {
+      alternates: { canonical: `/blog/${postSlug}` },
       description,
       openGraph: {
         description,
