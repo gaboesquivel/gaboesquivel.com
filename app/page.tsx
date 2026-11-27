@@ -29,7 +29,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd()) }}
       />
       <div className="grid items-start gap-6 lg:mt-6 lg:grid-cols-[1.08fr_1fr] lg:items-center lg:gap-0">
-        <div className="relative z-10 pb-6 lg:pb-0">
+        <div className="relative z-10 pb-6 lg:pb-0" data-scramble="pending">
           <PageEyebrow />
           <ScrambleTitle />
           <PageTitle>
