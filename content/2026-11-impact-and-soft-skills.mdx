@@ -1,0 +1,102 @@
+---
+title: Impact and Soft Skills
+publishedAt: 2026-11-27
+image: /images/2026/11/impact-and-soft-skills.webp
+summary: 'Agents now handle much of the tactical work of software. What sets an engineer apart is the impact they create for the business, and the skills that produce it, from agency and delivery to taste, systems design, and self-directed learning.'
+category: ['Engineering', 'Product', 'Artificial Intelligence', 'Startups']
+tech: []
+---
+
+For a long time, getting better as a software engineer meant getting better at writing code. Learn the language deeply, know the framework's internals, type faster, debug faster. That path still teaches useful things, but it's no longer where the leverage is.
+
+![An engineer listens to a colleague, with robotic arms visible through the glass behind them.](/images/2026/11/impact-and-soft-skills.webp)
+
+Coding agents now do a large share of the tactical work: writing the implementation, running the tests, fixing the lint errors, migrating the dependency. They don't decide what's worth building, how it fits the business, who needs to agree, or whether the result actually helped. That's the strategic work, and it's where an engineer's value is moving.
+
+So here's my advice to anyone building a career in software right now: measure yourself by impact, and invest in the skills that produce it. Most of those skills are the ones we used to call soft.
+
+## Start with the business
+
+Impact means a change the business can feel: more revenue, lower cost, less risk, a faster path to a decision, a customer who stays. If you can't say which of those your work moves, that's the first gap to close.
+
+Product and business thinking sits under every skill in this post. Know how your company makes money, which metrics leadership watches, what a customer is trying to get done, and what it costs to run what you ship. Then frame your work in those terms. "I rewrote the checkout service" describes activity. "Checkout is twice as fast, and fewer people abandon their cart" describes impact.
+
+At whatever scale you work, the strategic questions are yours: which problem to take on, which tradeoff to accept, which outcome counts as done. An engineer who understands the business can point a team of agents at the right problem. One who doesn't can produce a great deal of well-tested code nobody needed.
+
+## The skills that produce impact
+
+None of these are new. What's new is that they're the bottleneck.
+
+### Agency and ownership
+
+Agency is noticing what needs to happen and doing it without waiting for a ticket. Ownership is staying with it after the merge: the incident, the cost, the user who's stuck. Agents amplify initiative: someone with good tools can take a hunch to a working prototype in an afternoon. They don't take responsibility for the result. People do.
+
+### Communication
+
+Agents made implementation faster. Alignment didn't speed up with it. Getting product, design, engineering, and the business to agree still takes time, so more of an engineer's day goes to proposals, tradeoffs explained to non-engineers, and disagreement that moves a plan forward. Writing matters most: a good spec, a precise issue, and a well-scoped prompt all make intent clear enough for a person or an agent to act on.
+
+### Taste and judgment
+
+Agents can produce ten working versions of anything. Taste is knowing which one to keep: the simpler API, the interaction that feels right, the abstraction that will still make sense in a year. Judgment is deciding what not to build, which risks are acceptable, and when an agent's confident answer is wrong. When building gets cheaper, [choosing what to build](/blog/2026-02-engineering-ai-era) gets more valuable.
+
+### Delivery
+
+Delivery is getting the change into production and seeing it through: rollout, monitoring, the follow-up fix, the conversation with the customer who found the edge case. Generated code is cheap. A dependable change in front of users is still hard, and it's what the business pays for. As I wrote in [Iteration Velocity](/blog/2026-10-iteration-velocity), ship in small steps and learn from each one.
+
+### Systems design
+
+Someone has to define the boundaries, data model, failure modes, and contracts before agents fill in the implementation. Security belongs there from the start: who can do what, which data an agent may touch, and what happens when an input is hostile. Agents ship vulnerabilities as fast as features when nobody sets the constraints. Good design also makes work verifiable, so you can trust results without reading every line.
+
+### Creativity
+
+When implementation is cheap, you can afford to try the unusual idea. Creativity shows up as a better framing of the problem, an approach borrowed from another domain, or a product nobody thought was feasible on this budget. A good team will try more ideas than it used to. Make some of them yours.
+
+### Customer empathy
+
+Understand the people using the product well enough to notice what they didn't ask for. Watch them use it, read the support tickets, sit in on a sales call. Engineers who know their users make better product decisions, and they bring that context to every agent they direct. Agents can't have those conversations for you.
+
+### Self-directed learning
+
+Models, tools, and practices change every few months, and nobody will schedule your training. Stay ahead of the curve by experimenting: try the new model on a real task, build a small prototype with an unfamiliar tool, form an opinion, and keep what works. A few hours a week of deliberate play keeps your judgment current.
+
+## Technical depth still counts
+
+None of this means engineering knowledge stopped mattering. You can't judge a design you don't understand, catch a subtle concurrency bug in generated code, or design a verification strategy without depth. The difference is what depth is for. It used to show up mostly as output. Now it shows up as better decisions.
+
+Thariq, who worked on Claude Code at Anthropic until recently, put the irony well:
+
+<XPost
+  url="https://x.com/trq212/status/2115544056038350960"
+  author="Thariq"
+  handle="trq212"
+  avatar="/images/x/trq212.webp"
+  date="2026-10-28"
+>
+
+very weird thing happening rn
+
+technical people are sad, they think their skills are now useless
+
+non-technical people are desperately wishing they were more technical so they could use agents better
+
+</XPost>
+
+Technical depth combined with the skills above is a strong position to be in.
+
+## Make your impact visible
+
+Impact only counts if people can see it. A few habits help:
+
+- Before starting a project, write down the outcome it should move and how you'll know.
+- After it ships, measure the result and share it in the business's terms.
+- Spend time with the people who use what you build and the people who sell it.
+- Build the tool that removes a recurring problem, even if nobody asked.
+- Practice explaining your work to someone outside engineering in two minutes.
+
+The engineers I expect to thrive in this period understand what the business needs, point their agents and their teams at it, and can show what changed. That's the work I care about as a [product engineer](/blog/2026-09-product-engineering), and it's the work I'd encourage anyone in software to grow into.
+
+## Worth watching
+
+For a look at how this plays out inside a company that builds with agents every day, I recommend Gergely Orosz's conversation with Katelyn Lesse, who leads platform engineering at Anthropic. They cover code review, on-call, hiring, and promotions when agents do much of the implementation.
+
+<YouTube id="9oNvKMd7xJo" title="How Anthropic builds software in 2026 with Katelyn Lesse" />
