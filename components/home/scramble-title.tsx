@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 const GLYPHS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#?*+-=_";
@@ -9,16 +9,28 @@ const DURATION = 900;
 let played = false;
 
 /**
- * Experiment: scrambles the homepage h1 once per page load, then settles on
- * the real text, left to right. No library; skipped under reduced motion.
+ * Scrambles the homepage h1 once per page load, then settles on the real
+ * text, left to right. No library; skipped under reduced motion.
+ *
+ * The h1 sits inside `[data-scramble="pending"]`, which CSS keeps hidden
+ * while scripts run (global.css). The first scrambled frame is drawn before
+ * the gate flips to "done", so the real text never flashes before the
+ * animation.
  */
 export function ScrambleTitle() {
-  useEffect(() => {
-    if (played) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  useLayoutEffect(() => {
+    const gate = document.querySelector("[data-scramble]");
+    const h1 = gate?.querySelector("h1");
+    const open = () => gate?.setAttribute("data-scramble", "done");
 
-    const h1 = document.querySelector("h1");
-    if (!h1) return;
+    if (
+      !h1 ||
+      played ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      open();
+      return;
+    }
 
     const walker = document.createTreeWalker(h1, NodeFilter.SHOW_TEXT);
     const nodes: { node: Text; text: string }[] = [];
@@ -37,6 +49,10 @@ export function ScrambleTitle() {
         .slice(0, index)
         .reduce((sum, { text }) => sum + text.length, 0),
     }));
+    const restore = () => {
+      for (const { node, text } of nodes) node.data = text;
+      h1.removeAttribute("aria-label");
+    };
     const start = performance.now();
     let frame = 0;
 
@@ -58,16 +74,17 @@ export function ScrambleTitle() {
         frame = requestAnimationFrame(render);
       } else {
         played = true;
-        for (const { node, text } of nodes) node.data = text;
-        h1.removeAttribute("aria-label");
+        restore();
       }
     };
 
-    frame = requestAnimationFrame(render);
+    // Paint the first scrambled frame synchronously, then reveal.
+    render(start);
+    open();
+
     return () => {
       cancelAnimationFrame(frame);
-      for (const { node, text } of nodes) node.data = text;
-      h1.removeAttribute("aria-label");
+      restore();
     };
   }, []);
 

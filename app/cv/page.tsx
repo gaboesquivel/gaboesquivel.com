@@ -30,7 +30,7 @@ interface CvPageProps {
 }
 
 const bulletItemClass =
-  "cv-content cv-bullet relative pl-5 before:absolute before:left-0 before:content-['•']";
+  "cv-content cv-bullet pl-5 -indent-5 before:inline-block before:w-5 before:indent-0 before:content-['•']";
 
 const bulletListClass = cn(proseClass, "mb-0 list-none pl-0");
 
@@ -172,6 +172,27 @@ export default async function CVPage({ searchParams }: CvPageProps) {
             <Prose className="cv-content cv-also max-w-none">
               {variant.also}
             </Prose>
+          </PageSection>
+        </div>
+      ) : null}
+
+      {variant.skills.length > 0 ? (
+        <div
+          data-cv-block="skills"
+          className={cn(
+            cvSectionBreak({ id: "skills", key }),
+            "no-break-inside"
+          )}
+        >
+          <PageSection className="print:mt-0 preview-print:mt-0" title="Skills">
+            <ul className={cn(bulletListClass, "cv-skills")}>
+              {variant.skills.map((skill) => (
+                <li className="cv-content" key={skill.label}>
+                  <span className="font-semibold">{skill.label}:</span>{" "}
+                  {skill.keywords}
+                </li>
+              ))}
+            </ul>
           </PageSection>
         </div>
       ) : null}

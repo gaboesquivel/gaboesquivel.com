@@ -1,7 +1,7 @@
 import type { CvKey } from "gaboesquivel";
 
 const cvPageBreaks: Record<CvKey, string[]> = {
-  full: ["Opyn"],
+  full: ["Bitcash"],
   ai: ["Bitcash"],
   web3: ["RareMint"],
   fullstack: ["Wink"],

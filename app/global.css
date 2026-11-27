@@ -653,6 +653,25 @@ a {
 }
 
 /*
+ * Homepage title scramble gate. The server renders the real h1 text (SEO,
+ * no-JS), but when scripts run and motion is allowed it stays hidden until
+ * ScrambleTitle paints its first scrambled frame and clears the attribute.
+ * The delayed reveal is a fallback if hydration is slow or fails.
+ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-scramble="pending"] h1 {
+    visibility: hidden;
+    animation: scramble-reveal 0s linear 1.2s forwards;
+  }
+}
+
+@keyframes scramble-reveal {
+  to {
+    visibility: visible;
+  }
+}
+
+/*
  * M-I: GenUI result reveal. The `enter` token's values (components/shared/
  * motion.ts) on each generated block as it mounts: the items of an
  * experience stack, or the single experience under the OpenUI renderer's two
