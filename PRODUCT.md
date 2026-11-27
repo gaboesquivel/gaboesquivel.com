@@ -120,6 +120,12 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 - `/work`: featured projects (package `type` includes `featured`), a type filter (`/work/[type]`; `all` lists every project), then recent writing
 - `/project/[slug]`: complete implementation evidence for one project; title and description come from the package
 
+#### Project cover production
+
+Use the project's own visual language. Choose one recognizable subject that explains the product or its central idea and still reads at gallery-thumbnail size. Compare the cover with neighboring projects on `/work` for contrast, detail and scale.
+
+Compose new artwork edge to edge for the 16:9 project hero. Keep the focal subject legible in the 16:10 and 21:9 gallery crops. The site supplies the frame and rounded corners. Export the artwork as WebP at the project's existing path under `public/images/work/` and regenerate its 1200 × 630 Open Graph PNG for link previews.
+
 ### Capability pages
 
 Routes: `/fullstack`, `/frontend`, `/backend`, `/mobile`, `/startups`, `/institutions`, `/lead`.
