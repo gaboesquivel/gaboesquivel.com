@@ -21,7 +21,14 @@ const formatDate = (date: string) =>
   });
 
 /** Static card for an X post: text, author, and date captured at writing time. */
-export function XPost({ url, author, handle, avatar, date, children }: XPostProps) {
+export function XPost({
+  url,
+  author,
+  handle,
+  avatar,
+  date,
+  children,
+}: XPostProps) {
   return (
     <figure className="not-prose my-8">
       <a
@@ -42,7 +49,7 @@ export function XPost({ url, author, handle, avatar, date, children }: XPostProp
           />
           <div className="min-w-0 leading-tight">
             <div className="font-semibold">{author}</div>
-            <div className="text-muted-foreground text-sm">@{handle}</div>
+            <div className="text-sm text-muted-foreground">@{handle}</div>
           </div>
           <svg
             aria-hidden="true"
@@ -55,7 +62,7 @@ export function XPost({ url, author, handle, avatar, date, children }: XPostProp
         <blockquote className="mt-4 space-y-3 text-base leading-relaxed">
           {children}
         </blockquote>
-        <figcaption className="mt-4 text-muted-foreground text-sm">
+        <figcaption className="mt-4 text-sm text-muted-foreground">
           <time dateTime={date}>{formatDate(date)}</time>
           <span aria-hidden="true"> · </span>
           View on X
