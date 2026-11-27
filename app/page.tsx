@@ -42,7 +42,12 @@ export default function HomePage() {
             <span aria-hidden="true" className="text-neutral-400">
               /
             </span>
-            <span className="text-accent">{siteBrandRole}</span>
+            <Link
+              href="/cv"
+              className="text-accent underline-offset-4 transition-colors hover:underline focus-visible:underline"
+            >
+              {siteBrandRole}
+            </Link>
           </p>
         </div>
         <PortraitMedia />
