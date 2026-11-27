@@ -210,15 +210,20 @@
   padding-left: 0.95rem !important;
 }
 
+/* Hanging indent with an inline marker, not an absolute one: positioned
+   markers make Chromium paint list text after the surrounding paragraphs,
+   which scrambles reading order for ATS parsers. */
 .cv-print .cv-bullet {
-  position: relative !important;
+  position: static !important;
+  text-indent: -0.95rem !important;
 }
 
 .cv-print .cv-bullet::before {
   content: "•" !important;
-  position: absolute !important;
-  left: 0 !important;
-  top: 0.02em !important;
+  position: static !important;
+  display: inline-block !important;
+  width: 0.95rem !important;
+  text-indent: 0 !important;
   font-size: 0.95em !important;
   line-height: inherit !important;
 }
