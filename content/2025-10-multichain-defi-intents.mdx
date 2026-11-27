@@ -7,9 +7,9 @@ category: ['Web3', 'DeFi', 'Solana', 'Cosmos', 'Fullstack', 'Backend']
 tech: ['Ethereum']
 ---
 
-Cross-chain DeFi has a persistent product problem: people must choose networks, move assets, account for transaction fees, and wait for separate systems to agree on the result. Intent-based execution moves more of that coordination into a network of participants that can fulfill an agreed outcome within stated constraints.
+Cross-chain DeFi still asks too much of people: pick networks, move assets, budget for fees on each chain, and wait for separate systems to agree on the result. Intents move that coordination to a network of participants who compete to deliver an outcome the user signed, within the constraints they set.
 
-Protocols approach this in different ways, including auctions, solver networks, and relayers. Their common design question is how to separate the result a user authorizes from the route a system takes to achieve it. This article compares the architecture and tradeoffs rather than treating any one execution model as universal.
+Protocols get there with auctions, solver networks, or relayers, and they all answer the same design question: how do you separate the result a user authorizes from the route the system takes to reach it? No single execution model wins everywhere, so I'll walk through the architecture, the protocols I'd actually pick, and what changes in the product.
 
 {/* Prevent CLS with responsive aspect ratio */}
 ## The coordination problem
@@ -40,7 +40,7 @@ On EVM, for same-chain swaps, I look at three.
 
 UniswapX runs a Dutch auction in which users sign an intent and fillers compete on a descending price curve. It is gasless for the user and MEV-protected, draws liquidity from Uniswap, RFQ, and private inventory, and runs on Mainnet, Arbitrum, Polygon, and Base.
 
-CoW Protocol batches intents, and solvers compete to find settlements across those orders. The useful design distinction is shared execution rather than a particular volume figure.
+CoW Protocol batches intents, and solvers compete to find settlements across those orders. What I value there is shared execution: orders in the same batch can settle against each other before touching outside liquidity.
 
 1inch Fusion+ is resolver-based, with gasless swaps, partial fills, and cross-chain routing over 1inch aggregation plus private sources.
 
@@ -76,13 +76,15 @@ Gas sponsorship becomes part of the bid, so users do not pre-fund five gas token
 
 Liquidity aggregation becomes the solver's job, so I do not integrate ten DEX aggregators when I am already on an intent protocol. MEV protection comes from CoW batches, UniswapX auctions, and Across relayers, and the app's only job there is to never broadcast the raw swap.
 
-Intents are also the execution model [agentic finance](/blog/2025-09-agentic-finance) needs, with a goal, a fence, and a cryptographic settlement. Olas, Autonolas, and similar agent frameworks already treat intents as the coordination layer, and an agent that writes raw calldata is one I do not want signing.
+Intents are also the execution model [agentic finance](/blog/2025-09-agentic-finance) needs, with a goal, a fence, and a cryptographic settlement. Olas (formerly Autonolas) and similar agent frameworks already treat intents as the coordination layer, and an agent that writes raw calldata is one I do not want signing.
 
 The open questions I am tracking are whether ERC-7683 is the format L2s and wallets keep, whether compacts carry real volume, whether solver networks consolidate or specialize, how fast agent products move onto intents, and whether encrypted intent pools become normal for size.
 
 For a new application, I would evaluate the intent format, authorization boundary, execution guarantees, failure handling, and available infrastructure before selecting a protocol. The interface should explain the requested outcome and the conditions under which it can complete.
 
-## Videos and docs
+## Worth watching and reading
+
+If you want to go deeper, these are good starting points:
 
 - [UniswapX Explained – Bankless](https://www.youtube.com/watch?v=PA45L8HGL3E)
 - [How CoW Protocol Works – Finematics](https://www.youtube.com/watch?v=1ACCCB1wptI)

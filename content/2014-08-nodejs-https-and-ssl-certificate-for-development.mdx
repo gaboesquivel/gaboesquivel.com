@@ -6,29 +6,29 @@ category: ['Engineering', 'Backend']
 tech: ['JavaScript', 'NodeJS']
 ---
 
-HTTPS is the HTTP protocol over TLS/SSL and HTTPS is required to protect your data. It is the most popular network protocol for establishiing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I'll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes.
+HTTPS is the HTTP protocol over TLS/SSL, and it is required to protect your data. It is the most popular network protocol for establishing secure connections for exchanging documents on the internet. It is basically HTTP carried over a TCP socket, which has been secured using SSL. Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols designed to provide communication security. In this post I'll show how to create a self-signed SSL certificate and set up an express 4.0 project that uses it for local development purposes.
 
 ### Self-Signed SSL Certificate
 
-There are two kinds of certificates: those signed by a '[Certificate Authority](http://en.wikipedia.org/wiki/Certificate_authority)', or CA, and 'self-signed certificates'. A Certificate Authority is a trusted source for an SSL certificate, and using a certificate from a CA allows your users to be trust the identity of your website. In most cases, you would want to use a CA-signed certificate in a production environment - for testing purposes, however, a self-signed certicate will do just fine.
+There are two kinds of certificates: those signed by a '[Certificate Authority](http://en.wikipedia.org/wiki/Certificate_authority)', or CA, and 'self-signed certificates'. A Certificate Authority is a trusted source for an SSL certificate, and using a certificate from a CA allows your users to trust the identity of your website. In most cases, you would want to use a CA-signed certificate in a production environment - for testing purposes, however, a self-signed certificate will do just fine.
 
-To genereate a certificate all you need is openssl
+To generate a certificate, all you need is openssl.
 
 ```
 $ where openssl
 /usr/bin/openssl  /usr/local/bin/openssl
 ```
 
-You can install it using homewbrew `brew install openssl` on Mac OS, on linux use `sudo apt-get install openssl`, on windows you can use [this installer](http://gnuwin32.sourceforge.net/packages/openssl.htm).
+You can install it with Homebrew on macOS (`brew install openssl`), with `sudo apt-get install openssl` on Linux, and on Windows you can use [this installer](http://gnuwin32.sourceforge.net/packages/openssl.htm).
 
-To update openssl on mac os run the following commands
+To update openssl on macOS, run the following commands:
 ```
 brew update
 brew install openssl
 brew link --force openssl
 ```
 
-Run the these commands to generate a self-signed certificate.
+Run these commands to generate a self-signed certificate:
 
 ```
 openssl genrsa -out key.pem
@@ -43,14 +43,14 @@ In the second command, when prompted for "Common Name (eg, YOUR name) []:", do n
 
 This certificate will trigger warnings in your browser, since it is self-signed.
 
-When generating the key you might encounter the following error: `unable to write 'random state'`, the most common reason for this happening seems to be that the .rnd file in your home directory is owned by root rather than your account. [more on stackoverflow](http://stackoverflow.com/questions/94445/using-openssl-what-does-unable-to-write-random-state-mean)   
+When generating the key you might encounter the following error: `unable to write 'random state'`. The most common reason seems to be that the .rnd file in your home directory is owned by root rather than your account. [more on stackoverflow](http://stackoverflow.com/questions/94445/using-openssl-what-does-unable-to-write-random-state-mean)   
 
 
 ### Create an HTTPS Server
 
-The HTTPS server and client API is almost identical to the HTTP API, so pretty much everything said above applies to them. In fact, the client API is the same, and the HTTPS server only differs in that it needs a certificate file.
+Node's HTTPS API is almost identical to its HTTP API. The client API is the same, and the HTTPS server only differs in that it needs the key and certificate.
 
-Secure Server
+Secure server:
 ```js
 var https = require('https');
 var fs = require('fs');
@@ -70,15 +70,14 @@ var server = https.createServer(options, function (req, res) {
 ```
 
 
-Socket.io Client lang:javascript
+Socket.io client:
 ```js
 var socket = io.connect('https://localhost:443/',{secure: true});
 ```
 
 &nbsp;   
 
-> Nodejitsu http://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server 
-> NODE PRO TIP: Note fs.readFileSync - unlike fs.readFile, fs.readFileSync will block the entire process until it completes. In situations like this - loading vital configuration data - the sync functions are okay. In a busy server, however, using a synchronous function during a request will force the server to deal with the requests one by one!
+Note the use of `fs.readFileSync`. Unlike `fs.readFile`, it blocks the entire process until it completes. That's fine for loading configuration at startup, but avoid synchronous calls while handling requests on a busy server, or it will process them one at a time (a tip from the Nodejitsu docs linked below).
 
 For a complete guide to OpenSSL I highly recommend this article by Digital Ocean: [OpenSSL Essentials: Working with SSL Certificates, Private Keys and CSRs](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs)
 

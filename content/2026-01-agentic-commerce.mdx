@@ -1,34 +1,30 @@
 ---
 title: Agentic Commerce
 publishedAt: 2026-01-13
-summary: Google's Universal Commerce Protocol, with A2A, AP2, and x402 around it, moves checkout into AI surfaces and makes shopping a workflow agents can execute.
+summary: Once checkout moves into AI surfaces, the buyer can be software, and product data, payment authorization, and trust mechanisms become the storefront.
 category: ['Artificial Intelligence', 'UX', 'Frontend', 'Fullstack', 'Institutions']
 tech: ['OpenAI', 'AI SDK']
 ---
 
-Google launched the Universal Commerce Protocol this week with Shopify, Etsy, Wayfair, Target, and Walmart, and with it the buyer in a commerce workflow can be software instead of a person clicking through a storefront. The models were already good enough for a wide range of real problems, so the change is structural: agents operating commerce workflows, where humans used to operate storefronts.
+The buyer in a commerce workflow can now be software instead of a person clicking through a storefront. The models were already good enough for a wide range of real problems, so the change is structural: agents operate commerce workflows where humans used to operate storefronts. This week made that concrete, when Google launched the Universal Commerce Protocol with Shopify, Etsy, Wayfair, Target, and Walmart.
 
 > **Protocol note (2026):** UCP (Google-led commerce workflow), ACP (OpenAI + Stripe demand/checkout channel), AP2 (authorization mandates), and x402 (HTTP/stablecoin settlement) are complementary layers—not interchangeable names for the same thing. This post reflects the January 2026 launch moment.
 
-In [Evolution of AI UX](/blog/2026-01-evolution-ai-ux) I argued that AI is moving from reactive chatbots to high-agency systems that hold context, plan, decide, and execute, and in [Agentic Finance](/blog/2025-09-agentic-finance) I covered how agents that can pay become economic actors. This post connects the two by looking at what happens when commerce becomes agent-native.
+In [Evolution of AI UX](/blog/2026-01-evolution-ai-ux) I argued that AI is moving from reactive chatbots to high-agency systems that hold context, plan, decide, and execute, and in [Agentic Finance](/blog/2025-09-agentic-finance) I covered how agents that can pay become economic actors. Commerce is where those two ideas meet.
 
-## What Google announced
+## Why commerce needed a protocol
 
-Yesterday Sundar Pichai posted on X that AI agents will be a big part of how people shop, and Google's groundwork for that is the [Universal Commerce Protocol (UCP)](https://ucp.dev/), an open standard for agents and systems to talk to each other at every step of shopping, from discovery to post-purchase. Google co-developed UCP with those retailers, and more than 20 other companies endorsed it, including Adyen, American Express, Best Buy, Flipkart, Macy's, Mastercard, Stripe, The Home Depot, Visa, and Zalando, which makes it a protocol launch backed by the companies that move commerce rather than a pilot.
+Commerce has always been messy. Catalogs don't match across platforms, pricing rules vary by region and context, shipping constraints multiply with each product category, and returns and support are their own universe. The industry handled that with bespoke integrations: every platform built custom connectors and every merchant exposed its own shape of "buy." That works when a human clicks through a UI. It breaks when the buyer is software.
 
-UCP will also power native checkout in AI Mode and the Gemini app. Shoppers will be able to buy from eligible U.S. retailers while they research on Google, paying with Google Pay and the payment methods and shipping details already saved in Google Wallet, with PayPal support to follow. Retailers remain the seller of record, and the checkout happens inside the AI interface.
-
-The direct implication is **native checkout inside AI surfaces**, and once buying moves into the AI interface, that interface becomes the store. In [Why I'm Bullish on 2026](/blog/2025-11-bullish-2026) I expected AI to become foundational infrastructure during 2026, and commerce is where that infrastructure meets money.
-
-Commerce has always been messy. Catalogs don't match across platforms, pricing rules vary by region and context, shipping constraints multiply with each product category, and returns and support are their own universe of complexity. The industry handled that with bespoke integrations, where every platform built custom connectors and every merchant exposed its own shape of "buy," which works when a human clicks through a UI and breaks when the buyer is software.
-
-[AI agents](/ai) need a reliable state machine instead of a UI: find, evaluate, select, authorize, purchase, track, and resolve issues. UCP standardizes that workflow from discovery through post-purchase as an interoperability layer for software. It works across verticals and is compatible with A2A, AP2, and Model Context Protocol (MCP), so it plugs into the broader agent ecosystem instead of replacing it.
+[AI agents](/ai) need a reliable state machine instead of a UI: find, evaluate, select, authorize, purchase, track, and resolve issues. The [Universal Commerce Protocol (UCP)](https://ucp.dev/) standardizes that workflow from discovery through post-purchase as an interoperability layer for software. It works across verticals and is compatible with A2A, AP2, and Model Context Protocol (MCP), so it plugs into the broader agent ecosystem instead of replacing it. Google co-developed it with those retailers, and more than 20 other companies, including Adyen, Mastercard, Stripe, and Visa, endorsed it at launch, so this is a standard the companies that move commerce have already signed on to.
 
 ## Native checkout changes distribution
 
-Native checkout in AI Mode and Gemini sounds like a product detail and is a distribution shift. For twenty years, commerce followed search, click, site, cart, and checkout, and when checkout happens inside the AI experience that funnel collapses. Product data becomes the storefront, fulfillment reliability becomes conversion, the returns policy feeds the agent's decision, and brand voice shows up as agent behavior instead of a landing page. Agent UX at that point is measured in completed purchases, with money attached.
+UCP will also power native checkout in AI Mode and the Gemini app. Shoppers will be able to buy from eligible U.S. retailers while they research on Google, paying with Google Pay and the details already saved in Google Wallet, with PayPal support to follow. Retailers remain the seller of record, and the checkout happens inside the AI interface.
 
-Google is also launching Business Agent, which lets shoppers chat with brands on Search the way they would with a sales associate who answers product questions in the brand's voice, and Lowe's, Michael's, Poshmark, and Reebok are already live on it. Direct Offers lets retailers present exclusive discounts in AI Mode when a shopper is ready to buy. Both belong to the same move from websites to conversational interfaces where agents discover, evaluate, and transact without leaving the AI surface.
+That sounds like a product detail. It's a distribution shift. Once buying moves into the AI interface, that interface becomes the store. For twenty years, commerce followed search, click, site, cart, and checkout, and when checkout happens inside the AI experience that funnel collapses. Product data becomes the storefront, fulfillment reliability becomes conversion, the returns policy feeds the agent's decision, and brand voice shows up as agent behavior instead of a landing page. Agent UX at that point is measured in completed purchases, with money attached.
+
+Google's other launches point the same way. Business Agent lets shoppers chat with a brand on Search the way they would with a sales associate, and Direct Offers lets retailers present discounts in AI Mode when a shopper is ready to buy. Discovery, evaluation, and the transaction all stay on the AI surface. In [Why I'm Bullish on 2026](/blog/2025-11-bullish-2026) I expected AI to become foundational infrastructure this year, and commerce is where that infrastructure meets money.
 
 ## The protocols around UCP
 
@@ -40,7 +36,7 @@ UCP lands in an ecosystem of protocols that together form the rails for multi-ag
 - [x402](https://www.coinbase.com/developer-platform/discover/launches/google_x402), from Google and Coinbase, adds stablecoin settlement for programmatic payments, micropayments, and agent-to-agent compensation that legacy rails handle poorly for autonomous systems.
 - [x402 Bazaar](https://x402.dev/bazaar) is the discovery layer for payable agent services, an index that lists capabilities in a form machines can read.
 
-The part people underestimate is coordination, since agents become useful when they can coordinate and commerce is mostly coordination. A2A lets agents on different platforms interact, the AP2 extension to A2A gives those agents payment capabilities, and x402 adds stablecoin settlement next to traditional payment systems. As I covered in [Agentic Finance](/blog/2025-09-agentic-finance), these protocols set how agents receive delegated intent, prove what they executed, and keep cryptographic guarantees, and commerce is the application layer built on them.
+The part people underestimate is coordination. Agents become useful when they can coordinate, and commerce is mostly coordination. A2A lets agents on different platforms interact, the AP2 extension to A2A gives them payment capabilities, and x402 adds stablecoin settlement next to traditional payment systems. As I covered in [Agentic Finance](/blog/2025-09-agentic-finance), these protocols set how agents receive delegated intent, prove what they executed, and keep cryptographic guarantees. Commerce is the application layer built on them.
 
 <figure className="mx-auto max-w-3xl">
 ![Commerce workflow with complementary protocol layers for A2A, UCP, AP2, and x402](/images/diagrams/2026-01-agentic-commerce.svg)
@@ -50,20 +46,20 @@ The part people underestimate is coordination, since agents become useful when t
 
 ## Why payments decide the product
 
-The line I keep coming back to from that post is that agents that can't pay are assistants and agents that can pay are economic actors. An agent that browses and recommends saves you time, and an agent that browses, decides, and transacts inside your constraints saves you the decision work too, which makes executable commerce inside a workflow the actual product.
+The line I keep coming back to is that agents that can't pay are assistants, and agents that can pay are economic actors. An agent that browses and recommends saves you time. An agent that browses, decides, and transacts inside your constraints saves you the decision work too, which makes executable commerce inside a workflow the actual product.
 
-AP2 exists because software-initiated payments need stronger guarantees than traditional flows about what was authorized, who is accountable, what proof exists, and how disputes resolve. x402 adds what legacy rails struggle to do for autonomous systems: programmatic settlement, low-friction micropayments, and agent-to-agent compensation. When agents can discover services, read their pricing, authorize payments, and settle programmatically, they participate in the economy directly, and the [stablecoin infrastructure](/web3) under x402 gives them crypto's programmability with the price stability commerce needs.
+Software-initiated payments need stronger guarantees than traditional flows about what was authorized, who is accountable, what proof exists, and how disputes resolve. That's the job AP2 takes on. x402 adds what legacy rails struggle to do for autonomous systems: programmatic settlement, low-friction micropayments, and agent-to-agent compensation. When agents can discover services, read their pricing, authorize payments, and settle programmatically, they participate in the economy directly, and the [stablecoin infrastructure](/web3) under x402 gives them crypto's programmability with the price stability commerce needs.
 
 ## Machine-readable discovery
 
-People browse, and agents query, which is why a discovery layer like x402 Bazaar matters: it is an index for agents that lists what each service does, how to call it, how it prices, and how to pay. With that index, agents can discover new tools and pay for them, compose services into workflows, and extend their capabilities without a human wiring each integration, so software discovers, evaluates, and transacts with other software.
+People browse. Agents query. That's why a discovery layer like x402 Bazaar matters: it's an index for agents that lists what each service does, how to call it, how it prices, and how to pay. With it, agents can find new tools and pay for them, compose services into workflows, and extend their capabilities without a human wiring each integration.
 
-## Trust mechanisms as the UX
+## Trust mechanisms are the UX
 
-Once money is involved, the UX is trust, and trust comes from mechanisms: spending limits and categories, approval checkpoints as risk rises, clear receipts and audit trails, reversibility and support flows, and a fast human override. The same principle from [Evolution of AI UX](/blog/2026-01-evolution-ai-ux) applies, that high-agency systems feel empowering only when users keep visibility and control, and commerce makes that requirement non-negotiable, because without those mechanisms an agent with a wallet is a liability nobody wants to use.
+Once money is involved, the UX is trust, and trust comes from mechanisms: spending limits and categories, approval checkpoints as risk rises, clear receipts and audit trails, reversibility and support flows, and a fast human override. The principle from [Evolution of AI UX](/blog/2026-01-evolution-ai-ux) still holds, that high-agency systems feel empowering only when users keep visibility and control. Commerce makes it non-negotiable. Without those mechanisms, an agent with a wallet is a liability nobody wants to use.
 
 ## What I would build on this stack
 
-A new layer of the internet is forming in public: UCP backed by major retailers and launching with native checkout in Google's AI surfaces, A2A connecting agents across platforms, AP2 and x402 letting them transact, a discovery layer built for machines, and Google already shipping Business Agent and Direct Offers on top. Together they shorten the distance between "I want" and "it's done," and they open business models such as paid agent services, agent-negotiated offers, autonomous procurement, and machine-to-machine commerce under human policy.
+A new layer of the internet is forming in public: a commerce protocol backed by major retailers, A2A connecting agents across platforms, AP2 and x402 letting them transact, and a discovery layer built for machines. Together they shorten the distance between "I want" and "it's done," and they open business models such as paid agent services, agent-negotiated offers, autonomous procurement, and machine-to-machine commerce under human policy.
 
-Models are good enough, tooling is becoming composable, and interfaces are being rebuilt around workflows instead of chat, the three conditions I described in [Why I'm Bullish on 2026](/blog/2025-11-bullish-2026). If I were building for this now, I would start with the trust layer, meaning spending limits, approvals, receipts, and override, and make product data and fulfillment reliable enough that an agent can buy from the catalog without a human checking its work.
+Models are good enough, tooling is becoming composable, and interfaces are being rebuilt around workflows instead of chat, the three conditions I described in [Why I'm Bullish on 2026](/blog/2025-11-bullish-2026). If I were building for this now, I'd start with the trust layer, meaning spending limits, approvals, receipts, and override, and then make product data and fulfillment reliable enough that an agent can buy from the catalog without a human checking its work.

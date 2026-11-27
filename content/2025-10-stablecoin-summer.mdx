@@ -7,12 +7,12 @@ category: ['Web3', 'DeFi', 'Stablecoins', 'Institutions']
 tech: ['Ethereum', 'Blockchain']
 ---
 
-Grayscale called June 2025 "Stablecoin Summer" because stablecoin fundamentals stayed strong during a quiet month for crypto prices, and the months since have kept that pattern, with stablecoins moving from a bridge between volatile trades toward the plumbing for value transfer, liquidity management, and global finance.
+Stablecoins used to be the place you parked value between volatile trades. In 2025 they started acting like plumbing: the rails for value transfer, liquidity management, and settlement between crypto and the financial system around it. Grayscale named June 2025 "Stablecoin Summer" because stablecoin fundamentals stayed strong through a flat month for crypto prices, and the pattern has held since. For builders, the bigger change is that stablecoins can now be treated as regulated infrastructure.
 
 {/* Prevent CLS by setting a minimum height */}
 ## Regulatory clarity from the GENIUS Act
 
-Regulatory uncertainty has been one of the largest obstacles to stablecoins becoming mainstream infrastructure, and that is changing quickly.
+Regulatory uncertainty was one of the largest obstacles to stablecoins becoming mainstream infrastructure, and it is clearing quickly.
 
 **The GENIUS Act (Guiding and Establishing National Innovation for U.S. Stablecoins Act)**, signed into law by President Donald Trump in July 2025, sets a federal framework for "payment stablecoins" with requirements on reserve assets, issuer licensing, and transparency:
 
@@ -20,9 +20,9 @@ Regulatory uncertainty has been one of the largest obstacles to stablecoins beco
 * Issuers must register with a federal payment regulator and comply with anti-money laundering (AML) and Know Your Customer (KYC) rules.
 * Algorithmic stablecoins that are not fully collateralized are excluded, which draws a clear compliance line.
 
-The law is widely read as a milestone that legitimizes stablecoins as payment infrastructure, and Goldman Sachs estimates it could add $77 billion in market cap for compliant issuers by 2027.
+That's a line I can design against. With fewer unknowns, real integrations with banks, fintechs, and merchants become worth building, because the rail underneath them has rules.
 
-For engineers and product builders, that means fewer unknowns and more real integrations with banks, fintechs, and merchants, because stablecoin rails can now be treated as regulated infrastructure.
+The political signal matters too. The push for the law gained traction under an administration that publicly backed stablecoins and digital asset infrastructure as part of U.S. competitiveness, and the federal stance has moved from adversarial or tolerant to enabling, conditional on compliance. Teams can now build with regulation in mind instead of waiting for it, so roadmaps, products, and compliance work have something concrete to plan against. For Web3 payments, tokenized real-world assets, or global transfers, a regulated stablecoin environment is the baseline.
 
 ## Stablecoins as digital money rails
 
@@ -32,32 +32,20 @@ For engineers and product builders, that means fewer unknowns and more real inte
 <figcaption>Fiat-backed stablecoins connect an offchain reserve and redemption system with onchain token transfers.</figcaption>
 </figure>
 
-Several data points show stablecoins moving from niche crypto tools into broader value-transfer rails:
+Stablecoins now sit in a chain that runs from reserves to short-term Treasuries to redemption to settlement, and that's what makes them money rails for the internet. The numbers point the same way:
 
-* Grayscale's June 2025 research note found stablecoin fundamentals active and positive even while crypto valuations were flat.
-* An academic working paper found that Tether (USDT) held **roughly 1.6% of all U.S. Treasury bills** by Q1 2025, which makes it a meaningful non-sovereign buyer of sovereign debt.
-* Goldman Sachs observes that stablecoins are layering into existing payment and treasury systems rather than replacing them, and that they are becoming structural buyers of short-term assets, with consequences for liquidity and capital flows.
-* Market research puts stablecoin market cap above $200 billion by early 2025, with annual transaction volume in the trillions.
+* Stablecoin market cap passed $200 billion by early 2025, with transaction volume above $10 trillion in 2023 and nearly double that in 2024.
+* An academic working paper found that Tether (USDT) held **roughly 1.6% of all U.S. Treasury bills** by Q1 2025, and that a ~1% increase in its share can lower 1-month yields by ~14–16 basis points, with stronger effects above a threshold. A non-sovereign issuer is now a meaningful buyer of sovereign debt.
+* Goldman Sachs projects the compliant stablecoin market, led by USDC, could grow by about $77 billion by 2027, roughly 40% a year from 2024. It also sees stablecoins layering into existing payment and treasury systems and becoming structural buyers of short-term assets, with consequences for liquidity and capital flows.
+* Bank of America suggests stablecoins and tokenization may pressure money market funds by capturing short-term Treasury demand that used to go to them.
 
-Stablecoins are embedding themselves in the chain from reserves to short-term Treasuries to redemption to settlement, which is what makes them money rails for the internet.
-
-For Web3 and fintech products, the design question changes. If you build a tokenized asset or payment feature today, you can ask which stablecoin rail to plug into instead of how to hedge for volatility.
-
-## The U.S. policy shift
-
-Policy cycles are complex, and there are still clear signals that the U.S. has entered a new phase:
-
-* The push for stablecoin regulation, including the GENIUS Act, gained traction under the Trump administration, which publicly supported stablecoins and digital asset infrastructure as part of U.S. competitiveness, and that political signal lowers policy risk.
-* With legislation passed, teams can build with regulation in mind instead of waiting for it, which gives engineering roadmaps, products, and compliance something concrete to plan against.
-* The U.S. stance has moved from adversarial or tolerant to enabling, conditional on compliance, which gives fintech builders, cross-border platforms, and tokenization projects a clearer field.
-
-For anyone working on Web3 payments, tokenized real-world assets, or global transfers, operating in a regulated stablecoin environment is now the baseline.
+For Web3 and fintech products, that changes the design question. If you build a tokenized asset or payment feature today, you ask which stablecoin rail to plug into instead of how to hedge for volatility.
 
 ## Stablecoins and agentic finance
 
 Stablecoins are also becoming the base for agentic finance, where AI agents execute financial actions on behalf of users. As I wrote in [Agentic Finance](/blog/2025-09-agentic-finance), they give autonomous systems the price predictability and programmability they need to transact deterministically.
 
-Google's AP2 and Coinbase's x402 let AI agents use stablecoins under cryptographic constraints for payments, settlement, and eventually trading. For now stablecoins are the only asset class that fits agents that handle money, because they are stable, programmable, and composable across chains.
+Google's AP2 and Coinbase's x402 let AI agents use stablecoins under cryptographic constraints for payments, settlement, and eventually trading. For now I think stablecoins are the only asset class that fits agents that handle money, because they're stable, programmable, and composable across chains.
 
 ## What this means for product and engineering
 
@@ -69,16 +57,6 @@ For product engineers, Web3 teams, and fintech architects, the shift shows up in
 * **Compliant token integrations:** a tokenized asset can pay rent or interest in a regulated stablecoin, which reduces volatility exposure and aligns with compliance.
 * **Business models:** stablecoins support models beyond speculation, including merchant settlement, embedded finance such as stablecoin subscriptions, global remittances, and tokenized real-world assets that settle in stablecoins.
 
-## The data behind the growth case
-
-The strongest signals are these:
-
-* Goldman Sachs projects the compliant stablecoin market, led by USDC, could grow by about $77 billion over the next few years, at roughly 40% a year from 2024 to 2027.
-* The academic paper on Tether's Treasury holdings finds that a ~1% increase in its share of U.S. Treasuries can lower 1-month yields by ~14–16 basis points, with stronger effects above a threshold.
-* Stablecoin market cap passed $200 billion by early 2025, with transaction volume above $10 trillion in 2023 and nearly double that in 2024.
-* Bank of America analysis suggests stablecoins and tokenization may pressure money market funds by capturing short-term Treasury demand that used to go to them.
-* The GENIUS Act has passed.
-
 ## Risks and caveats
 
 I expect growth, and I would still build defensively:
@@ -88,8 +66,8 @@ I expect growth, and I would still build defensively:
 * If fiat interest rates shift significantly, the economics of the reserve assets could come under stress.
 * CBDCs or other private digital money rails could fragment the market.
 * Apps that settle in stablecoins should keep fallback rails and monitor de-peg scenarios such as sudden redemption runs.
-* J.P. Morgan has cautioned that stablecoins replacing traditional money is "still far from reality."
+* Not everyone is convinced: J.P. Morgan has cautioned that stablecoins replacing traditional money is "still far from reality."
 
 ## Where I'm building next
 
-Stablecoins are becoming the connective tissue between traditional finance and programmable money, because they combine a stable peg with smart contract programmability, benefit from regulatory clarity that lowers building risk, and address real infrastructure problems in settlement speed, global transfers, and treasury management. Over the next 12 to 24 months I expect more merchant adoption, deeper integration with fintech rails, and more products whose success depends on stablecoin settlement, and those payment and settlement flows are where I plan to spend my Web3 work.
+Stablecoins are becoming the connective tissue between traditional finance and programmable money. They pair a stable peg with smart contract programmability, regulation now lowers the risk of building on them, and they solve real problems in settlement speed, global transfers, and treasury management. Over the next 12 to 24 months I expect more merchant adoption, deeper integration with fintech rails, and more products whose success depends on stablecoin settlement. Those payment and settlement flows are where I plan to spend my Web3 work.

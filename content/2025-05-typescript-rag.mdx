@@ -45,9 +45,11 @@ RAG is the right architecture for:
 * Store and query vectors in `pgvector`, Pinecone, Weaviate, or Qdrant.
 * Run [end-to-end workflows](/fullstack) in Next.js server functions, Vercel edge functions, or Node.js servers.
 
-A growing set of open-source SDKs built for LLM apps covers the rest, with patterns for streaming responses, function calling, and vector search.
+Open-source SDKs built for LLM apps cover the rest, with patterns for streaming responses, function calling, and vector search.
 
 ## Open-source TypeScript AI SDKs
+
+These are the TypeScript libraries worth knowing before you build a pipeline by hand. They overlap a lot, so pick by what you need most: provider-agnostic streaming and tools, retrieval composition, or agent memory.
 
 ### Vercel AI SDK
 
@@ -100,7 +102,7 @@ Where the vectors live depends on the stack you already run:
 
 * `pgvector` is a PostgreSQL extension for vector similarity search, and it fits full-stack apps that already use Postgres.
 * Dedicated vector databases like Pinecone, Weaviate, and Qdrant add scalable nearest-neighbor search and metadata filtering.
-* OpenAI's managed vector store, released in 2024, is integrated with their embeddings and models and suits small-to-medium workloads where you want little operational overhead.
+* OpenAI's managed vector store, released in 2024, is integrated with its embeddings and models and suits small-to-medium workloads where you want little operational overhead.
 
 ## RAG in projects I've shipped
 

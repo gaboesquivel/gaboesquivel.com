@@ -38,15 +38,13 @@ Adoption is uneven. A 2025 Wolters Kluwer survey put current agentic-AI use amon
 
 ## Marketplaces for models, data, and compute
 
-Most products still call a model through a centralized API. The other stack that matured this year is a set of networks that price models, datasets, and spare compute without a single vendor in the middle. I don't treat every token ticker as production-ready, but a few architectures are distinct enough to name.
+Most products still call a model through a centralized API. The other stack that matured this year is a set of networks that price models, datasets, and spare compute without a single vendor in the middle. I don't treat every token ticker as production-ready, but a few architectures are distinct enough to design against.
 
-Bittensor runs specialized subnets where models compete on a task, such as text, images, retrieval, or prediction, and get paid in TAO when the network judges their output useful, so quality is validated economically instead of by a curated model card.
+The first pays models for useful output. Bittensor's subnets have models compete on a task, such as text, images, retrieval, or prediction, and pay them in TAO when the network judges the output useful, so quality is validated economically instead of by a curated model card.
 
-Fetch.ai has deployed tens of thousands of autonomous economic agents (their published figure is over 23,000) for coordination problems like routing, energy, and DeFi automation, and the interesting part is agents negotiating inside an economic frame.
+The second puts agents inside an economic frame, and that's the part I find interesting: agents negotiating with each other, not just answering a user. Fetch.ai has deployed tens of thousands of them (its published figure is over 23,000) for coordination problems like routing, energy, and DeFi automation.
 
-SingularityNET is the older marketplace shape: list an algorithm, let others consume it through a common API, and keep reputation and governance onchain.
-
-Ocean Protocol is the data version, where providers keep the dataset and buyers run compute against it (compute-to-data) instead of downloading a copy. Medical, financial, and IoT data are the use cases it targets.
+The third is the open marketplace. SingularityNET is the older shape: list an algorithm, let others consume it through a common API, and keep reputation and governance onchain. Ocean Protocol applies it to data, where providers keep the dataset and buyers run compute against it (compute-to-data) instead of downloading a copy, with medical, financial, and IoT data as the target use cases.
 
 [Morpheus](https://mor.org/about) is still the open-source personal-AI network I pointed at in 2024, with MOR rewarding people who build, host, and use a peer-to-peer agent network so inference stays owned by its users.
 
@@ -56,7 +54,7 @@ Data economics follow from that. A contributor binds examples to a wallet, a con
 
 ## How the primitives compose
 
-The posts I have written this year describe layers of one stack: stablecoins as payment rails, intent-based execution so an agent does not have to know which bridge is healthy today, agentic finance for wallets and mandates, and decentralized marketplaces for models, data, and GPUs. Model Context Protocol supplies an interoperability layer for exposing tools and resources to AI applications. The application still owns memory persistence, logging, authorization, and the rules that govern execution.
+The posts I've written this year describe layers of one stack: stablecoins as payment rails, intent-based execution so an agent does not have to know which bridge is healthy today, agentic finance for wallets and mandates, and decentralized marketplaces for models, data, and GPUs. Model Context Protocol is the interoperability layer for exposing tools and resources to AI applications, and the application still owns memory persistence, logging, authorization, and the rules that govern execution.
 
 <figure className="mx-auto max-w-3xl">
 ![Agent transaction flow from user intent through authorization to stablecoin settlement and onchain record](/images/diagrams/2025-11-web3-and-ai.svg)

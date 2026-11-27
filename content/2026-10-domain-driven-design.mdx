@@ -11,7 +11,7 @@ A request to “cancel an order” sounds clear until you ask what should happen
 
 A coding agent can implement a plausible interpretation quickly. If the team hasn't agreed on the meaning, that speed can carry the wrong assumption into code, tests, and documentation. This is where domain-driven design becomes particularly useful: it gives people a way to make the concepts behind the software explicit.
 
-After DDD Europe in June, [Martin Fowler wrote](https://martinfowler.com/fragments/2026-06-16.html) that he expects domain-driven design to remain useful and potentially become more important as LLMs change programming. His observation captures what interests me here. The more implementation we delegate, the more clearly we need to express the system we intend to build.
+The more implementation we delegate, the more clearly we need to express the system we intend to build. That's why I expect DDD to matter more as LLMs change programming. Martin Fowler [made a similar point](https://martinfowler.com/fragments/2026-06-16.html) after DDD Europe in June.
 
 <div className="image-container">
 ![Domain-Driven Design](/images/2026/10/domain-driven-design.webp)
@@ -21,9 +21,9 @@ After DDD Europe in June, [Martin Fowler wrote](https://martinfowler.com/fragmen
 
 Two ideas from Eric Evans's domain-driven design are especially helpful when working with agents.
 
-The first is **ubiquitous language**: a shared vocabulary developed by the people who understand the domain and the people building the software. As [Fowler explains](https://martinfowler.com/bliki/UbiquitousLanguage.html), that language should be used in conversation as well as in the model. Working through examples tests whether the words actually describe the business.
+The first is **ubiquitous language**: a shared vocabulary developed by the people who understand the domain and the people building the software. It belongs in conversation as much as in code, and working through examples tests whether the words actually describe the business. Fowler has a [short write-up](https://martinfowler.com/bliki/UbiquitousLanguage.html) if the term is new to you.
 
-The second is a **bounded context**: a boundary within which a particular model and vocabulary are consistent. [Fowler's explanation](https://martinfowler.com/bliki/BoundedContext.html) makes room for different meanings in different parts of a large system, with explicit relationships between them.
+The second is a **bounded context**: a boundary within which a particular model and vocabulary are consistent. A large system can hold different meanings in different parts, as long as the relationships between them are explicit (Fowler [covers this one](https://martinfowler.com/bliki/BoundedContext.html) too).
 
 In a hypothetical commerce system, an account might mean a person's login in identity management and a billable organization in billing. Both meanings can be useful. Trouble begins when code silently treats them as interchangeable. Naming the boundary tells engineers and agents which meaning applies and where a translation is needed.
 
@@ -39,7 +39,7 @@ This takes more than choosing better names. The team has to decide which concept
 
 A clarification in one conversation only helps later work if the agent can recover it. That may come from code, documentation, or remembered context. A concise glossary gives the team an explicit place to settle terms and review changes to their meaning.
 
-Matt Pocock's [domain-modeling skill](https://www.aihero.dev/skills-domain-modeling) takes this approach during design: challenge vague terms, test relationships with examples, and record a definition when it is agreed. It separates the glossary from implementation details and architectural decision records.
+The glossary should come out of design conversations: challenge vague terms, test relationships with examples, and record a definition once it's agreed. Keep it separate from implementation details and architectural decision records. Matt Pocock's [domain-modeling skill](https://www.aihero.dev/skills-domain-modeling) packages that loop nicely for agents.
 
 For the order example, a small entry could look like this:
 
@@ -53,7 +53,7 @@ A return of money previously collected for an order.
 
 These definitions are illustrative; a real business may need different ones. Their value is that they expose a question before it becomes a hidden assumption. Can an order be cancelled after shipment? Who decides whether a refund is due? The discussion can then refine the model.
 
-Pocock also discusses the value of shared vocabulary in this talk:
+Pocock's talk on why fundamentals still matter is worth watching too:
 
 <YouTube id="v4F1gFy-hqg" title="Matt Pocock: Software Fundamentals Matter More Than Ever" />
 

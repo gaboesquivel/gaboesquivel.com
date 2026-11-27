@@ -12,7 +12,7 @@ A coding agent can edit files, run tests, and open a pull request. Turning those
 That is what I mean by an **AI coding factory**: an engineering workflow in which agents carry work through defined stages, with explicit criteria for advancing, retrying, or asking for help. You can build one with existing models and coding tools, without owning the infrastructure that trains them.
 
 {/* Prevent CLS with responsive aspect ratio */}
-Paul Iusztin's [Inside a Software Factory](https://www.oreilly.com/radar/inside-a-software-factory/) describes that broader lifecycle, from intake through release and production feedback. He also writes about an initial version that became so elaborate he stopped using it. That detail matters: the process has to make delivery easier for the people using it.
+The factory covers the whole lifecycle, from intake through release and production feedback, and it only earns its place if it makes delivery easier for the people using it. A process elaborate enough that the team stops using it has failed, however capable it looks. Paul Iusztin's [Inside a Software Factory](https://www.oreilly.com/radar/inside-a-software-factory/) is a good, candid read on exactly that risk.
 
 ## Follow one change through delivery
 
@@ -51,11 +51,11 @@ Useful autonomy still depends on the configured system around the model, the sam
 
 ## Orchestration and evidence
 
-[Anthropic's guidance on effective agents](https://www.anthropic.com/engineering/building-effective-agents) distinguishes predefined workflows from agents that dynamically choose their steps. A factory can combine both: a sequential pipeline for predictable work, parallel workers for independent tasks, and a dynamic split when subtasks emerge during investigation.
+A factory doesn't have to pick between predefined workflows and agents that choose their own steps. It can combine both: a sequential pipeline for predictable work, parallel workers for independent tasks, and a dynamic split when subtasks emerge during investigation. Anthropic's [guide to building effective agents](https://www.anthropic.com/engineering/building-effective-agents) lays out that distinction well.
 
 Two unrelated bug fixes may be able to run in parallel. A database migration and a feature that depends on its schema need sequencing or an agreed contract. I would establish those dependencies and the files each worker may change before adding parallel execution.
 
-Long-running work needs continuity. Anthropic's [research on long-running harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) uses incremental progress and explicit handoff artifacts to preserve work across sessions. For a coding factory, that means recording completed tasks, failed checks, unresolved decisions, and the next useful step.
+Long-running work needs continuity across sessions, which comes from incremental progress and explicit handoff artifacts. For a coding factory, that means recording completed tasks, failed checks, unresolved decisions, and the next useful step. Anthropic's [notes on long-running harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) go deeper on the pattern.
 
 For the duplicate-submission bug, I would want a test that reproduces the failure before the fix and passes afterward, along with checks of the affected user flow. Disabling a button may improve the interaction while leaving the server vulnerable to a retry. Verification should cover the behavior the team agreed on, including that distinction.
 
@@ -63,7 +63,7 @@ Agent review can help find gaps. The evidence still needs to come from running t
 
 ## Platforms and pieces
 
-What interests me about [Factory](https://factory.ai/) is its treatment of these concerns as a connected delivery system. Its [Software Factory documentation](https://docs.factory.ai/software-factory/overview) covers triage, implementation, validation, release, documentation, and monitoring. That is a useful scope to evaluate: how well does the platform carry work between stages, and can the team understand where a run stopped?
+When I look at a managed platform, I want to know how well it carries work between stages and whether the team can see where a run stopped. [Factory](https://factory.ai/) is interesting here because it treats these concerns as one connected delivery system; its [Software Factory documentation](https://docs.factory.ai/software-factory/overview) covers triage, implementation, validation, release, documentation, and monitoring.
 
 <YouTube id="ow1we5PzK-o" title="AI coding factories video" />
 
@@ -84,4 +84,4 @@ The engineer still owns the problem, architectural tradeoffs, and definition of 
 
 I would start with one recurring task and track time to an accepted change, review effort, defects, and total cost. Failed runs should tell us which instructions, tools, checks, or handoffs need improvement.
 
-Then I would expand the workflow when it has demonstrated that it can carry that task reliably. The useful outcome is a change the team can understand, verify, and operate in production. The factory earns its place by making that outcome easier to achieve repeatedly.
+I'd expand the workflow only after it has carried that task reliably. The useful outcome is a change the team can understand, verify, and operate in production, and the factory is worth having when it makes that outcome easier to repeat.

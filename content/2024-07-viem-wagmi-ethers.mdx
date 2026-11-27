@@ -24,11 +24,11 @@ Ethers.js is still in the smart contracts Hardhat project, because that project 
 
 ### Bundle size
 
-Viem is around 27 KB against roughly 130 KB for Ethers.js, which means faster load times in a web app and makes Viem the better fit for performance-sensitive frontends. Ethers.js pays for its size with a broader built-in feature set, which still matters in some complex applications.
+Viem is around 27 KB against roughly 130 KB for Ethers.js. In a web app that's real load time, which makes Viem the better fit for performance-sensitive frontends. Ethers.js pays for its size with a broader built-in feature set, and some complex applications still use it.
 
 ### Modularity and developer experience
 
-Viem is modular, so you import only the parts you use, and its "actions" give each chain operation a clear, single-purpose function. It also infers types automatically from ABIs, which saves a lot of manual typing in TypeScript projects. Ethers.js is known for extensive documentation and community support, and its wide range of utilities covers most Ethereum use cases.
+Viem is modular, so you import only the parts you use, and its "actions" give each chain operation a clear, single-purpose function. It also infers types automatically from ABIs, which saves a lot of manual typing in TypeScript projects. Ethers.js counters with extensive documentation, a big community, and utilities that cover most Ethereum use cases.
 
 ### React integration
 
@@ -46,6 +46,6 @@ The Viem team tests against a forked Ethereum node with broad coverage, which gi
 
 ## Choosing between them
 
-The choice depends on the project. Viem is smaller, more modular, and pairs cleanly with React, while Ethers.js is older, well documented, and still the default in some Hardhat and smart contract toolchains, so the decision belongs to whoever owns the [technical direction](/lead) of the Web3 stack.
+For new frontends and TypeScript services, I reach for Viem and Wagmi: they're smaller, more modular, and fit React cleanly. Ethers.js still earns its place where a toolchain already depends on it, which is common in older Hardhat and smart contract projects. Rewriting working code just to switch clients rarely pays off, and that call belongs with whoever owns the [technical direction](/lead) of the Web3 stack.
 
-At Bitlauncher we picked Viem and Wagmi where they helped, in the indexer, faucet, wallet, and auctions, and kept Ethers.js where the Gnosis auction fork already depended on it, which kept the contracts project stable while the apps moved to the lighter stack.
+That's how it played out at Bitlauncher. Viem and Wagmi went into the indexer, faucet, wallet, and auctions, and Ethers.js stayed in the Gnosis auction fork, which kept the contracts project stable while the apps moved to the lighter stack.
