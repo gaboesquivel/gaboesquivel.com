@@ -78,6 +78,14 @@ export default function AIExperiencePage() {
           Niftory—an experiment in bringing generative experiences into
           blockchain transactions.
         </p>
+        <p className={cn(editorialMeasure, narrativeCopy, "mt-6")}>
+          More recently, I released{" "}
+          <Link className={proseLink} href="/project/keel">
+            Keel
+          </Link>
+          , open source agent skills that help coding agents keep product,
+          architecture, and design decisions on course.
+        </p>
       </section>
 
       <LatestPosts

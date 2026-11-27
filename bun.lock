@@ -26,7 +26,7 @@
         "cn": "^0.5.0",
         "date-fns": "^4.4.0",
         "eve": "^0.83.2",
-        "gaboesquivel": "^9.0.5",
+        "gaboesquivel": "^9.0.7",
         "github-slugger": "^2.0.0",
         "lucide-react": "1.59.0",
         "nanoid": "^6.0.2",
@@ -1169,7 +1169,7 @@
 
     "fuzzysort": ["fuzzysort@3.1.0", "", {}, "sha512-sR9BNCjBg6LNgwvxlBd0sBABvQitkLzoVY9MYYROQVX/FvfJ4Mai9LsGhDgd8qYdds0bY77VzYd5iuB+v5rwQQ=="],
 
-    "gaboesquivel": ["gaboesquivel@9.0.5", "", { "dependencies": { "chalk": "^6.0.1", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-I5CZs5WgwhpWhDW13/6n6kEOw51bnCeqWHU4M9Oqd0Y+ePATVbs13xoFDYSQSy+xUkQw7doznp9jYcTdtxTXZA=="],
+    "gaboesquivel": ["gaboesquivel@9.0.7", "", { "dependencies": { "chalk": "^6.0.1", "prompts": "^2.4.2" }, "bin": { "gaboesquivel": "dist/cli.js" } }, "sha512-O8VXn3qQaVGp0h9ApABZohW55zwIJ/JxOILhsX1LGm4Jd0NzXnXEqoNTNtDJxmAfZa2yEu2nAnohoMgX+D5TEA=="],
 
     "gensync": ["gensync@1.0.0-beta.2", "", {}, "sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg=="],
 

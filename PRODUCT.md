@@ -96,7 +96,7 @@ One page, one job. Do not use a personal-connection intro or chronological caree
 
 - Job: production AI product capability
 - Primary evidence: `legal-agent`
-- Supporting evidence: `masterbots`, Bitlauncher AI work
+- Supporting evidence: `masterbots`, `keel`, Bitlauncher AI work
 - Lower weight: `wizard-world`
 - Do not retell the career or invent users
 - CTA: `/contact`
