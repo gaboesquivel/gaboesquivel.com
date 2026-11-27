@@ -22,7 +22,7 @@ Its interface is small:
 
 ERC-20 is the format for stablecoins such as USDC and DAI, governance tokens such as UNI and AAVE, and wrapped assets such as WBTC, which makes it the base layer of [DeFi protocols](/project/opyn) and most decentralized applications.
 
-Its limits come from the one-asset-per-contract design, so it has no batch operations and does not fit NFTs or multi-token systems.
+Its limits come from the one-asset-per-contract design: no batch operations, and no good fit for NFTs or multi-token systems.
 
 ## ERC-1155: multiple assets in one contract
 
@@ -64,11 +64,4 @@ That makes it useful for cross-chain token registries, safer bridging and routin
 | Gas Efficiency        | Medium      | High                   | Highest         | Depends on base   |
 | Usage                 | Tokens      | Games, NFTs            | DeFi vaults     | Wallets, bridges  |
 
-Each standard has its own job:
-
-* ERC-20 is the default for plain fungible assets.
-* ERC-1155 fits multi-asset and NFT-heavy environments like games.
-* ERC-6909 is the leaner pattern for multi-token DeFi applications.
-* ERC-7281 gives tokens a cross-chain identity so they aren't confused across the ecosystem.
-
-The newer standards are leaner because protocols need cheaper, more composable financial plumbing, and when I build a dApp, wallet, or protocol I choose the standard as part of the product design, based on how many asset types it holds, how approvals should work, and which chains it has to reach.
+The newer standards are leaner because protocols need cheaper, more composable financial plumbing. That's why I treat the choice as part of the product design rather than a default. When I build a dApp, wallet, or protocol, three questions usually settle it: how many asset types it holds, how approvals should work, and which chains it has to reach.

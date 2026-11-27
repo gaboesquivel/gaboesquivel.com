@@ -7,9 +7,9 @@ category: ['Web3', 'DeFi', 'Backend']
 tech: ['Ethereum']
 ---
 
-USDT is one of the main ways value moves through [DeFi](/web3), and moving it between chains is still the weak point, because traditional bridges add security risk, fragment liquidity, and make users pick routes by hand.
+USDT is one of the main ways value moves through [DeFi](/web3), and moving it between chains is still the weak point. Traditional bridges add security risk, fragment liquidity, and make users pick routes by hand.
 
-Many bridges rely on wrapped assets like wUSDT or USDT.e, which can lose their peg or run short of liquidity, and others depend on centralized multisig custodians, which have been prime targets for hacks such as the $600M Ronin Bridge attack and the $320M Wormhole exploit. USDT0, built on LayerZero's Omnichain Fungible Token (OFT) standard, addresses those problems with a more direct way to move USDT across blockchains.
+Many bridges rely on wrapped assets like wUSDT or USDT.e, which can lose their peg or run short of liquidity, and others depend on centralized multisig custodians, which have been prime targets for hacks such as the $600M Ronin Bridge attack and the $320M Wormhole exploit. USDT0, built on LayerZero's Omnichain Fungible Token (OFT) standard, takes a more direct path, and I think it's the better model for moving a stablecoin across chains.
 
 {/* Prevent CLS by setting a minimum height */}
 ## How USDT0 moves between chains
@@ -54,6 +54,6 @@ Compared with wrapped USDT and pool-based bridges, USDT0 changes five things:
 
 Security has been the largest problem with traditional bridges, and hacks against centralized custodians have cost billions.
 
-USDT0 has no liquidity pools to drain, so pool exploits and pool-driven depegs are off the table. It relies on LayerZero's decentralized oracles and relayers instead of a single point of failure, and without multisig wallets or external custodians in the path, the attack surface is much smaller while USDT keeps its stability on every chain it reaches.
+USDT0 has no liquidity pools to drain, so pool exploits and pool-driven depegs are off the table. It relies on LayerZero's decentralized oracles and relayers instead of a single point of failure. With no multisig wallets or external custodians in the path, the attack surface is much smaller, and USDT holds its peg on every chain it reaches.
 
-The remaining risk sits with LayerZero's verification and with the teams operating USDT0, and I expect adoption to grow as more of DeFi moves away from wrapped stablecoins toward paths like this one.
+The risk doesn't disappear, though. It moves to LayerZero's verification and to the teams operating USDT0, and that's where I'd look first when evaluating it. Still, I expect adoption to grow as more of DeFi moves away from wrapped stablecoins toward paths like this one.

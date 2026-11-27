@@ -7,16 +7,16 @@ category: ['Web3', 'DeFi', 'Engineering', 'Fullstack']
 tech: ['NextJS', 'ReactJS', 'Ethereum', 'TypeScript', 'Viem', 'Wagmi']
 ---
 
-I build [Web3](/web3) product surfaces in [Next.js](/tech/nextjs), where the chain is the write path and indexers and APIs are the read path, so the UI should not invent a third state model.
+I build [Web3](/web3) product surfaces in [Next.js](/tech/nextjs), where the chain is the write path and indexers and APIs are the read path, so the UI shouldn't invent a third state model.
 
 The principles I keep on those apps: put shareable state in the URL, collocate by feature, one data subscription per route, cache reads through React Query, talk to the EVM through [viem](/tech/viem) and [wagmi](/tech/wagmi), and delay abstractions until the third copy.
 
 {/* Prevent CLS with responsive aspect ratio */}
 ## Collocation
 
-I organize by feature, not by file type. The dashboard's hook, types, tests, and pieces sit in the dashboard folder. I do not keep a global `hooks/` dumping ground for something only one route uses.
+I organize by feature, not by file type. The dashboard's hook, types, tests, and pieces sit in the dashboard folder. I don't keep a global `hooks/` dumping ground for something only one route uses.
 
-That is the same colocation Kent C. Dodds describes in [Colocation](https://kentcdodds.com/blog/colocation). Maintainability is the point, because a feature moves or dies as a unit and I am not hunting through four directories to change a filter; scalability follows as a side effect.
+The payoff is maintainability. A feature moves or dies as a unit, and I'm not hunting through four directories to change a filter. Scalability follows as a side effect. If you want the longer case for this, Kent C. Dodds' [Colocation](https://kentcdodds.com/blog/colocation) is a good read.
 
 ## State in the URL
 
@@ -24,7 +24,7 @@ Filters, tabs, chain ids, and other view state that a user might refresh or past
 
 Encoded in the URL, the view survives a reload and every link is a deep link. Canonical URLs also keep search engines from indexing six copies of the same page with different client-only state.
 
-Local component state still exists: hover, input drafts, whether a modal is open. I do not put those in the URL.
+Local component state still exists: hover, input drafts, whether a modal is open. Those don't belong in the URL.
 
 ## One subscription per route
 
@@ -40,7 +40,7 @@ Identical reads share a query key. React Query (TanStack Query) already does thi
 
 I keep keys boring and complete: `['vault', chainId, address]`, not `'vault'` plus hidden closure state. App-wide data can be prefetched at the root. Everything else stays next to the feature.
 
-On chain, wagmi is React Query with Ethereum types. A `useReadContract` is the same mental model as `useQuery` against an indexer. viem is the client underneath: actions, encoding, transports. I do not wrap a second cache around it.
+On chain, wagmi is React Query with Ethereum types. A `useReadContract` is the same mental model as `useQuery` against an indexer. viem is the client underneath: actions, encoding, transports. I don't wrap a second cache around it.
 
 Writes still go through the wallet: the user signs, the app waits for the receipt, and then it invalidates the query keys the transaction made stale. Reads stay queries and writes stay mutations, because mixing them in a custom store is how the UI desyncs from the block.
 
@@ -52,8 +52,6 @@ Writes still go through the wallet: the user signs, the app waits for the receip
 
 ## AHA instead of a framework-in-the-app
 
-I copy twice before I extract. A generic `useWeb3Resource` that takes twenty options is usually worse than two hooks that look alike this week.
+I copy twice before I extract. A generic `useWeb3Resource` that takes twenty options is usually worse than two hooks that look alike this week. Duplication is cheap to undo once the shape is real; the wrong abstraction spreads into every feature that adopts it. So I keep complexity inline until it has a name, optimize for change, and make an abstraction fit this product rather than an imagined family of them. Kent calls this [AHA programming](https://kentcdodds.com/blog/aha-programming), avoid hasty abstractions, and the name stuck with me.
 
-Kent's [AHA](https://kentcdodds.com/blog/aha-programming) list is the one I use: avoid hasty abstractions, WET until the shape is real, optimize for change, keep complexity inlined until it has a name, make the abstraction fit this product.
-
-Standard libraries first: Next.js, React Query, wagmi, viem. I do not add an internal SDK until three apps would actually import it.
+The same goes for libraries. Next.js, React Query, wagmi, and viem already cover most of what a Web3 app needs, so I don't add an internal SDK until three apps would actually import it.

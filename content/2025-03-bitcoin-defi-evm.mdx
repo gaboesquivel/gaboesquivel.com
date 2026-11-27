@@ -10,11 +10,9 @@ Bitcoin has the deepest security and decentralization of any chain, and its limi
 
 ## Bitcoin DeFi
 
-Bitcoin's security, liquidity, and decentralization make it a strong base for DeFi, and its UTXO-based architecture is what made building on it hard. Recent Layer 2s, sidechains, and token standards change how BTC can be used in decentralized finance.
+What made Bitcoin hard to build on is its UTXO-based architecture, which has no native account state for contracts to read and write. The projects below work around that in different ways, and the security model is what separates them.
 
 ### Layer 2s and smart contracts
-
-Several projects bring programmability to Bitcoin, each with a different security model:
 
 - **Rootstock (RSK)** is an EVM-compatible sidechain with federation-based bridge security, and Sovryn runs lending, trading, and stablecoins on it.
 - **Stacks (STX)** settles transactions on Bitcoin through Proof of Transfer (PoX) consensus, and ALEX, an AMM and lending protocol, uses it for Bitcoin settlement.
@@ -40,6 +38,6 @@ EVM compatibility lets developers build Bitcoin DeFi with familiar [Solidity](/t
 
 ## Where Bitcoin DeFi is heading
 
-Bitcoin DeFi is moving quickly on top of Bitcoin's security, decentralization, and liquidity, and as the technology matures I expect a shift from wrapped BTC toward native implementations where smart contracts interact directly with Bitcoin. Programmatic control of Bitcoin transactions from smart contracts would combine Ethereum's programmability with Bitcoin's security and liquidity.
+As the technology matures, I expect a shift from wrapped BTC toward native implementations where smart contracts interact directly with Bitcoin. If contracts can control Bitcoin transactions programmatically, you get Ethereum's programmability on top of Bitcoin's security and liquidity.
 
-The open engineering problem is building applications that use those strengths without giving up Bitcoin's decentralization, which is why I would evaluate each of these platforms first by where custody of the BTC sits and who can move it.
+The hard part is getting there without giving up Bitcoin's decentralization. That's why I'd evaluate each of these platforms first by one question: where does custody of the BTC sit, and who can move it?

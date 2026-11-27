@@ -9,11 +9,11 @@ tech: []
 
 Shipping more often is useful when each release teaches you something. A team can deploy all day and still struggle to answer a basic question: did the product get better?
 
-Iteration velocity is how quickly a team can turn an idea into a change, learn from the result, and use that evidence to decide what comes next. Guillermo Rauch describes it as speed with direction. That framing matters to me because it connects developer tools to the reason we build software in the first place.
+Iteration velocity is how quickly a team can turn an idea into a change, learn from the result, and use that evidence to decide what comes next. I think of it as speed with direction. That's what connects developer tools to the reason we build software in the first place.
 
 ## Give speed somewhere to go
 
-In his [Screaming in the Cloud conversation](https://sitc.transistor.fm/episodes/how-vercel-is-improving-the-developer-experience-on-the-front-end-with-guillermo-rauch/transcript), Rauch distinguishes faster infrastructure from a faster learning loop. Reducing build time helps a team deliver changes. Knowing which change to make requires feedback about the product.
+Faster infrastructure and a faster learning loop are different things. Reducing build time helps a team deliver changes. Knowing which change to make takes feedback about the product. (Guillermo Rauch makes a similar distinction in his [Screaming in the Cloud conversation](https://sitc.transistor.fm/episodes/how-vercel-is-improving-the-developer-experience-on-the-front-end-with-guillermo-rauch/transcript), if you want to hear it from the Vercel side.)
 
 Imagine a team trying to improve checkout. A faster pipeline helps them publish a new flow sooner. A preview lets colleagues try it before release. A gradual rollout limits the number of people exposed to a mistake. Measurement tells the team whether more customers actually complete their purchases. Each part removes a different obstacle to learning.
 
@@ -25,7 +25,7 @@ Imagine a team trying to improve checkout. A faster pipeline helps them publish 
 
 The delivery foundations still matter. In [On Continuous Delivery](/blog/2015-07-continuous-delivery), I wrote about keeping the main branch deployable, automating checks, and using feature toggles to release unfinished work without exposing it. Those practices make smaller changes possible. Product feedback gives those changes a direction.
 
-Rauch explores this relationship further in his conversation at Vercel's Significance Summit:
+Rauch's conversation at Vercel's Significance Summit is also worth watching:
 
 <YouTube id="p03mo040vAk" title="Acquired Minisodes: A conversation with Guillermo Rauch" />
 
@@ -55,7 +55,7 @@ Rollback also has limits. Reverting a deployment doesn't undo a payment or rever
 
 The same approach applies to migrations. Instead of replacing an entire application before learning whether the new version works, move a route or capability at a time and keep the existing system available while you evaluate it.
 
-Martin Fowler's [Strangler Fig pattern](https://martinfowler.com/bliki/StranglerFigApplication.html) describes gradual replacement of a legacy system. It accepts temporary connections between old and new code so that useful improvements can arrive before the whole migration is complete.
+That means accepting temporary connections between old and new code so useful improvements can arrive before the whole migration is done. Martin Fowler named this the [Strangler Fig pattern](https://martinfowler.com/bliki/StranglerFigApplication.html).
 
 At [American Express](/project/american-express), my work included moving the frontend from Dojo to jQuery, building card marketing experiences, and wiring A/B testing and analytics. That combination is relevant here: changing the implementation and understanding the user experience are connected engineering concerns.
 
@@ -65,7 +65,7 @@ For a migration today, I would choose a slice with a clear boundary and observab
 
 Coding agents can increase the volume of changes a team produces. Review, testing, and product feedback need to keep pace with that volume.
 
-The [2025 DORA report](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report) describes AI as an amplifier of the surrounding delivery system. More output can expose weaknesses downstream when testing and feedback are poor. [DORA's delivery metrics](https://dora.dev/guides/dora-metrics) help teams examine throughput and instability together. They measure delivery performance; product outcomes still need their own measures.
+AI amplifies whatever delivery system surrounds it. When testing and feedback are weak, more output just exposes those weaknesses faster downstream. The [2025 DORA report](https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report) lands in the same place, and [DORA's delivery metrics](https://dora.dev/guides/dora-metrics) are a good way to watch throughput and instability together. They measure delivery, though. Product outcomes need their own measures.
 
 For an AI feature, I would look at whether people use the generated result, how much they have to correct, and whether they return. A negative rating is a useful starting point, but understanding the reason makes it actionable. An optional follow-up can distinguish a wrong answer from an answer that was accurate but unusable.
 

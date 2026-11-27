@@ -1,15 +1,17 @@
 ---
 title: Agentic Finance
 publishedAt: 2025-09-30
-summary: How AP2, x402, and agentic commerce protocols could let AI agents authorize payments and settle transactions with stablecoins.
+summary: Why AI agents that can pay need stablecoin settlement and a carefully designed mandate, with AP2 and x402 as early standards.
 image: /images/2025/09/agentic-finance.webp
 category: ['Web3', 'Artificial Intelligence', 'DeFi', 'Stablecoins', 'Fullstack', 'Institutions']
 tech: ['JavaScript', 'TypeScript', 'OpenAI', 'Ethereum', 'AI SDK']
 ---
 
-Google's AP2 and the x402 work Coinbase announced with Google give [AI agents](/ai) a way to pay, which moves them from suggesting financial actions to executing them: an agent with a mandate can transact, execute a strategy, and move capital on a user's behalf as a participant in the economic system rather than an assistant beside it.
+An [AI agent](/ai) that can pay stops suggesting financial actions and starts executing them. With a mandate, it can transact, run a strategy, and move capital on a user's behalf, which makes it a participant in the economy instead of an assistant beside it. Google's AP2 and the x402 work Coinbase announced with Google are early standards for that step. This picks up from [my earlier article on AI and Web3](/blog/2024-07-ai-and-web3), where I looked at how agents and decentralized infrastructure could merge into new product experiences.
 
 > **Protocol note (2026):** This post is a snapshot from September 2025. AP2 is an authorization layer, not a stablecoin-payment spec by itself. x402 is a settlement primitive, not an implementation of AP2. OpenAI's commerce work is usually discussed as **ACP** (Agentic Commerce Protocol), separate from Google's **UCP** (Universal Commerce Protocol).
+
+If you want a visual walkthrough of the idea, this video is a good companion:
 
 <YouTube id="C6qcZdtIv54" title="Agentic Finance Video 2" />
 
@@ -30,12 +32,10 @@ Stablecoins combine the programmability of crypto with the price stability comme
 <figcaption>An agent can act within a defined mandate, with payment authorization and settlement handled by separate mechanisms.</figcaption>
 </figure>
 
-Payments come first, and agent-led trading comes after them, as mandates and session keys evolve into trade instructions that let an agent execute swaps, manage risk, and settle positions inside boundaries you define. That is where I want to take the specialized agent interfaces I built on [Masterbots](/project/masterbots), from commerce toward capital operations.
-
 ## From payments to trading
 
-This post builds on [my earlier article on AI and Web3](/blog/2024-07-ai-and-web3), where I looked at how agents and decentralized infrastructure could merge into new product experiences.
+Payments come first, and agent-led trading comes after them, as mandates and session keys evolve into trade instructions that let an agent execute swaps, manage risk, and settle positions inside boundaries you define. That's where I want to take the specialized agent interfaces I built on [Masterbots](/project/masterbots), from commerce toward capital operations.
 
 The standards are new, stablecoins are the most practical rails available, and teams are already shipping on them. The open engineering work is mandate design, cross-chain liquidity routing, auditability, and guardrails.
 
-I would start with delegated agent payments on open standards like AP2, then add trading, portfolio management, and capital movement under the same mandate model, with each new capability confined by explicit constraints. The chains, networks, and marketplaces underneath will keep changing, so the part worth designing carefully now is the mandate: what a user grants an agent wallet-level authority to do, and how that grant is revoked.
+I'd start with delegated agent payments on open standards like AP2, then add trading, portfolio management, and capital movement under the same mandate model, with each new capability confined by explicit constraints. The chains, networks, and marketplaces underneath will keep changing, so the part worth designing carefully now is the mandate: what a user grants an agent wallet-level authority to do, and how that grant is revoked.

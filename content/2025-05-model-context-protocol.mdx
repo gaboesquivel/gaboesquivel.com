@@ -6,7 +6,7 @@ category: ['Engineering', 'Artificial Intelligence', 'Backend', 'Fullstack']
 tech: ['NodeJS', 'TypeScript', 'JavaScript', 'AI SDK', 'OpenAI']
 ---
 
-Anthropic proposed the Model Context Protocol (MCP) in 2024 as a standard for connecting [AI models](/ai) to external data, tools, and services, and it has become the interface most agent tooling now targets. MCP defines how a model reaches tools and data through a consistent, modular structure, and this post covers what that means in practice and how I implement it with [TypeScript](/tech/typescript) and current AI tooling.
+Once an [AI model](/ai) can call tools, the interesting engineering moves to the contract between the model and everything it touches. The Model Context Protocol (MCP), which Anthropic proposed in 2024, standardizes that contract for external data, tools, and services, and it has become the interface most agent tooling now targets. Here's what it standardizes and how I structure that kind of code in [TypeScript](/tech/typescript).
 
 {/* Prevent Cumulative Layout Shift (CLS) */}
 ## What MCP standardizes
@@ -25,7 +25,7 @@ MCP is a specification for how AI models interact with external APIs, databases,
 
 ## Why a protocol is needed now
 
-Applications moved from one-shot prompts to multi-step reasoning systems, and LLMs gained function calling, streaming, and memory integration along the way. Tooling like LangChain.js, Mastra, and the Vercel AI SDK now supports MCP-style architecture in TypeScript, and MCP gives that complexity a standard interface that improves reuse, observability, and control.
+Applications moved from one-shot prompts to multi-step reasoning, and LLMs picked up function calling, streaming, and memory along the way. Every app that wires those together ad hoc reinvents the same glue. A standard interface lets a tool written once be reused, observed, and controlled across hosts, and TypeScript tooling like LangChain.js, Mastra, and the Vercel AI SDK already supports MCP-style architecture.
 
 ## Implementing MCP in TypeScript
 

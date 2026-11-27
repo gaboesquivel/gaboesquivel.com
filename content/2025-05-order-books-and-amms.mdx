@@ -7,7 +7,7 @@ category: ['Web3', 'DeFi', 'Backend', 'Tech Lead']
 tech: ['Ethereum']
 ---
 
-In [crypto markets](/web3), liquidity is what makes a venue usable, and whether the asset is Bitcoin on a centralized exchange or a governance token on a decentralized one, the mechanism that matches buyers and sellers shapes every trade. Order books and automated market makers (AMMs) are the two dominant models, and traders, builders, and protocol designers all need to know how they differ.
+In [crypto markets](/web3), liquidity is what makes a venue usable. Whether the asset is Bitcoin on a centralized exchange or a governance token on a decentralized one, the mechanism that matches buyers and sellers shapes every trade. Order books and automated market makers (AMMs) are the two dominant models, and if you're building a trading product, the choice between them decides what your users can do.
 
 {/* Prevent CLS by setting a minimum height */}
 ## Market terms used below
@@ -25,7 +25,7 @@ Centralized exchanges (CEXs) like Binance and Coinbase custody user funds, run o
 
 ## The order book model
 
-An order book lists every buy (bid) and sell (ask) order and executes a trade when two of them match. Users place market orders, which fill immediately at the best available price, or limit orders, which fill only at a specified price or better. Order books support complex strategies and tighter spreads, and they need active market making and are sensitive to latency.
+An order book lists every buy (bid) and sell (ask) order and executes a trade when two of them match. Users place market orders, which fill immediately at the best available price, or limit orders, which fill only at a specified price or better. Order books support complex strategies and tighter spreads, but they need active market making and they're sensitive to latency.
 
 ## AMMs and Uniswap V3
 
@@ -73,4 +73,4 @@ AMMs, introduced by Uniswap, pool liquidity in smart contracts and set prices al
 
 I would pick an order book when a product needs precise pricing, limit orders, or large trade sizes, and an AMM for plain swaps, smaller trades, or assets whose liquidity is fragmented. Layer 2s like Arbitrum and Optimism, high-performance chains like Solana, and Cosmos appchains lower costs and improve performance for both models, so the final choice comes down to the product's frontend and backend requirements.
 
-Hybrids and intent-based systems are where market design is heading, since they hide the complexity from users and keep the useful parts of both models. For [technical leaders](/lead) building in DeFi, understanding how order books and AMMs actually work is what lets you pick a venue, or design one, based on the trades your users will make.
+I think hybrids and intent-based systems are where market design is heading, because they hide the complexity from users and keep the useful parts of both models. For [technical leaders](/lead) building in DeFi, knowing how order books and AMMs actually work lets you pick a venue, or design one, around the trades your users will make.

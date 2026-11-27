@@ -21,7 +21,7 @@ This is one of the areas of AI engineering I'm most interested in because it con
 
 Imagine asking an agent to investigate a bug. It starts with your description, reads the relevant code, runs a test, and inspects the failure. Each step produces information that can change what it should do next. By the time it proposes a fix, its answer depends on much more than your original request.
 
-[Anthropic's explanation of context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) treats this as an ongoing process of selecting and maintaining the information available to the model. [Vercel's guide](https://vercel.com/i/context-engineering) makes the practical scope clear: instructions, tool definitions, history, tool results, and retrieved documents all contribute to that context.
+So context engineering is an ongoing process of selecting and maintaining what the model can see. Instructions, tool definitions, history, tool results, and retrieved documents all contribute. If you want a grounding, [Anthropic's explanation](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) and [Vercel's guide](https://vercel.com/i/context-engineering) are both good starting points.
 
 The challenge is deciding what remains useful. The failing test may be essential. Hundreds of lines from an unrelated search probably aren't. Two conflicting versions of a requirement need to be resolved, even if both fit comfortably in the context window. A larger window gives us room to work; we still have to organize what goes into it.
 
@@ -29,7 +29,7 @@ The challenge is deciding what remains useful. The failing test may be essential
 
 The model needs software around it to keep this process moving. That software is the **harness**: it assembles the model's input, handles its requests to use tools, and brings the results back for the next step. Depending on the implementation, it also manages session state, loads skills, retrieves memory, and summarizes older history.
 
-Harrison Chase's [conversation on long-horizon agents](https://sequoiacap.com/podcast/context-engineering-our-way-to-long-horizon-agents-langchains-harrison-chase) helped shape how I think about this. A capable model is one part of an agent. The surrounding system determines how it stays oriented through a task that takes many steps.
+A capable model is one part of an agent. The surrounding system determines how it stays oriented through a task that takes many steps. Harrison Chase's [conversation on long-horizon agents](https://sequoiacap.com/podcast/context-engineering-our-way-to-long-horizon-agents-langchains-harrison-chase) helped shape how I think about this, and it's worth a listen.
 
 It helps to separate three responsibilities. The **model** interprets the available context and produces a response or tool request. The **harness** coordinates the loop and the information moving through it. The **runtime** is the environment where actions execute, with the access controls those actions require.
 
@@ -41,13 +41,13 @@ It helps to separate three responsibilities. The **model** interprets the availa
 
 In the bug investigation, the model might request a test run. The harness routes that request to a tool, receives the output, and includes the relevant result in the next model call. The runtime enforces what the test process can access. A tool request is a proposed action; instructions alone don't grant permission to execute it.
 
-Chase's [walkthrough with NVIDIA](https://www.youtube.com/watch?v=BEYEWw1Mkmw) explores this separation with an open model, Deep Agents, and OpenShell. The useful idea extends beyond that particular stack: context orchestration and execution permissions are distinct responsibilities, even when a framework packages them together.
+Context orchestration and execution permissions are distinct responsibilities, even when a framework packages them together. Chase's [walkthrough with NVIDIA](https://www.youtube.com/watch?v=BEYEWw1Mkmw) shows the separation with one stack (an open model, Deep Agents, and OpenShell), but the idea holds for any of them.
 
 ## Memory gives the work continuity
 
 The current session holds the conversation and working state for a task. Long-term memory lets selected information remain available after that session ends. Keeping a transcript is useful, but the next session still needs a way to find the parts that matter.
 
-The [CoALA paper](https://arxiv.org/abs/2309.02427) offers a useful distinction between three kinds of long-term memory. Applied to an engineering agent, they might look like this:
+I find it useful to split long-term memory three ways, a distinction borrowed from the [CoALA paper](https://arxiv.org/abs/2309.02427). Applied to an engineering agent, they might look like this:
 
 | Memory | What it captures | Example |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ For a product team, that leaves some concrete decisions: what belongs to an indi
 
 ## Skills make procedures available when needed
 
-Skills are a practical way to package reusable instructions. The [Agent Skills format](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) starts with a name and description, allowing an agent to discover relevant procedures before loading their full instructions. Supporting references and scripts can be consulted as needed.
+Skills are a practical way to package reusable instructions. A skill in the [Agent Skills format](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) starts with a name and description, so an agent can discover a relevant procedure before loading its full instructions. Supporting references and scripts can be consulted as needed.
 
 For the deployment example, the agent could discover a deployment skill, read its checklist when preparing a release, and consult a migration reference only if that step requires it. The full procedure doesn't need to accompany every unrelated question.
 
@@ -81,11 +81,11 @@ This is why I care about where a memory came from, when it was recorded, and wha
 
 The same care applies when an agent proposes changes to its own skills. A successful run can suggest an improvement, but one success doesn't establish a reliable procedure. I'd want that change reviewed and exercised against representative tasks before making it the default.
 
-Guillermo Rauch's [brain, hands, and files framing](https://x.com/rauchg/status/2102820148629614685) connects these ideas to system design. The model and harness coordinate the work, tools act on the world, and files hold things such as skills, memories, and repositories. Separating persistent storage from the execution environment makes it possible to review and consolidate memories without starting the agent's full computer. What an agent retains can have its own lifecycle.
+This has a system design consequence. The model and harness coordinate the work, tools act on the world, and files hold things such as skills, memories, and repositories. Keep persistent storage separate from the execution environment and you can review and consolidate memories without starting the agent's full computer. What an agent retains gets its own lifecycle. Guillermo Rauch's [brain, hands, and files framing](https://x.com/rauchg/status/2102820148629614685) is a handy shorthand for that split.
 
 ## Follow the context when something fails
 
-Chase's discussion also emphasizes traces: the record of the steps an agent actually took. Reading the initial prompt won't tell you which document was retrieved later, which tool output was truncated, or which memory influenced a decision.
+When something goes wrong, I look at traces: the record of the steps an agent actually took. Reading the initial prompt won't tell you which document was retrieved later, which tool output was truncated, or which memory influenced a decision.
 
 An evaluation tells us whether the behavior meets an expectation. A trace helps us investigate why it didn't. In the deployment example, I would check whether the agent loaded the procedure, saw the migration requirement, and received the test result. Each failure points toward a different change.
 

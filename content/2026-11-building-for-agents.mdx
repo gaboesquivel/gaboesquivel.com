@@ -35,7 +35,7 @@ This site works that way. Every public page answers a Markdown request, missing 
 
 Access isn't understanding. Human documentation leans on readers who fill gaps with judgment. Agents do better with explicit context: what a capability is for, what it requires, how it fails, and how to tell it finished.
 
-Take a payment service. A list of endpoints tells an agent what exists. Documentation that explains authorization, transaction states, failure conditions, and how to confirm a payment settled tells it how to use those endpoints responsibly. That's also why Vercel keeps [product decisions in the repository](https://vercel.com/blog/teaching-agents-product-design-at-vercel), so coding agents learn why something was built, not just what the code does. If an agent can't discover or understand a capability, for that agent it doesn't exist.
+Take a payment service. A list of endpoints tells an agent what exists. Documentation that explains authorization, transaction states, failure conditions, and how to confirm a payment settled tells it how to use those endpoints responsibly. Keeping product decisions in the repository helps for the same reason: coding agents learn why something was built as well as what the code does. Vercel [wrote about doing exactly that](https://vercel.com/blog/teaching-agents-product-design-at-vercel). If an agent can't discover or understand a capability, for that agent it doesn't exist.
 
 We already design for user experience and developer experience. Agent experience asks five more questions:
 
@@ -47,9 +47,9 @@ We already design for user experience and developer experience. Agent experience
 
 An actionable error message often decides whether an agent completes a task or gives up.
 
-## Trust is designed, not assumed
+## Design the trust boundary
 
-An agent acting for someone shouldn't inherit everything that person can do. Delegated authorization, least privilege, audit trails, and explicit approval for consequential actions are part of the product. Searching a catalog and building a cart can be autonomous; paying is a separate decision. Deploying a preview is routine; changing production infrastructure needs a person. Agents retry, chain tools, and work across systems, so one misunderstanding can travel. Malte Ubl's notes on [securing AI agents](https://vercel.com/blog/building-secure-ai-agents) make the same point about prompt injection: constrain what an agent can do even when its input is hostile.
+An agent acting for someone shouldn't inherit everything that person can do. Delegated authorization, least privilege, audit trails, and explicit approval for consequential actions are part of the product. Searching a catalog and building a cart can be autonomous; paying is a separate decision. Deploying a preview is routine; changing production infrastructure needs a person. Agents retry, chain tools, and work across systems, so one misunderstanding can travel. The same goes for prompt injection: constrain what an agent can do even when its input is hostile. Malte Ubl's notes on [securing AI agents](https://vercel.com/blog/building-secure-ai-agents) are a good read on that.
 
 The [MCP server on this site](/docs) follows that split. Read tools such as `search_site`, `list_projects`, and `list_availability` are marked read-only. `book_call` and `send_note` are marked as writes that create a calendar event or send an email, so hosts confirm with the person first, and they report `pending`, `confirmed`, `uncertain`, or `failed` so an agent never has to guess whether something happened.
 
@@ -59,7 +59,7 @@ An application used to be its interface. A marketplace was a website; a CRM was 
 
 Vercel's Shop template with Shopify shows the pattern. Agents discover products and build carts over MCP through the [Universal Commerce Protocol](/blog/2026-01-agentic-commerce), while shoppers keep using the storefront. Both paths run on the [same commerce backend](https://vercel.com/blog/vercel-and-shopify-make-agents-first-class-shoppers).
 
-This is why agents-first is a sound default for new work. Define the capabilities, their contracts, permissions, and verification first. The human interface then becomes a well-designed client of a solid core rather than the place where the logic hides. It doesn't make the human experience secondary. As Tobi Lütke put it, distinctive storefronts still matter; the undifferentiated ones are at risk.
+This is why agents-first is a sound default for new work. Define the capabilities, their contracts, permissions, and verification first. The human interface then becomes a well-designed client of a solid core rather than the place where the logic hides. It doesn't make the human experience secondary. Distinctive storefronts still matter; it's the undifferentiated ones that are at risk, as Tobi Lütke has put it.
 
 ## Good engineering, newly visible
 

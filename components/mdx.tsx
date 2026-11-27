@@ -6,6 +6,7 @@ import type { ComponentProps } from "react";
 import * as runtime from "react/jsx-runtime";
 
 import { VideoEmbed } from "./video-embed";
+import { XPost } from "./x-post";
 
 const getMDXComponent = (code: string) => {
   const fn = new Function(code);
@@ -113,6 +114,7 @@ const components = {
   BlogImage,
   Image: RoundedImage,
   VideoEmbed,
+  XPost,
   YouTube: YouTubeEmbed,
   a: CustomLink,
 };

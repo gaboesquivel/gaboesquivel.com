@@ -7,7 +7,7 @@ category: ['Web3', 'DeFi', 'Backend']
 tech: ['JavaScript', 'Blockchain']
 ---
 
-Bitcoin Runes activated on April 20, 2024, alongside Bitcoin's fourth halving. It introduced a UTXO-based way to represent fungible tokens without using BRC-20's inscription-based accounting. This article looks at the design during its first year, what makes it different, and which capabilities still depend on application infrastructure outside Bitcoin's base consensus rules.
+Bitcoin Runes activated on April 20, 2024, alongside Bitcoin's fourth halving. It introduced a UTXO-based way to represent fungible tokens without using BRC-20's inscription-based accounting. A year in, the design has held up well, and the interesting question is which capabilities come from Runes itself and which still depend on software outside Bitcoin's base consensus rules.
 
 {/* Prevent CLS by setting a minimum height */}
 ## What Runes fixes in BRC-20
@@ -30,7 +30,7 @@ Because Runes follows Bitcoin's transaction model, it improves on BRC-20 in five
 - **Fewer junk UTXOs:** more efficient state management preserves network resources.
 - **Better transaction quality:** the design favors meaningful economic activity over low-value inscriptions.
 
-Those advantages make the network more usable for both ordinary payments and tokenized assets.
+The result is a token layer that competes less with ordinary payments for block space.
 
 ## Applications and limitations
 
@@ -38,12 +38,12 @@ Runes offers a way to issue and transfer fungible assets using Bitcoin transacti
 
 The token representation is only one layer of a usable application. Marketplaces, wallet interfaces, indexing, custody, and more complex financial workflows still need supporting software.
 
-That distinction matters when discussing potential uses such as financial assets or programmable applications. A token standard doesn't automatically supply legal ownership, liquidity, lending, or application-level execution rules.
+Keep that in mind when someone pitches Runes for financial assets or programmable applications. A token standard doesn't supply legal ownership, liquidity, lending, or application-level execution rules on its own.
 
 ## Security as Bitcoin evolves
 
 Rune transfers are carried inside Bitcoin transactions, and Bitcoin nodes validate the underlying transactions. Rune issuance and balance semantics still require Runes-aware interpretation; ordinary Bitcoin consensus does not independently validate every application-level rule associated with a token. Indexers and wallet software therefore remain important parts of the system.
 
-## What I would watch next
+## What I'd watch next
 
-During its first year, Runes demonstrated a compact way to represent fungible assets within Bitcoin's transaction model. What remains interesting is how developers build reliable indexing, wallets, and applications around that model without confusing Bitcoin's base-layer guarantees with the guarantees of the surrounding software.
+Runes showed a compact way to represent fungible assets within Bitcoin's transaction model. What I'm watching now is how developers build reliable indexing, wallets, and applications around it without confusing Bitcoin's base-layer guarantees with the guarantees of the software around it.
